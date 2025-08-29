@@ -14,10 +14,6 @@ const CatalogPage = () => {
     const [params, setParams] = useState({});
 
     useEffect(() => {
-        console.log("new category", category)
-    }, [category])
-
-    useEffect(() => {
         function initParams() {
             const newParams = {};
 
@@ -39,7 +35,14 @@ const CatalogPage = () => {
             <div className="catalog-container">
                 <div className="catalog-layout">
                     {/* Сайдбар сортировки */}
-                    <CatalogSidebar/>
+                    <CatalogSidebar 
+                        searchQuery={searchQuery} 
+                        setSearchQuery={setSearchQuery}
+                        hasReviews={hasReviews} 
+                        setHasReviews={setHasReviews}
+                        activeSort={activeSort}
+                        setActiveSort={setActiveSort}
+                    />
                     <main className="catalog-main">
                         <CatalogContent params={params}/>
                     </main>

@@ -1,4 +1,9 @@
-const AccountSidebarLinks = ({ activePage }) => {
+import { useActivePage } from "@/contexts/active-page/useActivePage";
+
+const AccountSidebarLinks = () => {
+
+    const activePage = useActivePage();
+
     const links = [
         { href: "/secure/account", key: "account", label: "Аккаунт" },
         { href: "/secure/my-listings", key: "my-listings", label: "Мои объявления" },

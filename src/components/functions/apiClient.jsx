@@ -1,5 +1,6 @@
 // apiClient.js
 import { API_BASE } from "@/api/config";
+import i18n from '@/lib/i18n';
 
 let isRefreshing = false;
 let refreshPromise = null;
@@ -32,7 +33,7 @@ export async function apiFetch(url, options = {}, extraParams = {}) {
 
     const makeRequest = async (authToken) => {
         // базовые параметры
-        const baseParams = { locale: "ru", ...extraParams };
+        const baseParams = { locale: `${i18n.language}`, ...extraParams };
 
         const queryString = new URLSearchParams(baseParams).toString();
 

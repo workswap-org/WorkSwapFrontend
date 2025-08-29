@@ -2,12 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
 
 import CatalogPage from "./pages/CatalogPage";
-
-import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "./pages/LoginPage";
 import LoginSuccessPage from "./pages/LoginSuccessPage";
+import AccountPage from "./pages/AccountPage";
+
+import PrivateRoute from "./components/PrivateRoute";
 import RouteLogger from "./components/logging/RouteLogger";
 import { Navigate } from "react-router-dom";
+import AccountLayout from "./layouts/AccountLayout";
 
 const AppRouter = () => {
     return (
@@ -30,16 +32,19 @@ const AppRouter = () => {
                 </Route>
 
 
-                {/* <Route
+                <Route
                     path="/"
                     element={
                         <PrivateRoute>
-                            <Layout />
+                            <Layout/>
                         </PrivateRoute>
                     }
                 >
-                    <Route path="categories" element={<CategoriesPage />} />
-                </Route> */}
+
+                    <Route path="secure" element={<AccountLayout />}>
+                        <Route path="account" element={<AccountPage />} />
+                    </Route>
+                </Route>
             </Routes>
         </>
     );

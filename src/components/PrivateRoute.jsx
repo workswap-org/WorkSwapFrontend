@@ -1,6 +1,6 @@
 // PrivateRoute.jsx
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "@/contexts/auth/useAuth";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 const PrivateRoute = ({ children }) => {
     const { accessToken, loading } = useAuth();

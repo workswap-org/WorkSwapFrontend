@@ -1,4 +1,19 @@
-const CatalogSidebar = () => {
+const sorts = [
+    { key: "date", label: "По дате" },
+    { key: "price", label: "По цене" },
+    { key: "rating", label: "По рейтингу" },
+    { key: "popularity", label: "По просмотрам" },
+];
+
+const CatalogSidebar = ({
+    searchQuery,
+    setSearchQuery,
+    hasReviews,
+    setHasReviews,
+    activeSort,
+    setActiveSort
+}) => {
+    
     return (
         <aside className="catalog-sidebar">
             <button className="close-sidebar d-lg-none">
@@ -10,7 +25,14 @@ const CatalogSidebar = () => {
                     <h5 th:text="#{catalog.search.title}">Поиск</h5>
                     <form id="searchForm">
                         <div className="input-group">
-                            <input type="text" className="search-input" name="searchQuery" placeholder="Поиск..."/>
+                            <input 
+                                type="text" 
+                                className="search-input" 
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                name="searchQuery"
+                                placeholder="Поиск..."
+                            />
                             <input type="hidden" name="category"/>
                             <input type="hidden" name="sortBy"/>
                             <button className="btn btn-search" type="submit">
@@ -21,50 +43,32 @@ const CatalogSidebar = () => {
                 </div>
                 <h5 th:text="#{catalog.sorting.title}">Сортировка</h5>
                 <div className="list-group list-group-flush">
-                    <a 
-                        th:href="'#'"
-                        className="list-group-item list-group-item-action sort-link" 
-                        data-sort="date" 
-                        th:text="#{catalog.sorting.date}"
-                    >
-                        По дате
-                    </a>
-                    <a 
-                        th:href="'#'"
-                        className="list-group-item list-group-item-action sort-link" 
-                        data-sort="price" 
-                        th:text="#{catalog.sorting.price}"
-                    >
-                        По цене
-                    </a>
-                    <a 
-                        th:href="'#'"
-                        className="list-group-item list-group-item-action sort-link" 
-                        data-sort="rating" 
-                        th:text="#{catalog.sorting.rating}"
-                    >
-                        По рейтингу
-                    </a>
-                    <a 
-                        th:href="'#'"
-                        className="list-group-item list-group-item-action sort-link" 
-                        data-sort="popularity" 
-                        th:text="#{catalog.sorting.popularity}"
-                    >
-                        По популярности
-                    </a>
+                    {sorts.map(sort => (
+                        <a
+                            key={sort.key}
+                            className={`list-group-item list-group-item-action sort-link ${activeSort === sort.key ? "active" : ""}`}
+                            onClick={() => setActiveSort(sort.key)}
+                        >
+                            {sort.label}
+                        </a>
+                    ))}
                 </div>
 
                 <h5 th:text="#{catalog.sorting.filters}">Фильтры</h5>
-                <form id="filterForm" method="get" action="/catalog">
-                    <div className="form-check custom-checkbox">
-                        <input className="form-check-input" type="checkbox" id="filter2" name="hasReviews"/>
-                        <label className="form-check-label" htmlFor="filter2">
-                            <span className="checkmark"></span>
-                            <span th:text="#{catalog.sorting.reviews}">С отзывами</span>
-                        </label>
-                    </div>
-                </form>
+                <div className="form-check custom-checkbox">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="filter2"
+                        name="hasReviews"
+                        checked={hasReviews}               // синхронизируем с состоянием
+                        onChange={(e) => setHasReviews(e.target.checked)} // переключаем состояние
+                    />
+                    <label className="form-check-label" htmlFor="filter2">
+                        <span className="checkmark"></span>
+                        <span>С отзывами</span>
+                    </label>
+                </div>
             </div>
             <div className="sorting-sidebar sidebar-links">
                 <h5 th:text="#{catalog.sorting.links}">Полезные ссылки</h5>

@@ -53,6 +53,10 @@
     color: var(--text-color);
     transition: all 0.2s ease;
     border: 1px solid var(--primary-light);
+    font-weight: normal;
+    font-size: medium;
+    display: inline-flex;
+    gap: 0.3rem;
 }
 
 .nav-pills .nav-link:hover {

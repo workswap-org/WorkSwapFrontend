@@ -1,4 +1,5 @@
 import ThemeChanger from "@/components/ThemeChanger";
+import Avatar from "@/components/small-components/Avatar";
 import { useTranslation } from "react-i18next";
 
 const NavButtons = ({ user, onLogout }) => {
@@ -65,11 +66,10 @@ const NavButtons = ({ user, onLogout }) => {
             {isAuthenticated && (
                 <div className="account-link-container">
                     <a href="/secure/account" className="account-link">
-                        <img
-                            src={user.avatarUrl || "/images/default-avatar.png"}
-                            alt="avatar"
-                            className="avatar"
-                            style={{ width: 32, height: 32, borderRadius: "50%" }}
+                        <Avatar 
+                            user={user}
+                            size={32}
+                            className='avatar'
                         />
                         <span className="ellipsis">{user.name || "Пользователь"}</span>
                     </a>

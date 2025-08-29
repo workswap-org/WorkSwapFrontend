@@ -1,6 +1,11 @@
 import { useEffect } from "react";
+import AccountSidebarLinks from "./AccountSidebarLinks";
+import Avatar from "@/components/small-components/Avatar";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 const AccountSidebar = () => {
+
+    const { user } = useAuth();
 
     useEffect(() => {
         document.getElementById('connectTelegram').addEventListener('click', async () => {
@@ -30,22 +35,35 @@ const AccountSidebar = () => {
     return(
         <aside className="account-sidebar" th:fragment="sidebar">
             <div className="profile-card">
-                <img th:replace="~{fragments/small-components :: avatar(user=${user}, size='100', className='profile-avatar')}"></img>
-                <h4 className="profile-name" th:text="${user.name}">Иван Иванов</h4>
+
+                <Avatar 
+                    user={user}
+                    size={100}
+                    className='profile-avatar'
+                />
+                <h4 className="profile-name">{user.name}</h4>
                 <p className="profile-rating">
-                    <span th:each="i : ${#numbers.sequence(1,5)}">
-                        <i className="fa"
-                            th:classappend="${user.rating >= i} ? 'fa-star' :
-                            (${user.rating >= i - 0.5} ? 'fa-star-half-o' : 'fa-star-o')"></i>
-                    </span>
-                    (<span th:text="${#numbers.formatDecimal(user.rating, 1, 1)}">0.0</span>)
+                    {Array.from({ length: 5 }, (_, i) => {
+                        const starValue = i + 1;
+
+                        if (user.rating >= starValue) {
+                            return <i className="fa-solid fa-star" key={starValue} ></i>;
+                        } else if (user.rating >= starValue - 0.5) {
+                            return <i className="fa-solid fa-star-half-stroke" key={starValue} ></i>;
+                        } else {
+                            return <i className="fa-regular fa-star" key={starValue} ></i>;
+                        }
+                    })}
+                    (<span>{user.rating}</span>)
                 </p>
                 <a href="/secure/settings" className="btn btn-outline-primary btn-sm" th:text="#{profile.edit}">Редактировать профиль</a>
             </div>
 
-            <nav th:replace="~{fragments/account/account-sidebar :: sidebarLinks}"></nav>
+            <AccountSidebarLinks/>
 
-            <button th:if="${!user.telegramConnected}" className="telegram-button" id="connectTelegram" th:text="#{telegramm.connect}">Подключить Telegram</button>
+            {!user.telegramConnected ? (
+                <button th:if="${!user.telegramConnected}" className="telegram-button" id="connectTelegram" th:text="#{telegramm.connect}">Подключить Telegram</button>
+            ) : null}
         </aside>
     );
 };

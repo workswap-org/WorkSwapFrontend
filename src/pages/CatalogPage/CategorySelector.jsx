@@ -18,10 +18,6 @@ const CategorySelector = ({category, setCategory}) => {
         loadRootCategories();
     }, [])
 
-    useEffect(() => {
-        console.log("new category", category)
-    }, [category])
-
     return (
         <div className="catalog-header py-3">
             <div className="container">
@@ -59,7 +55,7 @@ const CategorySelector = ({category, setCategory}) => {
                                         aria-expanded="false"
                                     >
                                         <i className="fa-solid fa-handshake me-2"></i>
-                                        <span>{rootCategory.displayName || rootCategory.name}</span>
+                                        <span>{rootCategory.translate}</span>
                                     </button>
                                     {/* <ul className="dropdown-menu">
                                         {rootCategory.children.map((child) => (
@@ -80,14 +76,18 @@ const CategorySelector = ({category, setCategory}) => {
                             ) : (
                                 // Корневая категория без подкатегорий
                                 <button
-                                    className="category-link nav-link"
+                                    className={`category-link nav-link ${category === rootCategory.name ? "active" : ""}`}
                                     onClick={() => {
-                                            setCategory(rootCategory.name)
+                                            if (rootCategory.name === category) {
+                                                setCategory(null);
+                                            } else {
+                                                setCategory(rootCategory.name);
+                                            };
                                         }}
                                     data-category={rootCategory.name}
                                 >
                                     <i className="fa-solid fa-suitcase me-2"></i>
-                                    <span>{rootCategory.displayName || rootCategory.name}</span>
+                                    <span>{rootCategory.translate}</span>
                                 </button>
                             )}
                         </li>
