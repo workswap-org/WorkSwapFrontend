@@ -1,6 +1,10 @@
 import ThemeChanger from "@/components/ThemeChanger";
+import { useTranslation } from "react-i18next";
 
 const NavButtons = ({ user, onLogout }) => {
+
+    const { t } = useTranslation();
+
     const isAuthenticated = !!user;
     const isAdmin = user?.role === "ADMIN"; // или как у тебя хранится роль
 
@@ -53,7 +57,7 @@ const NavButtons = ({ user, onLogout }) => {
                     className="btn btn-outline-primary"
                 >
                     <img src="/images/google.png" className="logo" alt="Google" />
-                    <span>Войти через Google</span>
+                    <span>{t("login")}</span>
                 </a>
             )}
 

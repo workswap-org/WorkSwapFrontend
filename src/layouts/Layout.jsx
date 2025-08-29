@@ -3,6 +3,7 @@ import Header from "@/components/header/Header";
 import { useAuth } from "@/contexts/auth/useAuth";
 import "#/css/public/components/base.css";
 import { apiFetch } from "@/components/functions/apiClient";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Layout() {
     const location = useLocation();
@@ -34,6 +35,8 @@ export default function Layout() {
             />
 
             <Outlet />
+
+            <LanguageSwitcher/>
         </>
     );
 }
