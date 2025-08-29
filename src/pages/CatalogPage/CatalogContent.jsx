@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/components/functions/apiClient";
+import { apiFetch } from "@/lib/apiClient";
 import PublicListingCard from "@/components/cards/listing-cards/PublicListingCard";
 
 const CatalogContent = ({params}) => {
@@ -30,13 +30,13 @@ const CatalogContent = ({params}) => {
     return (
         <div className="listings-grid">
             {listings.map((listing) => (
-                <PublicListingCard 
-                    key={listing.id}
-                    listing={listing}
-                    isMainListing={listing.id == mainListingId ? true : false}
-                />
-            ))
-        }
+                    <PublicListingCard 
+                        key={listing.id}
+                        listing={listing}
+                        isMainListing={listing.id == mainListingId ? true : false}
+                    />
+                ))
+            }
         </div>
     );
 };

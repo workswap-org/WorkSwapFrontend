@@ -1,31 +1,32 @@
 import { useActivePage } from "@/contexts/active-page/useActivePage";
+import { Link } from "react-router-dom";
 
 const AccountSidebarLinks = () => {
-
     const activePage = useActivePage();
 
     const links = [
-        { href: "/secure/account", key: "account", label: "Аккаунт" },
-        { href: "/secure/my-listings", key: "my-listings", label: "Мои объявления" },
-        { href: "/secure/favorites", key: "favorites", label: "Избранное" },
-        { href: "/secure/messenger", key: "messenger", label: "Сообщения" },
-        { href: "/secure/resume", key: "resume", label: "Моё резюме" },
-        { href: "/secure/settings", key: "settings", label: "Настройки" },
-        { href: "/secure/security", key: "security", label: "Безопасность" },
+        { to: "/secure/account", key: "account", label: "Аккаунт" },
+        { to: "/secure/my-listings", key: "my-listings", label: "Мои объявления" },
+        { to: "/secure/favorites", key: "favorites", label: "Избранное" },
+        { to: "/secure/messenger", key: "messenger", label: "Сообщения" },
+        { to: "/secure/resume", key: "resume", label: "Моё резюме" },
+        { to: "/secure/settings", key: "settings", label: "Настройки" },
+        { to: "/secure/security", key: "security", label: "Безопасность" },
     ];
 
     return (
         <nav className="account-menu">
             {links.map((link) => (
-                <a
+                <Link
                     key={link.key}
-                    href={link.href}
+                    to={link.to}
                     className={`account-menu-item ${activePage === link.key ? "active" : ""}`}
                 >
                     {link.label}
-                </a>
+                </Link>
             ))}
         </nav>
     );
 };
+
 export default AccountSidebarLinks;

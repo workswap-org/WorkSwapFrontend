@@ -2,18 +2,15 @@ import { useLocation, Outlet } from "react-router-dom";
 import Header from "@/components/header/Header";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import "#/css/public/components/base.css";
-import { apiFetch } from "@/components/functions/apiClient";
+import { apiFetch } from "@/lib/apiClient";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ActivePageContext from "@/contexts/active-page/ActivePageContext";
+import EmptyPage from "../pages/EmptyPage";
 
 export default function Layout() {
     const location = useLocation();
 
     const { user, loading } = useAuth();
-
-    if (loading) {
-        return <div>Загрузка...</div>; // или скелетон/спиннер
-    }
 
     const activePage = (() => {
         if (location.pathname.startsWith("/catalog")) return "catalog";
@@ -37,12 +34,18 @@ export default function Layout() {
 
     return (
         <ActivePageContext.Provider value={activePage}>
-            <Header
-                user={user || undefined}
-                onLogout={handleLogout}
-            />
+            {loading ? (
+                <EmptyPage />
+            ) : (
+                <>
+                    <Header
+                    user={user || undefined}
+                    onLogout={handleLogout}
+                    />
 
-            <Outlet />
+                    <Outlet />
+                </>
+            )}
 
             <LanguageSwitcher/>
         </ActivePageContext.Provider>

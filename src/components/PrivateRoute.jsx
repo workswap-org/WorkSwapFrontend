@@ -1,23 +1,22 @@
 // PrivateRoute.jsx
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import EmptyPage from "../pages/EmptyPage";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
     const { accessToken, loading } = useAuth();
     const location = useLocation();
 
     if (loading) {
-        // Пока идёт инициализация токена, можно показывать спиннер или null
-        return null; 
+        return <EmptyPage />; // или спиннер
     }
-
 
     if (!accessToken) {
         const fullRedirect = `${window.location.origin}${location.pathname}`;
         return <Navigate to={`/login?redirect=${encodeURIComponent(fullRedirect)}`} replace />;
     }
 
-    return children;
+    return <Outlet />;
 };
 
 export default PrivateRoute;

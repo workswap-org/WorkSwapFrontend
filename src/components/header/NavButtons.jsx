@@ -1,6 +1,7 @@
 import ThemeChanger from "@/components/ThemeChanger";
 import Avatar from "@/components/small-components/Avatar";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const NavButtons = ({ user, onLogout }) => {
 
@@ -17,9 +18,9 @@ const NavButtons = ({ user, onLogout }) => {
                 </div>
 
                 {isAuthenticated && (
-                    <a href="/secure/messenger" className="nav-link">
+                    <Link to="/secure/messenger" className="nav-link">
                         <i className="fa-solid fa-comments-question fa-lg" style={{ lineHeight: "normal" }}></i>
-                    </a>
+                    </Link>
                 )}
 
                 {isAuthenticated && (
@@ -45,34 +46,34 @@ const NavButtons = ({ user, onLogout }) => {
                     </a>
                 )}
 
-                <a href="/news" className="nav-link">
+                <Link to="/news" className="nav-link">
                     Новости
-                </a>
+                </Link>
             </div>
 
             {/* Для неавторизованных */}
             {!isAuthenticated && (
-                <a
-                    href="/login"
+                <Link
+                    t="/login"
                     style={{ display: "flex", flexDirection: "row" }}
                     className="btn btn-outline-primary"
                 >
                     <img src="/images/google.png" className="logo" alt="Google" />
                     <span>{t("login")}</span>
-                </a>
+                </Link>
             )}
 
             {/* Для авторизованных */}
             {isAuthenticated && (
                 <div className="account-link-container">
-                    <a href="/secure/account" className="account-link">
+                    <Link to="/secure/account" className="account-link">
                         <Avatar 
                             user={user}
                             size={32}
-                            className='avatar'
+                            className=''
                         />
                         <span className="ellipsis">{user.name || "Пользователь"}</span>
-                    </a>
+                    </Link>
                     <button
                         className="logout-btn"
                         onClick={(e) => {

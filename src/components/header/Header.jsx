@@ -1,13 +1,25 @@
 import AccountSidebarLinks from "@/components/account/AccountSidebarLinks";
 import NavButtons from "./NavButtons";
 import ThemeChanger from "@/components/ThemeChanger";
+import { Link } from "react-router-dom";
 
-const Header = ({ activePage, user, onLogout }) => {
+const Header = ({ isEmpty, activePage, user, onLogout }) => {
+
+    if (isEmpty) {
+        return (
+            <header>
+                <div className="header-container">
+
+                </div>
+            </header>
+        );
+    }
+
     return (
         <header>
             <div className="header-container">
                 <nav className="navbar">
-                    <a className="navbar-brand" href="/catalog" th:text="#{brand}">WorkSwap</a>
+                    <Link className="navbar-brand" to="/catalog">WorkSwap</Link>
                     <div className="flex-row media-only-flex">
                         <div className="nav-link">
                             <ThemeChanger/>
@@ -18,7 +30,7 @@ const Header = ({ activePage, user, onLogout }) => {
                     </div>
                     <div className="navbar-collapse">
                         <nav className="navbar-top">
-                            <a className="navbar-brand" href="/catalog" th:text="#{brand}">WorkSwap</a>
+                            <Link className="navbar-brand" href="/catalog" to="#{brand}">WorkSwap</Link>
                             <button id="navbar-toggler" className="navbar-toggler">
                                 <span className="navbar-toggler-icon"></span>
                             </button>

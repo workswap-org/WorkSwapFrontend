@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
-import { apiFetch } from "@/components/functions/apiClient";
+import { apiFetch } from "@/lib/apiClient";
 
 export const AuthProvider = ({ children }) => {
     const [accessToken, setAccessToken] = useState(() => localStorage.getItem("accessToken"));

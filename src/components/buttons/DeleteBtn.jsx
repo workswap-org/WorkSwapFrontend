@@ -1,4 +1,4 @@
-import { apiFetch } from "@/components/functions/apiClient";
+import { apiFetch } from "@/lib/apiClient";
 
 const DeleteBtn = ({ type, id}) => {
 

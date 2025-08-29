@@ -8,34 +8,38 @@ const AccountSidebar = () => {
     const { user } = useAuth();
 
     useEffect(() => {
-        document.getElementById('connectTelegram').addEventListener('click', async () => {
-            try {
-                const response = await fetch('/proxy/secure/api/user/telegram/connect', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
-                    }
-                });
 
-                if (response.ok) {
-                    const linkUrl = await response.text(); // Получаем URL как строку
-                    window.open(linkUrl, '_blank'); // Открываем в новой вкладке
-                } else {
-                    const errorText = await response.text();
-                    alert('Ошибка: ' + errorText);
+        const connectTelegram = document.getElementById('connectTelegram');
+
+        if (connectTelegram) {
+            connectTelegram.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/proxy/secure/api/user/telegram/connect', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
+                        }
+                    });
+
+                    if (response.ok) {
+                        const linkUrl = await response.text(); // Получаем URL как строку
+                        window.open(linkUrl, '_blank'); // Открываем в новой вкладке
+                    } else {
+                        const errorText = await response.text();
+                        alert('Ошибка: ' + errorText);
+                    }
+                } catch (error) {
+                    console.error('Ошибка запроса:', error);
+                    alert('Ошибка запроса');
                 }
-            } catch (error) {
-                console.error('Ошибка запроса:', error);
-                alert('Ошибка запроса');
-            }
-        });
+            });
+        }
     }, []);
 
     return(
         <aside className="account-sidebar" th:fragment="sidebar">
             <div className="profile-card">
-
                 <Avatar 
                     user={user}
                     size={100}

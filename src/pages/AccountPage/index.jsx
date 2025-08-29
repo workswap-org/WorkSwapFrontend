@@ -1,5 +1,4 @@
 const AccountPage = () => {
-    
     return (
         <div>
             <span>бебеье</span>

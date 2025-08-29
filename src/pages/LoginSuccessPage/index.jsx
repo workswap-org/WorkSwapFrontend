@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { API_BASE } from "@/api/config";
-import { apiFetch } from "@/components/functions/apiClient";
+import { apiFetch } from "@/lib/apiClient";
 
 const LoginSuccessPage = () => {
     const { setUser, setAccessToken } = useAuth();
