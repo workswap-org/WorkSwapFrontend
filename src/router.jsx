@@ -12,6 +12,7 @@ import MyListingsPage from "./pages/MyListingsPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import MessengerPage from "./pages/MessengerPage";
 import SettingsPage from "./pages/SettingsPage";
+import ListingPage from "./pages/ListingPage";
 
 import PrivateRoute from "./components/PrivateRoute";
 import RouteLogger from "./components/logging/RouteLogger";
@@ -29,6 +30,10 @@ const AppRouter = () => {
                 <Route path="/" element={<Layout />}>
                     {/* публичные страницы */}
                     <Route path="catalog" element={<CatalogPage />} />
+
+                    <Route element={<PrivateRoute />}>
+                        <Route path="listing/:id" element={<ListingPage />} />
+                    </Route>
 
                     {/* приватные страницы */}
                     <Route path="secure" element={<PrivateRoute />}>

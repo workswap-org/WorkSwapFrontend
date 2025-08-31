@@ -1,10 +1,11 @@
 import "#/css/public/pages/settings-page.css"
 import { useState, useEffect } from "react";
 import { apiFetch } from "@/lib/apiClient";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 const SettingsPage = () => {
 
-    const [user, setUser] = useState([]);
+    const { user } = useAuth();
     const [countries, setCountries] = useState([]);
 
     const [name, setName] = useState(user.name || "");
@@ -67,12 +68,6 @@ const SettingsPage = () => {
     };
 
     useEffect(() => {
-
-        async function loadUserSettings() {
-            const data = await apiFetch("/api/user/current");
-            setUser(await data);
-        }
-
         async function loadCountries() {
             const data = await apiFetch("/api/locations/countries");
             setCountries(await data);
@@ -84,8 +79,7 @@ const SettingsPage = () => {
         }
 
         loadCountries();
-        loadUserSettings();
-    }, [])
+    }, [name, user])
 
     return (
         <form onSubmit={handleSubmit} className="edit-form">
@@ -203,7 +197,7 @@ const SettingsPage = () => {
             <div className="form-section">
                 <h3>Языки которыми я владею</h3>
                 <p>Укажите несколько языков, чтобы видеть больше подходящих объявлений</p>
-                <div class="form-group">
+                <div className="form-group">
                     <div id="myLangsContainer">
                         {["Русский", "Suomi", "English", "Italiano"].map((lang) => (
                             <button
