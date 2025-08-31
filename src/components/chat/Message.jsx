@@ -6,9 +6,7 @@ const Message = ({message}) => {
     const formattedTime = `${hours}:${minutes}`;
 
     return (
-        <div
-            th:className="${message.isOwn(user)} ? 'message-out' : 'message-in'"
-            className={`message ${message.own ? 'message-out' : 'message-in'}`}>
+        <div className={`message ${message.own ? 'message-out' : 'message-in'}`}>
             <div className="message-content">
                 <p>{message.text}</p>
                 <span className="message-time"

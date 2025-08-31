@@ -3,7 +3,6 @@ import DialogItem from "@/components/chat/DialogItem";
 
 import { useEffect, useState } from "react";
 import { useStompClient } from "@/hooks/messenger/useStompClient";
-import { useChatSubscription } from "@/hooks/messenger/useChatSubscription";
 import { useChatsUpdates } from "@/hooks/messenger/useChatsUpdates";
 import { useTranslation } from "react-i18next";
 import ChatContainer from "./ChatContainer";
@@ -13,7 +12,6 @@ const MessengerPage = () => {
     const userLocale = i18n.language || "ru";
     const [currentChatId, setCurrentChatId] = useState([]);
 
-    const { messages, sendMessage } = useChatSubscription(currentChatId);
     const { client, connected } = useStompClient();
     const [chats, setChats] = useState([]);
 
@@ -99,7 +97,7 @@ const MessengerPage = () => {
             </div>
             {/* Окно чата th:if="${selectedChat != null}" */}
             <div className="chat-window">
-                <ChatContainer messages={messages} />
+                <ChatContainer currentChatId={currentChatId}/>
             </div>
         </div>
         </>

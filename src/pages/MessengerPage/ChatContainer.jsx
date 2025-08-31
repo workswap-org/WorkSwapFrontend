@@ -1,12 +1,11 @@
 import Avatar from "@/components/small-components/Avatar"
-import { useEffect } from "react";
-import Message from "../../components/chat/Message";
+import Message from "@/components/chat/Message";
+import SendMessageArea from "@/components/chat/SendMessageArea";
+import { useChatSubscription } from "@/hooks/messenger/useChatSubscription";
 
-const ChatContainer = ({messages}) => {
+const ChatContainer = ({ currentChatId }) => {
 
-    useEffect(() => {
-
-    }, [])
+    const { messages } = useChatSubscription(currentChatId);
 
     return (
         <div className="chat-container"
@@ -44,12 +43,7 @@ const ChatContainer = ({messages}) => {
                 ))}
             </div>
 
-            <div className="message-input-container">
-                <textarea id="message-input" th:placeholder="#{my.messages.send.placeholder}" className="message-input"></textarea>
-                <button id="send-btn" className="img-send-btn">
-                    <img src="/images/send-btn.png" alt="Отправить"/>
-                </button>
-            </div>
+            <SendMessageArea currentChatId={currentChatId}/>
         </div>
     );
 };

@@ -17,6 +17,11 @@ export function useChatSubscription(chatId) {
             }
         });
 
+        const liveChatSubscription = client.subscribe('/topic/messages/' + chatId, function (messageOutput) {
+            const data = JSON.parse(messageOutput.body);
+            setMessages(prev => [...prev, data]);
+        });
+
         if (connected) {
             client.publish({
                 destination: `/app/chat.loadMessages/${chatId}`,
@@ -24,15 +29,11 @@ export function useChatSubscription(chatId) {
             });
         }
 
-        return () => subscription.unsubscribe();
+        return () => {
+            subscription.unsubscribe();
+            liveChatSubscription.unsubscribe();
+        }
     }, [chatId, client, connected]);
 
-    const sendMessage = (text) => {
-        client.publish({
-            destination: `/app/chat.sendMessage/${chatId}`,
-            body: JSON.stringify({ text })
-        });
-    };
-
-    return { messages, sendMessage };
+    return { messages, setMessages };
 }
