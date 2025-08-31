@@ -35,7 +35,7 @@ const ThemeChanger = () => {
                 <input type="checkbox" className="theme-toggle" id="theme-toggle" />
                 <span className="slider">
                     <i className="fa-solid fa-moon"></i>
-                    <i className="fa-solid fa-sun" style={{ color: "gray" }}></i>
+                    <i className="fa-solid fa-sun" style={{ color: "white" }}></i>
                 </span>
             </label>
         </div>

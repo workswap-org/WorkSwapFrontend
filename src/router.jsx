@@ -11,6 +11,7 @@ import AccountPage from "./pages/AccountPage";
 import MyListingsPage from "./pages/MyListingsPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import MessengerPage from "./pages/MessengerPage";
+import SettingsPage from "./pages/SettingsPage";
 
 import PrivateRoute from "./components/PrivateRoute";
 import RouteLogger from "./components/logging/RouteLogger";
@@ -36,6 +37,7 @@ const AppRouter = () => {
                             <Route path="my-listings" element={<MyListingsPage />} />
                             <Route path="favorites" element={<FavoritesPage />} />
                             <Route path="messenger" element={<MessengerPage />} /> 
+                            <Route path="settings" element={<SettingsPage />} />
                         </Route>
                     </Route>
                 </Route>
