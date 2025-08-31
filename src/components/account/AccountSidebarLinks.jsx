@@ -1,4 +1,4 @@
-import { useActivePage } from "@/contexts/active-page/useActivePage";
+import { useActivePage } from "@/hooks/contexts/useActivePage";
 import { Link } from "react-router-dom";
 
 const AccountSidebarLinks = () => {

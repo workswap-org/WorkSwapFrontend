@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/auth/AuthContext";
 import "#/css/public/components/base.css";
 import { apiFetch } from "@/lib/apiClient";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import ActivePageContext from "@/contexts/active-page/ActivePageContext";
+import ActivePageContext from "@/contexts/ActivePageContext";
 import EmptyPage from "../pages/EmptyPage";
 
 export default function Layout() {

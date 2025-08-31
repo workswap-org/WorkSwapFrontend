@@ -170,7 +170,7 @@
 
 .messages-container {
     flex: 1;
-    padding: 1rem;
+    padding: 0.5rem;
     overflow-y: auto;
     background-color: var(--color-bg-body);
 }
@@ -203,7 +203,6 @@
 
 .message {
     display: flex;
-    margin-bottom: 1rem;
 }
 
 .message-content {
@@ -382,10 +381,6 @@
         padding: 0 0.5rem;
     }
 
-    .messages-container {
-        max-height: 100%;
-    }
-
     .account-sidebar {
         display: none;
     }
@@ -456,6 +451,7 @@
 
     .messages-container {
         padding-bottom: 0px; /* Чтобы не перекрывалось поле ввода */
+        max-height: 100%;
     }
 
     /* Основной контейнер */
