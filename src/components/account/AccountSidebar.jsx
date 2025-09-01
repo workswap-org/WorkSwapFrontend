@@ -17,8 +17,7 @@ const AccountSidebar = () => {
                     const response = await fetch('/proxy/secure/api/user/telegram/connect', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
+                            'Content-Type': 'application/json'
                         }
                     });
 

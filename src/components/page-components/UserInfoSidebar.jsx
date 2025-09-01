@@ -11,7 +11,7 @@ const UserInfoSidebar = ( {author} ) => {
             <div className="seller-card" th:if="${user != null}">
                 <Avatar
                     user={author}
-                    size='100'
+                    size={100}
                     className='seller-avatar'
                 />
                 <div className="seller-info">

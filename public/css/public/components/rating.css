@@ -6,14 +6,17 @@
 }
 
 .star {
-    font-size: 1.5em;
+    font-size: 1.3rem;
     color: #ccc; /* Цвет для невыбранных звезд */
     cursor: pointer;
+    transition: all 0.4s ease;
 }
 
-.star:hover,
 .star.selected {
     color: var(--rating-star); /* Цвет для выбранных звезд */
+}
+.star.hovered {
+    color: var(--hovered-rating-star);
 }
 
 /* Для отображения текущего рейтинга */

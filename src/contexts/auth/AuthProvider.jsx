@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
         const init = async () => {
             try {
                 const res = await apiFetch("/api/user/current");
-                setUser(await res);
+                setUser(await res.user);
                 setAccessToken(localStorage.getItem("accessToken")); // если есть в localStorage
             } catch (e) {
                 console.error(e);

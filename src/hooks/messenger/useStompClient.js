@@ -19,9 +19,6 @@ export function useStompClient() {
 
         const stompClient = new Client({
             webSocketFactory: () => webSocket,
-            connectHeaders: {
-                Authorization: `Bearer ${token}`, // По-прежнему передаём в заголовках
-            },
             reconnectDelay: 5000,
             debug: (str) => {
                 if (str.startsWith(">>> CONNECT")) {

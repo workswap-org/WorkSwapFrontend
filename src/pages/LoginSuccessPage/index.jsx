@@ -19,7 +19,8 @@ const LoginSuccessPage = () => {
         .then(res => res.json())
         .then(data => {
             setAccessToken(data.accessToken);
-            return apiFetch(`/api/user/current`);
+            const res = apiFetch(`/api/user/current`);
+            return res.user;
         })
         .then(user => {
             setUser(user);

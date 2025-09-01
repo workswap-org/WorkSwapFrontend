@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import ListingRating from "@/components/small-components/ListingRating"
 import PriceTypes from "@/components/small-components/PriceTypes"
 import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
+import ReviewsSection from "@/components/reviews/ReviewsSection";
 
 const ListingPage = () => {
 
@@ -32,7 +33,7 @@ const ListingPage = () => {
     useEffect(() => {
         async function loadListingAuthor(authorId) {
             const data = await apiFetch(`/api/user/get/${authorId}`);
-            setAuthor(await data);
+            setAuthor(await data.user);
             console.log(data);
         }
 
@@ -186,7 +187,7 @@ const ListingPage = () => {
                     </div>
 
                     {/* Блок с отзывами */}
-                    {/* <ReviewsSection /> */}
+                    <ReviewsSection listingId={listing.id} profileId='' />
 
                     {/* Похожие объявления */}
                     <section className="similar-listings">
