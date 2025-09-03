@@ -1,6 +1,6 @@
 import CatalogSidebar from "./CatalogSidebar";
 import "#/css/public/pages/catalog-page.css";
-import CategorySelector from "./CategorySelector";
+import SortCategorySelector from "./SortCategorySelector";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useState } from "react";
 
@@ -30,7 +30,7 @@ const CatalogPage = () => {
 
     return(
         <>
-            <CategorySelector category={category} setCategory={setCategory}/>
+            <SortCategorySelector category={category} setCategory={setCategory}/>
             {/* Основной контент */}
             <div className="catalog-container">
                 <div className="catalog-layout">

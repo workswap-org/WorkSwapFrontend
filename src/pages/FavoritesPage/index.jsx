@@ -16,15 +16,21 @@ const FavoritesPage = () => {
     }, [])
 
     return (
-        <div className="listings-grid">
-            {listings.map((listing) => (
-                    <PrivateListingCard 
-                        key={listing.id}
-                        listing={listing}
-                    /> 
-                ))
-            }
-        </div>
+        <>
+            <div className="account-header">
+                <h2>Избранные</h2>
+            </div>
+
+            <div className="listings-grid">
+                {listings.map((listing) => (
+                        <PrivateListingCard 
+                            key={listing.id}
+                            listing={listing}
+                        /> 
+                    ))
+                }
+            </div>
+        </>
     );
 };
 

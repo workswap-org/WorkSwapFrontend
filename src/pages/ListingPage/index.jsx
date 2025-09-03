@@ -7,6 +7,7 @@ import ListingRating from "@/components/small-components/ListingRating"
 import PriceTypes from "@/components/small-components/PriceTypes"
 import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
 import ReviewsSection from "@/components/reviews/ReviewsSection";
+import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 
 const ListingPage = () => {
 
@@ -24,7 +25,6 @@ const ListingPage = () => {
                 locale: userLocale
             });
             setListing(await data);
-            console.log(data);
         }
 
         loadListing();
@@ -34,7 +34,6 @@ const ListingPage = () => {
         async function loadListingAuthor(authorId) {
             const data = await apiFetch(`/api/user/get/${authorId}`);
             setAuthor(await data.user);
-            console.log(data);
         }
 
         if (listing.authorId) {
@@ -63,6 +62,10 @@ const ListingPage = () => {
     };
 
     const closeModal = () => setIsModalOpen(false);
+
+    const params = {
+        category: listing.category,
+    }
 
     return (
         <div className="listing-container">
@@ -182,7 +185,7 @@ const ListingPage = () => {
                             </div>
 
                             {/* Боковая панель с контактами */}
-                            <UserInfoSidebar author={author} />
+                            <UserInfoSidebar listingId={listing.id} author={author} />
                         </div>
                     </div>
 
@@ -192,7 +195,7 @@ const ListingPage = () => {
                     {/* Похожие объявления */}
                     <section className="similar-listings">
                         <h2>Похожие объявления</h2>
-                        <div id="catalog-content"></div>
+                        <CatalogContent mainListingId={listing.id} params={params}/>
                     </section>
                 </main>
             </div>

@@ -23,7 +23,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
         console.log("Submitting:", newReview);
         
         const res = await apiFetch(`/api/review/create`, { method: 'POST' }, newReview);
-        console.log(await res);
+
         if (res) {
             notificate(res.message, "success");
             newReview.id = Date.now();

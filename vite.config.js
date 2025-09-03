@@ -16,6 +16,7 @@ export default defineConfig({
         },
     },
     server: {
+        port: 8080,
         proxy: {
             "/proxy": {
                 target: "http://localhost:8083", // твой backend
@@ -27,4 +28,7 @@ export default defineConfig({
     define: {
         global: 'window'
     },
+    preview: {
+        port: 8080    // <-- порт для `vite preview`
+    }
 })

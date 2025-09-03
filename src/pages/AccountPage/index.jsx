@@ -1,8 +1,10 @@
 const AccountPage = () => {
     return (
-        <div>
-            <span>бебеье</span>
-        </div>
+        <>
+            <div className="account-header">
+                <h2>Мой аккаунт</h2>
+            </div>
+        </>
     );
 };
 

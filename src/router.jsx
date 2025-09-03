@@ -13,6 +13,9 @@ import FavoritesPage from "./pages/FavoritesPage";
 import MessengerPage from "./pages/MessengerPage";
 import SettingsPage from "./pages/SettingsPage";
 import ListingPage from "./pages/ListingPage";
+import ProfilePage from "./pages/ProfilePage";
+import ListingEditPage from "./pages/ListingEditPage";
+import ListingCreatePage from "./pages/ListingCreatePage";
 
 import PrivateRoute from "./components/PrivateRoute";
 import RouteLogger from "./components/logging/RouteLogger";
@@ -30,19 +33,25 @@ const AppRouter = () => {
                 <Route path="/" element={<Layout />}>
                     {/* публичные страницы */}
                     <Route path="catalog" element={<CatalogPage />} />
+                    <Route path="listing/:id" element={<ListingPage />} />
+                    <Route path="profile/:id" element={<ProfilePage />} />
 
                     <Route element={<PrivateRoute />}>
-                        <Route path="listing/:id" element={<ListingPage />} />
+                        
                     </Route>
 
                     {/* приватные страницы */}
                     <Route path="secure" element={<PrivateRoute />}>
                         <Route element={<AccountLayout />}>
+                        
                             <Route path="account" element={<AccountPage />} />
                             <Route path="my-listings" element={<MyListingsPage />} />
                             <Route path="favorites" element={<FavoritesPage />} />
                             <Route path="messenger" element={<MessengerPage />} /> 
                             <Route path="settings" element={<SettingsPage />} />
+
+                            <Route path="listing/create" element={<ListingCreatePage />} />
+                            <Route path="listing/edit/:id" element={<ListingEditPage />} />
                         </Route>
                     </Route>
                 </Route>

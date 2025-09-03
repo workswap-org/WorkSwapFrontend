@@ -1,42 +1,41 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 
-const LocationSelector = ({ locationId, onChange }) => {
-    const [locations, setLocations] = useState([]);
+const CategorySelector = ( { categoryId, onChange } ) => {
+
+    const [categories, setCategories] = useState([]);
     const [selectedPath, setSelectedPath] = useState([]);
 
     useEffect(() => {
-        async function loadLocations() {
-            const data = await apiFetch("/api/locations");
-
-            const locs = data.locations || [];
-            setLocations(locs);
+        async function loadCategories() {
+            const data = await apiFetch("/api/categories");
+            const cats = data.categories || [];
+            setCategories(cats);
 
             // если уже есть categoryId → восстановим путь
-            if (locationId) {
-                const path = findPathToLocation(locs, locationId);
+            if (categoryId) {
+                const path = findPathToCategory(cats, categoryId);
                 setSelectedPath(path);
             }
         }
 
-        function findPathToLocation(locations, locationId) {
-            const loc = locations.find(c => c.id === locationId);
-            if (!loc) return [];
+        function findPathToCategory(categories, categoryId) {
+            const category = categories.find(c => c.id === categoryId);
+            if (!category) return [];
 
             // если есть parentId → рекурсивно ищем путь к родителю
-            if (loc.countryIdId) {
-                return [...findPathToLocation(locations, loc.parentId), loc.id];
+            if (category.parentId) {
+                return [...findPathToCategory(categories, category.parentId), category.id];
             } else {
-                return [loc.id];
+                return [category.id];
             }
         }
 
-        loadLocations();
-    }, [locationId]);
+        loadCategories();
+    }, [categoryId])
 
-    // нормализуем сравнение
-    const getChildren = (countryId) =>
-        locations.filter((c) => c.countryId === countryId);
+    const getChildren = (parentId) =>
+        categories.filter((c) => c.parentId === parentId);
 
     const handleSelect = (level, value) => {
         const newPath = [...selectedPath.slice(0, level), value];
@@ -46,41 +45,46 @@ const LocationSelector = ({ locationId, onChange }) => {
             onChange(value, newPath); // пробрасываем выбранный id и путь
         }
     };
-
+    
     const renderSelectors = () => {
         const selectors = [];
-        let countryId = null;
+        let parentId = null;
 
         for (let level = 0; ; level++) {
-            const children = getChildren(countryId);
+            const children = getChildren(parentId);
             if (children.length === 0) break;
 
             const selected = selectedPath[level] || "";
             selectors.push(
                 <select
                     key={level}
+                    id="categorySelector"
                     value={selected}
                     onChange={(e) => handleSelect(level, Number(e.target.value))}
                 >
                     <option value="" disabled>
-                        Выберите локацию
+                        Выберите категорию
                     </option>
-                    {children.map((l) => (
-                        <option key={l.id} value={l.id}>
-                            {l.name}
+                    {children.map((c) => (
+                        <option key={c.id} value={c.id}>
+                            {c.translate}
                         </option>
                     ))}
                 </select>
             );
 
             if (!selected) break; // пока не выбрали — дальше не идём
-            countryId = selected;
+            parentId = selected;
         }
 
         return selectors;
     };
 
-    return <div id="locations">{renderSelectors()}</div>;
+    return (
+        <div id="categories" className="form-group">
+            {renderSelectors()}
+        </div>
+    );
 };
 
-export default LocationSelector;
+export default CategorySelector;

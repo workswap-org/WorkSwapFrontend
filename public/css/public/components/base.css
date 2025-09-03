@@ -26,6 +26,9 @@
 @import url(cards/listing-card.css);
 @import url(cards/resume-card.css);
 
+/* обязательно после всего чтобы перезаписать любые цвета */
+@import url(colors.css);
+
 /* Базовые сбросы */
 *, *::before, *::after {
     box-sizing: border-box;

@@ -21,11 +21,20 @@ export function useStompClient() {
             webSocketFactory: () => webSocket,
             reconnectDelay: 5000,
             debug: (str) => {
-                if (str.startsWith(">>> CONNECT")) {
-                    console.log("STOMP: >>> CONNECT [hidden]");
-                } else {
-                    console.log("STOMP:", str);
+                // Полностью отключить логи с токеном
+                if (str.includes("access_token")) {
+                    console.log("STOMP:", str.replace(/access_token=[^ ]+/, "access_token=[hidden]"));
+                    return;
                 }
+
+                // Можно вообще не показывать лишнее
+                if (str.startsWith("WebSocket") || str.startsWith("Connection closed")) {
+                    console.log("STOMP: [connection closed]");
+                    return;
+                }
+
+                // Всё остальное оставляем
+                console.log("STOMP:", str);
             }
         });
 

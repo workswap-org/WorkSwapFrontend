@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 
-const CategorySelector = ({category, setCategory}) => {
+const SortCategorySelector = ({category, setCategory}) => {
 
     const [categories, setCategories] = useState([]);
 
@@ -102,4 +102,4 @@ const CategorySelector = ({category, setCategory}) => {
     );
 };
 
-export default CategorySelector;
+export default SortCategorySelector;
