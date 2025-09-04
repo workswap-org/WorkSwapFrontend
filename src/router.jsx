@@ -4,18 +4,24 @@ import { Navigate } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import AccountLayout from "./layouts/AccountLayout";
 
+/* Страницы */
 import CatalogPage from "./pages/CatalogPage";
 import LoginPage from "./pages/LoginPage";
 import LoginSuccessPage from "./pages/LoginSuccessPage";
-import AccountPage from "./pages/AccountPage";
-import MyListingsPage from "./pages/MyListingsPage";
-import FavoritesPage from "./pages/FavoritesPage";
-import MessengerPage from "./pages/MessengerPage";
-import SettingsPage from "./pages/SettingsPage";
 import ListingPage from "./pages/ListingPage";
 import ProfilePage from "./pages/ProfilePage";
-import ListingEditPage from "./pages/ListingEditPage";
-import ListingCreatePage from "./pages/ListingCreatePage";
+
+/* Страницы аккаунта */
+import AccountPage from "./pages/account/AccountPage";
+import MyListingsPage from "./pages/account/MyListingsPage";
+import FavoritesPage from "./pages/account/FavoritesPage";
+import MessengerPage from "./pages/account/MessengerPage";
+import SettingsPage from "./pages/account/SettingsPage";
+
+/* Страницы управления объявлениями */
+import ListingEditPage from "./pages/account/listing/ListingEditPage";
+import ListingCreatePage from "./pages/account/listing/ListingCreatePage";
+import ListingDraftsPage from "./pages/account/listing/ListingDraftsPage";
 
 import PrivateRoute from "./components/PrivateRoute";
 import RouteLogger from "./components/logging/RouteLogger";
@@ -51,6 +57,7 @@ const AppRouter = () => {
                             <Route path="settings" element={<SettingsPage />} />
 
                             <Route path="listing/create" element={<ListingCreatePage />} />
+                            <Route path="listing/drafts" element={<ListingDraftsPage />} />
                             <Route path="listing/edit/:id" element={<ListingEditPage />} />
                         </Route>
                     </Route>
