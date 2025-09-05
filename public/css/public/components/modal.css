@@ -14,22 +14,14 @@ p {
 }
 
 .modal {
-    position: fixed;
-    z-index: 1000;
-    visibility: hidden;
-    transform: translateY(-20px);
     transition: all 0.2s ease;
 }
 
-.modal.active {
-    transform: translateY(0);
-    visibility: visible;
-}
-
 .modal-content {
-    background: white;
+    border: 2px solid var(--border-color);
+    background: var(--color-bg-body);
     padding: 2rem;
-    max-width: 400px;
+    max-width: 500px;
     margin: auto;
     border-radius: 10px;
     text-align: center;
@@ -50,7 +42,7 @@ p {
     top: 0;
     justify-content: center;
     align-items: center;
-    display: none;
+    display: flex;
 }
 
 

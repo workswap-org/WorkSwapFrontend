@@ -1,7 +1,7 @@
 const ListingDraftsPage = () => {
     return (
         <div>
-            {/* ListingDraftsPage content goes here */}
+            <span>Тут типа должны быть черновики объявлений пользователя</span>
         </div>
     );
 };

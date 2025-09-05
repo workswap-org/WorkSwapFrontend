@@ -16,14 +16,7 @@ export default defineConfig({
         },
     },
     server: {
-        port: 8080,
-        proxy: {
-            "/proxy": {
-                target: "http://localhost:8083", // твой backend
-                changeOrigin: true,
-                secure: false,
-            },
-        },
+        port: 8080
     },
     define: {
         global: 'window'

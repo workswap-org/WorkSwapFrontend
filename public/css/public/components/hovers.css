@@ -1,0 +1,9 @@
+.hover:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.281) !important;
+}
+
+.red-hover:hover {
+    cursor: pointer;
+    background-color: rgba(117, 50, 50, 0.493) !important;
+}

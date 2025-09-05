@@ -1,5 +1,50 @@
 @import url(../components/listing-page/images-grid.css);
 
+.lang-cards {
+    display: inline-flex;
+    gap: 0.5rem;
+}
+
+.lang-card {
+    border: 3px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    text-align: center;
+    width: 100px;
+    position: relative;
+}
+
+.lang-card.create {
+    border: 3px dashed var(--border-color);
+}
+
+.lang-card .delete-lang {
+    position: absolute;
+    background-color: var(--color-bg-body);
+    border-radius: 6px;
+    border-width: 0;
+    right: 0.5rem;
+    padding: 0.3rem 0.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lang-options {
+    background-color: var(--color-bg-body);
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    gap: 0.2rem;
+}
+
+.lang-options button {
+    background-color: var(--color-bg-body);
+    color: var(--text-color);
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+}
+
 .indicator {
     text-align: center;
     border-radius: 40%;

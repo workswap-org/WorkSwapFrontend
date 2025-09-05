@@ -2,22 +2,24 @@ import { useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useNotification } from "@/contexts/notifications/NotificationContext";
 
-const ListingImagesUploader = ({ initialImages = [], initialMainImage = "" }) => {
+const ListingImagesUploader = ({ onChange, images, initialMainImage = "", listingId }) => {
 
     const notificate = useNotification();
 
-    const [imagesList, setImagesList] = useState(initialImages);
+    const [imageList, setImageList] = useState(images);
+
     const [mainImage, setMainImage] = useState(initialMainImage);
 
     // Добавляем новое изображение
-    const addListingImageUrl = (url) => {
-        setImagesList(prev => [...prev, url]);
+    const addListingImageUrl = (newImage) => {
+        setImageList(prev => [...prev, newImage]);
+        onChange(imageList);
     };
 
     // Удаляем изображение
-    const deleteListingImageUrl = (url) => {
-        setImagesList(prev => prev.filter(item => item !== url));
-        if (mainImage === url) setMainImage(""); // если основное изображение удалено
+    const deleteListingImageUrl = (img) => {
+        setImageList(prev => prev.filter(item => item.path !== img.path));
+        if (mainImage === img.path) setMainImage(""); // если основное изображение удалено
     };
 
     // Загрузка нового изображения
@@ -26,7 +28,7 @@ const ListingImagesUploader = ({ initialImages = [], initialMainImage = "" }) =>
             const formData = new FormData();
             formData.append("image", file);
 
-            const data = await apiFetch("/api/upload/listing-image", {
+            const data = await apiFetch(`/api/cloud/upload/listing-image?listingId=${listingId}`, {
                 method: "POST",
                 body: formData
             }, {});
@@ -37,7 +39,12 @@ const ListingImagesUploader = ({ initialImages = [], initialMainImage = "" }) =>
                 return;
             }
 
-            addListingImageUrl(data.imageUrl);
+            const newImage = {
+                id: data.imageId,
+                path: data.imageUrl
+            }
+
+            addListingImageUrl(newImage);
             if (!mainImage) setMainImage(data.imageUrl); // если основное еще не выбрано
 
             return data.url;
@@ -48,14 +55,18 @@ const ListingImagesUploader = ({ initialImages = [], initialMainImage = "" }) =>
     };
 
     // Удаление изображения с сервера
-    const deleteListingImage = async (url) => {
+    const deleteListingImage = async (img) => {
         try {
-            const response = await apiFetch(`/proxy/secure/cloud/delete/listing-image?imageUrl=${encodeURIComponent(url)}`, {
+            const response = await apiFetch(`/api/cloud/delete/listing-image`, {
                 method: "DELETE"
+            }, {
+                imageUrl: encodeURIComponent(img.path),
+                imageId: img.id
             });
 
-            if (!response.ok) throw new Error(`Ошибка при удалении: ${response.statusText}`);
-            deleteListingImageUrl(url);
+            if (!response.message) throw new Error(`Ошибка при удалении: ${response.statusText}`);
+            deleteListingImageUrl(img);
+            notificate(response.message, "success")
             return true;
         } catch (error) {
             console.error("Ошибка удаления:", error);
@@ -77,11 +88,11 @@ const ListingImagesUploader = ({ initialImages = [], initialMainImage = "" }) =>
             <input type="hidden" name="mainImageUrl" value={mainImage} />
             <div className="image-gallery">
                 <div className="image-gallery-grid">
-                    {imagesList.map((url) => (
-                        <div key={url} className="image-item col-md-3 mb-3">
+                    {imageList.map((img) => (
+                        <div key={img.id} className="image-item col-md-3 mb-3">
                             <div className="card">
                                 <img
-                                    src={url}
+                                    src={img.path}
                                     onError={(e) => e.target.src = "/images/default-listing.png"}
                                     className="card-img-top img-thumbnail"
                                 />
@@ -90,14 +101,14 @@ const ListingImagesUploader = ({ initialImages = [], initialMainImage = "" }) =>
                                         <button
                                             type="button"
                                             className="btn btn-outline-primary"
-                                            onClick={() => setMainImage(url)}
+                                            onClick={() => setMainImage(img.path)}
                                         >
                                             <i className="fa-solid fa-star c-primary"></i>
                                         </button>
                                         <button
                                             type="button"
                                             className="btn btn-outline-danger"
-                                            onClick={() => deleteListingImage(url)}
+                                            onClick={() => deleteListingImage(img)}
                                         >
                                             <i className="fa-solid fa-trash c-danger"></i>
                                         </button>
@@ -123,9 +134,6 @@ const ListingImagesUploader = ({ initialImages = [], initialMainImage = "" }) =>
                     Выбрать файлы
                 </label>
             </div>
-
-            {/* Скрытое поле для отправки всех изображений на сервер */}
-            <input type="hidden" name="images" value={imagesList.join(",")} />
         </div>
     );
 };

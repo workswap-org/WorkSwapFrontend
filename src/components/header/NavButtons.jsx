@@ -54,7 +54,7 @@ const NavButtons = ({ user, onLogout }) => {
             {/* Для неавторизованных */}
             {!isAuthenticated && (
                 <Link
-                    t="/login"
+                    to="/login"
                     style={{ display: "flex", flexDirection: "row" }}
                     className="btn btn-outline-primary"
                 >

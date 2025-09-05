@@ -5,38 +5,80 @@ import { apiFetch } from "@/lib/apiClient";
 import ListingImagesUploader from "./ListingImagesUploader";
 import "#/css/public/pages/listing-edit-page.css"
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useNavigate } from "react-router-dom";
+import ListingTranslations from "./ListingTranslations";
 
 const ListingEditPage = () => {
 
     const { id } = useParams();
 
     const notificate = useNotification();
+    const navigate = useNavigate();
 
     const [priceTypes, setPriceTypes] = useState([])
     const [listing, setListing] = useState([])
 
+    const [saving, setSaving] = useState(false);
     const [locationId, setLocationId] = useState([]);
     const [categoryId, setCategoryId] = useState([]);
+    const [images, setImages] = useState([]);
     const [price, setPrice] = useState(listing?.price || "");
     const [selectedPriceType, setSelectedPriceType] = useState("");
+
+    const translationsChange = (tranlation) => {
+        console.log("[T] Перевод:", tranlation);
+        setSaving(true);
+        updateListing({translation: tranlation});
+    }
 
     const categoryChange = (lastId, path) => {
         console.log("[C] Последний выбранный:", lastId);
         console.log("[C] Путь:", path);
+        setSaving(true);
         updateListing({category: lastId});
     }
 
     const locationChange = (lastId, path) => {
         console.log("[L] Последний выбранный:", lastId);
         console.log("[L] Путь:", path);
+        setSaving(true);
         updateListing({location: lastId});
+    }
+
+    const imagesChange = (images) => {
+        console.log("[I] Изображения:", images);
+        setImages(images);
     }
 
     function changePrice(price) {
         setPrice(price);
+        setSaving(true);
         updateListing({price: price});
+    }
+
+    function changePriceType(type) {
+        setSelectedPriceType(type);
+        setSaving(true);
+        updateListing({priceType: type});
+    }
+
+    async function publishListing() {
+        const data = await apiFetch(`/api/listing/publish/${id}`, {method: 'POST'});
+        if (data.message) {
+            notificate(data.message, 'success');
+            navigate(`/secure/my-listings`);
+        }
+    }
+
+    async function deleteDraft() {
+        const data = await apiFetch(`/api/listing/delete/${id}`, {method: 'DELETE'});
+        if (data.message) {
+            notificate(data.message, 'success');
+            navigate(`/secure/my-listings`);
+        }
     }
 
     useEffect(() => {
@@ -53,11 +95,17 @@ const ListingEditPage = () => {
 
         async function loadListing() {
             const data = await apiFetch(`/api/listing/get/${id}`)
-            console.log(await data)
+            console.log(data);
             setListing(data.listing);
         }
 
+        async function loadImages() {
+            const data = await apiFetch(`/api/listing/images/${id}`)
+            setImages(data.images);
+        }
+
         loadListing();
+        loadImages();
     }, [id]);
 
     useEffect(() => {
@@ -87,7 +135,7 @@ const ListingEditPage = () => {
             });
 
             if (res.message) {
-                notificate(res.message, "success");
+                setSaving(false);
             } else {
                 notificate("Ошибка обновления объявления", "error");
             }
@@ -101,6 +149,9 @@ const ListingEditPage = () => {
         <>
             <div className="account-header">
                 <h2>Управление объявлением</h2>
+                {saving && (
+                    <i className="fa-regular fa-download fa-spin fa-spin-reverse fa-2xl"></i>
+                )}
                 {listing.temporary && 
                     <p>(Опубликовано)</p>
                 } 
@@ -116,6 +167,10 @@ const ListingEditPage = () => {
                         <span th:text="${listing.active} ? #{listing.editing.status.enable} : #{listing.editing.status.disable}"></span>
                     </div>
                 </div> */}
+
+                <div className="form-group" style={{gridColumn: 'span 2'}}>
+                    <ListingTranslations id={id} onChange={translationsChange} />
+                </div>
 
                 <div className="form-group">
                     <label htmlFor="price">Цена</label>
@@ -139,7 +194,7 @@ const ListingEditPage = () => {
                         className="form-control"
                         required
                         value={selectedPriceType}
-                        onChange={(e) => setSelectedPriceType(e.target.value)}
+                        onChange={(e) => changePriceType(e.target.value)}
                     >
                         <option value="" disabled>Выберите тип цены</option>
                         {priceTypes.map((type) => (
@@ -161,7 +216,35 @@ const ListingEditPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <ListingImagesUploader/>
+                    <ListingImagesUploader images={images} onChange={imagesChange} listingId={id}/>
+                </div>
+
+                <div class="form-actions" style={{gridColumn: 'span 2'}} >
+                    {listing.temporary && (
+                        <button 
+                            onClick={() => deleteDraft()}  
+                            type="button" 
+                            class="btn btn-outline-primary"
+                        >Очистить</button>
+                    )}
+                    {!listing.temporary && (
+                        <button 
+                            onClick={() => deleteDraft()}  
+                            type="button" 
+                            class="btn btn-outline-primary"
+                        >Удалить объявление</button>
+                    )}
+                    <Link to="/secure/listing/drafts" type="button" class="btn btn-outline-primary">Перейти к черновикам</Link>
+                    {listing.temporary && (
+                        <button 
+                            onClick={() => publishListing()} 
+                            type="button" 
+                            class="btn btn-primary"
+                        >Опубликовать</button>
+                    )}
+                    {!listing.temporary && (
+                        <h4 style={{margin: 'auto 0'}}>(Опубликованно)</h4>
+                    )}
                 </div>
             </div>
         </>
