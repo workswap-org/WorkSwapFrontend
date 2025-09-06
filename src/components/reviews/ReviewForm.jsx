@@ -39,7 +39,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
             <div id="review-form">
                 <div className="form-row">
                     <div className="rating-group">
-                        <label htmlFor="rating" th:text="#{reviews.rating}">Оценка</label>
+                        <label htmlFor="rating-stars" th:text="#{reviews.rating}">Оценка</label>
                         <div className="listing-rating" id="rating-stars">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <i

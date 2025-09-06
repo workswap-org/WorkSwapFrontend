@@ -2,7 +2,6 @@ import "#/css/public/pages/listing-page.css";
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import ListingRating from "@/components/small-components/ListingRating"
 import PriceTypes from "@/components/small-components/PriceTypes"
 import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
@@ -11,9 +10,6 @@ import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 
 const ListingPage = () => {
 
-    const { i18n } = useTranslation();
-    const userLocale = i18n.language || "ru";
-
     const { id } = useParams();
 
     const [listing, setListing] = useState([]);
@@ -21,14 +17,12 @@ const ListingPage = () => {
 
     useEffect(() => {
         async function loadListing() {
-            const data = await apiFetch(`/api/listing/get/${id}`, {
-                locale: userLocale
-            });
-            setListing(await data);
+            const data = await apiFetch(`/api/listing/get/${id}`);
+            setListing(data.listing);
         }
 
         loadListing();
-    }, [id, userLocale])
+    }, [id])
 
     useEffect(() => {
         async function loadListingAuthor(authorId) {
@@ -193,10 +187,12 @@ const ListingPage = () => {
                     <ReviewsSection listingId={listing.id} profileId='' />
 
                     {/* Похожие объявления */}
-                    <section className="similar-listings">
-                        <h2>Похожие объявления</h2>
-                        <CatalogContent mainListingId={listing.id} params={params}/>
-                    </section>
+                    {listing.category && (
+                        <section className="similar-listings">
+                            <h2>Похожие объявления</h2>
+                            <CatalogContent mainListingId={listing.id} params={params}/>
+                        </section>
+                    )}
                 </main>
             </div>
         </div>

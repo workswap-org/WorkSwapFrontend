@@ -1,8 +1,11 @@
 import PriceTypes from "@/components/small-components/PriceTypes";
 import ListingRating from "@/components/small-components/ListingRating";
+import { useNavigate } from "react-router-dom";
 
 const PublicListingCard = ({listing, isMainListing}) => {
 
+    const navigate = useNavigate();
+    
     if (
         listing.testMode ||
         isMainListing
@@ -11,7 +14,7 @@ const PublicListingCard = ({listing, isMainListing}) => {
     }
 
     return (
-        <article className="listing-card hover-animation-card">
+        <article onClick={() => navigate(`/listing/${listing.id}`)} className="listing-card hover-animation-card">
             <img 
                 src={listing.imagePath || "/images/default-listing.png"}
                 className="listing-img" 

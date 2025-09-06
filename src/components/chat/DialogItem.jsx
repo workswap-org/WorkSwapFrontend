@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "../../lib/apiClient";
+import { apiFetch } from "@/lib/apiClient";
 
 const DialogItem = ({ chat, onClick }) => {
     const [interlocutor, setInterlocutor] = useState({ name: "User", avatar: "/images/avatar-placeholder.png" });

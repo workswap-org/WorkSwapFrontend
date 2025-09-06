@@ -19,11 +19,14 @@ const UserInfoSidebar = ( {listingId, author} ) => {
 
     useEffect(() => {
 
-        const params = new URLSearchParams({ sellerId: author.id });
-        if (listingId) params.append("listingId", listingId);
+        if (!author.id) return;
+
+        const params = {};
+        if (author.id) params.sellerId = author.id;
+        if (listingId) params.listingId = listingId;
 
         async function getChat() {
-            const data = await apiFetch(`/api/chat/get?${params.toString()}`);
+            const data = await apiFetch(`/api/chat/get`, {}, params);
             setChat(await data.chatId);
         }
 
