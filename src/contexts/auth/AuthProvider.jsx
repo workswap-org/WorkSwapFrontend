@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AuthContext } from "./AuthContext";
 import { apiFetch } from "@/lib/apiClient";
 
@@ -7,29 +7,43 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const init = async () => {
-            try {
-                const res = await apiFetch("/api/user/current");
-                setUser(await res.user);
-                setAccessToken(localStorage.getItem("accessToken")); // если есть в localStorage
-            } catch (e) {
-                console.error(e);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const loadUser = useCallback(async () => {
+        try {
+            const res = await apiFetch("/api/user/current");
+            setUser(res.user);
+            setAccessToken(localStorage.getItem("accessToken"));
+        } catch (e) {
+            console.error(e);
+            setUser(null);
+            setAccessToken(null);
+        } finally {
+            setLoading(false);
+        }
+    }, []); // нет зависимостей → всегда одна и та же ссылка
 
-        init();
-    }, []);
+    useEffect(() => {
+        loadUser();
+    }, [loadUser]);
 
     useEffect(() => {
         if (accessToken) localStorage.setItem("accessToken", accessToken);
         else localStorage.removeItem("accessToken");
     }, [accessToken]);
 
+    const logout = async () => {
+        try {
+            await apiFetch("/api/auth/logout", { method: "POST" }); // запрос на сервер
+        } catch (e) {
+            console.error("Logout failed", e);
+        } finally {
+            setAccessToken(null);
+            setUser(null);
+            localStorage.removeItem("accessToken");
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{ accessToken, setAccessToken, user, setUser, loading }}>
+        <AuthContext.Provider value={{ accessToken, setAccessToken, user, setUser, loading, logout, loadUser }}>
             {children}
         </AuthContext.Provider>
     );

@@ -3,7 +3,7 @@ import NavButtons from "./NavButtons";
 import ThemeChanger from "@/components/ThemeChanger";
 import { Link } from "react-router-dom";
 
-const Header = ({ isEmpty, activePage, user, onLogout }) => {
+const Header = ({ isEmpty, activePage }) => {
 
     if (isEmpty) {
         return (
@@ -36,7 +36,7 @@ const Header = ({ isEmpty, activePage, user, onLogout }) => {
                             </button>
                         </nav>
 
-                        <NavButtons user={user} onLogout={onLogout} />
+                        <NavButtons />
 
                         <div className="account-manager">
                             <AccountSidebarLinks activePage={activePage}/>

@@ -3,10 +3,13 @@ import Avatar from "@/components/small-components/Avatar";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import NotificationsContainer from "../notifications/NotificationsContainer";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
-const NavButtons = ({ user, onLogout }) => {
+const NavButtons = () => {
 
     const { t } = useTranslation();
+
+    const { user, logout } = useAuth();
 
     const isAuthenticated = !!user;
     const isAdmin = user?.role === "ADMIN"; // или как у тебя хранится роль
@@ -64,10 +67,7 @@ const NavButtons = ({ user, onLogout }) => {
                     </Link>
                     <button
                         className="logout-btn"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            onLogout();
-                        }}
+                        onClick={logout}
                     >
                         <i className="fa fa-arrow-left-from-bracket fa-lg" aria-hidden="true"></i>
                     </button>

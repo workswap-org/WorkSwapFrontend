@@ -2,7 +2,6 @@ import { useLocation, Outlet } from "react-router-dom";
 import Header from "@/components/header/Header";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import "#/css/public/components/base.css";
-import { apiFetch } from "@/lib/apiClient";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ActivePageContext from "@/contexts/ActivePageContext";
 import EmptyPage from "../pages/EmptyPage";
@@ -10,7 +9,7 @@ import EmptyPage from "../pages/EmptyPage";
 export default function Layout() {
     const location = useLocation();
 
-    const { user, loading } = useAuth();
+    const { loading } = useAuth();
 
     const activePage = (() => {
         if (location.pathname.startsWith("/catalog")) return "catalog";
@@ -28,20 +27,13 @@ export default function Layout() {
         return "catalog";
     })();
 
-    const handleLogout = () => {
-        apiFetch("/logout", { method: "POST", credentials: "include" }).then(() => {});
-    };
-
     return (
         <ActivePageContext.Provider value={activePage}>
             {loading ? (
                 <EmptyPage />
             ) : (
                 <>
-                    <Header
-                    user={user || undefined}
-                    onLogout={handleLogout}
-                    />
+                    <Header />
 
                     <Outlet />
                 </>
