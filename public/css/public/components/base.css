@@ -82,6 +82,10 @@ li {
     margin-left: 2.5rem;
 }
 
+input[type="number"] {
+    max-width: none !important;
+}
+
 .admin-form-control input[type="file"] {
     display: none;
 }

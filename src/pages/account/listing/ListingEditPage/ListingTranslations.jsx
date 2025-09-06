@@ -2,12 +2,20 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 
 const ListingTranslations = ({ id, onChange }) => {
+    const [initialized, setInitialized] = useState(false);
+
     const [translations, setTranslations] = useState({});
     const [currentLang, setCurrentLang] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [showLangButtons, setShowLangButtons] = useState(false);
     const [langs, setLangs] = useState([])
+
+    useEffect(() => {
+        if (initialized) {
+            onChange?.(translations);
+        }
+    }, [translations, initialized, onChange]);
 
     useEffect(() => {
         async function loadLanguages() {
@@ -17,22 +25,15 @@ const ListingTranslations = ({ id, onChange }) => {
 
         async function loadListingTranslations() {
             const data = await apiFetch(`/api/listing/translations/${id}`);
-            console.log(data);
-            const newTranslations = data.translations.reduce((acc, translation) => {
-                const lang = Object.keys(translation)[0];
-                acc[lang] = {
-                    title: translation[lang].title,
-                    description: translation[lang].description,
-                };
-                return acc;
-            }, {});
-            console.log(newTranslations);
-            setTranslations(newTranslations);
+            if (data.translations) {
+                setTranslations(data.translations);
+            }
+            setInitialized(true); // включаем после загрузки
         }
 
         loadListingTranslations();
         loadLanguages();
-    }, [id])
+    }, [id]);
 
     const handleAddLanguage = () => {
         if (!currentLang) return;
@@ -43,7 +44,6 @@ const ListingTranslations = ({ id, onChange }) => {
         };
 
         setTranslations(updated);
-        onChange?.(updated);
 
         // сбрасываем форму
         setCurrentLang("");
@@ -64,8 +64,7 @@ const ListingTranslations = ({ id, onChange }) => {
     const handleDelete = (lang) => {
         const updated = { ...translations };
         delete updated[lang];
-        setTranslations(updated);
-        onChange?.(updated);
+        setTranslations(updated);;
 
         if (lang === currentLang) {
             setCurrentLang("");
@@ -115,6 +114,9 @@ const ListingTranslations = ({ id, onChange }) => {
                         </div>
                     )}
                 </div>
+                {translations.length === 0 && (
+                    <span>бебебе</span>
+                )}
             </div>
 
             {currentLang && (

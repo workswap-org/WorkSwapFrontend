@@ -31,7 +31,6 @@
 
     --sticky-z-index: 1020;
 
-    /* Новые переменные, которых не хватало (смягчённые оттенки) */
     --success-light: #e6f7f0;
     --success-dark: #0f766e;
 
@@ -39,6 +38,7 @@
     --warning-dark: #b45309;
 
     --danger: #f87171;
+    --danger-dark: #d83f3f;
 
     /* Перманентные цвета */
 
@@ -63,6 +63,7 @@
     --accent-color: #66b2ff;
     --border-color: #525252;
 
+    --danger-dark: #e9a3a3;
     --primary-light: #4a4e94;
     --primary: #8b8db3;
     --primary-dark: #aaa8cf;

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { NotificationContext } from "./NotificationContext";
 import PopupNotification from "@/components/notifications/PopupNotification";
@@ -7,7 +7,11 @@ export const NotificationProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([]);
     const nodeRefs = useRef({}); // хранить refs по id уведомлений
 
-    const notificate = (message, type = "info") => {
+    const deleteNotification = useCallback((id) => {
+        setNotifications((prev) => prev.filter(n => n.id !== id));
+    }, []);
+
+    const notificate = useCallback((message, type = "info") => {
         const id = Date.now();
         const notification = { id, message, type };
         setNotifications((prev) => [...prev, notification]);
@@ -15,12 +19,7 @@ export const NotificationProvider = ({ children }) => {
         setTimeout(() => {
             deleteNotification(id);
         }, 30000);
-    };
-
-    const deleteNotification = (id) => {
-        setNotifications((prev) => prev.filter((n) => n.id !== id));
-        delete nodeRefs.current[id]; // чистим ref после удаления
-    };
+    }, [deleteNotification]);
 
     return (
         <NotificationContext.Provider value={notificate}>

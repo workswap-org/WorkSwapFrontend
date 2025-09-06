@@ -103,14 +103,10 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     border-radius: var(--radius);
     z-index: 1000;
-    display: none;
+    display: flex;
     flex-direction: column;
     transition: all 0.2s;
     color: var(--text-color);
-}
-
-.notification-center-dropdown.visible {
-    display: flex;
 }
 
 .notification-center-header {

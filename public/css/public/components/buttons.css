@@ -20,6 +20,17 @@
     color: var(--color-bg-body);
 }
 
+.btn-danger {
+    border-width: 0;
+    background-color: var(--danger);
+    color: var(--color-bg-body);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-dark);
+    color: var(--color-bg-body);
+}
+
 .btn-outline-primary {
     border: 1px solid var(--primary);
     color: var(--primary);
@@ -105,4 +116,12 @@
     color: var(--color-bg-body);
     max-width: 80px;
     margin-bottom: 0;
+}
+
+.like {
+    color: var(--danger) !important;
+}
+
+.like:hover {
+    color: var(--danger-dark) !important;
 }

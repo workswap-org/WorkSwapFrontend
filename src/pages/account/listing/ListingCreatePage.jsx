@@ -47,7 +47,7 @@ export default function ListingCreatePage() {
         }
 
         loadDrafts();
-    }, [navigate]);
+    }, [navigate, notificate]);
 
     return <p>Создаём объявление...</p>;
 }

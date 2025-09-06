@@ -1,6 +1,6 @@
 import CategorySelector from "@/components/selectors/CategorySelector";
 import LocationSelector from "@/components/selectors/LocationSelector";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import ListingImagesUploader from "./ListingImagesUploader";
 import "#/css/public/pages/listing-edit-page.css"
@@ -28,42 +28,74 @@ const ListingEditPage = () => {
     const [price, setPrice] = useState(listing?.price || "");
     const [selectedPriceType, setSelectedPriceType] = useState("");
 
-    const translationsChange = (tranlation) => {
-        console.log("[T] Перевод:", tranlation);
-        setSaving(true);
-        updateListing({translation: tranlation});
-    }
+    /**
+     * Обновляет объявление по id
+     * @param {number|string} listingId - ID объявления
+     * @param {Object} updates - Объект с полями для обновления
+     * @returns {Promise<Object>} - обновлённое объявление
+     */
+    const updateListing = useCallback(async (updates) => {
+        try {
+            const res = await apiFetch(`/api/listing/modify/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updates),
+            });
 
-    const categoryChange = (lastId, path) => {
+            if (res.message) {
+                setSaving(false);
+            } else {
+                notificate("Ошибка обновления объявления", "error");
+            }
+        } catch (err) {
+            notificate("Ошибка обновления объявления", "error");
+            throw err;
+        }
+    }, [id, notificate]);
+    
+    const translationsChange = useCallback((translation) => {
+        console.log("[T] Перевод:", translation);
+        setSaving(true);
+        updateListing({ translation });
+    }, [updateListing]);
+
+    // categoryChange
+    const categoryChange = useCallback((lastId, path) => {
         console.log("[C] Последний выбранный:", lastId);
         console.log("[C] Путь:", path);
         setSaving(true);
-        updateListing({category: lastId});
-    }
+        updateListing({ category: lastId });
+    }, [updateListing]);
 
-    const locationChange = (lastId, path) => {
+    // locationChange (у тебя уже был)
+    const locationChange = useCallback((lastId, path) => {
         console.log("[L] Последний выбранный:", lastId);
         console.log("[L] Путь:", path);
         setSaving(true);
-        updateListing({location: lastId});
-    }
+        updateListing({ location: lastId });
+    }, [updateListing]);
 
-    const imagesChange = (images) => {
+    // imagesChange
+    const imagesChange = useCallback((images) => {
         console.log("[I] Изображения:", images);
         setImages(images);
-    }
+    }, []); // setImages из useState стабилен
 
-    function changePrice(price) {
+    // changePrice
+    const changePrice = useCallback((price) => {
         setPrice(price);
         setSaving(true);
-        updateListing({price: price});
-    }
+        updateListing({ price });
+    }, [updateListing]);
 
-    function changePriceType(type) {
+    // changePriceType
+    const changePriceType = useCallback((type) => {
         setSelectedPriceType(type);
         setSaving(true);
-        updateListing({priceType: type});
-    }
+        updateListing({ priceType: type });
+    }, [updateListing]);
 
     async function publishListing() {
         const data = await apiFetch(`/api/listing/publish/${id}`, {method: 'POST'});
@@ -117,34 +149,6 @@ const ListingEditPage = () => {
 
     }, [listing]);
 
-    /**
-     * Обновляет объявление по id
-     * @param {number|string} listingId - ID объявления
-     * @param {Object} updates - Объект с полями для обновления
-     * @returns {Promise<Object>} - обновлённое объявление
-     */
-    async function updateListing(updates) {
-
-        try {
-            const res = await apiFetch(`/api/listing/modify/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updates),
-            });
-
-            if (res.message) {
-                setSaving(false);
-            } else {
-                notificate("Ошибка обновления объявления", "error");
-            }
-        } catch (err) {
-            notificate("Ошибка обновления объявления", "error");
-            throw err;
-        }
-    }
-
     return (
         <>
             <div className="account-header">
@@ -179,7 +183,7 @@ const ListingEditPage = () => {
                         type="number"
                         id="price"
                         name="price"
-                        value={price}
+                        value={price ?? ""}
                         onChange={(e) => changePrice(e.target.value)}
                         step="0.01"
                         required
@@ -193,7 +197,7 @@ const ListingEditPage = () => {
                         name="priceType"
                         className="form-control"
                         required
-                        value={selectedPriceType}
+                        value={selectedPriceType ?? ""}
                         onChange={(e) => changePriceType(e.target.value)}
                     >
                         <option value="" disabled>Выберите тип цены</option>
@@ -219,27 +223,27 @@ const ListingEditPage = () => {
                     <ListingImagesUploader images={images} onChange={imagesChange} listingId={id}/>
                 </div>
 
-                <div class="form-actions" style={{gridColumn: 'span 2'}} >
+                <div className="form-actions" style={{gridColumn: 'span 2'}} >
                     {listing.temporary && (
                         <button 
                             onClick={() => deleteDraft()}  
                             type="button" 
-                            class="btn btn-outline-primary"
+                            className="btn btn-outline-primary"
                         >Очистить</button>
                     )}
                     {!listing.temporary && (
                         <button 
                             onClick={() => deleteDraft()}  
                             type="button" 
-                            class="btn btn-outline-primary"
+                            className="btn btn-outline-primary"
                         >Удалить объявление</button>
                     )}
-                    <Link to="/secure/listing/drafts" type="button" class="btn btn-outline-primary">Перейти к черновикам</Link>
+                    <Link to="/secure/listing/drafts" type="button" className="btn btn-outline-primary">Перейти к черновикам</Link>
                     {listing.temporary && (
                         <button 
                             onClick={() => publishListing()} 
                             type="button" 
-                            class="btn btn-primary"
+                            className="btn btn-primary"
                         >Опубликовать</button>
                     )}
                     {!listing.temporary && (

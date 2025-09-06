@@ -30,6 +30,11 @@
     font-size: 1.1rem;
     white-space: normal;
     overflow: hidden;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .listing-card-footer {
@@ -106,14 +111,6 @@
     gap: 0.5rem;
     align-items: center;
     justify-content: space-between;
-}
-
-.listing-actions .btn {
-    height: 32px; /* Фиксированная высота */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap; /* Текст не переносится */
 }
 
 .partner-sign {
@@ -212,6 +209,68 @@
     width: 500px;
     height: max-content;
     z-index: 100;
+}
+
+.draft-listing-card {
+    display: flex;
+    flex-direction: column;
+
+    border: 3px solid var(--border-color);
+    border-radius: var(--radius);
+    width: 100%;
+    overflow: hidden;
+
+    transition: all 0.2s ease;
+}
+
+.draft-listing-card.new {
+    align-items: center;
+    justify-content: center;
+    border-style: dashed;
+    border-width: 4px;
+}
+
+.draft-listing-card:hover {
+    border-color: var(--primary);
+    cursor: pointer;
+}
+
+.draft-listing-card-img {
+    height: 120px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.draft-listing-card-body {
+    padding: 0.5rem;
+}
+
+.overlay-listing-actions {
+    position: absolute;
+    width: max-content;
+    z-index: 100;
+
+    top: 0.7rem;
+    right: 0.7rem;
+    display: inline-flex;
+    gap: 0.5rem;
+
+    transition: all 0.2s ease;
+
+    opacity: 0.5;
+}
+
+.listing-card:hover .overlay-listing-actions{
+    opacity: 1;
+}
+
+.overlay-listing-actions * {
+    height: 32px; /* Фиксированная высота */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Текст не переносится */
 }
 
 

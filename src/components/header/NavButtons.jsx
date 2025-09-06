@@ -2,6 +2,7 @@ import ThemeChanger from "@/components/ThemeChanger";
 import Avatar from "@/components/small-components/Avatar";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import NotificationsContainer from "../notifications/NotificationsContainer";
 
 const NavButtons = ({ user, onLogout }) => {
 
@@ -18,26 +19,13 @@ const NavButtons = ({ user, onLogout }) => {
                 </div>
 
                 {isAuthenticated && (
-                    <Link to="/secure/messenger" className="nav-link">
-                        <i className="fa-solid fa-comments-question fa-lg" style={{ lineHeight: "normal" }}></i>
-                    </Link>
-                )}
+                    <>
+                        <Link to="/secure/messenger" className="nav-link">
+                            <i className="fa-solid fa-comments-question fa-lg" style={{ lineHeight: "normal" }}></i>
+                        </Link>
 
-                {isAuthenticated && (
-                    <div className="notification-container">
-                        <button className="nav-link" id="notificationBtn">
-                            <i className="fa fa-bell fa-lg" aria-hidden="true"></i>
-                            <div id="unreadNotifications" className="unread-notifications-count" style={{ display: "none" }}></div>
-                        </button>
-
-                        {/* Выпадающее окно с уведомлениями */}
-                        <div id="notificationDropdown" className="notification-center-dropdown hidden">
-                            <div className="notification-center-header">Уведомления</div>
-                            <div id="notificationList" className="notification-center-list">
-                                <p className="no-notifications">Загрузка...</p>
-                            </div>
-                        </div>
-                    </div>
+                        <NotificationsContainer/>
+                    </>
                 )}
 
                 {isAdmin && (

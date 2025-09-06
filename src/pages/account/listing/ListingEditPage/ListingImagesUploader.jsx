@@ -7,7 +7,6 @@ const ListingImagesUploader = ({ onChange, images, initialMainImage = "", listin
     const notificate = useNotification();
 
     const [imageList, setImageList] = useState(images);
-
     const [mainImage, setMainImage] = useState(initialMainImage);
 
     // Добавляем новое изображение
