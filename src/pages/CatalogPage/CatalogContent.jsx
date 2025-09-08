@@ -21,7 +21,7 @@ const CatalogContent = ({ mainListingId, params}) => {
     if (listings.length == 0) {
         return (
             <div className="no-listings">
-                <p th:text="#{no-listings}">Объявлений не найдено</p>
+                <p th:text="#{no-listings}">Объявлений не найдено.</p>
             </div>
         )
     }
