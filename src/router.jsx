@@ -6,10 +6,13 @@ import AccountLayout from "./layouts/AccountLayout";
 
 /* Страницы */
 import CatalogPage from "./pages/CatalogPage";
-import LoginPage from "./pages/LoginPage";
-import LoginSuccessPage from "./pages/LoginSuccessPage";
 import ListingPage from "./pages/ListingPage";
 import ProfilePage from "./pages/ProfilePage";
+
+/* Страницы логина */
+import LoginPage from "./pages/login/LoginPage";
+import RegisterPage from "./pages/login/RegisterPage";
+import LoginSuccessPage from "./pages/login/LoginSuccessPage";
 
 /* Страницы аккаунта */
 import AccountPage from "./pages/account/AccountPage";
@@ -32,6 +35,7 @@ const AppRouter = () => {
             <RouteLogger />
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login/success" element={<LoginSuccessPage />} />
                 <Route index element={<Navigate to="/catalog" replace />} />
 

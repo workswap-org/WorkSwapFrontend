@@ -1,8 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { AuthContext } from "./AuthContext";
 import { apiFetch } from "@/lib/apiClient";
+import { useNavigate } from "react-router-dom";
 
 export const AuthProvider = ({ children }) => {
+
+    const navigate = useNavigate();
+
     const [accessToken, setAccessToken] = useState(() => localStorage.getItem("accessToken"));
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -32,6 +36,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
+            navigate('/catalog');
             await apiFetch("/api/auth/logout", { method: "POST" }); // запрос на сервер
         } catch (e) {
             console.error("Logout failed", e);
