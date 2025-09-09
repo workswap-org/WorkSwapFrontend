@@ -23,11 +23,11 @@ const NavButtons = () => {
 
                 {isAuthenticated && (
                     <>
-                        <Link to="/secure/messenger" className="nav-link">
+                        {/* <Link to="/secure/messenger" className="nav-link">
                             <i className="fa-solid fa-comments-question fa-lg" style={{ lineHeight: "normal" }}></i>
-                        </Link>
+                        </Link> */}
 
-                        <NotificationsContainer/>
+                        <NotificationsContainer />
                     </>
                 )}
 
@@ -37,9 +37,9 @@ const NavButtons = () => {
                     </a>
                 )}
 
-                <Link to="/news" className="nav-link">
+                {/* <Link onClick={hideMobile} to="/news" className="nav-link">
                     Новости
-                </Link>
+                </Link> */}
             </div>
 
             {/* Для неавторизованных */}

@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { API_BASE } from "@/api/config";
 
 const LoginSuccessPage = () => {
-    const { loadUser, setAccessToken } = useAuth();
+    const { setAccessToken } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -21,12 +21,12 @@ const LoginSuccessPage = () => {
         .then(data => {
             setAccessToken(data.accessToken);
 
-            loadUser();
             const from = new URLSearchParams(location.search).get("redirect") || "/";
-            window.location.href = from;
+            console.log("from ", from);
+            navigate(from, { replace: true })
         })
         .catch(err => console.error("Auth failed:", err));
-    }, [setAccessToken, loadUser, navigate, location.search]);
+    }, [setAccessToken, navigate, location.search]);
 
     return <div>Загрузка...</div>;
 };

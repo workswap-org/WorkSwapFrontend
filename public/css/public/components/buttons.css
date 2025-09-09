@@ -53,6 +53,17 @@
     border-color: var(--primary-dark);
 }
 
+.btn-gold {
+    background-color: var(--gold);
+    color: var(--color-bg-body);
+    border: 1px solid var(--gold);
+}
+
+.btn-gold:hover {
+    background-color: var(--gold-dark);
+    border-color: var(--gold-dark);
+}
+
 .login-button {
     display: flex;
     flex-direction: row;
@@ -124,4 +135,41 @@
 
 .like:hover {
     color: var(--danger-dark) !important;
+}
+
+.overlay-actions.top {
+    top: 0.7rem;
+}
+
+.overlay-actions.right {
+    right: 0.7rem;
+}
+
+.overlay-actions.left {
+    left: 0.7rem;
+}
+
+.overlay-actions.bottom {
+    bottom: 0.7rem;
+}
+
+.overlay-actions {
+    position: absolute;
+    width: max-content;
+    z-index: 100;
+
+    display: inline-flex;
+    gap: 0.5rem;
+
+    transition: all 0.2s ease;
+
+    opacity: 0.5;
+}
+
+.overlay-actions * {
+    height: 32px; /* Фиксированная высота */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Текст не переносится */
 }

@@ -2,8 +2,11 @@ import AccountSidebarLinks from "@/components/account/AccountSidebarLinks";
 import NavButtons from "./NavButtons";
 import ThemeChanger from "@/components/ThemeChanger";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Header = ({ isEmpty, activePage }) => {
+
+    const [mobileVisible, setMobileVisible] = useState(false);
 
     if (isEmpty) {
         return (
@@ -15,6 +18,15 @@ const Header = ({ isEmpty, activePage }) => {
         );
     }
 
+    function mobileMenuToggle() {
+        setMobileVisible(!mobileVisible)
+    }
+
+    function hideMobile() {
+        setMobileVisible(false)
+    }
+
+
     return (
         <header>
             <div className="header-container">
@@ -24,14 +36,14 @@ const Header = ({ isEmpty, activePage }) => {
                         <div className="nav-link">
                             <ThemeChanger/>
                         </div>
-                        <button className="navbar-toggler">
+                        <button onClick={mobileMenuToggle} className="navbar-toggler">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                     </div>
-                    <div className="navbar-collapse">
+                    <div className={`navbar-collapse ${mobileVisible ? 'show' : ""}`}>
                         <nav className="navbar-top">
                             <Link className="navbar-brand" href="/catalog" to="#{brand}">WorkSwap</Link>
-                            <button id="navbar-toggler" className="navbar-toggler">
+                            <button onClick={mobileMenuToggle} className="navbar-toggler">
                                 <span className="navbar-toggler-icon"></span>
                             </button>
                         </nav>
@@ -39,7 +51,7 @@ const Header = ({ isEmpty, activePage }) => {
                         <NavButtons />
 
                         <div className="account-manager">
-                            <AccountSidebarLinks activePage={activePage}/>
+                            <AccountSidebarLinks hideMobile={hideMobile} activePage={activePage}/>
                         </div>
                     </div>
                 </nav>

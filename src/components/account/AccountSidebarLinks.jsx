@@ -1,7 +1,7 @@
 import { useActivePage } from "@/hooks/contexts/useActivePage";
 import { Link } from "react-router-dom";
 
-const AccountSidebarLinks = () => {
+const AccountSidebarLinks = ( { hideMobile } ) => {
     const activePage = useActivePage();
 
     const links = [
@@ -18,6 +18,7 @@ const AccountSidebarLinks = () => {
         <nav className="account-menu">
             {links.map((link) => (
                 <Link
+                    onClick={hideMobile}
                     key={link.key}
                     to={link.to}
                     className={`account-menu-item ${activePage === link.key ? "active" : ""}`}

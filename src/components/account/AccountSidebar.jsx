@@ -44,27 +44,27 @@ const AccountSidebar = () => {
                     size={100}
                     className='profile-avatar'
                 />
-                <h4 className="profile-name">{user.name}</h4>
+                <h4 className="profile-name">{user?.name}</h4>
                 <p className="profile-rating">
                     {Array.from({ length: 5 }, (_, i) => {
                         const starValue = i + 1;
 
-                        if (user.rating >= starValue) {
+                        if (user?.rating >= starValue) {
                             return <i className="fa-solid fa-star" key={starValue} ></i>;
-                        } else if (user.rating >= starValue - 0.5) {
+                        } else if (user?.rating >= starValue - 0.5) {
                             return <i className="fa-solid fa-star-half-stroke" key={starValue} ></i>;
                         } else {
                             return <i className="fa-regular fa-star" key={starValue} ></i>;
                         }
                     })}
-                    (<span>{user.rating}</span>)
+                    (<span>{user?.rating}</span>)
                 </p>
                 <a href="/secure/settings" className="btn btn-outline-primary btn-sm" th:text="#{profile.edit}">Редактировать профиль</a>
             </div>
 
             <AccountSidebarLinks/>
 
-            {!user.telegramConnected ? (
+            {!user?.telegramConnected ? (
                 <button th:if="${!user.telegramConnected}" className="telegram-button" id="connectTelegram" th:text="#{telegramm.connect}">Подключить Telegram</button>
             ) : null}
         </aside>

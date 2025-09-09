@@ -78,10 +78,12 @@ const ListingEditPage = () => {
     }, [updateListing]);
 
     // imagesChange
-    const imagesChange = useCallback((images) => {
+    const imagesChange = useCallback((images, mainImage) => {
         console.log("[I] Изображения:", images);
         setImages(images);
-    }, []); // setImages из useState стабилен
+        setSaving(true);
+        updateListing({ mainImage })
+    }, [updateListing]);
 
     // changePrice
     const changePrice = useCallback((price) => {
@@ -220,7 +222,7 @@ const ListingEditPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <ListingImagesUploader images={images} onChange={imagesChange} listingId={id}/>
+                    <ListingImagesUploader images={images} onChange={imagesChange} listing={listing}/>
                 </div>
 
                 <div className="form-actions" style={{gridColumn: 'span 2'}} >

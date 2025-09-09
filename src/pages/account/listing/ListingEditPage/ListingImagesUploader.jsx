@@ -1,18 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useNotification } from "@/contexts/notifications/NotificationContext";
 
-const ListingImagesUploader = ({ onChange, images, initialMainImage = "", listingId }) => {
+const ListingImagesUploader = ({ onChange, images, listing }) => {
 
     const notificate = useNotification();
 
-    const [imageList, setImageList] = useState(images);
-    const [mainImage, setMainImage] = useState(initialMainImage);
+    const [imageList, setImageList] = useState([]);
+    const [mainImage, setMainImage] = useState([]);
+
+    useEffect(() => {
+        setImageList(images);
+        setMainImage(listing.imagePath);
+    }, [images, listing])
 
     // Добавляем новое изображение
     const addListingImageUrl = (newImage) => {
         setImageList(prev => [...prev, newImage]);
-        onChange(imageList);
+    };
+
+    const setMainImageToListing = (mainImageUrl) => {
+        setMainImage(mainImageUrl)
+        onChange(images, mainImageUrl);
     };
 
     // Удаляем изображение
@@ -27,7 +36,7 @@ const ListingImagesUploader = ({ onChange, images, initialMainImage = "", listin
             const formData = new FormData();
             formData.append("image", file);
 
-            const data = await apiFetch(`/api/cloud/upload/listing-image?listingId=${listingId}`, {
+            const data = await apiFetch(`/api/cloud/upload/listing-image?listingId=${listing.id}`, {
                 method: "POST",
                 body: formData
             }, {});
@@ -88,30 +97,30 @@ const ListingImagesUploader = ({ onChange, images, initialMainImage = "", listin
             <div className="image-gallery">
                 <div className="image-gallery-grid">
                     {imageList.map((img) => (
-                        <div key={img.id} className="image-item col-md-3 mb-3">
+                        <div key={img.id} className="image-item">
                             <div className="card">
                                 <img
                                     src={img.path}
                                     onError={(e) => e.target.src = "/images/default-listing.png"}
-                                    className="card-img-top img-thumbnail"
+                                    className="card-img-top"
                                 />
-                                <div className="card-body p-2">
-                                    <div className="btn-group btn-group-sm w-100">
+                                <div className="overlay-actions bottom right">
+                                    {(img.path != mainImage) && (
                                         <button
                                             type="button"
-                                            className="btn btn-outline-primary"
-                                            onClick={() => setMainImage(img.path)}
+                                            className="btn btn-sm btn-gold"
+                                            onClick={() => setMainImageToListing(img.path)}
                                         >
-                                            <i className="fa-solid fa-star c-primary"></i>
+                                            <i className="fa-solid fa-star"></i>
                                         </button>
-                                        <button
-                                            type="button"
-                                            className="btn btn-outline-danger"
-                                            onClick={() => deleteListingImage(img)}
-                                        >
-                                            <i className="fa-solid fa-trash c-danger"></i>
-                                        </button>
-                                    </div>
+                                    )}
+                                    <button
+                                        type="button"
+                                        className="btn btn-sm btn-danger"
+                                        onClick={() => deleteListingImage(img)}
+                                    >
+                                        <i className="fa-solid fa-trash"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>

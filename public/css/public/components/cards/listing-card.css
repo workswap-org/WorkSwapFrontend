@@ -57,7 +57,7 @@
     box-shadow: 0 2px 8px var(--shadow-color);
     flex-direction: column;
     transition: all 0.3s ease;
-    overflow: hidden; /* Это предотвратит выход изображения за границы */
+    overflow: hidden;
     position: relative;
     max-width: 390px;
     min-width: 250px;
@@ -246,31 +246,8 @@
     padding: 0.5rem;
 }
 
-.overlay-listing-actions {
-    position: absolute;
-    width: max-content;
-    z-index: 100;
-
-    top: 0.7rem;
-    right: 0.7rem;
-    display: inline-flex;
-    gap: 0.5rem;
-
-    transition: all 0.2s ease;
-
-    opacity: 0.5;
-}
-
-.listing-card:hover .overlay-listing-actions{
+.listing-card:hover .overlay-actions{
     opacity: 1;
-}
-
-.overlay-listing-actions * {
-    height: 32px; /* Фиксированная высота */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap; /* Текст не переносится */
 }
 
 

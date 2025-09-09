@@ -12,7 +12,12 @@
     padding: 1rem;
 }
 
-.image-item .image-card {
+.image-item:hover .overlay-actions{
+    opacity: 1;
+}
+
+.image-item{
+    position: relative;
     background: var(--color-bg-body);
     border-radius: var(--radius);
     box-shadow: 0 2px 4px var(--shadow-color);

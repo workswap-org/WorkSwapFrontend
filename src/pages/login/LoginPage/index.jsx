@@ -1,20 +1,7 @@
 import { API_BASE } from "@/api/config";
-import { useEffect } from "react";
+import "#/css/public/pages/login-page.css"
 
 const LoginPage = () => {
-    useEffect(() => {
-        // Создаём link для CSS
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = "/css/public/pages/login-page.css"; // путь к CSS из public
-        link.id = "login-page-css";
-        document.head.appendChild(link);
-
-        // Убираем стили при размонтировании
-        return () => {
-            document.head.removeChild(link);
-        };
-    }, []);
 
     // Редирект на Google OAuth
     const handleGoogleLogin = () => {
@@ -27,20 +14,22 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="login-container">
-            <h2>Вход в систему</h2>
+        <div className="login-body">
+            <div className="login-container">
+                <h2>Вход в систему</h2>
 
-            {/* Ошибка входа (если понадобится) */}
-            {/* {error && <div className="alert alert-danger">Неверные учетные данные</div>} */}
+                {/* Ошибка входа (если понадобится) */}
+                {/* {error && <div className="alert alert-danger">Неверные учетные данные</div>} */}
 
-            <div>
-                <button
-                    type="button"
-                    className="btn btn-google"
-                    onClick={handleGoogleLogin}
-                >
-                    Войти через Google
-                </button>
+                <div>
+                    <button
+                        type="button"
+                        className="btn btn-google"
+                        onClick={handleGoogleLogin}
+                    >
+                        Войти через Google
+                    </button>
+                </div>
             </div>
         </div>
     );

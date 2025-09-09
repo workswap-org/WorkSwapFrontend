@@ -13,9 +13,10 @@ export const AuthProvider = ({ children }) => {
 
     const loadUser = useCallback(async () => {
         try {
-            const res = await apiFetch("/api/user/current");
-            setUser(res.user);
-            setAccessToken(localStorage.getItem("accessToken"));
+            setTimeout(async() => {
+                const res = await apiFetch("/api/user/current");
+                setUser(res.user);
+            }, 0)
         } catch (e) {
             console.error(e);
             setUser(null);
@@ -23,15 +24,23 @@ export const AuthProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    }, []); // нет зависимостей → всегда одна и та же ссылка
+    }, []);
 
     useEffect(() => {
-        loadUser();
-    }, [loadUser]);
+
+        const localToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+            loadUser();
+        } else if (localToken) {
+            setAccessToken(localToken);
+        }
+        
+    }, [accessToken, loadUser]);
 
     useEffect(() => {
-        if (accessToken) localStorage.setItem("accessToken", accessToken);
-        else localStorage.removeItem("accessToken");
+        if (accessToken) {
+            localStorage.setItem("accessToken", accessToken);
+        }
     }, [accessToken]);
 
     const logout = async () => {

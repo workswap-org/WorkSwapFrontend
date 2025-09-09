@@ -30,7 +30,7 @@ const PublicListingCard = ({listing, isMainListing}) => {
                         <ListingRating listing={listing} />
                     </div>
                     {/* <span className="partner-sign" th:if="${listing.author.role.name() == 'BUSINESS'}" th:text="#{partner}"></span> */}
-                    <span className="listing-location">{listing.location.fullName}</span>
+                    <span className="listing-location">{listing.location}</span>
                 </div>
             </div>
         </article>

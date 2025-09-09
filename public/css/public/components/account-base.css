@@ -48,10 +48,6 @@
         width: 100%;
         display: none;
     }
-
-    .navbar-collapse {
-        top: 0;
-    }
 }
 
 @media (max-width: 576px) {

@@ -29,7 +29,7 @@ const PrivateListingCard  = ({listing}) => {
 
     return (
         <article className="listing-card hover-animation-card">
-            <div className="overlay-listing-actions">
+            <div className="overlay-actions top right">
                 <Link 
                     className="btn btn-sm btn-primary"
                     to={`/secure/listing/edit/${listing.id}`}
