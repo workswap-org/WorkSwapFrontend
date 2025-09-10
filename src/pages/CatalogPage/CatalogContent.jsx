@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
+import { useTranslation } from "react-i18next";
 import PublicListingCard from "@/components/cards/listing-cards/PublicListingCard";
 
 const CatalogContent = ({ mainListingId, params}) => {
+
+    const { i18n } = useTranslation();
+    const userLocale = i18n.language || "ru";
 
     const [listings, setListings] = useState([]);
     
@@ -17,11 +21,11 @@ const CatalogContent = ({ mainListingId, params}) => {
         }
 
         loadSortedListings(params)
-    }, [params])
+    }, [params, userLocale])
     if (listings.length == 0) {
         return (
             <div className="no-listings">
-                <p th:text="#{no-listings}">Объявлений не найдено</p>
+                <p>Объявлений не найдено</p>
             </div>
         )
     }

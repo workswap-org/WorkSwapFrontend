@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useTranslation } from 'react-i18next';
 
 const ListingImagesUploader = ({ onChange, images, listing }) => {
+
+    const { t } = useTranslation('common');
 
     const notificate = useNotification();
 
@@ -92,7 +95,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
 
     return (
         <div className="form-group" style={{ gridColumn: "span 2" }}>
-            <label>Изображения</label>
+            <label>{t(`labels.images`, { ns: 'common' })}</label>
             <input type="hidden" name="mainImageUrl" value={mainImage} />
             <div className="image-gallery">
                 <div className="image-gallery-grid">
@@ -139,7 +142,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
                     style={{ display: "none" }}
                 />
                 <label htmlFor="uploadedImages" className="btn btn-outline-primary">
-                    Выбрать файлы
+                    {t(`buttons.upload.image`, { ns: 'buttons' })}
                 </label>
             </div>
         </div>

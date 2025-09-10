@@ -1,0 +1,22 @@
+{
+    "catalogSidebar": {
+        "links": {
+            "about": "Что это за сайт?",
+            "account": "Аккаунт",
+            "createListing": "Создать объявление",
+            "myListings": "Мои объявления",
+            "messenger": "Мои сообщения"
+        }
+    },
+    "accountSidebar": {
+        "links": {
+            "account": "Аккаунт",
+            "my-listings": "Мои объяления",
+            "favorites": "Избранное",
+            "messenger": "Сообщения",
+            "settings": "Настройки",
+            "security": "Безопасность",
+            "editProfile": "Редактировать профиль"
+        }
+    }
+}

@@ -33,7 +33,7 @@
     max-width: 60%;
 }
 
-.nav-pills .nav-item.active .nav-link {
+.nav-pills .category-item.active .category-link {
     background-color: var(--primary);
     color: var(--color-bg-body);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -46,24 +46,24 @@
     list-style: none;
 }
 
-.nav-pills .nav-link {
+.nav-pills .category-link {
     border-radius: var(--radius);
-    margin: 0 0.3rem;
-    padding: 0.5rem 1.25rem;
     color: var(--text-color);
     transition: all 0.2s ease;
     border: 1px solid var(--primary-light);
     font-weight: normal;
     font-size: medium;
+    text-align: center;
     display: inline-flex;
     gap: 0.3rem;
+    cursor: pointer;
 }
 
-.nav-pills .nav-link:hover {
+.nav-pills .category-link:hover {
     background-color: rgba(99, 102, 241, 0.1);
 }
 
-.nav-pills .nav-link.active {
+.nav-pills .category-link.active {
     border-color: var(--primary-light);
     background-color: var(--primary);
     color: var(--color-bg-body);
@@ -228,16 +228,6 @@
     margin: 0 -0.75rem;
 }
 
-[class^="col-"] {
-    padding: 0 0.75rem;
-}
-
-/* Mobile first */
-.col {
-    flex: 1;
-    min-width: 0;
-}
-
 /* Стили для формы поиска */
 .input-group {
     margin-bottom: 1rem;
@@ -348,7 +338,7 @@
     color: var(--text-color);
     transition: transform 0.2s;
 }
-.nav-pills .nav-link.active .fa-handshake,
+.category-pills .nav-link.active .fa-handshake,
 .category-link.active .fa-handshake {
     color: var(--color-bg-body) !important;
 }
@@ -357,7 +347,7 @@
     color: var(--text-color);
     transition: transform 0.2s;
 }
-.nav-pills .nav-link.active .fa-suitcase,
+.nav-pills .category-link.active .fa-suitcase,
 .category-link.active .fa-suitcase {
     color: var(--color-bg-body) !important;
 }
@@ -461,7 +451,7 @@
         flex-wrap: wrap;
     }
 
-    .nav-pills .nav-link {
+    .nav-pills .category-link {
         margin: 0.2rem;
         padding: 0.5rem 0.75rem;
         font-size: 0.9rem;
@@ -510,38 +500,29 @@
 /* Основные стили выпадающего меню */
 .dropdown-menu {
     display: none;
+    flex-direction: column;
+    gap: 0.3rem;
     position: absolute;
-    min-width: 240px; /* Немного увеличили ширину */
-    padding: 8px 0 !important;
-    margin: 0 !important;
+    min-width: fit-content;
+    justify-items: center;
+    padding: 1rem;
     background-color: var(--color-bg-body);
-    border: none;
+    border: 2px solid var(--border-color);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    list-style: none !important;
+    list-style: none;
 }
 
-/* Сброс стилей для списка */
-.dropdown-menu,
-.dropdown-menu ul,
-.dropdown-menu li {
-    margin: 0 !important;
-    padding: 0 !important;
-    list-style: none !important;
-}
-
-/* Пункты меню с симметричными отступами */
 .dropdown-item {
-    padding: 10px 20px !important; /* Увеличили отступы до 20px с обеих сторон */
-    margin: 4px 12px !important;   /* Увеличили отступы между пунктами */
+    padding: 0.5rem 20px;
     font-size: 15px;
     color: var(--text-color);
     transition: all 0.2s ease;
-    border-radius: 6px;
-    display: block;
-    text-decoration: none;
-    width: calc(100% - 24px); /* Корректировка ширины с учетом новых отступов */
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--color-bg-body);
+    width: 100%;
 }
 
 /* Состояния пунктов */
@@ -559,7 +540,7 @@
 
 /* Анимация появления */
 .nav-item.dropdown:hover .dropdown-menu {
-    display: block;
+    display: flex;
     animation: fadeIn 0.3s ease;
 }
 

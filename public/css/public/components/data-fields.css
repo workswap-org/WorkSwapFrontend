@@ -1,6 +1,7 @@
 /* Группы полей формы */
 .form-group {
     margin-bottom: 1rem;
+    gap: 0.4rem;
     display: flex;
     flex-direction: column;
 }

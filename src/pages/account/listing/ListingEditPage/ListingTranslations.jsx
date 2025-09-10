@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
+import { useTranslation } from 'react-i18next';
 
 const ListingTranslations = ({ id, onChange }) => {
+
+    const { t } = useTranslation('common');
+
     const [initialized, setInitialized] = useState(false);
 
     const [translations, setTranslations] = useState({});
@@ -79,7 +83,7 @@ const ListingTranslations = ({ id, onChange }) => {
                 {Object.keys(translations).map((lang) => (
                     <div key={lang} className="lang-card hover" onClick={() => handleEdit(lang)}>
                         <span>
-                            {lang.toUpperCase()}
+                            <strong>{lang.toUpperCase()}</strong>
                         </span>
                         <button
                             className="delete-lang red-hover"
@@ -108,15 +112,17 @@ const ListingTranslations = ({ id, onChange }) => {
                                         setShowLangButtons(false);
                                     }}
                                 >
-                                    {lang}
+                                    {t(`languages.${lang}`, { ns: 'common' })}
                                 </button>
                             ))}
                         </div>
                     )}
                 </div>
-                {translations.length === 0 && (
+
+                {/* Сюда напишем подсказку о том что надо добавлять переводы */}
+                {/* {Object.keys(translations).length === 0 && (
                     <span>бебебе</span>
-                )}
+                )} */}
             </div>
 
             {currentLang && (
@@ -124,7 +130,7 @@ const ListingTranslations = ({ id, onChange }) => {
                     <div className="modal">
                         <div className="modal-content">
                             <label>
-                                Заголовок ({currentLang.toUpperCase()}):
+                                {t(`labels.title`, { ns: 'common' })} ({t(`languages.${currentLang}`, { ns: 'common' })}):
                                 <input
                                     type="text"
                                     value={title}
@@ -134,7 +140,7 @@ const ListingTranslations = ({ id, onChange }) => {
                             </label>
 
                             <label>
-                                Описание ({currentLang.toUpperCase()}):
+                                {t(`labels.description`, { ns: 'common' })} ({t(`languages.${currentLang}`, { ns: 'common' })}):
                                 <textarea
                                     rows="4"
                                     value={description}
@@ -144,7 +150,7 @@ const ListingTranslations = ({ id, onChange }) => {
                             </label>
 
                             <button type="button" className="btn btn-primary" onClick={handleAddLanguage}>
-                                Сохранить перевод
+                                {t(`buttons.listing.saveTranslation`, { ns: 'buttons' })}
                             </button>
                         </div>
                     </div>

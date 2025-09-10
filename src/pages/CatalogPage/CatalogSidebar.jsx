@@ -1,9 +1,12 @@
 const sorts = [
-    { key: "date", label: "По дате" },
-    { key: "price", label: "По цене" },
-    { key: "rating", label: "По рейтингу" },
-    { key: "popularity", label: "По просмотрам" },
+    { key: "date"},
+    { key: "price"},
+    { key: "rating"},
+    { key: "popularity"},
 ];
+
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const CatalogSidebar = ({
     searchQuery,
@@ -13,6 +16,8 @@ const CatalogSidebar = ({
     activeSort,
     setActiveSort
 }) => {
+
+    const { t } = useTranslation(['common', 'navigation'])
     
     return (
         <aside className="catalog-sidebar">
@@ -22,7 +27,7 @@ const CatalogSidebar = ({
 
             <div className="sorting-sidebar">
                 <div className="sorting-search">
-                    <h5 th:text="#{catalog.search.title}">Поиск</h5>
+                    <h5>{t(`catalog.sidebar.search`, { ns: 'common' })}</h5>
                     <form id="searchForm">
                         <div className="input-group">
                             <input 
@@ -31,7 +36,7 @@ const CatalogSidebar = ({
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 name="searchQuery"
-                                placeholder="Поиск..."
+                                placeholder={t('placeholders.search', { ns: 'common' })}
                             />
                             <input type="hidden" name="category"/>
                             <input type="hidden" name="sortBy"/>
@@ -41,7 +46,7 @@ const CatalogSidebar = ({
                         </div>
                     </form>
                 </div>
-                <h5 th:text="#{catalog.sorting.title}">Сортировка</h5>
+                <h5 th:text="#{catalog.sorting.title}">{t(`catalog.sidebar.sort`, { ns: 'common' })}</h5>
                 <div className="list-group list-group-flush">
                     {sorts.map(sort => (
                         <a
@@ -49,34 +54,34 @@ const CatalogSidebar = ({
                             className={`list-group-item list-group-item-action sort-link ${activeSort === sort.key ? "active" : ""}`}
                             onClick={() => setActiveSort(sort.key)}
                         >
-                            {sort.label}
+                            {t(`sorts.${sort.key}`, { ns: 'common' })}
                         </a>
                     ))}
                 </div>
 
-                <h5 th:text="#{catalog.sorting.filters}">Фильтры</h5>
+                <h5 th:text="#{catalog.sorting.filters}">{t(`catalog.sidebar.filters`, { ns: 'common' })}</h5>
                 <div className="form-check custom-checkbox">
                     <input
                         className="form-check-input"
                         type="checkbox"
                         id="filter2"
                         name="hasReviews"
-                        checked={hasReviews}               // синхронизируем с состоянием
-                        onChange={(e) => setHasReviews(e.target.checked)} // переключаем состояние
+                        checked={hasReviews}
+                        onChange={(e) => setHasReviews(e.target.checked)}
                     />
                     <label className="form-check-label" htmlFor="filter2">
                         <span className="checkmark"></span>
-                        <span>С отзывами</span>
+                        <span>{t(`catalog.sidebar.hasReviews`, { ns: 'common' })}</span>
                     </label>
                 </div>
             </div>
             <div className="sorting-sidebar sidebar-links">
-                <h5 th:text="#{catalog.sorting.links}">Полезные ссылки</h5>
-                <a href="info" className="catalog-sidebar-btn" th:text="#{links.info}">Что это за сайт?</a>
-                <a href="secure/account" className="catalog-sidebar-btn" th:text="#{links.account}">Аккаунт</a>
-                <a href="secure/listing/create" className="catalog-sidebar-btn" th:text="#{links.create.listing}">Создать объявление</a>
-                <a href="secure/resume" className="catalog-sidebar-btn" th:text="#{links.my.resume}">Моё резюме</a>
-                <a href="secure/messenger" className="catalog-sidebar-btn" th:text="#{links.create.messenger}">Мои сообщения</a>
+                <h5>{t(`catalog.sidebar.usefulLinks`, { ns: 'common' })}</h5>
+                <Link to="info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link>
+                <Link to="secure/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link>
+                <Link to="secure/listing/create" className="catalog-sidebar-btn">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
+                <Link to="secure/my-listing" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
+                <Link to="secure/messenger" className="catalog-sidebar-btn">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
             </div>
         </aside>
 );

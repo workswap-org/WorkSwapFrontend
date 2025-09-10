@@ -7,7 +7,7 @@ import { useAuth } from "@/contexts/auth/AuthContext";
 
 const NavButtons = () => {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation(['buttons', 'navigation'])
 
     const { user, logout } = useAuth();
 
@@ -50,7 +50,7 @@ const NavButtons = () => {
                     className="btn btn-outline-primary"
                 >
                     <img src="/images/google.png" className="logo" alt="Google" />
-                    <span>{t("login")}</span>
+                    <span>{t("buttons.login")}</span>
                 </Link>
             )}
 

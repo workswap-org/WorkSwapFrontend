@@ -20,6 +20,7 @@ import MyListingsPage from "./pages/account/MyListingsPage";
 import FavoritesPage from "./pages/account/FavoritesPage";
 import MessengerPage from "./pages/account/MessengerPage";
 import SettingsPage from "./pages/account/SettingsPage";
+import SecurityPage from "./pages/account/SecurityPage";
 
 /* Страницы управления объявлениями */
 import ListingEditPage from "./pages/account/listing/ListingEditPage";
@@ -54,11 +55,13 @@ const AppRouter = () => {
                     <Route path="secure" element={<PrivateRoute />}>
                         <Route element={<AccountLayout />}>
                         
+                            <Route index element={<Navigate to="/secure/account" replace />} />
                             <Route path="account" element={<AccountPage />} />
                             <Route path="my-listings" element={<MyListingsPage />} />
                             <Route path="favorites" element={<FavoritesPage />} />
                             <Route path="messenger" element={<MessengerPage />} /> 
                             <Route path="settings" element={<SettingsPage />} />
+                            <Route path="security" element={<SecurityPage />} />
 
                             <Route path="listing/create" element={<ListingCreatePage />} />
                             <Route path="listing/drafts" element={<ListingDraftsPage />} />

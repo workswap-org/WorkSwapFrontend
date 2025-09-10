@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { apiFetch } from "@/lib/apiClient";
 import { useNotification } from "@/contexts/notifications/NotificationContext";
 import ListingDraftItem from "@/components/cards/listing-cards/ListingDraftItem";
+import { useTranslation } from 'react-i18next';
 
 const ListingDraftsPage = () => {
+
+    const { t } = useTranslation('common');
 
     const [drafts, setDrafts] = useState([]);
     const notificate = useNotification();
@@ -40,14 +43,20 @@ const ListingDraftsPage = () => {
         loadDrafts();
     }, [notificate])
     return (
-        <div className="drafts-listings-grid">
-            {drafts.map((listing) => (
-                <ListingDraftItem key={listing.id} listing={listing}/>
-            ))}
-            <article onClick={() => createListing()} className="draft-listing-card new">
-                <i className="fa-solid fa-plus fa-xl"></i>
-            </article>
-        </div>
+        <>
+            <div className="account-header">
+                <h2>{t(`titles.listingDrafts`, { ns: 'common' })}</h2>
+            </div>
+
+            <div className="drafts-listings-grid">
+                {drafts.map((listing) => (
+                    <ListingDraftItem key={listing.id} listing={listing}/>
+                ))}
+                <article onClick={() => createListing()} className="draft-listing-card new">
+                    <i className="fa-solid fa-plus fa-xl"></i>
+                </article>
+            </div>
+        </>
     );
 };
 

@@ -10,8 +10,11 @@ import { Link } from "react-router-dom";
 import { useNotification } from "@/contexts/notifications/NotificationContext";
 import { useNavigate } from "react-router-dom";
 import ListingTranslations from "./ListingTranslations";
+import { useTranslation } from 'react-i18next';
 
 const ListingEditPage = () => {
+
+    const { t } = useTranslation('common');
 
     const { id } = useParams();
 
@@ -154,13 +157,15 @@ const ListingEditPage = () => {
     return (
         <>
             <div className="account-header">
-                <h2>Управление объявлением</h2>
+                <h2>{t(`titles.listingEdit`, { ns: 'common' })}</h2>
                 {saving && (
                     <i className="fa-regular fa-download fa-spin fa-spin-reverse fa-2xl"></i>
                 )}
-                {listing.temporary && 
-                    <p>(Опубликовано)</p>
-                } 
+                {listing.temporary ? (
+                    <p>({t(`statuses.draft`, { ns: 'common' })})</p>
+                ) : (
+                    <p>({t(`statuses.published`, { ns: 'common' })})</p>
+                )} 
             </div>
             <div className="edit-listing-form form-grid">
                 {/* <div className="form-group">
@@ -179,7 +184,7 @@ const ListingEditPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="price">Цена</label>
+                    <label htmlFor="price">{t(`labels.price`, { ns: 'common' })}</label>
                     <input
                         className="form-control"
                         type="number"
@@ -193,7 +198,7 @@ const ListingEditPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="priceType">Тип цены</label>
+                    <label htmlFor="priceType">{t(`labels.priceType`, { ns: 'common' })}</label>
                     <select
                         id="priceType"
                         name="priceType"
@@ -202,22 +207,22 @@ const ListingEditPage = () => {
                         value={selectedPriceType ?? ""}
                         onChange={(e) => changePriceType(e.target.value)}
                     >
-                        <option value="" disabled>Выберите тип цены</option>
+                        <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
                         {priceTypes.map((type) => (
                             <option key={type.name} value={type.name}>
-                                {`price.${type.displayName}`}
+                                {t(`priceTypes.${type.displayName}`, { ns: 'common' })}
                             </option>
                         ))}
                     </select>
                 </div>
 
                 <div className="form-group">
-                    <label>Категория</label>
+                    <label>{t(`labels.category`, { ns: 'common' })}</label>
                     <CategorySelector categoryId={categoryId} onChange={categoryChange} />
                 </div>
 
                 <div className="form-group">
-                    <label>Местоположение</label>
+                    <label>{t(`labels.location`, { ns: 'common' })}</label>
                     <LocationSelector locationId={locationId} onChange={locationChange} />
                 </div>
 
@@ -226,30 +231,41 @@ const ListingEditPage = () => {
                 </div>
 
                 <div className="form-actions" style={{gridColumn: 'span 2'}} >
-                    {listing.temporary && (
+                    {listing.temporary ? (
                         <button 
                             onClick={() => deleteDraft()}  
                             type="button" 
                             className="btn btn-outline-primary"
-                        >Очистить</button>
-                    )}
-                    {!listing.temporary && (
+                        >
+                            {t(`buttons.listing.cleanDraft`, { ns: 'buttons' })}
+                        </button>
+                    ) : (
                         <button 
                             onClick={() => deleteDraft()}  
                             type="button" 
                             className="btn btn-outline-primary"
-                        >Удалить объявление</button>
+                        >
+                            {t(`buttons.listing.delete`, { ns: 'buttons' })}
+                        </button>
                     )}
-                    <Link to="/secure/listing/drafts" type="button" className="btn btn-outline-primary">Перейти к черновикам</Link>
-                    {listing.temporary && (
+                    <Link 
+                        to="/secure/listing/drafts" 
+                        type="button" 
+                        className="btn btn-outline-primary"
+                    >
+                        {t(`buttons.listing.goToDrafts`, { ns: 'buttons' })}
+                    </Link>
+
+                    {listing.temporary ? (
                         <button 
                             onClick={() => publishListing()} 
                             type="button" 
                             className="btn btn-primary"
-                        >Опубликовать</button>
-                    )}
-                    {!listing.temporary && (
-                        <h4 style={{margin: 'auto 0'}}>(Опубликованно)</h4>
+                        >
+                            {t(`buttons.listing.publish`, { ns: 'buttons' })}
+                        </button>
+                    ) : (
+                        <h4 style={{margin: 'auto 0'}}>({t(`statuses.published`, { ns: 'common' })})</h4>
                     )}
                 </div>
             </div>

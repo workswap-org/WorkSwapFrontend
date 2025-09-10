@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import ChatContainer from "./ChatContainer";
 
 const MessengerPage = () => {
-    const { i18n } = useTranslation();
+    const { i18n, t } = useTranslation();
     const userLocale = i18n.language || "ru";
     const [currentChatId, setCurrentChatId] = useState([]);
 
@@ -50,13 +50,15 @@ const MessengerPage = () => {
         });
 
         // Подписка на обновление информации о собеседнике
-        client.subscribe('/user/queue/interlocutorInfo', function (message) {
-            const interlocutorInfo = JSON.parse(message.body);
-            if (interlocutorInfo && interlocutorInfo.name && interlocutorInfo.avatar) {
-                document.getElementById('interlocutorName').innerText = interlocutorInfo.name;
-                document.getElementById('interlocutorAvatar').src = interlocutorInfo.avatar;
-            }
-        });
+        if (connected) {
+            client.subscribe('/user/queue/interlocutorInfo', function (message) {
+                const interlocutorInfo = JSON.parse(message.body);
+                if (interlocutorInfo && interlocutorInfo.name && interlocutorInfo.avatar) {
+                    document.getElementById('interlocutorName').innerText = interlocutorInfo.name;
+                    document.getElementById('interlocutorAvatar').src = interlocutorInfo.avatar;
+                }
+            });
+        }
 
         // Загружаем разговоры сразу после подключения
         loadChats(client, userLocale);
@@ -67,7 +69,7 @@ const MessengerPage = () => {
     return (
         <>
             <div className="account-header">
-                <h2>Сообщения</h2>
+                <h2>{t(`titles.messenger`, { ns: 'common' })}</h2>
                 <button id="dialogsToggleBtn" className="btn btn-primary mobile-dialogs-toggle">
                     <i className="fa fa-comments"></i>
                 </button>

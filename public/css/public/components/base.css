@@ -73,15 +73,6 @@ img {
     margin: 0 -0.75rem;
 }
 
-.col {
-    flex: 1;
-    padding: 0 0.75rem;
-}
-
-li {
-    margin-left: 2.5rem;
-}
-
 input[type="number"] {
     max-width: none !important;
 }

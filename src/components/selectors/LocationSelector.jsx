@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
+import { useTranslation } from 'react-i18next';
 
 const LocationSelector = ({ locationId, onChange }) => {
+    
+    const { t } = useTranslation('common');
+
     const [locations, setLocations] = useState([]);
     const [selectedPath, setSelectedPath] = useState([]);
 
@@ -20,13 +24,16 @@ const LocationSelector = ({ locationId, onChange }) => {
         }
 
         function findPathToLocation(locations, locationId) {
-            const loc = locations.find(c => c.id === locationId);
+            console.log(locationId)
+            const loc = locations.find(l => l.id === locationId);
             if (!loc) return [];
 
             // если есть parentId → рекурсивно ищем путь к родителю
-            if (loc.countryIdId) {
-                return [...findPathToLocation(locations, loc.parentId), loc.id];
+            if (loc.countryId) {
+                // сначала путь до страны, потом сам город
+                return [...findPathToLocation(locations, loc.countryId), loc.id];
             } else {
+                // это страна
                 return [loc.id];
             }
         }
@@ -59,11 +66,12 @@ const LocationSelector = ({ locationId, onChange }) => {
             selectors.push(
                 <select
                     key={level}
+                    id="locationSelector"
                     value={selected}
                     onChange={(e) => handleSelect(level, Number(e.target.value))}
                 >
                     <option value="" disabled>
-                        Выберите локацию
+                        {t(`placeholders.location`, { ns: 'common' })}
                     </option>
                     {children.map((l) => (
                         <option key={l.id} value={l.id}>
@@ -80,7 +88,7 @@ const LocationSelector = ({ locationId, onChange }) => {
         return selectors;
     };
 
-    return <div id="locations">{renderSelectors()}</div>;
+    return <>{renderSelectors()}</>;
 };
 
 export default LocationSelector;

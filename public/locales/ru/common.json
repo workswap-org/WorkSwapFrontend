@@ -1,0 +1,74 @@
+{
+    "placeholders": {
+        "search": "Поиск...",
+        "email": "Введите email",
+        "category": "Выберите категорию...",
+        "priceType": "Выберите тип цены...",
+        "location": "Выберите локацию..."
+    },
+    "sorts": {
+        "date": "По дате",
+        "price": "По цене",
+        "rating": "По рейтингу",
+        "popularity": "По просмотрам"
+    },
+    "priceTypes": {
+        "fixed": "€",
+        "per-hour": "€/час",
+        "per-day": "€/день",
+        "negotiable": "Договорная"
+    },
+    "statuses": {
+        "published": "Опубликовано",
+        "active": "Активно",
+        "blocked": "Заблокировано",
+        "inactive": "Не активно",
+        "draft": "Черновик"
+    },
+    "languages": {
+        "ru": "Русский",
+        "en": "Английский",
+        "fi": "Финский",
+        "it": "Итальянский"
+    },
+
+    "labels": {
+        "price": "Цена",
+        "priceType": "Тип цены",
+        "images": "Изображения",
+        "category": "Категория",
+        "location": "Местоположение",
+        "title": "Название",
+        "description": "Описание",
+        "name": "Имя",
+        "phone": "Телефон"
+    },
+
+    "titles": {
+        "account": "Мой аккаунт",
+        "favorites": "Избранное",
+        "myListings": "Мои объявления",
+        "messenger": "Сообщения",
+        "settings": "Настройки пользователя",
+        "security": "Безопасность",
+        "listingEdit": "Управление объявлением",
+        "listingDrafts": "Мои черновики"
+    },
+
+    "catalog": {
+        "sidebar": {
+            "search": "Поиск",
+            "sort": "Сортировка",
+            "filters": "Фильтры",
+            "hasReviews": "С отзывами",
+            "usefulLinks": "Полезные ссылки"
+        }
+    },
+
+    "settings": {
+        "labels": {
+            "baseInfo": "Основная информация",
+            "privacy": "Конциденциальность"
+        }
+    }
+}

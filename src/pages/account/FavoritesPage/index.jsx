@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import PrivateListingCard from "@/components/cards/listing-cards/PrivateListingCard";
+import { useTranslation } from 'react-i18next';
 
 const FavoritesPage = () => {
+
+    const { t } = useTranslation('common')
 
     const [listings, setListings] = useState([]);
     
@@ -18,7 +21,7 @@ const FavoritesPage = () => {
     return (
         <>
             <div className="account-header">
-                <h2>Избранные</h2>
+                <h2>{t(`titles.favorites`, { ns: 'common' })}</h2>
             </div>
 
             <div className="listings-grid">

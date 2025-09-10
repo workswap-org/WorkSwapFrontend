@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
 import Avatar from "@/components/small-components/Avatar";
 import { useAuth } from "@/contexts/auth/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 const AccountSidebar = () => {
 
+    const { t } = useTranslation(['buttons', 'navigation'])
     const { user } = useAuth();
 
     useEffect(() => {
@@ -59,14 +61,14 @@ const AccountSidebar = () => {
                     })}
                     (<span>{user?.rating}</span>)
                 </p>
-                <a href="/secure/settings" className="btn btn-outline-primary btn-sm" th:text="#{profile.edit}">Редактировать профиль</a>
+                <a href="/secure/settings" className="btn btn-outline-primary btn-sm">{t(`accountSidebar.links.editProfile`, { ns: 'navigation' })}</a>
             </div>
 
             <AccountSidebarLinks/>
 
-            {!user?.telegramConnected ? (
-                <button th:if="${!user.telegramConnected}" className="telegram-button" id="connectTelegram" th:text="#{telegramm.connect}">Подключить Telegram</button>
-            ) : null}
+            {!user?.telegramConnected && (
+                <button th:if="${!user.telegramConnected}" className="telegram-button" id="connectTelegram">{t(`buttons.special.connectTelegram`, { ns: 'buttons' })}</button>
+            )}
         </aside>
     );
 };

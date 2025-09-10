@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
+import { useTranslation } from 'react-i18next';
 
 const CategorySelector = ( { categoryId, onChange } ) => {
+
+    const { t } = useTranslation(['common', 'categories']);
 
     const [categories, setCategories] = useState([]);
     const [selectedPath, setSelectedPath] = useState([]);
@@ -63,11 +66,11 @@ const CategorySelector = ( { categoryId, onChange } ) => {
                     onChange={(e) => handleSelect(level, Number(e.target.value))}
                 >
                     <option value="" disabled>
-                        Выберите категорию
+                        {t(`placeholders.category`, { ns: 'common' })}
                     </option>
                     {children.map((c) => (
                         <option key={c.id} value={c.id}>
-                            {c.translate}
+                            {t(`category.${c.name}`, { ns: 'categories' })}
                         </option>
                     ))}
                 </select>

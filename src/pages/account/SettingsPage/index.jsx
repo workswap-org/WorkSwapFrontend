@@ -3,10 +3,12 @@ import { useState, useEffect, useCallback } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useNotification } from "@/contexts/notifications/NotificationContext";
 import LocationSelector from "@/components/selectors/LocationSelector";
+import { useTranslation } from 'react-i18next';
 
 const SettingsPage = () => {
 
     const notificate = useNotification();
+    const { t } = useTranslation('common')
 
     const [user, setUser] = useState([]);
 
@@ -168,7 +170,7 @@ const SettingsPage = () => {
     return (
         <>
             <div className="account-header">
-                <h2>Настройки пользователя</h2>
+                <h2>{t(`titles.settings`, { ns: 'common' })}</h2>
                 {saving && (
                     <i className="fa-regular fa-download fa-spin fa-spin-reverse fa-2xl"></i>
                 )}
@@ -176,10 +178,10 @@ const SettingsPage = () => {
             <form>
                 {/* Имя, Email, Телефон */}
                 <div className="form-section">
-                    <h3>Основная информация</h3>
+                    <h3>{t(`settings.labels.baseInfo`, { ns: 'common' })}</h3>
                     <div>
                         <div className="form-group">
-                            <label>Имя</label>
+                            <label>{t(`labels.name`, { ns: 'common' })}</label>
                             <div className="input-wrapper">
                                 <input
                                     type="text"
@@ -204,7 +206,7 @@ const SettingsPage = () => {
                         </div>
 
                         <div className="form-group">
-                            <label>Телефон</label>
+                            <label>{t(`labels.phone`, { ns: 'common' })}</label>
                             <div className="input-wrapper">
                                 <input
                                     type="tel"
@@ -219,7 +221,7 @@ const SettingsPage = () => {
                 </div>
 
                 <div className="form-section">
-                    <h3 th:text="#{profile.editing.privacy}">Конфиденциальность</h3>
+                    <h3 th:text="#{profile.editing.privacy}">{t(`settings.labels.privacy`, { ns: 'common' })}</h3>
                     <div className="form-group">
                         <label th:text="#{profile.editing.contacts.visible}">Отображение ваших контактных данных для других пользователей</label>
                         <div className="status-toggle">
@@ -289,19 +291,17 @@ const SettingsPage = () => {
                 <div className="form-section">
                     <h3>Языки которыми я владею</h3>
                     <p>Укажите несколько языков, чтобы видеть больше подходящих объявлений</p>
-                    <div className="form-group">
-                        <div id="myLangsContainer">
-                            {["ru", "fi", "en", "it"].map((lang) => (
-                                <button
-                                    key={lang}
-                                    type="button"
-                                    className={`lang-select-btn ${languages.includes(lang) ? "active" : ""}`}
-                                    onClick={() => toggleLanguage(lang)}
-                                >
-                                    {lang}
-                                </button>
-                            ))}
-                        </div>
+                    <div className="form-group flex-row">
+                        {["ru", "fi", "en", "it"].map((lang) => (
+                            <button
+                                key={lang}
+                                type="button"
+                                className={`lang-select-btn ${languages.includes(lang) ? "active" : ""}`}
+                                onClick={() => toggleLanguage(lang)}
+                            >
+                                {t(`languages.${lang}`, { ns: 'common' })}
+                            </button>
+                        ))}
                     </div>
                 </div>
 
@@ -310,7 +310,6 @@ const SettingsPage = () => {
                     <h3>Моё местоположение</h3>
                     <p>Этот параметр не обязателен, но полезен чтобы вам не показывались объявления из других стран или городов</p>
                     <div className="form-group">
-                    <label>Местоположение</label>
                         <LocationSelector locationId={locationId} onChange={locationChange} />
                     </div>
                 </div>

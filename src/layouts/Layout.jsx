@@ -29,7 +29,7 @@ export default function Layout() {
 
     return (
         <ActivePageContext.Provider value={activePage}>
-            {loading ? (
+            {/* {loading ? (
                 <EmptyPage />
             ) : (
                 <>
@@ -37,7 +37,13 @@ export default function Layout() {
 
                     <Outlet />
                 </>
-            )}
+            )} */}
+
+            <>
+                <Header />
+
+                <Outlet />
+            </>
 
             <LanguageSwitcher/>
         </ActivePageContext.Provider>

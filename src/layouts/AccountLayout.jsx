@@ -2,6 +2,7 @@ import AccountSidebar from "@/components/account/AccountSidebar";
 import { Outlet } from "react-router-dom";
 
 const AccountLayout = () => {
+
     return (
         <>
             <div className="account-container">
