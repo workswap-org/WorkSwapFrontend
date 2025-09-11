@@ -1,3 +1,25 @@
 {
-    
+    "catalogSidebar": {
+        "links": {
+            "about": "Mikä tämä sivusto on?",
+            "account": "Tili",
+            "createListing": "Luo ilmoitus",
+            "myListings": "Omat ilmoitukset",
+            "messenger": "Viestini"
+        }
+    },
+    "accountSidebar": {
+        "links": {
+            "account": "Tili",
+            "my-listings": "Omat ilmoitukset",
+            "favorites": "Suosikit",
+            "messenger": "Viestit",
+            "settings": "Asetukset",
+            "security": "Turvallisuus",
+            "editProfile": "Muokkaa profiilia"
+        }
+    },
+    "breadcrumps": {
+        "catalog": "Luettelo"
+    }
 }

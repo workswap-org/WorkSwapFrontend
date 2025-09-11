@@ -142,7 +142,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
                     style={{ display: "none" }}
                 />
                 <label htmlFor="uploadedImages" className="btn btn-outline-primary">
-                    {t(`buttons.upload.image`, { ns: 'buttons' })}
+                    {t(`upload.image`, { ns: 'buttons' })}
                 </label>
             </div>
         </div>

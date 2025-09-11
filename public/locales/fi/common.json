@@ -1,3 +1,97 @@
 {
-    
+    "placeholders": {
+        "search": "Haku...",
+        "email": "Syötä sähköposti",
+        "category": "Valitse kategoria...",
+        "priceType": "Valitse hintatyyppi...",
+        "location": "Valitse sijainti...",
+        "review": "Kaikki tehtiin erittäin nopeasti ja laadukkaasti! Käytän tätä palvelua uudelleen!"
+    },
+    "sorts": {
+        "date": "Päivämäärän mukaan",
+        "price": "Hinnan mukaan",
+        "rating": "Arvostelun mukaan",
+        "popularity": "Näyttökertojen mukaan"
+    },
+    "priceTypes": {
+        "fixed": "€",
+        "per-hour": "€/tunti",
+        "per-day": "€/päivä",
+        "negotiable": "Sopimuksen mukaan"
+    },
+    "statuses": {
+        "published": "Julkaistu",
+        "active": "Aktiivinen",
+        "blocked": "Estetty",
+        "inactive": "Ei aktiivinen",
+        "draft": "Luonnos"
+    },
+    "languages": {
+        "ru": "Venäjä",
+        "en": "Englanti",
+        "fi": "Suomi",
+        "it": "Italia"
+    },
+    "labels": {
+        "price": "Hinta",
+        "priceType": "Hintatyyppi",
+        "images": "Kuvat",
+        "category": "Kategoria",
+        "location": "Sijainti",
+        "title": "Otsikko",
+        "description": "Kuvaus",
+        "name": "Nimi",
+        "phone": "Puhelin",
+        "views": "Näytöt",
+        "rating": "Arvostelu",
+        "contacts": "Yhteystiedot"
+    },
+    "titles": {
+        "account": "Oma tili",
+        "favorites": "Suosikit",
+        "myListings": "Omat ilmoitukset",
+        "messenger": "Viestit",
+        "settings": "Käyttäjäasetukset",
+        "security": "Turvallisuus",
+        "listingEdit": "Hallinnoi ilmoitusta",
+        "listingDrafts": "Omat luonnokset"
+    },
+    "catalog": {
+        "sidebar": {
+            "search": "Haku",
+            "sort": "Lajittelu",
+            "filters": "Suodattimet",
+            "hasReviews": "Arvostelujen kanssa",
+            "usefulLinks": "Hyödyllisiä linkkejä"
+        }
+    },
+    "settings": {
+        "avatarTypes": {
+            "uploaded": "Ladattu",
+            "google": "Google",
+            "default": "Oletus"
+        },
+        "labels": {
+            "baseInfo": "Perustiedot",
+            "privacy": "Tietosuoja",
+            "avatar": "Avatar",
+            "myLanguages": "Puhumani kielet",
+            "myLocation": "Sijaintini",
+            "bio": "Tietoa minusta"
+        }
+    },
+    "listing": {
+        "similarListings": "Samankaltaiset ilmoitukset"
+    },
+    "profile": {
+        "listings": "Käyttäjän ilmoitukset"
+    },
+    "reviews": {
+        "listLabel": "Arvostelut",
+        "item": {
+            "label": "Jätä arvostelu",
+            "rating": "Arvosana",
+            "text": "Arvostelun teksti"
+        }
+    }
 }

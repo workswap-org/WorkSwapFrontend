@@ -237,7 +237,7 @@ const ListingEditPage = () => {
                             type="button" 
                             className="btn btn-outline-primary"
                         >
-                            {t(`buttons.listing.cleanDraft`, { ns: 'buttons' })}
+                            {t(`listing.cleanDraft`, { ns: 'buttons' })}
                         </button>
                     ) : (
                         <button 
@@ -245,7 +245,7 @@ const ListingEditPage = () => {
                             type="button" 
                             className="btn btn-outline-primary"
                         >
-                            {t(`buttons.listing.delete`, { ns: 'buttons' })}
+                            {t(`listing.delete`, { ns: 'buttons' })}
                         </button>
                     )}
                     <Link 
@@ -253,7 +253,7 @@ const ListingEditPage = () => {
                         type="button" 
                         className="btn btn-outline-primary"
                     >
-                        {t(`buttons.listing.goToDrafts`, { ns: 'buttons' })}
+                        {t(`listing.goToDrafts`, { ns: 'buttons' })}
                     </Link>
 
                     {listing.temporary ? (
@@ -262,7 +262,7 @@ const ListingEditPage = () => {
                             type="button" 
                             className="btn btn-primary"
                         >
-                            {t(`buttons.listing.publish`, { ns: 'buttons' })}
+                            {t(`listing.publish`, { ns: 'buttons' })}
                         </button>
                     ) : (
                         <h4 style={{margin: 'auto 0'}}>({t(`statuses.published`, { ns: 'common' })})</h4>

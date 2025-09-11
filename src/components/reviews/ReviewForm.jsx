@@ -2,8 +2,11 @@ import { useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useTranslation } from 'react-i18next';
 
 const ReviewForm = ({setReviews, listingId, profileId}) => {
+
+    const { t } = useTranslation();
 
     const {user} = useAuth();
     const notificate = useNotification();
@@ -35,11 +38,11 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
 
     return (
         <section className="review-form" th:if="${isAuthenticated and profileUser != null}" th:fragment="profileReviewForm">
-            <h3 th:text="#{reviews.leave_review}">Оставьте свой отзыв</h3>
+            <h3 th:text="#{reviews.leave_review}">{t(`reviews.item.label`, { ns: 'common' })}</h3>
             <div id="review-form">
                 <div className="form-row">
                     <div className="rating-group">
-                        <label htmlFor="rating-stars" th:text="#{reviews.rating}">Оценка</label>
+                        <label htmlFor="rating-stars" th:text="#{reviews.rating}">{t(`reviews.item.rating`, { ns: 'common' })}</label>
                         <div className="listing-rating" id="rating-stars">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <i
@@ -62,16 +65,17 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
                         </div>
                     </div>
                     <div className="text-group">
-                        <label htmlFor="text">Текст отзыва</label>
+                        <label htmlFor="text">{t(`reviews.item.text`, { ns: 'common' })}</label>
                         <textarea 
                             id="text" 
                             value={text}
                             onChange={(e) => setText(e.target.value)}
+                            placeholder={t(`placeholders.review`, { ns: 'common' })}
                         >
                         </textarea>
                     </div>
                 </div>
-                <button onClick={createReview} id="submit-review" className="btn btn-primary">Оставить отзыв</button>
+                <button onClick={createReview} id="submit-review" className="btn btn-primary">{t(`review.create`, { ns: 'buttons' })}</button>
             </div>
         </section>
     );

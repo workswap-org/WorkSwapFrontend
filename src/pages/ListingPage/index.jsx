@@ -1,7 +1,7 @@
 import "#/css/public/pages/listing-page.css";
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import ListingRating from "@/components/small-components/ListingRating"
 import PriceTypes from "@/components/small-components/PriceTypes"
 import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
@@ -17,15 +17,12 @@ const ListingPage = () => {
 
     const [listing, setListing] = useState([]);
     const [author, setAuthor] = useState([]);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         async function loadListing() {
             const data = await apiFetch(`/api/listing/get/${id}`);
             setListing(data.listing);
-        }
-
-        async function loadCategoryPath() {
-            
         }
 
         loadListing();
@@ -37,9 +34,14 @@ const ListingPage = () => {
             setAuthor(await data.user);
         }
 
-        if (listing.authorId) {
-            loadListingAuthor(listing.authorId);
+        async function loadCategoryPath(id) {
+            const data = await apiFetch(`/api/categories/path/${id}`)
+            setCategories(data.categories);
         }
+
+        if (listing.categoryId) loadCategoryPath(listing.categoryId);
+        if (listing.authorId) loadListingAuthor(listing.authorId);
+
     }, [listing])
 
     const [mainImageIndex, setMainImageIndex] = useState(0);
@@ -78,10 +80,14 @@ const ListingPage = () => {
                             {t(`breadcrumps.catalog`, { ns: 'navigation' })}
                         </a>
                         <span> / </span>
-                        <a href="/catalog">
-                            {t(`category.${listing.category}`, { ns: 'categories' })}
-                        </a>
-                        <span> / </span>
+                        {categories.map((cat) => (
+                            <>
+                                <Link to={`/catalog?category=${cat.name}`}>
+                                    {t(`category.${cat.name}`, { ns: 'categories' })}
+                                </Link>
+                                <span> / </span>
+                            </>
+                        ))}
                         <span>{listing.localizedTitle}</span>
                     </nav>
 
@@ -93,7 +99,7 @@ const ListingPage = () => {
                                 {new Date(listing.createdAt).toLocaleDateString("ru-RU")}
                             </span>
                             <span className="listing-views">
-                                Просмотры: <span>{listing.views}</span>
+                                {t(`labels.views`, { ns: 'common' })}: <span>{listing.views}</span>
                             </span>
                         </div>
                     </div>
@@ -160,28 +166,28 @@ const ListingPage = () => {
                         {/* Информация о предложении */}
                         <div className="listing-content">
                             <div className="listing-details">
-                                <h2>Описание</h2>
+                                <h2>{t(`labels.description`, { ns: 'common' })}</h2>
                                 <p className="listing-description">
                                     {listing.localizedDescription || "Нет описания"}
                                 </p>
 
                                 <div className="details-grid">
                                     <div className="detail-item">
-                                        <span className="detail-label">Цена:</span>
+                                        <span className="detail-label">{t(`labels.price`, { ns: 'common' })}:</span>
                                         <PriceTypes listing={listing}/>
                                     </div>
                                     <div className="detail-item">
-                                        <span className="detail-label">Локация:</span>
+                                        <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
                                         <span className="detail-value">
                                             {listing.location || ""}
                                         </span>
                                     </div>
                                     <div className="detail-item">
-                                        <span className="detail-label">Категория:</span>
-                                        {/* <CategoryTypes /> */}
+                                        <span className="detail-label">{t(`labels.category`, { ns: 'common' })}:</span>
+                                        {t(`category.${listing.category}`, { ns: 'categories' })}
                                     </div>
                                     <div className="detail-item">
-                                        <span className="detail-label">Рейтинг:</span>
+                                        <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
                                         <ListingRating />
                                     </div>
                                 </div>
@@ -198,7 +204,7 @@ const ListingPage = () => {
                     {/* Похожие объявления */}
                     {listing.category && (
                         <section className="similar-listings">
-                            <h2>Похожие объявления</h2>
+                            <h2>{t(`listing.similarListings`, { ns: 'common' })}</h2>
                             <CatalogContent mainListingId={listing.id} params={params}/>
                         </section>
                     )}

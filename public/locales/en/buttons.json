@@ -1,3 +1,33 @@
 {
-    
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit"
+    },
+    "login": "Log in",
+    "loginToWrite": "Log in to write",
+    "upload": {
+        "image": "Upload image"
+    },
+    "special": {
+        "connectTelegram": "Connect Telegram"
+    },
+    "listing": {
+        "addNew": "Add new",
+        "goToDrafts": "Go to drafts",
+        "publish": "Publish",
+        "cleanDraft": "Clear draft",
+        "delete": "Delete listing",
+        "saveTranslation": "Save translation",
+        "favorite": {
+            "add": "Add to favorites",
+            "remove": "Remove from favorites"
+        },
+        "contactToAuthor": "Send message",
+        "edit": "Edit listing"
+    },
+    "review": {
+        "create": "Leave a review"
+    }
 }

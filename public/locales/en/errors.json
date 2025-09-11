@@ -1,3 +1,5 @@
 {
-    
+    "errors": {
+        "pageInDev": "This page is still under development <br/>Please come back later :)"
+    }
 }

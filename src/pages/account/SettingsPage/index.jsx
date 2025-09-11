@@ -221,7 +221,7 @@ const SettingsPage = () => {
                 </div>
 
                 <div className="form-section">
-                    <h3 th:text="#{profile.editing.privacy}">{t(`settings.labels.privacy`, { ns: 'common' })}</h3>
+                    <h3>{t(`settings.labels.privacy`, { ns: 'common' })}</h3>
                     <div className="form-group">
                         <label>{t(`settings.privacy`, { ns: 'tooltips' })}</label>
                         <div className="status-toggle">
@@ -254,28 +254,28 @@ const SettingsPage = () => {
 
                 {/* Аватар */}
                 <div className="form-section">
-                    <h3>Аватар</h3>
+                    <h3>{t(`settings.labels.avatar`, { ns: 'common' })}</h3>
                     <div className="avatar-options">
                         <div
                             className={`avatar-option ${avatarType === "uploaded" ? "selected" : ""}`}
                             onClick={() => changeAvatarType("uploaded", user.uploadedAvatar)}
                         >
                             <img className="avatar-preview avatar p80-avatar" src={user.uploadedAvatar || "/images/upload-foto.png"} alt="Моя" />
-                            <span>{t(`avatarTypes.uploaded`, { ns: 'common' })}</span>
+                            <span>{t(`settings.avatarTypes.uploaded`, { ns: 'common' })}</span>
                         </div>
                         <div
                             className={`avatar-option ${avatarType === "google" ? "selected" : ""}`}
                             onClick={() => changeAvatarType("google", user.googleAvatar)}
                         >
                             <img className="avatar-preview avatar p80-avatar" src={user.googleAvatar} alt="Google" />
-                            <span>{t(`avatarTypes.google`, { ns: 'common' })}</span>
+                            <span>{t(`settings.avatarTypes.google`, { ns: 'common' })}</span>
                         </div>
                         <div
                             className={`avatar-option ${avatarType === "default" ? "selected" : ""}`}
                             onClick={() => changeAvatarType("default", "/images/avatar-placeholder.png")}
                         >
                             <img className="avatar-preview avatar p80-avatar" src="/images/avatar-placeholder.png" alt="Default" />
-                            <span>{t(`avatarTypes.default`, { ns: 'common' })}</span>
+                            <span>{t(`settings.avatarTypes.default`, { ns: 'common' })}</span>
                         </div>
                     </div>
 

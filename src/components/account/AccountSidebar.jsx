@@ -67,7 +67,7 @@ const AccountSidebar = () => {
             <AccountSidebarLinks/>
 
             {!user?.telegramConnected && (
-                <button th:if="${!user.telegramConnected}" className="telegram-button" id="connectTelegram">{t(`buttons.special.connectTelegram`, { ns: 'buttons' })}</button>
+                <button th:if="${!user.telegramConnected}" className="telegram-button" id="connectTelegram">{t(`special.connectTelegram`, { ns: 'buttons' })}</button>
             )}
         </aside>
     );

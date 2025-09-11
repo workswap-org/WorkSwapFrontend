@@ -3,15 +3,19 @@ import "#/css/public/pages/catalog-page.css";
 import SortCategorySelector from "./SortCategorySelector";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const CatalogPage = () => {
 
-    const [category, setCategory] = useState("");
-    const [searchQuery, setSearchQuery] = useState("");
-    const [hasReviews, setHasReviews] = useState(false);
-    const [activeSort, setActiveSort] = useState("date");
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
 
-    const [params, setParams] = useState({});
+    const [category, setCategory] = useState(params.get("category") || "");
+    const [searchQuery, setSearchQuery] = useState(params.get("searchQuery") || "");
+    const [hasReviews, setHasReviews] = useState(params.get("hasReviews") || false);
+    const [activeSort, setActiveSort] = useState(params.get("sortBy") || "date");
+
+    const [searchParams, setSearchParams] = useState({});
 
     useEffect(() => {
         function initParams() {
@@ -22,7 +26,11 @@ const CatalogPage = () => {
             if (searchQuery) newParams.searchQuery = searchQuery;
             if (hasReviews) newParams.hasReviews = "on";
 
-            setParams(newParams);
+            setSearchParams(newParams);
+
+            const newUrlParams = new URLSearchParams(newParams);
+            const newUrl = window.location.pathname + "?" + newUrlParams.toString();
+            window.history.replaceState({}, "", newUrl);
         }
 
         initParams();
@@ -44,7 +52,7 @@ const CatalogPage = () => {
                         setActiveSort={setActiveSort}
                     />
                     <main className="catalog-main">
-                        <CatalogContent params={params}/>
+                        <CatalogContent params={searchParams}/>
                     </main>
                 </div>
             </div>

@@ -1,3 +1,33 @@
 {
-    
+    "common": {
+        "save": "Tallenna",
+        "cancel": "Peruuta",
+        "delete": "Poista",
+        "edit": "Muokkaa"
+    },
+    "login": "Kirjaudu sisään",
+    "loginToWrite": "Kirjaudu sisään kirjoittaaksesi",
+    "upload": {
+        "image": "Lataa kuva"
+    },
+    "special": {
+        "connectTelegram": "Yhdistä Telegram"
+    },
+    "listing": {
+        "addNew": "Lisää uusi",
+        "goToDrafts": "Siirry luonnoksiin",
+        "publish": "Julkaise",
+        "cleanDraft": "Tyhjennä luonnos",
+        "delete": "Poista ilmoitus",
+        "saveTranslation": "Tallenna käännös",
+        "favorite": {
+            "add": "Lisää suosikkeihin",
+            "remove": "Poista suosikeista"
+        },
+        "contactToAuthor": "Lähetä viesti",
+        "edit": "Muokkaa ilmoitusta"
+    },
+    "review": {
+        "create": "Jätä arvostelu"
+    }
 }

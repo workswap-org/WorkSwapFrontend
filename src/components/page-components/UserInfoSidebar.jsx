@@ -4,8 +4,12 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { Link } from "react-router-dom";
 import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useTranslation } from 'react-i18next';
+
 
 const UserInfoSidebar = ( {listingId, author} ) => {
+
+    const { t } = useTranslation();
 
     const notificate = useNotification();
 
@@ -19,7 +23,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
 
     useEffect(() => {
 
-        if (!author.id) return;
+        if (!author.id || !isAuthenticated) return;
 
         const params = {};
         if (author.id) params.sellerId = author.id;
@@ -32,7 +36,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
 
         getChat();
         
-    }, [author, listingId]);
+    }, [author, listingId, isAuthenticated]);
 
     useEffect(() => {
         async function checkFavorite() {
@@ -53,7 +57,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
         }
 
         try {
-            const res = await apiFetch(`/api/listing/${listingId}/favorite`, { method: "POST" });
+            const res = await apiFetch(`/api/listing/favorite/${listingId}`, { method: "POST" });
 
             if (res?.message) {
                 notificate(res.message, "success");
@@ -82,7 +86,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                 <div className="seller-info">
                     <h4>{author.name}</h4>
                     <div className="seller-rating">
-                        <span>Рейтинг: </span>
+                        <span>{t(`labels.rating`, { ns: 'common' })}: </span>
                         <span>{author.rating}</span> ★
                     </div>
                 </div>
@@ -95,53 +99,54 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                                     <Link 
                                         to={`/secure/messenger?chat=${chat}`} 
                                         className="btn btn-primary"
-                                    >Написать сообщение</Link>
+                                    >{t(`listing.contactToAuthor`, { ns: 'buttons' })}</Link>
                                     
                                     <button onClick={toggleFavorite} className="btn btn-outline-primary">
-                                        {isFavorite && (
-                                            <span>Убрать из избранного</span>
-                                        )}
-
-                                        {!isFavorite && (
-                                            <span>Добавить в избраннное</span>
+                                        {isFavorite ? (
+                                            <span>{t(`listing.favorite.remove`, { ns: 'buttons' })}</span>
+                                        ) : (
+                                            <span>{t(`listing.favorite.add`, { ns: 'buttons' })}</span>
                                         )}
                                     </button>
                                 </>
                             )}
 
                             {isOwner && (
-                                <a th:if="${isOwner and activePage == 'listing'}"
-                                    th:href="@{'/secure/listing/edit/' + ${listing.id}}"
+                                <Link
+                                    to={`/secure/listing/edit/${listingId}`}
                                     className="btn btn-primary"
-                                >Редактировать объявление</a>
+                                >
+                                    {t(`listing.edit`, { ns: 'buttons' })}
+                                </Link>
                             )}
                         </>
                     )}
 
                     {!isAuthenticated && (
-                        <a href="/login" className="btn btn-primary" th:text="#{login.to.write}">Войти, чтобы написать</a>
+                        <Link to="/login" className="btn btn-primary">{t(`loginToWrite`, { ns: 'buttons' })}</Link>
                     )}
                 </div>
             </div>
 
             <div className="contact-card" th:if="${user != null}">
-                <h3>Контактная информация</h3>
+                <h3>{t(`labels.contacts`, { ns: 'common' })}</h3>
                 <div className="contact-methods">
 
                     {author.phone && (
-                        <div className="contact-item" th:if="${user.phoneVisible and user.phone != null}">
+                        <div className="contact-item">
                             <span className="contact-icon">📱</span>
                             <span>{author.phone}</span>
                         </div>
                     )}
+
                     {author.email && (
-                        <div className="contact-item" th:if="${user.emailVisible and user.email != null}">
+                        <div className="contact-item">
                             <span className="contact-icon">✉️</span>
                             <span>{author.email}</span>
                         </div>
                     )}
 
-                    {!(author.phone && author.email) && (
+                    {(author.phone == null && author.email == null) && (
                          <span>Нет контактов</span>
                     )}
                 </div>

@@ -150,7 +150,7 @@ const ListingTranslations = ({ id, onChange }) => {
                             </label>
 
                             <button type="button" className="btn btn-primary" onClick={handleAddLanguage}>
-                                {t(`buttons.listing.saveTranslation`, { ns: 'buttons' })}
+                                {t(`listing.saveTranslation`, { ns: 'buttons' })}
                             </button>
                         </div>
                     </div>

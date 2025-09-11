@@ -4,8 +4,11 @@ import { apiFetch } from "@/lib/apiClient";
 import PublicListingCard from "@/components/cards/listing-cards/PublicListingCard";
 import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
 import ReviewsSection from "@/components/reviews/ReviewsSection";
+import { useTranslation } from 'react-i18next';
 
 const ProfilePage = () => {
+
+    const { t } = useTranslation(['common']);
 
     const { id } = useParams();
 
@@ -32,16 +35,9 @@ const ProfilePage = () => {
             <div className="listing-layout">
                 <main className="listing-main">
 
-                    <div className="listing-header">
-                        <h1>Название объявления</h1>
-                        <div className="listing-meta">
-                            <span className="listing-date">{user.createdAt}</span>
-                        </div>
-                    </div>
-
                     <div className="listing-main-content">
                         <div className="listing-details">
-                            <h2 th:text="#{listing.description}">Описание</h2>
+                            <h2>{t(`profile.listings`, { ns: 'common' })}</h2>
                             <p className="listing-description" th:text="${profileUser.bio ?: ''}"></p>
 
                             <div className="listings-grid">

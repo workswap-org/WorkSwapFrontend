@@ -1,3 +1,5 @@
 {
-    
+    "errors": {
+        "pageInDev": "Tämä sivu on vielä kehitysvaiheessa <br/>Tule myöhemmin takaisin :)"
+    }
 }

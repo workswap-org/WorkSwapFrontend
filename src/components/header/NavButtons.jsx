@@ -50,7 +50,7 @@ const NavButtons = () => {
                     className="btn btn-outline-primary"
                 >
                     <img src="/images/google.png" className="logo" alt="Google" />
-                    <span>{t("buttons.login")}</span>
+                    <span>{t("login")}</span>
                 </Link>
             )}
 

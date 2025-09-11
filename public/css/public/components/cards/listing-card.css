@@ -3,11 +3,6 @@
     flex-direction: column;
     flex-grow: 1;
     padding: 1rem;
-    gap: 1rem;
-}
-
-.listing-card-body a {
-    height: 100%;
 }
 
 .listing-card-text {

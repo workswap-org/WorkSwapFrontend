@@ -1,12 +1,19 @@
 import { useEffect, useState, useRef } from "react";
 import { Client } from "@stomp/stompjs";
 import { API_BASE } from "@/api/config";
+import { useAuth } from "@/contexts/auth/AuthContext";
 
 export function useStompClient() {
+
+    const {user} = useAuth();
+
     const [connected, setConnected] = useState(false);
     const clientRef = useRef(null);
 
     useEffect(() => {
+
+        if (!user) return;
+
         const token = localStorage.getItem("accessToken");
         if (!token) {
             console.warn("No access token found, cannot connect to WebSocket");

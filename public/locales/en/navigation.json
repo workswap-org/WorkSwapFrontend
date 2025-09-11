@@ -1,3 +1,25 @@
 {
-    
+    "catalogSidebar": {
+        "links": {
+            "about": "What is this site?",
+            "account": "Account",
+            "createListing": "Create Listing",
+            "myListings": "My Listings",
+            "messenger": "My Messages"
+        }
+    },
+    "accountSidebar": {
+        "links": {
+            "account": "Account",
+            "my-listings": "My Listings",
+            "favorites": "Favorites",
+            "messenger": "Messages",
+            "settings": "Settings",
+            "security": "Security",
+            "editProfile": "Edit Profile"
+        }
+    },
+    "breadcrumps": {
+        "catalog": "Catalog"
+    }
 }

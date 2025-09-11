@@ -23,7 +23,7 @@ const MyListingsPage = () => {
         <>
             <div className="account-header">
                 <h2>{t(`titles.myListings`, { ns: 'common' })}</h2>
-                <Link to="/secure/listing/create" className="btn btn-primary">{t(`buttons.listing.addNew`, { ns: 'buttons' })}</Link>
+                <Link to="/secure/listing/create" className="btn btn-primary">{t(`listing.addNew`, { ns: 'buttons' })}</Link>
             </div>
 
             <div className="listings-grid">
