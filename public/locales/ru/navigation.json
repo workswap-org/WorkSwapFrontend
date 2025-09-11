@@ -18,5 +18,8 @@
             "security": "Безопасность",
             "editProfile": "Редактировать профиль"
         }
+    },
+    "breadcrumps": {
+        "catalog": "Каталог"
     }
 }

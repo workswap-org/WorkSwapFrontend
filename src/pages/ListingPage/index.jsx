@@ -7,10 +7,13 @@ import PriceTypes from "@/components/small-components/PriceTypes"
 import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
 import ReviewsSection from "@/components/reviews/ReviewsSection";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
+import { useTranslation } from 'react-i18next';
 
 const ListingPage = () => {
 
     const { id } = useParams();
+
+    const { t } = useTranslation(['categories', 'common', 'navigation']);
 
     const [listing, setListing] = useState([]);
     const [author, setAuthor] = useState([]);
@@ -19,6 +22,10 @@ const ListingPage = () => {
         async function loadListing() {
             const data = await apiFetch(`/api/listing/get/${id}`);
             setListing(data.listing);
+        }
+
+        async function loadCategoryPath() {
+            
         }
 
         loadListing();
@@ -67,10 +74,12 @@ const ListingPage = () => {
                 <main className="listing-main">
                     {/* Хлебные крошки */}
                     <nav className="breadcrumbs">
-                        <a href="/catalog">Каталог</a>
+                        <a href="/catalog">
+                            {t(`breadcrumps.catalog`, { ns: 'navigation' })}
+                        </a>
                         <span> / </span>
                         <a href="/catalog">
-                            {/* <CategoryTypes /> */}
+                            {t(`category.${listing.category}`, { ns: 'categories' })}
                         </a>
                         <span> / </span>
                         <span>{listing.localizedTitle}</span>

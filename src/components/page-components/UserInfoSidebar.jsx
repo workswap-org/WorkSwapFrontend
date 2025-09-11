@@ -12,7 +12,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
     const {user} = useAuth();
     const isAuthenticated = !!user;
 
-    const isOwner = !!(user.id == author.id);
+    const isOwner = !!(user?.id == author.id);
     
     const [isFavorite, setFavorite] = useState(false);
     const [chat, setChat] = useState(0);

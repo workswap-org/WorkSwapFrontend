@@ -6,12 +6,7 @@ const PublicListingCard = ({listing, isMainListing}) => {
 
     const navigate = useNavigate();
     
-    if (
-        listing.testMode ||
-        isMainListing
-    ) {
-        return null;
-    }
+    if (listing.testMode || isMainListing || listing.temporary) return null;
 
     return (
         <article onClick={() => navigate(`/listing/${listing.id}`)} className="listing-card hover-animation-card">
