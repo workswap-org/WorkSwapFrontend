@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 const SettingsPage = () => {
 
     const notificate = useNotification();
-    const { t } = useTranslation('common')
+    const { t } = useTranslation(['tooltips', 'common'])
 
     const [user, setUser] = useState([]);
 
@@ -223,7 +223,7 @@ const SettingsPage = () => {
                 <div className="form-section">
                     <h3 th:text="#{profile.editing.privacy}">{t(`settings.labels.privacy`, { ns: 'common' })}</h3>
                     <div className="form-group">
-                        <label th:text="#{profile.editing.contacts.visible}">Отображение ваших контактных данных для других пользователей</label>
+                        <label>{t(`settings.privacy`, { ns: 'tooltips' })}</label>
                         <div className="status-toggle">
                             <label className="switch">
                                 <input
@@ -233,7 +233,7 @@ const SettingsPage = () => {
                                 />
                                 <span className="slider"></span>
                             </label>
-                            <span th:text="${user.phoneVisible} ? #{profile.editing.phone} : #{profile.editing.phone}">Отображение номера телефона</span>
+                            <span>{t(`settings.phoneVisibility`, { ns: 'tooltips' })}</span>
                         </div>
                     </div>
 
@@ -247,7 +247,7 @@ const SettingsPage = () => {
                                 />
                                 <span className="slider"></span>
                             </label>
-                            <span th:text="${user.emailVisible} ? #{profile.editing.email} : #{profile.editing.email}">Отображение email</span>
+                            <span>{t(`settings.emailVisibility`, { ns: 'tooltips' })}</span>
                         </div>
                     </div>
                 </div>
@@ -261,21 +261,21 @@ const SettingsPage = () => {
                             onClick={() => changeAvatarType("uploaded", user.uploadedAvatar)}
                         >
                             <img className="avatar-preview avatar p80-avatar" src={user.uploadedAvatar || "/images/upload-foto.png"} alt="Моя" />
-                            <span>Моя</span>
+                            <span>{t(`avatarTypes.uploaded`, { ns: 'common' })}</span>
                         </div>
                         <div
                             className={`avatar-option ${avatarType === "google" ? "selected" : ""}`}
                             onClick={() => changeAvatarType("google", user.googleAvatar)}
                         >
                             <img className="avatar-preview avatar p80-avatar" src={user.googleAvatar} alt="Google" />
-                            <span>Google</span>
+                            <span>{t(`avatarTypes.google`, { ns: 'common' })}</span>
                         </div>
                         <div
                             className={`avatar-option ${avatarType === "default" ? "selected" : ""}`}
                             onClick={() => changeAvatarType("default", "/images/avatar-placeholder.png")}
                         >
                             <img className="avatar-preview avatar p80-avatar" src="/images/avatar-placeholder.png" alt="Default" />
-                            <span>Стандарт</span>
+                            <span>{t(`avatarTypes.default`, { ns: 'common' })}</span>
                         </div>
                     </div>
 
@@ -289,8 +289,8 @@ const SettingsPage = () => {
 
                 {/* Языки */}
                 <div className="form-section">
-                    <h3>Языки которыми я владею</h3>
-                    <p>Укажите несколько языков, чтобы видеть больше подходящих объявлений</p>
+                    <h3>{t(`settings.labels.myLanguages`, { ns: 'common' })}</h3>
+                    <p>{t(`settings.myLanguages`, { ns: 'tooltips' })}</p>
                     <div className="form-group flex-row">
                         {["ru", "fi", "en", "it"].map((lang) => (
                             <button
@@ -307,8 +307,8 @@ const SettingsPage = () => {
 
                 {/* Местоположение */}
                 <div className="form-section">
-                    <h3>Моё местоположение</h3>
-                    <p>Этот параметр не обязателен, но полезен чтобы вам не показывались объявления из других стран или городов</p>
+                    <h3>{t(`settings.labels.myLocation`, { ns: 'common' })}</h3>
+                    <p>{t(`settings.myLocation`, { ns: 'tooltips' })}</p>
                     <div className="form-group">
                         <LocationSelector locationId={locationId} onChange={locationChange} />
                     </div>
@@ -316,9 +316,9 @@ const SettingsPage = () => {
 
                 {/* Bio */}
                 <div className="form-section">
-                    <h3>О себе</h3>
+                    <h3>{t(`settings.labels.bio`, { ns: 'common' })}</h3>
                     <div className="form-group">
-                        <p>Краткая информация</p>
+                        <p>{t(`settings.bio`, { ns: 'tooltips' })}</p>
                         <div className="input-wrapper">
                             <textarea 
                                 value={bio}
