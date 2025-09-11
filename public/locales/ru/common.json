@@ -66,9 +66,18 @@
     },
 
     "settings": {
+        "avatarTypes": {
+            "uploaded": "Загруженный",
+            "google": "Google",
+            "default": "Стандартный"
+        },
         "labels": {
             "baseInfo": "Основная информация",
-            "privacy": "Конциденциальность"
+            "privacy": "Конциденциальность",
+            "avatar": "Аватар",
+            "myLanguages": "Языки которыми я владею",
+            "myLocation": "Моё местоположение",
+            "bio": "О себе"
         }
     }
 }
