@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path' // ← вот это нужно добавить
+import path from 'path'
 import { fileURLToPath } from 'url'
 
 // Получаем путь к текущей папке
@@ -16,16 +16,19 @@ export default defineConfig({
         },
     },
     server: {
-        host: '0.0.0.0',
         port: 8080,
-        preview: {
-            allowedHosts: ['workswap.org'] // твой домен
-        }
+        proxy: {
+            "/proxy": {
+                target: "https://api.workswap.org",
+                changeOrigin: true,
+                secure: false,
+            },
+        },
     },
     define: {
         global: 'window'
     },
     preview: {
-        port: 8080    // <-- порт для `vite preview`
+        port: 8080
     }
 })
