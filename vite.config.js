@@ -16,7 +16,7 @@ export default defineConfig({
         },
     },
     server: {
-        port: 8080,
+        port: 30000,
         proxy: {
             "/proxy": {
                 target: "https://api.workswap.org",
