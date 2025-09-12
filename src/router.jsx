@@ -14,6 +14,10 @@ import LoginPage from "./pages/login/LoginPage";
 import RegisterPage from "./pages/login/RegisterPage";
 import LoginSuccessPage from "./pages/login/LoginSuccessPage";
 
+/* Страницы информации */
+import TermsPage from "./pages/infos/TermsPage";
+import PrivacyPolicyPage from "./pages/infos/PrivacyPolicyPage";
+
 /* Страницы аккаунта */
 import AccountPage from "./pages/account/AccountPage";
 import MyListingsPage from "./pages/account/MyListingsPage";
@@ -46,6 +50,9 @@ const AppRouter = () => {
                     <Route path="catalog" element={<CatalogPage />} />
                     <Route path="listing/:id" element={<ListingPage />} />
                     <Route path="profile/:id" element={<ProfilePage />} />
+                    
+                    <Route path="/terms" element={<TermsPage />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
 
                     <Route element={<PrivateRoute />}>
                         

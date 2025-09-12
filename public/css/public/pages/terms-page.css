@@ -1,0 +1,10 @@
+.terms-page {
+    margin: 0 auto;
+    max-width: 1200px;
+    background-color: var(--color-bg-body);
+    min-height: 100vh;
+    padding: 5rem 2rem;
+
+    white-space: pre-wrap;
+    overflow: break-word;
+}
