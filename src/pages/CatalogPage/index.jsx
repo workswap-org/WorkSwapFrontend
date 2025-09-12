@@ -1,5 +1,5 @@
 import CatalogSidebar from "./CatalogSidebar";
-import "#/css/public/pages/terms-page.css"
+import "#/css/public/pages/catalog-page.css"
 import SortCategorySelector from "./SortCategorySelector";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useState } from "react";
