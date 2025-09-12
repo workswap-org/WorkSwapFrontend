@@ -57,6 +57,9 @@
     --primary-light: #9396ff;
     --primary: #6366f1;
     --primary-dark: #4f46e5;
+
+    --login-bg-start: #8db5fb;
+    --login-bg-end: #d25eff;
 }
 
 [data-theme="dark"] {
@@ -70,4 +73,7 @@
     --primary-light: #4a4e94;
     --primary: #8b8db3;
     --primary-dark: #aaa8cf;
+
+    --login-bg-start: #1161eb;
+    --login-bg-end: #a809e7;
 }

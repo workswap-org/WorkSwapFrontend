@@ -8,6 +8,9 @@
 
     "login": "Войти",
     "loginToWrite": "Войти, чтобы написать",
+    "loginGoogle": "Войти через Google",
+    "register": "Завершить регистрацию",
+    "returnToCatalog": "Вернуться в каталог",
     
     "upload": {
         "image": "Загрузить изображение"

@@ -69,11 +69,6 @@
     margin-bottom: 0;
 }
 
-.review-form .text-group textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
 .reviews-section {
     background: var(--color-bg-body);
     border-radius: var(--radius);
@@ -137,7 +132,12 @@
     background: var(--background);
     font-size: 1rem;
     resize: vertical;
+    min-height: 100px;
     color: var(--text-color);
+}
+
+.text-group {
+    width: 100%;
 }
 
 .review-form button[type="submit"] {
@@ -151,10 +151,6 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 1rem;
-}
-
-.review-form button[type="submit"]:hover {
-    background-color: var(--primary-dark);
 }
 
 @media (max-width: 992px) {

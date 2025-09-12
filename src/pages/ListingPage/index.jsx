@@ -8,6 +8,7 @@ import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
 import ReviewsSection from "@/components/reviews/ReviewsSection";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
+import ListingGallery from "./ListingGallery";
 
 const ListingPage = () => {
 
@@ -18,6 +19,7 @@ const ListingPage = () => {
     const [listing, setListing] = useState([]);
     const [author, setAuthor] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         async function loadListing() {
@@ -25,7 +27,13 @@ const ListingPage = () => {
             setListing(data.listing);
         }
 
+        async function loadImages() {
+            const data = await apiFetch(`/api/listing/images/${id}`)
+            setImages(data.images);
+        }
+
         loadListing();
+        loadImages();
     }, [id])
 
     useEffect(() => {
@@ -44,28 +52,6 @@ const ListingPage = () => {
 
     }, [listing])
 
-    const [mainImageIndex, setMainImageIndex] = useState(0);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const images = listing.images && listing.images.length > 0
-        ? listing.images
-        : [{ path: listing.imagePath || "/images/default-listing.png" }];
-
-    const handlePrevImage = () => {
-        setMainImageIndex((prev) => (prev - 1 + images.length) % images.length);
-    };
-
-    const handleNextImage = () => {
-        setMainImageIndex((prev) => (prev + 1) % images.length);
-    };
-
-    const openModal = (index) => {
-        setMainImageIndex(index);
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => setIsModalOpen(false);
-
     const params = {
         category: listing.category,
     }
@@ -76,17 +62,19 @@ const ListingPage = () => {
                 <main className="listing-main">
                     {/* Хлебные крошки */}
                     <nav className="breadcrumbs">
-                        <a href="/catalog">
-                            {t(`breadcrumps.catalog`, { ns: 'navigation' })}
-                        </a>
-                        <span> / </span>
+                        <div>
+                            <Link href="/catalog">
+                                {t(`breadcrumps.catalog`, { ns: 'navigation' })}
+                            </Link>
+                            <span className="divider">/</span>
+                        </div>
                         {categories.map((cat) => (
-                            <>
+                            <div key={cat.id}>
                                 <Link to={`/catalog?category=${cat.name}`}>
                                     {t(`category.${cat.name}`, { ns: 'categories' })}
                                 </Link>
-                                <span> / </span>
-                            </>
+                                <span className="divider">/</span>
+                            </div>
                         ))}
                         <span>{listing.localizedTitle}</span>
                     </nav>
@@ -106,62 +94,7 @@ const ListingPage = () => {
 
                     <div className="listing-main-content">
                         {/* Галерея изображений */}
-                        <div className="listing-gallery">
-                            <div className="main-image">
-                                <div className="image-container">
-                                    <button className="nav-arrow prev-arrow" onClick={handlePrevImage}>
-                                        &#10094;
-                                    </button>
-                                    <img
-                                        src={images[mainImageIndex].path}
-                                        onError={(e) => e.currentTarget.src = "/images/default-listing.png"}
-                                        alt="Основное изображение"
-                                        className="clickable-image main-image-view"
-                                        id="mainImageView"
-                                        onClick={() => openModal(mainImageIndex)}
-                                    />
-                                    <button className="nav-arrow next-arrow" onClick={handleNextImage}>
-                                        &#10095;
-                                    </button>
-                                </div>
-                            </div>
-
-                            {images.length > 1 && (
-                                <div className="thumbnails">
-                                    {images.map((image, index) => (
-                                        <div className="thumbnail" key={index} data-index={index}>
-                                            <img
-                                                src={image.path}
-                                                onError={(e) => e.currentTarget.src = "/images/default-listing.png"}
-                                                alt="Дополнительное изображение"
-                                                className="clickable-image thumbnail-img"
-                                                onClick={() => setMainImageIndex(index)}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Модальное окно (fullscreen) */}
-                        {isModalOpen && (
-                            <div id="fullscreen-modal" className="fullscreen-modal">
-                                <span className="close" id="close-modal" onClick={closeModal}>
-                                    &times;
-                                </span>
-                                <button className="modal-arrow modal-prev" onClick={handlePrevImage}>
-                                    &#10094;
-                                </button>
-                                <img
-                                    id="fullscreen-image"
-                                    src={images[mainImageIndex].path}
-                                    alt="Fullscreen"
-                                />
-                                <button className="modal-arrow modal-next" onClick={handleNextImage}>
-                                    &#10095;
-                                </button>
-                            </div>
-                        )}
+                        <ListingGallery images={images} mainImage={listing.imagePath}/>
 
                         {/* Информация о предложении */}
                         <div className="listing-content">
@@ -181,10 +114,6 @@ const ListingPage = () => {
                                         <span className="detail-value">
                                             {listing.location || ""}
                                         </span>
-                                    </div>
-                                    <div className="detail-item">
-                                        <span className="detail-label">{t(`labels.category`, { ns: 'common' })}:</span>
-                                        {t(`category.${listing.category}`, { ns: 'categories' })}
                                     </div>
                                     <div className="detail-item">
                                         <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>

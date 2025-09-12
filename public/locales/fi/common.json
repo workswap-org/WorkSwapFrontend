@@ -17,7 +17,7 @@
         "fixed": "€",
         "per-hour": "€/tunti",
         "per-day": "€/päivä",
-        "negotiable": "Sopimuksen mukaan"
+        "negotiable": "Sop.hinta"
     },
     "statuses": {
         "published": "Julkaistu",
@@ -93,5 +93,16 @@
             "rating": "Arvosana",
             "text": "Arvostelun teksti"
         }
+    },
+
+    "register": {
+        "label": "Rekisteröidy",
+        "welcomeUser": "Tervetuloa, {{name}}!",
+        "acceptTerms": "Hyväksyn <0>Käyttöehdot</0> ja <1>Tietosuojakäytännön</1>",
+        "acceptStudy": "Ymmärrän, että tämä on opiskeluprojekti eikä sivusto ole kaupallinen palvelu",
+        "afterRegister": "Rekisteröinnin vahvistamisen jälkeen sinut ohjataan katalogiin."
+    },
+    "login": {
+        "label": "Kirjaudu tiliin"
     }
 }

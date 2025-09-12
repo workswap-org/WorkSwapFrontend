@@ -93,5 +93,18 @@
             "rating": "Rating",
             "text": "Review text"
         }
+    },
+
+    "login": {
+        "label": "Log in"
+    },
+
+    "register": {
+        "label": "Register",
+        "welcomeUser": "Welcome, {{name}}!",
+        "acceptTerms": "I accept the <0>Terms of Use</0> and <1>Privacy Policy</1>",
+        "acceptStudy": "I understand that this is a study project and the site is not a commercial service",
+        "afterRegister": "After confirming your registration, you will be redirected to the catalog."
     }
+
 }

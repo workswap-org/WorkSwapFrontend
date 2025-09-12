@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useTranslation } from 'react-i18next';
 
-const SortCategorySelector = ({category, setCategory}) => {
+const SortCategorySelector = ({category, setCategory, setSidebarOpened}) => {
 
     const { t } = useTranslation('categories')
 
@@ -100,7 +100,7 @@ const SortCategorySelector = ({category, setCategory}) => {
                     ))}
                 </ul>
 
-                <button id="mobileFilterButton" className="btn btn-filter-sidebar" type="button">
+                <button onClick={() => setSidebarOpened(true)} className="btn btn-filter-sidebar" type="button">
                     <i className="fa-solid fa-filter"></i>
                 </button>
             </div>

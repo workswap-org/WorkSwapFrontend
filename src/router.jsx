@@ -32,6 +32,7 @@ import ListingCreatePage from "./pages/account/listing/ListingCreatePage";
 import ListingDraftsPage from "./pages/account/listing/ListingDraftsPage";
 
 import PrivateRoute from "./components/PrivateRoute";
+import AuthGuard from "./contexts/auth/AuthGuard";
 import RouteLogger from "./components/logging/RouteLogger";
 
 const AppRouter = () => {
@@ -45,34 +46,36 @@ const AppRouter = () => {
                 <Route index element={<Navigate to="/catalog" replace />} />
 
                 {/* Один общий Layout */}
-                <Route path="/" element={<Layout />}>
-                    {/* публичные страницы */}
-                    <Route path="catalog" element={<CatalogPage />} />
-                    <Route path="listing/:id" element={<ListingPage />} />
-                    <Route path="profile/:id" element={<ProfilePage />} />
-                    
-                    <Route path="/terms" element={<TermsPage />} />
-                    <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-
-                    <Route element={<PrivateRoute />}>
+                <Route path="/" element={<AuthGuard />}>
+                    <Route path="/" element={<Layout />}>
+                        {/* публичные страницы */}
+                        <Route path="catalog" element={<CatalogPage />} />
+                        <Route path="listing/:id" element={<ListingPage />} />
+                        <Route path="profile/:id" element={<ProfilePage />} />
                         
-                    </Route>
+                        <Route path="/terms" element={<TermsPage />} />
+                        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
 
-                    {/* приватные страницы */}
-                    <Route path="secure" element={<PrivateRoute />}>
-                        <Route element={<AccountLayout />}>
-                        
-                            <Route index element={<Navigate to="/secure/account" replace />} />
-                            <Route path="account" element={<AccountPage />} />
-                            <Route path="my-listings" element={<MyListingsPage />} />
-                            <Route path="favorites" element={<FavoritesPage />} />
-                            <Route path="messenger" element={<MessengerPage />} /> 
-                            <Route path="settings" element={<SettingsPage />} />
-                            <Route path="security" element={<SecurityPage />} />
+                        <Route element={<PrivateRoute />}>
+                            
+                        </Route>
 
-                            <Route path="listing/create" element={<ListingCreatePage />} />
-                            <Route path="listing/drafts" element={<ListingDraftsPage />} />
-                            <Route path="listing/edit/:id" element={<ListingEditPage />} />
+                        {/* приватные страницы */}
+                        <Route path="secure" element={<PrivateRoute />}>
+                            <Route element={<AccountLayout />}>
+                            
+                                <Route index element={<Navigate to="/secure/account" replace />} />
+                                <Route path="account" element={<AccountPage />} />
+                                <Route path="my-listings" element={<MyListingsPage />} />
+                                <Route path="favorites" element={<FavoritesPage />} />
+                                <Route path="messenger" element={<MessengerPage />} /> 
+                                <Route path="settings" element={<SettingsPage />} />
+                                <Route path="security" element={<SecurityPage />} />
+
+                                <Route path="listing/create" element={<ListingCreatePage />} />
+                                <Route path="listing/drafts" element={<ListingDraftsPage />} />
+                                <Route path="listing/edit/:id" element={<ListingEditPage />} />
+                            </Route>
                         </Route>
                     </Route>
                 </Route>

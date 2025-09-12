@@ -45,7 +45,6 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            navigate('/catalog');
             await apiFetch("/api/auth/logout", { method: "POST" }); // запрос на сервер
         } catch (e) {
             console.error("Logout failed", e);
@@ -53,6 +52,7 @@ export const AuthProvider = ({ children }) => {
             setAccessToken(null);
             setUser(null);
             localStorage.removeItem("accessToken");
+            navigate('/catalog');
         }
     };
 

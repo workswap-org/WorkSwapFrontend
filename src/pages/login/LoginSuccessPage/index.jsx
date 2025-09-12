@@ -28,7 +28,7 @@ const LoginSuccessPage = () => {
         .catch(err => console.error("Auth failed:", err));
     }, [setAccessToken, navigate, location.search]);
 
-    return <div>Загрузка...</div>;
+    return <></>;
 };
 
 export default LoginSuccessPage;

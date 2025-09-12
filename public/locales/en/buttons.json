@@ -5,8 +5,13 @@
         "delete": "Delete",
         "edit": "Edit"
     },
+
     "login": "Log in",
     "loginToWrite": "Log in to write",
+    "loginGoogle": "Login with Google",
+    "registerButton": "Complete Registration",
+    "returnToCatalog": "Return to catalog",
+
     "upload": {
         "image": "Upload image"
     },

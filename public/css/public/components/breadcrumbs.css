@@ -17,6 +17,16 @@
 }
 
 .breadcrumbs span {
+    color: var(--gray);
+}
+
+.breadcrumbs .divider {
     margin: 0 0.5rem;
     color: var(--gray);
+}
+
+@media (max-width: 576px) {
+    .breadcrumbs {
+        flex-direction: column;
+    }
 }

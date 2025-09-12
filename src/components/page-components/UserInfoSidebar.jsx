@@ -44,11 +44,11 @@ const UserInfoSidebar = ( {listingId, author} ) => {
             setFavorite(await data.isFavorite);
         }
 
-        if (listingId) {
+        if (listingId && isAuthenticated) {
             checkFavorite();
         }
         
-    }, [listingId]);
+    }, [listingId, isAuthenticated]);
 
     const toggleFavorite = async () => {
         if (!listingId) {

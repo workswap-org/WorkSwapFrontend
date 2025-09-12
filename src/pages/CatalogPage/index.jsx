@@ -15,6 +15,8 @@ const CatalogPage = () => {
     const [hasReviews, setHasReviews] = useState(params.get("hasReviews") || false);
     const [activeSort, setActiveSort] = useState(params.get("sortBy") || "date");
 
+    const [sidebarOpened, setSidebarOpened] = useState([])
+
     const [searchParams, setSearchParams] = useState({});
 
     useEffect(() => {
@@ -38,7 +40,12 @@ const CatalogPage = () => {
 
     return(
         <>
-            <SortCategorySelector category={category} setCategory={setCategory}/>
+            <SortCategorySelector 
+                category={category} 
+                setCategory={setCategory}
+                setSidebarOpened={setSidebarOpened}
+                sidebarOpened={sidebarOpened}
+            />
             {/* Основной контент */}
             <div className="catalog-container">
                 <div className="catalog-layout">
@@ -50,6 +57,8 @@ const CatalogPage = () => {
                         setHasReviews={setHasReviews}
                         activeSort={activeSort}
                         setActiveSort={setActiveSort}
+                        sidebarOpened={sidebarOpened}
+                        setSidebarOpened={setSidebarOpened}
                     />
                     <main className="catalog-main">
                         <CatalogContent params={searchParams}/>

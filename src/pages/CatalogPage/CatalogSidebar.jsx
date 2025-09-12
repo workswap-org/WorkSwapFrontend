@@ -6,47 +6,26 @@ const sorts = [
 ];
 
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 const CatalogSidebar = ({
-    searchQuery,
-    setSearchQuery,
     hasReviews,
     setHasReviews,
     activeSort,
-    setActiveSort
+    setActiveSort,
+    sidebarOpened,
+    setSidebarOpened
 }) => {
 
     const { t } = useTranslation(['common', 'navigation'])
     
     return (
-        <aside className="catalog-sidebar">
-            <button className="close-sidebar d-lg-none">
+        <aside className={`catalog-sidebar ${sidebarOpened ? 'active' : ''}`}>
+            <button onClick={() => setSidebarOpened(false)} className="close-sidebar d-lg-none">
                 <i className="fa-solid fa-times"></i>
             </button>
 
             <div className="sorting-sidebar">
-                <div className="sorting-search">
-                    <h5>{t(`catalog.sidebar.search`, { ns: 'common' })}</h5>
-                    <form id="searchForm">
-                        <div className="input-group">
-                            <input 
-                                type="text" 
-                                className="search-input" 
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                name="searchQuery"
-                                placeholder={t('placeholders.search', { ns: 'common' })}
-                            />
-                            <input type="hidden" name="category"/>
-                            <input type="hidden" name="sortBy"/>
-                            <button className="btn btn-search" type="submit">
-                                <i className="fa fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <h5 th:text="#{catalog.sorting.title}">{t(`catalog.sidebar.sort`, { ns: 'common' })}</h5>
+                <h5>{t(`catalog.sidebar.sort`, { ns: 'common' })}</h5>
                 <div className="list-group list-group-flush">
                     {sorts.map(sort => (
                         <a
@@ -59,7 +38,7 @@ const CatalogSidebar = ({
                     ))}
                 </div>
 
-                <h5 th:text="#{catalog.sorting.filters}">{t(`catalog.sidebar.filters`, { ns: 'common' })}</h5>
+                <h5>{t(`catalog.sidebar.filters`, { ns: 'common' })}</h5>
                 <div className="form-check custom-checkbox">
                     <input
                         className="form-check-input"
@@ -75,16 +54,8 @@ const CatalogSidebar = ({
                     </label>
                 </div>
             </div>
-            <div className="sorting-sidebar sidebar-links">
-                <h5>{t(`catalog.sidebar.usefulLinks`, { ns: 'common' })}</h5>
-                <Link to="info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link>
-                <Link to="secure/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link>
-                <Link to="secure/listing/create" className="catalog-sidebar-btn">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
-                <Link to="secure/my-listing" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
-                <Link to="secure/messenger" className="catalog-sidebar-btn">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
-            </div>
         </aside>
-);
+    );
 };
 
 export default CatalogSidebar;
