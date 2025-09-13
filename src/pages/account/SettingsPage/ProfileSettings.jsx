@@ -44,7 +44,7 @@ const ProfileSettings = ({
                         <label>Email</label>
                         <input
                             type="email"
-                            value={email}
+                            value={email ?? ""}
                             /* onChange={(e) => emailChange(e.target.value)} */
                             /* required */
                             readOnly
@@ -56,7 +56,7 @@ const ProfileSettings = ({
                         <div className="input-wrapper">
                             <input
                                 type="tel"
-                                value={phone}
+                                value={phone ?? ""}
                                 onChange={(e) => phoneChange(e.target.value)}
                                 maxLength={maxPhoneLen}
                             />
@@ -108,7 +108,7 @@ const ProfileSettings = ({
                     <p>{t(`settings.bio`, { ns: 'tooltips' })}</p>
                     <div className="input-wrapper">
                         <textarea 
-                            value={bio}
+                            value={bio ?? ""}
                             onChange={(e) => bioChange(e.target.value)}
                             maxLength={maxBioLen}
                             rows={4}
