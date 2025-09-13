@@ -3,6 +3,7 @@ import AccountSidebarLinks from "./AccountSidebarLinks";
 import Avatar from "@/components/small-components/Avatar";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTranslation } from 'react-i18next';
+import { apiFetch } from "@/lib/apiClient";
 
 const AccountSidebar = () => {
 
@@ -16,19 +17,11 @@ const AccountSidebar = () => {
         if (connectTelegram) {
             connectTelegram.addEventListener('click', async () => {
                 try {
-                    const response = await fetch('/proxy/secure/api/user/telegram/connect', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
+                    const response = await apiFetch('/api/user/telegram/connect', {method: 'POST'});
 
-                    if (response.ok) {
-                        const linkUrl = await response.text(); // Получаем URL как строку
+                    if (response.link) {
+                        const linkUrl = await response.link; // Получаем URL как строку
                         window.open(linkUrl, '_blank'); // Открываем в новой вкладке
-                    } else {
-                        const errorText = await response.text();
-                        alert('Ошибка: ' + errorText);
                     }
                 } catch (error) {
                     console.error('Ошибка запроса:', error);
