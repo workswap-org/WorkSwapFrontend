@@ -66,7 +66,7 @@ export function useStompClient() {
             console.log("🔌 Deactivating WebSocket");
             stompClient.deactivate();
         };
-    }, []);
+    }, [user]);
 
     return { client: clientRef.current, connected };
 }

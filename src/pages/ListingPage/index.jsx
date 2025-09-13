@@ -63,7 +63,7 @@ const ListingPage = () => {
                     {/* Хлебные крошки */}
                     <nav className="breadcrumbs">
                         <div>
-                            <Link href="/catalog">
+                            <Link to="/catalog">
                                 {t(`breadcrumps.catalog`, { ns: 'navigation' })}
                             </Link>
                             <span className="divider">/</span>

@@ -8,6 +8,8 @@ export function useChatSubscription(chatId) {
     useEffect(() => {
         if (!chatId || !client || !connected || !client.active) return;
 
+        setMessages([]);
+
         const subscription = client.subscribe(`/topic/history.messages/${chatId}`, (response) => {
             const data = JSON.parse(response.body);
             /* console.log(chatId)

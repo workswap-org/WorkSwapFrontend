@@ -1,21 +1,32 @@
 import "#/css/public/pages/messenger-page.css"
 import DialogItem from "@/components/chat/DialogItem";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useStompClient } from "@/hooks/messenger/useStompClient";
 import { useChatsUpdates } from "@/hooks/messenger/useChatsUpdates";
 import { useTranslation } from "react-i18next";
 import ChatContainer from "./ChatContainer";
 
+import PublicListingCard from "@/components/cards/listing-cards/PublicListingCard";
+
 const MessengerPage = () => {
     const { i18n, t } = useTranslation();
     const userLocale = i18n.language || "ru";
     const [currentChatId, setCurrentChatId] = useState([]);
+    const [currentInterlocutor, setCurrentInterlocutor] = useState([]);
+
+    const [chatListing, setChatListing] = useState(undefined);
+    const [chatListingVisible, setChatListingVisible] = useState(false);
 
     const { client, connected } = useStompClient();
     const [chats, setChats] = useState([]);
 
     useChatsUpdates(client, chats, setChats, currentChatId);
+
+    const changeChat = useCallback((chatId, interlocutor) => {
+        setCurrentChatId(chatId);
+        setCurrentInterlocutor(interlocutor);
+    }, [])
 
     useEffect(() => {
 
@@ -66,6 +77,10 @@ const MessengerPage = () => {
         return () => sub.unsubscribe();
     }, [client, connected, userLocale]);
 
+    function toggleChatListing() {
+        setChatListingVisible(!chatListingVisible);
+    }
+
     return (
         <>
             <div className="account-header">
@@ -77,7 +92,15 @@ const MessengerPage = () => {
 
             <div className="messenger-container">
             {/* Список диалогов */}
-            <div id="listingCardContainer" className="listing-card-container appearance-left-animation"></div>
+            {chatListing && (
+                <div id="listingCardContainer" className={`listing-card-container appearance-left-animation ${chatListingVisible ? "visible" : ''}`}>
+                    <PublicListingCard 
+                        key={chatListing.id}
+                        listing={chatListing}
+                        isMainListing={false}
+                    />
+                </div>
+            )}
 
             <div className="dialogs-list">
                 {chats.length === 0 && (
@@ -92,14 +115,20 @@ const MessengerPage = () => {
                     .map(chat => (
                     <DialogItem 
                         key={chat.id} 
-                        chat={chat} 
-                        onClick={() => setCurrentChatId(chat.id)} 
+                        chat={chat}
+                        changeClick={changeChat} 
                     />
                 ))}
             </div>
             {/* Окно чата th:if="${selectedChat != null}" */}
             <div className="chat-window">
-                <ChatContainer currentChatId={currentChatId}/>
+                <ChatContainer 
+                    interlocutor={currentInterlocutor} 
+                    currentChatId={currentChatId}
+                    setChatListing={setChatListing}
+                    chatListing={chatListing}
+                    toggleChatListing={toggleChatListing}
+                />
             </div>
         </div>
         </>

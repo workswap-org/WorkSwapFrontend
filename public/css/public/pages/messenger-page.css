@@ -11,28 +11,30 @@
 .messenger-container {
     display: flex;
     flex: 1;
-    gap: 1.5rem;
+    gap: 1rem;
     height: calc(100vh - 300px); /* Фиксированная высота */
     min-height: 500px;
-    max-height: 500px; /* Максимальная высота */
+    max-height: 600px; /* Максимальная высота */
     overflow: hidden; /* Скрываем переполнение */
     position: relative;
 }
 
 .dialogs-list {
-    flex: 0 0 320px;
+    flex: 0 0 300px;
     border-right: 1px solid var(--border-color);
-    padding-right: 1rem;
     overflow-y: auto;
+}
+
+.dialog-item-box {
+    border-bottom: 1px solid var(--border-color);
 }
 
 .dialog-item {
     display: flex;
-    padding: 1rem;
+    padding: 0.7rem 0.7rem;
     border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.4s;
-    margin-bottom: 0.5rem;
     gap: 1rem;
 }
 
@@ -76,7 +78,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0.5rem;
+    padding: 0.7rem;
     background-color: var(--color-bg-body);
     border-bottom: 1px solid var(--border-color);
 }
@@ -169,10 +171,13 @@
 }
 
 .messages-container {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     padding: 0.5rem;
     overflow-y: auto;
     background-color: var(--color-bg-body);
+    gap: 0.5rem;
 }
 
 .message-date {
@@ -207,20 +212,13 @@
 
 .message-content {
     max-width: 70%;
-    padding: 0.75rem 0.75rem;
+    padding: 0.3rem 0.75rem;
     border-radius: var(--radius);
     position: relative;
-    margin-top: 10px;
-}
 
-.message-in .message-content {
-    background-color: var(--background);
-    margin-right: auto;
-}
-
-.message-out .message-content {
-    background-color: var(--primary-light);
-    margin-left: auto;
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 0.4rem;
 }
 
 .message-content p {
@@ -229,18 +227,26 @@
 }
 
 .message-time {
-    display: block;
     font-size: 0.7rem;
     color: var(--gray);
-    text-align: right;
-    margin-top: 0.25rem;
-    width: 2rem;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.message-in .message-content {
+    background-color: var(--background);
+    margin-right: auto;
+}
+
+.message-out .message-content {
+    background-color: var(--primary-2xlight);
     margin-left: auto;
 }
 
+
 .message-input-container {
     display: flex;
-    padding: 1rem;
+    padding: 0.7rem;
     background-color: var(--color-bg-body);
     border-top: 1px solid var(--border-color);
 }
@@ -319,8 +325,8 @@
 .listing-card-container {
     position: absolute;
     z-index: 100;
-    height: 100%;
-    width: 320px;
+    width: 300px;
+    background: rgba(0, 0, 0, 0.5);
 }
 /* Мобильная версия */
 @media (max-width: 768px) {
