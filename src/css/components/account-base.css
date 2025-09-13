@@ -26,6 +26,8 @@
 }
 
 .account-main {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     background: var(--color-bg-body);
     border-radius: var(--radius);

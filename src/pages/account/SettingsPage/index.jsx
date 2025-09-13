@@ -2,8 +2,10 @@ import "@/css/pages/settings-page.css"
 import { useState, useEffect, useCallback } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useNotification } from "@/contexts/notifications/NotificationContext";
-import LocationSelector from "@/components/selectors/LocationSelector";
 import { useTranslation } from 'react-i18next';
+import PrivacySettings from "./PrivacySettings";
+import ProfileSettings from "./ProfileSettings";
+import PreferencesSettings from "./PreferencesSettings";
 
 const SettingsPage = () => {
 
@@ -24,6 +26,8 @@ const SettingsPage = () => {
 
     const [dataLoaded, setDataLoaded] = useState(false);
     const [saving, setSaving] = useState(false);
+
+    const [settingsSection, setSettingsSection] = useState("profile")
 
     // Подсчёт символов
     const maxNameLen = 30;
@@ -79,47 +83,37 @@ const SettingsPage = () => {
     }, [notificate]);
 
     const nameChange = useCallback((name) => {
-        console.log("[N] Имя:", name);
         setName(name);
-
         setSaving(true);
         updateUser({ name });
     }, [updateUser]);
 
     const locationChange = useCallback((lastId, path) => {
-        console.log("[L] Последний выбранный:", lastId);
         console.log("[L] Путь:", path);
         setSaving(true);
         updateUser({ location: lastId });
     }, [updateUser]);
 
     const phoneChange = useCallback((phone) => {
-        console.log("[P] Телефон:", phone);
         setPhone(validatePhone(phone));
-
         setSaving(true);
         updateUser({ phone });
     }, [updateUser]);
 
     const phoneVisibleChange = useCallback((phoneVisible) => {
-        console.log("[P] :", phoneVisible);
         setPhoneVisible(phoneVisible);
-
         setSaving(true);
         updateUser({ phoneVisible });
     }, [updateUser]);
 
     const emailVisibleChange = useCallback((emailVisible) => {
-        console.log("[E] Почта:", emailVisible);
         setEmailVisible(emailVisible);
-
         setSaving(true);
         updateUser({ emailVisible });
     }, [updateUser]);
 
-    const changeBio = useCallback((bio) => {
+    const bioChange = useCallback((bio) => {
         setBio(bio);
-
         setSaving(true);
         updateUser({ bio });
     }, [updateUser]);
@@ -138,13 +132,11 @@ const SettingsPage = () => {
     }
 
     const changeLanguages = useCallback(() => {
-        console.log("[L] Языки:", languages);
-
         setSaving(true);
         updateUser({ languages });
     }, [updateUser, languages]);
 
-    const changeAvatarType = useCallback((avatarType, avatarUrl) => {
+    const avatarTypeChange = useCallback((avatarType, avatarUrl) => {
         setSaving(true);
 
         setAvatarType(avatarType);
@@ -175,162 +167,53 @@ const SettingsPage = () => {
                     <i className="fa-regular fa-download fa-spin fa-spin-reverse fa-2xl"></i>
                 )}
             </div>
-            <form>
-                {/* Имя, Email, Телефон */}
-                <div className="form-section">
-                    <h3>{t(`settings.labels.baseInfo`, { ns: 'common' })}</h3>
-                    <div>
-                        <div className="form-group">
-                            <label>{t(`labels.name`, { ns: 'common' })}</label>
-                            <div className="input-wrapper">
-                                <input
-                                    type="text"
-                                    value={name ?? ""}
-                                    onChange={(e) => nameChange(e.target.value)}
-                                    maxLength={maxNameLen}
-                                    required
-                                />
-                                <span className="char-counter">{name.length} / {maxNameLen}</span>
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <label>Email</label>
-                            <input
-                                type="email"
-                                value={email}
-                                /* onChange={(e) => emailChange(e.target.value)} */
-                                /* required */
-                                readOnly
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{t(`labels.phone`, { ns: 'common' })}</label>
-                            <div className="input-wrapper">
-                                <input
-                                    type="tel"
-                                    value={phone}
-                                    onChange={(e) => phoneChange(e.target.value)}
-                                    maxLength={maxPhoneLen}
-                                />
-                                <span className="char-counter">{phone.length} / {maxPhoneLen}</span>
-                            </div>
-                        </div>
-                    </div>
+            <div className="settings-page">
+                <div className="settings-sections">
+                    <button className="btn settings-section-btn hover" onClick={() => setSettingsSection("profile")}>Профиль</button>
+                    <button className="btn settings-section-btn hover" onClick={() => setSettingsSection("privacy")}>Конфиденциальность</button>
+                    <button className="btn settings-section-btn hover" onClick={() => setSettingsSection("preferences")}>Предпочтения</button>
                 </div>
+                <div className="settings-container">
 
-                <div className="form-section">
-                    <h3>{t(`settings.labels.privacy`, { ns: 'common' })}</h3>
-                    <div className="form-group">
-                        <label>{t(`settings.privacy`, { ns: 'tooltips' })}</label>
-                        <div className="status-toggle">
-                            <label className="switch">
-                                <input
-                                    type="checkbox"
-                                    checked={phoneVisible}
-                                    onChange={(e) => phoneVisibleChange(e.target.checked)}
-                                />
-                                <span className="slider"></span>
-                            </label>
-                            <span>{t(`settings.phoneVisibility`, { ns: 'tooltips' })}</span>
-                        </div>
-                    </div>
+                    {(settingsSection == "privacy") && (
+                        <PrivacySettings
+                            phoneVisible={phoneVisible}
+                            phoneVisibleChange={phoneVisibleChange}
+                            emailVisible={emailVisible}
+                            emailVisibleChange={emailVisibleChange}
+                        />
+                    )}
 
-                    <div className="form-group">
-                        <div className="status-toggle">
-                            <label className="switch">
-                                <input
-                                    type="checkbox"
-                                    checked={emailVisible}
-                                    onChange={(e) => emailVisibleChange(e.target.checked)}
-                                />
-                                <span className="slider"></span>
-                            </label>
-                            <span>{t(`settings.emailVisibility`, { ns: 'tooltips' })}</span>
-                        </div>
-                    </div>
-                </div>
+                    {(settingsSection == "profile") && (
+                        <ProfileSettings
+                            user={user}
+                            name={name}
+                            email={email}
+                            phone={phone}
+                            avatarType={avatarType}
+                            bio={bio}
 
-                {/* Аватар */}
-                <div className="form-section">
-                    <h3>{t(`settings.labels.avatar`, { ns: 'common' })}</h3>
-                    <div className="avatar-options">
-                        <div
-                            className={`avatar-option ${avatarType === "uploaded" ? "selected" : ""}`}
-                            onClick={() => changeAvatarType("uploaded", user.uploadedAvatar)}
-                        >
-                            <img className="avatar-preview avatar p80-avatar" src={user.uploadedAvatar || "/images/upload-foto.png"} alt="Моя" />
-                            <span>{t(`settings.avatarTypes.uploaded`, { ns: 'common' })}</span>
-                        </div>
-                        <div
-                            className={`avatar-option ${avatarType === "google" ? "selected" : ""}`}
-                            onClick={() => changeAvatarType("google", user.googleAvatar)}
-                        >
-                            <img className="avatar-preview avatar p80-avatar" src={user.googleAvatar} alt="Google" />
-                            <span>{t(`settings.avatarTypes.google`, { ns: 'common' })}</span>
-                        </div>
-                        <div
-                            className={`avatar-option ${avatarType === "default" ? "selected" : ""}`}
-                            onClick={() => changeAvatarType("default", "/images/avatar-placeholder.png")}
-                        >
-                            <img className="avatar-preview avatar p80-avatar" src="/images/avatar-placeholder.png" alt="Default" />
-                            <span>{t(`settings.avatarTypes.default`, { ns: 'common' })}</span>
-                        </div>
-                    </div>
+                            nameChange={nameChange}
+                            phoneChange={phoneChange}
+                            avatarTypeChange={avatarTypeChange}
+                            bioChange={bioChange}
 
-                    {avatarType === "uploaded" && (
-                        <div className="upload-controls">
-                            {/* Твой uploadControls компонент */}
-                            <input type="file" name="avatarFile" />
-                        </div>
+                            maxNameLen={maxNameLen}
+                            maxPhoneLen={maxPhoneLen}
+                            maxBioLen={maxBioLen}
+                        />
+                    )}
+
+                    {(settingsSection == "preferences") && (
+                        <PreferencesSettings
+                            languages={languages}
+                            toggleLanguage={toggleLanguage}
+                            locationId={locationId}
+                            locationChange={locationChange}
+                        />
                     )}
                 </div>
-
-                {/* Языки */}
-                <div className="form-section">
-                    <h3>{t(`settings.labels.myLanguages`, { ns: 'common' })}</h3>
-                    <p>{t(`settings.myLanguages`, { ns: 'tooltips' })}</p>
-                    <div className="form-group flex-row">
-                        {["ru", "fi", "en", "it"].map((lang) => (
-                            <button
-                                key={lang}
-                                type="button"
-                                className={`lang-select-btn ${languages.includes(lang) ? "active" : ""}`}
-                                onClick={() => toggleLanguage(lang)}
-                            >
-                                {t(`languages.${lang}`, { ns: 'common' })}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Местоположение */}
-                <div className="form-section">
-                    <h3>{t(`settings.labels.myLocation`, { ns: 'common' })}</h3>
-                    <p>{t(`settings.myLocation`, { ns: 'tooltips' })}</p>
-                    <div className="form-group">
-                        <LocationSelector locationId={locationId} onChange={locationChange} />
-                    </div>
-                </div>
-
-                {/* Bio */}
-                <div className="form-section">
-                    <h3>{t(`settings.labels.bio`, { ns: 'common' })}</h3>
-                    <div className="form-group">
-                        <p>{t(`settings.bio`, { ns: 'tooltips' })}</p>
-                        <div className="input-wrapper">
-                            <textarea 
-                                value={bio}
-                                onChange={(e) => changeBio(e.target.value)}
-                                maxLength={maxBioLen}
-                                rows={4}
-                            />
-                            <span className="char-counter">{bio.length} / {maxBioLen}</span>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
         </>
     );
 }

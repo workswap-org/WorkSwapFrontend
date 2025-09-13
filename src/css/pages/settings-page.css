@@ -1,3 +1,32 @@
+.settings-page {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex: 1;
+}
+
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.settings-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    border-right: 2px solid var(--border-color);
+    height: 100%;
+}
+
+.settings-section-btn {
+    text-align: left;
+    background-color: var(--color-bg-body);
+    color: var(--text-color);
+    font-size: large;
+    border-width: 0;
+}
+
 .upload-controls label {
     padding: 0.5rem 1rem;
     border: 1px solid var(--primary);
@@ -29,11 +58,11 @@ h2 {
 /* Разделы формы */
 .form-section {
     margin-bottom: 1.5rem;
+    border-bottom: 2px dashed var(--border-color);
 }
 
 .form-section h3 {
     font-size: 1.4rem;
-    color: var(--text-color);
     margin-bottom: 1rem;
 }
 
