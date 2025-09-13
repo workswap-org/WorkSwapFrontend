@@ -36,7 +36,7 @@ const ProfileSettings = ({
                                 maxLength={maxNameLen}
                                 required
                             />
-                            <span className="char-counter">{name.length} / {maxNameLen}</span>
+                            <span className="char-counter">{name?.length} / {maxNameLen}</span>
                         </div>
                     </div>
 
@@ -60,7 +60,7 @@ const ProfileSettings = ({
                                 onChange={(e) => phoneChange(e.target.value)}
                                 maxLength={maxPhoneLen}
                             />
-                            <span className="char-counter">{phone.length} / {maxPhoneLen}</span>
+                            <span className="char-counter">{phone?.length} / {maxPhoneLen}</span>
                         </div>
                     </div>
                 </div>
