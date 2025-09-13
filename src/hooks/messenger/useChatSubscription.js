@@ -12,8 +12,6 @@ export function useChatSubscription(chatId) {
 
         const subscription = client.subscribe(`/topic/history.messages/${chatId}`, (response) => {
             const data = JSON.parse(response.body);
-            /* console.log(chatId)
-            console.log(data) */
             if (Array.isArray(data)) {
                 setMessages(data);
             } else {

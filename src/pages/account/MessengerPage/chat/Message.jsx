@@ -1,16 +1,23 @@
+import { useAuth } from "@/contexts/auth/AuthContext";
+
 const Message = ({message}) => {
+
+    const { user } = useAuth();
 
     const date = new Date(message.sentAt);
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const formattedTime = `${hours}:${minutes}`;
 
+    const isOwn = (message.senderId == user.id)
+
+    console.log(message.text, message.receiverId, user.id, isOwn)
+
     return (
-        <div className={`message ${message.own ? 'message-out' : 'message-in'}`}>
+        <div className={`message ${isOwn ? 'message-out' : 'message-in'}`}>
             <div className="message-content">
                 <p>{message.text}</p>
-                <span className="message-time"
-                    th:text="${#temporals.format(message.sentAt, 'HH:mm')}">{formattedTime}</span>
+                <span className="message-time">{formattedTime}</span>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function useChatsUpdates(stompClient, chats, setChats, currentChatId, setupChatSubscription) {
+export function useChatsUpdates(stompClient, chats, setChats, currentChatId) {
     
     useEffect(() => {
         if (!stompClient) return;
@@ -19,11 +19,6 @@ export function useChatsUpdates(stompClient, chats, setChats, currentChatId, set
                 return prev;
             });
 
-            // Если открыт текущий чат — обновляем его историю
-            if (currentChatId === update.id) {
-                setupChatSubscription(update.id);
-            }
-
             // Перемещаем чат наверх, если есть новое сообщение
             if (update.hasNewMessage) {
                 setChats(prev => {
@@ -38,6 +33,9 @@ export function useChatsUpdates(stompClient, chats, setChats, currentChatId, set
             }
         });
 
-        return () => subscription.unsubscribe();
-    }, [stompClient, chats, currentChatId, setChats, setupChatSubscription]);
+        return () => {
+            console.log("Отсписались от чатов")
+            subscription.unsubscribe();
+        }
+    }, [stompClient, chats, currentChatId, setChats]);
 }

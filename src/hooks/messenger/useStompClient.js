@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Client } from "@stomp/stompjs";
 import { API_BASE } from "@/api/config";
 import { useAuth } from "@/contexts/auth/AuthContext";
@@ -8,7 +8,8 @@ export function useStompClient() {
     const {user} = useAuth();
 
     const [connected, setConnected] = useState(false);
-    const clientRef = useRef(null);
+
+    const [client, setClient] = useState(null);
 
     useEffect(() => {
 
@@ -48,11 +49,12 @@ export function useStompClient() {
         stompClient.onConnect = () => {
             console.log("✅ Connected to WebSocket");
             setConnected(true);
-            clientRef.current = stompClient;
+            setClient(stompClient);
         };
 
         stompClient.onDisconnect = () => {
             console.log("🔌 Disconnected");
+            setClient(null);
             setConnected(false);
         };
 
@@ -68,5 +70,5 @@ export function useStompClient() {
         };
     }, [user]);
 
-    return { client: clientRef.current, connected };
+    return { client, connected };
 }

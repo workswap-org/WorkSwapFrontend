@@ -1,5 +1,5 @@
-import Message from "@/components/chat/Message";
-import SendMessageArea from "@/components/chat/SendMessageArea";
+import Message from "./chat/Message";
+import SendMessageArea from "./chat/SendMessageArea";
 import { useChatSubscription } from "@/hooks/messenger/useChatSubscription";
 import { useRef, useEffect } from "react";
 import { apiFetch } from "@/lib/apiClient";

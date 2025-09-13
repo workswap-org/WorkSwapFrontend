@@ -1,18 +1,24 @@
 import "@/css/pages/messenger-page.css"
-import DialogItem from "@/components/chat/DialogItem";
+import DialogItem from "./chat/DialogItem";
 
 import { useEffect, useState, useCallback } from "react";
 import { useStompClient } from "@/hooks/messenger/useStompClient";
 import { useChatsUpdates } from "@/hooks/messenger/useChatsUpdates";
 import { useTranslation } from "react-i18next";
 import ChatContainer from "./ChatContainer";
+import { useLocation } from "react-router-dom";
 
 import PublicListingCard from "@/components/cards/listing-cards/PublicListingCard";
 
 const MessengerPage = () => {
+
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
+
     const { i18n, t } = useTranslation();
     const userLocale = i18n.language || "ru";
-    const [currentChatId, setCurrentChatId] = useState([]);
+    const [startChatId, setStartChatId] = useState(params.get("chatId") || undefined);
+    const [currentChatId, setCurrentChatId] = useState(undefined);
     const [currentInterlocutor, setCurrentInterlocutor] = useState([]);
 
     const [chatListing, setChatListing] = useState(undefined);
@@ -23,9 +29,22 @@ const MessengerPage = () => {
 
     useChatsUpdates(client, chats, setChats, currentChatId);
 
+    useEffect(() => {
+        if (!currentChatId || !client || !client.active || !connected) return;
+
+        console.log("отправляем запрос на прочтение сообщений")
+
+        client.publish({
+            destination: "/app/chat.markAsRead",
+            body: JSON.stringify({ chatId: currentChatId }),
+            headers: { locale: userLocale }
+        });
+    }, [currentChatId, client, connected, userLocale]);
+
     const changeChat = useCallback((chatId, interlocutor) => {
         setCurrentChatId(chatId);
         setCurrentInterlocutor(interlocutor);
+        setStartChatId(chatId)
     }, [])
 
     useEffect(() => {
@@ -44,7 +63,6 @@ const MessengerPage = () => {
 
         if (!connected || !client) return;
 
-        // подписка на личные сообщения
         const sub = client.subscribe("/user/queue/chats", (message) => {
             const chat = JSON.parse(message.body);
 
@@ -114,9 +132,11 @@ const MessengerPage = () => {
                     .sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime))
                     .map(chat => (
                     <DialogItem 
-                        key={chat.id} 
+                        key={chat.id}
+                        startChatId={startChatId}
                         chat={chat}
-                        changeClick={changeChat} 
+                        changeChat={changeChat} 
+                        currentChatId={currentChatId}
                     />
                 ))}
             </div>

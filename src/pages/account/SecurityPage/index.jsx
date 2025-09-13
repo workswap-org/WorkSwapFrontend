@@ -10,7 +10,7 @@ const SecurityPage = () => {
                 <h2>{t(`titles.security`, { ns: 'common' })}</h2>
             </div>
 
-            <h3><Trans i18nKey="errors.pageInDev" ns="errors" /></h3>
+            <h3><Trans i18nKey="ui.pageInDev" ns="errors" /></h3>
         </>
     );
 };
