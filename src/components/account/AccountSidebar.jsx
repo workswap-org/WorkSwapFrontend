@@ -1,34 +1,42 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
 import Avatar from "@/components/small-components/Avatar";
 import { useAuth } from "@/contexts/auth/AuthContext";
 import { useTranslation } from 'react-i18next';
 import { apiFetch } from "@/lib/apiClient";
+import { useNotification } from "@/contexts/notifications/NotificationContext";
 
 const AccountSidebar = () => {
 
     const { t } = useTranslation(['buttons', 'navigation'])
     const { user } = useAuth();
+    const [telegramConnected, setTelegramConnected] = useState(true)
+    const notificate = useNotification();
+
+    async function connectTelegram() {
+        try {
+            const response = await apiFetch('/api/user/telegram/connect', {method: 'POST'});
+
+            if (response.link) {
+                const linkUrl = await response.link; // Получаем URL как строку
+                setTelegramConnected(true);
+                window.open(linkUrl, '_blank'); // Открываем в новой вкладке
+                notificate("Telegram успешно подключён, теперь вам будут приходить уведомления через это приложение!", "success")
+            }
+        } catch (error) {
+            console.error('Ошибка запроса:', error);
+            notificate("Ошибка подключения аккаунта Telegram", "error")
+        }
+    }
 
     useEffect(() => {
 
-        const connectTelegram = document.getElementById('connectTelegram');
-
-        if (connectTelegram) {
-            connectTelegram.addEventListener('click', async () => {
-                try {
-                    const response = await apiFetch('/api/user/telegram/connect', {method: 'POST'});
-
-                    if (response.link) {
-                        const linkUrl = await response.link; // Получаем URL как строку
-                        window.open(linkUrl, '_blank'); // Открываем в новой вкладке
-                    }
-                } catch (error) {
-                    console.error('Ошибка запроса:', error);
-                    alert('Ошибка запроса');
-                }
-            });
+        async function checkTelegramConnected() {
+            const data = await apiFetch('/api/user/telegram/check');
+            setTelegramConnected(data.telegramConnected);
         }
+
+        checkTelegramConnected();
     }, []);
 
     return(
@@ -59,8 +67,8 @@ const AccountSidebar = () => {
 
             <AccountSidebarLinks/>
 
-            {!user?.telegramConnected && (
-                <button th:if="${!user.telegramConnected}" className="telegram-button" id="connectTelegram">{t(`special.connectTelegram`, { ns: 'buttons' })}</button>
+            {!telegramConnected && (
+                <button onClick={() => connectTelegram()} className="telegram-button">{t(`special.connectTelegram`, { ns: 'buttons' })}</button>
             )}
         </aside>
     );

@@ -1,4 +1,4 @@
-import "#/css/public/pages/settings-page.css"
+import "@/css/pages/settings-page.css"
 import { useState, useEffect, useCallback } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useNotification } from "@/contexts/notifications/NotificationContext";

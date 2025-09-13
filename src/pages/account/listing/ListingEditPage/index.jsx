@@ -3,7 +3,7 @@ import LocationSelector from "@/components/selectors/LocationSelector";
 import { useEffect, useState, useCallback } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import ListingImagesUploader from "./ListingImagesUploader";
-import "#/css/public/pages/listing-edit-page.css"
+import "@/css/pages/listing-edit-page.css"
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import { API_BASE } from "@/api/config";
-import "#/css/public/pages/login-page.css"
+import "@/css/pages/login-page.css"
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 

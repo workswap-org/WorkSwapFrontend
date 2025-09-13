@@ -17,7 +17,8 @@
         "fixed": "€",
         "per-hour": "€/tunti",
         "per-day": "€/päivä",
-        "negotiable": "Sop.hinta"
+        "negotiable": "Sop.hinta",
+        "null": ""
     },
     "statuses": {
         "published": "Julkaistu",

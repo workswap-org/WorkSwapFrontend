@@ -17,7 +17,8 @@
         "fixed": "€",
         "per-hour": "€/час",
         "per-day": "€/день",
-        "negotiable": "Договорная"
+        "negotiable": "Договорная",
+        "null": ""
     },
     "statuses": {
         "published": "Опубликовано",

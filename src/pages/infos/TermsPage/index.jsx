@@ -1,4 +1,4 @@
-import "#/css/public/pages/terms-page.css";
+import "@/css/pages/terms-page.css";
 import { useEffect, useState } from "react";
 
 const TermsPage = () => {

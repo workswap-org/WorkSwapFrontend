@@ -18,7 +18,7 @@
 @import url(avatar-types.css);
 @import url(hovers.css);
 @import url(simple-components.css);
-@import url(../../variables.css);
+@import url(../variables.css);
 
 @import url(font-awesome-overwrite.css);
 

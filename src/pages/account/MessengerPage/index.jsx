@@ -1,4 +1,4 @@
-import "#/css/public/pages/messenger-page.css"
+import "@/css/pages/messenger-page.css"
 import DialogItem from "@/components/chat/DialogItem";
 
 import { useEffect, useState, useCallback } from "react";

@@ -1,7 +1,7 @@
 import { useLocation, Outlet } from "react-router-dom";
 import Header from "@/components/header/Header";
 import { useAuth } from "@/contexts/auth/AuthContext";
-import "#/css/public/components/base.css";
+import "@/css/components/base.css";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ActivePageContext from "@/contexts/ActivePageContext";
 import EmptyPage from "../pages/EmptyPage";

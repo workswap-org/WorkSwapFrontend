@@ -17,7 +17,8 @@
         "fixed": "€",
         "per-hour": "€/hour",
         "per-day": "€/day",
-        "negotiable": "Negotiable"
+        "negotiable": "Negotiable",
+        "null": ""
     },
     "statuses": {
         "published": "Published",

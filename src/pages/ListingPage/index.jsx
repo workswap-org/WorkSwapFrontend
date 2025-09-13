@@ -1,4 +1,4 @@
-import "#/css/public/pages/listing-page.css";
+import "@/css/pages/listing-page.css";
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useParams, Link } from "react-router-dom";
