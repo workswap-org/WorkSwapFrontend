@@ -113,7 +113,7 @@ const ProfileSettings = ({
                             maxLength={maxBioLen}
                             rows={4}
                         />
-                        <span className="char-counter">{bio.length} / {maxBioLen}</span>
+                        <span className="char-counter">{bio?.length} / {maxBioLen}</span>
                     </div>
                 </div>
             </div>
