@@ -16,15 +16,15 @@ const CatalogSidebar = ({
     activeSort,
     setActiveSort,
     sidebarOpened,
-    setSidebarOpened
+    toggleSidebar
 }) => {
 
     const { t } = useTranslation(['common', 'navigation'])
     
     return (
         <aside className={`catalog-sidebar ${sidebarOpened ? 'active' : ''}`}>
-            <button onClick={() => setSidebarOpened(false)} className="close-sidebar d-lg-none">
-                <i className="fa-solid fa-times"></i>
+            <button onClick={() => toggleSidebar()} className="btn btn-filter-sidebar" type="button">
+                <i className="fa-solid fa-filter"></i>
             </button>
 
             <div className="sorting-sidebar">
@@ -77,11 +77,11 @@ const CatalogSidebar = ({
             </div>
             <div className="sorting-sidebar sidebar-links">
                 <h5>{t(`catalog.sidebar.usefulLinks`, { ns: 'common' })}</h5>
-                <Link to="info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link>
-                <Link to="secure/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link>
-                <Link to="secure/listing/create" className="catalog-sidebar-btn">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
-                <Link to="secure/my-listing" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
-                <Link to="secure/messenger" className="catalog-sidebar-btn">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
+                <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link>
+                <Link to="/secure/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link>
+                <Link to="/secure/listing/create" className="catalog-sidebar-btn">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
+                <Link to="/secure/my-listing" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
+                <Link to="/secure/messenger" className="catalog-sidebar-btn">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
             </div>
         </aside>
     );

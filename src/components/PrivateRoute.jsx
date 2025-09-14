@@ -6,7 +6,7 @@ import EmptyPage from "../pages/EmptyPage";
 const PrivateRoute = () => {
     const { accessToken, loading } = useAuth();
     const location = useLocation();
-
+    
     if (loading) {
         return <EmptyPage />; // или спиннер
     }

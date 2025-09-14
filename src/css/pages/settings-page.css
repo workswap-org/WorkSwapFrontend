@@ -21,7 +21,7 @@
 
 .settings-section-btn {
     text-align: left;
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
     color: var(--text-color);
     font-size: large;
     border-width: 0;
@@ -31,7 +31,7 @@
     padding: 0.5rem 1rem;
     border: 1px solid var(--primary);
     color: var(--primary);
-    background-color: var(--color-bg-body); /* Исходный цвет фона */
+    background-color: var(--background-l1); /* Исходный цвет фона */
     border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.2s ease; /* Плавное изменение */
@@ -39,7 +39,7 @@
 
 .upload-controls label:hover {
     background-color: var(--primary); /* Фон при наведении */
-    color: var(--color-bg-body); /* Текст при наведении */
+    color: var(--background-l1); /* Текст при наведении */
     border-color: var(--primary-dark); /* Граница при наведении */
 }
 

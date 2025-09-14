@@ -13,7 +13,7 @@
     padding: 0.5rem 1rem;
     border: 1px solid var(--primary);
     color: var(--primary);
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
     border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -27,7 +27,7 @@
 }
 
 .upload-controls .btn-outline-primary {
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
     color: var(--primary);
     border: 1px solid var(--primary);
     margin-top: 8px;
@@ -39,6 +39,6 @@
 
 .upload-controls label:hover {
     background-color: var(--primary);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
     border-color: var(--primary-dark);
 }

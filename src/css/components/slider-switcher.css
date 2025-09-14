@@ -12,6 +12,7 @@
     width: 50px;
     min-width: 50px;
     height: 24px;
+    margin-bottom: 0;
 }
 
 .switch input {

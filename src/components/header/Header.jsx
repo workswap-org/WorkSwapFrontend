@@ -1,8 +1,8 @@
-import AccountSidebarLinks from "@/components/account/AccountSidebarLinks";
-import NavButtons from "./NavButtons";
 import ThemeChanger from "@/components/ThemeChanger";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import MobileMenu from "./MobileMenu";
+import NavButtons from "./NavButtons";
 
 const Header = ({ isEmpty, activePage }) => {
 
@@ -34,25 +34,19 @@ const Header = ({ isEmpty, activePage }) => {
                     <Link className="navbar-brand" to="/catalog">WorkSwap</Link>
                     <div className="flex-row media-only-flex">
                         <div className="nav-link">
-                            <ThemeChanger/>
+                            <ThemeChanger id={"themeChangerHeader"}/>
                         </div>
                         <button onClick={mobileMenuToggle} className="navbar-toggler">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                     </div>
                     <div className={`navbar-collapse ${mobileVisible ? 'show' : ""}`}>
-                        <nav className="navbar-top">
-                            <Link className="navbar-brand" href="/catalog" to="#{brand}">WorkSwap</Link>
-                            <button onClick={mobileMenuToggle} className="navbar-toggler">
-                                <span className="navbar-toggler-icon"></span>
-                            </button>
-                        </nav>
-
                         <NavButtons />
 
-                        <div className="account-manager">
-                            <AccountSidebarLinks hideMobile={hideMobile} activePage={activePage}/>
-                        </div>
+                        <MobileMenu
+                            hideMobile={hideMobile}
+                            activePage={activePage}
+                        />
                     </div>
                 </nav>
             </div>

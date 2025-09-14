@@ -18,7 +18,7 @@
 
 .image-item{
     position: relative;
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     border-radius: var(--radius);
     box-shadow: 0 2px 4px var(--shadow-color);
     overflow: hidden;

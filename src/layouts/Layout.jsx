@@ -1,15 +1,11 @@
 import { useLocation, Outlet } from "react-router-dom";
 import Header from "@/components/header/Header";
-import { useAuth } from "@/contexts/auth/AuthContext";
 import "@/css/components/base.css";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ActivePageContext from "@/contexts/ActivePageContext";
-import EmptyPage from "../pages/EmptyPage";
 
 export default function Layout() {
     const location = useLocation();
-
-    const { loading } = useAuth();
 
     const activePage = (() => {
         if (location.pathname.startsWith("/catalog")) return "catalog";
@@ -29,21 +25,9 @@ export default function Layout() {
 
     return (
         <ActivePageContext.Provider value={activePage}>
-            {/* {loading ? (
-                <EmptyPage />
-            ) : (
-                <>
-                    <Header />
+            <Header />
 
-                    <Outlet />
-                </>
-            )} */}
-
-            <>
-                <Header />
-
-                <Outlet />
-            </>
+            <Outlet />
 
             <LanguageSwitcher/>
         </ActivePageContext.Provider>

@@ -62,9 +62,9 @@
 
 .notification-center-item {
     padding: 10px;
-    border-bottom: 1px solid var(--color-bg-body-gray);
+    border-bottom: 1px solid var(--background-l1-gray);
     font-size: 14px;
-    border-left: 5px solid var(--color-bg-body-gray);
+    border-left: 5px solid var(--background-l1-gray);
     display: block;
     transition: all 5s;
 }
@@ -98,7 +98,7 @@
     right: 0;
     left: 20px;
     width: 300px;
-    background: var(--background);
+    background: var(--background-l1);
     border: 1px solid var(--border-color);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     border-radius: var(--radius);
@@ -230,4 +230,17 @@
     opacity: 0;
     transform: translateY(-20px);
     transition: opacity 300ms, transform 300ms;
+}
+
+@media (max-width: 600px) {
+    .notification-center-dropdown {
+        top: 5px;
+        right: 0;
+        left: 10px;
+        width: calc(100% - 20px);
+    }
+
+    .notification-center-list {
+        max-height: 510px;
+    }
 }

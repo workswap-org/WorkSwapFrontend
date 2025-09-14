@@ -15,8 +15,8 @@
     },
     "priceTypes": {
         "fixed": "€",
-        "per-hour": "€/час",
-        "per-day": "€/день",
+        "per-hour": "€ / час",
+        "per-day": "€ / день",
         "negotiable": "Договорная",
         "null": ""
     },

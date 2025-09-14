@@ -14,7 +14,7 @@ const SecurityPage = () => {
         const res = await apiFetch('/api/user/current/delete', { method: 'DELETE'})
         if (res.success) {
             notificate(res.message, 'success')
-            navigate('/logout');
+            navigate('/logout', { replace: true });
         }
     }
 

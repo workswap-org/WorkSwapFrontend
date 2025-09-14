@@ -9,16 +9,23 @@ import ReviewsSection from "@/components/reviews/ReviewsSection";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
 import ListingGallery from "./ListingGallery";
+import { useAuth } from "@/contexts/auth/AuthContext";
+import { useNotification } from "@/contexts/notifications/NotificationContext";
 
 const ListingPage = () => {
 
     const { id } = useParams();
-
+    const notificate = useNotification();
     const { t } = useTranslation(['categories', 'common', 'navigation']);
+
+    const {user} = useAuth();
+    const isAuthenticated = !!user;
 
     const [listing, setListing] = useState([]);
     const [author, setAuthor] = useState([]);
+    const isOwner = !!(user?.id == author?.id);
     const [categories, setCategories] = useState([]);
+    const [isFavorite, setFavorite] = useState(false);
     const [images, setImages] = useState([]);
 
     useEffect(() => {
@@ -55,6 +62,43 @@ const ListingPage = () => {
     const params = {
         category: listing.category,
     }
+
+    useEffect(() => {
+        async function checkFavorite() {
+            const data = await apiFetch(`/api/listing/${listing.id}/favorite/status`);
+            setFavorite(await data.isFavorite);
+        }
+
+        if (listing.id && isAuthenticated) {
+            checkFavorite();
+        }
+        
+    }, [listing.id, isAuthenticated]);
+
+    const toggleFavorite = async () => {
+        if (!listing.id) {
+            notificate("Ошибка", "error");
+            return;
+        }
+
+        try {
+            const res = await apiFetch(`/api/listing/favorite/${listing.id}`, { method: "POST" });
+
+            if (res?.message) {
+                notificate(res.message, "success");
+            } else {
+                notificate("Ошибка", "error");
+            }
+
+            // сразу обновляем статус избранного
+            const data = await apiFetch(`/api/listing/${listing.id}/favorite/status`);
+            setFavorite(data.isFavorite);
+
+        } catch (err) {
+            console.error(err);
+            notificate("Ошибка при переключении избранного", "error");
+        }
+    };
 
     return (
         <div className="listing-container">
@@ -94,32 +138,54 @@ const ListingPage = () => {
 
                     <div className="listing-main-content">
                         {/* Галерея изображений */}
-                        <ListingGallery images={images} mainImage={listing.imagePath}/>
-
-                        {/* Информация о предложении */}
                         <div className="listing-content">
-                            <div className="listing-details">
+                            <ListingGallery images={images} mainImage={listing.imagePath}/>
+                            
+                            <div className="listing-info">
                                 <h2>{t(`labels.description`, { ns: 'common' })}</h2>
                                 <p className="listing-description">
                                     {listing.localizedDescription || "Нет описания"}
                                 </p>
+                            </div>
+                        </div>
 
-                                <div className="details-grid">
-                                    <div className="detail-item">
-                                        <span className="detail-label">{t(`labels.price`, { ns: 'common' })}:</span>
-                                        <PriceTypes listing={listing}/>
-                                    </div>
-                                    <div className="detail-item">
-                                        <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
-                                        <span className="detail-value">
-                                            {listing.location || ""}
-                                        </span>
-                                    </div>
-                                    <div className="detail-item">
-                                        <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
-                                        <ListingRating />
-                                    </div>
+                        {/* Информация о предложении */}
+                        <div className="listing-sidebar">
+                            <div className="listing-details">
+                                <div>
+                                    <span className="detail-label">{t(`labels.price`, { ns: 'common' })}:</span>
+                                    <h1><PriceTypes listing={listing} className={"price"} /></h1>
                                 </div>
+                                <div className="detail-item">
+                                    <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
+                                    <span className="detail-value">
+                                        {listing.location || ""}
+                                    </span>
+                                </div>
+                                <div className="detail-item">
+                                    <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
+                                    <ListingRating />
+                                </div>
+                                {isOwner ? (
+                                    <Link
+                                        to={`/secure/listing/edit/${listing.id}`}
+                                        className="btn btn-primary"
+                                    >
+                                        {t(`listing.edit`, { ns: 'buttons' })}
+                                    </Link>
+                                ) : (
+                                    <>
+                                        {isAuthenticated && (
+                                            <button onClick={toggleFavorite} className="btn btn-outline-primary">
+                                                {isFavorite ? (
+                                                    <span>{t(`listing.favorite.remove`, { ns: 'buttons' })}</span>
+                                                ) : (
+                                                    <span>{t(`listing.favorite.add`, { ns: 'buttons' })}</span>
+                                                )}
+                                            </button>
+                                        )}
+                                    </>
+                                )}
                             </div>
 
                             {/* Боковая панель с контактами */}

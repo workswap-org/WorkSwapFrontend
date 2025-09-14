@@ -17,18 +17,18 @@
 
 .btn-outline-danger:hover {
     background-color: var(--danger);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
 }
 
 .btn-danger {
     border-width: 0;
     background-color: var(--danger);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
 }
 
 .btn-danger:hover {
     background-color: var(--danger-dark);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
 }
 
 .btn-outline-primary {
@@ -39,12 +39,12 @@
 
 .btn-outline-primary:hover {
     background-color: var(--primary);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
 }
 
 .btn-primary {
     background-color: var(--primary);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
     border: 1px solid var(--primary);
 }
 
@@ -55,7 +55,7 @@
 
 .btn-gold {
     background-color: var(--gold);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
     border: 1px solid var(--gold);
 }
 
@@ -124,7 +124,7 @@
     border-radius: 0 var(--radius) var(--radius) 0;
     border-left: none;
     background-color: var(--primary);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
     max-width: 80px;
     margin-bottom: 0;
 }
@@ -156,7 +156,7 @@
 .overlay-actions {
     position: absolute;
     width: max-content;
-    z-index: 100;
+    z-index: 50;
 
     display: inline-flex;
     gap: 0.5rem;

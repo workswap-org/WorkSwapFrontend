@@ -7,6 +7,7 @@ import { useChatsUpdates } from "@/hooks/messenger/useChatsUpdates";
 import { useTranslation } from "react-i18next";
 import ChatContainer from "./ChatContainer";
 import { useLocation } from "react-router-dom";
+import { apiFetch } from "@/lib/apiClient";
 
 import PublicListingCard from "@/components/cards/listing-cards/PublicListingCard";
 
@@ -23,11 +24,18 @@ const MessengerPage = () => {
 
     const [chatListing, setChatListing] = useState(undefined);
     const [chatListingVisible, setChatListingVisible] = useState(false);
+    const [mobileDialogs, setMobileDialogs] = useState(false);
 
     const { client, connected } = useStompClient();
     const [chats, setChats] = useState([]);
 
     useChatsUpdates(client, connected, chats, setChats, currentChatId);
+
+    useEffect(() => {
+        return () => {
+            apiFetch("/api/chat/temporary", { method: "POST"})
+        }
+    }, []);
 
     useEffect(() => {
         if (!currentChatId || !client || !client.active || !connected) return;
@@ -37,13 +45,27 @@ const MessengerPage = () => {
             body: JSON.stringify({ chatId: currentChatId }),
             headers: { locale: userLocale }
         });
+
+        const url = new URL(window.location);     // текущее URL
+        url.searchParams.set("chatId", currentChatId);         // добавляем или меняем параметр
+        window.history.pushState({}, '', url);
+        
     }, [currentChatId, client, connected, userLocale]);
 
     const changeChat = useCallback((chatId, interlocutor) => {
         setCurrentChatId(chatId);
         setCurrentInterlocutor(interlocutor);
         setStartChatId(chatId)
+        hideMobileDialogs()
     }, [])
+ 
+    function showMobileDialogs() {
+        setMobileDialogs(true);
+    }
+
+    function hideMobileDialogs() {
+        setMobileDialogs(false);
+    }
 
     useEffect(() => {
 
@@ -99,11 +121,8 @@ const MessengerPage = () => {
 
     return (
         <>
-            <div className="account-header">
+            <div className="account-header flex-row">
                 <h2>{t(`titles.messenger`, { ns: 'common' })}</h2>
-                <button id="dialogsToggleBtn" className="btn btn-primary mobile-dialogs-toggle">
-                    <i className="fa fa-comments"></i>
-                </button>
             </div>
 
             <div className="messenger-container">
@@ -118,7 +137,7 @@ const MessengerPage = () => {
                 </div>
             )}
 
-            <div className="dialogs-list">
+            <div className={`dialogs-list ${mobileDialogs ? "show" : ""}`}>
                 {chats.length === 0 && (
                     <div className="no-dialogs" id="no-dialogs">
                         <p th:text="#{my.messages.no-messages}">У вас пока нет сообщений.</p>
@@ -146,6 +165,7 @@ const MessengerPage = () => {
                     setChatListing={setChatListing}
                     chatListing={chatListing}
                     toggleChatListing={toggleChatListing}
+                    showMobileDialogs={showMobileDialogs}
                 />
             </div>
         </div>

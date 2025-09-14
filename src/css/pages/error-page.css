@@ -2,7 +2,7 @@
     margin-top: 20%;
     text-align: center;
     padding: 3rem 0;
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
     border-radius: var(--radius);
 }
 p {

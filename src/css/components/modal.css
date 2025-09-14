@@ -19,7 +19,7 @@ p {
 
 .modal-content {
     border: 2px solid var(--border-color);
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     padding: 2rem;
     max-width: 500px;
     margin: auto;

@@ -2,21 +2,27 @@
 .account-sidebar {
     flex: 0 0 280px;
     position: sticky;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     top: calc(var(--header-height) + 20px);
 }
 
 .profile-card {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     border-radius: var(--radius);
     padding: 1.5rem;
     box-shadow: 0 2px 8px var(--shadow-color);
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile-avatar {
     overflow: hidden;
-    margin: 0 auto 1rem;
     border: 3px solid var(--primary-light);
 }
 
@@ -27,18 +33,21 @@
 
 .profile-rating {
     color: var(--rating-star);
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
 }
 
 .account-menu {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     border-radius: var(--radius);
     box-shadow: 0 2px 8px var(--shadow-color);
     padding: 1rem 0;
 }
 
 .account-menu-item {
-    display: block;
+    display: inline-flex;
+    width: 100%;
+    gap: 1rem;
+    font-size: 1.1rem;
     padding: 0.75rem 1.5rem;
     color: var(--text-color);
     transition: all 0.2s;
@@ -51,5 +60,13 @@
 
 .account-menu-item.active {
     background-color: var(--primary);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
+}
+
+@media (max-width: 992px) {
+    .account-sidebar {
+        position: static;
+        width: 100%;
+        display: none;
+    }
 }

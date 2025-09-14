@@ -38,7 +38,7 @@
 }
 
 .stat-card {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     border-radius: var(--radius);
     padding: 1.5rem;
     box-shadow: 0 2px 8px var(--shadow-color);
@@ -94,7 +94,7 @@
 }
 
 .news-card {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: 0 2px 8px var(--shadow-color);
@@ -125,7 +125,7 @@
     right: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
     padding: 1rem;
-    color: var(--color-bg-body);
+    color: var(--background-l1);
     display: flex;
     justify-content: space-between;
     font-size: 0.85rem;
@@ -161,7 +161,7 @@
 
 /* Чат */
 .chat-container {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     border-radius: var(--radius);
     box-shadow: 0 2px 8px var(--shadow-color);
     overflow: hidden;
@@ -174,7 +174,7 @@
     padding: 1rem;
     margin: 0;
     background-color: var(--primary);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
     font-size: 1.2rem;
 }
 
@@ -191,7 +191,7 @@
     max-width: 80%;
     padding: 0.75rem;
     border-radius: var(--radius);
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
 }
 
 .message.current-user {
@@ -245,7 +245,7 @@
 .chat-send-btn {
     padding: 0.75rem 1.25rem;
     background-color: var(--primary);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
     border: none;
     border-radius: var(--radius);
     cursor: pointer;

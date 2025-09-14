@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const ThemeChanger = () => {
+const ThemeChanger = ({id}) => {
     useEffect(() => {
         const toggles = document.querySelectorAll(".theme-toggle");
         const savedTheme = localStorage.getItem("theme");
@@ -31,8 +31,8 @@ const ThemeChanger = () => {
 
     return (
         <div style={{ textAlign: "center" }}>
-            <label className="switch" htmlFor="theme-toggle">
-                <input type="checkbox" className="theme-toggle" id="theme-toggle" />
+            <label className="switch" htmlFor={id}>
+                <input type="checkbox" className="theme-toggle" id={id} />
                 <span className="slider">
                     <i className="fa-solid fa-moon"></i>
                     <i className="fa-solid fa-sun" style={{ color: "white" }}></i>

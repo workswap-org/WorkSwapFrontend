@@ -1,27 +1,38 @@
 /* Боковая панель */
-.listing-sidebar {
-    flex: 0 0 300px;
+.user-info-sidebar {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    width: 350px;
 }
 
 .seller-card {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     border-radius: var(--radius);
-    padding: 1.5rem;
+    padding: 1rem;
     box-shadow: 0 2px 8px var(--shadow-color);
     text-align: center;
 }
 
 .seller-avatar {
-    margin: 0 auto 1rem;
     border: 3px solid var(--primary-light);
+    width: 100%;
 }
 
-.seller-info h4 {
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+.seller-info {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+.seller-meta {
+    flex: 1;
+}
+
+.seller-meta h3 {
+    margin-bottom: 0;
 }
 
 .seller-rating {
@@ -39,14 +50,14 @@
 }
 
 .contact-card {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     border-radius: var(--radius);
     padding: 1.5rem;
     box-shadow: 0 2px 8px var(--shadow-color);
 }
 
 .contact-card h3 {
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
     font-size: 1.2rem;
 }
 
@@ -73,16 +84,13 @@
 /* Адаптивность */
 @media (max-width: 992px) {
 
-    .listing-sidebar {
+    .user-info-sidebar {
         flex: 1;
         width: 100%;
     }
 }
 
 @media (max-width: 576px) {
-    .main-image {
-        height: 200px;
-    }
 
     .details-grid {
         grid-template-columns: 1fr;

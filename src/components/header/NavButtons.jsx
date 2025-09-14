@@ -2,7 +2,7 @@ import ThemeChanger from "@/components/ThemeChanger";
 import Avatar from "@/components/small-components/Avatar";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import NotificationsContainer from "../notifications/NotificationsContainer";
+import NotificationHeaderButton from "../notifications/NotificationHeaderButton";
 import { useAuth } from "@/contexts/auth/AuthContext";
 
 const NavButtons = () => {
@@ -18,7 +18,7 @@ const NavButtons = () => {
         <div className="nav-buttons">
             <div className="flex-row">
                 <div className="nav-link normal-only">
-                    <ThemeChanger/>
+                    <ThemeChanger id={"themeChangerMobile"}/>
                 </div>
 
                 {isAuthenticated && (
@@ -27,7 +27,7 @@ const NavButtons = () => {
                             <i className="fa-solid fa-comments-question fa-lg" style={{ lineHeight: "normal" }}></i>
                         </Link> */}
 
-                        <NotificationsContainer />
+                        <NotificationHeaderButton />
                     </>
                 )}
 

@@ -1,7 +1,7 @@
 .footer {
     padding: 2rem 0;
     background: var(--text-color);
-    color: var(--color-bg-body);
+    color: var(--background-l1);
 }
 
 .footer-content {
@@ -27,7 +27,7 @@
 }
 
 .footer a {
-    color: var(--color-bg-body);
+    color: var(--background-l1);
     opacity: 0.8;
     transition: opacity 0.3s ease;
 }

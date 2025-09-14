@@ -15,8 +15,8 @@
     },
     "priceTypes": {
         "fixed": "€",
-        "per-hour": "€/tunti",
-        "per-day": "€/päivä",
+        "per-hour": "€ / tunti",
+        "per-day": "€ / päivä",
         "negotiable": "Sop.hinta",
         "null": ""
     },

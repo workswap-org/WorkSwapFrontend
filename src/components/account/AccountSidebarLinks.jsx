@@ -7,18 +7,29 @@ const AccountSidebarLinks = ( { hideMobile } ) => {
 
     const { t } = useTranslation('navigation')
 
-    const links = [ "account", "my-listings", "favorites", "messenger", "settings", "security"];
+    /* const links = [ "account", "my-listings", "favorites", "messenger", "settings", "security"]; */
+
+    const links = [
+        { key: "account", icon: "fa-user" },
+        { key: "my-listings", icon: "fa-cards-blank" },
+        { key: "favorites", icon: "fa-heart" },
+        { key: "messenger", icon: "fa-message-lines" },
+        { key: "settings", icon: "fa-gear" },
+        { key: "security", icon: "fa-shield-keyhole" },
+    ];
+
 
     return (
         <nav className="account-menu">
             {links.map((link) => (
                 <Link
                     onClick={hideMobile}
-                    key={link}
-                    to={`/secure/${link}`}
-                    className={`account-menu-item ${activePage === link ? "active" : ""}`}
+                    key={link.key}
+                    to={`/secure/${link.key}`}
+                    className={`account-menu-item ${activePage === link.key ? "active" : ""}`}
                 >
-                    {t(`accountSidebar.links.${link}`, { ns: 'navigation' })}
+                    <div><i className={`fa-regular ${link.icon} fa-lg`}></i></div>
+                    {t(`accountSidebar.links.${link.key}`, { ns: 'navigation' })}
                 </Link>
             ))}
         </nav>

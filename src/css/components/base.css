@@ -35,11 +35,12 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    scrollbar-color: var(--border-color) var(--color-bg-body);
+    scrollbar-color: var(--border-color) var(--background-l1);
 }
 
 html {
     scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
@@ -48,6 +49,11 @@ body {
     color: var(--text-color);
     background-color: var(--background);
     max-width: 100%;
+    height: 100%;
+}
+
+#root {
+    height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -67,12 +73,6 @@ img {
     display: block;
 }
 
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -0.75rem;
-}
-
 input[type="number"] {
     max-width: none !important;
 }
@@ -82,7 +82,7 @@ input[type="number"] {
 }
 
 .card {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     border-radius: var(--radius);
     box-shadow: 0 2px 4px var(--shadow-color);
     overflow: hidden;
@@ -114,4 +114,11 @@ input[type="number"] {
     border-top: 1px solid var(--border-color);
     font-size: 0.8rem;
     color: var(--gray);
+}
+
+.body-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }

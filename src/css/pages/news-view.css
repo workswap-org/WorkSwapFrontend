@@ -30,7 +30,7 @@
     right: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
     padding: 1rem;
-    color: var(--color-bg-body);
+    color: var(--background-l1);
     display: flex;
     justify-content: space-between;
     font-size: 0.85rem;
@@ -126,7 +126,7 @@
     border-radius: var(--radius);
     overflow: hidden;
     transition: all 0.3s ease;
-    background: var(--color-bg-body);
+    background: var(--background-l1);
 }
 
 .news-card:hover {
@@ -282,7 +282,7 @@
 }
 
 .markdown-body table tr {
-  background-color: var(--color-bg-body);
+  background-color: var(--background-l1);
 }
 
 .markdown-body table tr:nth-child(2n) {

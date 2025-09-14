@@ -15,7 +15,7 @@
 }
 
 .feature-card {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     padding: 1.5rem;
     border-radius: var(--radius);
     box-shadow: 0 2px 8px var(--shadow-color);
@@ -30,7 +30,7 @@
 }
 
 .category-card {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     padding: 1rem;
     border-radius: var(--radius);
     box-shadow: 0 2px 8px var(--shadow-color);
@@ -81,7 +81,7 @@
 }
 
 .step {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     padding: 1.5rem;
     border-radius: var(--radius);
     box-shadow: 0 2px 8px var(--shadow-color);
@@ -106,7 +106,7 @@ ol, ul {
     text-align: center;
 }
 .cta-card {
-    background: var(--color-bg-body);
+    background: var(--background-l1);
     padding: 2rem;
     border-radius: var(--radius);
     box-shadow: 0 2px 8px var(--shadow-color);

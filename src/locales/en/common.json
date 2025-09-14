@@ -15,8 +15,8 @@
     },
     "priceTypes": {
         "fixed": "€",
-        "per-hour": "€/hour",
-        "per-day": "€/day",
+        "per-hour": "€ / hour",
+        "per-day": "€ / day",
         "negotiable": "Negotiable",
         "null": ""
     },

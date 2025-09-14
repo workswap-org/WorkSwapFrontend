@@ -11,7 +11,8 @@ const ChatContainer = ({
     interlocutor, 
     setChatListing, 
     chatListing, 
-    toggleChatListing
+    toggleChatListing,
+    showMobileDialogs
 }) => {
 
     const { error } = useStompClient();
@@ -42,11 +43,24 @@ const ChatContainer = ({
         >
             <div className="chat-header">
                 <div className="chat-user">
+                    <button id="dialogsToggleBtn" onClick={() => showMobileDialogs()} className="mobile-dialogs-toggle">
+                        <i className="fa-regular fa-arrow-left fa-2xl"></i>
+                    </button>
                     <img className="avatar p50-avatar" src={interlocutor.avatarUrl ?? "/images/avatar-placeholder.png"} alt="Аватар" />
                     <div>
                         <h4 id="interlocutorName">{interlocutor.name}</h4>
                         <p className="user-status"></p>
                     </div>
+                </div>
+                <div className="mobile-chat-actions">
+                    <Link to={`/profile/${interlocutor.id}`} className="btn btn-outline-primary btn-sm">
+                        <i className="fa-regular fa-user fa-lg"></i>
+                    </Link>
+                    {chatListing && (
+                        <button className="btn btn-primary btn-sm" onClick={() => toggleChatListing()}>
+                            <i className="fa-regular fa-cards-blank fa-lg"></i>
+                        </button>
+                    )}
                 </div>
                 <div className="chat-actions">
                     {/* <button className="btn btn-outline-danger btn-sm">Заблокировать</button> */}

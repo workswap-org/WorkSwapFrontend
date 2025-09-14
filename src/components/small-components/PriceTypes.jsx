@@ -1,20 +1,20 @@
 import { useTranslation } from 'react-i18next';
 
-const PriceTypes = ({ listing }) => {
+const PriceTypes = ({ listing, className = "" }) => {
 
     const { t } = useTranslation('common')
 
-    if (!listing) return <span className="price">Цена не указана</span>;
+    if (!listing) return <span className={`listing-price ${className}`} >Цена не указана</span>;
 
     const priceTypePlaceholder = t(`priceTypes.${listing.priceType}`, { ns: 'common' })
 
     switch (listing.priceType) {
         case "negotiable":
-            return <span className="price">{priceTypePlaceholder}</span>;
+            return <span className={`listing-price ${className}`}>{priceTypePlaceholder}</span>;
 
         default:
             return (
-                <span className="price" id="listingCardPrice">
+                <span className={`listing-price ${className}`} id="listingCardPrice">
                     {listing.price || 0} {priceTypePlaceholder}
                 </span>
             );

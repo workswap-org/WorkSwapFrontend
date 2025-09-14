@@ -79,7 +79,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.7rem;
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -173,6 +173,11 @@
     gap: 0.5rem;
 }
 
+.mobile-chat-actions {
+    display: none;
+    gap: 0.5rem;
+}
+
 .messages-container {
     display: flex;
     flex-direction: column;
@@ -180,7 +185,7 @@
     flex: 1;
     padding: 0.5rem;
     overflow-y: auto;
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
     gap: 0.5rem;
 }
 
@@ -251,7 +256,7 @@
 .message-input-container {
     display: flex;
     padding: 0.7rem;
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
     border-top: 1px solid var(--border-color);
 }
 
@@ -261,7 +266,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     color: var(--text-color);
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
     resize: none;
     height: 44px;
     max-height: 120px;
@@ -308,6 +313,9 @@
 /* Мобильное меню диалогов */
 .mobile-dialogs-toggle {
     display: none;
+    background-color: transparent;
+    border-width: 0;
+    color: var(--text-color);
 }
 
 .chat-terms {
@@ -315,7 +323,7 @@
     bottom: 1rem;
     padding: 1rem;
     border: 2px solid var(--border-color);
-    background-color: var(--color-bg-body);
+    background-color: var(--background-l1);
     color: var(--text-color);
     border-radius: var(--radius);
     width: 100%;
@@ -347,8 +355,10 @@
 }
 /* Мобильная версия */
 @media (max-width: 768px) {
+
     .mobile-dialogs-toggle {
         display: block;
+        margin: 0;
     }
 
     .language-toggle {
@@ -375,8 +385,8 @@
         left: -100%;
         width: 100%;
         height: 100%;
-        background: var(--color-bg-body);
-        z-index: 999;
+        background: var(--background-l1);
+        z-index: 99;
         padding: 1rem;
         transition: left 0.3s ease;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -391,21 +401,14 @@
     }
 
     .chat-window {
-        height: calc(100vh - 300px);
+        height: calc(100vh - 250px);
         max-height: none;
+        flex: none;
+        width: 100%;
     }
 
     .no-chat-selected {
         height: calc(100vh - 200px);
-    }
-
-    .account-layout {
-        flex-direction: column;
-        padding: 0 0.5rem;
-    }
-
-    .account-sidebar {
-        display: none;
     }
 
     .messenger-container {
@@ -414,11 +417,6 @@
         min-height: 0;
         max-height: none;
         gap: 0;
-    }
-
-    .chat-window {
-        flex: none;
-        width: 100%;
     }
 
     .messenger-header {
@@ -443,8 +441,11 @@
     }
 
     .chat-actions {
-        flex-wrap: wrap;
-        gap: 0.5rem;
+        display: none;
+    }
+
+    .mobile-chat-actions {
+        display: flex;
     }
 
     .chat-user {
@@ -467,7 +468,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: white;
+        background: var(--background);
         padding: 0.5rem;
         box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     }
@@ -480,9 +481,13 @@
     /* Основной контейнер */
     .account-container {
         max-height: 100%;
-        padding-bottom: 3rem;
-        padding-top: -70px;
     }
 
-
+    .listing-card-container {
+        position: absolute;
+        z-index: 100;
+        top: 5rem;
+        width: 100%;
+        background: transparent;
+    }
 }

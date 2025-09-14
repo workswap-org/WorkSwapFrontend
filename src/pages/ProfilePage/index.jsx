@@ -5,6 +5,7 @@ import PublicListingCard from "@/components/cards/listing-cards/PublicListingCar
 import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
 import ReviewsSection from "@/components/reviews/ReviewsSection";
 import { useTranslation } from 'react-i18next';
+import NotFoundPage from "@/pages/NotFoundPage";
 
 const ProfilePage = () => {
 
@@ -12,13 +13,13 @@ const ProfilePage = () => {
 
     const { id } = useParams();
 
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState(undefined);
     const [listings, setListings] = useState([])
 
     useEffect(()=> {
         async function loadProfile() {
-            const data = await apiFetch(`/api/user/get/${id}`)
-            setUser(await data.user)
+            const data = await apiFetch(`/api/user/get/${id}`);
+            setUser(data?.user);
         }
 
         async function loadListings() {
@@ -31,33 +32,37 @@ const ProfilePage = () => {
     }, [id]);
 
     return (
-        <div className="listing-container">
-            <div className="listing-layout">
-                <main className="listing-main">
+        <>
+            {user ? (
+                <div className="listing-container">
+                    <div className="listing-layout">
+                        <main className="listing-main">
 
-                    <div className="listing-main-content">
-                        <div className="listing-details">
                             <h2>{t(`profile.listings`, { ns: 'common' })}</h2>
-                            <p className="listing-description" th:text="${profileUser.bio ?: ''}"></p>
+                            <div className="listing-main-content">
+                                <div className="listing-content">
+                                    <div className="listings-grid">
+                                        {listings.map((listing) => (
+                                                <PublicListingCard 
+                                                    key={listing.id}
+                                                    listing={listing}
+                                                /> 
+                                            ))
+                                        }
+                                    </div>
+                                </div>
 
-                            <div className="listings-grid">
-                                {listings.map((listing) => (
-                                        <PublicListingCard 
-                                            key={listing.id}
-                                            listing={listing}
-                                        /> 
-                                    ))
-                                }
+                                <UserInfoSidebar listingId='' author={user}/>
                             </div>
-                        </div>
 
-                        <UserInfoSidebar listingId='' author={user}/>
+                            <ReviewsSection listingId='' profileId={id} />
+                        </main>
                     </div>
-
-                    <ReviewsSection listingId='' profileId={id} />
-                </main>
-            </div>
-        </div>
+                </div>
+            ) : (
+                <NotFoundPage/>
+            )}
+        </>
     );
 };
 
