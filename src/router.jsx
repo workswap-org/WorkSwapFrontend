@@ -13,6 +13,7 @@ import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/login/LoginPage";
 import RegisterPage from "./pages/login/RegisterPage";
 import LoginSuccessPage from "./pages/login/LoginSuccessPage";
+import LogoutPage from "./pages/login/LogoutPage";
 
 /* Страницы информации */
 import TermsPage from "./pages/infos/TermsPage";
@@ -43,6 +44,7 @@ const AppRouter = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login/success" element={<LoginSuccessPage />} />
+                <Route path="/logout" element={<LogoutPage />} />
                 <Route index element={<Navigate to="/catalog" replace />} />
 
                 {/* Один общий Layout */}

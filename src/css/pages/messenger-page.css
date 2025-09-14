@@ -176,6 +176,7 @@
 .messages-container {
     display: flex;
     flex-direction: column;
+    position: relative;
     flex: 1;
     padding: 0.5rem;
     overflow-y: auto;
@@ -331,6 +332,19 @@
     width: 300px;
     background: rgba(0, 0, 0, 0.5);
 }
+
+.web-socket-connection-status {
+    position: absolute;
+    background-color: var(--danger);
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius);
+    z-index: 100;
+
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    left: 0;
+}
 /* Мобильная версия */
 @media (max-width: 768px) {
     .mobile-dialogs-toggle {
@@ -469,4 +483,6 @@
         padding-bottom: 3rem;
         padding-top: -70px;
     }
+
+
 }

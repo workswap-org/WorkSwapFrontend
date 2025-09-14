@@ -6,9 +6,9 @@ export function useChatSubscription(chatId) {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        if (!chatId || !client || !connected || !client.active) return;
-
         setMessages([]);
+        
+        if (!chatId || !client || !connected || !client.active) return;
 
         const subscription = client.subscribe(`/topic/history.messages/${chatId}`, (response) => {
             const data = JSON.parse(response.body);

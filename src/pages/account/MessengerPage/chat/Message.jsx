@@ -11,8 +11,6 @@ const Message = ({message}) => {
 
     const isOwn = (message.senderId == user.id)
 
-    console.log(message.text, message.receiverId, user.id, isOwn)
-
     return (
         <div className={`message ${isOwn ? 'message-out' : 'message-in'}`}>
             <div className="message-content">

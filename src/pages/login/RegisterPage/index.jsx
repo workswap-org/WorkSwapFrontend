@@ -13,7 +13,7 @@ const RegisterPage = () => {
 
     const { t } = useTranslation(['common', 'buttons'])
 
-    const {setAccessToken, user, logout} = useAuth();
+    const {setAccessToken, user, setUser} = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     const notificate = useNotification();
@@ -41,13 +41,19 @@ const RegisterPage = () => {
 
     async function registerUser() {
         async function register() {
-            const data = await apiFetch('/api/user/register', { method: 'PATCH' });
-            if (data.success) {
-                notificate(data.message, "success")
-                const from = new URLSearchParams(location.search).get("redirect") || "/";
-                navigate(from, { replace: true })
+            const res = await apiFetch('/api/user/register', { method: 'PATCH' });
+            
+            if (res.success) {
+                try {
+                    const data = await apiFetch('/api/user/current')
+                    setUser(data.user);
+                } finally {
+                    notificate(res.message, "success")
+                    const from = new URLSearchParams(location.search).get("redirect") || "/";
+                    navigate(from, { replace: true })
+                }
             } else {
-                notificate(data.message, "error")
+                notificate(res.message, "error")
             }
         }
 
@@ -65,10 +71,11 @@ const RegisterPage = () => {
     return (
         <div className="login-body">
             <div style={{gap: '1rem'}}>
-                <button onClick={() => logout()} className="btn btn-primary">
+                <Link to='/logout' className="btn btn-primary">
                     <i className="fa fa-angle-left fa-lg" aria-hidden="true"></i>
                     <span>{t(`returnToCatalog`, { name: user?.name, ns: 'buttons' })}</span>
-                </button>
+                </Link>
+                <br/>
                 <div className="card login-container">
                     <h2>{t(`register.label`, { ns: 'common' })}</h2>
 

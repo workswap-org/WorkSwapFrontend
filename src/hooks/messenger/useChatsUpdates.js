@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-export function useChatsUpdates(stompClient, chats, setChats, currentChatId) {
+export function useChatsUpdates(stompClient, connected, chats, setChats, currentChatId) {
     
     useEffect(() => {
-        if (!stompClient) return;
+        if (!stompClient || !connected) return;
 
         const subscription = stompClient.subscribe("/user/queue/chats.updates", (message) => {
             const update = JSON.parse(message.body);
@@ -37,5 +37,5 @@ export function useChatsUpdates(stompClient, chats, setChats, currentChatId) {
             console.log("Отсписались от чатов")
             subscription.unsubscribe();
         }
-    }, [stompClient, chats, currentChatId, setChats]);
+    }, [stompClient, chats, currentChatId, setChats, connected]);
 }

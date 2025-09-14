@@ -37,7 +37,6 @@ const SettingsPage = () => {
     useEffect(() => {
         async function loadSettings() {
             const data = await apiFetch(`/api/user/current/settings`)
-            console.log(data);
             setUser(data.user);
         }
 

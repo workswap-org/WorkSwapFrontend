@@ -27,12 +27,10 @@ const MessengerPage = () => {
     const { client, connected } = useStompClient();
     const [chats, setChats] = useState([]);
 
-    useChatsUpdates(client, chats, setChats, currentChatId);
+    useChatsUpdates(client, connected, chats, setChats, currentChatId);
 
     useEffect(() => {
         if (!currentChatId || !client || !client.active || !connected) return;
-
-        console.log("отправляем запрос на прочтение сообщений")
 
         client.publish({
             destination: "/app/chat.markAsRead",
@@ -142,7 +140,7 @@ const MessengerPage = () => {
             </div>
             {/* Окно чата th:if="${selectedChat != null}" */}
             <div className="chat-window">
-                <ChatContainer 
+                <ChatContainer
                     interlocutor={currentInterlocutor} 
                     currentChatId={currentChatId}
                     setChatListing={setChatListing}

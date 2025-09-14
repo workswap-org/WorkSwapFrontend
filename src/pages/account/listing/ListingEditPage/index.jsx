@@ -132,7 +132,6 @@ const ListingEditPage = () => {
 
         async function loadListing() {
             const data = await apiFetch(`/api/listing/get/${id}`)
-            console.log(data);
             setListing(data.listing);
         }
 

@@ -4,8 +4,17 @@ import { useChatSubscription } from "@/hooks/messenger/useChatSubscription";
 import { useRef, useEffect } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { Link } from "react-router-dom";
+import { useStompClient } from "@/hooks/messenger/useStompClient";
 
-const ChatContainer = ({ currentChatId, interlocutor, setChatListing, chatListing, toggleChatListing}) => {
+const ChatContainer = ({ 
+    currentChatId, 
+    interlocutor, 
+    setChatListing, 
+    chatListing, 
+    toggleChatListing
+}) => {
+
+    const { error } = useStompClient();
 
     const { messages } = useChatSubscription(currentChatId);
 
@@ -52,9 +61,16 @@ const ChatContainer = ({ currentChatId, interlocutor, setChatListing, chatListin
                 className="messages-container" 
                 ref={messagesContainer}
             >
+                {error && (
+                    <div className="web-socket-connection-status">
+                        <span>Ошибка подключения к серверу! Переподключение</span>
+                        <br/>
+                        <i className="fa-solid fa-spinner-third fa-spin"></i>
+                    </div>
+                )}
                 <div className="message-date">Сегодня</div>
 
-                {messages.length === 0 && (
+                {(messages.length === 0 && !error) && (
                     <p className="no-messages">Нет сообщений</p>
                 )}
                 {messages.map((message) => (

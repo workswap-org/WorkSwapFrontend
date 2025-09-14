@@ -9,6 +9,8 @@ export function useStompClient() {
 
     const [connected, setConnected] = useState(false);
 
+    const [error, setError] = useState(false);
+
     const [client, setClient] = useState(null);
 
     useEffect(() => {
@@ -21,17 +23,13 @@ export function useStompClient() {
             return;
         }
 
-        // Создаём нативный WebSocket вместо SockJS, меняя http/https на ws/wss
-        const url = `${API_BASE.replace(/^http/, 'ws')}/ws?access_token=${encodeURIComponent(token)}`;
-        const webSocket = new WebSocket(url);
-
         const stompClient = new Client({
-            webSocketFactory: () => webSocket,
+            webSocketFactory: () => new WebSocket(`${API_BASE.replace(/^http/, 'ws')}/ws`),
             reconnectDelay: 5000,
             debug: (str) => {
                 // Полностью отключить логи с токеном
-                if (str.includes("access_token")) {
-                    console.log("STOMP:", str.replace(/access_token=[^ ]+/, "access_token=[hidden]"));
+                if (str.includes("Bearer")) {
+                    console.log("STOMP:", str.replace(/Bearer [^ ]+/, "access_token=[hidden]"));
                     return;
                 }
 
@@ -46,7 +44,12 @@ export function useStompClient() {
             }
         });
 
+        stompClient.connectHeaders = {
+            Authorization: `Bearer ${token}`
+        };
+
         stompClient.onConnect = () => {
+            setError(false)
             console.log("✅ Connected to WebSocket");
             setConnected(true);
             setClient(stompClient);
@@ -60,6 +63,13 @@ export function useStompClient() {
 
         stompClient.onStompError = (frame) => {
             console.error("❌ Broker error:", frame.headers["message"]);
+            stompClient.activate();
+        };
+
+        stompClient.onWebSocketClose = (evt) => {
+            console.warn("WebSocket closed", evt);
+            setConnected(false);
+            setError(true)
         };
 
         stompClient.activate();
@@ -70,5 +80,5 @@ export function useStompClient() {
         };
     }, [user]);
 
-    return { client, connected };
+    return { client, connected, error };
 }

@@ -9,7 +9,7 @@ const NavButtons = () => {
 
     const { t } = useTranslation(['buttons', 'navigation'])
 
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
 
     const isAuthenticated = !!user;
     const isAdmin = user?.role === "ADMIN"; // или как у тебя хранится роль
@@ -65,12 +65,12 @@ const NavButtons = () => {
                         />
                         <span className="ellipsis">{user.name || "Пользователь"}</span>
                     </Link>
-                    <button
+                    <Link
                         className="logout-btn"
-                        onClick={logout}
+                        to='/logout'
                     >
                         <i className="fa fa-arrow-left-from-bracket fa-lg" aria-hidden="true"></i>
-                    </button>
+                    </Link>
                 </div>
             )}
         </div>
