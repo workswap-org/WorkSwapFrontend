@@ -13,18 +13,27 @@ const MobileMenu = ({
 
     return (
         <div className="mobile-menu">
-            <Avatar
-                user={user}
-                size={100}
-                className='profile-avatar'
-            />
+            <div className="user-info-menu">
+                <Avatar
+                    user={user}
+                    size={100}
+                    className='profile-avatar'
+                />
 
-            <h2>{user?.name}</h2>
+                <h2>{user?.name}</h2>
+            </div>
 
-            <Link className="navbar-btn">
-                <div><i class="fa-regular fa-left-from-bracket fa-lg"></i></div>
-                <span>Выйти</span> 
-            </Link>
+            {user ? (
+                <Link to="logout" className="navbar-btn">
+                    <div><i className="fa-regular fa-left-from-bracket fa-lg"></i></div>
+                    <span>Выйти</span> 
+                </Link>
+            ) : (
+                <Link to="login" className="navbar-btn">
+                    <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>
+                    <span>Войти в аккаунт</span> 
+                </Link>
+            )}
 
             <div className="account-manager">
                 <AccountSidebarLinks hideMobile={hideMobile} activePage={activePage}/>
