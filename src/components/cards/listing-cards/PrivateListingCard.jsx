@@ -46,7 +46,7 @@ const PrivateListingCard  = ({listing}) => {
                 )}
             </div>
             <img 
-                src={listing.imagePath || "/images/default-listing.png"}
+                src={listing.imagePath || `/images/default-listing-${localStorage.getItem('theme')}.png`}
                 className="listing-img" 
                 alt="Изображение объявления"/>
 
