@@ -60,7 +60,7 @@ const ListingPage = () => {
     }, [listing])
 
     const params = {
-        category: listing.category,
+        categoryId: listing.categoryId,
     }
 
     useEffect(() => {

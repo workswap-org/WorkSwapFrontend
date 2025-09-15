@@ -10,7 +10,7 @@ const CatalogPage = () => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
 
-    const [category, setCategory] = useState(params.get("category") || "");
+    const [categoryId, setCategoryId] = useState(params.get("categoryId") || "");
     const [searchQuery, setSearchQuery] = useState(params.get("searchQuery") || "");
     const [hasReviews, setHasReviews] = useState(params.get("hasReviews") || false);
     const [activeSort, setActiveSort] = useState(params.get("sortBy") || "date");
@@ -27,7 +27,7 @@ const CatalogPage = () => {
         function initParams() {
             const newParams = {};
 
-            if (category) newParams.category = category;
+            if (categoryId) newParams.categoryId = categoryId;
             if (activeSort) newParams.sortBy = activeSort;
             if (searchQuery) newParams.searchQuery = searchQuery;
             if (hasReviews) newParams.hasReviews = "on";
@@ -40,13 +40,13 @@ const CatalogPage = () => {
         }
 
         initParams();
-    }, [category, searchQuery, hasReviews, activeSort])
+    }, [categoryId, searchQuery, hasReviews, activeSort])
 
     return(
         <>
             <SortCategorySelector 
-                category={category} 
-                setCategory={setCategory}
+                categoryId={categoryId} 
+                setCategoryId={setCategoryId}
             />
             {/* Основной контент */}
             <div className="catalog-container">

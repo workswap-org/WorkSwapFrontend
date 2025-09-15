@@ -24,7 +24,6 @@ const LocationSelector = ({ locationId, onChange }) => {
         }
 
         function findPathToLocation(locations, locationId) {
-            console.log(locationId)
             const loc = locations.find(l => l.id === locationId);
             if (!loc) return [];
 

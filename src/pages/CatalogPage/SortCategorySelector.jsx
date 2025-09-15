@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { useTranslation } from 'react-i18next';
 
-const SortCategorySelector = ({category, setCategory}) => {
+const SortCategorySelector = ({categoryId, setCategoryId}) => {
 
     const { t } = useTranslation('categories')
 
@@ -61,12 +61,12 @@ const SortCategorySelector = ({category, setCategory}) => {
                             <>
                                 <button
                                     type="button"
-                                    className={`category-link nav-link ${category === rootCategory.name ? "active" : ""}`}
+                                    className={`category-link nav-link ${categoryId === rootCategory.id ? "active" : ""}`}
                                     onClick={() => {
-                                        if (rootCategory.name === category) {
-                                            setCategory(null);
+                                        if (rootCategory.name === categoryId) {
+                                            setCategoryId(null);
                                         } else {
-                                            setCategory(rootCategory.name);
+                                            setCategoryId(rootCategory.id);
                                         };
                                     }}
                                     aria-expanded="false"
@@ -80,12 +80,12 @@ const SortCategorySelector = ({category, setCategory}) => {
                                         {children(rootCategory.id).map((child) =>
                                             <li key={child.id}>
                                                 <button
-                                                    className={`category-link dropdown-item ${category === child.name ? "active" : ""}`}
+                                                    className={`category-link dropdown-item ${categoryId === child.id ? "active" : ""}`}
                                                     onClick={() => {
-                                                        if (child.name === category) {
-                                                            setCategory(null);
+                                                        if (child.id === categoryId) {
+                                                            setCategoryId(null);
                                                         } else {
-                                                            setCategory(child.name);
+                                                            setCategoryId(child.id);
                                                         };
                                                     }}
                                                 >
