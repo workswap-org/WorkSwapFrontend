@@ -62,6 +62,7 @@ const NavButtons = () => {
                             user={user}
                             size={32}
                             className=''
+                            link={false}
                         />
                         <span className="ellipsis">{user.name || "Пользователь"}</span>
                     </Link>

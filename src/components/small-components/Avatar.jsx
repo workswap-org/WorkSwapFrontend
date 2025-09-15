@@ -1,8 +1,8 @@
-const Avatar = ({ user, size = 40, className = "" }) => {
+const Avatar = ({ user, size = 40, className = "", link = true}) => {
     if (!user) return null;
 
     const handleClick = () => {
-        window.location.href = `/profile/${user.id}`;
+        if (link) window.location.href = `/profile/${user.id}`;
     };
 
     return (
