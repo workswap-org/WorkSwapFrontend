@@ -21,7 +21,7 @@ const LanguageSwitcher = () => {
             <input type="checkbox" id="langToggle" />
             <label htmlFor="langToggle" className="lang-wrapper">
                 <div className="lang-button">
-                    <img src={`/images/flags/${currentLang}.png`} alt="IT" className="flag-icon"/>
+                    <img src={`/images/flags/${currentLang}.png`} alt={currentLang} className="flag-icon"/>
                 </div>
                 <div className="lang-dropdown">
                     {Object.entries(langMap).map(([code, { label }]) => (
@@ -34,7 +34,6 @@ const LanguageSwitcher = () => {
                                 changeLanguage(code);
                             }}
                         >
-                            {/* <i className={`${icon} flag-icon`}></i> */}
                             <img src={`/images/flags/${code}.png`} alt="IT" className="flag-icon"/>
                             <span>{label}</span>
                         </a>

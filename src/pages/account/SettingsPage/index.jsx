@@ -26,6 +26,7 @@ const SettingsPage = () => {
 
     const [dataLoaded, setDataLoaded] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [mobileSectionsVisible, setMobileSectionsVisible] = useState(true);
 
     const [settingsSection, setSettingsSection] = useState("profile")
 
@@ -59,6 +60,15 @@ const SettingsPage = () => {
         setLanguages(user.languages);
 
     }, [user]);
+
+    function changeSettingsSection(section) {
+        setSettingsSection(section)
+        setMobileSectionsVisible(false)
+    }
+
+    function toggleMobileSections() {
+        setMobileSectionsVisible(!mobileSectionsVisible);
+    }
 
     const updateUser = useCallback(async (updates) => {
         try {
@@ -167,12 +177,17 @@ const SettingsPage = () => {
                 )}
             </div>
             <div className="settings-page">
-                <div className="settings-sections">
-                    <button className="btn settings-section-btn hover" onClick={() => setSettingsSection("profile")}>Профиль</button>
-                    <button className="btn settings-section-btn hover" onClick={() => setSettingsSection("privacy")}>Конфиденциальность</button>
-                    <button className="btn settings-section-btn hover" onClick={() => setSettingsSection("preferences")}>Предпочтения</button>
+                <div className={`settings-sections ${mobileSectionsVisible ? "show" : ""}`}>
+                    <button className="btn settings-section-btn hover" onClick={() => changeSettingsSection("profile")}>Профиль</button>
+                    <button className="btn settings-section-btn hover" onClick={() => changeSettingsSection("privacy")}>Конфиденциальность</button>
+                    <button className="btn settings-section-btn hover" onClick={() => changeSettingsSection("preferences")}>Предпочтения</button>
                 </div>
                 <div className="settings-container">
+
+                    <button className="settings-sections-togger" onClick={() => toggleMobileSections()}>
+                        <i className="fa-regular fa-list fa-2xl"></i>
+                        <i className="fa-regular fa-left-to-dotted-line fa-2xl"></i>
+                    </button>
 
                     {(settingsSection == "privacy") && (
                         <PrivacySettings

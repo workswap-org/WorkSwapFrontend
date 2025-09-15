@@ -13,13 +13,23 @@ const ProfilePage = () => {
 
     const { id } = useParams();
 
-    const [user, setUser] = useState(undefined);
+    const [user, setUser] = useState([]);
     const [listings, setListings] = useState([])
 
     useEffect(()=> {
         async function loadProfile() {
-            const data = await apiFetch(`/api/user/get/${id}`);
-            setUser(data?.user);
+            try {
+                const data = await apiFetch(`/api/user/get/${id}`);
+                const tempUser = data.user;
+                if (tempUser) {
+                    setUser(tempUser);
+                } else {
+                    setUser(undefined);
+                }
+            } catch (error) {
+                console.error("Ошибка загрузки профиля:", error);
+                setUser(undefined); // при 500 выставляем undefined
+            }
         }
 
         async function loadListings() {

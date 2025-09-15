@@ -51,7 +51,7 @@ const CatalogSidebar = ({
                     {sorts.map(sort => (
                         <a
                             key={sort.key}
-                            className={`list-group-item list-group-item-action sort-link ${activeSort === sort.key ? "active" : ""}`}
+                            className={`list-group-item ${activeSort === sort.key ? "active" : ""}`}
                             onClick={() => setActiveSort(sort.key)}
                         >
                             {t(`sorts.${sort.key}`, { ns: 'common' })}

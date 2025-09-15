@@ -126,6 +126,7 @@
     transition: all 0.2s;
     color: var(--text-color);
     text-decoration: none;
+    cursor: pointer;
 }
 
 .list-group-item:hover {

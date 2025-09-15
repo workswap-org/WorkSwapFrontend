@@ -45,6 +45,8 @@
 
     .account-container {
         padding: 1rem 0;
+        min-height: calc(100% - var(--header-height));
+        height: max-content;
     }
 
     .account-header {
@@ -54,9 +56,13 @@
     .account-layout {
         flex-direction: column;
         padding: 0 0.3rem;
+        min-height: 100%;
+        height: 100%;
     }
 
     .account-main {
         padding: 0.5rem;
+        min-height: 100%;
+        height: fit-content;
     }
 }

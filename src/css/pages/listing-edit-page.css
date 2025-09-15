@@ -329,11 +329,3 @@
 .alert {
     animation: fadeIn 0.3s ease-in-out;
 }
-
-/* Дополнительные состояния для инпутов */
-.form-group input:disabled,
-.form-group select:disabled,
-.form-group textarea:disabled {
-    background-color: var(--background);
-    cursor: not-allowed;
-}

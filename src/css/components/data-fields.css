@@ -4,6 +4,7 @@
     gap: 0.4rem;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .form-group label {
