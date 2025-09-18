@@ -2,7 +2,7 @@ import { useLocation, Outlet } from "react-router-dom";
 import Header from "@/components/header/Header";
 import "@/css/components/base.css";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import ActivePageContext from "@/contexts/ActivePageContext";
+import ActivePageContext from "@/lib/contexts/ActivePageContext";
 
 export default function Layout() {
     const location = useLocation();

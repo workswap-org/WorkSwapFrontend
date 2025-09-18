@@ -1,4 +1,4 @@
-import { useAuth } from "@/contexts/auth/AuthContext";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import AccountSidebarLinks from "@/components/account/AccountSidebarLinks";
 import Avatar from "@/components/small-components/Avatar";
 import { Link } from "react-router-dom";

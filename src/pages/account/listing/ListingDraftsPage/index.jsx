@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "@/lib/apiClient";
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import ListingDraftItem from "@/components/cards/listing-cards/ListingDraftItem";
 import { useTranslation } from 'react-i18next';
 

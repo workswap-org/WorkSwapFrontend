@@ -1,5 +1,5 @@
 import PriceTypes from "@/components/small-components/PriceTypes";
-import { useActivePage } from "@/hooks/contexts/useActivePage";
+import { useActivePage } from "@/lib/hooks/contexts/useActivePage";
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { apiFetch } from "@/lib/apiClient";

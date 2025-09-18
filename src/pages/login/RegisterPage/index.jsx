@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "@/contexts/auth/AuthContext";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { API_BASE } from "@/api/config";
 import { apiFetch } from "@/lib/apiClient";
 import Avatar from "@/components/small-components/Avatar";
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import "@/css/pages/login-page.css"
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useTranslation, Trans } from "react-i18next";

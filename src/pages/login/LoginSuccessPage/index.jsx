@@ -1,6 +1,6 @@
 // LoginSuccessPage.jsx
 import { useEffect } from "react";
-import { useAuth } from "@/contexts/auth/AuthContext";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { API_BASE } from "@/api/config";
 

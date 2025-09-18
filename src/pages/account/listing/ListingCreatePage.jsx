@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "@/lib/apiClient";
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 
 export default function ListingCreatePage() {
 

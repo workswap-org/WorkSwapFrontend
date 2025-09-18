@@ -2,8 +2,8 @@ import "@/css/pages/messenger-page.css"
 import DialogItem from "./chat/DialogItem";
 
 import { useEffect, useState, useCallback } from "react";
-import { useStompClient } from "@/hooks/messenger/useStompClient";
-import { useChatsUpdates } from "@/hooks/messenger/useChatsUpdates";
+import { useStompClient } from "@/lib/hooks/messenger/useStompClient";
+import { useChatsUpdates } from "@/lib/hooks/messenger/useChatsUpdates";
 import { useTranslation } from "react-i18next";
 import ChatContainer from "./ChatContainer";
 import { useLocation } from "react-router-dom";

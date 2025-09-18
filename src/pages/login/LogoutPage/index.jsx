@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { useAuth } from "@/contexts/auth/AuthContext";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { apiFetch } from "@/lib/apiClient";
 import { useNavigate } from "react-router-dom";
 

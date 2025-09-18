@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
 import Avatar from "@/components/small-components/Avatar";
-import { useAuth } from "@/contexts/auth/AuthContext";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { useTranslation } from 'react-i18next';
 import { apiFetch } from "@/lib/apiClient";
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 
 const AccountSidebar = () => {
 

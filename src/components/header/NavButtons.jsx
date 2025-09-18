@@ -3,7 +3,7 @@ import Avatar from "@/components/small-components/Avatar";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import NotificationHeaderButton from "../notifications/NotificationHeaderButton";
-import { useAuth } from "@/contexts/auth/AuthContext";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
 
 const NavButtons = () => {
 

@@ -1,7 +1,7 @@
 import { useTranslation, Trans } from 'react-i18next';
 import { apiFetch } from "@/lib/apiClient";
 import { useNavigate } from "react-router-dom";
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 
 const SecurityPage = () => {
 

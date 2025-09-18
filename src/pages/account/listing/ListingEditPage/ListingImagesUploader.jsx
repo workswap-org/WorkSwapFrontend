@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import { useTranslation } from 'react-i18next';
 
 const ListingImagesUploader = ({ onChange, images, listing }) => {

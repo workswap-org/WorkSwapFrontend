@@ -9,8 +9,8 @@ import ReviewsSection from "@/components/reviews/ReviewsSection";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
 import ListingGallery from "./ListingGallery";
-import { useAuth } from "@/contexts/auth/AuthContext";
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 
 const ListingPage = () => {
 

@@ -1,10 +1,10 @@
 import Message from "./chat/Message";
 import SendMessageArea from "./chat/SendMessageArea";
-import { useChatSubscription } from "@/hooks/messenger/useChatSubscription";
+import { useChatSubscription } from "@/lib/hooks/messenger/useChatSubscription";
 import { useRef, useEffect } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { Link } from "react-router-dom";
-import { useStompClient } from "@/hooks/messenger/useStompClient";
+import { useStompClient } from "@/lib/hooks/messenger/useStompClient";
 
 const ChatContainer = ({ 
     currentChatId, 

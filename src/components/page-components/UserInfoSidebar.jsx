@@ -1,5 +1,5 @@
 import Avatar from "@/components/small-components/Avatar";
-import { useAuth } from "@/contexts/auth/AuthContext";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 

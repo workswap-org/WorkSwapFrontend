@@ -1,6 +1,6 @@
-import { AuthProvider } from "@/contexts/auth/AuthProvider";
-import { WebSocketProvider } from "@/contexts/web-socket/WebSocketProvider";
-import { NotificationProvider } from "@/contexts/notifications/NotificationProvider";
+import { AuthProvider } from "@/lib/contexts/auth/AuthProvider";
+import { WebSocketProvider } from "@/lib/contexts/web-socket/WebSocketProvider";
+import { NotificationProvider } from "@/lib/contexts/notifications/NotificationProvider";
 
 export const AppProviders = ({ children }) => {
     return (

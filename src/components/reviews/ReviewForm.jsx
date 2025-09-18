@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
-import { useAuth } from "@/contexts/auth/AuthContext";
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import { useTranslation } from 'react-i18next';
 
 const ReviewForm = ({setReviews, listingId, profileId}) => {

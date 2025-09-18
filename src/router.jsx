@@ -33,7 +33,7 @@ import ListingCreatePage from "./pages/account/listing/ListingCreatePage";
 import ListingDraftsPage from "./pages/account/listing/ListingDraftsPage";
 
 import PrivateRoute from "./components/PrivateRoute";
-import AuthGuard from "./contexts/auth/AuthGuard";
+import AuthGuard from "./lib/contexts/auth/AuthGuard";
 import RouteLogger from "./components/logging/RouteLogger";
 import ChatStartPage from "./pages/ChatStartPage";
 

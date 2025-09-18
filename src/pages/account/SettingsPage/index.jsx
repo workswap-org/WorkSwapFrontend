@@ -1,7 +1,7 @@
 import "@/css/pages/settings-page.css"
 import { useState, useEffect, useCallback } from "react";
 import { apiFetch } from "@/lib/apiClient";
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import { useTranslation } from 'react-i18next';
 import PrivacySettings from "./PrivacySettings";
 import ProfileSettings from "./ProfileSettings";

@@ -7,7 +7,7 @@ const TermsPage = () => {
 
     useEffect(() => {
         async function loadTerms() {
-            const data = await fetch('https://cloud.workswap.org/info/tems.txt')
+            const data = await fetch('https://cloud.workswap.org/info/terms.txt')
             setTerms(await data.text());
         }
 

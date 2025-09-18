@@ -7,7 +7,7 @@ import "@/css/pages/listing-edit-page.css"
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { useNotification } from "@/contexts/notifications/NotificationContext";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import { useNavigate } from "react-router-dom";
 import ListingTranslations from "./ListingTranslations";
 import { useTranslation } from 'react-i18next';
