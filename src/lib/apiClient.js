@@ -13,7 +13,10 @@ async function refreshToken() {
             credentials: "include",
         })
             .then(res => {
-                if (!res.ok) throw new Error("Refresh failed");
+                if (!res.ok) {
+                    localStorage.removeItem("accessToken");
+                    throw new Error("Refresh failed");
+                }
                 return res.json();
             })
             .then(data => {
