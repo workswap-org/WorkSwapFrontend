@@ -8,12 +8,14 @@ let refreshPromise = null;
 async function refreshToken() {
     if (!isRefreshing) {
         isRefreshing = true;
+        console.log("Обновлеяем недействительный токен");
         refreshPromise = fetch(`${API_BASE}/api/auth/refresh`, {
             method: "POST",
             credentials: "include",
         })
             .then(res => {
                 if (!res.ok) {
+                    console.log("Обновление не удалось");
                     localStorage.removeItem("accessToken");
                     throw new Error("Refresh failed");
                 }
@@ -33,9 +35,15 @@ async function refreshToken() {
 
 export async function apiFetch(url, options = {}, extraParams = {}) {
     let token = localStorage.getItem("accessToken");
+    if (!token) {
+        console.log("Токен пустой");
+        token = await refreshToken();
+    }
 
+    console.log("ApiFetch Начат");
     const makeRequest = async (authToken) => {
-        // базовые параметры
+        
+        console.log("Делаем запрос");
         const baseParams = { locale: `${i18n.language}`, ...extraParams };
 
         const queryString = new URLSearchParams(baseParams).toString();
@@ -57,8 +65,12 @@ export async function apiFetch(url, options = {}, extraParams = {}) {
 
     let res = await makeRequest(token);
 
+    console.log("Статус ответа ", res.status);
+
     if (res.status === 401) {
+        console.log("401 ошибка");
         try {
+            console.log("обновляем токен");
             token = await refreshToken();
             res = await makeRequest(token);
         } catch (e) {

@@ -13,7 +13,7 @@ const RegisterPage = () => {
 
     const { t } = useTranslation(['common', 'buttons'])
 
-    const {setAccessToken, user, setUser} = useAuth();
+    const {loadUser, user} = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     const notificate = useNotification();
@@ -23,21 +23,8 @@ const RegisterPage = () => {
     const [regButtonActive, setRegButtonActive] = useState(false);
 
     useEffect(() => {
-        
-        fetch(`${API_BASE}/api/auth/refresh`, {
-            method: "POST",
-            credentials: "include",
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            setAccessToken(data.accessToken);
-        })
-        .catch(err => console.error("Auth failed:", err));
-
-    }, [setAccessToken]);
+        loadUser();
+    }, [loadUser]);
 
     async function registerUser() {
         async function register() {
@@ -45,8 +32,7 @@ const RegisterPage = () => {
             
             if (res.success) {
                 try {
-                    const data = await apiFetch('/api/user/current')
-                    setUser(data.user);
+                    loadUser();
                 } finally {
                     notificate(res.message, "success")
                     const from = new URLSearchParams(location.search).get("redirect") || "/";
