@@ -4,7 +4,7 @@ import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginSuccessPage = () => {
-    const { user, loadUser } = useAuth();
+    const { user, loadUser, accessToken } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -13,12 +13,12 @@ const LoginSuccessPage = () => {
     }, [loadUser]);
 
     useEffect(() => {
-        if (user) {
+        if (user && accessToken) {
             const from = new URLSearchParams(location.search).get("redirect") || "/";
             console.log("from ", from);
             navigate(from, { replace: true });
         }
-    }, [location.search, navigate, user]);
+    }, [location.search, navigate, user, accessToken]);
     
     return <></>;
 };

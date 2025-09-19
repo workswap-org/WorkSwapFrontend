@@ -11,8 +11,7 @@ export const AuthProvider = ({ children }) => {
     const loadUser = useCallback(async () => {
         try {
             setTimeout(async() => {
-                console.log("Пытаемся загрузить пользователя");
-                const res = await apiFetch("/api/user/current");
+                const res = await apiFetch("/api/user/current", {}, {}, setAccessToken);
                 setUser(res.user);
             }, 0)
         } catch (e) {

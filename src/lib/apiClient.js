@@ -5,17 +5,15 @@ import i18n from '@/lib/i18n';
 let isRefreshing = false;
 let refreshPromise = null;
 
-async function refreshToken() {
+async function refreshToken(setAccessToken) {
     if (!isRefreshing) {
         isRefreshing = true;
-        console.log("Обновлеяем недействительный токен");
         refreshPromise = fetch(`${API_BASE}/api/auth/refresh`, {
             method: "POST",
             credentials: "include",
         })
             .then(res => {
                 if (!res.ok) {
-                    console.log("Обновление не удалось");
                     localStorage.removeItem("accessToken");
                     throw new Error("Refresh failed");
                 }
@@ -24,6 +22,7 @@ async function refreshToken() {
             .then(data => {
                 if (!data.accessToken) throw new Error("No access token in response");
                 localStorage.setItem("accessToken", data.accessToken);
+                setAccessToken(data.accessToken);
                 return data.accessToken;
             })
             .finally(() => {
@@ -33,17 +32,11 @@ async function refreshToken() {
     return refreshPromise;
 }
 
-export async function apiFetch(url, options = {}, extraParams = {}) {
+export async function apiFetch(url, options = {}, extraParams = {}, setAccessToken) {
     let token = localStorage.getItem("accessToken");
-    if (!token) {
-        console.log("Токен пустой");
-        token = await refreshToken();
-    }
 
-    console.log("ApiFetch Начат");
     const makeRequest = async (authToken) => {
-        
-        console.log("Делаем запрос");
+
         const baseParams = { locale: `${i18n.language}`, ...extraParams };
 
         const queryString = new URLSearchParams(baseParams).toString();
@@ -53,7 +46,6 @@ export async function apiFetch(url, options = {}, extraParams = {}) {
             Authorization: authToken ? `Bearer ${authToken}` : "",
         };
 
-        // проверим, есть ли уже ?
         const separator = url.includes("?") ? "&" : "?";
 
         return fetch(`${API_BASE}${url}${separator}${queryString}`, {
@@ -65,13 +57,9 @@ export async function apiFetch(url, options = {}, extraParams = {}) {
 
     let res = await makeRequest(token);
 
-    console.log("Статус ответа ", res.status);
-
     if (res.status === 401) {
-        console.log("401 ошибка");
         try {
-            console.log("обновляем токен");
-            token = await refreshToken();
+            token = await refreshToken(setAccessToken);
             res = await makeRequest(token);
         } catch (e) {
             console.error("Не удалось обновить токен:", e);
