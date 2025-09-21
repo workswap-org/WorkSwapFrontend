@@ -54,7 +54,7 @@ export async function apiFetch(url, options = {}, extraParams = {}, setAuthentic
         try {
             const refreshRes = await refreshToken(setAuthenticated);
             if (refreshRes.ok) {
-                await makeRequest();
+                res = await makeRequest();
             }
         } catch (e) {
             console.error("Не удалось обновить токен:", e);
