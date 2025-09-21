@@ -21,5 +21,10 @@
     },
     "breadcrumps": {
         "catalog": "Luettelo"
+    },
+    "settings": {
+        "profile": "Profiili",
+        "privacy": "Yksityisyys",
+        "preferences": "Asetukset"
     }
 }

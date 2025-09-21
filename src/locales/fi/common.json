@@ -5,7 +5,8 @@
         "category": "Valitse kategoria...",
         "priceType": "Valitse hintatyyppi...",
         "location": "Valitse sijainti...",
-        "review": "Kaikki tehtiin erittäin nopeasti ja laadukkaasti! Käytän tätä palvelua uudelleen!"
+        "review": "Kaikki tehtiin erittäin nopeasti ja laadukkaasti! Käytän tätä palvelua uudelleen!",
+        "typeMessage": "Kirjoita viesti..."
     },
     "sorts": {
         "date": "Päivämäärän mukaan",
@@ -57,6 +58,11 @@
         "listingEdit": "Hallinnoi ilmoitusta",
         "listingDrafts": "Omat luonnokset"
     },
+    "fallbacks": {
+        "noTitle": "Ei otsikkoa",
+        "noListings": "Ilmoituksia ei löytynyt",
+        "noMessages": "Ei viestejä"
+    },
     "catalog": {
         "sidebar": {
             "search": "Haku",
@@ -79,6 +85,12 @@
             "myLanguages": "Puhumani kielet",
             "myLocation": "Sijaintini",
             "bio": "Tietoa minusta"
+        }
+    },
+    "messenger": {
+        "placeholders": {
+            "noDialogs": "Sinulla ei ole vielä viestejä.",
+            "startChats": "Aloita keskustelu vastaamalla ilmoitukseen tai lähettämällä viesti käyttäjälle."
         }
     },
     "listing": {

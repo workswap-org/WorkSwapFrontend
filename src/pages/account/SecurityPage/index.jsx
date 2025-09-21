@@ -26,7 +26,17 @@ const SecurityPage = () => {
 
             <h3><Trans i18nKey="ui.pageInDev" ns="errors" /></h3>
 
-            <button onClick={() => deleteAccount()} className='btn btn-outline-danger'>Удалить аккаунт</button>
+            <button 
+                onClick={() => {
+                    const confirmed = window.confirm(t(`confirms.deleteAccount`, { ns: 'messages' }));
+                    if (confirmed) {
+                        deleteAccount();
+                    }
+                }} 
+                className='btn btn-outline-danger'
+            >
+                {t(`security.deleteAccount`, { ns: 'buttons' })}
+            </button>
         </>
     );
 };

@@ -5,7 +5,8 @@
         "category": "Select category...",
         "priceType": "Select price type...",
         "location": "Select location...",
-        "review": "Everything was done very efficiently and quickly! I will use this service again!"
+        "review": "Everything was done very efficiently and quickly! I will use this service again!",
+        "typeMessage": "Type a message..."
     },
     "sorts": {
         "date": "By date",
@@ -57,6 +58,11 @@
         "listingEdit": "Manage Listing",
         "listingDrafts": "My Drafts"
     },
+    "fallbacks": {
+        "noTitle": "Untitled",
+        "noListings": "No listings found",
+        "noMessages": "No messages"
+    },
     "catalog": {
         "sidebar": {
             "search": "Search",
@@ -79,6 +85,12 @@
             "myLanguages": "Languages I Speak",
             "myLocation": "My Location",
             "bio": "About Me"
+        }
+    },
+    "messenger": {
+        "placeholders": {
+            "noDialogs": "You don't have any messages yet.",
+            "startChats": "Start a conversation by replying to a listing or sending a message to a user."
         }
     },
     "listing": {

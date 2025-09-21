@@ -1,6 +1,10 @@
 
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+
 const ListingDraftItem = ( { listing } ) => {
+
+    const { t } = useTranslation('common')
 
     const navigate = useNavigate();
 
@@ -14,7 +18,7 @@ const ListingDraftItem = ( { listing } ) => {
                 {listing.localizedTitle ? (
                     <span>{listing.localizedTitle}</span>
                 ) : (
-                    <span>Нет названия</span>
+                    <span>{t(`fallbacks.noTitle`, { ns: 'common' })}</span>
                 )}
             </div>
         </article>

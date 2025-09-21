@@ -9,6 +9,12 @@ import PreferencesSettings from "./PreferencesSettings";
 
 const SettingsPage = () => {
 
+    const sections = [
+        { key: "profile"},
+        { key: "privacy"},
+        { key: "preferences"}
+    ];
+
     const notificate = useNotification();
     const { t } = useTranslation(['tooltips', 'common'])
 
@@ -178,9 +184,12 @@ const SettingsPage = () => {
             </div>
             <div className="settings-page">
                 <div className={`settings-sections ${mobileSectionsVisible ? "show" : ""}`}>
-                    <button className="btn settings-section-btn hover" onClick={() => changeSettingsSection("profile")}>Профиль</button>
-                    <button className="btn settings-section-btn hover" onClick={() => changeSettingsSection("privacy")}>Конфиденциальность</button>
-                    <button className="btn settings-section-btn hover" onClick={() => changeSettingsSection("preferences")}>Предпочтения</button>
+                    {sections.map((sec) => (
+                        <button 
+                            className="btn settings-section-btn hover" 
+                            onClick={() => changeSettingsSection(sec.key)}
+                        >{t(`settings.${sec.key}`, { ns: 'navigation' })}</button>
+                    ))}
                 </div>
                 <div className="settings-container">
 

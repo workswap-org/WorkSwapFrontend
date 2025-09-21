@@ -34,5 +34,14 @@
     },
     "review": {
         "create": "Jätä arvostelu"
+    },
+
+    "messenger": {
+        "profile": "Profiili",
+        "listing": "Ilmoitus"
+    },
+
+    "security": {
+        "deleteAccount": "Poista tili"
     }
 }

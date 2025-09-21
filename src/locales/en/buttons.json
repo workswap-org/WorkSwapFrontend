@@ -34,5 +34,14 @@
     },
     "review": {
         "create": "Leave a review"
+    },
+
+    "messenger": {
+        "profile": "Profile",
+        "listing": "Listing"
+    },
+
+    "security": {
+        "deleteAccount": "Delete account"
     }
 }

@@ -5,6 +5,7 @@ import { useRef, useEffect } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { Link } from "react-router-dom";
 import { useStompClient } from "@/lib/hooks/messenger/useStompClient";
+import { useTranslation } from 'react-i18next';
 
 const ChatContainer = ({ 
     currentChatId, 
@@ -15,8 +16,9 @@ const ChatContainer = ({
     showMobileDialogs
 }) => {
 
-    const { error } = useStompClient();
+    const { t } = useTranslation('common')
 
+    const { error } = useStompClient();
     const { messages } = useChatSubscription(currentChatId);
 
     const messagesContainer = useRef(null);
@@ -64,9 +66,15 @@ const ChatContainer = ({
                 </div>
                 <div className="chat-actions">
                     {/* <button className="btn btn-outline-danger btn-sm">Заблокировать</button> */}
-                    <Link to={`/profile/${interlocutor.id}`} className="btn btn-outline-primary btn-sm">Профиль</Link>
+                    <Link 
+                        to={`/profile/${interlocutor.id}`} 
+                        className="btn btn-outline-primary btn-sm"
+                    >{t(`messenger.profile`, { ns: 'buttons' })}</Link>
                     {chatListing && (
-                        <button className="btn btn-primary btn-sm" onClick={() => toggleChatListing()}>Объявление</button>
+                        <button 
+                            className="btn btn-primary btn-sm" 
+                            onClick={() => toggleChatListing()}
+                        >{t(`messenger.listing`, { ns: 'buttons' })}</button>
                     )}
                 </div>
             </div>
@@ -77,15 +85,15 @@ const ChatContainer = ({
             >
                 {error && (
                     <div className="web-socket-connection-status">
-                        <span>Ошибка подключения к серверу! Переподключение</span>
+                        <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
                         <br/>
                         <i className="fa-solid fa-spinner-third fa-spin"></i>
                     </div>
                 )}
-                <div className="message-date">Сегодня</div>
+                {/* <div className="message-date">Сегодня</div> */}
 
                 {(messages.length === 0 && !error) && (
-                    <p className="no-messages">Нет сообщений</p>
+                    <p className="no-messages">{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
                 )}
                 {messages.map((message) => (
                     <Message 

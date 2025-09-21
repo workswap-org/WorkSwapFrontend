@@ -9,7 +9,7 @@ const SendMessageArea = ({ currentChatId }) => {
 
     const { client, connected } = useStompClient();
     const { setMessages } = useChatSubscription(currentChatId);
-    const { i18n } = useTranslation();
+    const { i18n, t } = useTranslation();
     const userLocale = i18n.language || "ru";
     const [message, setMessage] = useState("");
 
@@ -66,7 +66,7 @@ const SendMessageArea = ({ currentChatId }) => {
         <div className="message-input-container">
             <textarea
                 className="message-input"
-                placeholder={isDisabled ? "Согласитесь с условиями пользования чатом" : "Напишите сообщение..."}
+                placeholder={isDisabled ? "Согласитесь с условиями пользования чатом" : t(`placeholders.typeMessage`, { ns: 'common' })}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={handleKeyDown}

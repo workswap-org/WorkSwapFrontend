@@ -77,7 +77,7 @@ const CatalogSidebar = ({
             </div>
             <div className="sorting-sidebar sidebar-links">
                 <h5>{t(`catalog.sidebar.usefulLinks`, { ns: 'common' })}</h5>
-                <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link>
+                {/* <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link> */}
                 <Link to="/secure/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link>
                 <Link to="/secure/listing/create" className="catalog-sidebar-btn">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
                 <Link to="/secure/my-listing" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>

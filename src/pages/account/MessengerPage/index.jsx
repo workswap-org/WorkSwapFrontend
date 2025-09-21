@@ -16,7 +16,7 @@ const MessengerPage = () => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
 
-    const { i18n, t } = useTranslation();
+    const { i18n, t } = useTranslation('common');
     const userLocale = i18n.language || "ru";
     const [startChatId, setStartChatId] = useState(params.get("chatId") || undefined);
     const [currentChatId, setCurrentChatId] = useState(undefined);
@@ -128,7 +128,10 @@ const MessengerPage = () => {
             <div className="messenger-container">
             {/* Список диалогов */}
             {chatListing && (
-                <div id="listingCardContainer" className={`listing-card-container appearance-left-animation ${chatListingVisible ? "visible" : ''}`}>
+                <div 
+                    id="listingCardContainer" 
+                    className={`listing-card-container appearance-left-animation ${chatListingVisible ? "visible" : ''}`}
+                >
                     <PublicListingCard 
                         key={chatListing.id}
                         listing={chatListing}
@@ -140,8 +143,8 @@ const MessengerPage = () => {
             <div className={`dialogs-list ${mobileDialogs ? "show" : ""}`}>
                 {chats.length === 0 && (
                     <div className="no-dialogs" id="no-dialogs">
-                        <p th:text="#{my.messages.no-messages}">У вас пока нет сообщений.</p>
-                        <p th:text="#{my.messages.start.dialog}">Начните общение, ответив на объявление или отправив сообщение пользователю.</p>
+                        <p>{t(`messenger.placeholders.noDialogs`, { ns: 'common' })}</p>
+                        <p>{t(`messenger.placeholders.startChats`, { ns: 'common' })}</p>
                     </div>
                 )}
                 {chats
@@ -157,7 +160,6 @@ const MessengerPage = () => {
                     />
                 ))}
             </div>
-            {/* Окно чата th:if="${selectedChat != null}" */}
             <div className="chat-window">
                 <ChatContainer
                     interlocutor={currentInterlocutor} 

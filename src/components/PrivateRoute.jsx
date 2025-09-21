@@ -13,11 +13,11 @@ const PrivateRoute = () => {
 
         console.log("isAuthenticated", isAuthenticated)
 
-        if (!isAuthenticated) {
+        if (!isAuthenticated && !loading) {
             const fullRedirect = `${window.location.origin}${location.pathname}`;
             navigate(`/login?redirect=${encodeURIComponent(fullRedirect)}`)
         }
-    }, [isAuthenticated, location.pathname, navigate])
+    }, [isAuthenticated, loading, location.pathname, navigate])
 
     if (loading) {
         return <EmptyPage />; // или спиннер

@@ -5,5 +5,9 @@
 
     "register": {
         "invalid_creditails": "Virheelliset kirjautumistiedot"
+    },
+
+    "messenger": {
+        "connectionLost": "Yhteys palvelimeen katkesi! Yhdistetään uudelleen"
     }
 }

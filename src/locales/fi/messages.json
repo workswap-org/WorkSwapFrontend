@@ -1,3 +1,5 @@
 {
-    
+    "confirms": {
+        "deleteAccount": "Oletko varma, että haluat poistaa tilin? Tämä toiminto on peruuttamaton."
+    }
 }

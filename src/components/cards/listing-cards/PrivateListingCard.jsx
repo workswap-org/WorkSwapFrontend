@@ -3,8 +3,11 @@ import { useActivePage } from "@/lib/hooks/contexts/useActivePage";
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { apiFetch } from "@/lib/apiClient";
+import { useTranslation } from 'react-i18next';
 
 const PrivateListingCard  = ({listing}) => {
+
+    const { t } = useTranslation('common')
 
     const activePage = useActivePage();
 
@@ -58,7 +61,7 @@ const PrivateListingCard  = ({listing}) => {
                         {/* компонент для отображение цены (с типом) */}
                         <PriceTypes listing={listing} />
                         <div className="listing-card-views">
-                            <span>Просмотры: </span>
+                            <span>{t(`labels.views`, { ns: 'common' })}: </span>
                             <span>{listing.views}</span>
                         </div>
                     </div>

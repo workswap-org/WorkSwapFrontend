@@ -21,5 +21,10 @@
     },
     "breadcrumps": {
         "catalog": "Каталог"
+    },
+    "settings": {
+        "profile": "Профиль",
+        "privacy": "Конфиденциальность",
+        "preferenssit": "Предпочтения"
     }
 }
