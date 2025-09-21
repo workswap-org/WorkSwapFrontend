@@ -3,7 +3,7 @@ import "@/lib/i18n";
 
 const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
-    const currentLang = i18n.language || "ru";
+    const currentLang = i18n.language || "fi";
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
@@ -12,8 +12,8 @@ const LanguageSwitcher = () => {
     const langMap = {
         ru: { label: "Русский"},
         fi: { label: "Suomi"},
-        en: { label: "English"},
-        it: { label: "Italiano"},
+        en: { label: "English"}/* ,
+        it: { label: "Italiano"}, */
     };
 
     return (
