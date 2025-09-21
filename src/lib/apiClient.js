@@ -5,7 +5,7 @@ import i18n from '@/lib/i18n';
 let isRefreshing = false;
 let refreshPromise = null;
 
-async function refreshToken(setAccessToken) {
+async function refreshToken() {
     if (!isRefreshing) {
         isRefreshing = true;
         refreshPromise = fetch(`${API_BASE}/api/auth/refresh`, {
@@ -14,16 +14,9 @@ async function refreshToken(setAccessToken) {
         })
             .then(res => {
                 if (!res.ok) {
-                    localStorage.removeItem("accessToken");
                     throw new Error("Refresh failed");
                 }
                 return res.json();
-            })
-            .then(data => {
-                if (!data.accessToken) throw new Error("No access token in response");
-                localStorage.setItem("accessToken", data.accessToken);
-                setAccessToken(data.accessToken);
-                return data.accessToken;
             })
             .finally(() => {
                 isRefreshing = false;
@@ -32,18 +25,15 @@ async function refreshToken(setAccessToken) {
     return refreshPromise;
 }
 
-export async function apiFetch(url, options = {}, extraParams = {}, setAccessToken) {
-    let token = localStorage.getItem("accessToken");
+export async function apiFetch(url, options = {}, extraParams = {}) {
 
-    const makeRequest = async (authToken) => {
+    const makeRequest = async () => {
 
         const baseParams = { locale: `${i18n.language}`, ...extraParams };
-
         const queryString = new URLSearchParams(baseParams).toString();
 
         const headers = {
             ...(options.headers || {}),
-            Authorization: authToken ? `Bearer ${authToken}` : "",
         };
 
         const separator = url.includes("?") ? "&" : "?";
@@ -55,12 +45,12 @@ export async function apiFetch(url, options = {}, extraParams = {}, setAccessTok
         });
     };
 
-    let res = await makeRequest(token);
+    let res = await makeRequest();
 
     if (res.status === 401) {
         try {
-            token = await refreshToken(setAccessToken);
-            res = await makeRequest(token);
+            await refreshToken();
+            await makeRequest();
         } catch (e) {
             console.error("Не удалось обновить токен:", e);
             throw e;

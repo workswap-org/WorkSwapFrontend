@@ -17,12 +17,6 @@ export function useStompClient() {
 
         if (!user) return;
 
-        const token = localStorage.getItem("accessToken");
-        if (!token) {
-            console.warn("No access token found, cannot connect to WebSocket");
-            return;
-        }
-
         const stompClient = new Client({
             webSocketFactory: () => new WebSocket(`${API_BASE.replace(/^http/, 'ws')}/ws`),
             reconnectDelay: 5000,
@@ -43,10 +37,6 @@ export function useStompClient() {
                 console.log("STOMP:", str);
             }
         });
-
-        stompClient.connectHeaders = {
-            Authorization: `Bearer ${token}`
-        };
 
         stompClient.onConnect = () => {
             setError(false)

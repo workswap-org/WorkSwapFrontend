@@ -5,17 +5,17 @@ import EmptyPage from "../pages/EmptyPage";
 import { useEffect } from "react";
 
 const PrivateRoute = () => {
-    const { accessToken, loading } = useAuth();
+    const { loading, user } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
 
-        if (!accessToken) {
+        if (!user) {
             const fullRedirect = `${window.location.origin}${location.pathname}`;
             navigate(`/login?redirect=${encodeURIComponent(fullRedirect)}`)
         }
-    }, [accessToken, location.pathname, navigate])
+    }, [user, location.pathname, navigate])
 
     if (loading) {
         return <EmptyPage />; // или спиннер
