@@ -10,10 +10,9 @@ export const AuthProvider = ({ children }) => {
 
     const loadUser = useCallback(async () => {
         try {
-            setTimeout(async() => {
-                const res = await apiFetch("/api/user/current", {}, {}, setAuthenticated);
-                setUser(res.user);
-            }, 0)
+            const res = await apiFetch("/api/user/current", {}, {}, setAuthenticated);
+            setUser(res.user);
+            setAuthenticated(true);
         } catch (e) {
             console.error(e);
             setUser(null);
