@@ -6,11 +6,12 @@ export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+     const [isAuthenticated, setAuthenticated] = useState(true);
 
     const loadUser = useCallback(async () => {
         try {
             setTimeout(async() => {
-                const res = await apiFetch("/api/user/current", {}, {});
+                const res = await apiFetch("/api/user/current", {}, {}, setAuthenticated);
                 setUser(res.user);
             }, 0)
         } catch (e) {
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     }, [loadUser]);
 
     return (
-        <AuthContext.Provider value={{ user, setUser, loading, loadUser }}>
+        <AuthContext.Provider value={{ isAuthenticated, user, setUser, loading, loadUser }}>
             {children}
         </AuthContext.Provider>
     );
