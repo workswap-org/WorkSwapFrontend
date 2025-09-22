@@ -37,47 +37,55 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
     };
 
     return (
-        <section className="review-form" th:if="${isAuthenticated and profileUser != null}" th:fragment="profileReviewForm">
-            <h3 th:text="#{reviews.leave_review}">{t(`reviews.item.label`, { ns: 'common' })}</h3>
-            <div id="review-form">
-                <div className="form-row">
-                    <div className="rating-group">
-                        <label htmlFor="rating-stars" th:text="#{reviews.rating}">{t(`reviews.item.rating`, { ns: 'common' })}</label>
-                        <div className="listing-rating" id="rating-stars">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                                <i
-                                    key={star}
-                                    className={
-                                        "fa-solid fa-star star " +
-                                        (hover >= star 
-                                            ? "hovered" 
-                                            : rating >= star 
-                                            ? "selected" 
-                                            : "")
-                                    }
-                                    onClick={() => setRating(star)}
-                                    onMouseEnter={() => setHover(star)}
-                                    onMouseLeave={() => setHover(0)}
+        <>
+            {(user && profileId != user.id) && (
+                <section className="review-form">
+                    <h3>{t(`reviews.item.label`, { ns: 'common' })}</h3>
+                    <div id="review-form">
+                        <div className="form-row">
+                            <div className="rating-group">
+                                <label htmlFor="rating-stars">{t(`reviews.item.rating`, { ns: 'common' })}</label>
+                                <div className="listing-rating" id="rating-stars">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <i
+                                            key={star}
+                                            className={
+                                                "fa-solid fa-star star " +
+                                                (hover >= star 
+                                                    ? "hovered" 
+                                                    : rating >= star 
+                                                    ? "selected" 
+                                                    : "")
+                                            }
+                                            onClick={() => setRating(star)}
+                                            onMouseEnter={() => setHover(star)}
+                                            onMouseLeave={() => setHover(0)}
+                                        ></i>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="text-group">
+                                <label htmlFor="text">{t(`reviews.item.text`, { ns: 'common' })}</label>
+                                <textarea 
+                                    id="text" 
+                                    value={text}
+                                    onChange={(e) => setText(e.target.value)}
+                                    placeholder={t(`placeholders.review`, { ns: 'common' })}
                                 >
-                                    
-                                </i>
-                            ))}
+                                </textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div className="text-group">
-                        <label htmlFor="text">{t(`reviews.item.text`, { ns: 'common' })}</label>
-                        <textarea 
-                            id="text" 
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                            placeholder={t(`placeholders.review`, { ns: 'common' })}
+                        <button 
+                            onClick={createReview} 
+                            id="submit-review" 
+                            className="btn btn-primary"
                         >
-                        </textarea>
+                            {t(`review.create`, { ns: 'buttons' })}
+                        </button>
                     </div>
-                </div>
-                <button onClick={createReview} id="submit-review" className="btn btn-primary">{t(`review.create`, { ns: 'buttons' })}</button>
-            </div>
-        </section>
+                </section>
+            )}
+        </>
     );
 };
 

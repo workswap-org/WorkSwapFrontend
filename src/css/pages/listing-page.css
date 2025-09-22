@@ -118,6 +118,7 @@
     padding: 1.5rem;
     box-shadow: 0 2px 8px var(--shadow-color);
     width: auto;
+    position: relative;
 
     display: flex;
     flex-direction: column;

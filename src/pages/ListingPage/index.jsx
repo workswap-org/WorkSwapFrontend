@@ -176,13 +176,9 @@ const ListingPage = () => {
                                 ) : (
                                     <>
                                         {isAuthenticated && (
-                                            <button onClick={toggleFavorite} className="btn btn-outline-primary">
-                                                {isFavorite ? (
-                                                    <span>{t(`listing.favorite.remove`, { ns: 'buttons' })}</span>
-                                                ) : (
-                                                    <span>{t(`listing.favorite.add`, { ns: 'buttons' })}</span>
-                                                )}
-                                            </button>
+                                            <div className="overlay-actions top right">
+                                                <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart fa-3x like`} onClick={() => toggleFavorite()}></i>
+                                            </div>
                                         )}
                                     </>
                                 )}
@@ -194,7 +190,7 @@ const ListingPage = () => {
                     </div>
 
                     {/* Блок с отзывами */}
-                    <ReviewsSection listingId={listing.id} profileId='' />
+                    <ReviewsSection listingId={listing.id} profileId={author.id} />
 
                     {/* Похожие объявления */}
                     {listing.category && (

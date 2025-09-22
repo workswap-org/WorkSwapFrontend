@@ -34,6 +34,12 @@ const PrivateListingCard  = ({listing}) => {
     return (
         <article className="listing-card hover-animation-card">
             <div className="overlay-actions top right">
+                <Link 
+                    className="btn btn-sm btn-primary"
+                    to={`/listing/${listing.id}`}
+                >
+                    <i className="fa-solid fa-eye fa-lg"></i>
+                </Link>
                 {activePage === "my-listings" && (
                     <>
                         <Link 

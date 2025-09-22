@@ -171,4 +171,5 @@
     align-items: center;
     justify-content: center;
     white-space: nowrap; /* Текст не переносится */
+    cursor: pointer;
 }
