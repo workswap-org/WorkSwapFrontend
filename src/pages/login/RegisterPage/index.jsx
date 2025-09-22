@@ -25,24 +25,21 @@ const RegisterPage = () => {
         loadUser();
     }, [loadUser]);
 
-    async function registerUser() {
-        async function register() {
-            const res = await apiFetch('/api/user/register', { method: 'PATCH' });
-            
-            if (res.success) {
-                try {
-                    loadUser();
-                } finally {
-                    notificate(res.message, "success")
-                    const from = new URLSearchParams(location.search).get("redirect") || "/";
-                    navigate(from, { replace: true })
-                }
-            } else {
-                notificate(res.message, "error")
+    async function register() {
+        const res = await apiFetch('/api/user/register', { method: 'PATCH' });
+        
+        if (res.success) {
+            console.log("перезагружаем пользователя")
+            const res2 = await loadUser();
+            if(res2) {
+                notificate(res.message, "success")
+                const from = new URLSearchParams(location.search).get("redirect") || "/";
+                console.log("Перенаправляем")
+                navigate(from, { replace: true }) 
             }
+        } else {
+            notificate(res.message, "error")
         }
-
-        register();
     }
 
     useEffect(() => {
@@ -110,12 +107,12 @@ const RegisterPage = () => {
                         <p th:text="#{register.after}">{t(`register.afterRegister`, { ns: 'common' })}</p>
                         <button 
                             type="button"
-                            onClick={() => registerUser()} 
+                            onClick={() => register()} 
                             className="btn-google" 
                             id="submitBtn" 
                             disabled={!regButtonActive}
                         >
-                            {t(`register`, { ns: 'buttons' })}
+                            {t(`registerButton`, { ns: 'buttons' })}
                         </button>
                     </div>
                 </div>

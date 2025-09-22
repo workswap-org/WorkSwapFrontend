@@ -12,11 +12,14 @@ export const AuthProvider = ({ children }) => {
         try {
             const res = await apiFetch("/api/user/current", {}, {}, setAuthenticated);
             setUser(res.user);
+            console.log(res);
             setAuthenticated(true);
+            return true;
         } catch (e) {
             console.error(e);
             setUser(null);
             setLoading(false);
+            return false;
         } finally {
             setLoading(false);
         }
