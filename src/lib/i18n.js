@@ -35,36 +35,28 @@ import categoriesIT from '@/locales/it/categories.json';
 import messagesIT from '@/locales/it/messages.json';
 import tooltipsIT from '@/locales/it/tooltips.json';
 
-const languageDetectorOptions = {
-    order: ['navigator', 'localStorage', 'htmlTag'],
-    lookupFromNavigator: () => {
-        const lang = navigator.language || navigator.languages?.[0] || 'en';
-        return lang.split('-')[0].toLowerCase(); // Нормализация здесь
-    }
+const normalizeLanguage = (lng) => {
+  if (!lng) return 'en';
+  return lng.toLowerCase().split('-')[0];
 };
 
 i18n
-    .use(HttpBackend)
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-        // Убираем lng, пусть LanguageDetector сам определит
-        fallbackLng: "en",
-        debug: false,
-        
-        // Конфигурация детектора
-        detection: languageDetectorOptions,
-        
-        interpolation: {
-        escapeValue: false,
-        },
-        
-        load: "languageOnly",        // ✅ Правильно
-        lowerCaseLng: true,          // ✅ Правильно
-        
-        // Указываем поддерживаемые языки
-        supportedLngs: ['en', 'ru', 'fi'],
-        nonExplicitSupportedLngs: true,
+  .use(HttpBackend)
+  // Убираем LanguageDetector, если используем свою логику
+  .use(initReactI18next)
+  .init({
+    lng: normalizeLanguage(navigator.language || 'en'),
+    fallbackLng: "en",
+    debug: false,
+    
+    interpolation: {
+      escapeValue: false,
+    },
+    
+    load: "languageOnly",
+    lowerCaseLng: true,
+    
+    supportedLngs: ['en', 'ru', 'fi'],
         
         resources: {
             ru: {
