@@ -129,11 +129,11 @@
 }
 
 .like {
-    color: var(--danger) !important;
+    color: var(--like) !important;
 }
 
 .like:hover {
-    color: var(--danger-dark) !important;
+    color: var(--like-dark) !important;
 }
 
 .overlay-actions.top {
@@ -162,6 +162,10 @@
 
     transition: all 0.2s ease;
 
+    opacity: 1;
+}
+
+.overlay-actions.hover-show {
     opacity: 0.5;
 }
 
@@ -172,4 +176,10 @@
     justify-content: center;
     white-space: nowrap; /* Текст не переносится */
     cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .overlay-actions.hover-show {
+        opacity: 1;
+    }
 }

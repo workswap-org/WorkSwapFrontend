@@ -98,12 +98,12 @@
 }
 
 /* Анимации при открытии */
-#langToggle:checked + .lang-wrapper .lang-button {
+.lang-wrapper .lang-button.active {
     transform: rotate(15deg);
     background-color: var(--background-l1);
 }
 
-#langToggle:checked + .lang-wrapper .lang-dropdown {
+.lang-wrapper .lang-dropdown.active {
     opacity: 1;
     max-height: 300px;
     pointer-events: all;

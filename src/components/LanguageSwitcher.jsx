@@ -1,13 +1,21 @@
 import { useTranslation } from "react-i18next";
 import "@/lib/i18n";
+import { useState } from "react";
 
 const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
     const currentLang = i18n.language || "fi";
 
+    const [isOpen, setOpen] = useState(false);
+
+    function toggleLangMenu() {
+        setOpen(!isOpen);
+    }
+
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
         localStorage.setItem("i18nextLng", lng)
+        setOpen(false);
     };
 
     const langMap = {
@@ -19,12 +27,12 @@ const LanguageSwitcher = () => {
 
     return (
         <div className="language-toggle">
-            <input type="checkbox" id="langToggle" />
+            <input type="checkbox" id="langToggle" onClick={() => toggleLangMenu()}/>
             <label htmlFor="langToggle" className="lang-wrapper">
-                <div className="lang-button">
+                <div className={`lang-button ${isOpen ? "active" : ""}`}>
                     <img src={`/images/flags/${currentLang}.png`} alt={currentLang} className="flag-icon"/>
                 </div>
-                <div className="lang-dropdown">
+                <div className={`lang-dropdown ${isOpen ? "active" : ""}`}>
                     {Object.entries(langMap).map(([code, { label }]) => (
                         <a
                             href="#"

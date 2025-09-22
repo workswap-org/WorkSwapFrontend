@@ -45,8 +45,8 @@
 
     .account-container {
         padding: 1rem 0;
-        min-height: calc(100% - var(--header-height));
-        height: max-content;
+        padding-bottom: var(--header-height);
+        height: calc(100% - var(--header-height));
     }
 
     .account-header {
@@ -57,7 +57,7 @@
         flex-direction: column;
         padding: 0 0.3rem;
         min-height: 100%;
-        height: 100%;
+        height: max-content;
     }
 
     .account-main {

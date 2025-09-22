@@ -29,10 +29,29 @@ header {
 }
 
 .navbar-brand {
-    font-size: 1.8rem;
-    font-weight: 700;
     color: var(--text-color);
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    font-weight: 700;
+    transform: translateY(-0.5rem);
 }
+
+.navbar-brand .brand {
+    font-size: 1.8rem;
+}
+
+.navbar-brand .all-listings {
+    display: inline-flex;
+    position: absolute;
+    bottom: -0.6rem;
+    font-size: 0.85rem;
+}
+
+.navbar-brand .all-listings i {
+    translate: -5px 3px;
+}
+
 
 .navbar-toggler {
     display: none;
@@ -219,7 +238,12 @@ header {
 }
 
 /* Адаптивность */
-@media (max-width: 992px) {
+@media (max-width: 600px) {
+
+    .navbar-brand {
+        transform: translateY(-0.2rem);
+    }
+
     .nav-buttons {
         display: none;
     }

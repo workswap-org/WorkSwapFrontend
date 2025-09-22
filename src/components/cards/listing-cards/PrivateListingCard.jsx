@@ -33,7 +33,7 @@ const PrivateListingCard  = ({listing}) => {
 
     return (
         <article className="listing-card hover-animation-card">
-            <div className="overlay-actions top right">
+            <div className="overlay-actions hover-show top right">
                 <Link 
                     className="btn btn-sm btn-primary"
                     to={`/listing/${listing.id}`}
@@ -58,7 +58,7 @@ const PrivateListingCard  = ({listing}) => {
                 )}
             </div>
             <img 
-                src={listing.imagePath || `/images/default-listing-${localStorage.getItem('theme')}.png`}
+                src={listing.imagePath || `/images/default-listing.svg`}
                 className="listing-img" 
                 alt="Изображение объявления"/>
 

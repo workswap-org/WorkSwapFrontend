@@ -63,7 +63,7 @@ const SortCategorySelector = ({categoryId, setCategoryId}) => {
                                     type="button"
                                     className={`category-link nav-link ${categoryId === rootCategory.id ? "active" : ""}`}
                                     onClick={() => {
-                                        if (rootCategory.name === categoryId) {
+                                        if (rootCategory.id === categoryId) {
                                             setCategoryId(null);
                                         } else {
                                             setCategoryId(rootCategory.id);

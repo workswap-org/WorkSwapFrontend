@@ -478,11 +478,6 @@
         max-height: 100%;
     }
 
-    /* Основной контейнер */
-    .account-container {
-        max-height: 100%;
-    }
-
     .listing-card-container {
         position: absolute;
         z-index: 100;

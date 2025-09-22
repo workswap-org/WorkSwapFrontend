@@ -29,8 +29,8 @@ const ListingGallery = ( { images } ) => {
                             <i className="fa-solid fa-circle-left fa-xl"></i>
                         </button>
                         <img
-                            src={images[mainImageIndex]?.path ?? `/images/default-listing-${localStorage.getItem('theme')}.png`}
-                            onError={(e) => e.currentTarget.src = `/images/default-listing-${localStorage.getItem('theme')}.png`}
+                            src={images[mainImageIndex]?.path ?? `/images/default-listing.svg`}
+                            onError={(e) => e.currentTarget.src = `/images/default-listing.svg`}
                             alt="Основное изображение"
                             className="clickable-image main-image-view"
                             id="mainImageView"
@@ -49,7 +49,7 @@ const ListingGallery = ( { images } ) => {
                                 <img
                                     key={image.id}
                                     src={image.path}
-                                    onError={(e) => e.currentTarget.src = `/images/default-listing-${localStorage.getItem('theme')}.png`}
+                                    onError={(e) => e.currentTarget.src = `/images/default-listing.svg`}
                                     alt="Дополнительное изображение"
                                     className="clickable-image thumbnail-img"
                                     onClick={() => setMainImageIndex(index)}

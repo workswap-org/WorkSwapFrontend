@@ -104,7 +104,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
                             <div className="card">
                                 <img
                                     src={img.path}
-                                    onError={(e) => e.target.src = `/images/default-listing-${localStorage.getItem('theme')}.png`}
+                                    onError={(e) => e.target.src = `/images/default-listing.svg`}
                                     className="card-img-top"
                                 />
                                 <div className="overlay-actions bottom right">

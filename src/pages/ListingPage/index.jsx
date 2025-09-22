@@ -85,7 +85,7 @@ const ListingPage = () => {
             const res = await apiFetch(`/api/listing/favorite/${listing.id}`, { method: "POST" });
 
             if (res?.message) {
-                notificate(res.message, "success");
+                // notificate(res.message, "success");
             } else {
                 notificate("Ошибка", "error");
             }

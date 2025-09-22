@@ -1,4 +1,4 @@
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { apiFetch } from "@/lib/apiClient";
 import { useNavigate } from "react-router-dom";
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
@@ -24,7 +24,7 @@ const SecurityPage = () => {
                 <h2>{t(`titles.security`, { ns: 'common' })}</h2>
             </div>
 
-            <h3><Trans i18nKey="ui.pageInDev" ns="errors" /></h3>
+            {/* <h3><Trans i18nKey="ui.pageInDev" ns="errors" /></h3> */}
 
             <button 
                 onClick={() => {
