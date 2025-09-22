@@ -6,7 +6,7 @@ import PublicListingCard from "@/components/cards/listing-cards/PublicListingCar
 const CatalogContent = ({ mainListingId, params}) => {
 
     const { i18n } = useTranslation();
-    const userLocale = i18n.language || "ru";
+    const userLocale = i18n.language || "fi";
 
     const [listings, setListings] = useState([]);
 

@@ -35,18 +35,37 @@ import categoriesIT from '@/locales/it/categories.json';
 import messagesIT from '@/locales/it/messages.json';
 import tooltipsIT from '@/locales/it/tooltips.json';
 
+const languageDetectorOptions = {
+    order: ['navigator', 'localStorage', 'htmlTag'],
+    lookupFromNavigator: () => {
+        const lang = navigator.language || navigator.languages?.[0] || 'en';
+        return lang.split('-')[0].toLowerCase(); // Нормализация здесь
+    }
+};
+
 i18n
     .use(HttpBackend)
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
+        // Убираем lng, пусть LanguageDetector сам определит
         fallbackLng: "en",
         debug: false,
+        
+        // Конфигурация детектора
+        detection: languageDetectorOptions,
+        
         interpolation: {
-            escapeValue: false,
+        escapeValue: false,
         },
-        load: "languageOnly",
-        lowerCaseLng: true,
+        
+        load: "languageOnly",        // ✅ Правильно
+        lowerCaseLng: true,          // ✅ Правильно
+        
+        // Указываем поддерживаемые языки
+        supportedLngs: ['en', 'ru', 'fi'],
+        nonExplicitSupportedLngs: true,
+        
         resources: {
             ru: {
                 common: commonRU,

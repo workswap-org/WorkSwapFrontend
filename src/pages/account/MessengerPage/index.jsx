@@ -17,7 +17,7 @@ const MessengerPage = () => {
     const params = new URLSearchParams(search);
 
     const { i18n, t } = useTranslation('common');
-    const userLocale = i18n.language || "ru";
+    const userLocale = i18n.language || "fi";
     const [startChatId, setStartChatId] = useState(params.get("chatId") || undefined);
     const [currentChatId, setCurrentChatId] = useState(undefined);
     const [currentInterlocutor, setCurrentInterlocutor] = useState([]);

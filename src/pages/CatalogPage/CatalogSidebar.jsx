@@ -80,7 +80,7 @@ const CatalogSidebar = ({
                 {/* <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link> */}
                 <Link to="/secure/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link>
                 <Link to="/secure/listing/create" className="catalog-sidebar-btn">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
-                <Link to="/secure/my-listing" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
+                <Link to="/secure/my-listings" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
                 <Link to="/secure/messenger" className="catalog-sidebar-btn">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
             </div>
         </aside>
