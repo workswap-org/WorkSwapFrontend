@@ -1,7 +1,7 @@
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import AccountSidebarLinks from "@/components/account/AccountSidebarLinks";
 import Avatar from "@/components/small-components/Avatar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NotificationMobileButton from "@/components/notifications/NotificationMobileButton";
 
 const MobileMenu = ({
@@ -9,7 +9,13 @@ const MobileMenu = ({
     activePage
 }) => {
 
+    const navigate = useNavigate();
     const { user } = useAuth();
+
+    function to(to) {
+        hideMobile();
+        navigate(to);
+    }
 
     return (
         <div className="mobile-menu">
@@ -24,15 +30,15 @@ const MobileMenu = ({
             </div>
 
             {user ? (
-                <Link to="logout" className="navbar-btn">
+                <button className="navbar-btn" onClick={() => to("logout")}>
                     <div><i className="fa-regular fa-left-from-bracket fa-lg"></i></div>
                     <span>Выйти</span> 
-                </Link>
+                </button>
             ) : (
-                <Link to="login" className="navbar-btn">
+                <button className="navbar-btn" onClick={() => to("login")}>
                     <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>
                     <span>Войти в аккаунт</span> 
-                </Link>
+                </button>
             )}
 
             <div className="account-manager">
