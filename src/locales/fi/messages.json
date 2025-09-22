@@ -1,5 +1,6 @@
 {
     "confirms": {
-        "deleteAccount": "Oletko varma, että haluat poistaa tilin? Tämä toiminto on peruuttamaton."
+        "deleteAccount": "Oletko varma, että haluat poistaa tilin? Tämä toiminto on peruuttamaton.",
+        "deleteListing": "Haluatko varmasti poistaa ilmoituksen? Tätä toimintoa ei voi peruuttaa."
     }
 }

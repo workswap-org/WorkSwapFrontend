@@ -4,10 +4,13 @@ import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { apiFetch } from "@/lib/apiClient";
 import { useTranslation } from 'react-i18next';
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 
 const PrivateListingCard  = ({listing}) => {
 
     const { t } = useTranslation('common')
+
+    const notificate = useNotification();
 
     const activePage = useActivePage();
     console.log("activePage", activePage)
@@ -31,6 +34,14 @@ const PrivateListingCard  = ({listing}) => {
         }
     }
 
+    async function deleteListing() {
+        if (!listing?.id) return;
+        const res = await apiFetch(`/api/listing/${listing.id}/delete`, {method: 'DELETE'});
+        if (res.message) {
+            notificate(res.message, "success");
+        };
+    };
+
     return (
         <article className="listing-card hover-animation-card">
             <div className="overlay-actions hover-show top right">
@@ -48,7 +59,15 @@ const PrivateListingCard  = ({listing}) => {
                         >
                             <i className="fa-solid fa-pen-to-square fa-lg"></i>
                         </Link>
-                        <button className="btn btn-sm btn-danger">
+                        <button 
+                            className="btn btn-sm btn-danger" 
+                            onClick={() => {
+                                const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
+                                if (confirmed) {
+                                    deleteListing();
+                                }
+                            }} 
+                        >
                             <i className="fa-solid fa-trash fa-lg"></i>
                         </button>
                     </>

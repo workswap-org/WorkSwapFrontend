@@ -111,7 +111,7 @@ const ListingEditPage = () => {
     }
 
     async function deleteDraft() {
-        const data = await apiFetch(`/api/listing/delete/${id}`, {method: 'DELETE'});
+        const data = await apiFetch(`/api/listing/${id}/delete`, {method: 'DELETE'});
         if (data.message) {
             notificate(data.message, 'success');
             navigate(`/secure/my-listings`);
@@ -230,23 +230,18 @@ const ListingEditPage = () => {
                 </div>
 
                 <div className="form-actions" style={{gridColumn: 'span 2'}} >
-                    {listing.temporary ? (
-                        <button 
-                            onClick={() => deleteDraft()}  
-                            type="button" 
-                            className="btn btn-outline-primary"
-                        >
-                            {t(`listing.cleanDraft`, { ns: 'buttons' })}
-                        </button>
-                    ) : (
-                        <button 
-                            onClick={() => deleteDraft()}  
-                            type="button" 
-                            className="btn btn-outline-primary"
-                        >
-                            {t(`listing.delete`, { ns: 'buttons' })}
-                        </button>
-                    )}
+                    <button 
+                        onClick={() => {
+                            const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
+                            if (confirmed) {
+                                deleteDraft();
+                            }
+                        }}
+                        type="button" 
+                        className="btn btn-outline-primary"
+                    >
+                        {t(`listing.${listing.temporary ? "cleanDraft" : "delete"}`, { ns: 'buttons' })}
+                    </button>
                     <Link 
                         to="/secure/listing/drafts" 
                         type="button" 

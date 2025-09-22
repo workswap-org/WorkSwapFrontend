@@ -1,5 +1,6 @@
 {
     "confirms": {
-        "deleteAccount": "Are you sure you want to delete your account? This action is irreversible."
+        "deleteAccount": "Are you sure you want to delete your account? This action is irreversible.",
+        "deleteListing": "Are you sure you want to delete the listing? This action is irreversible."
     }
 }
