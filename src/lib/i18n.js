@@ -36,27 +36,47 @@ import messagesIT from '@/locales/it/messages.json';
 import tooltipsIT from '@/locales/it/tooltips.json';
 
 const normalizeLanguage = (lng) => {
-  if (!lng) return 'en';
-  return lng.toLowerCase().split('-')[0];
+    if (!lng) return 'en';
+    return lng.toLowerCase().split('-')[0];
+};
+
+const supported = ['en', 'ru', 'fi', 'it'];
+
+const getInitialLanguage = () => {
+    // сначала смотрим localStorage (ручная нормализация)
+    try {
+        const stored = localStorage.getItem('i18nextLng');
+        if (stored && typeof stored === 'string') {
+            const norm = normalizeLanguage(stored);
+            if (supported.includes(norm)) return norm;
+        }
+    } catch (e) {
+        console.log(e);
+        // localStorage может быть недоступен в некоторых окружениях — игнорируем
+    }
+
+    // затем браузер
+    const nav = navigator.language || navigator.userLanguage || 'en';
+    const navNorm = normalizeLanguage(nav);
+    if (supported.includes(navNorm)) return navNorm;
+
+    // fallback
+    return 'en';
 };
 
 i18n
-  .use(HttpBackend)
-  // Убираем LanguageDetector, если используем свою логику
-  .use(initReactI18next)
-  .init({
-    lng: normalizeLanguage(navigator.language || 'en'),
-    fallbackLng: "en",
-    debug: false,
-    
-    interpolation: {
-      escapeValue: false,
-    },
-    
-    load: "languageOnly",
-    lowerCaseLng: true,
-    
-    supportedLngs: ['en', 'ru', 'fi'],
+    .use(HttpBackend)
+    .use(initReactI18next)
+    .init({
+        lng: getInitialLanguage(),      // <- явно нормализованное значение
+        fallbackLng: 'en',
+        debug: false,
+        interpolation: { escapeValue: false },
+        load: 'languageOnly',           // уже у тебя — оставь
+        lowerCaseLng: true,
+        nonExplicitSupportedLngs: true, // добавляет корректную обработку ru-RU -> ru
+        supportedLngs: supported,
+        detection: { caches: ['localStorage'] }, // если где-то включён LanguageDetector
         
         resources: {
             ru: {
@@ -98,4 +118,11 @@ i18n
         }
     });
 
+i18n.on('languageChanged', (lng) => {
+    const norm = normalizeLanguage(lng);
+    if (norm !== lng && supported.includes(norm)) {
+        // вызов только если нужно, чтобы не зациклиться
+        i18n.changeLanguage(norm);
+    }
+});
 export default i18n;
