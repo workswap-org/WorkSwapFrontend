@@ -11,6 +11,15 @@ const NotificationHeaderButton = () => {
     const [unreadCount, setUnredCount] = useState(0);
 
     useEffect(() => {
+        const newUnreadCount = notifications.filter(n => !n.read).length;
+        if (unreadCount > newUnreadCount) {
+            setTimeout(() => {
+                setUnredCount(unreadCount - 1);
+            }, 70)
+        }
+    }, [notifications, unreadCount]);
+
+    useEffect(() => {
         async function loadNotifications() {
             try {
                 const data = await apiFetch(`/api/notifications/for-user`);
@@ -36,7 +45,7 @@ const NotificationHeaderButton = () => {
                 id="notificationBtn"
                 onClick={() => setOpen(!open)}
             >
-                <i className="fa fa-bell fa-lg" aria-hidden="true"></i>
+                <i className="fa fa-bell fa-xl" aria-hidden="true"></i>
                 {unreadCount > 0 && (
                     <div id="unreadNotifications" className="unread-notifications-count">
                         {unreadCount}
