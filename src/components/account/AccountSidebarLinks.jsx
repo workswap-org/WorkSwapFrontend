@@ -10,7 +10,7 @@ const AccountSidebarLinks = ( { hideMobile } ) => {
     /* const links = [ "account", "my-listings", "favorites", "messenger", "settings", "security"]; */
 
     const links = [
-        { key: "account", icon: "fa-user" },
+        /* { key: "account", icon: "fa-user" }, */
         { key: "my-listings", icon: "fa-cards-blank" },
         { key: "favorites", icon: "fa-heart" },
         { key: "messenger", icon: "fa-message-lines" },

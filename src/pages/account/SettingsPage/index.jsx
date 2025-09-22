@@ -188,7 +188,10 @@ const SettingsPage = () => {
                         <button 
                             className="btn settings-section-btn hover" 
                             onClick={() => changeSettingsSection(sec.key)}
-                        >{t(`settings.${sec.key}`, { ns: 'navigation' })}</button>
+                            key={sec.key}
+                        >
+                            {t(`settings.${sec.key}`, { ns: 'navigation' })}
+                        </button>
                     ))}
                 </div>
                 <div className="settings-container">

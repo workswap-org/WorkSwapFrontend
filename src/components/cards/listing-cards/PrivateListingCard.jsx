@@ -10,6 +10,7 @@ const PrivateListingCard  = ({listing}) => {
     const { t } = useTranslation('common')
 
     const activePage = useActivePage();
+    console.log("activePage", activePage)
 
     const [isFavorite, setFavorite] = useState(false);
 
@@ -33,16 +34,18 @@ const PrivateListingCard  = ({listing}) => {
     return (
         <article className="listing-card hover-animation-card">
             <div className="overlay-actions top right">
-                <Link 
-                    className="btn btn-sm btn-primary"
-                    to={`/secure/listing/edit/${listing.id}`}
-                >
-                    <i className="fa-solid fa-pen-to-square fa-lg"></i>
-                </Link>
                 {activePage === "my-listings" && (
-                    <button className="btn btn-sm btn-danger">
-                        <i className="fa-solid fa-trash fa-lg"></i>
-                    </button>
+                    <>
+                        <Link 
+                            className="btn btn-sm btn-primary"
+                            to={`/secure/listing/edit/${listing.id}`}
+                        >
+                            <i className="fa-solid fa-pen-to-square fa-lg"></i>
+                        </Link>
+                        <button className="btn btn-sm btn-danger">
+                            <i className="fa-solid fa-trash fa-lg"></i>
+                        </button>
+                    </>
                 )}
                 {activePage === "favorites" && (
                     <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart fa-2xl like`} onClick={() => toggleFavorite()}></i>

@@ -7,6 +7,7 @@ const sorts = [
 
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../lib/contexts/auth/AuthContext';
 
 const CatalogSidebar = ({
     searchQuery,
@@ -18,6 +19,8 @@ const CatalogSidebar = ({
     sidebarOpened,
     toggleSidebar
 }) => {
+
+    const { user } = useAuth()
 
     const { t } = useTranslation(['common', 'navigation'])
     
@@ -75,14 +78,16 @@ const CatalogSidebar = ({
                     </label>
                 </div>
             </div>
-            <div className="sorting-sidebar sidebar-links">
-                <h5>{t(`catalog.sidebar.usefulLinks`, { ns: 'common' })}</h5>
-                {/* <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link> */}
-                <Link to="/secure/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link>
-                <Link to="/secure/listing/create" className="catalog-sidebar-btn">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
-                <Link to="/secure/my-listings" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
-                <Link to="/secure/messenger" className="catalog-sidebar-btn">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
-            </div>
+            {user && (
+                <div className="sorting-sidebar sidebar-links">
+                    <h5>{t(`catalog.sidebar.usefulLinks`, { ns: 'common' })}</h5>
+                    {/* <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link> */}
+                    {/* <Link to="/secure/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link> */}
+                    <Link to="/secure/listing/create" className="catalog-sidebar-btn">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
+                    <Link to="/secure/my-listings" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
+                    <Link to="/secure/messenger" className="catalog-sidebar-btn">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
+                </div>
+            )}
         </aside>
     );
 };

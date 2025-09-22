@@ -42,16 +42,16 @@ const AppRouter = () => {
         <>
             <RouteLogger />
             <Routes>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login/success" element={<LoginSuccessPage />} />
-                <Route path="/logout" element={<LogoutPage />} />
-                <Route index element={<Navigate to="/catalog" replace />} />
+                <Route path="/" element={<Layout />}>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/login/success" element={<LoginSuccessPage />} />
+                    <Route path="/logout" element={<LogoutPage />} />
+                    <Route index element={<Navigate to="/catalog" replace />} />
 
-                {/* Один общий Layout */}
-                <Route path="/" element={<AuthGuard />}>
-                    <Route path="/" element={<Layout />}>
-                        {/* публичные страницы */}
+                    {/* Один общий Layout */}
+                    <Route path="/" element={<AuthGuard />}>
+                            {/* публичные страницы */}
                         <Route path="catalog" element={<CatalogPage />} />
                         <Route path="listing/:id" element={<ListingPage />} />
                         <Route path="profile/:id" element={<ProfilePage />} />
@@ -67,8 +67,10 @@ const AppRouter = () => {
                         <Route path="secure" element={<PrivateRoute />}>
                             <Route element={<AccountLayout />}>
                             
-                                <Route index element={<Navigate to="/secure/account" replace />} />
-                                <Route path="account" element={<AccountPage />} />
+                                <Route index element={<Navigate to="/secure/my-listings" replace />} />
+                                {/* <Route path="account" element={<AccountPage />} /> */}
+                                <Route path="account" element={<Navigate to="/secure/my-listings" replace />} />
+
                                 <Route path="my-listings" element={<MyListingsPage />} />
                                 <Route path="favorites" element={<FavoritesPage />} />
                                 <Route path="messenger" element={<MessengerPage />} /> 
