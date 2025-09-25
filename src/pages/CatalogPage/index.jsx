@@ -1,6 +1,6 @@
 import CatalogSidebar from "./CatalogSidebar";
 import "@/css/pages/catalog-page.css"
-import SortCategorySelector from "./SortCategorySelector";
+import CatalogHeader from "./CatalogHeader";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -44,7 +44,7 @@ const CatalogPage = () => {
 
     return(
         <>
-            <SortCategorySelector 
+            <CatalogHeader 
                 categoryId={categoryId} 
                 setCategoryId={setCategoryId}
             />

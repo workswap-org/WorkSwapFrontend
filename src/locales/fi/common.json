@@ -2,7 +2,7 @@
     "all-listings": "Kaikki ilmoitukset",
     
     "placeholders": {
-        "search": "Haku...",
+        "search": "Hae ilmoituksista",
         "email": "Syötä sähköposti",
         "category": "Valitse kategoria...",
         "priceType": "Valitse hintatyyppi...",

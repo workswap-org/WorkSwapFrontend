@@ -26,6 +26,16 @@
     top: var(--header-height);
     z-index: 99;
     padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.catalog-header-content {
+    width: fit-content;
+    display: inline-flex;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
 }
 
 .cards-container {
@@ -43,6 +53,7 @@
 .nav-pills {
     display: flex;
     justify-content: center;
+    gap: 1rem;
     list-style: none;
 }
 
@@ -190,12 +201,11 @@
 }
 
 /* Стили для формы поиска */
-.input-group {
-    margin-bottom: 1rem;
+.listings-search {
     display: flex;
     flex-direction: row;
 }
-.input-group .btn-search {
+.listings-search .btn-search {
     margin-bottom: 0;
     border: none;
     outline: none;
@@ -209,9 +219,45 @@
     color: var(--text-color);
     border-width: 3px;
     width: 100%;
+    min-width: 300px;
     padding: 0.7rem 0.6rem;
     outline: none;
     box-shadow: none;
+}
+
+.categories-btn {
+    color: var(--permanent-text-color);
+    font-size: medium;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.categories-container {
+    translate: 0 90%;
+    padding: 1rem;
+    width: 100%;
+    position: absolute;
+    background-color: var(--background-l1);
+    border-bottom: 3px solid var(--border-color);
+    border-radius: 0 0 8px 8px;
+    z-index: 95;
+    transform-origin: top;
+    transform: scaleY(0);
+
+    transition: all 0.3s ease;
+}
+
+.categories-container.active {
+    transform: scaleY(1);
+}
+
+.categories-container * {
+    visibility: hidden;
+}
+
+.categories-container.active * {
+    visibility: visible;
 }
 
 .custom-checkbox {
@@ -364,6 +410,15 @@
 /* Адаптивность */
 @media (max-width: 992px) {
 
+    .categories-btn {
+        display: none;
+    }
+
+    .search-input {
+        min-width: auto;
+        padding: 0.6rem 0.6rem;
+    }
+
     .sorting-sidebar {
         margin-top: 0;
         width: var(--sidebar-width);
@@ -468,6 +523,7 @@
 
     .catalog-header {
         position: static;
+        padding: 0.5rem 0;
     }
 
     .pagination {
