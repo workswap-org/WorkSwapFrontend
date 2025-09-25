@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import NotificationsContainer from "./NotificationsContainer";
+import { useAuth } from "@/lib/contexts/auth/AuthContext";
 
 const NotificationHeaderButton = () => {
 
@@ -9,6 +10,8 @@ const NotificationHeaderButton = () => {
     const [loading, setLoading] = useState(true);
 
     const [unreadCount, setUnredCount] = useState(0);
+
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
         const newUnreadCount = notifications.filter(n => !n.read).length;
@@ -20,6 +23,8 @@ const NotificationHeaderButton = () => {
     }, [notifications, unreadCount]);
 
     useEffect(() => {
+        if (!isAuthenticated) return;
+
         async function loadNotifications() {
             try {
                 const data = await apiFetch(`/api/notifications/for-user`);
@@ -36,7 +41,7 @@ const NotificationHeaderButton = () => {
         }
 
         loadNotifications();
-    }, []);
+    }, [isAuthenticated]);
 
     return (
         <div className="notification-container">

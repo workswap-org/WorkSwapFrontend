@@ -10,10 +10,9 @@ export const AuthProvider = ({ children }) => {
 
     const loadUser = useCallback(async () => {
         try {
-            const res = await apiFetch("/api/user/current", {}, {}, setAuthenticated);
+            const res = await apiFetch("/api/user/current", {}, {});
             setUser(res.user);
             console.log(res);
-            setAuthenticated(true);
             return true;
         } catch (e) {
             console.error(e);
@@ -24,6 +23,12 @@ export const AuthProvider = ({ children }) => {
             setLoading(false);
         }
     }, []);
+
+    useEffect(() => {
+        if (user) {
+            setAuthenticated(user?.type != "TEMP");
+        }
+    }, [user])
 
     useEffect(() => {
 

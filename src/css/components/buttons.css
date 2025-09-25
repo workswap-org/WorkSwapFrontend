@@ -163,6 +163,11 @@
     transition: all 0.2s ease;
 
     opacity: 1;
+
+    background-color: white;
+    border: 2px solid lightgray;
+    padding: 0.2rem;
+    border-radius: 1.25rem;
 }
 
 .overlay-actions.hover-show {

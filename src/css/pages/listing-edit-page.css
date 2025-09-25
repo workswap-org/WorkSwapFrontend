@@ -246,16 +246,6 @@
     margin-left: 2rem;
 }
 
-.input-group {
-    margin-bottom: 1rem;
-    width: 100%;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
 .input-wrapper {
     position: relative;
     display: block; /* Замените inline-block на block */

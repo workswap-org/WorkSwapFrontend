@@ -26,6 +26,17 @@
     top: var(--header-height);
     z-index: 99;
     padding: 1rem 0;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.catalog-header-content {
+    width: fit-content;
+    display: inline-flex;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
 }
 
 .cards-container {
@@ -33,16 +44,10 @@
     max-width: 60%;
 }
 
-.nav-pills .category-item.active .category-link {
-    background-color: var(--primary);
-    color: var(--background-l1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
-}
-
 .nav-pills {
     display: flex;
     justify-content: center;
+    gap: 1rem;
     list-style: none;
 }
 
@@ -190,12 +195,11 @@
 }
 
 /* Стили для формы поиска */
-.input-group {
-    margin-bottom: 1rem;
+.listings-search {
     display: flex;
     flex-direction: row;
 }
-.input-group .btn-search {
+.listings-search .btn-search {
     margin-bottom: 0;
     border: none;
     outline: none;
@@ -209,9 +213,105 @@
     color: var(--text-color);
     border-width: 3px;
     width: 100%;
+    min-width: 300px;
     padding: 0.7rem 0.6rem;
     outline: none;
     box-shadow: none;
+}
+
+.categories-btn {
+    color: var(--permanent-text-color);
+    font-size: medium;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.categories-container {
+    translate: 0 4rem;
+    padding: 1rem;
+    width: 100%;
+    position: absolute;
+    background-color: var(--background-l1);
+    border-bottom: 3px solid var(--border-color);
+    border-radius: 0 0 8px 8px;
+    z-index: 95;
+
+    display: none;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.categories-container.active {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+}
+
+.categories-container * {
+    visibility: hidden;
+}
+
+.categories-container.active * {
+    visibility: visible;
+}
+
+.root-categories-list {
+    display: inline-flex;
+    gap: 0.2rem;
+    width: 100%;
+}
+
+.root-category-item {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    border-width: 0;
+    border-bottom: 2px solid var(--border-color);
+    cursor: pointer;
+
+    padding: 0.3rem 0;
+    background-color: transparent;
+    color: var(--text-color);
+    gap: 0.4rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+
+    transition: all 0.1s ease-in;
+}
+
+.root-category-item.active {
+    background-color: var(--primary-light);
+}
+
+.categories-list {
+    width: fit-content;
+    display: flex;
+    flex-direction:  column;
+    gap: 0.3rem;
+}
+
+.category-item {
+    padding: 0.5rem 20px;
+    font-size: 15px;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--background-l1);
+    width: 100%;
+}
+
+/* Состояния пунктов */
+.category-item:hover,
+.category-item:focus {
+    background-color: var(--background-l1);
+    color: var(--primary);
+}
+
+/* Активный пункт */
+.category-item.active {
+    background-color: var(--primary-light);
+    color: var(--text-color);
 }
 
 .custom-checkbox {
@@ -295,74 +395,17 @@
     display: none;
 }
 
-.category-link .fa-handshake {
-    color: var(--text-color);
-    transition: transform 0.2s;
-}
-.category-pills .nav-link.active .fa-handshake,
-.category-link.active .fa-handshake {
-    color: var(--background-l1) !important;
-}
-
-.category-link .fa-suitcase {
-    color: var(--text-color);
-    transition: transform 0.2s;
-}
-.nav-pills .category-link.active .fa-suitcase,
-.category-link.active .fa-suitcase {
-    color: var(--background-l1) !important;
-}
-
-
-/* Основные стили выпадающего меню */
-.dropdown-menu {
-    display: none;
-    flex-direction: column;
-    gap: 0.3rem;
-    position: absolute;
-    min-width: fit-content;
-    justify-items: center;
-    padding: 1rem;
-    background-color: var(--background-l1);
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    list-style: none;
-}
-
-.dropdown-item {
-    padding: 0.5rem 20px;
-    font-size: 15px;
-    color: var(--text-color);
-    transition: all 0.2s ease;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--background-l1);
-    width: 100%;
-}
-
-/* Состояния пунктов */
-.dropdown-item:hover,
-.dropdown-item:focus {
-    background-color: var(--background-l1);
-    color: var(--primary);
-}
-
-/* Активный пункт */
-.dropdown-item.active {
-    background-color: var(--primary);
-    color: var(--text-color);
-}
-
-/* Анимация появления */
-.nav-item.dropdown:hover .dropdown-menu {
-    display: flex;
-    animation: fadeIn 0.3s ease;
-}
-
 /* Адаптивность */
 @media (max-width: 992px) {
+
+    .categories-btn {
+        display: none;
+    }
+
+    .search-input {
+        min-width: auto;
+        padding: 0.6rem 0.6rem;
+    }
 
     .sorting-sidebar {
         margin-top: 0;
@@ -468,6 +511,7 @@
 
     .catalog-header {
         position: static;
+        padding: 0.5rem 0;
     }
 
     .pagination {

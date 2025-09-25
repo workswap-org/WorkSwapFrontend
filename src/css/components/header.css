@@ -108,10 +108,6 @@ header {
     margin-right: auto;
 }
 
-.nav-item {
-    margin-left: 1rem;
-}
-
 .nav-link {
     font-weight: 500;
     padding: 0.5rem 1rem;
@@ -310,10 +306,6 @@ header {
         flex-direction: column;
         width: 100%;
         margin-bottom: 1rem;
-    }
-
-    .nav-item {
-        margin: 0.5rem 0;
     }
 
     .d-flex {

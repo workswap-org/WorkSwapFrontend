@@ -2,7 +2,7 @@
     "all-listings": "Все объявления",
 
     "placeholders": {
-        "search": "Поиск...",
+        "search": "Поиск по объявлениям",
         "email": "Введите email",
         "category": "Выберите категорию...",
         "priceType": "Выберите тип цены...",

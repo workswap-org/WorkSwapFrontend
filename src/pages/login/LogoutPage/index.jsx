@@ -7,7 +7,7 @@ const LogoutPage = () => {
 
     const navigate = useNavigate();
 
-    const { setUser } = useAuth();
+    const { loadUser } = useAuth();
 
     const logout = useCallback(async () => {
         try {
@@ -16,9 +16,9 @@ const LogoutPage = () => {
             console.error("Logout failed", e);
         } finally {
             navigate("/");
-            setUser(null);
+            loadUser();
         }
-    }, [navigate, setUser]);
+    }, [navigate, loadUser]);
 
     useEffect(() => {
         logout()
