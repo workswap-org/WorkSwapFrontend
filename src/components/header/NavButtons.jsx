@@ -9,9 +9,8 @@ const NavButtons = () => {
 
     const { t } = useTranslation(['buttons', 'navigation'])
 
-    const { user } = useAuth();
+    const { user, isAuthenticated } = useAuth();
 
-    const isAuthenticated = !!user;
     const isAdmin = user?.role === "ADMIN"; // или как у тебя хранится роль
 
     return (
@@ -64,7 +63,7 @@ const NavButtons = () => {
                             className=''
                             link={false}
                         />
-                        <span className="ellipsis">{user.name || "Пользователь"}</span>
+                        <span className="ellipsis">{user?.name || "Пользователь"}</span>
                     </Link>
                     <Link
                         className="logout-btn"

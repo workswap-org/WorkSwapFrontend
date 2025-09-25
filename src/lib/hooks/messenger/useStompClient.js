@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/contexts/auth/AuthContext";
 
 export function useStompClient() {
 
-    const {user} = useAuth();
+    const {user, isAuthenticated} = useAuth();
 
     const [connected, setConnected] = useState(false);
 
@@ -14,32 +14,30 @@ export function useStompClient() {
     const [client, setClient] = useState(null);
 
     useEffect(() => {
+        if (!user || !isAuthenticated) return;
 
-        if (!user) return;
+        let reconnectAttempts = 0;
+        const maxReconnects = 3;
 
         const stompClient = new Client({
             webSocketFactory: () => new WebSocket(`${API_BASE.replace(/^http/, 'ws')}/ws`),
             reconnectDelay: 5000,
             debug: (str) => {
-                // Полностью отключить логи с токеном
                 if (str.includes("Bearer")) {
                     console.log("STOMP:", str.replace(/Bearer [^ ]+/, "access_token=[hidden]"));
                     return;
                 }
-
-                // Можно вообще не показывать лишнее
                 if (str.startsWith("WebSocket") || str.startsWith("Connection closed")) {
                     console.log("STOMP: [connection closed]");
                     return;
                 }
-
-                // Всё остальное оставляем
                 console.log("STOMP:", str);
             }
         });
 
         stompClient.onConnect = () => {
-            setError(false)
+            reconnectAttempts = 0; // сброс при успешном подключении
+            setError(false);
             console.log("✅ Connected to WebSocket");
             setConnected(true);
             setClient(stompClient);
@@ -53,13 +51,29 @@ export function useStompClient() {
 
         stompClient.onStompError = (frame) => {
             console.error("❌ Broker error:", frame.headers["message"]);
-            stompClient.activate();
+            // Попробовать переподключиться, если лимит не превышен
+            if (reconnectAttempts < maxReconnects) {
+                reconnectAttempts++;
+                console.warn(`Reconnect attempt ${reconnectAttempts}/${maxReconnects}`);
+                stompClient.activate();
+            } else {
+                console.error("🚫 Max reconnect attempts reached. Stopping.");
+                stompClient.deactivate();
+            }
         };
 
         stompClient.onWebSocketClose = (evt) => {
             console.warn("WebSocket closed", evt);
             setConnected(false);
-            setError(true)
+            setError(true);
+            if (reconnectAttempts < maxReconnects) {
+                reconnectAttempts++;
+                console.warn(`Reconnect attempt ${reconnectAttempts}/${maxReconnects}`);
+                stompClient.activate();
+            } else {
+                console.error("🚫 Max reconnect attempts reached. Stopping.");
+                stompClient.deactivate();
+            }
         };
 
         stompClient.activate();
@@ -68,7 +82,7 @@ export function useStompClient() {
             console.log("🔌 Deactivating WebSocket");
             stompClient.deactivate();
         };
-    }, [user]);
+    }, [user, isAuthenticated]);
 
     return { client, connected, error };
 }
