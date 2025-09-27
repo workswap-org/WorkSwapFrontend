@@ -18,8 +18,7 @@ const ListingPage = () => {
     const notificate = useNotification();
     const { t } = useTranslation(['categories', 'common', 'navigation']);
 
-    const {user} = useAuth();
-    const isAuthenticated = !!user;
+    const {user, isAuthenticated} = useAuth();
 
     const [listing, setListing] = useState([]);
     const [author, setAuthor] = useState([]);
@@ -39,8 +38,13 @@ const ListingPage = () => {
             setImages(data.images);
         }
 
+        async function viewListing() {
+            await apiFetch(`/api/listing/view/${id}`, { method: "POST" })
+        }
+
         loadListing();
         loadImages();
+        viewListing();
     }, [id])
 
     useEffect(() => {
@@ -164,7 +168,7 @@ const ListingPage = () => {
                                 </div>
                                 <div className="detail-item">
                                     <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
-                                    <ListingRating />
+                                    <ListingRating listing={listing}/>
                                 </div>
                                 {isOwner ? (
                                     <Link

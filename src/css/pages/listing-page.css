@@ -156,7 +156,7 @@
 .detail-label {
     font-size: 0.85rem;
     color: var(--gray);
-    margin-bottom: 0.25rem;
+    translate: 0 2px;
 }
 
 .detail-value {
