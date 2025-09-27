@@ -1,5 +1,5 @@
 .rating {
-    display: flex;
+    display: inline;
     gap: 2px;
     color: #000000;
     font-size: 16px;

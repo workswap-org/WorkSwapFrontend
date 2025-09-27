@@ -7,8 +7,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
 
     const { t } = useTranslation();
 
-    const {user} = useAuth();
-    const isAuthenticated = !!user;
+    const {user, isAuthenticated} = useAuth();
 
     const isOwner = !!(user?.id == author.id);
 

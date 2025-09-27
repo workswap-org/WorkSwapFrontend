@@ -14,7 +14,7 @@ const ReviewsSection = ( {listingId, profileId} ) => {
         if (listingId) params.listingId = listingId;
 
         async function loadReviews() {
-            const data = await apiFetch('/api/review/list', {}, {profileId, listingId});
+            const data = await apiFetch('/api/review/list', {}, params);
             console.log(data)
             setReviews(await data.reviews);
         }
