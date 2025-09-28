@@ -1,7 +1,7 @@
 import PriceTypes from "@/components/small-components/PriceTypes";
 import { useActivePage } from "@/lib/hooks/contexts/useActivePage";
 import { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { apiFetch } from "@/lib/apiClient";
 import { useTranslation } from 'react-i18next';
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
@@ -11,6 +11,7 @@ const PrivateListingCard  = ({listing}) => {
     const { t } = useTranslation('common')
 
     const notificate = useNotification();
+    const navigate = useNavigate();
 
     const activePage = useActivePage();
     console.log("activePage", activePage)
@@ -43,7 +44,7 @@ const PrivateListingCard  = ({listing}) => {
     };
 
     return (
-        <article className="listing-card hover-animation-card">
+        <article className="listing-card hover-animation-card" onClick={() => navigate(`/listing/${listing.id}`)}>
             <div className="overlay-actions hover-show top right">
                 <Link 
                     className="btn btn-sm btn-primary"

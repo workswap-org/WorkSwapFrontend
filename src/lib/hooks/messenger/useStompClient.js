@@ -14,7 +14,7 @@ export function useStompClient() {
     const [client, setClient] = useState(null);
 
     useEffect(() => {
-        if (!user || !isAuthenticated) return;
+        if (!user) return;
 
         let reconnectAttempts = 0;
         const maxReconnects = 3;

@@ -64,7 +64,7 @@ const PublicListingCard = ({listing, isMainListing}) => {
                 <h3 className="listing-card-title">{listing.localizedTitle}</h3>
                 {/* <p className="listing-card-text">{listing.localizedDescription}</p> */}
                 <div className="listing-card-footer">
-                    <div>
+                    <div className="flex-column">
                         {/* компонент для отображение цены (с типом) */}
                         <PriceTypes listing={listing} />
                         <ListingRating listing={listing} />

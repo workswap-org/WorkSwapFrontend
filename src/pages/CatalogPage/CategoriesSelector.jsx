@@ -41,25 +41,24 @@ const CategoriesSelector = ({
        <div className={`categories-container ${categoriesMenu ? "active" : ""}`}>
             <div className="root-categories-list">
                 {rootCategories().map((rootCategory) => (
-                    <>
-                        <button
-                            type="button"
-                            className={`root-category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
-                            onClick={() => {
-                                if (rootCategory.id === categoryId) {
-                                    setRootCategory(null)
-                                    setCategoryId(null);
-                                } else {
-                                    setCategoryId(rootCategory.id);
-                                    setRootCategory(rootCategory)
-                                };
-                            }}
-                            aria-expanded="false"
-                        >
-                            <i className="fa-solid fa-handshake me-2"></i>
-                            <span>{t(`category.${rootCategory.name}`, { ns: 'categories' })}</span>
-                        </button>
-                    </>
+                    <button
+                        key={rootCategory.id}
+                        type="button"
+                        className={`root-category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
+                        onClick={() => {
+                            if (rootCategory.id === categoryId) {
+                                setRootCategory(null)
+                                setCategoryId(null);
+                            } else {
+                                setCategoryId(rootCategory.id);
+                                setRootCategory(rootCategory)
+                            };
+                        }}
+                        aria-expanded="false"
+                    >
+                        <i className="fa-solid fa-handshake me-2"></i>
+                        <span>{t(`category.${rootCategory.name}`, { ns: 'categories' })}</span>
+                    </button>
                 ))}
             </div>
             {children(selectedRootCategory?.id).length != 0 && (

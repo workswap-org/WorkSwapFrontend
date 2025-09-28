@@ -10,7 +10,7 @@ const MobileMenu = ({
 }) => {
 
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, isAuthenticated } = useAuth();
 
     function to(to) {
         hideMobile();
@@ -20,16 +20,18 @@ const MobileMenu = ({
     return (
         <div className="mobile-menu">
             <div className="user-info-menu">
-                <Avatar
-                    user={user}
-                    size={100}
-                    className='profile-avatar'
-                />
+                {isAuthenticated && (
+                    <Avatar
+                        user={user}
+                        size={100}
+                        className='profile-avatar'
+                    />
+                )}
 
                 <h2>{user?.name}</h2>
             </div>
 
-            {user ? (
+            {isAuthenticated ? (
                 <button className="navbar-btn" onClick={() => to("logout")}>
                     <div><i className="fa-regular fa-left-from-bracket fa-lg"></i></div>
                     <span>Выйти</span> 

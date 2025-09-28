@@ -23,7 +23,7 @@ const AccountSidebarLinks = ( { hideMobile } ) => {
         <nav className="account-menu">
             {links.map((link) => (
                 <Link
-                    onClick={hideMobile}
+                    onClick={() => hideMobile()}
                     key={link.key}
                     to={`/secure/${link.key}`}
                     className={`account-menu-item ${activePage === link.key ? "active" : ""}`}
