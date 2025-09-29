@@ -4,7 +4,7 @@ import { useChatSubscription } from "@/lib/hooks/messenger/useChatSubscription";
 import { useRef, useEffect } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import { Link } from "react-router-dom";
-import { useStompClient } from "@/lib/hooks/messenger/useStompClient";
+import { useWebSocket } from "@/lib/hooks/contexts/useWebSocket";
 import { useTranslation } from 'react-i18next';
 
 const ChatContainer = ({ 
@@ -18,7 +18,7 @@ const ChatContainer = ({
 
     const { t } = useTranslation('common')
 
-    const { error } = useStompClient();
+    const { error } = useWebSocket();
     const { messages } = useChatSubscription(currentChatId);
 
     const messagesContainer = useRef(null);

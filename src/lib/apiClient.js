@@ -5,7 +5,7 @@ import i18n from '@/lib/i18n';
 let isRefreshing = false;
 let refreshPromise = null;
 
-async function refreshToken() {
+export async function refreshToken() {
     if (!isRefreshing) {
         isRefreshing = true;
         refreshPromise = fetch(`${API_BASE}/api/auth/refresh`, {

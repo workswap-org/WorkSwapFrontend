@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useChatSubscription } from "@/lib/hooks/messenger/useChatSubscription";
-import { useStompClient } from "@/lib/hooks/messenger/useStompClient";
+import { useWebSocket } from "@/lib/hooks/contexts/useWebSocket";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
 
 const SendMessageArea = ({ currentChatId }) => {
     const { user } = useAuth();
 
-    const { client, connected } = useStompClient();
+    const { client, connected } = useWebSocket();
     const { setMessages } = useChatSubscription(currentChatId);
     const { i18n, t } = useTranslation();
     const userLocale = i18n.language || "ru";

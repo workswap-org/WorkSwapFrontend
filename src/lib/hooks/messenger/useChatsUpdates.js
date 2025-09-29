@@ -34,7 +34,7 @@ export function useChatsUpdates(stompClient, connected, chats, setChats, current
         });
 
         return () => {
-            console.log("Отсписались от чатов")
+            console.log("Отписались от чатов")
             subscription.unsubscribe();
         }
     }, [stompClient, chats, currentChatId, setChats, connected]);

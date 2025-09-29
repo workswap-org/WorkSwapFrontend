@@ -2,7 +2,7 @@ import "@/css/pages/messenger-page.css"
 import DialogItem from "./chat/DialogItem";
 
 import { useEffect, useState, useCallback } from "react";
-import { useStompClient } from "@/lib/hooks/messenger/useStompClient";
+import { useWebSocket } from "@/lib/hooks/contexts/useWebSocket";
 import { useChatsUpdates } from "@/lib/hooks/messenger/useChatsUpdates";
 import { useTranslation } from "react-i18next";
 import ChatContainer from "./ChatContainer";
@@ -26,7 +26,7 @@ const MessengerPage = () => {
     const [chatListingVisible, setChatListingVisible] = useState(false);
     const [mobileDialogs, setMobileDialogs] = useState(false);
 
-    const { client, connected } = useStompClient();
+    const { client, connected } = useWebSocket();
     const [chats, setChats] = useState([]);
 
     useChatsUpdates(client, connected, chats, setChats, currentChatId);
@@ -46,8 +46,8 @@ const MessengerPage = () => {
             headers: { locale: userLocale }
         });
 
-        const url = new URL(window.location);     // текущее URL
-        url.searchParams.set("chatId", currentChatId);         // добавляем или меняем параметр
+        const url = new URL(window.location);
+        url.searchParams.set("chatId", currentChatId);
         window.history.pushState({}, '', url);
         
     }, [currentChatId, client, connected, userLocale]);

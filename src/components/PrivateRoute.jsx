@@ -11,9 +11,11 @@ const PrivateRoute = () => {
 
     useEffect(() => {
 
-        console.log("isAuthenticated", isAuthenticated)
+        console.log("loading", loading);
+        console.log("isAuthenticated", isAuthenticated);
 
         if (!isAuthenticated && !loading) {
+            console.log("Редиректим на логин");
             const fullRedirect = `${window.location.origin}${location.pathname}`;
             navigate(`/login?redirect=${encodeURIComponent(fullRedirect)}`)
         }
