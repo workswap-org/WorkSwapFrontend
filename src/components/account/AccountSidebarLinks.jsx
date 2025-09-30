@@ -2,15 +2,14 @@ import { useActivePage } from "@/lib/hooks/contexts/useActivePage";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-const AccountSidebarLinks = ( { hideMobile } ) => {
+const AccountSidebarLinks = () => {
     const activePage = useActivePage();
 
     const { t } = useTranslation('navigation')
 
-    /* const links = [ "account", "my-listings", "favorites", "messenger", "settings", "security"]; */
-
     const links = [
         /* { key: "account", icon: "fa-user" }, */
+        /* { key: "catalog", icon: "fa-grid-2" }, */
         { key: "my-listings", icon: "fa-cards-blank" },
         { key: "favorites", icon: "fa-heart" },
         { key: "messenger", icon: "fa-message-lines" },
@@ -21,9 +20,15 @@ const AccountSidebarLinks = ( { hideMobile } ) => {
 
     return (
         <nav className="account-menu">
+            <Link
+                to='/catalog'
+                className={`account-menu-item`}
+            >
+                <div><i className={`fa-regular fa-grid-2 fa-lg`}></i></div>
+                {t(`accountSidebar.links.catalog`, { ns: 'navigation' })}
+            </Link>
             {links.map((link) => (
                 <Link
-                    onClick={() => hideMobile()}
                     key={link.key}
                     to={`/secure/${link.key}`}
                     className={`account-menu-item ${activePage === link.key ? "active" : ""}`}

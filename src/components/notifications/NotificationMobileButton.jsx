@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import NotificationsContainer from "./NotificationsContainer";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 const NotificationMobileButton = () => {
 
     const { isAuthenticated } = useAuth();
+    const { t } = useTranslation('common');
 
     const [notifications, setNotifications] = useState([]);
     const [open, setOpen] = useState(false);
@@ -48,7 +50,7 @@ const NotificationMobileButton = () => {
         <>
             <button className="navbar-btn" onClick={() => setOpen(!open)}>
                 <div><i className="fa-regular fa-bell fa-lg"></i></div>
-                <span>Уведомления</span>
+                <span>{t(`notifications`, { ns: 'buttons' })}</span>
                 {unreadCount > 0 && (
                     <span id="unreadNotifications" className="unread-notifications-count">
                         {unreadCount}

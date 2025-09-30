@@ -9,7 +9,10 @@
         }
     },
     "accountSidebar": {
+        "login": "Kirjaudu sisään",
+        "logout": "Kirjaudu ulos",
         "links": {
+            "catalog": "Luettelo",
             "account": "Tili",
             "my-listings": "Omat ilmoitukset",
             "favorites": "Suosikit",

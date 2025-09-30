@@ -2,5 +2,28 @@
     "confirms": {
         "deleteAccount": "Oletko varma, että haluat poistaa tilin? Tämä toiminto on peruuttamaton.",
         "deleteListing": "Haluatko varmasti poistaa ilmoituksen? Tätä toimintoa ei voi peruuttaa."
+    },
+
+    "notification": {
+        "success": {
+            "listingDelete": "Ilmoitus poistettu",
+            "publish": "Ilmoitus julkaistu",
+            "createDraft": "Ilmoituksen luonnos tallennettu",
+            "listingUpdate": "Ilmoitus päivitetty",
+            "reviewCreate": "Arvostelu tallennettu onnistuneesti"
+        },
+        "error": {
+            "listingDelete": "Virhe ilmoituksen poistossa",
+            "reviewCreate": "Arvostelua ei voitu jättää"
+        },
+        "misc": {
+            "hadDraft": "Sinulla on vielä tallennettu luonnos",
+            "nullReviewText": "Kirjoita arvosteluteksti",
+            "nullReviewRating": "Anna ilmoitukselle arvio",
+            "error": {
+                "draftsLoading": "Virhe luonnosten lataamisessa",
+                "listingCreate": "Virhe ilmoituksen luomisessa"
+            }
+        }
     }
 }

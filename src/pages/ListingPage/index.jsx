@@ -15,7 +15,7 @@ import { useNotification } from "@/lib/contexts/notifications/NotificationContex
 const ListingPage = () => {
 
     const { id } = useParams();
-    const notificate = useNotification();
+    const {notificate} = useNotification();
     const { t } = useTranslation(['categories', 'common', 'navigation']);
 
     const {user, isAuthenticated} = useAuth();
@@ -179,7 +179,7 @@ const ListingPage = () => {
                                     </Link>
                                 ) : (
                                     <>
-                                        {isAuthenticated && (
+                                        {user && (
                                             <div className="overlay-actions top right">
                                                 <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart fa-3x like`} onClick={() => toggleFavorite()}></i>
                                             </div>

@@ -9,7 +9,10 @@
         }
     },
     "accountSidebar": {
+        "login": "Войти в аккаунт",
+        "logout": "Выйти из аккаунта",
         "links": {
+            "catalog": "Каталог",
             "account": "Аккаунт",
             "my-listings": "Мои объявления",
             "favorites": "Избранное",

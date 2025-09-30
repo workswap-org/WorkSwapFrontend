@@ -1,7 +1,7 @@
 import ThemeChanger from "@/components/ThemeChanger";
 import { useTranslation } from 'react-i18next';
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import NavButtons from "./NavButtons";
 
@@ -9,7 +9,14 @@ const Header = ({ isEmpty, activePage }) => {
 
     const { t } = useTranslation('common')
 
+    const location = useLocation();
+
     const [mobileVisible, setMobileVisible] = useState(false);
+
+    useEffect(() => {
+        setMobileVisible(false);
+    }, [location]);
+
 
     if (isEmpty) {
         return (
@@ -24,12 +31,7 @@ const Header = ({ isEmpty, activePage }) => {
     function mobileMenuToggle() {
         setMobileVisible(!mobileVisible)
     }
-
-    function hideMobile() {
-        setMobileVisible(false)
-    }
-
-
+    
     return (
         <header>
             <div className="header-container">
@@ -53,7 +55,6 @@ const Header = ({ isEmpty, activePage }) => {
                         <NavButtons />
 
                         <MobileMenu
-                            hideMobile={hideMobile}
                             activePage={activePage}
                         />
                     </div>

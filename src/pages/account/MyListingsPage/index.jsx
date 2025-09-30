@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import PrivateListingCard from "@/components/cards/listing-cards/PrivateListingCard";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 const MyListingsPage = () => {
 
     const { t } = useTranslation('common')
+    const navigate = useNavigate();
 
     const [listings, setListings] = useState([]);
     
@@ -23,7 +24,12 @@ const MyListingsPage = () => {
         <>
             <div className="account-header">
                 <h2>{t(`titles.myListings`, { ns: 'common' })}</h2>
-                <Link to="/secure/listing/create" className="btn btn-primary">{t(`listing.addNew`, { ns: 'buttons' })}</Link>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => navigate("/secure/listing/create")}
+                >
+                    {t(`listing.addNew`, { ns: 'buttons' })}
+                </button>
             </div>
 
             <div className="listings-grid">

@@ -2,10 +2,12 @@ import { useState, useRef, useCallback } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { NotificationContext } from "./NotificationContext";
 import PopupNotification from "@/components/notifications/PopupNotification";
+import { useTranslation } from 'react-i18next';
 
 export const NotificationProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([]);
     const nodeRefs = useRef({}); // хранить refs по id уведомлений
+    const { t } = useTranslation()
 
     const deleteNotification = useCallback((id) => {
         setNotifications((prev) => prev.filter(n => n.id !== id));
@@ -21,8 +23,22 @@ export const NotificationProvider = ({ children }) => {
         }, 30000);
     }, [deleteNotification]);
 
+    const notificateFromRes = useCallback((res) => {
+        const id = Date.now();
+        const notification = { 
+            id,
+            message: t(`notification.${res.status}.${res.message}`, { ns: 'messages' }),
+            type: res.status || ""
+        };
+        setNotifications((prev) => [...prev, notification]);
+
+        setTimeout(() => {
+            deleteNotification(id);
+        }, 30000);
+    }, [deleteNotification, t]);
+
     return (
-        <NotificationContext.Provider value={notificate}>
+        <NotificationContext.Provider value={{notificate, notificateFromRes}}>
             {children}
             <div className="popup-notification-list">
                 <TransitionGroup component={null}>

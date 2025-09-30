@@ -7,7 +7,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
 
     const { t } = useTranslation('common');
 
-    const notificate = useNotification();
+    const {notificate} = useNotification();
 
     const [imageList, setImageList] = useState([]);
     const [mainImage, setMainImage] = useState([]);

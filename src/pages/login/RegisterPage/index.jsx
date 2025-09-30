@@ -15,7 +15,7 @@ const RegisterPage = () => {
     const {loadUser, user} = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
-    const notificate = useNotification();
+    const {notificate} = useNotification();
 
     const [termsAccepted, setTermsAccepted] = useState(false);
     const [studyAccepted, setStudyAccepted] = useState(false);

@@ -10,7 +10,7 @@ const ListingDraftsPage = () => {
     const { t } = useTranslation('common');
 
     const [drafts, setDrafts] = useState([]);
-    const notificate = useNotification();
+    const {notificate, notificateFromRes} = useNotification();
     const navigate = useNavigate();
 
     async function createListing() {
@@ -21,7 +21,7 @@ const ListingDraftsPage = () => {
                 throw new Error("Ошибка при создании объявления");
             }
 
-            notificate(data.message, "success");
+            notificateFromRes(data);
 
             navigate(`/secure/listing/edit/${data.id}`);
         } catch (err) {

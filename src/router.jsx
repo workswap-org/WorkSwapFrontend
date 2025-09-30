@@ -43,25 +43,21 @@ const AppRouter = () => {
             <RouteLogger />
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/login/success" element={<LoginSuccessPage />} />
-                    <Route path="/logout" element={<LogoutPage />} />
+                    <Route path="login" element={<LoginPage />} />
+                    <Route path="register" element={<RegisterPage />} />
+                    <Route path="login/success" element={<LoginSuccessPage />} />
+                    <Route path="logout" element={<LogoutPage />} />
                     <Route index element={<Navigate to="/catalog" replace />} />
 
+                    <Route path="terms" element={<TermsPage />} />
+                    <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+
                     {/* Один общий Layout */}
-                    <Route path="/" element={<AuthGuard />}>
+                    <Route element={<AuthGuard />}>
                             {/* публичные страницы */}
                         <Route path="catalog" element={<CatalogPage />} />
                         <Route path="listing/:id" element={<ListingPage />} />
                         <Route path="profile/:id" element={<ProfilePage />} />
-                        
-                        <Route path="/terms" element={<TermsPage />} />
-                        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-
-                        <Route element={<PrivateRoute />}>
-                            
-                        </Route>
 
                         {/* приватные страницы */}
                         <Route path="secure" element={<PrivateRoute />}>

@@ -15,7 +15,7 @@ const SettingsPage = () => {
         { key: "preferences"}
     ];
 
-    const notificate = useNotification();
+    const {notificate} = useNotification();
     const { t } = useTranslation(['tooltips', 'common'])
 
     const [user, setUser] = useState([]);

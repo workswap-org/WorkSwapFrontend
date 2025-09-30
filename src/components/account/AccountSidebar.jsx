@@ -11,7 +11,7 @@ const AccountSidebar = () => {
     const { t } = useTranslation(['buttons', 'navigation'])
     const { user } = useAuth();
     const [telegramConnected, setTelegramConnected] = useState(true)
-    const notificate = useNotification();
+    const {notificate} = useNotification();
 
     async function connectTelegram() {
         try {

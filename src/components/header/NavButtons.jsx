@@ -36,7 +36,7 @@ const NavButtons = () => {
                     </a>
                 )}
 
-                {/* <Link onClick={hideMobile} to="/news" className="nav-link">
+                {/* <Link to="/news" className="nav-link">
                     Новости
                 </Link> */}
             </div>

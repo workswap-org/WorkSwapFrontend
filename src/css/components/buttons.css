@@ -129,9 +129,11 @@
 }
 
 .like {
+    font-size: 1.5rem;
     color: var(--like) !important;
 }
 
+.like.active,
 .like:hover {
     color: var(--like-dark) !important;
 }
@@ -155,6 +157,7 @@
 .overlay-actions {
     position: absolute;
     width: max-content;
+    height: 2.5rem;
     z-index: 50;
 
     display: inline-flex;
@@ -162,20 +165,13 @@
 
     transition: all 0.2s ease;
 
-    opacity: 1;
-
     background-color: white;
     border: 2px solid lightgray;
-    padding: 0.2rem;
+    padding: 0.2rem 0.4rem;
     border-radius: 1.25rem;
 }
 
-.overlay-actions.hover-show {
-    opacity: 0.5;
-}
-
 .overlay-actions * {
-    height: 32px; /* Фиксированная высота */
     display: flex;
     align-items: center;
     justify-content: center;

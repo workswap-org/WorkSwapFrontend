@@ -10,7 +10,7 @@ const PrivateListingCard  = ({listing}) => {
 
     const { t } = useTranslation('common')
 
-    const notificate = useNotification();
+    const {notificateFromRes} = useNotification();
     const navigate = useNavigate();
 
     const activePage = useActivePage();
@@ -39,13 +39,18 @@ const PrivateListingCard  = ({listing}) => {
         if (!listing?.id) return;
         const res = await apiFetch(`/api/listing/${listing.id}/delete`, {method: 'DELETE'});
         if (res.message) {
-            notificate(res.message, "success");
+            notificateFromRes(res);
         };
     };
 
+    if (listing.temporary) return null;
+
     return (
         <article className="listing-card hover-animation-card" onClick={() => navigate(`/listing/${listing.id}`)}>
-            <div className="overlay-actions hover-show top right">
+            <div 
+                className="overlay-actions hover-show top right"
+                onClick={(e) => e.stopPropagation()}
+            >
                 <Link 
                     className="btn btn-sm btn-primary"
                     to={`/listing/${listing.id}`}
@@ -74,7 +79,7 @@ const PrivateListingCard  = ({listing}) => {
                     </>
                 )}
                 {activePage === "favorites" && (
-                    <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart fa-2xl like`} onClick={() => toggleFavorite()}></i>
+                    <i className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} onClick={() => toggleFavorite()}></i>
                 )}
             </div>
             <img 

@@ -31,7 +31,7 @@
 .listing-layout {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
 }
 
 /* Заголовок объявления */
@@ -410,6 +410,10 @@ input[type="number"] {
         max-width: 100%;
         max-height: 300px;
         object-fit: fill;
+    }
+
+    .listing-sidebar {
+        width: 100%;
     }
 
     .review-form .form-row {

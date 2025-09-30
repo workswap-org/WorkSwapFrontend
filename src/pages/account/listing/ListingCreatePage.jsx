@@ -2,11 +2,13 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "@/lib/apiClient";
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { useTranslation } from 'react-i18next';
 
 export default function ListingCreatePage() {
 
     const navigate = useNavigate();
-    const notificate = useNotification();
+    const { notificate, notificateFromRes } = useNotification();
+    const { t } = useTranslation('common');
 
     useEffect(() => {
         async function createListing() {
@@ -14,15 +16,15 @@ export default function ListingCreatePage() {
                 const data = await apiFetch("/api/listing/create", {method: "POST"}, {});
 
                 if (!data.id) {
-                    throw new Error("Ошибка при создании объявления");
+                    throw new Error(t(`notification.misc.error.listingCreate`, { ns: 'messages' }));
                 }
 
-                notificate(data.message, "success");
+                notificateFromRes(data);
 
-                navigate(`/secure/listing/edit/${data.id}`);
+                navigate(`/secure/listing/edit/${data.id}`, { replace: true });
             } catch (err) {
                 console.error(err);
-                notificate("Ошибка при создании объявления", "error");
+                notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error");
             }
         }
 
@@ -34,20 +36,20 @@ export default function ListingCreatePage() {
                     createListing()
                 } else if (drafts.length === 1) {
                     const id = drafts[0]?.id;
-                    navigate(`/secure/listing/edit/${id}`);
-                    notificate("У вас остался сохранённый черновик", "info");
+                    navigate(`/secure/listing/edit/${id}`, { replace: true });
+                    notificate(t(`notification.misc.hadDraft`, { ns: 'messages' }), "info");
                 } else if (drafts.length > 1) {
-                    navigate(`/secure/listing/drafts`);
+                    navigate(`/secure/listing/drafts`, { replace: true });
                 } else {
-                    notificate("Ошибка загрузки черновиков", "error");
+                    notificate(t(`notification.misc.error.draftLoading`, { ns: 'messages' }), "error");
                 }
             } catch {
-                notificate("Ошибка загрузки черновиков", "error");
+                notificate(t(`notification.misc.error.draftLoading`, { ns: 'messages' }), "error");
             }
         }
 
         loadDrafts();
-    }, [navigate, notificate]);
+    }, [navigate, notificate, notificateFromRes, t]);
 
     return <p>Создаём объявление...</p>;
 }

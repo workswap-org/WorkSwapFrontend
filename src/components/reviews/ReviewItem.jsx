@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import Avatar from "@/components/small-components/Avatar";
-import { Link } from "react-router-dom";
+import FormattedDate from "../small-components/FormattedDate";
 
 const ReviewItem = ({review}) => {
 
@@ -37,9 +37,11 @@ const ReviewItem = ({review}) => {
                                 />
                             ))}
                         </span>
-                        <span className="review-date">{review.createdAt}</span>
                     </div>
                 </div>
+                <span className="review-date">
+                    <FormattedDate isoDate={review.createdAt} />
+                </span>
                 
                 {/* {review.listing && profileUser && (
                     <Link 
@@ -51,7 +53,7 @@ const ReviewItem = ({review}) => {
                 )} */}
             </div>
             <div className="review-content">
-                <p>{review.text}</p>
+                <span>{review.text}</span>
             </div>
         </article>
     );

@@ -1,21 +1,17 @@
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import AccountSidebarLinks from "@/components/account/AccountSidebarLinks";
 import Avatar from "@/components/small-components/Avatar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NotificationMobileButton from "@/components/notifications/NotificationMobileButton";
+import { useTranslation } from 'react-i18next';
 
 const MobileMenu = ({
-    hideMobile,
     activePage
 }) => {
 
-    const navigate = useNavigate();
-    const { user, isAuthenticated } = useAuth();
+    const { t } = useTranslation('navigation')
 
-    function to(to) {
-        hideMobile();
-        navigate(to);
-    }
+    const { user, isAuthenticated } = useAuth();
 
     return (
         <div className="mobile-menu">
@@ -32,19 +28,19 @@ const MobileMenu = ({
             </div>
 
             {isAuthenticated ? (
-                <button className="navbar-btn" onClick={() => to("logout")}>
+                <Link className="navbar-btn" to='/logout'>
                     <div><i className="fa-regular fa-left-from-bracket fa-lg"></i></div>
-                    <span>Выйти</span> 
-                </button>
+                    <span>{t(`accountSidebar.logout`, { ns: 'navigation' })}</span> 
+                </Link>
             ) : (
-                <button className="navbar-btn" onClick={() => to("login")}>
+                <Link className="navbar-btn" to='/login'>
                     <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>
-                    <span>Войти в аккаунт</span> 
-                </button>
+                    <span>{t(`accountSidebar.login`, { ns: 'navigation' })}</span> 
+                </Link>
             )}
 
             <div className="account-manager">
-                <AccountSidebarLinks hideMobile={hideMobile} activePage={activePage}/>
+                <AccountSidebarLinks activePage={activePage}/>
             </div>
 
             <NotificationMobileButton/>

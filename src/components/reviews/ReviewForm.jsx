@@ -8,14 +8,25 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
 
     const { t } = useTranslation();
 
-    const {user} = useAuth();
-    const notificate = useNotification();
+    const {user, isAuthenticated} = useAuth();
+    const {notificate, notificateFromRes} = useNotification();
 
     const [text, setText] = useState('');
     const [rating, setRating] = useState(0);   // выбранная оценка
     const [hover, setHover] = useState(0);     // звезда под курсором
 
     const createReview = async () => {
+
+        if (text.length === 0) {
+            notificate(t(`notification.misc.nullReviewText`, { ns: 'messages' }), "error");
+            return;
+        }
+
+        if (rating === 0) {
+            notificate(t(`notification.misc.nullReviewRating`, { ns: 'messages' }), "error");
+            return;
+        }
+
         const newReview = {
             listingId,
             profileId,
@@ -28,7 +39,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
         const res = await apiFetch(`/api/review/create`, { method: 'POST' }, newReview);
 
         if (res) {
-            notificate(res.message, "success");
+            notificateFromRes(res);
             newReview.id = Date.now();
             setReviews(prev => [newReview, ...prev]);
             setText('');
@@ -38,7 +49,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
 
     return (
         <>
-            {(user && profileId != user.id) && (
+            {(isAuthenticated && profileId != user.id) && (
                 <section className="review-form">
                     <h3>{t(`reviews.item.label`, { ns: 'common' })}</h3>
                     <div id="review-form">

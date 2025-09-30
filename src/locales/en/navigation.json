@@ -9,7 +9,10 @@
         }
     },
     "accountSidebar": {
+        "login": "Log in",
+        "logout": "Log out",
         "links": {
+            "catalog": "Catalog",
             "account": "Account",
             "my-listings": "My Listings",
             "favorites": "Favorites",

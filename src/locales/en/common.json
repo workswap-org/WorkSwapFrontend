@@ -7,7 +7,7 @@
         "category": "Select category...",
         "priceType": "Select price type...",
         "location": "Select location...",
-        "review": "Everything was done very efficiently and quickly! I will use this service again!",
+        "review": "Write a review...",
         "typeMessage": "Type a message..."
     },
     "sorts": {
@@ -48,7 +48,8 @@
         "phone": "Phone",
         "views": "Views",
         "rating": "Rating",
-        "contacts": "Contact information"
+        "contacts": "Contact information",
+        "translations": "Listing translations"
     },
     "titles": {
         "account": "My Account",

@@ -42,9 +42,13 @@
 
     /* Перманентные цвета */
 
+    --like-dark: #d34652;
+
     --danger: #f87171;
 
     --permanent-text-color: #e9e9e9;
+
+    --success: #58cc5b;
 
     /*Изменяемые темой цвета*/
 
@@ -56,9 +60,6 @@
 
     --danger-dark: #d83f3f;
 
-    --like: #cf414d;
-    --like-dark: #d34652;
-
     --primary-light: #9396ff;
     --primary-2xlight: #babdff;
     --primary: #6366f1;
@@ -66,6 +67,8 @@
 
     --login-bg-start: #8db5fb;
     --login-bg-end: #d25eff;
+
+    --like: #b6b6b6;
 }
 
 [data-theme="dark"] {
@@ -85,4 +88,6 @@
 
     --login-bg-start: #1161eb;
     --login-bg-end: #a809e7;
+
+    --like: #616e70;
 }

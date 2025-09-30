@@ -6,7 +6,7 @@ const PriceTypes = ({ listing, className = "" }) => {
 
     if (!listing) return <span className={`listing-price ${className}`} >Цена не указана</span>;
 
-    const priceTypePlaceholder = t(`priceTypes.${listing.priceType}`, { ns: 'common' })
+    const priceTypePlaceholder = t(`priceTypes.${listing.priceType ? listing.priceType : 'fixed'}`, { ns: 'common' })
 
     switch (listing.priceType) {
         case "negotiable":

@@ -3,6 +3,7 @@
 .lang-cards {
     display: inline-flex;
     gap: 0.5rem;
+    width: 100%;
 }
 
 .lang-card {
@@ -10,8 +11,43 @@
     border-radius: var(--radius);
     padding: 0.5rem 1rem;
     text-align: center;
-    width: 100px;
+    width: 100%;
     position: relative;
+}
+
+.translation-status {
+    height: 1.5rem;
+    right: 1rem;
+    bottom: 0.5rem;
+    position: absolute;
+}
+
+.progress-container {
+    height: 100%;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.translation-status * {
+    position: absolute;
+}
+
+.translation-status .second {
+    color: var(--success);
+    z-index: 101;
+}
+
+.translation-status .first {
+    color: var(--like);
+    z-index: 100;
+}
+
+.translation-status .third {
+    color: #ffffff;
+    z-index: 102;
+    font-size: 0.7rem;
 }
 
 .lang-card.create {

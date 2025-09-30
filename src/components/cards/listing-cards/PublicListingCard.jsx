@@ -9,7 +9,7 @@ import { useAuth } from "@/lib/contexts/auth/AuthContext";
 const PublicListingCard = ({listing, isMainListing}) => {
 
     const navigate = useNavigate();
-    const notificate = useNotification();
+    const {notificate} = useNotification();
     const [isFavorite, setFavorite] = useState(false);
     const { user } = useAuth();
 
@@ -72,14 +72,14 @@ const PublicListingCard = ({listing, isMainListing}) => {
                     {/* <span className="partner-sign" th:if="${listing.author.role.name() == 'BUSINESS'}" th:text="#{partner}"></span> */}
                     <span className="listing-location">{listing.location}</span>
                 </div>
+                {user && (
+                    <div className="listing-card-overlay-actions">
+                        <i 
+                            className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
+                            onClick={(e) => toggleFavorite(e)}></i>
+                    </div>
+                )}
             </div>
-            {user && (
-                <div className="overlay-actions top right">
-                    <i 
-                        className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart fa-2xl like`} 
-                        onClick={(e) => toggleFavorite(e)}></i>
-                </div>
-            )}
         </article>
     );
 };

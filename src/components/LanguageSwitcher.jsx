@@ -1,16 +1,22 @@
 import { useTranslation } from "react-i18next";
 import "@/lib/i18n";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
     const currentLang = i18n.language || "fi";
+    const location = useLocation();
 
     const [isOpen, setOpen] = useState(false);
 
     function toggleLangMenu() {
         setOpen(!isOpen);
     }
+
+    useEffect(() => {
+        setOpen(false);
+    }, [location]);
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);

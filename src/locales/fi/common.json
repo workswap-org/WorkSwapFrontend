@@ -7,7 +7,7 @@
         "category": "Valitse kategoria...",
         "priceType": "Valitse hintatyyppi...",
         "location": "Valitse sijainti...",
-        "review": "Kaikki tehtiin erittäin nopeasti ja laadukkaasti! Käytän tätä palvelua uudelleen!",
+        "review": "Kirjoita arvostelu...",
         "typeMessage": "Kirjoita viesti..."
     },
     "sorts": {
@@ -48,7 +48,8 @@
         "phone": "Puhelin",
         "views": "Näytöt",
         "rating": "Arvostelu",
-        "contacts": "Yhteystiedot"
+        "contacts": "Yhteystiedot",
+        "translations": "Ilmoituksen käännökset"
     },
     "titles": {
         "account": "Oma tili",

@@ -6,7 +6,7 @@ import { useNotification } from "@/lib/contexts/notifications/NotificationContex
 const SecurityPage = () => {
 
     const navigate = useNavigate();
-    const notificate = useNotification();
+    const {notificate} = useNotification();
 
     const { t } = useTranslation(['common', 'errors'])
 

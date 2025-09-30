@@ -3,6 +3,7 @@
     flex-direction: column;
     flex-grow: 1;
     padding: 1rem;
+    position: relative;
 }
 
 .listing-card-text {
@@ -119,6 +120,41 @@
     margin: 0 1rem;
 }
 
+.listing-card:hover .overlay-actions{
+    opacity: 1;
+}
+
+.listing-card-overlay-actions {
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    z-index: 50;
+
+    display: inline-flex;
+    gap: 0.5rem;
+
+    transition: all 0.2s ease;
+
+    top: 0;
+    right: 0.7rem;
+    
+    translate: 0 -50%;
+
+    background-color: var(--background-l1);
+    border: 2px solid var(--border-color);
+    border-radius: 1.25rem;
+    display: flex;
+    justify-content: center;
+}
+
+.listing-card-overlay-actions * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Текст не переносится */
+    cursor: pointer;
+}
+
 /* =========== Стили для маленьких карточек для статистики ==============*/
 
 .listing-small-card {
@@ -201,6 +237,8 @@
     z-index: 100;
 }
 
+/* =========== Стили для карточек черновиков ==============*/
+
 .draft-listing-card {
     display: flex;
     flex-direction: column;
@@ -234,10 +272,6 @@
 
 .draft-listing-card-body {
     padding: 0.5rem;
-}
-
-.listing-card:hover .overlay-actions{
-    opacity: 1;
 }
 
 

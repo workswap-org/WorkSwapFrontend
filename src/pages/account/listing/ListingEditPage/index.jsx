@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import { useNavigate } from "react-router-dom";
-import ListingTranslations from "./ListingTranslations";
+import ListingTranslations from "./translations/ListingTranslations";
 import { useTranslation } from 'react-i18next';
 
 const ListingEditPage = () => {
@@ -18,7 +18,7 @@ const ListingEditPage = () => {
 
     const { id } = useParams();
 
-    const notificate = useNotification();
+    const {notificate, notificateFromRes} = useNotification();
     const navigate = useNavigate();
 
     const [priceTypes, setPriceTypes] = useState([])
@@ -50,13 +50,13 @@ const ListingEditPage = () => {
             if (res.message) {
                 setSaving(false);
             } else {
-                notificate("Ошибка обновления объявления", "error");
+                notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error");
             }
         } catch (err) {
-            notificate("Ошибка обновления объявления", "error");
+            notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error");
             throw err;
         }
-    }, [id, notificate]);
+    }, [id, notificate, t]);
     
     const translationsChange = useCallback((translation) => {
         console.log("[T] Перевод:", translation);
@@ -105,7 +105,7 @@ const ListingEditPage = () => {
     async function publishListing() {
         const data = await apiFetch(`/api/listing/publish/${id}`, {method: 'POST'});
         if (data.message) {
-            notificate(data.message, 'success');
+            notificateFromRes(data);
             navigate(`/secure/my-listings`);
         }
     }
@@ -113,7 +113,7 @@ const ListingEditPage = () => {
     async function deleteDraft() {
         const data = await apiFetch(`/api/listing/${id}/delete`, {method: 'DELETE'});
         if (data.message) {
-            notificate(data.message, 'success');
+            notificateFromRes(data);
             navigate(`/secure/my-listings`);
         }
     }
@@ -179,6 +179,7 @@ const ListingEditPage = () => {
                 </div> */}
 
                 <div className="form-group" style={{gridColumn: 'span 2'}}>
+                    <label htmlFor="priceType">{t(`labels.translations`, { ns: 'common' })}</label>
                     <ListingTranslations id={id} onChange={translationsChange} />
                 </div>
 
