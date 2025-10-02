@@ -30,13 +30,8 @@ const ListingEditPage = () => {
     const [images, setImages] = useState([]);
     const [price, setPrice] = useState(listing?.price || "");
     const [selectedPriceType, setSelectedPriceType] = useState("");
-
-    /**
-     * Обновляет объявление по id
-     * @param {number|string} listingId - ID объявления
-     * @param {Object} updates - Объект с полями для обновления
-     * @returns {Promise<Object>} - обновлённое объявление
-     */
+    const [isActive, setActive] = useState(false);
+    
     const updateListing = useCallback(async (updates) => {
         try {
             const res = await apiFetch(`/api/listing/modify/${id}`, {
@@ -102,6 +97,12 @@ const ListingEditPage = () => {
         updateListing({ priceType: type });
     }, [updateListing]);
 
+    const changeActive = useCallback((active) => {
+        setActive(active);
+        setSaving(true);
+        updateListing({ active });
+    }, [updateListing])
+
     async function publishListing() {
         const data = await apiFetch(`/api/listing/publish/${id}`, {method: 'POST'});
         if (data.message) {
@@ -150,6 +151,7 @@ const ListingEditPage = () => {
         setLocationId(listing.locationId);
         setPrice(listing.price);
         setSelectedPriceType(listing.priceType);
+        setActive(listing.active);
 
     }, [listing]);
 
@@ -167,16 +169,25 @@ const ListingEditPage = () => {
                 )} 
             </div>
             <div className="edit-listing-form form-grid">
-                {/* <div className="form-group">
-                    <label th:text="#{listing.editing.status}">Статус объявления</label>
+                <div className="form-group">
+                    <label>{t(`labels.listingStatus`, { ns: 'common' })}</label>
                     <div className="status-toggle">
                         <label className="switch">
-                            <input type="checkbox" name="active" th:checked="${listing.active}" value="true"/>
+                            <input 
+                                type="checkbox" 
+                                checked={isActive}
+                                onChange={(e) => changeActive(e.target.checked)}
+                                value="true"
+                            />
                             <span className="slider"></span>
                         </label>
-                        <span th:text="${listing.active} ? #{listing.editing.status.enable} : #{listing.editing.status.disable}"></span>
+                        {isActive ? (
+                            <p>{t(`statuses.active`, { ns: 'common' })}</p>
+                        ) : (
+                            <p>{t(`statuses.inactive`, { ns: 'common' })}</p>
+                        )}
                     </div>
-                </div> */}
+                </div>
 
                 <div className="form-group" style={{gridColumn: 'span 2'}}>
                     <label htmlFor="priceType">{t(`labels.translations`, { ns: 'common' })}</label>

@@ -12,9 +12,7 @@ const PrivateListingCard  = ({listing}) => {
 
     const {notificateFromRes} = useNotification();
     const navigate = useNavigate();
-
     const activePage = useActivePage();
-    console.log("activePage", activePage)
 
     const [isFavorite, setFavorite] = useState(false);
 

@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/apiClient";
 import NotificationsContainer from "./NotificationsContainer";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { useLocation } from "react-router-dom";
 
 const NotificationHeaderButton = () => {
 
     const [notifications, setNotifications] = useState([]);
+    const location = useLocation();
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -21,6 +23,10 @@ const NotificationHeaderButton = () => {
             }, 70)
         }
     }, [notifications, unreadCount]);
+
+    useEffect(() => {
+        setOpen(false);
+    }, [location]);
 
     useEffect(() => {
         if (!isAuthenticated) return;

@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     
     const updateAuthentication = useCallback((user) => {
         if (user) {
-            console.log("user.type", user.type);
+            /* console.log("user.type", user.type); */
             setAuthenticated(user.type == "STANDART");
         }
     }, [])
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
             const res = await apiFetch("/api/user/current", {}, {});
             setUser(res.user);
             updateAuthentication(res.user);
-            console.log(res);
+            /* console.log(res); */
             return true;
         } catch (e) {
             console.error(e);

@@ -45,6 +45,8 @@ const CatalogPage = () => {
     return(
         <>
             <CatalogHeader 
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
                 categoryId={categoryId} 
                 setCategoryId={setCategoryId}
             />
@@ -52,9 +54,7 @@ const CatalogPage = () => {
             <div className="catalog-container">
                 <div className="catalog-layout">
                     {/* Сайдбар сортировки */}
-                    <CatalogSidebar 
-                        searchQuery={searchQuery} 
-                        setSearchQuery={setSearchQuery}
+                    <CatalogSidebar
                         hasReviews={hasReviews} 
                         setHasReviews={setHasReviews}
                         activeSort={activeSort}

@@ -3,6 +3,7 @@ import { apiFetch } from "@/lib/apiClient";
 import NotificationsContainer from "./NotificationsContainer";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { useTranslation } from 'react-i18next';
+import { useLocation } from "react-router-dom";
 
 const NotificationMobileButton = () => {
 
@@ -10,6 +11,7 @@ const NotificationMobileButton = () => {
     const { t } = useTranslation('common');
 
     const [notifications, setNotifications] = useState([]);
+    const location = useLocation();
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -23,6 +25,10 @@ const NotificationMobileButton = () => {
             }, 70)
         }
     }, [notifications, unreadCount]);
+
+    useEffect(() => {
+        setOpen(false);
+    }, [location]);
     
     useEffect(() => {
 

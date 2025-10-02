@@ -34,8 +34,6 @@ export function useStompClient() {
 
     const connect = useCallback(() => {
 
-        console.log("Client: ", client)
-
         if (connected) return;
 
         const stompClient = new Client({
@@ -52,7 +50,7 @@ export function useStompClient() {
         };
 
         stompClient.onDisconnect = () => {
-            /* console.log("🔌 Disconnected"); */
+            console.log("🔌 Disconnected");
             setClient(null);
             setConnected(false);
         };
@@ -69,16 +67,15 @@ export function useStompClient() {
             console.warn("WebSocket closed", evt);
             setConnected(false);
             setError(true);
-            /* reconnect(stompClient, reconnectAttempts); */
         };
 
         stompClient.activate();
 
         return () => {
-            /* console.log("🔌 Deactivating WebSocket"); */
+            console.log("🔌 Deactivating WebSocket");
             stompClient.deactivate();
         };
-    }, [connected, client, reconnect])
+    }, [connected, reconnect])
 
     useEffect(() => {
         if (!user) return;
@@ -86,10 +83,6 @@ export function useStompClient() {
         connect();
 
     }, [connect, connected, user]);
-
-    useEffect(() => {
-        console.log("Подключение активно? ", connected);
-    }, [connected]);
 
     return { client, connected, error };
 }
