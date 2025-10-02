@@ -36,7 +36,7 @@ const CatalogHeader = ({
 
                 <button className="btn btn-primary categories-btn" onClick={() => toggleCategoriesMenu()}>
                     <div><i className="fa-solid fa-list fa-lg perm-light"></i></div>
-                    <span>Все категории</span>
+                    <span>{t('category.all-services', { ns: 'categories' })}</span>
                 </button>
 
                 <CategoriesSelector 
