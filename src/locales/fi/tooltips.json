@@ -6,5 +6,9 @@
         "bio": "Lyhyt tieto",
         "phoneVisibility": "Näytä puhelinnumero",
         "emailVisibility": "Näytä sähköposti"
+    },
+
+    "catalog": {
+        "selectedCategory": "Valittu kategoria"
     }
 }

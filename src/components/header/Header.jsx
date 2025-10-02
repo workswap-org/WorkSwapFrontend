@@ -48,7 +48,7 @@ const Header = ({ isEmpty, activePage }) => {
                             <ThemeChanger id={"themeChangerHeader"}/>
                         </div>
                         <button onClick={mobileMenuToggle} className="navbar-toggler">
-                            <span className="navbar-toggler-icon"></span>
+                            <div><i className="fa-solid fa-bars"></i></div>
                         </button>
                     </div>
                     <div className={`navbar-collapse ${mobileVisible ? 'show' : ""}`}>

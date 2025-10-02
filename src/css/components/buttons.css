@@ -119,15 +119,6 @@
     background-color: #357ae8;
 }
 
-.btn-search {
-    border-radius: 0 var(--radius) var(--radius) 0;
-    border-left: none;
-    background-color: var(--primary);
-    color: var(--background-l1);
-    max-width: 80px;
-    margin-bottom: 0;
-}
-
 .like {
     font-size: 1.5rem;
     color: var(--like) !important;

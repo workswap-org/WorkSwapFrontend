@@ -3,12 +3,13 @@
     gap: 4rem;
     align-items: flex-start;
     padding-left: 1.5rem;
+    padding-top: 5rem;
 }
 
 .catalog-sidebar {
     flex: 0 0 var(--sidebar-width);
     position: sticky;
-    top: calc(var(--header-height) + 20px);
+    top: calc(var(--header-height) + 5rem);
 }
 
 .catalog-main {
@@ -22,12 +23,13 @@
 .catalog-header {
     background: var(--background-l1);
     border-bottom: 1px solid var(--border-color);
-    position: sticky;
+    position: fixed;
     top: var(--header-height);
     z-index: 99;
     padding: 1rem 0;
     height: 5rem;
     display: flex;
+    width: 100%;
     justify-content: center;
 }
 
@@ -37,6 +39,7 @@
     justify-content: center;
     gap: 1rem;
     position: relative;
+    height: 3rem;
 }
 
 .cards-container {
@@ -196,14 +199,19 @@
 
 /* Стили для формы поиска */
 .listings-search {
+    height: 100%;
     display: flex;
     flex-direction: row;
 }
-.listings-search .btn-search {
-    margin-bottom: 0;
-    border: none;
-    outline: none;
+
+.btn-search {
+    border-radius: 0 var(--radius) var(--radius) 0;
+    border-width: 0;
     box-shadow: none;
+    background-color: var(--primary);
+    color: var(--background-l1);
+    width: auto;
+    margin-bottom: 0;
 }
 
 .search-input {
@@ -225,9 +233,11 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    height: 100%;
+    width: fit-content;
 }
 
-.categories-container {
+.categories-menu {
     translate: 0 4rem;
     padding: 1rem;
     width: 100%;
@@ -239,26 +249,70 @@
 
     display: none;
     flex-direction: column;
+}
+
+.categories-container {
+    display: inline-flex;
     gap: 0.7rem;
 }
 
-.categories-container.active {
+.selected-category-label {
+    width: 100%;
+    text-align: center;
+}
+
+.categories-menu.active {
     display: flex;
     animation: fadeIn 0.2s ease;
 }
 
-.categories-container * {
+.categories-menu * {
     visibility: hidden;
 }
 
-.categories-container.active * {
+.categories-menu.active * {
     visibility: visible;
 }
 
-.root-categories-list {
-    display: inline-flex;
+.categories-sidebar-container {
+    display: flex;
+    flex-direction: column;
     gap: 0.2rem;
+    width: 40%;
+}
+
+.subcategories-container {
+    flex: 1;
+}
+
+.selected-subcategory {
+    position: relative;
+
+    padding: 0.5rem 20px;
+    font-size: 15px;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+    border: 0;
+    border-radius: 4px;
+    background-color: var(--selected-category);
     width: 100%;
+    margin-bottom: 0.5rem;
+
+    display: inline-flex;
+    justify-content: center;
+}
+
+.list-button {
+    position: absolute;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 4px;
+    right: 1rem;
+    top: 50%;
+    translate: 0 -50%;
+
+    background-color: rgba(0,0,0,0.2);
+    border: 2px solid var(--background-l1);
 }
 
 .root-category-item {
@@ -284,9 +338,8 @@
 }
 
 .categories-list {
-    width: fit-content;
     display: flex;
-    flex-direction:  column;
+    flex-direction: column;
     gap: 0.3rem;
 }
 
@@ -391,16 +444,19 @@
     display: none;
 }
 
-.catalog-search-mobile {
-    display: none;
-}
-
 /* Адаптивность */
+@media (max-width: 600px) {
+
+    .categories-menu {
+        max-height: 80vh;
+        overflow: auto;
+    }
+}
 @media (max-width: 992px) {
 
-    .categories-btn {
+    /* .categories-btn {
         display: none;
-    }
+    } */
 
     .search-input {
         min-width: auto;
@@ -425,12 +481,6 @@
     .btn .fa-filter {
         color: var(--background-l1);
         transition: transform 0.2s;
-    }
-
-    .catalog-search-mobile {
-        display: block;
-        padding-left: 16px;
-        padding-right: 16px;
     }
 
     .btn-filter-sidebar {
@@ -495,10 +545,6 @@
         display: none !important;
     }
 
-    .sorting-search {
-        display: none !important;
-    }
-
     .nav-pills {
         flex-wrap: wrap;
     }
@@ -511,7 +557,7 @@
 
     .catalog-header {
         position: static;
-        padding: 0.5rem 0;
+        padding: 1rem;
     }
 
     .pagination {
@@ -533,6 +579,7 @@
         flex-direction: column;
         padding-left: 0;
         gap: 2rem;
+        padding-bottom: 5rem;
     }
 
     .catalog-main {

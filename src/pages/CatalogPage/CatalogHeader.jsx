@@ -20,23 +20,10 @@ const CatalogHeader = ({
     return (
         <div className="catalog-header">
             <div className="catalog-header-content">
-                <div className="catalog-search-mobile">
-                    <div className="listings-search">
-                        <input
-                            type="text"
-                            className="search-input"
-                            name="searchQuery"
-                            placeholder="Поиск..."
-                        />
-                        <button className="btn btn-search" type="submit">
-                            <i className="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
 
                 <button className="btn btn-primary categories-btn" onClick={() => toggleCategoriesMenu()}>
                     <div><i className="fa-solid fa-list fa-lg perm-light"></i></div>
-                    <span>{t('category.all-services', { ns: 'categories' })}</span>
+                    <span className="normal-only">{t('category.all-categories', { ns: 'categories' })}</span>
                 </button>
 
                 <CategoriesSelector 

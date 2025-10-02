@@ -6,5 +6,9 @@
         "bio": "Short information",
         "phoneVisibility": "Display phone number",
         "emailVisibility": "Display email"
+    },
+
+    "catalog": {
+        "selectedCategory": "Selected category"
     }
 }

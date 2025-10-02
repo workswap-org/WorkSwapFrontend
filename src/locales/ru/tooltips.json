@@ -6,5 +6,9 @@
         "bio": "Краткая информация",
         "phoneVisibility": "Отображение номера телефона",
         "emailVisibility": "Отображение email"
+    },
+
+    "catalog": {
+        "selectedCategory": "Выбранная категория"
     }
 }
