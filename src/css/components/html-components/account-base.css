@@ -46,7 +46,7 @@
     .account-container {
         padding: 1rem 0;
         padding-bottom: var(--header-height);
-        height: calc(100% - var(--header-height));
+        height: fit-content;
     }
 
     .account-header {

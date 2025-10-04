@@ -150,7 +150,7 @@ const ListingEditPage = () => {
         setCategoryId(listing.categoryId);
         setLocationId(listing.locationId);
         setPrice(listing.price);
-        setSelectedPriceType(listing.priceType);
+        setSelectedPriceType(listing.priceType?.toUpperCase());
         setActive(listing.active);
 
     }, [listing]);
@@ -169,13 +169,19 @@ const ListingEditPage = () => {
                 )} 
             </div>
             <div className="edit-listing-form form-grid">
+
+                <div className="form-group two-columns-grid">
+                    <h3>{t(`labels.translations`, { ns: 'common' })}</h3>
+                    <ListingTranslations id={id} onChange={translationsChange} />
+                </div>
+
                 <div className="form-group">
-                    <label>{t(`labels.listingStatus`, { ns: 'common' })}</label>
+                    <h3>{t(`labels.listingStatus`, { ns: 'common' })}</h3>
                     <div className="status-toggle">
                         <label className="switch">
                             <input 
                                 type="checkbox" 
-                                checked={isActive}
+                                checked={isActive ?? false}
                                 onChange={(e) => changeActive(e.target.checked)}
                                 value="true"
                             />
@@ -189,59 +195,52 @@ const ListingEditPage = () => {
                     </div>
                 </div>
 
-                <div className="form-group" style={{gridColumn: 'span 2'}}>
-                    <label htmlFor="priceType">{t(`labels.translations`, { ns: 'common' })}</label>
-                    <ListingTranslations id={id} onChange={translationsChange} />
-                </div>
-
                 <div className="form-group">
                     <label htmlFor="price">{t(`labels.price`, { ns: 'common' })}</label>
-                    <input
-                        className="form-control"
-                        type="number"
-                        id="price"
-                        name="price"
-                        value={price ?? ""}
-                        onChange={(e) => changePrice(e.target.value)}
-                        step="0.01"
-                        required
-                    />
+                    <div className="price-edit">
+                        {selectedPriceType != 'NEGOTIABLE' && (
+                            <input
+                                className="form-control price-edit-duo"
+                                type="number"
+                                id="price"
+                                name="price"
+                                value={price ?? ""}
+                                onChange={(e) => changePrice(e.target.value)}
+                                step="0.01"
+                                required
+                            />
+                        )}
+                        <select
+                            id="priceType"
+                            name="priceType"
+                            className={`form-control ${selectedPriceType != 'NEGOTIABLE' ? 'price-edit-duo' : ''}`}
+                            required
+                            value={selectedPriceType ?? ""}
+                            onChange={(e) => changePriceType(e.target.value)}
+                        >
+                            <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
+                            {priceTypes.map((type) => (
+                                <option key={type.name} value={type.name}>
+                                    {t(`priceTypes.${type.displayName}`, { ns: 'common' })}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="priceType">{t(`labels.priceType`, { ns: 'common' })}</label>
-                    <select
-                        id="priceType"
-                        name="priceType"
-                        className="form-control"
-                        required
-                        value={selectedPriceType ?? ""}
-                        onChange={(e) => changePriceType(e.target.value)}
-                    >
-                        <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
-                        {priceTypes.map((type) => (
-                            <option key={type.name} value={type.name}>
-                                {t(`priceTypes.${type.displayName}`, { ns: 'common' })}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className="form-group">
-                    <label>{t(`labels.category`, { ns: 'common' })}</label>
+                    <h3>{t(`labels.category`, { ns: 'common' })}</h3>
                     <CategorySelector categoryId={categoryId} onChange={categoryChange} />
                 </div>
 
                 <div className="form-group">
-                    <label>{t(`labels.location`, { ns: 'common' })}</label>
+                    <h3>{t(`labels.location`, { ns: 'common' })}</h3>
                     <LocationSelector locationId={locationId} onChange={locationChange} />
                 </div>
 
-                <div className="form-group">
-                    <ListingImagesUploader images={images} onChange={imagesChange} listing={listing}/>
-                </div>
+                <ListingImagesUploader images={images} onChange={imagesChange} listing={listing}/>
 
-                <div className="form-actions" style={{gridColumn: 'span 2'}} >
+                <div className="form-actions two-columns-grid">
                     <button 
                         onClick={() => {
                             const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
@@ -262,7 +261,7 @@ const ListingEditPage = () => {
                         {t(`listing.goToDrafts`, { ns: 'buttons' })}
                     </Link>
 
-                    {listing.temporary ? (
+                    {listing.temporary && (
                         <button 
                             onClick={() => publishListing()} 
                             type="button" 
@@ -270,8 +269,6 @@ const ListingEditPage = () => {
                         >
                             {t(`listing.publish`, { ns: 'buttons' })}
                         </button>
-                    ) : (
-                        <h4 style={{margin: 'auto 0'}}>({t(`statuses.published`, { ns: 'common' })})</h4>
                     )}
                 </div>
             </div>

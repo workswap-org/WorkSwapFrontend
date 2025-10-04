@@ -9,3 +9,7 @@
 .perm-light {
     color: var(--permanent-text-color);
 }
+
+.border-color {
+    color: var(--border-color);
+}

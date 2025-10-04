@@ -20,6 +20,7 @@
     right: 1rem;
     bottom: 0.5rem;
     position: absolute;
+    font-size: 1.1rem;
 }
 
 .progress-container {
@@ -36,18 +37,18 @@
 
 .translation-status .second {
     color: var(--success);
-    z-index: 101;
+    z-index: 81;
 }
 
 .translation-status .first {
     color: var(--like);
-    z-index: 100;
+    z-index: 80;
 }
 
 .translation-status .third {
     color: #ffffff;
-    z-index: 102;
-    font-size: 0.7rem;
+    z-index: 82;
+    font-size: 0.8rem;
 }
 
 .lang-card.create {
@@ -98,13 +99,6 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
-}
-
-.form-grid {
-    width: 100%;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
 }
 
 .indicator.green { background-color: rgb(77 217 77); }
@@ -164,6 +158,12 @@
 .edit-listing-form {
     display: grid;
     gap: 1.5rem;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+}
+
+.two-columns-grid {
+    grid-column: span 2;
 }
 
 /* Загрузка изображений */
@@ -227,9 +227,25 @@
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
-    margin-top: 2rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
+}
+
+.price-edit {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 0.3rem
+}
+
+input.price-edit-duo {
+    flex: 1;
+    border-radius: var(--radius) 0 0 var(--radius);
+}
+
+select.price-edit-duo {
+    padding-left: 0.5rem;
+    width: 30%;
+    border-radius: 0 var(--radius) var(--radius) 0;
 }
 
 /* Сообщения об ошибках */
@@ -332,17 +348,29 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 600px) {
     .form-actions {
         flex-direction: column;
     }
     .audience-switches {
         flex-direction: column;
     }
-}
-@media (max-width: 768px) {
+
     .current-image {
         max-width: 100%;
+    }
+
+    .lang-cards {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .edit-listing-form {
+        grid-template-columns: 1fr; /* одна колонка на маленьких экранах */
+    }
+
+    .two-columns-grid {
+        grid-column: span 1;
     }
 }
 

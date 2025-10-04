@@ -96,13 +96,6 @@ h2 {
     color: var(--gray);
 }
 
-/* Кнопки */
-.form-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-}
-
 .avatar-options {
     display: flex;
     gap: 20px;

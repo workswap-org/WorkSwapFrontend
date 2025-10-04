@@ -94,56 +94,50 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
     };
 
     return (
-        <div className="form-group" style={{ gridColumn: "span 2" }}>
-            <label>{t(`labels.images`, { ns: 'common' })}</label>
-            <input type="hidden" name="mainImageUrl" value={mainImage} />
-            <div className="image-gallery">
-                <div className="image-gallery-grid">
-                    {imageList.map((img) => (
-                        <div key={img.id} className="image-item">
-                            <div className="card">
-                                <img
-                                    src={img.path}
-                                    onError={(e) => e.target.src = `/images/default-listing.svg`}
-                                    className="card-img-top"
-                                />
-                                <div className="overlay-actions bottom right">
-                                    {(img.path != mainImage) && (
-                                        <button
-                                            type="button"
-                                            className="btn btn-sm btn-gold"
-                                            onClick={() => setMainImageToListing(img.path)}
-                                        >
-                                            <i className="fa-solid fa-star"></i>
-                                        </button>
-                                    )}
+        <div className="form-group two-columns-grid">
+            <h3>{t(`labels.images`, { ns: 'common' })}</h3>
+            <div className="image-gallery-grid">
+                {imageList.map((img) => (
+                    <div key={img.id} className="image-item">
+                        <div className="card">
+                            <img
+                                src={img.path}
+                                onError={(e) => e.target.src = `/images/default-listing.svg`}
+                                className="card-img-top"
+                            />
+                            <div className="overlay-actions bottom right">
+                                {(img.path != mainImage) && (
                                     <button
                                         type="button"
-                                        className="btn btn-sm btn-danger"
-                                        onClick={() => deleteListingImage(img)}
+                                        className="btn btn-sm btn-gold"
+                                        onClick={() => setMainImageToListing(img.path)}
                                     >
-                                        <i className="fa-solid fa-trash"></i>
+                                        <i className="fa-solid fa-star"></i>
                                     </button>
-                                </div>
+                                )}
+                                <button
+                                    type="button"
+                                    className="btn btn-sm btn-danger"
+                                    onClick={() => deleteListingImage(img)}
+                                >
+                                    <i className="fa-solid fa-trash"></i>
+                                </button>
                             </div>
                         </div>
-                    ))}
+                    </div>
+                ))}
+                <div className="updload-image">
+                    <input
+                        type="file"
+                        id="uploadImage"
+                        accept="image/*"
+                        multiple
+                        onChange={handleImageUpload}
+                    />
+                    <label htmlFor="uploadImage">
+                        <i className="fa-regular fa-image-circle-plus fa-3x border-color"></i>
+                    </label>
                 </div>
-            </div>
-
-            <div className="upload-controls mt-2">
-                <input
-                    type="file"
-                    id="uploadedImages"
-                    name="uploadedImages"
-                    accept="image/*"
-                    multiple
-                    onChange={handleImageUpload}
-                    style={{ display: "none" }}
-                />
-                <label htmlFor="uploadedImages" className="btn btn-outline-primary">
-                    {t(`upload.image`, { ns: 'buttons' })}
-                </label>
             </div>
         </div>
     );

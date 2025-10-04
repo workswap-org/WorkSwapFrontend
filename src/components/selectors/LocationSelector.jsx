@@ -65,7 +65,7 @@ const LocationSelector = ({ locationId, onChange }) => {
             selectors.push(
                 <select
                     key={level}
-                    id="locationSelector"
+                    id={`locationSelector${level}`}
                     value={selected}
                     onChange={(e) => handleSelect(level, Number(e.target.value))}
                 >
