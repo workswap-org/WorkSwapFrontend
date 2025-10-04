@@ -33,6 +33,6 @@ export default defineConfig({
         global: 'window'
     },
     preview: {
-        port: 8080
+        port: 30000
     }
 })
