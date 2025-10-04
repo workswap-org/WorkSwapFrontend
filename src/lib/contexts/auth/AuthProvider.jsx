@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
             const res = await apiFetch("/api/user/current", {}, {});
             setUser(res.user);
             updateAuthentication(res.user);
-            /* console.log(res); */
             return true;
         } catch (e) {
             console.error(e);

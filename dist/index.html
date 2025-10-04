@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.0/css/all.css">
+        <link rel="icon" href="/favicon.ico">
+        <script>
+            (function() {
+                const savedTheme = localStorage.getItem('theme');
+                let theme = 'light';
+                
+                if (savedTheme) {
+                    theme = savedTheme;
+                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    theme = 'dark';
+                }
+
+                document.documentElement.setAttribute('data-theme', theme);
+            })();
+        </script>
+        <title>WorkSwap</title>
+      <script type="module" crossorigin src="/assets/index-CbMo43gV.js"></script>
+      <link rel="stylesheet" crossorigin href="/assets/index-BUjR217g.css">
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+</html>
