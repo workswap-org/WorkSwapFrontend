@@ -46,7 +46,7 @@ const PrivateListingCard  = ({listing}) => {
     return (
         <article className="listing-card hover-animation-card" onClick={() => navigate(`/listing/${listing.id}`)}>
             <div 
-                className="overlay-actions hover-show top right"
+                className="overlay-actions hover-show top-center"
                 onClick={(e) => e.stopPropagation()}
             >
                 <Link 

@@ -390,6 +390,30 @@ input[type="number"] {
     opacity: 0;
 }
 
+.listing-page-price h1 {
+    margin-bottom: 0;
+}
+
+.listing-actions {
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.listing-action-item {
+    border-radius: 6px;
+    padding: 0.2rem;
+}
+
+.listing-action-item i {
+    cursor: pointer;
+    font-size: 1.7rem;
+    color: var(--gray);
+}
+
 /* Адаптивность */
 @media (max-width: 992px) {
 

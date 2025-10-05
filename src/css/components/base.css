@@ -27,6 +27,7 @@
 
 @import url(small-components/slider-switcher.css);
 @import url(small-components/rating.css);
+@import url(small-components/tooltip.css);
 
 /* обязательно после всего чтобы перезаписать любые цвета */
 @import url(specials/colors.css);

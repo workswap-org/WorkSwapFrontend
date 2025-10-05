@@ -9,6 +9,7 @@
     },
 
     "catalog": {
-        "selectedCategory": "Выбранная категория"
+        "selectedCategory": "Выбранная категория",
+        "newListing": "Новое объявление!"
     }
 }

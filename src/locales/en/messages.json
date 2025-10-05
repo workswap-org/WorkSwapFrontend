@@ -10,11 +10,13 @@
             "publish": "Listing published",
             "createDraft": "Listing draft saved",
             "listingUpdate": "Listing updated",
-            "reviewCreate": "Review saved successfully"
+            "reviewCreate": "Review saved successfully",
+            "copyListingLink": "Listing link copied"
         },
         "error": {
             "listingDelete": "Error deleting listing",
-            "reviewCreate": "Failed to submit review"
+            "reviewCreate": "Failed to submit review",
+            "toggleFavorite": "Error while toggling favorite"
         },
         "misc": {
             "hadDraft": "You still have a saved draft",

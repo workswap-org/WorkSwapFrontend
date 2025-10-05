@@ -9,6 +9,7 @@
     },
 
     "catalog": {
-        "selectedCategory": "Valittu kategoria"
+        "selectedCategory": "Valittu kategoria",
+        "newListing": "Uusi ilmoitus!"
     }
 }

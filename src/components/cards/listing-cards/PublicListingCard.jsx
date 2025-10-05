@@ -5,13 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 const PublicListingCard = ({listing, isMainListing}) => {
 
     const navigate = useNavigate();
     const {notificate} = useNotification();
     const [isFavorite, setFavorite] = useState(false);
+    const { t } = useTranslation('common')
     const { user } = useAuth();
+
+    const isNew = (new Date() - new Date(listing.publishedAt)) < 3 * 24 * 60 * 60 * 1000;
 
     useEffect(() => {
         async function checkFavorite() {
@@ -60,6 +64,9 @@ const PublicListingCard = ({listing, isMainListing}) => {
                 className="listing-img"
                 alt="Изображение объявления"/>
 
+            {isNew && (
+                <div className="listing-status red">{t(`catalog.newListing`, { ns: 'tooltips' })}</div>
+            )}
             <div className="listing-card-body">
                 <h3 className="listing-card-title">{listing.localizedTitle}</h3>
                 {/* <p className="listing-card-text">{listing.localizedDescription}</p> */}

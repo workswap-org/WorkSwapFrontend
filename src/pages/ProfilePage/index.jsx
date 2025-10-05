@@ -43,7 +43,7 @@ const ProfilePage = () => {
 
     return (
         <>
-            {user ? (
+            {(user && user.status != 'TEMP') ? (
                 <div className="listing-container">
                     <div className="listing-layout">
                         <main className="listing-main">

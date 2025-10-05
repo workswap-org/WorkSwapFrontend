@@ -12,6 +12,8 @@ import ListingGallery from "./ListingGallery";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 
+import NotFoundPage from "@/pages/NotFoundPage";
+
 const ListingPage = () => {
 
     const { id } = useParams();
@@ -29,8 +31,18 @@ const ListingPage = () => {
 
     useEffect(() => {
         async function loadListing() {
-            const data = await apiFetch(`/api/listing/get/${id}`);
-            setListing(data.listing);
+            try {
+                const data = await apiFetch(`/api/listing/get/${id}`);
+                const tempListing = data.listing;
+                if (tempListing) {
+                    setListing(tempListing);
+                } else {
+                    setListing(undefined);
+                }
+            } catch (error) {
+                console.error("Ошибка загрузки объявления:", error);
+                setListing(undefined);
+            }
         }
 
         async function loadImages() {
@@ -58,26 +70,26 @@ const ListingPage = () => {
             setCategories(data.categories);
         }
 
-        if (listing.categoryId) loadCategoryPath(listing.categoryId);
-        if (listing.authorId) loadListingAuthor(listing.authorId);
+        if (listing?.categoryId) loadCategoryPath(listing.categoryId);
+        if (listing?.authorId) loadListingAuthor(listing.authorId);
 
     }, [listing])
 
     const params = {
-        categoryId: listing.categoryId,
+        categoryId: listing?.categoryId,
     }
 
     useEffect(() => {
         async function checkFavorite() {
-            const data = await apiFetch(`/api/listing/${listing.id}/favorite/status`);
+            const data = await apiFetch(`/api/listing/${listing?.id}/favorite/status`);
             setFavorite(await data.isFavorite);
         }
 
-        if (listing.id && isAuthenticated) {
+        if (listing?.id && isAuthenticated) {
             checkFavorite();
         }
         
-    }, [listing.id, isAuthenticated]);
+    }, [listing?.id, isAuthenticated]);
 
     const toggleFavorite = async () => {
         if (!listing.id) {
@@ -86,7 +98,7 @@ const ListingPage = () => {
         }
 
         try {
-            const res = await apiFetch(`/api/listing/favorite/${listing.id}`, { method: "POST" });
+            const res = await apiFetch(`/api/listing/favorite/${listing?.id}`, { method: "POST" });
 
             if (res?.message) {
                 // notificate(res.message, "success");
@@ -95,117 +107,136 @@ const ListingPage = () => {
             }
 
             // сразу обновляем статус избранного
-            const data = await apiFetch(`/api/listing/${listing.id}/favorite/status`);
+            const data = await apiFetch(`/api/listing/${listing?.id}/favorite/status`);
             setFavorite(data.isFavorite);
 
         } catch (err) {
             console.error(err);
-            notificate("Ошибка при переключении избранного", "error");
+            notificate(t(`notification.error.toggleFavorite`, { ns: 'messages' }), "error");
         }
     };
 
     return (
-        <div className="listing-container">
-            <div className="listing-layout">
-                <main className="listing-main">
-                    {/* Хлебные крошки */}
-                    <nav className="breadcrumbs">
-                        <div>
-                            <Link to="/catalog">
-                                {t(`breadcrumps.catalog`, { ns: 'navigation' })}
-                            </Link>
-                            <span className="divider">/</span>
-                        </div>
-                        {categories.map((cat) => (
-                            <div key={cat.id}>
-                                <Link to={`/catalog?category=${cat.name}`}>
-                                    {t(`category.${cat.name}`, { ns: 'categories' })}
-                                </Link>
-                                <span className="divider">/</span>
-                            </div>
-                        ))}
-                        <span>{listing.localizedTitle}</span>
-                    </nav>
-
-                    {/* Заголовок объявления */}
-                    <div className="listing-header">
-                        <h1>{listing.localizedTitle}</h1>
-                        <div className="listing-meta">
-                            <span className="listing-date">
-                                {new Date(listing.createdAt).toLocaleDateString("ru-RU")}
-                            </span>
-                            <span className="listing-views">
-                                {t(`labels.views`, { ns: 'common' })}: <span>{listing.views}</span>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className="listing-main-content">
-                        {/* Галерея изображений */}
-                        <div className="listing-content">
-                            <ListingGallery images={images} mainImage={listing.imagePath}/>
-                            
-                            <div className="listing-info">
-                                <h2>{t(`labels.description`, { ns: 'common' })}</h2>
-                                <p className="listing-description">
-                                    {listing.localizedDescription || "Нет описания"}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Информация о предложении */}
-                        <div className="listing-sidebar">
-                            <div className="listing-details">
+        <>
+            {listing ? (
+                <div className="listing-container">
+                    <div className="listing-layout">
+                        <main className="listing-main">
+                            {/* Хлебные крошки */}
+                            <nav className="breadcrumbs">
                                 <div>
-                                    <span className="detail-label">{t(`labels.price`, { ns: 'common' })}:</span>
-                                    <h1><PriceTypes listing={listing} className={"price"} /></h1>
+                                    <Link to="/catalog">
+                                        {t(`breadcrumps.catalog`, { ns: 'navigation' })}
+                                    </Link>
+                                    <span className="divider">/</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
-                                    <span className="detail-value">
-                                        {listing.location || ""}
+                                {categories.map((cat) => (
+                                    <div key={cat.id}>
+                                        <Link to={`/catalog?category=${cat.name}`}>
+                                            {t(`category.${cat.name}`, { ns: 'categories' })}
+                                        </Link>
+                                        <span className="divider">/</span>
+                                    </div>
+                                ))}
+                                <span>{listing.localizedTitle}</span>
+                            </nav>
+
+                            {/* Заголовок объявления */}
+                            <div className="listing-header">
+                                <h1>{listing.localizedTitle}</h1>
+                                <div className="listing-meta">
+                                    <span className="listing-date">
+                                        {new Date(listing.createdAt).toLocaleDateString("ru-RU")}
+                                    </span>
+                                    <span className="listing-views">
+                                        {t(`labels.views`, { ns: 'common' })}: <span>{listing.views}</span>
                                     </span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
-                                    <ListingRating listing={listing}/>
-                                </div>
-                                {isOwner ? (
-                                    <Link
-                                        to={`/secure/listing/edit/${listing.id}`}
-                                        className="btn btn-primary"
-                                    >
-                                        {t(`listing.edit`, { ns: 'buttons' })}
-                                    </Link>
-                                ) : (
-                                    <>
-                                        {user && (
-                                            <div className="overlay-actions top right">
-                                                <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart fa-3x like`} onClick={() => toggleFavorite()}></i>
-                                            </div>
-                                        )}
-                                    </>
-                                )}
                             </div>
 
-                            {/* Боковая панель с контактами */}
-                            <UserInfoSidebar listingId={listing.id} author={author} />
-                        </div>
+                            <div className="listing-main-content">
+                                {/* Галерея изображений */}
+                                <div className="listing-content">
+                                    <ListingGallery images={images} mainImage={listing.imagePath}/>
+                                    
+                                    <div className="listing-info">
+                                        <h2>{t(`labels.description`, { ns: 'common' })}</h2>
+                                        <p className="listing-description">
+                                            {listing.localizedDescription || "Нет описания"}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Информация о предложении */}
+                                <div className="listing-sidebar">
+                                    <div className="listing-details">
+                                        <div className="listing-page-price">
+                                            <span className="detail-label">{t(`labels.price`, { ns: 'common' })}:</span>
+                                            <h1><PriceTypes listing={listing} className={"price"} /></h1>
+                                        </div>
+                                        <div className="detail-item">
+                                            <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
+                                            <span className="detail-value">
+                                                {listing.location || ""}
+                                            </span>
+                                        </div>
+                                        <div className="detail-item">
+                                            <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
+                                            <ListingRating listing={listing}/>
+                                        </div>
+                                        {isOwner && (
+                                            <Link
+                                                to={`/secure/listing/edit/${listing.id}`}
+                                                className="btn btn-primary"
+                                            >
+                                                {t(`listing.edit`, { ns: 'buttons' })}
+                                            </Link>
+                                        )}
+
+                                        <div className="listing-actions">
+                                            {!isOwner && (
+                                                <div 
+                                                    className="listing-action-item"
+                                                    onClick={() => toggleFavorite()}
+                                                >
+                                                    <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart like`}></i>
+                                                </div>
+                                            )}
+                                            <div 
+                                                className="listing-action-item hover"
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(window.location.href)
+                                                        .then(() => notificate(t(`notification.success.copyListingLink`, { ns: 'messages' }), "success"))
+                                                        .catch(() => notificate("Ошибка", "error"));
+                                                }}
+                                            >
+                                                <i className="fa-regular fa-share-nodes"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Боковая панель с контактами */}
+                                    <UserInfoSidebar listingId={listing.id} author={author} />
+                                </div>
+                            </div>
+
+                            {/* Блок с отзывами */}
+                            <ReviewsSection listingId={listing.id} profileId={author.id} />
+
+                            {/* Похожие объявления */}
+                            {listing.category && (
+                                <section className="similar-listings">
+                                    <h2>{t(`listing.similarListings`, { ns: 'common' })}</h2>
+                                    <CatalogContent mainListingId={listing.id} params={params}/>
+                                </section>
+                            )}
+                        </main>
                     </div>
-
-                    {/* Блок с отзывами */}
-                    <ReviewsSection listingId={listing.id} profileId={author.id} />
-
-                    {/* Похожие объявления */}
-                    {listing.category && (
-                        <section className="similar-listings">
-                            <h2>{t(`listing.similarListings`, { ns: 'common' })}</h2>
-                            <CatalogContent mainListingId={listing.id} params={params}/>
-                        </section>
-                    )}
-                </main>
-            </div>
-        </div>
+                </div>
+            ) : (
+                <NotFoundPage/>
+            )}
+        </>
     );
 };
 

@@ -9,6 +9,7 @@
     },
 
     "catalog": {
-        "selectedCategory": "Selected category"
+        "selectedCategory": "Selected category",
+        "newListing": "New listing!"
     }
 }

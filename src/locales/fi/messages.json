@@ -10,11 +10,13 @@
             "publish": "Ilmoitus julkaistu",
             "createDraft": "Ilmoituksen luonnos tallennettu",
             "listingUpdate": "Ilmoitus päivitetty",
-            "reviewCreate": "Arvostelu tallennettu onnistuneesti"
+            "reviewCreate": "Arvostelu tallennettu onnistuneesti",
+            "copyListingLink": "Ilmoituksen linkki kopioitu"
         },
         "error": {
             "listingDelete": "Virhe ilmoituksen poistossa",
-            "reviewCreate": "Arvostelua ei voitu jättää"
+            "reviewCreate": "Arvostelua ei voitu jättää",
+            "toggleFavorite": "Virhe suosikin vaihtamisessa"
         },
         "misc": {
             "hadDraft": "Sinulla on vielä tallennettu luonnos",

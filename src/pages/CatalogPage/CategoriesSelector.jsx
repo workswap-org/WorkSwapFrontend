@@ -69,9 +69,8 @@ const CategoriesSelector = ({
             <div className="categories-container">
                 <div className="categories-sidebar-container">
                     {rootCategories().map((rootCategory) => (
-                        <>
+                        <div key={rootCategory.id}>
                             <button
-                                key={rootCategory.id}
                                 type="button"
                                 className={`root-category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
                                 onClick={() => {
@@ -105,7 +104,7 @@ const CategoriesSelector = ({
                                     </div>
                                 )}
                             </div>
-                        </>
+                        </div>
                     ))}
                 </div>
                 <div className="subcategories-container">

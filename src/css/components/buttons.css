@@ -129,6 +129,31 @@
     color: var(--like-dark) !important;
 }
 
+.overlay-actions {
+    position: absolute;
+    width: max-content;
+    height: 2.5rem;
+    z-index: 50;
+
+    display: inline-flex;
+    gap: 0.5rem;
+
+    transition: all 0.2s ease;
+
+    background-color: var(--background-l2);
+    border: 2px solid var(--border-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 1.25rem;
+}
+
+.overlay-actions * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Текст не переносится */
+    cursor: pointer;
+}
+
 .overlay-actions.top {
     top: 0.7rem;
 }
@@ -145,29 +170,14 @@
     bottom: 0.7rem;
 }
 
-.overlay-actions {
-    position: absolute;
-    width: max-content;
-    height: 2.5rem;
-    z-index: 50;
-
-    display: inline-flex;
-    gap: 0.5rem;
-
-    transition: all 0.2s ease;
-
-    background-color: white;
-    border: 2px solid lightgray;
-    padding: 0.2rem 0.4rem;
-    border-radius: 1.25rem;
-}
-
-.overlay-actions * {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap; /* Текст не переносится */
-    cursor: pointer;
+.overlay-actions.top-center {
+    top: 0;
+    left: 50%;
+    translate: -50% 0;
+    border-top: 0;
+    height: 2.9rem;
+    padding: 0.4rem;
+    border-radius: 0 0 1.25rem 1.25rem;
 }
 
 @media (max-width: 600px) {
