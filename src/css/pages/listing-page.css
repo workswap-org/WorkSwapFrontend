@@ -226,7 +226,7 @@ input[type="number"] {
 
 /* Стиль для модального окна */
 .fullscreen-modal {
-    display: none;
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -251,11 +251,6 @@ input[type="number"] {
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
-}
-
-/* Для скрытия модального окна при закрытии */
-.fullscreen-modal.show {
-    display: flex;
 }
 
 /* Стили для галереи */
@@ -321,24 +316,6 @@ input[type="number"] {
 
 .thumbnail-img:hover, .thumbnail-img.active {
     border-color: #007bff;
-}
-
-/* Стили для модального окна */
-.fullscreen-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.9);
-}
-
-.fullscreen-modal.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #fullscreen-image {

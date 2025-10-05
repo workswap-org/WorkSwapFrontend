@@ -18,6 +18,7 @@
         },
         "error": {
             "listingDelete": "Error deleting listing",
+            "listingUpdate": "Error updating listing",
             "reviewCreate": "Failed to submit review",
             "toggleFavorite": "Error while toggling favorite"
         },

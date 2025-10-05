@@ -449,14 +449,11 @@
 
     .categories-menu {
         max-height: 80vh;
+        translate: 0 3.5rem;
         overflow: auto;
     }
 }
 @media (max-width: 992px) {
-
-    /* .categories-btn {
-        display: none;
-    } */
 
     .search-input {
         min-width: auto;
@@ -556,7 +553,8 @@
     }
 
     .catalog-header {
-        padding: 1rem;
+        height: 4rem;
+        padding: 0.5rem;
     }
 
     .pagination {
@@ -582,9 +580,8 @@
     }
 
     .catalog-main {
-        min-width: 90%;
-        padding-right: 0;
-        margin: 0 5%;
+        min-width: 100%;
+        padding: 0.5rem;
     }
 
     .pagination {

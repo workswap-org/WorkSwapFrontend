@@ -1,4 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { apiFetch } from "@/lib/apiClient";
+import { useEffect, useState } from 'react';
 
 const ProfileSettings = ({
     user,
@@ -19,6 +22,47 @@ const ProfileSettings = ({
 }) => {
 
     const { t } = useTranslation(['tooltips', 'common'])
+    const {notificate} = useNotification();
+
+    const [uploadedAvatar, setUploadedAvatar] = useState(undefined);
+
+    useEffect(() => {
+        if(user) setUploadedAvatar(user?.uploadedAvatar)
+    }, [user])
+
+    const uploadAvatar = async (file) => {
+        try {
+            const formData = new FormData();
+            formData.append("image", file);
+
+            const data = await apiFetch(`/api/cloud/upload/avatar`, {
+                method: "POST",
+                body: formData
+            }, {});
+
+            if (data.imageUrl) {
+                setUploadedAvatar(data.imageUrl)
+                notificate("Успешно", "success");
+            } else {
+                return;
+            }
+
+            return data.url;
+        } catch (error) {
+            console.error("Ошибка загрузки файла:", error);
+            notificate("Ошибка загрузки изображения", "error");
+        }
+    };
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) {
+            console.log("бебебе");
+            return;
+        }
+        await uploadAvatar(file);
+        e.target.value = "";
+    };
 
     return (
         <>
@@ -72,10 +116,26 @@ const ProfileSettings = ({
                 <div className="avatar-options">
                     <div
                         className={`avatar-option ${avatarType === "uploaded" ? "selected" : ""}`}
-                        onClick={() => avatarTypeChange("uploaded", user.uploadedAvatar)}
+                        onClick={() => avatarTypeChange("uploaded", uploadedAvatar)}
                     >
-                        <img className="avatar-preview avatar p80-avatar" src={user.uploadedAvatar || "/images/upload-foto.png"} alt="Моя" />
+                        <img 
+                            className="avatar-preview avatar p80-avatar" 
+                            src={uploadedAvatar || "/images/upload-foto.png"} 
+                            onError={(e) => {
+                                e.target.src = "/images/upload-foto.png"; // путь к запасной картинке
+                            }}
+                            alt="Моя" />
                         <span>{t(`settings.avatarTypes.uploaded`, { ns: 'common' })}</span>
+                        <input
+                            className='d-none'
+                            type="file"
+                            id="uploadImage"
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                        />
+                        <label htmlFor="uploadImage" className='upload-avatar'>
+                            <div><i className="fa-solid fa-upload"></i></div>
+                        </label>
                     </div>
                     <div
                         className={`avatar-option ${avatarType === "google" ? "selected" : ""}`}

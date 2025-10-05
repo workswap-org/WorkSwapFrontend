@@ -153,10 +153,9 @@ const SettingsPage = () => {
 
     const avatarTypeChange = useCallback((avatarType, avatarUrl) => {
         setSaving(true);
-
         setAvatarType(avatarType);
-        updateUser({ avatarType });
-        updateUser({ avatarUrl });
+        if (avatarType) updateUser({ avatarType });
+        if (avatarUrl) updateUser({ avatarUrl });
     }, [updateUser]);
 
     // Языки (переключение кнопок)

@@ -83,7 +83,8 @@ const PrivateListingCard  = ({listing}) => {
             <img 
                 src={listing.imagePath || `/images/default-listing.svg`}
                 className="listing-img" 
-                alt="Изображение объявления"/>
+                alt="Изображение объявления"
+            />
 
             <div className="listing-card-body">
                 <h3 className="listing-card-title">{listing.localizedTitle}</h3>

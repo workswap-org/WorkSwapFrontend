@@ -17,7 +17,11 @@ function ListingRating({ listing }) {
         return <i key={i} className={cls} aria-hidden="true" />;
     });
 
-    return <div className="rating">{stars}</div>;
+    return (
+        <>
+            <div className="rating normal-only">{stars}</div>
+        </>
+    );
 }
 
 export default ListingRating;

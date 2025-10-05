@@ -32,22 +32,20 @@ const CatalogHeader = ({
                     setCategoryId={setCategoryId}
                 />
 
-                <div className="sorting-search">
-                    <div className="listings-search">
-                        <input 
-                            type="text" 
-                            className="search-input" 
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            name="searchQuery"
-                            placeholder={t('placeholders.search', { ns: 'common' })}
-                        />
-                        <input type="hidden" name="category"/>
-                        <input type="hidden" name="sortBy"/>
-                        <button className="btn btn-search" type="button">
-                            <i className="fa fa-search"></i>
-                        </button>
-                    </div>
+                <div className="listings-search">
+                    <input 
+                        type="text" 
+                        className="search-input" 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        name="searchQuery"
+                        placeholder={t('placeholders.search', { ns: 'common' })}
+                    />
+                    <input type="hidden" name="category"/>
+                    <input type="hidden" name="sortBy"/>
+                    <button className="btn btn-search" type="button">
+                        <i className="fa fa-search"></i>
+                    </button>
                 </div>
             </div>
         </div>

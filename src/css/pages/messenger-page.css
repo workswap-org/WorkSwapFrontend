@@ -12,10 +12,10 @@
     display: flex;
     flex: 1;
     gap: 1rem;
-    height: calc(100vh - 300px); /* Фиксированная высота */
+    height: 100%;
     min-height: 500px;
-    max-height: 600px; /* Максимальная высота */
-    overflow: hidden; /* Скрываем переполнение */
+    max-height: 600px;
+    overflow: hidden;
     position: relative;
 }
 
@@ -356,6 +356,10 @@
 /* Мобильная версия */
 @media (max-width: 768px) {
 
+    .message-in .message-content {
+        background-color: var(--background-l2);
+    }
+
     .mobile-dialogs-toggle {
         display: block;
         margin: 0;
@@ -431,13 +435,8 @@
         width: 100%;
     }
 
-    .message-input-container {
-        flex-direction: row;
-    }
-
     .message-input {
         width: 100%;
-        margin-bottom: 0.5rem;
     }
 
     .chat-actions {
@@ -469,12 +468,14 @@
         left: 0;
         right: 0;
         background: var(--background);
+        flex-direction: row;
         padding: 0.5rem;
         box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .messages-container {
-        padding-bottom: 0px; /* Чтобы не перекрывалось поле ввода */
+        background-color: var(--background);
+        padding-bottom: 0.5rem;
         max-height: 100%;
     }
 

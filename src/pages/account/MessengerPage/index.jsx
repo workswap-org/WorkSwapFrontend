@@ -126,51 +126,52 @@ const MessengerPage = () => {
             </div>
 
             <div className="messenger-container">
-            {/* Список диалогов */}
-            {chatListing && (
-                <div 
-                    id="listingCardContainer" 
-                    className={`listing-card-container appearance-left-animation ${chatListingVisible ? "visible" : ''}`}
-                >
-                    <PublicListingCard 
-                        key={chatListing.id}
-                        listing={chatListing}
-                        isMainListing={false}
-                    />
-                </div>
-            )}
-
-            <div className={`dialogs-list ${mobileDialogs ? "show" : ""}`}>
-                {chats.length === 0 && (
-                    <div className="no-dialogs" id="no-dialogs">
-                        <p>{t(`messenger.placeholders.noDialogs`, { ns: 'common' })}</p>
-                        <p>{t(`messenger.placeholders.startChats`, { ns: 'common' })}</p>
+                {/* Список диалогов */}
+                {chatListing && (
+                    <div 
+                        id="listingCardContainer" 
+                        className={`listing-card-container appearance-left-animation ${chatListingVisible ? "visible" : ''}`}
+                    >
+                        <PublicListingCard 
+                            key={chatListing.id}
+                            listing={chatListing}
+                            isMainListing={false}
+                        />
                     </div>
                 )}
-                {chats
-                    .slice()
-                    .sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime))
-                    .map(chat => (
-                    <DialogItem 
-                        key={chat.id}
-                        startChatId={startChatId}
-                        chat={chat}
-                        changeChat={changeChat} 
+
+                <div className={`dialogs-list ${mobileDialogs ? "show" : ""}`}>
+                    {chats.length === 0 && (
+                        <div className="no-dialogs" id="no-dialogs">
+                            <p>{t(`messenger.placeholders.noDialogs`, { ns: 'common' })}</p>
+                            <p>{t(`messenger.placeholders.startChats`, { ns: 'common' })}</p>
+                        </div>
+                    )}
+                    {chats
+                        .slice()
+                        .sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime))
+                        .map(chat => (
+                        <DialogItem 
+                            key={chat.id}
+                            startChatId={startChatId}
+                            chat={chat}
+                            changeChat={changeChat} 
+                            currentChatId={currentChatId}
+                        />
+                    ))}
+                </div>
+                
+                <div className="chat-window">
+                    <ChatContainer
+                        interlocutor={currentInterlocutor} 
                         currentChatId={currentChatId}
+                        setChatListing={setChatListing}
+                        chatListing={chatListing}
+                        toggleChatListing={toggleChatListing}
+                        showMobileDialogs={showMobileDialogs}
                     />
-                ))}
+                </div>
             </div>
-            <div className="chat-window">
-                <ChatContainer
-                    interlocutor={currentInterlocutor} 
-                    currentChatId={currentChatId}
-                    setChatListing={setChatListing}
-                    chatListing={chatListing}
-                    toggleChatListing={toggleChatListing}
-                    showMobileDialogs={showMobileDialogs}
-                />
-            </div>
-        </div>
         </>
     );
 };
