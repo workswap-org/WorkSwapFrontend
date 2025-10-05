@@ -225,6 +225,11 @@ input[type="number"] {
 }
 
 /* Стиль для модального окна */
+
+.clickable-image {
+    cursor: pointer;
+}
+
 .fullscreen-modal {
     display: flex;
     position: fixed;

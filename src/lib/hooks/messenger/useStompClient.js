@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Client } from "@stomp/stompjs";
 import { API_BASE } from "@/api/config";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
-import { refreshToken } from "@/lib/apiClient";
+import { refreshToken } from "@/lib/services/apiClient";
 
 export function useStompClient() {
 

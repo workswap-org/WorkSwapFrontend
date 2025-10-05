@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { apiFetch } from "@/lib/apiClient";
-import PublicListingCard from "@/components/cards/listing-cards/PublicListingCard";
-import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
-import ReviewsSection from "@/components/reviews/ReviewsSection";
+import { apiFetch } from "@/lib/services/apiClient";
+import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
+import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar"
+import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import { useTranslation } from 'react-i18next';
 import NotFoundPage from "@/pages/NotFoundPage";
 

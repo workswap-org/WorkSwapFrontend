@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/apiClient";
-import PrivateListingCard from "@/components/cards/listing-cards/PrivateListingCard";
+import { apiFetch } from "@/lib/services/apiClient";
+import PrivateListingCard from "@/components/ui/cards/listing-cards/PrivateListingCard";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch } from "@/lib/services/apiClient";
 import { useTranslation } from "react-i18next";
-import PublicListingCard from "@/components/cards/listing-cards/PublicListingCard";
+import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
 
 const CatalogContent = ({ mainListingId, params}) => {
 

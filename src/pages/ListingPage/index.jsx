@@ -1,15 +1,16 @@
 import "@/css/pages/listing-page.css";
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch } from "@/lib/services/apiClient";
 import { useParams, Link } from "react-router-dom";
-import ListingRating from "@/components/small-components/ListingRating"
-import PriceTypes from "@/components/small-components/PriceTypes"
-import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
-import ReviewsSection from "@/components/reviews/ReviewsSection";
+import ListingRating from "@/components/common/ListingRating"
+import PriceTypes from "@/components/common/PriceTypes"
+import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar"
+import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
 import ListingGallery from "./ListingGallery";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { getListing, getListingImages, viewListing } from '@/lib/services/listingService';
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 
 import NotFoundPage from "@/pages/NotFoundPage";
@@ -30,34 +31,23 @@ const ListingPage = () => {
     const [images, setImages] = useState([]);
 
     useEffect(() => {
-        async function loadListing() {
+        async function loadData() {
             try {
-                const data = await apiFetch(`/api/listing/get/${id}`);
-                const tempListing = data.listing;
-                if (tempListing) {
-                    setListing(tempListing);
-                } else {
-                    setListing(undefined);
-                }
-            } catch (error) {
-                console.error("Ошибка загрузки объявления:", error);
-                setListing(undefined);
+                const listingData = await getListing(id);
+                setListing(listingData.listing || null);
+
+                const imageData = await getListingImages(id);
+                setImages(imageData.images || []);
+
+                await viewListing(id);
+            } catch (err) {
+                console.error('Ошибка загрузки данных:', err);
+                setListing(null);
             }
         }
 
-        async function loadImages() {
-            const data = await apiFetch(`/api/listing/images/${id}`)
-            setImages(data.images);
-        }
-
-        async function viewListing() {
-            await apiFetch(`/api/listing/view/${id}`, { method: "POST" })
-        }
-
-        loadListing();
-        loadImages();
-        viewListing();
-    }, [id])
+        loadData();
+    }, [id]);
 
     useEffect(() => {
         async function loadListingAuthor(authorId) {

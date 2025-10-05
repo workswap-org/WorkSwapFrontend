@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { apiFetch } from "@/lib/apiClient";
-import Avatar from "@/components/small-components/Avatar";
+import { apiFetch } from "@/lib/services/apiClient";
+import Avatar from "@/components/common/Avatar";
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import "@/css/pages/login-page.css"
-import LanguageSwitcher from "@/components/LanguageSwitcher";
+import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
 import { useTranslation, Trans } from "react-i18next";
 
 const RegisterPage = () => {

@@ -2,7 +2,7 @@ import Message from "./chat/Message";
 import SendMessageArea from "./chat/SendMessageArea";
 import { useChatSubscription } from "@/lib/hooks/messenger/useChatSubscription";
 import { useRef, useEffect } from "react";
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch } from "@/lib/services/apiClient";
 import { Link } from "react-router-dom";
 import { useWebSocket } from "@/lib/hooks/contexts/useWebSocket";
 import { useTranslation } from 'react-i18next';

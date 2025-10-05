@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch } from "@/lib/services/apiClient";
 import { useNavigate } from "react-router-dom";
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 

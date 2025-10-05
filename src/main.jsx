@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { AppProviders } from "./AppProviders";
+import { AppProviders } from "@/lib/providers/AppProviders";
 
 import "@/css/components/base.css"; // глобальные стили
 

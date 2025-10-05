@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch } from "@/lib/services/apiClient";
 import { useNavigate } from "react-router-dom";
 
 const LogoutPage = () => {

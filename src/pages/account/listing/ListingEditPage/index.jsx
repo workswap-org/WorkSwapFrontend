@@ -1,7 +1,7 @@
-import CategorySelector from "@/components/selectors/CategorySelector";
-import LocationSelector from "@/components/selectors/LocationSelector";
+import CategorySelector from "@/components/ui/selectors/CategorySelector";
+import LocationSelector from "@/components/ui/selectors/LocationSelector";
 import { useEffect, useState, useCallback } from "react";
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch } from "@/lib/services/apiClient";
 import ListingImagesUploader from "./ListingImagesUploader";
 import "@/css/pages/listing-edit-page.css"
 import { useParams } from "react-router-dom";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch } from "@/lib/services/apiClient";
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import { useTranslation } from 'react-i18next';
 

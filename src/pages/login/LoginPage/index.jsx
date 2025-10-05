@@ -1,7 +1,7 @@
 import { API_BASE } from "@/api/config";
 import "@/css/pages/login-page.css"
 import { useTranslation } from "react-i18next";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
+import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
 
 const LoginPage = () => {
 

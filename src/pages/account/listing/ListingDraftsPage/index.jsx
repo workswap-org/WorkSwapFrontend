@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiFetch } from "@/lib/apiClient";
+import { apiFetch } from "@/lib/services/apiClient";
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
-import ListingDraftItem from "@/components/cards/listing-cards/ListingDraftItem";
+import ListingDraftItem from "@/components/ui/cards/listing-cards/ListingDraftItem";
 import { useTranslation } from 'react-i18next';
 
 const ListingDraftsPage = () => {
