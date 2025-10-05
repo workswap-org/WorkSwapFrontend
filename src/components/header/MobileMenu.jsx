@@ -4,6 +4,7 @@ import Avatar from "@/components/small-components/Avatar";
 import { Link } from "react-router-dom";
 import NotificationMobileButton from "@/components/notifications/NotificationMobileButton";
 import { useTranslation } from 'react-i18next';
+import ContactModal from "@/components/modal/ContactModal";
 
 const MobileMenu = ({
     activePage
@@ -44,6 +45,8 @@ const MobileMenu = ({
             </div>
 
             <NotificationMobileButton/>
+
+            <ContactModal/>
         </div>
     );
 };

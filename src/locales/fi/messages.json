@@ -11,7 +11,10 @@
             "createDraft": "Ilmoituksen luonnos tallennettu",
             "listingUpdate": "Ilmoitus päivitetty",
             "reviewCreate": "Arvostelu tallennettu onnistuneesti",
-            "copyListingLink": "Ilmoituksen linkki kopioitu"
+            "copyListingLink": "Ilmoituksen linkki kopioitu",
+            "copyEmail": "Sähköposti kopioitu",
+            "copyPhone": "Puhelinnumero kopioitu",
+            "copyTelegramTag": "Tunniste kopioitu"
         },
         "error": {
             "listingDelete": "Virhe ilmoituksen poistossa",

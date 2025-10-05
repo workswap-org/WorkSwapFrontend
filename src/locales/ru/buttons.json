@@ -11,8 +11,12 @@
     "loginGoogle": "Войти через Google",
     "registerButton": "Завершить регистрацию",
     "returnToCatalog": "Вернуться в каталог",
-    
-    "notifications": "Уведомления",
+
+    "menu": {
+        "notifications": "Уведомления",
+        "helpBeBetter": "Помочь сделать сайт лучше",
+        "contactToSupport": "Связаться с разработчиком"
+    },
     
     "upload": {
         "image": "Загрузить изображение"

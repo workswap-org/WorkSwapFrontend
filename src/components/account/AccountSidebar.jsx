@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { useTranslation } from 'react-i18next';
 import { apiFetch } from "@/lib/apiClient";
 import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import ContactModal from "@/components/modal/ContactModal";
 
 const AccountSidebar = () => {
 
@@ -66,6 +67,8 @@ const AccountSidebar = () => {
             </div>
 
             <AccountSidebarLinks/>
+
+            <ContactModal/>
 
             {!telegramConnected && (
                 <button onClick={() => connectTelegram()} className="telegram-button">{t(`special.connectTelegram`, { ns: 'buttons' })}</button>

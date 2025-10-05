@@ -415,10 +415,15 @@ input[type="number"] {
 }
 
 /* Адаптивность */
-@media (max-width: 992px) {
+@media (max-width: 900px) {
 
     .listing-main-content {
         flex-direction: column;
+        gap: 1rem;
+    }
+
+    .listing-main {
+        gap: 1rem;
     }
 
     .listing-gallery {
@@ -438,6 +443,7 @@ input[type="number"] {
 
     .listing-sidebar {
         width: 100%;
+        gap: 1rem;
     }
 
     .review-form .form-row {

@@ -56,7 +56,7 @@ const NotificationMobileButton = () => {
         <>
             <button className="navbar-btn" onClick={() => setOpen(!open)}>
                 <div><i className="fa-regular fa-bell fa-lg"></i></div>
-                <span>{t(`notifications`, { ns: 'buttons' })}</span>
+                <span>{t(`menu.notifications`, { ns: 'buttons' })}</span>
                 {unreadCount > 0 && (
                     <span id="unreadNotifications" className="unread-notifications-count">
                         {unreadCount}

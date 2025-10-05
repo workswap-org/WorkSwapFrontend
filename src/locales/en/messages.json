@@ -11,7 +11,10 @@
             "createDraft": "Listing draft saved",
             "listingUpdate": "Listing updated",
             "reviewCreate": "Review saved successfully",
-            "copyListingLink": "Listing link copied"
+            "copyListingLink": "Listing link copied",
+            "copyEmail": "Email copied",
+            "copyPhone": "Phone number copied",
+            "copyTelegramTag": "Tag copied"
         },
         "error": {
             "listingDelete": "Error deleting listing",

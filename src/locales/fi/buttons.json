@@ -12,7 +12,11 @@
     "registerButton": "Viimeistele rekisteröinti",
     "returnToCatalog": "Palaa katalogiin",
 
-    "notifications": "Hälytykset",
+    "menu": {
+        "notifications": "Hälytykset",
+        "helpBeBetter": "Auta parantamaan sivustoa",
+        "contactToSupport": "Ota yhteyttä kehittäjään"
+    },
 
     "upload": {
         "image": "Lataa kuva"

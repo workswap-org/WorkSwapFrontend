@@ -146,7 +146,7 @@ const ListingPage = () => {
                                 <h1>{listing.localizedTitle}</h1>
                                 <div className="listing-meta">
                                     <span className="listing-date">
-                                        {new Date(listing.createdAt).toLocaleDateString("ru-RU")}
+                                        {new Date(listing.publishedAt).toLocaleDateString("ru-RU")}
                                     </span>
                                     <span className="listing-views">
                                         {t(`labels.views`, { ns: 'common' })}: <span>{listing.views}</span>

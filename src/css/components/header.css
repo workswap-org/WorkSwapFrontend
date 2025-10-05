@@ -208,6 +208,8 @@ header {
     background-color: transparent;
     border-width: 0;
     color: var(--text-color);
+    cursor: pointer;
+    border-radius: var(--radius);
 }
 
 /* Адаптивность */

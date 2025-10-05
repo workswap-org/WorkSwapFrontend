@@ -12,7 +12,11 @@
     "registerButton": "Complete Registration",
     "returnToCatalog": "Return to catalog",
 
-    "notifications": "Notifications",
+    "menu": {
+        "notifications": "Notifications",
+        "helpBeBetter": "Help make the site better",
+        "contactToSupport": "Contact the developer"
+    },
 
     "upload": {
         "image": "Upload image"

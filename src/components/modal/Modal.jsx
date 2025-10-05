@@ -3,10 +3,10 @@ const Modal = ({ isOpen, onClose, title, children }) => {
 
     return (
         <div className="modal-overlay" onClick={onClose}>
-            <div className="admin-modal" onClick={(e) => e.stopPropagation()}>
-                <div className="admin-modal-content">
+            <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <div className="modal-content">
                     <span className="close" onClick={onClose}>&times;</span>
-                    {title && <h2>{title}</h2>}
+                    {title && <h3>{title}</h3>}
                     {children}
                 </div>
             </div>

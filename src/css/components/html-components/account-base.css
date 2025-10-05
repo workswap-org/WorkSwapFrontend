@@ -45,8 +45,8 @@
 
     .account-container {
         padding: 1rem 0;
-        padding-bottom: var(--header-height);
-        height: fit-content;
+        padding-bottom: 5rem;
+        height: 100%;
     }
 
     .account-header {

@@ -1,11 +1,13 @@
 import Avatar from "@/components/small-components/Avatar";
 import { useAuth } from "@/lib/contexts/auth/AuthContext";
 import { Link } from "react-router-dom";
+import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
 import { useTranslation } from 'react-i18next';
 
 const UserInfoSidebar = ( {listingId, author} ) => {
 
     const { t } = useTranslation();
+    const {notificate} = useNotification();
 
     const {user, isAuthenticated} = useAuth();
 
@@ -34,12 +36,19 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                                             <Link 
                                                 to={`/secure/chat-start?listingId=${listingId}&sellerId=${author.id}`} 
                                                 className="btn btn-primary"
-                                            >{t(`listing.contactToAuthor`, { ns: 'buttons' })}</Link>
+                                            >
+                                                {t(`listing.contactToAuthor`, { ns: 'buttons' })}
+                                            </Link>
                                         </>
                                     )}
                                 </>
                             ) : (
-                                <Link to="/login" className="btn btn-primary">{t(`loginToWrite`, { ns: 'buttons' })}</Link>
+                                <Link 
+                                    to="/login" 
+                                    className="btn btn-primary"
+                                >
+                                    {t(`loginToWrite`, { ns: 'buttons' })}
+                                </Link>
                             )}
                         </div>
                     </div>
@@ -51,16 +60,30 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                 <div className="contact-methods">
 
                     {author.phone && (
-                        <div className="contact-item">
-                            <span className="contact-icon">📱</span>
-                            <span>{author.phone}</span>
+                        <div 
+                            className="contact-item hover"
+                            onClick={() => {
+                                navigator.clipboard.writeText(author.phone)
+                                    .then(() => notificate(t(`notification.success.copyPhone`, { ns: 'messages' }), "success"))
+                                    .catch(() => notificate("Ошибка", "error"));
+                            }}
+                        >
+                            <div><i className="fa-regular fa-phone fa-lg"></i></div>
+                            <span className="contact-value">{author.phone}</span>
                         </div>
                     )}
 
                     {author.email && (
-                        <div className="contact-item">
-                            <span className="contact-icon">✉️</span>
-                            <span>{author.email}</span>
+                        <div 
+                            className="contact-item hover"
+                            onClick={() => {
+                                navigator.clipboard.writeText(author.email)
+                                    .then(() => notificate(t(`notification.success.copyEmail`, { ns: 'messages' }), "success"))
+                                    .catch(() => notificate("Ошибка", "error"));
+                            }}
+                        >
+                            <div><i className="fa-regular fa-envelope fa-lg"></i></div>
+                            <span className="contact-value">{author.email}</span>
                         </div>
                     )}
 

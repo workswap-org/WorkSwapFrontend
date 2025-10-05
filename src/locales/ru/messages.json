@@ -11,7 +11,10 @@
             "createDraft": "Черновик объявления сохранён",
             "listingUpdate": "Ошибка обновления объявления",
             "reviewCreate": "Отзыв успешно сохранён",
-            "copyListingLink": "Ссылка на объявление скопирована"
+            "copyListingLink": "Ссылка на объявление скопирована",
+            "copyEmail": "Email скопирован",
+            "copyPhone": "Номер телефона скопирован",
+            "copyTelegramTag": "Тег Скопирован"
         },
         "error": {
             "listingDelete": "Ошибка при удалении объявления",
