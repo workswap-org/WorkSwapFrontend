@@ -1,10 +1,14 @@
 import PriceTypes from "@core/components/common/PriceTypes";
-import { useActivePage } from "@core/lib/hooks/contexts/useActivePage";
+import { 
+    useActivePage,
+    checkFavoriteListing,
+    toggleFavoriteListing,
+    deleteListing
+} from "@core/lib";
 import { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { apiFetch } from "@core/lib/services/apiClient";
 import { useTranslation } from 'react-i18next';
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useNotification } from "@core/lib";
 
 const PrivateListingCard  = ({listing}) => {
 
@@ -18,7 +22,7 @@ const PrivateListingCard  = ({listing}) => {
 
     const checkFavorite = useCallback(async () => {
         if (!listing?.id) return; // защита на случай пустого listing
-        const data = await apiFetch(`/api/listing/${listing.id}/favorite/status`);
+        const data = await checkFavoriteListing(listing.id);
         setFavorite(data.isFavorite);
     }, [listing?.id]);
 
@@ -27,15 +31,15 @@ const PrivateListingCard  = ({listing}) => {
     }, [checkFavorite, listing])
 
     async function toggleFavorite() {
-        const data = await apiFetch(`/api/listing/favorite/${listing.id}`, {method: 'POST'});
+        const data = await toggleFavoriteListing(listing.id);
         if (data.message) {
             checkFavorite();
         }
     }
 
-    async function deleteListing() {
+    async function deleteL() {
         if (!listing?.id) return;
-        const res = await apiFetch(`/api/listing/${listing.id}/delete`, {method: 'DELETE'});
+        const res = await deleteListing(listing.id);
         if (res.message) {
             notificateFromRes(res);
         };
@@ -68,7 +72,7 @@ const PrivateListingCard  = ({listing}) => {
                             onClick={() => {
                                 const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
                                 if (confirmed) {
-                                    deleteListing();
+                                    deleteL();
                                 }
                             }} 
                         >
@@ -77,7 +81,10 @@ const PrivateListingCard  = ({listing}) => {
                     </>
                 )}
                 {activePage === "favorites" && (
-                    <i className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} onClick={() => toggleFavorite()}></i>
+                    <i 
+                        className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
+                        onClick={() => toggleFavorite()}
+                    ></i>
                 )}
             </div>
             <img 

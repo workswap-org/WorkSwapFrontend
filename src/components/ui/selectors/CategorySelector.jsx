@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { getCategories } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const CategorySelector = ( { categoryId, onChange } ) => {
@@ -11,7 +11,7 @@ const CategorySelector = ( { categoryId, onChange } ) => {
 
     useEffect(() => {
         async function loadCategories() {
-            const data = await apiFetch("/api/categories");
+            const data = await getCategories();
             const cats = data.categories || [];
             setCategories(cats);
 

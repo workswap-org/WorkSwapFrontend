@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { getCategories } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const CategoriesSelector = ({
@@ -19,7 +19,7 @@ const CategoriesSelector = ({
     useEffect(() => {
         async function loadRootCategories() {
             try {
-                const data = await apiFetch("/api/categories");
+                const data = await getCategories();
                 setCategories(data.categories || []);
             } catch(e) {
                 console.error(e);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { getMyListings } from "@core/lib";
 import PrivateListingCard from "@/components/ui/cards/listing-cards/PrivateListingCard";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,7 @@ const MyListingsPage = () => {
     
     useEffect(() => {
         async function loadMyListings() {
-            const data = await apiFetch('/api/listing/my-listings');
+            const data = await getMyListings;
             setListings(data.listings);
         }
 

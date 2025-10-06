@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { 
+    createReview,
+    useAuth,
+    useNotification
+} from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const ReviewForm = ({setReviews, listingId, profileId}) => {
@@ -15,7 +17,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
     const [rating, setRating] = useState(0);   // выбранная оценка
     const [hover, setHover] = useState(0);     // звезда под курсором
 
-    const createReview = async () => {
+    const createR = async () => {
 
         if (text.length === 0) {
             notificate(t(`notification.misc.nullReviewText`, { ns: 'messages' }), "error");
@@ -36,7 +38,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
         };
         console.log("Submitting:", newReview);
         
-        const res = await apiFetch(`/api/review/create`, { method: 'POST' }, newReview);
+        const res = await createReview();
 
         if (res) {
             notificateFromRes(res);
@@ -87,7 +89,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
                             </div>
                         </div>
                         <button 
-                            onClick={createReview} 
+                            onClick={createR} 
                             id="submit-review" 
                             className="btn btn-primary"
                         >

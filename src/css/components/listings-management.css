@@ -22,12 +22,15 @@
 
 /* Пустое избранное */
 .no-listings {
-    text-align: center;
-    padding: 3rem;
-    background: var(--background);
-    border-radius: var(--radius);
-    box-shadow: 0 2px 8px var(--shadow-color);
-    margin-top: 1.5rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.no-listings img{
+    max-width: 220px;
 }
 
 .no-listings p {

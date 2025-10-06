@@ -1,10 +1,13 @@
 import PriceTypes from "@core/components/common/PriceTypes";
 import ListingRating from "@core/components/common/ListingRating";
-import { apiFetch } from "@core/lib/services/apiClient";
+import {
+    checkFavoriteListing,
+    toggleFavoriteListing
+} from "@core/lib";
 import { useNavigate } from "react-router-dom";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useNotification } from "@core/lib";
 import { useEffect, useState } from "react";
-import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useAuth } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const PublicListingCard = ({listing, isMainListing}) => {
@@ -17,11 +20,12 @@ const PublicListingCard = ({listing, isMainListing}) => {
 
     const isNew = (new Date() - new Date(listing.publishedAt)) < 3 * 24 * 60 * 60 * 1000;
 
+    async function checkFavorite() {
+        const data = await checkFavoriteListing();
+        setFavorite(await data.isFavorite);
+    }
+
     useEffect(() => {
-        async function checkFavorite() {
-            const data = await apiFetch(`/api/listing/${listing.id}/favorite/status`);
-            setFavorite(await data.isFavorite);
-        }
 
         if (listing.id && user) {
             checkFavorite();
@@ -37,7 +41,7 @@ const PublicListingCard = ({listing, isMainListing}) => {
         }
 
         try {
-            const res = await apiFetch(`/api/listing/favorite/${listing.id}`, { method: "POST" });
+            const res = await toggleFavoriteListing();
 
             if (res?.message) {
                 // ничего
@@ -46,8 +50,7 @@ const PublicListingCard = ({listing, isMainListing}) => {
             }
 
             // сразу обновляем статус избранного
-            const data = await apiFetch(`/api/listing/${listing.id}/favorite/status`);
-            setFavorite(data.isFavorite);
+            checkFavorite();
 
         } catch (err) {
             console.error(err);

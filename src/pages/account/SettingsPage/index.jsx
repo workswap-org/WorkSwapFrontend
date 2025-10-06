@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { 
+    modifyUserSettings,
+    getUserSettings,
+    useNotification
+} from "@core/lib";
 import { useTranslation } from 'react-i18next';
 import PrivacySettings from "./PrivacySettings";
 import ProfileSettings from "./ProfileSettings";
@@ -42,7 +45,7 @@ const SettingsPage = () => {
 
     useEffect(() => {
         async function loadSettings() {
-            const data = await apiFetch(`/api/user/current/settings`)
+            const data = await getUserSettings();
             setUser(data.user);
         }
 
@@ -77,13 +80,7 @@ const SettingsPage = () => {
 
     const updateUser = useCallback(async (updates) => {
         try {
-            const res = await apiFetch(`/api/user/modify`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updates),
-            });
+            const res = await modifyUserSettings(updates);
 
             if (res.message) {
                 setSaving(false);

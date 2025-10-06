@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { getFavoritesListings } from "@core/lib";
 import PrivateListingCard from "@/components/ui/cards/listing-cards/PrivateListingCard";
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +11,7 @@ const FavoritesPage = () => {
     
     useEffect(() => {
         async function loadFavorites() {
-            const data = await apiFetch('/api/listing/favorites');
+            const data = await getFavoritesListings();
             setListings(data.listings);
         }
 

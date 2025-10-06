@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Modal from "@/components/ui/modal/Modal";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useNotification } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const ContactModal = () => {

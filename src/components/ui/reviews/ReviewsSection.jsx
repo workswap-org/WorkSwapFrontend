@@ -1,7 +1,7 @@
 import ReviewForm from "./ReviewForm";
 import ReviewsList from "./ReviewsList";
 import { useEffect, useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { getReviewslist } from "@core/lib";
 
 const ReviewsSection = ( {listingId, profileId} ) => {
 
@@ -14,8 +14,7 @@ const ReviewsSection = ( {listingId, profileId} ) => {
         if (listingId) params.listingId = listingId;
 
         async function loadReviews() {
-            const data = await apiFetch('/api/review/list', {}, params);
-            console.log(data)
+            const data = await getReviewslist(params);
             setReviews(await data.reviews);
         }
 

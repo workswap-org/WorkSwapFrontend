@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { getUserById } from "@core/lib";
 import Avatar from "@core/components/common/Avatar";
 import FormattedDate from "@core/components/common/date/FormattedDate";
 
@@ -9,7 +9,7 @@ const ReviewItem = ({review}) => {
 
     useEffect(() => {
         async function loadAuthorInfo() {
-            const data = await apiFetch(`/api/user/get/${review.authorId}`)
+            const data = await getUserById();
             setAuthor(await data.user)
         }
         

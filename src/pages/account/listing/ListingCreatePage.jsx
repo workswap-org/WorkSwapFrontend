@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiFetch } from "@core/lib/services/apiClient";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { 
+    getDraftsListings,
+    useNotification,
+    createListing
+} from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 export default function ListingCreatePage() {
@@ -11,9 +14,9 @@ export default function ListingCreatePage() {
     const { t } = useTranslation('common');
 
     useEffect(() => {
-        async function createListing() {
+        async function createL() {
             try {
-                const data = await apiFetch("/api/listing/create", {method: "POST"}, {});
+                const data = await createListing();
 
                 if (!data.id) {
                     throw new Error(t(`notification.misc.error.listingCreate`, { ns: 'messages' }));
@@ -30,10 +33,10 @@ export default function ListingCreatePage() {
 
         async function loadDrafts() {
             try {
-                const data = await apiFetch("/api/listing/drafts", {}, {});
+                const data = await getDraftsListings();
                 const drafts = data.listings;
                 if (drafts.length === 0) {
-                    createListing()
+                    createL()
                 } else if (drafts.length === 1) {
                     const id = drafts[0]?.id;
                     navigate(`/secure/listing/edit/${id}`, { replace: true });

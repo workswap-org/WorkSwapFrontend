@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { getSortedListings } from "@core/lib";
 import { useTranslation } from "react-i18next";
 import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
 
@@ -19,7 +19,7 @@ const CatalogContent = ({ mainListingId, params}) => {
 
         async function loadSortedListings(params) {
             try {
-                const data = await apiFetch(`/api/listing/catalog`, {}, params);
+                const data = await getSortedListings(params);
 
                 if (requestId === lastRequestId.current) {
                     setListings(data.listings);
@@ -36,7 +36,7 @@ const CatalogContent = ({ mainListingId, params}) => {
     if (listings.length == 0 && !loading) {
         return (
             <div className="no-listings">
-                <p>Объявлений не найдено</p>
+                <img src="/images/maskot/base.png"/>
             </div>
         )
     }

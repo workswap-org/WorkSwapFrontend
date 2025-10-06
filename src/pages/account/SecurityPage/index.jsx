@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { apiFetch } from "@core/lib/services/apiClient";
+import { deleteCurrentUser } from "@core/lib";
 import { useNavigate } from "react-router-dom";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useNotification } from "@core/lib";
 
 const SecurityPage = () => {
 
@@ -11,7 +11,7 @@ const SecurityPage = () => {
     const { t } = useTranslation(['common', 'errors'])
 
     async function deleteAccount() {
-        const res = await apiFetch('/api/user/current/delete', { method: 'DELETE'})
+        const res = await deleteCurrentUser();
         if (res.success) {
             notificate(res.message, 'success')
             navigate('/logout', { replace: true });

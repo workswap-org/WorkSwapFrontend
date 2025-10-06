@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
 import { useParams, Link } from "react-router-dom";
 import ListingRating from "@core/components/common/ListingRating"
 import PriceTypes from "@core/components/common/PriceTypes"
@@ -8,9 +7,17 @@ import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
 import ListingGallery from "./ListingGallery";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { getListing, getListingImages, viewListing } from '@core/lib/services/listingService';
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { 
+    getListing, 
+    getListingImages, 
+    viewListing, 
+    getUserById,
+    getPathToCategory,
+    useAuth,
+    toggleFavoriteListing,
+    checkFavoriteListing,
+    useNotification
+} from '@core/lib';
 
 import NotFoundPage from "@core/pages/NotFoundPage";
 
@@ -50,12 +57,12 @@ const ListingPage = () => {
 
     useEffect(() => {
         async function loadListingAuthor(authorId) {
-            const data = await apiFetch(`/api/user/get/${authorId}`);
+            const data = await getUserById(authorId);
             setAuthor(await data.user);
         }
 
         async function loadCategoryPath(id) {
-            const data = await apiFetch(`/api/categories/path/${id}`)
+            const data = await getPathToCategory(id);
             setCategories(data.categories);
         }
 
@@ -68,14 +75,15 @@ const ListingPage = () => {
         categoryId: listing?.categoryId,
     }
 
+    async function checkFavorite(id) {
+        const data = await checkFavoriteListing(id);
+        setFavorite(await data.isFavorite);
+    }
+
     useEffect(() => {
-        async function checkFavorite() {
-            const data = await apiFetch(`/api/listing/${listing?.id}/favorite/status`);
-            setFavorite(await data.isFavorite);
-        }
 
         if (listing?.id && isAuthenticated) {
-            checkFavorite();
+            checkFavorite(listing.id);
         }
         
     }, [listing?.id, isAuthenticated]);
@@ -87,7 +95,7 @@ const ListingPage = () => {
         }
 
         try {
-            const res = await apiFetch(`/api/listing/favorite/${listing?.id}`, { method: "POST" });
+            const res = await toggleFavoriteListing(listing.id);
 
             if (res?.message) {
                 // notificate(res.message, "success");
@@ -96,7 +104,7 @@ const ListingPage = () => {
             }
 
             // сразу обновляем статус избранного
-            const data = await apiFetch(`/api/listing/${listing?.id}/favorite/status`);
+            const data = await checkFavorite(listing.id);
             setFavorite(data.isFavorite);
 
         } catch (err) {

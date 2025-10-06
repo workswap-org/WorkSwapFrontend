@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
 import Avatar from "@core/components/common/Avatar";
-import { useAuth } from "@core/lib/contexts/AuthContext";
+import { 
+    useAuth,
+    connectUserTelegram,
+    useNotification,
+    checkTelegramConnected
+} from "@core/lib";
 import { useTranslation } from 'react-i18next';
-import { apiFetch } from "@core/lib/services/apiClient";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
 import ContactModal from "@/components/ui/modal/ContactModal";
 
 const AccountSidebar = () => {
@@ -16,7 +19,7 @@ const AccountSidebar = () => {
 
     async function connectTelegram() {
         try {
-            const response = await apiFetch('/api/user/telegram/connect', {method: 'POST'});
+            const response = await connectUserTelegram();
 
             if (response.link) {
                 const linkUrl = await response.link; // Получаем URL как строку
@@ -32,12 +35,12 @@ const AccountSidebar = () => {
 
     useEffect(() => {
 
-        async function checkTelegramConnected() {
-            const data = await apiFetch('/api/user/telegram/check');
+        async function checkTelegram() {
+            const data = await checkTelegramConnected();
             setTelegramConnected(data.telegramConnected);
         }
 
-        checkTelegramConnected();
+        checkTelegram();
     }, []);
 
     return(

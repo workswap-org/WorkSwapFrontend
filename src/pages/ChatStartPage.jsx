@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { apiFetch } from "@core/lib/services/apiClient";
-import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useAuth, getChat } from "@core/lib";
 
 const ChatStartPage = () => {
 
@@ -23,12 +22,12 @@ const ChatStartPage = () => {
         if (sellerId) newParams.sellerId = sellerId;
         if (listingId) newParams.listingId = listingId;
 
-        async function getChat() {
-            const data = await apiFetch(`/api/chat/get`, {}, newParams);
+        async function loadChat() {
+            const data = await getChat(newParams);
             setChat(await data.chatId);
         }
 
-        getChat();
+        loadChat();
         
     }, [sellerId, listingId, user]);
 

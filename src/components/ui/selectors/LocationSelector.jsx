@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { getLocations } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const LocationSelector = ({ locationId, onChange }) => {
@@ -11,7 +11,7 @@ const LocationSelector = ({ locationId, onChange }) => {
 
     useEffect(() => {
         async function loadLocations() {
-            const data = await apiFetch("/api/locations");
+            const data = await getLocations;
 
             const locs = data.locations || [];
             setLocations(locs);

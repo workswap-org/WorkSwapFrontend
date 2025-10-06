@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { 
+    getSupportedLanguages,
+    getListingTranslations
+} from "@core/lib";
 import { useTranslation } from 'react-i18next';
 import TranslationModal from "./TranslationModal";
 import TranslationsStatus from "./TranslationsStatus";
@@ -22,12 +25,12 @@ const ListingTranslations = ({ id, onChange }) => {
 
     useEffect(() => {
         async function loadLanguages() {
-            const data = await apiFetch("/api/settings/languages")
+            const data = await getSupportedLanguages();
             setLangs(data.langs);
         }
 
         async function loadListingTranslations() {
-            const data = await apiFetch(`/api/listing/translations/${id}`);
+            const data = await getListingTranslations(id);
             if (data.translations) {
                 setTranslations(data.translations);
             }

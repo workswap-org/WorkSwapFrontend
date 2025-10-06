@@ -1,13 +1,17 @@
 import CategorySelector from "@/components/ui/selectors/CategorySelector";
 import LocationSelector from "@/components/ui/selectors/LocationSelector";
 import { useEffect, useState, useCallback } from "react";
-import { apiFetch } from "@core/lib/services/apiClient";
+import { 
+    modifyListing, 
+    useNotification,
+    publishListing,
+    deleteListing,
+    getSupportedPryceTypes,
+    getListingById,
+    getListingImages
+} from "@core/lib";
 import ListingImagesUploader from "./ListingImagesUploader";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import ListingTranslations from "./translations/ListingTranslations";
 import { useTranslation } from 'react-i18next';
 
@@ -33,13 +37,7 @@ const ListingEditPage = () => {
     
     const updateListing = useCallback(async (updates) => {
         try {
-            const res = await apiFetch(`/api/listing/modify/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updates),
-            });
+            const res = await modifyListing(updates, id);
 
             if (res.message) {
                 setSaving(false);
@@ -102,8 +100,8 @@ const ListingEditPage = () => {
         updateListing({ active });
     }, [updateListing])
 
-    async function publishListing() {
-        const data = await apiFetch(`/api/listing/publish/${id}`, {method: 'POST'});
+    async function publishL() {
+        const data = await publishListing(id);
         if (data.message) {
             notificateFromRes(data);
             navigate(`/secure/my-listings`);
@@ -111,7 +109,7 @@ const ListingEditPage = () => {
     }
 
     async function deleteDraft() {
-        const data = await apiFetch(`/api/listing/${id}/delete`, {method: 'DELETE'});
+        const data = await deleteListing(id);
         if (data.message) {
             notificateFromRes(data);
             navigate(`/secure/my-listings`);
@@ -121,7 +119,7 @@ const ListingEditPage = () => {
     useEffect(() => {
 
         async function loadPriceTypes() {
-            const data = await apiFetch('/api/settings/price-types')
+            const data = await getSupportedPryceTypes();
             setPriceTypes(data.priceTypes);
         }
 
@@ -131,12 +129,12 @@ const ListingEditPage = () => {
     useEffect(() => {
 
         async function loadListing() {
-            const data = await apiFetch(`/api/listing/get/${id}`)
+            const data = await getListingById(id);
             setListing(data.listing);
         }
 
         async function loadImages() {
-            const data = await apiFetch(`/api/listing/images/${id}`)
+            const data = await getListingImages(id);
             setImages(data.images);
         }
 
@@ -262,7 +260,7 @@ const ListingEditPage = () => {
 
                     {listing.temporary && (
                         <button 
-                            onClick={() => publishListing()} 
+                            onClick={() => publishL()} 
                             type="button" 
                             className="btn btn-primary"
                         >

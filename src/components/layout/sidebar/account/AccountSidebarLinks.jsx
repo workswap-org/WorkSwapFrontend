@@ -1,9 +1,12 @@
-import { useActivePage } from "@core/lib/hooks/contexts/useActivePage";
+import { 
+    useActivePage 
+} from "@core/lib";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 const AccountSidebarLinks = () => {
     const activePage = useActivePage();
+    console.log(activePage)
 
     const { t } = useTranslation('navigation')
 

@@ -17,7 +17,6 @@ const Header = ({ isEmpty, activePage }) => {
         setMobileVisible(false);
     }, [location]);
 
-
     if (isEmpty) {
         return (
             <header>
@@ -37,11 +36,12 @@ const Header = ({ isEmpty, activePage }) => {
             <div className="header-container">
                 <nav className="navbar">
                     <Link className="navbar-brand" to="/catalog">
-                        <div className="brand">WorkSwap</div>
-                        <div className="all-listings">
-                            <i className="fa-regular fa-cards-blank"></i>
-                            <div>{t(`all-listings`, { ns: 'common' })}</div>
-                        </div>
+                            <div className="brand">WorkSwap</div>
+                            <div className="all-listings">
+                                <i className="fa-regular fa-cards-blank"></i>
+                                <div>{t(`all-listings`, { ns: 'common' })}</div>
+                            </div>
+                            <img src="/images/maskot/base.png"/>
                     </Link>
                     <div className="flex-row media-only-flex">
                         <div className="nav-link">
