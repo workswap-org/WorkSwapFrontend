@@ -1,0 +1,114 @@
+import PriceTypes from "@core/components/common/PriceTypes";
+import { 
+    useActivePage,
+    checkFavoriteListing,
+    toggleFavoriteListing,
+    deleteListing
+} from "@core/lib";
+import { useEffect, useState, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+import { useNotification } from "@core/lib";
+
+const PrivateListingCard  = ({listing}) => {
+
+    const { t } = useTranslation('common')
+
+    const {notificateFromRes} = useNotification();
+    const navigate = useNavigate();
+    const activePage = useActivePage();
+
+    const [isFavorite, setFavorite] = useState(false);
+
+    const checkFavorite = useCallback(async () => {
+        if (!listing?.id) return; // защита на случай пустого listing
+        const data = await checkFavoriteListing(listing.id);
+        setFavorite(data.isFavorite);
+    }, [listing?.id]);
+
+    useEffect(() => {
+        checkFavorite();
+    }, [checkFavorite, listing])
+
+    async function toggleFavorite() {
+        const data = await toggleFavoriteListing(listing.id);
+        if (data.message) {
+            checkFavorite();
+        }
+    }
+
+    async function deleteL() {
+        if (!listing?.id) return;
+        const res = await deleteListing(listing.id);
+        if (res.message) {
+            notificateFromRes(res);
+        };
+    };
+
+    if (listing.temporary) return null;
+
+    return (
+        <article className="listing-card hover-animation-card" onClick={() => navigate(`/listing/${listing.id}`)}>
+            <div 
+                className="overlay-actions hover-show top-center"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <Link 
+                    className="btn btn-sm btn-primary"
+                    to={`/listing/${listing.id}`}
+                >
+                    <i className="fa-solid fa-eye fa-lg"></i>
+                </Link>
+                {activePage === "my-listings" && (
+                    <>
+                        <Link 
+                            className="btn btn-sm btn-primary"
+                            to={`/secure/listing/edit/${listing.id}`}
+                        >
+                            <i className="fa-solid fa-pen-to-square fa-lg"></i>
+                        </Link>
+                        <button 
+                            className="btn btn-sm btn-danger" 
+                            onClick={() => {
+                                const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
+                                if (confirmed) {
+                                    deleteL();
+                                }
+                            }} 
+                        >
+                            <i className="fa-solid fa-trash fa-lg"></i>
+                        </button>
+                    </>
+                )}
+                {activePage === "favorites" && (
+                    <i 
+                        className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
+                        onClick={() => toggleFavorite()}
+                    ></i>
+                )}
+            </div>
+            <img 
+                src={listing.imagePath || `/images/default-listing.svg`}
+                className="listing-img" 
+                alt="Изображение объявления"
+            />
+
+            <div className="listing-card-body">
+                <h3 className="listing-card-title">{listing.localizedTitle}</h3>
+                {/* <p className="listing-card-text">{listing.localizedDescription}</p> */}
+                <div className="listing-card-footer">
+                    <div>
+                        {/* компонент для отображение цены (с типом) */}
+                        <PriceTypes listing={listing} />
+                        <div className="listing-card-views">
+                            <span>{t(`labels.views`, { ns: 'common' })}: </span>
+                            <span>{listing.views}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    );
+};
+
+export default PrivateListingCard;

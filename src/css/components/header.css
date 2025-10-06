@@ -38,6 +38,13 @@ header {
     transform: translateY(-0.5rem);
 }
 
+.navbar-brand img {
+    position: absolute;
+    height: var(--header-height);
+    left: 0;
+    translate: -80% -5px;
+}
+
 .navbar-brand .brand {
     font-size: 1.8rem;
 }

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/apiClient";
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { 
+    useNotification, 
+    deleteListingImage,
+    uploadListingImage 
+} from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const ListingImagesUploader = ({ onChange, images, listing }) => {
@@ -34,15 +37,12 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
     };
 
     // Загрузка нового изображения
-    const uploadListingImage = async (file) => {
+    const uploadImage = async (file) => {
         try {
             const formData = new FormData();
             formData.append("image", file);
 
-            const data = await apiFetch(`/api/cloud/upload/listing-image?listingId=${listing.id}`, {
-                method: "POST",
-                body: formData
-            }, {});
+            const data = await uploadListingImage(listing.id, formData);
 
             if (data.imageUrl) {
                 notificate("Успешно", "success");
@@ -66,14 +66,9 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
     };
 
     // Удаление изображения с сервера
-    const deleteListingImage = async (img) => {
+    const deleteImage = async (img) => {
         try {
-            const response = await apiFetch(`/api/cloud/delete/listing-image`, {
-                method: "DELETE"
-            }, {
-                imageUrl: encodeURIComponent(img.path),
-                imageId: img.id
-            });
+            const response = await deleteListingImage();
 
             if (!response.message) throw new Error(`Ошибка при удалении: ${response.statusText}`);
             deleteListingImageUrl(img);
@@ -89,7 +84,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
         const files = e.target.files;
         if (!files) return;
         for (let file of files) {
-            await uploadListingImage(file);
+            await uploadImage(file);
         }
     };
 
@@ -118,7 +113,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
                                 <button
                                     type="button"
                                     className="btn btn-sm btn-danger"
-                                    onClick={() => deleteListingImage(img)}
+                                    onClick={() => deleteImage(img)}
                                 >
                                     <i className="fa-solid fa-trash"></i>
                                 </button>

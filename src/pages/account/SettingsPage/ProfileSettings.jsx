@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
-import { apiFetch } from "@/lib/apiClient";
+import { useNotification, uploadAvatar } from "@core/lib";
 import { useEffect, useState } from 'react';
 
 const ProfileSettings = ({
@@ -30,15 +29,12 @@ const ProfileSettings = ({
         if(user) setUploadedAvatar(user?.uploadedAvatar)
     }, [user])
 
-    const uploadAvatar = async (file) => {
+    const uploadtoCloud = async (file) => {
         try {
             const formData = new FormData();
             formData.append("image", file);
 
-            const data = await apiFetch(`/api/cloud/upload/avatar`, {
-                method: "POST",
-                body: formData
-            }, {});
+            const data = await uploadAvatar(formData);
 
             if (data.imageUrl) {
                 setUploadedAvatar(data.imageUrl)
@@ -60,7 +56,7 @@ const ProfileSettings = ({
             console.log("бебебе");
             return;
         }
-        await uploadAvatar(file);
+        await uploadtoCloud(file);
         e.target.value = "";
     };
 

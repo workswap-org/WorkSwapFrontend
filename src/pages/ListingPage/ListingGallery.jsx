@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const ListingGallery = ( { images } ) => {
 
@@ -19,6 +19,19 @@ const ListingGallery = ( { images } ) => {
     };
 
     const closeModal = () => setIsModalOpen(false);
+
+    const handleKeyDown = useCallback((e) => {
+        if (e.key === 'Escape') {
+            if (isModalOpen) setIsModalOpen(false);
+        }
+    }, [isModalOpen])
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [handleKeyDown]);
 
     return (
         <>

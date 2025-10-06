@@ -1,4 +1,4 @@
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { useAuth } from "@core/lib";
 
 const Message = ({message}) => {
 

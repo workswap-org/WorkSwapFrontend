@@ -1,37 +1,3 @@
-@import url(footer.css);
-@import url(header.css);
-@import url(buttons.css);
-@import url(breadcrumbs.css);
-@import url(listings-management.css);
-@import url(data-fields.css);
-@import url(animations.css);
-@import url(avatar-types.css);
-@import url(../variables.css);
-
-@import url(specials/media.css);
-@import url(specials/simple-components.css);
-@import url(specials/hovers.css);
-@import url(specials/text-decorations.css);
-@import url(specials/font-awesome-overwrite.css);
-
-@import url(cards/listing-card.css);
-@import url(cards/resume-card.css);
-
-@import url(html-components/account-base.css);
-@import url(html-components/lang-switcher.css);
-@import url(html-components/modal.css);
-@import url(html-components/notification.css);
-@import url(html-components/author-info-sidebar.css);
-@import url(html-components/reviews.css);
-@import url(html-components/upload-controls.css);
-
-@import url(small-components/slider-switcher.css);
-@import url(small-components/rating.css);
-@import url(small-components/tooltip.css);
-
-/* обязательно после всего чтобы перезаписать любые цвета */
-@import url(specials/colors.css);
-
 /* Базовые сбросы */
 *, *::before, *::after {
     box-sizing: border-box;

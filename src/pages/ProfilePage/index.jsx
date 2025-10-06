@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { apiFetch } from "@/lib/apiClient";
-import PublicListingCard from "@/components/cards/listing-cards/PublicListingCard";
-import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
-import ReviewsSection from "@/components/reviews/ReviewsSection";
+import { getListingsByUserId, getUserById } from "@core/lib";
+import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
+import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar"
+import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import { useTranslation } from 'react-i18next';
-import NotFoundPage from "@/pages/NotFoundPage";
+import NotFoundPage from "@core/pages/NotFoundPage";
 
 const ProfilePage = () => {
 
@@ -19,7 +19,7 @@ const ProfilePage = () => {
     useEffect(()=> {
         async function loadProfile() {
             try {
-                const data = await apiFetch(`/api/user/get/${id}`);
+                const data = await getUserById();
                 const tempUser = data.user;
                 if (tempUser) {
                     setUser(tempUser);
@@ -33,7 +33,7 @@ const ProfilePage = () => {
         }
 
         async function loadListings() {
-            const data = await apiFetch(`/api/listing/by-user/${id}`);
+            const data = await getListingsByUserId(id);
             setListings(data.listings);
         }
 

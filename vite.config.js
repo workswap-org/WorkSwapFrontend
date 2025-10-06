@@ -12,7 +12,7 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "./src"),
-            "#": path.resolve(__dirname, "./public"),
+            "@core": path.resolve(__dirname, "../frontend-core/src"),
         },
     },
     server: {

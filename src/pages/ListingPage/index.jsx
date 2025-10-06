@@ -1,18 +1,25 @@
-import "@/css/pages/listing-page.css";
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/apiClient";
 import { useParams, Link } from "react-router-dom";
-import ListingRating from "@/components/small-components/ListingRating"
-import PriceTypes from "@/components/small-components/PriceTypes"
-import UserInfoSidebar from "@/components/page-components/UserInfoSidebar"
-import ReviewsSection from "@/components/reviews/ReviewsSection";
+import ListingRating from "@core/components/common/ListingRating"
+import PriceTypes from "@core/components/common/PriceTypes"
+import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar"
+import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
 import ListingGallery from "./ListingGallery";
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { 
+    getListingById, 
+    getListingImages, 
+    viewListing, 
+    getUserById,
+    getPathToCategory,
+    useAuth,
+    toggleFavoriteListing,
+    checkFavoriteListing,
+    useNotification
+} from '@core/lib';
 
-import NotFoundPage from "@/pages/NotFoundPage";
+import NotFoundPage from "@core/pages/NotFoundPage";
 
 const ListingPage = () => {
 
@@ -30,43 +37,32 @@ const ListingPage = () => {
     const [images, setImages] = useState([]);
 
     useEffect(() => {
-        async function loadListing() {
+        async function loadData() {
             try {
-                const data = await apiFetch(`/api/listing/get/${id}`);
-                const tempListing = data.listing;
-                if (tempListing) {
-                    setListing(tempListing);
-                } else {
-                    setListing(undefined);
-                }
-            } catch (error) {
-                console.error("Ошибка загрузки объявления:", error);
-                setListing(undefined);
+                const listingData = await getListingById(id);
+                setListing(listingData.listing || null);
+
+                const imageData = await getListingImages(id);
+                setImages(imageData.images || []);
+
+                await viewListing(id);
+            } catch (err) {
+                console.error('Ошибка загрузки данных:', err);
+                setListing(null);
             }
         }
 
-        async function loadImages() {
-            const data = await apiFetch(`/api/listing/images/${id}`)
-            setImages(data.images);
-        }
-
-        async function viewListing() {
-            await apiFetch(`/api/listing/view/${id}`, { method: "POST" })
-        }
-
-        loadListing();
-        loadImages();
-        viewListing();
-    }, [id])
+        loadData();
+    }, [id]);
 
     useEffect(() => {
         async function loadListingAuthor(authorId) {
-            const data = await apiFetch(`/api/user/get/${authorId}`);
+            const data = await getUserById(authorId);
             setAuthor(await data.user);
         }
 
         async function loadCategoryPath(id) {
-            const data = await apiFetch(`/api/categories/path/${id}`)
+            const data = await getPathToCategory(id);
             setCategories(data.categories);
         }
 
@@ -79,14 +75,15 @@ const ListingPage = () => {
         categoryId: listing?.categoryId,
     }
 
+    async function checkFavorite(id) {
+        const data = await checkFavoriteListing(id);
+        setFavorite(await data.isFavorite);
+    }
+
     useEffect(() => {
-        async function checkFavorite() {
-            const data = await apiFetch(`/api/listing/${listing?.id}/favorite/status`);
-            setFavorite(await data.isFavorite);
-        }
 
         if (listing?.id && isAuthenticated) {
-            checkFavorite();
+            checkFavorite(listing.id);
         }
         
     }, [listing?.id, isAuthenticated]);
@@ -98,7 +95,7 @@ const ListingPage = () => {
         }
 
         try {
-            const res = await apiFetch(`/api/listing/favorite/${listing?.id}`, { method: "POST" });
+            const res = await toggleFavoriteListing(listing.id);
 
             if (res?.message) {
                 // notificate(res.message, "success");
@@ -107,7 +104,7 @@ const ListingPage = () => {
             }
 
             // сразу обновляем статус избранного
-            const data = await apiFetch(`/api/listing/${listing?.id}/favorite/status`);
+            const data = await checkFavorite(listing.id);
             setFavorite(data.isFavorite);
 
         } catch (err) {

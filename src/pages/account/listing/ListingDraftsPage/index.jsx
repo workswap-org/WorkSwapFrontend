@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiFetch } from "@/lib/apiClient";
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
-import ListingDraftItem from "@/components/cards/listing-cards/ListingDraftItem";
+import { 
+    createListing,
+    getDraftsListings,
+    useNotification
+} from "@core/lib";
+import ListingDraftItem from "@/components/ui/cards/listing-cards/ListingDraftItem";
 import { useTranslation } from 'react-i18next';
 
 const ListingDraftsPage = () => {
@@ -13,9 +16,9 @@ const ListingDraftsPage = () => {
     const {notificate, notificateFromRes} = useNotification();
     const navigate = useNavigate();
 
-    async function createListing() {
+    async function createL() {
         try {
-            const data = await apiFetch("/api/listing/create", {method: "POST"}, {});
+            const data = await createListing();
 
             if (!data.id) {
                 throw new Error("Ошибка при создании объявления");
@@ -33,7 +36,7 @@ const ListingDraftsPage = () => {
     useEffect(() => {
         async function loadDrafts() {
             try {
-                const data = await apiFetch("/api/listing/drafts", {}, {});
+                const data = await getDraftsListings();
                 setDrafts(data.listings);
             } catch {
                 notificate("Ошибка загрузки черновиков", "error");
@@ -52,7 +55,7 @@ const ListingDraftsPage = () => {
                 {drafts.map((listing) => (
                     <ListingDraftItem key={listing.id} listing={listing}/>
                 ))}
-                <article onClick={() => createListing()} className="draft-listing-card new">
+                <article onClick={() => createL()} className="draft-listing-card new">
                     <i className="fa-solid fa-plus fa-xl"></i>
                 </article>
             </div>

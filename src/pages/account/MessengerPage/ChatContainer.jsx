@@ -1,10 +1,12 @@
 import Message from "./chat/Message";
 import SendMessageArea from "./chat/SendMessageArea";
-import { useChatSubscription } from "@/lib/hooks/messenger/useChatSubscription";
+import { 
+    useChatSubscription,
+    getListingByChatId,
+    useWebSocket
+} from "@core/lib";
 import { useRef, useEffect } from "react";
-import { apiFetch } from "@/lib/apiClient";
 import { Link } from "react-router-dom";
-import { useWebSocket } from "@/lib/hooks/contexts/useWebSocket";
 import { useTranslation } from 'react-i18next';
 
 const ChatContainer = ({ 
@@ -31,7 +33,7 @@ const ChatContainer = ({
 
     useEffect(() => {
         async function loadChatListing(currentChatId) {
-            const data = await apiFetch(`/api/listing/chat/get/${currentChatId}`)
+            const data = await getListingByChatId(currentChatId);
             setChatListing(data.listing)
         }
 

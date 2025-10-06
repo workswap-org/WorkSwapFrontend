@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/apiClient";
+import { getInterlocutorInfo } from "@core/lib";
 
 const DialogItem = ({ chat, changeChat, startChatId, currentChatId }) => {
 
@@ -9,7 +9,7 @@ const DialogItem = ({ chat, changeChat, startChatId, currentChatId }) => {
     useEffect(() => {
 
         async function loadInterlocutorInfo() {
-            const data = await apiFetch(`/api/chat/${chat.id}/getInterlocutorInfo`);
+            const data = await getInterlocutorInfo(chat.id);
             setInterlocutor(data.interlocutor)
             setLoading(false)
         }

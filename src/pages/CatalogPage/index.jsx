@@ -1,5 +1,4 @@
 import CatalogSidebar from "./CatalogSidebar";
-import "@/css/pages/catalog-page.css"
 import CatalogHeader from "./CatalogHeader";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useState } from "react";
@@ -51,21 +50,19 @@ const CatalogPage = () => {
                 setCategoryId={setCategoryId}
             />
             {/* Основной контент */}
-            <div className="catalog-container">
-                <div className="catalog-layout">
-                    {/* Сайдбар сортировки */}
-                    <CatalogSidebar
-                        hasReviews={hasReviews} 
-                        setHasReviews={setHasReviews}
-                        activeSort={activeSort}
-                        setActiveSort={setActiveSort}
-                        sidebarOpened={sidebarOpened}
-                        toggleSidebar={toggleSidebar}
-                    />
-                    <main className="catalog-main">
-                        <CatalogContent params={searchParams}/>
-                    </main>
-                </div>
+            <div className="catalog-layout">
+                {/* Сайдбар сортировки */}
+                <CatalogSidebar
+                    hasReviews={hasReviews} 
+                    setHasReviews={setHasReviews}
+                    activeSort={activeSort}
+                    setActiveSort={setActiveSort}
+                    sidebarOpened={sidebarOpened}
+                    toggleSidebar={toggleSidebar}
+                />
+                <main className="catalog-main">
+                    <CatalogContent params={searchParams}/>
+                </main>
             </div>
         </>
     );
