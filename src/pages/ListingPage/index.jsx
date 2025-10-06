@@ -8,7 +8,7 @@ import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
 import ListingGallery from "./ListingGallery";
 import { 
-    getListing, 
+    getListingById, 
     getListingImages, 
     viewListing, 
     getUserById,
@@ -39,7 +39,7 @@ const ListingPage = () => {
     useEffect(() => {
         async function loadData() {
             try {
-                const listingData = await getListing(id);
+                const listingData = await getListingById(id);
                 setListing(listingData.listing || null);
 
                 const imageData = await getListingImages(id);
