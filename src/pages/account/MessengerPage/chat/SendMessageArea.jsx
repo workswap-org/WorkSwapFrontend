@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useChatSubscription } from "@/lib/hooks/messenger/useChatSubscription";
-import { useWebSocket } from "@/lib/hooks/contexts/useWebSocket";
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { useChatSubscription } from "@core/lib/hooks/messenger/useChatSubscription";
+import { useWebSocket } from "@core/lib/hooks/contexts/useWebSocket";
+import { useAuth } from "@core/lib/contexts/AuthContext";
 
 const SendMessageArea = ({ currentChatId }) => {
     const { user } = useAuth();

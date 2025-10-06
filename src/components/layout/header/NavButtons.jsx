@@ -1,9 +1,9 @@
-import ThemeChanger from "@/components/layout/ThemeChanger";
-import Avatar from "@/components/common/Avatar";
+import ThemeChanger from "@core/components/layout/ThemeChanger";
+import Avatar from "@core/components/common/Avatar";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import NotificationHeaderButton from "../../ui/notifications/NotificationHeaderButton";
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import NotificationHeaderButton from "@core/components/ui/notifications/NotificationHeaderButton";
+import { useAuth } from "@core/lib/contexts/AuthContext";
 
 const NavButtons = () => {
 

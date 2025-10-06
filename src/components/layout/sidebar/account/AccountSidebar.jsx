@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
-import Avatar from "@/components/common/Avatar";
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import Avatar from "@core/components/common/Avatar";
+import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useTranslation } from 'react-i18next';
-import { apiFetch } from "@/lib/services/apiClient";
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { apiFetch } from "@core/lib/services/apiClient";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
 import ContactModal from "@/components/ui/modal/ContactModal";
 
 const AccountSidebar = () => {

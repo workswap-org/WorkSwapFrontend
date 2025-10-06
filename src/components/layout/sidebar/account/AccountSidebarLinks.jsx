@@ -1,4 +1,4 @@
-import { useActivePage } from "@/lib/hooks/contexts/useActivePage";
+import { useActivePage } from "@core/lib/hooks/contexts/useActivePage";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 

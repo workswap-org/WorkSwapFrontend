@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiFetch } from "@/lib/services/apiClient";
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { apiFetch } from "@core/lib/services/apiClient";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { useTranslation } from 'react-i18next';
 
 export default function ListingCreatePage() {

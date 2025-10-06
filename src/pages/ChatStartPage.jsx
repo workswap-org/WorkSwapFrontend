@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { apiFetch } from "@/lib/services/apiClient";
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { apiFetch } from "@core/lib/services/apiClient";
+import { useAuth } from "@core/lib/contexts/AuthContext";
 
 const ChatStartPage = () => {
 

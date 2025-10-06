@@ -1,4 +1,4 @@
-import ThemeChanger from "@/components/layout/ThemeChanger";
+import ThemeChanger from "@core/components/layout/ThemeChanger";
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";

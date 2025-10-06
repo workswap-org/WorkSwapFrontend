@@ -1,9 +1,8 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { AppProviders } from "@/lib/providers/AppProviders";
-
-import "@/css/components/base.css"; // глобальные стили
+import { AppProviders } from "@core/lib/providers/AppProviders";
+import "@/css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 

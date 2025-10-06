@@ -1,10 +1,10 @@
-import PriceTypes from "@/components/common/PriceTypes";
-import ListingRating from "@/components/common/ListingRating";
-import { apiFetch } from "@/lib/services/apiClient";
+import PriceTypes from "@core/components/common/PriceTypes";
+import ListingRating from "@core/components/common/ListingRating";
+import { apiFetch } from "@core/lib/services/apiClient";
 import { useNavigate } from "react-router-dom";
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useTranslation } from 'react-i18next';
 
 const PublicListingCard = ({listing, isMainListing}) => {

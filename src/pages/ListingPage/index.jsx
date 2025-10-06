@@ -1,19 +1,18 @@
-import "@/css/pages/listing-page.css";
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/services/apiClient";
+import { apiFetch } from "@core/lib/services/apiClient";
 import { useParams, Link } from "react-router-dom";
-import ListingRating from "@/components/common/ListingRating"
-import PriceTypes from "@/components/common/PriceTypes"
+import ListingRating from "@core/components/common/ListingRating"
+import PriceTypes from "@core/components/common/PriceTypes"
 import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar"
 import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
 import ListingGallery from "./ListingGallery";
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
-import { getListing, getListingImages, viewListing } from '@/lib/services/listingService';
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { getListing, getListingImages, viewListing } from '@core/lib/services/listingService';
+import { useNotification } from "@core/lib/contexts/NotificationContext";
 
-import NotFoundPage from "@/pages/NotFoundPage";
+import NotFoundPage from "@core/pages/NotFoundPage";
 
 const ListingPage = () => {
 

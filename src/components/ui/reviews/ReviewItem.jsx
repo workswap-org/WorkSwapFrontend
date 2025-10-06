@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/services/apiClient";
-import Avatar from "@/components/common/Avatar";
-import FormattedDate from "@/components/common/FormattedDate";
+import { apiFetch } from "@core/lib/services/apiClient";
+import Avatar from "@core/components/common/Avatar";
+import FormattedDate from "@core/components/common/date/FormattedDate";
 
 const ReviewItem = ({review}) => {
 

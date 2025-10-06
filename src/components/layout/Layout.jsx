@@ -1,8 +1,7 @@
 import { useLocation, Outlet } from "react-router-dom";
 import Header from "@/components/layout/header/Header";
-import "@/css/components/base.css";
-import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
-import ActivePageContext from "@/lib/contexts/ActivePageContext";
+import LanguageSwitcher from "@core/components/layout/LanguageSwitcher";
+import ActivePageContext from "@core/lib/contexts/ActivePageContext";
 
 export default function Layout() {
     const location = useLocation();

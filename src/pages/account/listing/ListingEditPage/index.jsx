@@ -1,13 +1,12 @@
 import CategorySelector from "@/components/ui/selectors/CategorySelector";
 import LocationSelector from "@/components/ui/selectors/LocationSelector";
 import { useEffect, useState, useCallback } from "react";
-import { apiFetch } from "@/lib/services/apiClient";
+import { apiFetch } from "@core/lib/services/apiClient";
 import ListingImagesUploader from "./ListingImagesUploader";
-import "@/css/pages/listing-edit-page.css"
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { useNavigate } from "react-router-dom";
 import ListingTranslations from "./translations/ListingTranslations";
 import { useTranslation } from 'react-i18next';

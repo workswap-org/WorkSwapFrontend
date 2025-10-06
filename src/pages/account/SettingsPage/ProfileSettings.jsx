@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
-import { apiFetch } from "@/lib/services/apiClient";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { apiFetch } from "@core/lib/services/apiClient";
 import { useEffect, useState } from 'react';
 
 const ProfileSettings = ({

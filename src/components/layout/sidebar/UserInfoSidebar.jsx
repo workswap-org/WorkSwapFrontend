@@ -1,7 +1,7 @@
-import Avatar from "@/components/common/Avatar";
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import Avatar from "@core/components/common/Avatar";
+import { useAuth } from "@core/lib/contexts/AuthContext";
 import { Link } from "react-router-dom";
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { useTranslation } from 'react-i18next';
 
 const UserInfoSidebar = ( {listingId, author} ) => {

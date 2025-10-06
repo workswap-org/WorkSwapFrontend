@@ -10,10 +10,10 @@ import ListingPage from "@/pages/ListingPage";
 import ProfilePage from "@/pages/ProfilePage";
 
 /* Страницы логина */
-import LoginPage from "@/pages/login/LoginPage";
-import RegisterPage from "@/pages/login/RegisterPage";
-import LoginSuccessPage from "@/pages/login/LoginSuccessPage";
-import LogoutPage from "@/pages/login/LogoutPage";
+import LoginPage from "@core/pages/login/LoginPage";
+import RegisterPage from "@core/pages/login/RegisterPage";
+import LoginSuccessPage from "@core/pages/login/LoginSuccessPage";
+import LogoutPage from "@core/pages/login/LogoutPage";
 
 /* Страницы информации */
 import TermsPage from "@/pages/infos/TermsPage";
@@ -32,15 +32,13 @@ import ListingEditPage from "@/pages/account/listing/ListingEditPage";
 import ListingCreatePage from "@/pages/account/listing/ListingCreatePage";
 import ListingDraftsPage from "@/pages/account/listing/ListingDraftsPage";
 
-import PrivateRoute from "./PrivateRoute";
-import AuthGuard from "@/lib/contexts/auth/AuthGuard";
-import RouteLogger from "@/components/logging/RouteLogger";
+import PrivateRoute from "../../frontend-core/src/routes/PrivateRoute";
+import AuthGuard from "../../frontend-core/src/routes/AuthGuard";
 import ChatStartPage from "@/pages/ChatStartPage";
 
 const AppRouter = () => {
     return (
         <>
-            <RouteLogger />
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route path="login" element={<LoginPage />} />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/services/apiClient";
+import { apiFetch } from "@core/lib/services/apiClient";
 import { useTranslation } from 'react-i18next';
 
 const LocationSelector = ({ locationId, onChange }) => {

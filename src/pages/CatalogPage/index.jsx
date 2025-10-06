@@ -1,5 +1,4 @@
 import CatalogSidebar from "./CatalogSidebar";
-import "@/css/pages/catalog-page.css"
 import CatalogHeader from "./CatalogHeader";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useState } from "react";

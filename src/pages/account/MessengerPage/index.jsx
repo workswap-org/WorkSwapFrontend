@@ -1,13 +1,12 @@
-import "@/css/pages/messenger-page.css"
 import DialogItem from "./chat/DialogItem";
 
 import { useEffect, useState, useCallback } from "react";
-import { useWebSocket } from "@/lib/hooks/contexts/useWebSocket";
-import { useChatsUpdates } from "@/lib/hooks/messenger/useChatsUpdates";
+import { useWebSocket } from "@core/lib/hooks/contexts/useWebSocket";
+import { useChatsUpdates } from "@core/lib/hooks/messenger/useChatsUpdates";
 import { useTranslation } from "react-i18next";
 import ChatContainer from "./ChatContainer";
 import { useLocation } from "react-router-dom";
-import { apiFetch } from "@/lib/services/apiClient";
+import { apiFetch } from "@core/lib/services/apiClient";
 
 import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
 

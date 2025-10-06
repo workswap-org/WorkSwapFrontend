@@ -1,10 +1,10 @@
-import PriceTypes from "@/components/common/PriceTypes";
-import { useActivePage } from "@/lib/hooks/contexts/useActivePage";
+import PriceTypes from "@core/components/common/PriceTypes";
+import { useActivePage } from "@core/lib/hooks/contexts/useActivePage";
 import { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { apiFetch } from "@/lib/services/apiClient";
+import { apiFetch } from "@core/lib/services/apiClient";
 import { useTranslation } from 'react-i18next';
-import { useNotification } from "@/lib/contexts/notifications/NotificationContext";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
 
 const PrivateListingCard  = ({listing}) => {
 

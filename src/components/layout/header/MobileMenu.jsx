@@ -1,8 +1,8 @@
-import { useAuth } from "@/lib/contexts/auth/AuthContext";
+import { useAuth } from "@core/lib/contexts/AuthContext";
 import AccountSidebarLinks from "@/components/layout//sidebar/account/AccountSidebarLinks";
-import Avatar from "@/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar";
 import { Link } from "react-router-dom";
-import NotificationMobileButton from "@/components/ui/notifications/NotificationMobileButton";
+import NotificationMobileButton from "@core/components/ui/notifications/NotificationMobileButton";
 import { useTranslation } from 'react-i18next';
 import ContactModal from "@/components/ui/modal/ContactModal";
 
