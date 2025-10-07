@@ -13,12 +13,12 @@ const MyListingsPage = () => {
     
     useEffect(() => {
         async function loadMyListings() {
-            const data = await getMyListings;
+            const data = await getMyListings();
             setListings(data.listings);
         }
 
         loadMyListings()
-    }, [])
+    }, [listings.length])
 
     return (
         <>
@@ -32,15 +32,21 @@ const MyListingsPage = () => {
                 </button>
             </div>
 
-            <div className="listings-grid">
-                {listings.map((listing) => (
-                        <PrivateListingCard 
-                            key={listing.id}
-                            listing={listing}
-                        /> 
-                    ))
-                }
-            </div>
+            {listings.filter(listing => !listing.temporary).length == 0 ? (
+                <div className="no-listings">
+                    <img src="/images/maskot/laying.png"/>
+                </div>
+            ) : (
+                <div className="listings-grid">
+                    {listings.map((listing) => (
+                            <PrivateListingCard 
+                                key={listing.id}
+                                listing={listing}
+                            /> 
+                        ))
+                    }
+                </div>
+            )}
         </>
     );
 };

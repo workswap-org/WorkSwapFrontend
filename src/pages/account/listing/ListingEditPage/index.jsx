@@ -36,14 +36,11 @@ const ListingEditPage = () => {
     const [isActive, setActive] = useState(false);
     
     const updateListing = useCallback(async (updates) => {
+        if (!id || updates === undefined) return;
+        setSaving(true);
         try {
-            const res = await modifyListing(updates, id);
-
-            if (res.message) {
-                setSaving(false);
-            } else {
-                notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error");
-            }
+            modifyListing(id, updates);
+            setSaving(false);
         } catch (err) {
             notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error");
             throw err;
@@ -52,7 +49,6 @@ const ListingEditPage = () => {
     
     const translationsChange = useCallback((translation) => {
         console.log("[T] Перевод:", translation);
-        setSaving(true);
         updateListing({ translation });
     }, [updateListing]);
 
@@ -60,7 +56,6 @@ const ListingEditPage = () => {
     const categoryChange = useCallback((lastId, path) => {
         console.log("[C] Последний выбранный:", lastId);
         console.log("[C] Путь:", path);
-        setSaving(true);
         updateListing({ category: lastId });
     }, [updateListing]);
 
@@ -68,7 +63,6 @@ const ListingEditPage = () => {
     const locationChange = useCallback((lastId, path) => {
         console.log("[L] Последний выбранный:", lastId);
         console.log("[L] Путь:", path);
-        setSaving(true);
         updateListing({ location: lastId });
     }, [updateListing]);
 
@@ -76,40 +70,28 @@ const ListingEditPage = () => {
     const imagesChange = useCallback((images, mainImage) => {
         console.log("[I] Изображения:", images);
         setImages(images);
-        setSaving(true);
         updateListing({ mainImage })
     }, [updateListing]);
 
     // changePrice
     const changePrice = useCallback((price) => {
         setPrice(price);
-        setSaving(true);
         updateListing({ price });
     }, [updateListing]);
 
     // changePriceType
     const changePriceType = useCallback((type) => {
         setSelectedPriceType(type);
-        setSaving(true);
         updateListing({ priceType: type });
     }, [updateListing]);
 
     const changeActive = useCallback((active) => {
         setActive(active);
-        setSaving(true);
         updateListing({ active });
     }, [updateListing])
 
     async function publishL() {
         const data = await publishListing(id);
-        if (data.message) {
-            notificateFromRes(data);
-            navigate(`/secure/my-listings`);
-        }
-    }
-
-    async function deleteDraft() {
-        const data = await deleteListing(id);
         if (data.message) {
             notificateFromRes(data);
             navigate(`/secure/my-listings`);
@@ -242,7 +224,8 @@ const ListingEditPage = () => {
                         onClick={() => {
                             const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
                             if (confirmed) {
-                                deleteDraft();
+                                deleteListing(listing.id, notificateFromRes);
+                                navigate(`/secure/my-listings`);
                             }
                         }}
                         type="button" 

@@ -14,8 +14,8 @@ import {
     getUserById,
     getPathToCategory,
     useAuth,
-    toggleFavoriteListing,
-    checkFavoriteListing,
+    toggleFavorite,
+    checkFavorite,
     useNotification
 } from '@core/lib';
 
@@ -75,43 +75,13 @@ const ListingPage = () => {
         categoryId: listing?.categoryId,
     }
 
-    async function checkFavorite(id) {
-        const data = await checkFavoriteListing(id);
-        setFavorite(await data.isFavorite);
-    }
-
     useEffect(() => {
 
         if (listing?.id && isAuthenticated) {
-            checkFavorite(listing.id);
+            checkFavorite(listing.id, setFavorite);
         }
         
     }, [listing?.id, isAuthenticated]);
-
-    const toggleFavorite = async () => {
-        if (!listing.id) {
-            notificate("Ошибка", "error");
-            return;
-        }
-
-        try {
-            const res = await toggleFavoriteListing(listing.id);
-
-            if (res?.message) {
-                // notificate(res.message, "success");
-            } else {
-                notificate("Ошибка", "error");
-            }
-
-            // сразу обновляем статус избранного
-            const data = await checkFavorite(listing.id);
-            setFavorite(data.isFavorite);
-
-        } catch (err) {
-            console.error(err);
-            notificate(t(`notification.error.toggleFavorite`, { ns: 'messages' }), "error");
-        }
-    };
 
     return (
         <>
@@ -194,7 +164,7 @@ const ListingPage = () => {
                                             {!isOwner && (
                                                 <div 
                                                     className="listing-action-item"
-                                                    onClick={() => toggleFavorite()}
+                                                    onClick={() => toggleFavorite(listing.id, setFavorite, isFavorite)}
                                                 >
                                                     <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart like`}></i>
                                                 </div>

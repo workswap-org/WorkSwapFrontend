@@ -5,9 +5,6 @@
     background-color: var(--background-l1);
     border-radius: var(--radius);
 }
-p {
-    margin: 1rem;
-}
 .error-code {
     font-size: 5rem;
     font-weight: bold;

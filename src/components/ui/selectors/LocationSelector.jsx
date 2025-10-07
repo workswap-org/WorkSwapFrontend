@@ -11,7 +11,7 @@ const LocationSelector = ({ locationId, onChange }) => {
 
     useEffect(() => {
         async function loadLocations() {
-            const data = await getLocations;
+            const data = await getLocations();
 
             const locs = data.locations || [];
             setLocations(locs);

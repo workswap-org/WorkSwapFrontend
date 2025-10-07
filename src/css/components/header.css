@@ -273,6 +273,7 @@ header {
         flex-direction: column;
         padding: 0.4rem 1rem;
         gap: 0.5rem;
+        overflow-y: auto;
     }
 
     .user-info-menu {

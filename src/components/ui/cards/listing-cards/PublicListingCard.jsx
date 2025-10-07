@@ -1,62 +1,30 @@
 import PriceTypes from "@core/components/common/PriceTypes";
 import ListingRating from "@core/components/common/ListingRating";
 import {
-    checkFavoriteListing,
-    toggleFavoriteListing
+    checkFavorite,
+    toggleFavorite,
+    useAuth
 } from "@core/lib";
 import { useNavigate } from "react-router-dom";
-import { useNotification } from "@core/lib";
 import { useEffect, useState } from "react";
-import { useAuth } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const PublicListingCard = ({listing, isMainListing}) => {
 
     const navigate = useNavigate();
-    const {notificate} = useNotification();
     const [isFavorite, setFavorite] = useState(false);
     const { t } = useTranslation('common')
     const { user } = useAuth();
 
     const isNew = (new Date() - new Date(listing.publishedAt)) < 3 * 24 * 60 * 60 * 1000;
 
-    async function checkFavorite() {
-        const data = await checkFavoriteListing();
-        setFavorite(await data.isFavorite);
-    }
-
     useEffect(() => {
 
         if (listing.id && user) {
-            checkFavorite();
+            checkFavorite(listing.id, setFavorite);
         }
         
     }, [listing.id, user]);
-    
-    const toggleFavorite = async (e) => {
-        e.stopPropagation();
-        
-        if (!listing.id) {
-            return;
-        }
-
-        try {
-            const res = await toggleFavoriteListing();
-
-            if (res?.message) {
-                // ничего
-            } else {
-                notificate("Ошибка", "error");
-            }
-
-            // сразу обновляем статус избранного
-            checkFavorite();
-
-        } catch (err) {
-            console.error(err);
-            notificate("Ошибка при переключении избранного", "error");
-        }
-    };
 
     if (listing.testMode || isMainListing || listing.temporary) return null;
 
@@ -86,7 +54,7 @@ const PublicListingCard = ({listing, isMainListing}) => {
                     <div className="listing-card-overlay-actions">
                         <i 
                             className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
-                            onClick={(e) => toggleFavorite(e)}></i>
+                            onClick={(e) => toggleFavorite(listing.id, setFavorite, isFavorite, e)}></i>
                     </div>
                 )}
             </div>

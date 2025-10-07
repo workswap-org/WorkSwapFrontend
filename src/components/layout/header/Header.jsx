@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import NavButtons from "./NavButtons";
 
-const Header = ({ isEmpty, activePage }) => {
+const Header = ({ isEmpty }) => {
 
     const { t } = useTranslation('common')
 
@@ -41,7 +41,7 @@ const Header = ({ isEmpty, activePage }) => {
                                 <i className="fa-regular fa-cards-blank"></i>
                                 <div>{t(`all-listings`, { ns: 'common' })}</div>
                             </div>
-                            <img src="/images/maskot/base.png"/>
+                            {/* <img src="/images/maskot/base.png"/> */}
                     </Link>
                     <div className="flex-row media-only-flex">
                         <div className="nav-link">
@@ -54,9 +54,7 @@ const Header = ({ isEmpty, activePage }) => {
                     <div className={`navbar-collapse ${mobileVisible ? 'show' : ""}`}>
                         <NavButtons />
 
-                        <MobileMenu
-                            activePage={activePage}
-                        />
+                        <MobileMenu />
                     </div>
                 </nav>
             </div>

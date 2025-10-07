@@ -9,9 +9,7 @@ const NavButtons = () => {
 
     const { t } = useTranslation(['buttons', 'navigation'])
 
-    const { user, isAuthenticated } = useAuth();
-
-    const isAdmin = user?.role === "ADMIN"; // или как у тебя хранится роль
+    const { user, isAuthenticated, isAdmin } = useAuth();
 
     return (
         <div className="nav-buttons">

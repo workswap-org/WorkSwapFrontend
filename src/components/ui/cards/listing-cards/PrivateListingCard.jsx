@@ -1,11 +1,11 @@
 import PriceTypes from "@core/components/common/PriceTypes";
 import { 
     useActivePage,
-    checkFavoriteListing,
-    toggleFavoriteListing,
+    checkFavorite,
+    toggleFavorite,
     deleteListing
 } from "@core/lib";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useNotification } from "@core/lib";
@@ -20,30 +20,9 @@ const PrivateListingCard  = ({listing}) => {
 
     const [isFavorite, setFavorite] = useState(false);
 
-    const checkFavorite = useCallback(async () => {
-        if (!listing?.id) return; // защита на случай пустого listing
-        const data = await checkFavoriteListing(listing.id);
-        setFavorite(data.isFavorite);
-    }, [listing?.id]);
-
     useEffect(() => {
-        checkFavorite();
-    }, [checkFavorite, listing])
-
-    async function toggleFavorite() {
-        const data = await toggleFavoriteListing(listing.id);
-        if (data.message) {
-            checkFavorite();
-        }
-    }
-
-    async function deleteL() {
-        if (!listing?.id) return;
-        const res = await deleteListing(listing.id);
-        if (res.message) {
-            notificateFromRes(res);
-        };
-    };
+        checkFavorite(listing.id, setFavorite);
+    }, [listing])
 
     if (listing.temporary) return null;
 
@@ -72,7 +51,7 @@ const PrivateListingCard  = ({listing}) => {
                             onClick={() => {
                                 const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
                                 if (confirmed) {
-                                    deleteL();
+                                    deleteListing(listing.id, notificateFromRes);
                                 }
                             }} 
                         >
@@ -83,7 +62,7 @@ const PrivateListingCard  = ({listing}) => {
                 {activePage === "favorites" && (
                     <i 
                         className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
-                        onClick={() => toggleFavorite()}
+                        onClick={() => toggleFavorite(listing.id, setFavorite, isFavorite)}
                     ></i>
                 )}
             </div>
