@@ -1,4 +1,4 @@
-import PriceTypes from "@core/components/common/PriceTypes";
+import { PriceTypes } from "@core/components";
 import { 
     useActivePage,
     checkFavorite,

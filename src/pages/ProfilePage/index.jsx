@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { getListingsByUserId, getUserById } from "@core/lib";
-import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
-import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar"
-import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
+import {
+    PublicListingCard,
+    UserInfoSidebar,
+    ReviewsSection
+} from "@/components";
 import { useTranslation } from 'react-i18next';
 import NotFoundPage from "@core/pages/NotFoundPage";
 

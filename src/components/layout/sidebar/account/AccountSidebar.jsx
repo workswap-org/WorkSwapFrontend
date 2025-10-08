@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
-import Avatar from "@core/components/common/Avatar";
+import { Avatar } from "@core/components";
 import { 
     useAuth,
     connectUserTelegram,
@@ -8,7 +8,7 @@ import {
     checkTelegramConnected
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
-import ContactModal from "@/components/ui/modal/ContactModal";
+import { ContactModal } from "@/components";
 
 const AccountSidebar = () => {
 

@@ -2,11 +2,21 @@ import { useCallback, useEffect, useState } from "react";
 import { getCategories } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
+const types = [
+    { key: "SERVICE_OFFER"},
+    { key: "SERVICE_REQUEST"},
+    { key: "PRODUCT_SALE"}
+];
+
 const CategoriesSelector = ({
     categoriesMenu,
     categoryId,
-    setCategoryId
+    setCategoryId,
+    listingType,
+    setListingType
 }) => {
+
+    console.log("setListingType", setListingType, typeof setListingType);
 
     const [categories, setCategories] = useState([]);
 
@@ -66,13 +76,31 @@ const CategoriesSelector = ({
 
     return (
        <div className={`categories-menu ${categoriesMenu ? "active" : ""}`}>
+            <div className="listing-types-list">
+                {types.map((type) => (
+                    <button
+                        key={type.key}
+                        type="button"
+                        className={`listing-type-item hover ${categoryId === type.key ? "active" : ""}`}
+                        onClick={() => {
+                            if (type.key === listingType) {
+                                setListingType(null);
+                            } else {
+                                setListingType(type.key);
+                            };
+                        }}
+                    >
+                        {t(`listingType.${type.key}`, { ns: 'categories' })}
+                    </button>
+                ))}
+            </div>
             <div className="categories-container">
                 <div className="categories-sidebar-container">
                     {rootCategories().map((rootCategory) => (
-                        <div key={rootCategory.id}>
+                        <div className="categories-list" key={rootCategory.id}>
                             <button
                                 type="button"
-                                className={`root-category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
+                                className={`category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
                                 onClick={() => {
                                     if (rootCategory.id === categoryId) {
                                         setCategoryId(null);
@@ -81,29 +109,27 @@ const CategoriesSelector = ({
                                     };
                                 }}
                             >
-                                <i className="fa-solid fa-handshake me-2"></i>
-                                <span>{t(`category.${rootCategory.name}`, { ns: 'categories' })}</span>
+                                {t(`category.${rootCategory.name}`, { ns: 'categories' })}
                             </button>
-                            <div className="categories-list">
-                                {children(rootCategory.id).map((child) =>
-                                    <div key={child.id}>
-                                        <button
-                                            className={`category-item hover ${categoryId === child.id ? "active" : ""}`}
-                                            onClick={() => {
-                                                if (child.id === categoryId) {
-                                                    setCategoryId(null);
-                                                    setCategoryParent(null);
-                                                } else {
-                                                    setCategoryId(child.id);
-                                                    setCategoryParent(child);
-                                                };
-                                            }}
-                                        >
-                                            {t(`category.${child.name}`, { ns: 'categories' })}
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
+
+                            {children(rootCategory.id).map((child) =>
+                                <div key={child.id}>
+                                    <button
+                                        className={`category-item hover ${categoryId === child.id ? "active" : ""}`}
+                                        onClick={() => {
+                                            if (child.id === categoryId) {
+                                                setCategoryId(null);
+                                                setCategoryParent(null);
+                                            } else {
+                                                setCategoryId(child.id);
+                                                setCategoryParent(child);
+                                            };
+                                        }}
+                                    >
+                                        {t(`category.short.${child.name}`, { ns: 'categories' })}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -129,7 +155,7 @@ const CategoriesSelector = ({
                                 {children(categoryParent.id).map((child) =>
                                     <div key={child.id}>
                                         <button
-                                            className={`category-item hover ${categoryId === child.id ? "active" : ""}`}
+                                            className={`sub-category-item hover ${categoryId === child.id ? "active" : ""}`}
                                             onClick={() => {
                                                 if (child.id === categoryId) {
                                                     setCategoryId(null);

@@ -1,8 +1,13 @@
-import { Routes, Route } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { 
+    Routes, 
+    Route,
+    Navigate
+} from "react-router-dom";
 
-import Layout from "@/components/layout/Layout";
-import AccountLayout from "@/components/layout/AccountLayout";
+import {
+    Layout,
+    AccountLayout
+} from "@/components";
 
 /* Страницы */
 import CatalogPage from "@/pages/CatalogPage";

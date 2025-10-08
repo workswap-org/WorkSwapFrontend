@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { getSortedListings } from "@core/lib";
 import { useTranslation } from "react-i18next";
-import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
+import { PublicListingCard } from "@/components";
 
 const CatalogContent = ({ mainListingId, params}) => {
 

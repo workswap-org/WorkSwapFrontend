@@ -1,4 +1,4 @@
-import AccountSidebar from "@/components/layout/sidebar/account/AccountSidebar";
+import { AccountSidebar } from "@/components";
 import { Outlet } from "react-router-dom";
 
 const AccountLayout = () => {

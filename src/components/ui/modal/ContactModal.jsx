@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Modal from "@/components/ui/modal/Modal";
+import { Modal } from "@core/components";
 import { useNotification } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 

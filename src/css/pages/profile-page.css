@@ -1,6 +1,3 @@
-@import url(catalog-page.css);
-@import url(listing-page.css);
-
 .resume-card-link {
     display: flex;
     flex-direction: row;

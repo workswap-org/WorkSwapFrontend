@@ -8,8 +8,7 @@ import {
 import { useTranslation } from "react-i18next";
 import ChatContainer from "./ChatContainer";
 import { useLocation } from "react-router-dom";
-
-import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
+import { PublicListingCard } from "@/components";
 
 const MessengerPage = () => {
 

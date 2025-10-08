@@ -5,7 +5,7 @@ import {
     getDraftsListings,
     useNotification
 } from "@core/lib";
-import ListingDraftItem from "@/components/ui/cards/listing-cards/ListingDraftItem";
+import { ListingDraftItem } from "@/components";
 import { useTranslation } from 'react-i18next';
 
 const ListingDraftsPage = () => {

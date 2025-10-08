@@ -1,0 +1,36 @@
+/* =========== Стили для карточек черновиков ==============*/
+
+.draft-listing-card {
+    display: flex;
+    flex-direction: column;
+
+    border: 3px solid var(--border-color);
+    border-radius: var(--radius);
+    width: 100%;
+    overflow: hidden;
+
+    transition: all 0.2s ease;
+}
+
+.draft-listing-card.new {
+    align-items: center;
+    justify-content: center;
+    border-style: dashed;
+    border-width: 4px;
+}
+
+.draft-listing-card:hover {
+    border-color: var(--primary);
+    cursor: pointer;
+}
+
+.draft-listing-card-img {
+    height: 120px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.draft-listing-card-body {
+    padding: 0.5rem;
+}

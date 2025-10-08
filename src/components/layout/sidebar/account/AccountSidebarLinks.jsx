@@ -6,13 +6,11 @@ import { useTranslation } from 'react-i18next';
 
 const AccountSidebarLinks = () => {
     const activePage = useActivePage();
-    console.log(activePage)
 
     const { t } = useTranslation('navigation')
 
     const links = [
         /* { key: "account", icon: "fa-user" }, */
-        /* { key: "catalog", icon: "fa-grid-2" }, */
         { key: "my-listings", icon: "fa-cards-blank" },
         { key: "favorites", icon: "fa-heart" },
         { key: "messenger", icon: "fa-message-lines" },

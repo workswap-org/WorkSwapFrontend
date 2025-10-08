@@ -1,5 +1,7 @@
-import CategorySelector from "@/components/ui/selectors/CategorySelector";
-import LocationSelector from "@/components/ui/selectors/LocationSelector";
+import {
+    CategorySelector,
+    LocationSelector
+} from "@/components";
 import { useEffect, useState, useCallback } from "react";
 import { 
     modifyListing, 
@@ -11,8 +13,8 @@ import {
     getListingImages
 } from "@core/lib";
 import ListingImagesUploader from "./ListingImagesUploader";
-import { useParams, Link, useNavigate } from "react-router-dom";
 import ListingTranslations from "./translations/ListingTranslations";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 const ListingEditPage = () => {

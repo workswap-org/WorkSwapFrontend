@@ -13,6 +13,7 @@ const CatalogPage = () => {
     const [searchQuery, setSearchQuery] = useState(params.get("searchQuery") || "");
     const [hasReviews, setHasReviews] = useState(params.get("hasReviews") || false);
     const [activeSort, setActiveSort] = useState(params.get("sortBy") || "date");
+    const [type, setType] = useState(params.get("type") || "");
 
     const [sidebarOpened, setSidebarOpened] = useState(false)
 
@@ -30,6 +31,7 @@ const CatalogPage = () => {
             if (activeSort) newParams.sortBy = activeSort;
             if (searchQuery) newParams.searchQuery = searchQuery;
             if (hasReviews) newParams.hasReviews = "on";
+            if (type) newParams.type = type;
 
             setSearchParams(newParams);
 
@@ -39,7 +41,7 @@ const CatalogPage = () => {
         }
 
         initParams();
-    }, [categoryId, searchQuery, hasReviews, activeSort])
+    }, [categoryId, searchQuery, hasReviews, activeSort, type])
 
     return(
         <>
@@ -48,6 +50,8 @@ const CatalogPage = () => {
                 setSearchQuery={setSearchQuery}
                 categoryId={categoryId} 
                 setCategoryId={setCategoryId}
+                listingType={type}
+                setListingType={setType}
             />
             {/* Основной контент */}
             <div className="catalog-layout">

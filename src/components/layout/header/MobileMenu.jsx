@@ -1,10 +1,14 @@
-import { useAuth} from "@core/lib";
-import AccountSidebarLinks from "@/components/layout/sidebar/account/AccountSidebarLinks";
-import Avatar from "@core/components/common/Avatar";
+import { useAuth } from "@core/lib";
+import {
+    AccountSidebarLinks, 
+    ContactModal
+} from "@/components";
+import {
+    Avatar, 
+    NotificationMobileButton
+} from "@core/components";
 import { Link } from "react-router-dom";
-import NotificationMobileButton from "@core/components/ui/notifications/NotificationMobileButton";
 import { useTranslation } from 'react-i18next';
-import ContactModal from "@/components/ui/modal/ContactModal";
 
 const MobileMenu = () => {
 

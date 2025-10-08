@@ -1,5 +1,7 @@
-import PriceTypes from "@core/components/common/PriceTypes";
-import ListingRating from "@core/components/common/ListingRating";
+import { 
+    PriceTypes,
+    ListingRating
+} from "@core/components";
 import {
     checkFavorite,
     toggleFavorite,

@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     gap: 1.5rem;
+    z-index: 1;
 }
 
 .drafts-listings-grid {
@@ -39,9 +40,10 @@
 }
 
 /* Адаптивность */
-@media (max-width: 992px) {
+@media (max-width: 1120px) {
     .listings-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
     }
 }
 

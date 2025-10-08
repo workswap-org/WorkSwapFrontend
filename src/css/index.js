@@ -1,4 +1,6 @@
 // components
+import './components/cards/listing-draft-card.css';
+import './components/cards/listing-small-card.css';
 import './components/cards/listing-card.css';
 import './components/cards/resume-card.css';
 

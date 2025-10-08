@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getFavoritesListings } from "@core/lib";
-import PrivateListingCard from "@/components/ui/cards/listing-cards/PrivateListingCard";
+import { PrivateListingCard } from "@/components";
 import { useTranslation } from 'react-i18next';
 
 const FavoritesPage = () => {

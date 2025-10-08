@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserById } from "@core/lib";
-import Avatar from "@core/components/common/Avatar";
-import FormattedDate from "@core/components/common/date/FormattedDate";
+import { Avatar, FormattedDate } from "@core/components";
 
 const ReviewItem = ({review}) => {
 

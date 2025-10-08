@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import ListingRating from "@core/components/common/ListingRating"
-import PriceTypes from "@core/components/common/PriceTypes"
-import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar"
-import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
+import {
+    ListingRating,
+    PriceTypes
+} from "@core/components";
+import {
+    UserInfoSidebar,
+    ReviewsSection
+} from "@/components";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
 import ListingGallery from "./ListingGallery";

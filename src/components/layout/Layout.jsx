@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Header from "@/components/layout/header/Header";
-import LanguageSwitcher from "@core/components/layout/LanguageSwitcher";
+import {Header} from "@/components";
+import {LanguageSwitcher} from "@core/components";
 
 export default function Layout() {
 

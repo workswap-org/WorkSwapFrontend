@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMyListings } from "@core/lib";
-import PrivateListingCard from "@/components/ui/cards/listing-cards/PrivateListingCard";
+import { PrivateListingCard } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 

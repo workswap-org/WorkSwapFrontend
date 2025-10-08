@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import LocationSelector from "@/components/ui/selectors/LocationSelector";
+import { LocationSelector } from "@/components";
 
 const PreferencesSettings = ({
     languages,
