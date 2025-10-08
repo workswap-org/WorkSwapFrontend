@@ -9,7 +9,6 @@
 
 .form-group label,
 .form-group h3 {
-    display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: var(--text-color);
@@ -34,6 +33,12 @@
 .form-group textarea:focus {
     border-color: var(--primary);
     outline: none;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    cursor: pointer;
 }
 
 .form-group textarea {

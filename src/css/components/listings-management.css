@@ -9,7 +9,6 @@
 .drafts-listings-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 166px;
     gap: 1.5rem;
 }
 
@@ -52,5 +51,12 @@
     .listings-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1rem;
+    }
+
+    .drafts-listings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-auto-rows: 166px;
+        gap: 1.5rem;
     }
 }

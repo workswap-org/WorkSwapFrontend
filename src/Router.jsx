@@ -35,7 +35,6 @@ import SecurityPage from "@/pages/account/SecurityPage";
 /* Страницы управления объявлениями */
 import ListingEditPage from "@/pages/account/listing/ListingEditPage";
 import ListingCreatePage from "@/pages/account/listing/ListingCreatePage";
-import ListingDraftsPage from "@/pages/account/listing/ListingDraftsPage";
 
 import PrivateRoute from "../../frontend-core/src/routes/PrivateRoute";
 import AuthGuard from "../../frontend-core/src/routes/AuthGuard";
@@ -78,7 +77,6 @@ const AppRouter = () => {
 
                                 <Route path="chat-start" element={<ChatStartPage />} />
                                 <Route path="listing/create" element={<ListingCreatePage />} />
-                                <Route path="listing/drafts" element={<ListingDraftsPage />} />
                                 <Route path="listing/edit/:id" element={<ListingEditPage />} />
                             </Route>
                         </Route>

@@ -6,9 +6,7 @@ const CatalogHeader = ({
     searchQuery,
     setSearchQuery,
     categoryId, 
-    setCategoryId,
-    listingType,
-    setListingType
+    setCategoryId
 }) => {
 
     const { t } = useTranslation('categories')
@@ -32,8 +30,6 @@ const CatalogHeader = ({
                     categoriesMenu={categoriesMenu}
                     categoryId={categoryId}
                     setCategoryId={setCategoryId}
-                    listingType={listingType}
-                    setListingType={setListingType}
                 />
 
                 <div className="listings-search">

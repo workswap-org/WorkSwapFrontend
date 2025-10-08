@@ -2,21 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { getCategories } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const types = [
-    { key: "SERVICE_OFFER"},
-    { key: "SERVICE_REQUEST"},
-    { key: "PRODUCT_SALE"}
-];
-
 const CategoriesSelector = ({
     categoriesMenu,
     categoryId,
-    setCategoryId,
-    listingType,
-    setListingType
+    setCategoryId
 }) => {
-
-    console.log("setListingType", setListingType, typeof setListingType);
 
     const [categories, setCategories] = useState([]);
 
@@ -76,28 +66,11 @@ const CategoriesSelector = ({
 
     return (
        <div className={`categories-menu ${categoriesMenu ? "active" : ""}`}>
-            <div className="listing-types-list">
-                {types.map((type) => (
-                    <button
-                        key={type.key}
-                        type="button"
-                        className={`listing-type-item hover ${categoryId === type.key ? "active" : ""}`}
-                        onClick={() => {
-                            if (type.key === listingType) {
-                                setListingType(null);
-                            } else {
-                                setListingType(type.key);
-                            };
-                        }}
-                    >
-                        {t(`listingType.${type.key}`, { ns: 'categories' })}
-                    </button>
-                ))}
-            </div>
             <div className="categories-container">
                 <div className="categories-sidebar-container">
+                    <div className="categories-list">
                     {rootCategories().map((rootCategory) => (
-                        <div className="categories-list" key={rootCategory.id}>
+                        <div key={rootCategory.id}>
                             <button
                                 type="button"
                                 className={`category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
@@ -132,6 +105,7 @@ const CategoriesSelector = ({
                             )}
                         </div>
                     ))}
+                    </div>
                 </div>
                 <div className="subcategories-container">
                     {subCategory && (

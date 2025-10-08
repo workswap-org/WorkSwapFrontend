@@ -33,21 +33,23 @@ const PrivateListingCard  = ({listing}) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 <Link 
-                    className="btn btn-sm btn-primary"
+                    className="overlay-action-item hover"
                     to={`/listing/${listing.id}`}
                 >
                     <i className="fa-solid fa-eye fa-lg"></i>
                 </Link>
+                <div className="devider"/>
                 {activePage === "my-listings" && (
                     <>
                         <Link 
-                            className="btn btn-sm btn-primary"
+                            className="overlay-action-item hover"
                             to={`/secure/listing/edit/${listing.id}`}
                         >
                             <i className="fa-solid fa-pen-to-square fa-lg"></i>
                         </Link>
-                        <button 
-                            className="btn btn-sm btn-danger" 
+                        <div className="devider"/>
+                        <div 
+                            className="overlay-action-item red-hover" 
                             onClick={() => {
                                 const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
                                 if (confirmed) {
@@ -56,14 +58,18 @@ const PrivateListingCard  = ({listing}) => {
                             }} 
                         >
                             <i className="fa-solid fa-trash fa-lg"></i>
-                        </button>
+                        </div>
                     </>
                 )}
                 {activePage === "favorites" && (
-                    <i 
-                        className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
+                    <div 
+                        className="overlay-action-item hover"
                         onClick={() => toggleFavorite(listing.id, setFavorite, isFavorite)}
-                    ></i>
+                    >
+                        <i 
+                            className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
+                        ></i>
+                    </div>
                 )}
             </div>
             <img 

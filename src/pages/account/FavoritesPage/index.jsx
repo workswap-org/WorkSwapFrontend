@@ -26,12 +26,11 @@ const FavoritesPage = () => {
 
             <div className="listings-grid">
                 {listings.map((listing) => (
-                        <PrivateListingCard 
-                            key={listing.id}
-                            listing={listing}
-                        /> 
-                    ))
-                }
+                    <PrivateListingCard 
+                        key={listing.id}
+                        listing={listing}
+                    /> 
+                ))}
             </div>
         </>
     );

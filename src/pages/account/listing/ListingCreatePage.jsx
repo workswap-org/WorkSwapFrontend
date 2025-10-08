@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
-    getDraftsListings,
     useNotification,
-    createListing
+    createListing,
+    listingTypes
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
@@ -11,48 +11,60 @@ export default function ListingCreatePage() {
 
     const navigate = useNavigate();
     const { notificate, notificateFromRes } = useNotification();
+    const [listingType, setListingType] = useState(null);
     const { t } = useTranslation('common');
 
-    useEffect(() => {
-        async function createL() {
-            try {
-                const data = await createListing();
+    const createL = useCallback(async (listingType) => {
+        try {
+            const data = await createListing(listingType);
 
-                if (!data.id) {
-                    throw new Error(t(`notification.misc.error.listingCreate`, { ns: 'messages' }));
-                }
-
-                notificateFromRes(data);
-
-                navigate(`/secure/listing/edit/${data.id}`, { replace: true });
-            } catch (err) {
-                console.error(err);
-                notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error");
+            if (!data.id) {
+                throw new Error(t(`notification.misc.error.listingCreate`, { ns: 'messages' }));
             }
-        }
 
-        async function loadDrafts() {
-            try {
-                const data = await getDraftsListings();
-                const drafts = data.listings;
-                if (drafts.length === 0) {
-                    createL()
-                } else if (drafts.length === 1) {
-                    const id = drafts[0]?.id;
-                    navigate(`/secure/listing/edit/${id}`, { replace: true });
-                    notificate(t(`notification.misc.hadDraft`, { ns: 'messages' }), "info");
-                } else if (drafts.length > 1) {
-                    navigate(`/secure/listing/drafts`, { replace: true });
-                } else {
-                    notificate(t(`notification.misc.error.draftLoading`, { ns: 'messages' }), "error");
-                }
-            } catch {
-                notificate(t(`notification.misc.error.draftLoading`, { ns: 'messages' }), "error");
-            }
-        }
+            notificateFromRes(data);
 
-        loadDrafts();
+            navigate(`/secure/listing/edit/${data.id}`, { replace: true });
+        } catch (err) {
+            console.error(err);
+            notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error");
+        }
     }, [navigate, notificate, notificateFromRes, t]);
 
-    return <p>Создаём объявление...</p>;
+    return (
+        <>
+            <div className="account-header">
+                <h2>{t(`titles.listingCreate`, { ns: 'common' })}</h2>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => navigate(-1)}
+                >
+                    <i className="fa-solid fa-left perm-light"></i>
+                    {t(`back`, { ns: 'navigation' })}
+                </button>
+            </div>
+            <div className="listing-create-container">
+                <h3>{t(`listingCreate.selectType`, { ns: 'common' })}</h3>
+
+                <div className="listing-create-type-selector">
+                    {listingTypes.map((type) => (
+                        <button 
+                            key={type.key}
+                            className={`btn btn-${listingType == type.key ? "" : "outline-"}primary`}
+                            onClick={() => setListingType(type.key)}
+                        >
+                            {t(`listingType.create.${type.key}`, { ns: 'categories' })}
+                        </button>
+                    ))}
+                </div>
+                <button 
+                    className="btn btn-success"
+                    onClick={() => createL(listingType)}
+                    disabled={!listingType}
+                >
+                    {t(`listing.createListing`, { ns: 'buttons' })}
+                </button>
+            </div>
+        </>
+    );
 }

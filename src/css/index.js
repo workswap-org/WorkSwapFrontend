@@ -24,6 +24,7 @@ import './pages/catalog-page.css';
 import './pages/error-page.css';
 import './pages/home-page.css';
 import './pages/listing-edit-page.css';
+import './pages/listing-create-page.css';
 import './pages/listing-page.css';
 import './pages/messenger-page.css';
 import './pages/news-page.css';

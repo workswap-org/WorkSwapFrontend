@@ -9,16 +9,21 @@
     text-align: center;
 }
 
+/* Красная контурная кнопка */
+
 .btn-outline-danger {
     border: 1px solid var(--danger);
     color: var(--danger);
     background-color: transparent;
 }
 
-.btn-outline-danger:hover {
+.btn-outline-danger:hover,
+.btn-outline-danger.selected {
     background-color: var(--danger);
     color: var(--background-l1);
 }
+
+/* Красная кнопка */
 
 .btn-danger {
     border-width: 0;
@@ -26,10 +31,13 @@
     color: var(--background-l1);
 }
 
-.btn-danger:hover {
+.btn-danger:hover,
+.btn-danger.selected {
     background-color: var(--danger-dark);
     color: var(--background-l1);
 }
+
+/* Primary контурная кнопка */
 
 .btn-outline-primary {
     border: 1px solid var(--primary);
@@ -37,33 +45,76 @@
     background-color: transparent;
 }
 
-.btn-outline-primary:hover {
+.btn-outline-primary:hover,
+.btn-outline-primary.selected {
     background-color: var(--primary);
     color: var(--background-l1);
 }
+
+/* Primary кнопка */
 
 .btn-primary {
     background-color: var(--primary);
-    color: var(--background-l1);
+    color: var(--permanent-light);
     border: 1px solid var(--primary);
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary.selected {
     background-color: var(--primary-dark);
     border-color: var(--primary-dark);
 }
 
+/* Primary Light кнопка */
+
+.btn-primary-light {
+    background-color: var(--primary-light);
+    color: var(--inverse-text-color);
+    border: 1px solid var(--primary-light);
+}
+
+.btn-primary-light:hover,
+.btn-primary-light.selected {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Золотая кнопка */
+
 .btn-gold {
     background-color: var(--gold);
-    color: var(--background-l1);
+    color: var(--permanent-light);
     border: 1px solid var(--gold);
 }
 
-.btn-gold:hover {
+.btn-gold:hover,
+.btn-gold.selected {
     background-color: var(--gold-dark);
     border-color: var(--gold-dark);
 }
 
+/* Зелёная кнопка */
+
+.btn-success {
+    background-color: var(--green-l1);
+    color: var(--permanent-light);
+    border: 0;
+    padding: 0.7rem 1rem;
+}
+
+.btn-success:hover,
+.btn-success.selected {
+    background-color: var(--green-l2);
+    border: 0;
+}
+
+.btn-success:disabled {
+    color: var(--inverse-text-color);
+    background-color: var(--green-l-1);
+    border: 0;
+}
+
+/* Разные кнопки */
 .login-button {
     display: flex;
     flex-direction: row;
@@ -136,7 +187,6 @@
     z-index: 50;
 
     display: inline-flex;
-    gap: 0.5rem;
 
     transition: all 0.2s ease;
 
@@ -144,14 +194,30 @@
     border: 2px solid var(--border-color);
     padding: 0.2rem 0.4rem;
     border-radius: 1.25rem;
+
+    gap: 0.2rem
 }
 
-.overlay-actions * {
+/* .overlay-actions * {
     display: flex;
     align-items: center;
     justify-content: center;
-    white-space: nowrap; /* Текст не переносится */
+    white-space: nowrap;
     cursor: pointer;
+} */
+
+.overlay-actions .devider {
+    border-right: 2px solid var(--border-color-l2);
+}
+
+.overlay-action-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    width: 40px;
+    height: 30px;
+    border-radius: 8px;
 }
 
 .overlay-actions.top {

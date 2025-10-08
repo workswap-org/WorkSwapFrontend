@@ -329,7 +329,7 @@
     width: max-content;
     width: 100%;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 0.3rem;
+    padding-bottom: 1rem;
 }
 
 .listing-type-item {
@@ -344,7 +344,7 @@
     cursor: pointer;
 
     padding: 0.3rem 1cqh;
-    background-color: transparent;
+    background-color: var(--background-l1);
     color: var(--text-color);
     gap: 0.4rem;
     font-size: 1.05rem;
