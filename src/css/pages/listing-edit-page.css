@@ -49,109 +49,6 @@
     font-size: 0.8rem;
 }
 
-.lang-card.create {
-    border: 3px dashed var(--border-color);
-}
-
-.lang-card .delete-lang {
-    position: absolute;
-    background-color: var(--background-l1);
-    border-radius: 6px;
-    border-width: 0;
-    right: 0.5rem;
-    padding: 0.3rem 0.3rem;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.lang-options {
-    background-color: var(--background-l1);
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    gap: 0.2rem;
-}
-
-.lang-options button {
-    background-color: var(--background-l1);
-    color: var(--text-color);
-    padding: 0.3rem 0.6rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-}
-
-.indicator {
-    text-align: center;
-    border-radius: 40%;
-    font-weight: bold;
-    color: white;
-    font-size: smaller;
-    height: 30px;
-    width: 30px;
-    cursor: pointer;
-    padding-top: 0.3rem;
-    border: 1px solid var(--border-color);
-}   
-
-.form-container {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-}
-
-.indicator.green { background-color: rgb(77 217 77); }
-.indicator.green :hover { background-color: rgb(43, 148, 43); }
-.indicator.yellow { background-color: rgb(207, 187, 0); }
-.indicator.yellow :hover{ background-color: rgb(206, 148, 1); }
-
-.language-indicators {
-    z-index: 100;
-    display: flex;
-    position: absolute;
-    gap: 0.5rem;
-    transform: translateY(-18px) translateX(10px);
-}
-
-.languageFields {
-    margin-top:10px; 
-    display:none;
-    padding: 0 2rem;
-}
-
-.languageFields-item {
-    width: 100%;
-}
-
-.language-box {
-    display: flex;
-    flex-direction: row;
-}
-
-.language-box input,
-.language-box select,
-.language-box textarea {
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    font-size: 1rem;
-    background-color: var(--background-l1);
-    transition: border-color 0.2s ease;
-}
-
-.delete-cross {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    top: -10px;
-    right: -8px;
-    padding: auto;
-    background-color: var(--danger);
-    color: var(--background-l1);
-    border-radius: 50%;
-    text-align: center;
-    cursor: pointer;
-}
-
 /* Форма редактирования */
 .edit-listing-form {
     display: grid;
@@ -167,13 +64,6 @@
 /* Загрузка изображений */
 .image-upload {
     margin-top: 1rem;
-}
-
-.current-image {
-    max-width: 200px;
-    border-radius: var(--radius);
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .file-name {
@@ -261,25 +151,6 @@ select.price-edit-duo {
     font-size: 0.9rem;
 }
 
-.alert-success {
-    background-color: var(--success-light);
-    color: var(--success-dark);
-    border: 1px solid rgba(15, 118, 110, 0.2);
-}
-
-.alert-danger {
-    background-color: rgba(248, 113, 113, 0.1);
-    color: var(--danger);
-    border: 1px solid rgba(248, 113, 113, 0.2);
-}
-
-.form-lang-grid {
-    display: flex;
-    gap: 20px; /* расстояние между языками */
-    flex-wrap: wrap; /* чтобы на маленьком экране переносились вниз */
-    margin-top: 20px;
-}
-
 .form-lang {
     flex: 1; /* чтобы каждая колонка равномерно растягивалась */
 }
@@ -302,11 +173,6 @@ select.price-edit-duo {
     width: 100%; /* или flex, в зависимости от вашей верстки */
 }
 
-.languageFields-item {
-    width: 100%; /* Поля ввода займут всю ширину .input-wrapper */
-    box-sizing: border-box; /* Учитываем padding и border в ширине */
-}
-
 .char-counter {
     position: absolute;
     right: 8px; /* Отступ от правого края */
@@ -318,24 +184,8 @@ select.price-edit-duo {
     opacity: 0.6;
 }
 
-.languageFields-item[type="text"] {
-    padding-right: 4.5rem; /* Оставляет место для счетчика */
-}
-
-.languageFields-item:is(textarea) {
-    padding-bottom: 30px;
-    padding-right: 4rem;
-}
-
 /* Адаптивность */
 @media (max-width: 992px) {
-    .form-lang-grid {
-        display: flex;
-        gap: 20px; /* расстояние между языками */
-        flex-wrap: wrap; /* чтобы на маленьком экране переносились вниз */
-        flex-direction: column;
-        margin-top: 20px;
-    }
 
     .form-control {
         width: 100%;
@@ -354,10 +204,6 @@ select.price-edit-duo {
         flex-direction: column;
     }
 
-    .current-image {
-        max-width: 100%;
-    }
-
     .lang-cards {
         display: flex;
         flex-direction: column;
@@ -370,14 +216,4 @@ select.price-edit-duo {
     .two-columns-grid {
         grid-column: span 1;
     }
-}
-
-/* Анимации */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.alert {
-    animation: fadeIn 0.3s ease-in-out;
 }

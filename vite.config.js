@@ -21,13 +21,6 @@ export default defineConfig({
             'workswap.org'
         ],
         port: 30000,
-        proxy: {
-            "/proxy": {
-                target: "https://api.workswap.org",
-                changeOrigin: true,
-                secure: false,
-            },
-        },
     },
     define: {
         global: 'window'

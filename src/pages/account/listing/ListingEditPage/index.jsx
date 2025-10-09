@@ -240,7 +240,7 @@ const ListingEditPage = () => {
                         type="button" 
                         className="btn btn-outline-primary"
                     >
-                        {t(`listing.goToDrafts`, { ns: 'buttons' })}
+                        {t(`listing.goToMyListings`, { ns: 'buttons' })}
                     </Link>
 
                     {listing.temporary && (

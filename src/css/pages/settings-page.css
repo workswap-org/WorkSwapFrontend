@@ -140,11 +140,6 @@ h2 {
     width: 100%;
 }
 
-.languageFields-item {
-    width: 100%;
-    box-sizing: border-box;
-}
-
 .char-counter {
     position: absolute;
     right: 8px;
@@ -154,17 +149,6 @@ h2 {
     padding: 0 5px;
     border-radius: 3px;
     opacity: 0.6;
-}
-
-/* Для текстовых полей */
-.languageFields-item[type="text"] {
-    padding-right: 4.5rem;
-}
-
-/* Для textarea */
-textarea.languageFields-item {
-    padding-bottom: 2rem; /* Увеличиваем отступ снизу */
-    padding-right: 4rem;
 }
 
 /* Специфично для вашего textarea */
