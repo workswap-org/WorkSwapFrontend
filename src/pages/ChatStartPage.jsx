@@ -11,7 +11,7 @@ const ChatStartPage = () => {
     const sellerId = params.get("sellerId") || undefined;
     const listingId = params.get("listingId") || undefined;
 
-    const [chat, setChat] = useState(0);
+    const [chatId, setChatId] = useState(0);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const ChatStartPage = () => {
 
         async function loadChat() {
             const data = await getChat(newParams);
-            setChat(await data.chatId);
+            setChatId(await data.chatId);
         }
 
         loadChat();
@@ -32,14 +32,14 @@ const ChatStartPage = () => {
     }, [sellerId, listingId, user]);
 
     useEffect(() => {
-        if(chat) {
-            navigate(`/secure/messenger?chatId=${chat}`, { replace: true})
+        if(chatId) {
+            navigate(`/secure/messenger?chatId=${chatId}`, { replace: true})
         }
-    }, [chat, navigate])
+    }, [chatId, navigate])
 
     return (
-        <div>
-        </div>
+        <>
+        </>
     );
 };
 

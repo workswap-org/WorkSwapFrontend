@@ -1,14 +1,14 @@
-import DialogItem from "./chat/DialogItem";
 import { useEffect, useState, useCallback } from "react";
+import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { 
     useWebSocket,
     deleteTemporaryChats,
     useChatsUpdates
 } from "@core/lib";
-import { useTranslation } from "react-i18next";
-import ChatContainer from "./ChatContainer";
-import { useLocation } from "react-router-dom";
 import { PublicListingCard } from "@/components";
+import ChatContainer from "./ChatContainer";
+import DialogItem from "./chat/DialogItem";
 
 const MessengerPage = () => {
 
@@ -68,32 +68,31 @@ const MessengerPage = () => {
 
     useEffect(() => {
 
+        if (!connected || !client?.active) return;
+
         function loadChats(client) {
-            if (!client || !client.active) return;
 
             client.publish({
-                destination: "/app/getChats",
-                headers: { 
-                    locale: userLocale
-                },
+                destination: "/app/chat.get-chats",
                 body: JSON.stringify({})
             });
         }
 
-        if (!connected || !client) return;
-
         const sub = client.subscribe("/user/queue/chats", (message) => {
-            const chat = JSON.parse(message.body);
 
-            setChats(prev => {
-                // если чат уже есть, обновляем его, иначе добавляем
-                const existingIndex = prev.findIndex(c => c.id === chat.id);
-                if (existingIndex >= 0) {
-                    const newChats = [...prev];
-                    newChats[existingIndex] = chat;
-                    return newChats;
-                }
-                return [chat, ...prev];
+            const chats = JSON.parse(message.body);
+
+            chats.forEach(chat => {
+                setChats(prev => {
+                    // если чат уже есть, обновляем его, иначе добавляем
+                    const existingIndex = prev.findIndex(c => c.id === chat.id);
+                    if (existingIndex >= 0) {
+                        const newChats = [...prev];
+                        newChats[existingIndex] = chat;
+                        return newChats;
+                    }
+                    return [chat, ...prev];
+                });
             });
         });
 

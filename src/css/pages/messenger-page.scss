@@ -36,14 +36,14 @@
     cursor: pointer;
     transition: all 0.4s;
     gap: 1rem;
-}
 
-.dialog-item:hover {
-    background-color: var(--background);
-}
+    &:hover {
+        background-color: var(--background);
+    }
 
-.dialog-item.active {
-    background-color: var(--primary-light);
+    &.active {
+        background-color: var(--primary-light);
+    }
 }
 
 .dialog-content {
@@ -58,14 +58,7 @@
     margin-bottom: 0.25rem;
 }
 
-.dialog-header h4 {
-    font-size: 1rem;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
+.dialog-header h4,
 .chat-header h4 {
     font-size: 1rem;
     margin: 0;
@@ -134,10 +127,10 @@
     text-align: center;
     padding: 2rem;
     color: var(--gray);
-}
 
-.no-dialogs p {
-    margin: 0.5rem 0;
+    p {
+        margin: 0.5rem 0;
+    }
 }
 
 .chat-window {
@@ -146,7 +139,7 @@
     flex-direction: column;
     background-color: var(--background);
     border-radius: var(--radius);
-    overflow: hidden; /* Важно для вложенных скроллов */
+    overflow: hidden;
     position: relative;
 }
 
@@ -195,24 +188,24 @@
     color: var(--gray);
     margin: 1rem 0;
     position: relative;
-}
 
-.message-date::before,
-.message-date::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    width: 40%;
-    height: 1px;
-    background-color: var(--border-color);
-}
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background-color: var(--border-color);
+    }
 
-.message-date::before {
-    left: 0;
-}
+    &::before {
+        left: 0;
+    }
 
-.message-date::after {
-    right: 0;
+    &::after {
+        right: 0;
+    }
 }
 
 .message {
@@ -224,15 +217,14 @@
     padding: 0.3rem 0.75rem;
     border-radius: var(--radius);
     position: relative;
-
     display: inline-flex;
     align-items: flex-end;
     gap: 0.4rem;
-}
 
-.message-content p {
-    margin: 0;
-    word-wrap: break-word;
+    p {
+        margin: 0;
+        word-wrap: break-word;
+    }
 }
 
 .message-time {
@@ -242,16 +234,19 @@
     margin: 0;
 }
 
-.message-in .message-content {
-    background-color: var(--background);
-    margin-right: auto;
+.message-in {
+    .message-content {
+        background-color: var(--background);
+        margin-right: auto;
+    }
 }
 
-.message-out .message-content {
-    background-color: var(--primary-2xlight);
-    margin-left: auto;
+.message-out {
+    .message-content {
+        background-color: var(--primary-2xlight);
+        margin-left: auto;
+    }
 }
-
 
 .message-input-container {
     display: flex;
@@ -272,12 +267,12 @@
     max-height: 120px;
     font-size: 0.9rem;
     transition: all 0.2s;
-}
 
-.message-input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px var(--primary-light);
+    &:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px var(--primary-light);
+    }
 }
 
 .img-send-btn {
@@ -300,17 +295,18 @@
     padding: 2rem;
 }
 
-.no-chat-content svg {
-    margin-bottom: 1rem;
-    color: var(--border-color);
+.no-chat-content {
+    svg {
+        margin-bottom: 1rem;
+        color: var(--border-color);
+    }
+
+    h3 {
+        margin: 0.5rem 0;
+        color: var(--text-color);
+    }
 }
 
-.no-chat-content h3 {
-    margin: 0.5rem 0;
-    color: var(--text-color);
-}
-
-/* Мобильное меню диалогов */
 .mobile-dialogs-toggle {
     display: none;
     background-color: transparent;
@@ -347,7 +343,6 @@
     padding: 0.3rem 0.7rem;
     border-radius: var(--radius);
     z-index: 100;
-
     width: 100%;
     box-sizing: border-box;
     text-align: center;
@@ -360,17 +355,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    * {
+        width: fit-content;
+    }
 }
 
-.chat-order * {
-    width: fit-content;
-}
-
-/* Мобильная версия */
+// Мобильная версия
 @media (max-width: 768px) {
-
-    .message-in .message-content {
-        background-color: var(--background-l2);
+    .message-in {
+        .message-content {
+            background-color: var(--background-l2);
+        }
     }
 
     .mobile-dialogs-toggle {
@@ -407,10 +403,10 @@
         padding: 1rem;
         transition: left 0.3s ease;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    }
 
-    .dialogs-list.show {
-        left: 0;
+        &.show {
+            left: 0;
+        }
     }
 
     .h2 {
@@ -463,12 +459,12 @@
     .chat-user {
         flex-direction: row;
         align-items: center;
-    }
 
-    .chat-user img {
-        width: 40px;
-        height: 40px;
-        margin-right: 0.5rem;
+        img {
+            width: 40px;
+            height: 40px;
+            margin-right: 0.5rem;
+        }
     }
 
     .messenger-main {

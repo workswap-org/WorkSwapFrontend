@@ -3,9 +3,10 @@ import SendMessageArea from "./chat/SendMessageArea";
 import { 
     useChatSubscription,
     getListingByChatId,
-    useWebSocket
+    useWebSocket,
+    getOrderByChat
 } from "@core/lib";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
@@ -22,6 +23,7 @@ const ChatContainer = ({
 
     const { error } = useWebSocket();
     const { messages } = useChatSubscription(currentChatId);
+    const [order, setOrder] = useState([])
 
     const messagesContainer = useRef(null);
 
@@ -37,7 +39,15 @@ const ChatContainer = ({
             setChatListing(data.listing)
         }
 
-        if (currentChatId) loadChatListing(currentChatId);
+        async function loadOrder(currentChatId) {
+            const data = await getOrderByChat(currentChatId);
+            setOrder(data.order)
+        }
+
+        if (currentChatId) {
+            loadChatListing(currentChatId);
+            loadOrder(currentChatId);
+        }
     }, [currentChatId, setChatListing]);
 
     return (
@@ -92,6 +102,10 @@ const ChatContainer = ({
                         <i className="fa-solid fa-spinner-third fa-spin"></i>
                     </div>
                 )}
+
+                <div className="chat-order">
+                    <span>Заказ #{order?.id} создан</span>
+                </div>
                 {/* <div className="message-date">Сегодня</div> */}
 
                 {(messages.length === 0 && !error) && (

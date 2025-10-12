@@ -11,8 +11,7 @@ const SendMessageArea = ({ currentChatId }) => {
 
     const { client, connected } = useWebSocket();
     const { setMessages } = useChatSubscription(currentChatId);
-    const { i18n, t } = useTranslation();
-    const userLocale = i18n.language || "ru";
+    const { t } = useTranslation();
     const [message, setMessage] = useState("");
 
     // Проверка, можно ли писать сообщение
@@ -47,10 +46,7 @@ const SendMessageArea = ({ currentChatId }) => {
         };
 
         client.publish({
-            destination: `/app/chat.send`,
-            headers: {
-                locale: userLocale
-            },
+            destination: `/app/chat.message-send`,
             body: JSON.stringify(msg)
         });
 
