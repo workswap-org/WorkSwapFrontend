@@ -40,9 +40,7 @@ const MessengerPage = () => {
         if (!currentChatId || !client || !client.active || !connected) return;
 
         client.publish({
-            destination: "/app/chat.markAsRead",
-            body: JSON.stringify({ chatId: currentChatId }),
-            headers: { locale: userLocale }
+            destination: `/app/chat.markAsRead/${currentChatId}`
         });
 
         const url = new URL(window.location);

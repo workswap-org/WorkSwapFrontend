@@ -356,9 +356,6 @@ $radius: var(--radius);
 	@include mobile {
 		min-width: auto;
 		padding: 0.6rem 0.6rem;
-		border-radius: $radius;
-		border-right: 1px solid var(--border-color);
-		margin-bottom: 0.5rem;
 	}
 }
 
