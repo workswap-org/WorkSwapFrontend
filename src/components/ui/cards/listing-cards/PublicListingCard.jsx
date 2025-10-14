@@ -30,8 +30,16 @@ const PublicListingCard = ({listing, isMainListing}) => {
 
     if (listing.testMode || isMainListing || listing.temporary) return null;
 
+    const navigator = () => {
+        if (listing.type == "EVENT") {
+            navigate(`/event/${listing.id}`)
+        } else {
+            navigate(`/listing/${listing.id}`)
+        }
+    }
+
     return (
-        <article onClick={() => navigate(`/listing/${listing.id}`)} className="listing-card hover-animation-card">
+        <article onClick={() => navigator()} className="listing-card hover-animation-card">
             <img 
                 src={listing.imagePath || `/images/default-listing.svg`}
                 className="listing-img"

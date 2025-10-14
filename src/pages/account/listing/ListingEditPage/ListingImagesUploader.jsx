@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { 
     useNotification, 
     deleteListingImage,
-    uploadListingImage 
+    uploadListingImage,
+    getListingImages
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const ListingImagesUploader = ({ onChange, images, listing }) => {
+const ListingImagesUploader = ({ updateListing, listing }) => {
 
     const { t } = useTranslation('common');
 
@@ -14,11 +15,27 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
 
     const [imageList, setImageList] = useState([]);
     const [mainImage, setMainImage] = useState([]);
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         setImageList(images);
         setMainImage(listing.imagePath);
     }, [images, listing])
+
+    useEffect(() => {
+        async function loadImages() {
+            const data = await getListingImages(listing.id);
+            setImages(data.images);
+        }
+
+        if (listing.id) loadImages();
+    }, [listing.id]);
+
+    const imagesChange = useCallback((images, mainImage) => {
+        console.log("[I] Изображения:", images);
+        setImages(images);
+        updateListing({ mainImage })
+    }, [updateListing]);
 
     // Добавляем новое изображение
     const addListingImageUrl = (newImage) => {
@@ -27,7 +44,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
 
     const setMainImageToListing = (mainImageUrl) => {
         setMainImage(mainImageUrl)
-        onChange(images, mainImageUrl);
+        imagesChange(images, mainImageUrl);
     };
 
     // Удаляем изображение
@@ -89,7 +106,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
     };
 
     return (
-        <div className="form-group two-columns-grid">
+        <>
             <h3>{t(`labels.images`, { ns: 'common' })}</h3>
             <div className="image-gallery-grid">
                 {imageList.map((img) => (
@@ -134,7 +151,7 @@ const ListingImagesUploader = ({ onChange, images, listing }) => {
                     </label>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

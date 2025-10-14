@@ -51,7 +51,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
 
     return (
         <>
-            {(isAuthenticated && profileId != user.id) && (
+            {(isAuthenticated && profileId && profileId != user.id) && (
                 <section className="review-form">
                     <h3>{t(`reviews.item.label`, { ns: 'common' })}</h3>
                     <div id="review-form">

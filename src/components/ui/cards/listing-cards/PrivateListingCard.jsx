@@ -26,18 +26,26 @@ const PrivateListingCard  = ({listing}) => {
 
     if (listing.temporary) return null;
 
+    const navigator = () => {
+        if (listing.type == "EVENT") {
+            navigate(`/event/${listing.id}`)
+        } else {
+            navigate(`/listing/${listing.id}`)
+        }
+    }
+
     return (
-        <article className="listing-card hover-animation-card" onClick={() => navigate(`/listing/${listing.id}`)}>
+        <article className="listing-card hover-animation-card" onClick={() => navigator()}>
             <div 
                 className="overlay-actions hover-show top-center"
                 onClick={(e) => e.stopPropagation()}
             >
-                <Link 
+                <div 
                     className="overlay-action-item hover"
-                    to={`/listing/${listing.id}`}
+                    onClick={() => navigator()}
                 >
                     <i className="fa-solid fa-eye fa-lg"></i>
-                </Link>
+                </div>
                 <div className="devider"/>
                 {activePage === "my-listings" && (
                     <>

@@ -10,10 +10,9 @@ import {
 } from "@/components";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
-import ListingGallery from "./ListingGallery";
+import ListingGallery from "../ListingGallery";
 import { 
-    getListingById, 
-    getListingImages, 
+    getListingById,
     viewListing, 
     getUserById,
     getPathToCategory,
@@ -38,16 +37,12 @@ const ListingPage = () => {
     const isOwner = !!(user?.id == author?.id);
     const [categories, setCategories] = useState([]);
     const [isFavorite, setFavorite] = useState(false);
-    const [images, setImages] = useState([]);
 
     useEffect(() => {
         async function loadData() {
             try {
                 const listingData = await getListingById(id);
                 setListing(listingData.listing || null);
-
-                const imageData = await getListingImages(id);
-                setImages(imageData.images || []);
 
                 await viewListing(id);
             } catch (err) {
@@ -128,63 +123,67 @@ const ListingPage = () => {
                             <div className="listing-main-content">
                                 {/* Галерея изображений */}
                                 <div className="listing-content">
-                                    <ListingGallery images={images} mainImage={listing.imagePath}/>
+                                    <ListingGallery id={listing.id}/>
                                     
-                                    <div className="listing-info">
-                                        <h2>{t(`labels.description`, { ns: 'common' })}</h2>
-                                        <p className="listing-description">
-                                            {listing.localizedDescription || "Нет описания"}
-                                        </p>
-                                    </div>
+                                    {listing.localizedDescription && (
+                                        <div className="listing-info fade-down">
+                                            <h2>{t(`labels.description`, { ns: 'common' })}</h2>
+                                            <p className="listing-description">
+                                                {listing.localizedDescription || "Нет описания"}
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Информация о предложении */}
                                 <div className="listing-sidebar">
-                                    <div className="listing-details">
-                                        <div className="listing-page-price">
-                                            <span className="detail-label">{t(`labels.price`, { ns: 'common' })}:</span>
-                                            <h1><PriceTypes listing={listing} className={"price"} /></h1>
-                                        </div>
-                                        <div className="detail-item">
-                                            <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
-                                            <span className="detail-value">
-                                                {listing.location || ""}
-                                            </span>
-                                        </div>
-                                        <div className="detail-item">
-                                            <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
-                                            <ListingRating listing={listing}/>
-                                        </div>
-                                        {isOwner && (
-                                            <Link
-                                                to={`/secure/listing/edit/${listing.id}`}
-                                                className="btn btn-primary"
-                                            >
-                                                {t(`listing.edit`, { ns: 'buttons' })}
-                                            </Link>
-                                        )}
-
-                                        <div className="listing-actions">
-                                            {!isOwner && (
-                                                <div 
-                                                    className="listing-action-item"
-                                                    onClick={() => toggleFavorite(listing.id, setFavorite, isFavorite)}
+                                    {listing.id && (
+                                        <div className="listing-details fade-down">
+                                            <div className="listing-page-price">
+                                                <span className="detail-label">{t(`labels.price`, { ns: 'common' })}:</span>
+                                                <h1><PriceTypes listing={listing} className={"price"} /></h1>
+                                            </div>
+                                            <div className="detail-item">
+                                                <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
+                                                <span className="detail-value">
+                                                    {listing.location || ""}
+                                                </span>
+                                            </div>
+                                            <div className="detail-item">
+                                                <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
+                                                <ListingRating listing={listing}/>
+                                            </div>
+                                            {isOwner && (
+                                                <Link
+                                                    to={`/secure/listing/edit/${listing.id}`}
+                                                    className="btn btn-primary"
                                                 >
-                                                    <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart like`}></i>
-                                                </div>
+                                                    {t(`listing.edit`, { ns: 'buttons' })}
+                                                </Link>
                                             )}
-                                            <div 
-                                                className="listing-action-item hover"
-                                                onClick={() => {
-                                                    navigator.clipboard.writeText(window.location.href)
-                                                        .then(() => notificate(t(`notification.success.copyListingLink`, { ns: 'messages' }), "success"))
-                                                        .catch(() => notificate("Ошибка", "error"));
-                                                }}
-                                            >
-                                                <i className="fa-regular fa-share-nodes"></i>
+
+                                            <div className="listing-actions">
+                                                {!isOwner && (
+                                                    <div 
+                                                        className="listing-action-item"
+                                                        onClick={() => toggleFavorite(listing.id, setFavorite, isFavorite)}
+                                                    >
+                                                        <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart like`}></i>
+                                                    </div>
+                                                )}
+                                                <div 
+                                                    className="listing-action-item hover"
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(window.location.href)
+                                                            .then(() => notificate(t(`notification.success.copyListingLink`, { ns: 'messages' }), "success"))
+                                                            .catch(() => notificate("Ошибка", "error"));
+                                                    }}
+                                                >
+                                                    <i className="fa-regular fa-share-nodes"></i>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    )}
 
                                     {/* Боковая панель с контактами */}
                                     <UserInfoSidebar listingId={listing.id} author={author} />

@@ -10,35 +10,45 @@ import {
 } from "@/components";
 
 /* Страницы */
-import CatalogPage from "@/pages/CatalogPage";
-import ListingPage from "@/pages/ListingPage";
-import ProfilePage from "@/pages/ProfilePage";
+import {
+    CatalogPage,
+
+    /* Страницы items */
+    ListingPage,
+    ProfilePage,
+    EventPage,
+
+    /* Страницы информации */
+    TermsPage,
+    PrivacyPolicyPage,
+
+    /* Страницы аккаунта */
+    AccountPage,
+    MyListingsPage,
+    FavoritesPage,
+    MessengerPage,
+    SettingsPage,
+    SecurityPage,
+
+    /* Страницы управления объявлениями */
+    ListingEditPage,
+    ListingCreatePage,
+
+    ChatStartPage
+} from "@/pages";
 
 /* Страницы логина */
-import LoginPage from "@core/pages/login/LoginPage";
-import RegisterPage from "@core/pages/login/RegisterPage";
-import LoginSuccessPage from "@core/pages/login/LoginSuccessPage";
-import LogoutPage from "@core/pages/login/LogoutPage";
+import {
+    LoginPage,
+    RegisterPage,
+    LoginSuccessPage,
+    LogoutPage
+} from "@core/pages";
 
-/* Страницы информации */
-import TermsPage from "@/pages/infos/TermsPage";
-import PrivacyPolicyPage from "@/pages/infos/PrivacyPolicyPage";
-
-/* Страницы аккаунта */
-import AccountPage from "@/pages/account/AccountPage";
-import MyListingsPage from "@/pages/account/MyListingsPage";
-import FavoritesPage from "@/pages/account/FavoritesPage";
-import MessengerPage from "@/pages/account/MessengerPage";
-import SettingsPage from "@/pages/account/SettingsPage";
-import SecurityPage from "@/pages/account/SecurityPage";
-
-/* Страницы управления объявлениями */
-import ListingEditPage from "@/pages/account/listing/ListingEditPage";
-import ListingCreatePage from "@/pages/account/listing/ListingCreatePage";
-
-import PrivateRoute from "../../frontend-core/src/routes/PrivateRoute";
-import AuthGuard from "../../frontend-core/src/routes/AuthGuard";
-import ChatStartPage from "@/pages/ChatStartPage";
+import {
+    PrivateRoute,
+    AuthGuard
+} from "@core/routes";
 
 const AppRouter = () => {
     return (
@@ -58,6 +68,7 @@ const AppRouter = () => {
                     <Route element={<AuthGuard />}>
                             {/* публичные страницы */}
                         <Route path="catalog" element={<CatalogPage />} />
+                        <Route path="event/:eventId" element={<EventPage />} />
                         <Route path="listing/:id" element={<ListingPage />} />
                         <Route path="profile/:id" element={<ProfilePage />} />
 

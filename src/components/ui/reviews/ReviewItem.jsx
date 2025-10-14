@@ -39,7 +39,7 @@ const ReviewItem = ({review}) => {
                     </div>
                 </div>
                 <span className="review-date">
-                    <FormattedDate isoDate={review.createdAt} />
+                    <FormattedDate isoDate={review.createdAt} format="DMYHM" />
                 </span>
                 
                 {/* {review.listing && profileUser && (

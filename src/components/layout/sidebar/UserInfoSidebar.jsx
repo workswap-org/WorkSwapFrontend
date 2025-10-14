@@ -14,83 +14,87 @@ const UserInfoSidebar = ( {listingId, author} ) => {
 
     return (
         <aside className="user-info-sidebar">
-            <div className="seller-card">
-                <div className="seller-info">
-                    <Avatar
-                        user={author}
-                        size={100}
-                        className='seller-avatar'
-                    />
-                    <div className="seller-meta">
-                        <h3>{author.name}</h3>
-                        <div className="seller-rating">
-                            <span>{t(`labels.rating`, { ns: 'common' })}: </span>
-                            <span>{author.rating}</span> ★
-                        </div>
-                        <div className="seller-actions">
-                            {isAuthenticated ? (
-                                <>  
-                                    {!isOwner && (
-                                        <>
-                                            <Link 
-                                                to={`/secure/chat-start?listingId=${listingId}&sellerId=${author.id}`} 
-                                                className="btn btn-primary"
-                                            >
-                                                {t(`listing.contactToAuthor`, { ns: 'buttons' })}
-                                            </Link>
-                                        </>
-                                    )}
-                                </>
-                            ) : (
-                                <Link 
-                                    to="/login" 
-                                    className="btn btn-primary"
-                                >
-                                    {t(`loginToWrite`, { ns: 'buttons' })}
-                                </Link>
-                            )}
+            {author.name && (
+                <div className="seller-card fade-down">
+                    <div className="seller-info">
+                        <Avatar
+                            user={author}
+                            size={100}
+                            className='seller-avatar'
+                        />
+                        <div className="seller-meta">
+                            <h3>{author.name}</h3>
+                            <div className="seller-rating">
+                                <span>{t(`labels.rating`, { ns: 'common' })}: </span>
+                                <span>{author.rating}</span> ★
+                            </div>
+                            <div className="seller-actions">
+                                {isAuthenticated ? (
+                                    <>  
+                                        {!isOwner && (
+                                            <>
+                                                <Link 
+                                                    to={`/secure/chat-start?listingId=${listingId}&sellerId=${author.id}`} 
+                                                    className="btn btn-primary"
+                                                >
+                                                    {t(`listing.contactToAuthor`, { ns: 'buttons' })}
+                                                </Link>
+                                            </>
+                                        )}
+                                    </>
+                                ) : (
+                                    <Link 
+                                        to="/login" 
+                                        className="btn btn-primary"
+                                    >
+                                        {t(`loginToWrite`, { ns: 'buttons' })}
+                                    </Link>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
 
-            <div className="contact-card">
-                <h3>{t(`labels.contacts`, { ns: 'common' })}</h3>
-                <div className="contact-methods">
+            {author.name && (
+                <div className="contact-card fade-down">
+                    <h3>{t(`labels.contacts`, { ns: 'common' })}</h3>
+                    <div className="contact-methods">
 
-                    {author.phone && (
-                        <div 
-                            className="contact-item hover"
-                            onClick={() => {
-                                navigator.clipboard.writeText(author.phone)
-                                    .then(() => notificate(t(`notification.success.copyPhone`, { ns: 'messages' }), "success"))
-                                    .catch(() => notificate("Ошибка", "error"));
-                            }}
-                        >
-                            <div><i className="fa-regular fa-phone fa-lg"></i></div>
-                            <span className="contact-value">{author.phone}</span>
-                        </div>
-                    )}
+                        {author.phone && (
+                            <div 
+                                className="contact-item hover"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(author.phone)
+                                        .then(() => notificate(t(`notification.success.copyPhone`, { ns: 'messages' }), "success"))
+                                        .catch(() => notificate("Ошибка", "error"));
+                                }}
+                            >
+                                <div><i className="fa-regular fa-phone fa-lg"></i></div>
+                                <span className="contact-value">{author.phone}</span>
+                            </div>
+                        )}
 
-                    {author.email && (
-                        <div 
-                            className="contact-item hover"
-                            onClick={() => {
-                                navigator.clipboard.writeText(author.email)
-                                    .then(() => notificate(t(`notification.success.copyEmail`, { ns: 'messages' }), "success"))
-                                    .catch(() => notificate("Ошибка", "error"));
-                            }}
-                        >
-                            <div><i className="fa-regular fa-envelope fa-lg"></i></div>
-                            <span className="contact-value">{author.email}</span>
-                        </div>
-                    )}
+                        {author.email && (
+                            <div 
+                                className="contact-item hover"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(author.email)
+                                        .then(() => notificate(t(`notification.success.copyEmail`, { ns: 'messages' }), "success"))
+                                        .catch(() => notificate("Ошибка", "error"));
+                                }}
+                            >
+                                <div><i className="fa-regular fa-envelope fa-lg"></i></div>
+                                <span className="contact-value">{author.email}</span>
+                            </div>
+                        )}
 
-                    {(author.phone == null && author.email == null) && (
-                         <span>Нет контактов</span>
-                    )}
+                        {(author.phone == null && author.email == null) && (
+                            <span>Нет контактов</span>
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
 
             {(!listingId && author.bio) && (
                 <div className="contact-card">

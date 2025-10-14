@@ -1,21 +1,20 @@
+import { useEffect, useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import {
     CategorySelector,
     LocationSelector
 } from "@/components";
-import { useEffect, useState, useCallback } from "react";
 import { 
     modifyListing, 
     useNotification,
-    publishListing,
-    deleteListing,
     getSupportedPryceTypes,
-    getListingById,
-    getListingImages
+    getListingById
 } from "@core/lib";
+import ListingEditActions from "./ListingEditActions";
 import ListingImagesUploader from "./ListingImagesUploader";
 import ListingTranslations from "./translations/ListingTranslations";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import EventSettings from "./EventSettings";
 
 const ListingEditPage = () => {
 
@@ -23,8 +22,7 @@ const ListingEditPage = () => {
 
     const { id } = useParams();
 
-    const {notificate, notificateFromRes} = useNotification();
-    const navigate = useNavigate();
+    const {notificate} = useNotification();
 
     const [priceTypes, setPriceTypes] = useState([])
     const [listing, setListing] = useState([])
@@ -32,7 +30,6 @@ const ListingEditPage = () => {
     const [saving, setSaving] = useState(false);
     const [locationId, setLocationId] = useState([]);
     const [categoryId, setCategoryId] = useState([]);
-    const [images, setImages] = useState([]);
     const [price, setPrice] = useState(listing?.price || "");
     const [selectedPriceType, setSelectedPriceType] = useState("");
     const [isActive, setActive] = useState(false);
@@ -68,38 +65,6 @@ const ListingEditPage = () => {
         updateListing({ location: lastId });
     }, [updateListing]);
 
-    // imagesChange
-    const imagesChange = useCallback((images, mainImage) => {
-        console.log("[I] Изображения:", images);
-        setImages(images);
-        updateListing({ mainImage })
-    }, [updateListing]);
-
-    // changePrice
-    const changePrice = useCallback((price) => {
-        setPrice(price);
-        updateListing({ price });
-    }, [updateListing]);
-
-    // changePriceType
-    const changePriceType = useCallback((type) => {
-        setSelectedPriceType(type);
-        updateListing({ priceType: type });
-    }, [updateListing]);
-
-    const changeActive = useCallback((active) => {
-        setActive(active);
-        updateListing({ active });
-    }, [updateListing])
-
-    async function publishL() {
-        const data = await publishListing(id);
-        if (data.message) {
-            notificateFromRes(data);
-            navigate(`/secure/my-listings`);
-        }
-    }
-
     useEffect(() => {
 
         async function loadPriceTypes() {
@@ -117,13 +82,7 @@ const ListingEditPage = () => {
             setListing(data.listing);
         }
 
-        async function loadImages() {
-            const data = await getListingImages(id);
-            setImages(data.images);
-        }
-
         loadListing();
-        loadImages();
     }, [id]);
 
     useEffect(() => {
@@ -163,7 +122,10 @@ const ListingEditPage = () => {
                             <input 
                                 type="checkbox" 
                                 checked={isActive ?? false}
-                                onChange={(e) => changeActive(e.target.checked)}
+                                onChange={(e) => {
+                                    setActive(e.target.checked);
+                                    updateListing({ active: e.target.checked });
+                                }}
                                 value="true"
                             />
                             <span className="slider"></span>
@@ -186,7 +148,10 @@ const ListingEditPage = () => {
                                 id="price"
                                 name="price"
                                 value={price ?? ""}
-                                onChange={(e) => changePrice(e.target.value)}
+                                onChange={(e) => {
+                                    setPrice(e.target.value);
+                                    updateListing({ price: e.target.value });
+                                }}
                                 step="0.01"
                                 required
                             />
@@ -197,7 +162,10 @@ const ListingEditPage = () => {
                             className={`form-control ${selectedPriceType != 'NEGOTIABLE' ? 'price-edit-duo' : ''}`}
                             required
                             value={selectedPriceType ?? ""}
-                            onChange={(e) => changePriceType(e.target.value)}
+                            onChange={(e) => {
+                                setSelectedPriceType(e.target.value);
+                                updateListing({ priceType: e.target.value });
+                            }}
                         >
                             <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
                             {priceTypes.map((type) => (
@@ -219,39 +187,18 @@ const ListingEditPage = () => {
                     <LocationSelector locationId={locationId} onChange={locationChange} />
                 </div>
 
-                <ListingImagesUploader images={images} onChange={imagesChange} listing={listing}/>
+                <div className="form-group two-columns-grid">
+                    <ListingImagesUploader updateListing={updateListing} listing={listing}/>
+                </div>
+
+                {listing.type == 'EVENT' && (
+                    <EventSettings updateListing={updateListing} listing={listing}/>
+                )}
 
                 <div className="form-actions two-columns-grid">
-                    <button 
-                        onClick={() => {
-                            const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
-                            if (confirmed) {
-                                deleteListing(listing.id, notificateFromRes);
-                                navigate(`/secure/my-listings`);
-                            }
-                        }}
-                        type="button" 
-                        className="btn btn-outline-primary"
-                    >
-                        {t(`listing.${listing.temporary ? "cleanDraft" : "delete"}`, { ns: 'buttons' })}
-                    </button>
-                    <Link 
-                        to="/secure/listing/drafts" 
-                        type="button" 
-                        className="btn btn-outline-primary"
-                    >
-                        {t(`listing.goToMyListings`, { ns: 'buttons' })}
-                    </Link>
-
-                    {listing.temporary && (
-                        <button 
-                            onClick={() => publishL()} 
-                            type="button" 
-                            className="btn btn-primary"
-                        >
-                            {t(`listing.publish`, { ns: 'buttons' })}
-                        </button>
-                    )}
+                    <ListingEditActions
+                        listing={listing}
+                    />
                 </div>
             </div>
         </>
