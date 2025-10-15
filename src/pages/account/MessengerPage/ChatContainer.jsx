@@ -103,9 +103,9 @@ const ChatContainer = ({
                     </div>
                 )}
 
-                <div className="chat-order">
+                {/* <div className="chat-order">
                     <span>Заказ #{order?.id} создан</span>
-                </div>
+                </div> */}
                 {/* <div className="message-date">Сегодня</div> */}
 
                 {(messages.length === 0 && !error) && (
