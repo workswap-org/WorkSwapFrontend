@@ -148,7 +148,7 @@ const EventSettings = ({
                             setMinParticipants(e.target.value);
                             updateEvent({ minParticipants: e.target.value });
                         }}
-                        step="0.01"
+                        step="1"
                     />
                     <input
                         className="form-control price-edit-duo-2"
@@ -158,7 +158,7 @@ const EventSettings = ({
                             setMaxParticipants(e.target.value);
                             updateEvent({ maxParticipants: e.target.value });
                         }}
-                        step="0.01"
+                        step="1"
                     />
                 </div>
             </div>

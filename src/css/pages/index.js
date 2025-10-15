@@ -3,11 +3,11 @@
 import './catalog-page.scss';
 import './error-page.scss';
 import './messenger-page.scss';
+import './listing-page.scss';
 
 import './home-page.css';
 import './listing-edit-page.css';
 import './listing-create-page.css';
-import './listing-page.css';
 import './news-page.css';
 import './news-view-page.css';
 import './profile-page.css';

@@ -3,7 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import {
     ListingRating,
     PriceTypes,
-    FormattedDate
+    FormattedDate,
+    Avatar
 } from "@core/components";
 import {
     UserInfoSidebar,
@@ -24,7 +25,8 @@ import {
     checkSubscribtion,
     toggleSubscription,
     checkEventParticipant,
-    toggleParticipation
+    toggleParticipation,
+    getEventParticipants
 } from '@core/lib';
 
 import NotFoundPage from "@core/pages/NotFoundPage";
@@ -43,7 +45,8 @@ const EventPage = () => {
     const [categories, setCategories] = useState([]);
     const [isFavorite, setFavorite] = useState(false);
     const [subscribed, setSubscribed] = useState(false);
-    const [participants, setParticipants] = useState(0)
+    const [participantsCount, setParticipantsCount] = useState(0)
+    const [participants, setParticipants] = useState(undefined)
     const [isParticipant, setParticipant] = useState(false);
 
     useEffect(() => {
@@ -51,7 +54,7 @@ const EventPage = () => {
             try {
                 const listingData = await getEventListing(eventId);
                 setEvent(listingData);
-                setParticipants(listingData.participants);
+                setParticipantsCount(listingData.participants);
 
                 const subscribeData = await checkSubscribtion(eventId, 'EVENT');
                 setSubscribed(subscribeData);
@@ -70,6 +73,17 @@ const EventPage = () => {
     }, [eventId]);
 
     useEffect(() => {
+
+        async function loadEventParticipants() {
+            const participantsList = await getEventParticipants(eventId);
+            console.log(participantsList)
+            setParticipants(participantsList);
+        }
+
+        if (isOwner) loadEventParticipants();
+    }, [eventId, isOwner]);
+
+    useEffect(() => {
         async function loadListingAuthor(authorId) {
             const data = await getUserById(authorId);
             setAuthor(await data.user);
@@ -85,10 +99,6 @@ const EventPage = () => {
 
     }, [event])
 
-    const params = {
-        categoryId: event?.categoryId,
-    }
-
     useEffect(() => {
 
         if (event?.id && isAuthenticated) {
@@ -96,6 +106,10 @@ const EventPage = () => {
         }
         
     }, [event?.id, isAuthenticated]);
+
+    const params = {
+        categoryId: event?.categoryId,
+    }
 
     if (!event) return <NotFoundPage/>;
 
@@ -227,14 +241,34 @@ const EventPage = () => {
                                         </div>
                                     </div>
 
+                                    {participants && (
+                                        <div className="listing-details fade-down">
+                                            <h3>{t(`labels.event.participants`, { ns: 'common' })}</h3>
+                                            <div className="event-participants">
+                                                {participants.map((participant) => (
+                                                    <div className="event-participant">
+                                                        <Avatar 
+                                                            user={participant}
+                                                            className='seller-avatar'
+                                                            size={50}
+                                                            link={false}
+                                                        />
+                                                        <span>{participant.name}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                    
+
                                     <div className="listing-details fade-down">
                                         <div className="detail-item">
                                             <span className="detail-label">{t(`labels.event.participants`, { ns: 'common' })}:</span>
-                                            <span className="detail-value">{participants}/{event.maxParticipants}</span>
+                                            <span className="detail-value">{participantsCount}/{event.maxParticipants}</span>
                                         </div>
                                         <div 
                                             className="btn btn-primary"
-                                            onClick={() => toggleParticipation(eventId, participants, setParticipants, isParticipant, setParticipant)}
+                                            onClick={() => toggleParticipation(eventId, participantsCount, setParticipantsCount, isParticipant, setParticipant)}
                                         >
                                             {!isParticipant ? (
                                                 <span>{t(`event.participation.join`, { ns: 'buttons' })}</span>

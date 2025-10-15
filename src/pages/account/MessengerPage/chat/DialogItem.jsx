@@ -3,7 +3,7 @@ import { getInterlocutorInfo } from "@core/lib";
 
 const DialogItem = ({ chat, changeChat, startChatId, currentChatId }) => {
 
-    const [interlocutor, setInterlocutor] = useState({ name: "User", avatar: "/images/avatar-placeholder.png" });
+    const [interlocutor, setInterlocutor] = useState({ name: "User", avatarUrl: "/images/avatar-placeholder.png" });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
