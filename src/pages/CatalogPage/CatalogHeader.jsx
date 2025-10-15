@@ -13,21 +13,21 @@ const CatalogHeader = ({
 
     const [categoriesMenu, setCategoriesMenu] = useState(false);
 
-    function toggleCategoriesMenu() {
-        setCategoriesMenu(!categoriesMenu);
-    }
-
     return (
         <div className="catalog-header">
             <div className="catalog-header-content">
 
-                <button className="btn btn-primary categories-btn" onClick={() => toggleCategoriesMenu()}>
+                <button 
+                    className="btn btn-primary categories-btn" 
+                    onMouseEnter={() => setCategoriesMenu(true)}
+                >
                     <div><i className="fa-solid fa-list fa-lg perm-light"></i></div>
                     <span className="normal-only">{t('category.all-categories', { ns: 'categories' })}</span>
                 </button>
 
                 <CategoriesSelector 
                     categoriesMenu={categoriesMenu}
+                    setCategoriesMenu={setCategoriesMenu}
                     categoryId={categoryId}
                     setCategoryId={setCategoryId}
                 />

@@ -384,6 +384,8 @@ $radius: var(--radius);
 	display: none;
 	overflow: hidden;
 	flex-direction: column;
+	transform-origin: top;
+	animation: expandDown 0.3s ease forwards;
 
 	@include small-mobile {
 		max-height: 80vh;
@@ -391,8 +393,7 @@ $radius: var(--radius);
 	}
 
 	&.active {
-		display: flex;
-		animation: fadeIn 0.2s ease;
+		display: flex;;
 	}
 
 	* {

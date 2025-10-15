@@ -125,15 +125,21 @@
     gap: 0.3rem
 }
 
-input.price-edit-duo {
-    flex: 1;
-    border-radius: var(--radius) 0 0 var(--radius);
+.participants-edit {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 0.3rem
 }
 
-select.price-edit-duo {
+.price-edit-duo {
+    flex: 1;
+    border-radius: var(--radius) 0 0 var(--radius) !important;
+}
+
+.price-edit-duo-2 {
     padding-left: 0.5rem;
-    width: 30%;
-    border-radius: 0 var(--radius) var(--radius) 0;
+    width: 30% !important;
+    border-radius: 0 var(--radius) var(--radius) 0 !important;
 }
 
 /* Сообщения об ошибках */

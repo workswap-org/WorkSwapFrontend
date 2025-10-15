@@ -43,6 +43,7 @@ const EventPage = () => {
     const [categories, setCategories] = useState([]);
     const [isFavorite, setFavorite] = useState(false);
     const [subscribed, setSubscribed] = useState(false);
+    const [participants, setParticipants] = useState(0)
     const [isParticipant, setParticipant] = useState(false);
 
     useEffect(() => {
@@ -50,6 +51,7 @@ const EventPage = () => {
             try {
                 const listingData = await getEventListing(eventId);
                 setEvent(listingData);
+                setParticipants(listingData.participants);
 
                 const subscribeData = await checkSubscribtion(eventId, 'EVENT');
                 setSubscribed(subscribeData);
@@ -228,11 +230,11 @@ const EventPage = () => {
                                     <div className="listing-details fade-down">
                                         <div className="detail-item">
                                             <span className="detail-label">{t(`labels.event.participants`, { ns: 'common' })}:</span>
-                                            <span className="detail-value">{event.participants}/10</span>
+                                            <span className="detail-value">{participants}/{event.maxParticipants}</span>
                                         </div>
                                         <div 
                                             className="btn btn-primary"
-                                            onClick={() => toggleParticipation(eventId, setParticipant, isParticipant)}
+                                            onClick={() => toggleParticipation(eventId, participants, setParticipants, isParticipant, setParticipant)}
                                         >
                                             {!isParticipant ? (
                                                 <span>{t(`event.participation.join`, { ns: 'buttons' })}</span>

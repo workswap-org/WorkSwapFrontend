@@ -143,28 +143,22 @@ const EventSettings = ({
                     <input
                         className="form-control price-edit-duo"
                         type="number"
-                        id="price"
-                        name="price"
                         value={minParticipants ?? ""}
                         onChange={(e) => {
                             setMinParticipants(e.target.value);
                             updateEvent({ minParticipants: e.target.value });
                         }}
                         step="0.01"
-                        required
                     />
                     <input
-                        className="form-control price-edit-duo"
+                        className="form-control price-edit-duo-2"
                         type="number"
-                        id="price"
-                        name="price"
                         value={maxParticipants ?? ""}
                         onChange={(e) => {
                             setMaxParticipants(e.target.value);
                             updateEvent({ maxParticipants: e.target.value });
                         }}
                         step="0.01"
-                        required
                     />
                 </div>
             </div>

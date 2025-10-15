@@ -108,6 +108,7 @@ const ListingEditPage = () => {
                     <p>({t(`statuses.published`, { ns: 'common' })})</p>
                 )} 
             </div>
+            
             <div className="edit-listing-form form-grid">
 
                 <div className="form-group two-columns-grid">
@@ -138,7 +139,44 @@ const ListingEditPage = () => {
                     </div>
                 </div>
 
-                
+                <div className="form-group">
+                    <label htmlFor="price">{t(`labels.price`, { ns: 'common' })}</label>
+                    <div className="price-edit">
+                        {selectedPriceType != 'NEGOTIABLE' && (
+                            <input
+                                className="form-control price-edit-duo"
+                                type="number"
+                                id="price"
+                                name="price"
+                                value={price ?? ""}
+                                onChange={(e) => {
+                                    setPrice(e.target.value);
+                                    updateListing({ price: e.target.value });
+                                }}
+                                step="0.01"
+                                required
+                            />
+                        )}
+                        <select
+                            id="priceType"
+                            name="priceType"
+                            className={`form-control ${selectedPriceType != 'NEGOTIABLE' ? 'price-edit-duo-2' : ''}`}
+                            required
+                            value={selectedPriceType ?? ""}
+                            onChange={(e) => {
+                                setSelectedPriceType(e.target.value);
+                                updateListing({ priceType: e.target.value });
+                            }}
+                        >
+                            <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
+                            {priceTypes.map((type) => (
+                                <option key={type.name} value={type.name}>
+                                    {t(`priceTypes.${type.displayName}`, { ns: 'common' })}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
 
                 <div className="form-group">
                     <h3>{t(`labels.category`, { ns: 'common' })}</h3>

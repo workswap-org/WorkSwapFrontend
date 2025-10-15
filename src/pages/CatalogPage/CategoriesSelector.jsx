@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 const CategoriesSelector = ({
     categoriesMenu,
+    setCategoriesMenu,
     categoryId,
     setCategoryId
 }) => {
@@ -65,13 +66,13 @@ const CategoriesSelector = ({
     }, [categoryId, findCategory])
 
     return (
-       <div className={`categories-menu ${categoriesMenu ? "active" : ""}`}>
+        <div className={`categories-menu ${categoriesMenu ? "active" : ""}`} onMouseLeave={() => setCategoriesMenu(false)}>
             <div className="categories-container">
                 <div className="categories-sidebar-container">
                     <div className="categories-list">
                     {rootCategories().map((rootCategory) => (
                         <div key={rootCategory.id}>
-                            <button
+                            {<button
                                 type="button"
                                 className={`category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
                                 onClick={() => {
@@ -83,7 +84,7 @@ const CategoriesSelector = ({
                                 }}
                             >
                                 {t(`category.${rootCategory.name}`, { ns: 'categories' })}
-                            </button>
+                            </button>}
 
                             {children(rootCategory.id).map((child) =>
                                 <div key={child.id}>
