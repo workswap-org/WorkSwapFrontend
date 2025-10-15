@@ -153,23 +153,22 @@ const ListingPage = () => {
                                                 <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
                                                 <ListingRating listing={listing}/>
                                             </div>
-                                            {isOwner && (
-                                                <Link
-                                                    to={`/secure/listing/edit/${listing.id}`}
-                                                    className="btn btn-primary"
-                                                >
-                                                    {t(`listing.edit`, { ns: 'buttons' })}
-                                                </Link>
-                                            )}
 
                                             <div className="listing-actions">
-                                                {!isOwner && (
+                                                {!isOwner ? (
                                                     <div 
                                                         className="listing-action-item"
                                                         onClick={() => toggleFavorite(listing.id, setFavorite, isFavorite)}
                                                     >
                                                         <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart like`}></i>
                                                     </div>
+                                                ) : (
+                                                    <Link
+                                                        to={`/secure/listing/edit/${event.id}`}
+                                                        className="listing-action-item hover"
+                                                    >
+                                                        <i className="fa-solid fa-pen"></i>
+                                                    </Link>
                                                 )}
                                                 <div 
                                                     className="listing-action-item hover"
