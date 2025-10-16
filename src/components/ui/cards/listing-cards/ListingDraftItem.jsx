@@ -10,11 +10,8 @@ const ListingDraftItem = ( { listing } ) => {
 
     return (
         <article className="draft-listing-card" onClick={() => navigate(`/secure/listing/edit/${listing.id}`)}>
-            <img 
-                src={listing.imagePath || `/images/default-listing.svg`}
-                className="draft-listing-card-img"
-            />
-            <div className="draft-listing-card-body">
+            <img src={listing.imagePath || `/images/default-listing.svg`}/>
+            <div className="body">
                 {listing.localizedTitle ? (
                     <span>{listing.localizedTitle}</span>
                 ) : (

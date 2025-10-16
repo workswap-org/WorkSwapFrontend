@@ -30,7 +30,7 @@ const CatalogSidebar = ({
 
             <div className="sorting-sidebar">
                 <h5>{t(`catalog.sidebar.sort`, { ns: 'common' })}</h5>
-                <div className="list-group list-group-flush">
+                <div className="list-group">
                     {sorts.map(sort => (
                         <a
                             key={sort.key}

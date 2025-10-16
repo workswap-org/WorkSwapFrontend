@@ -8,7 +8,7 @@ const ReviewItem = ({review}) => {
 
     useEffect(() => {
         async function loadAuthorInfo() {
-            const data = await getUserById();
+            const data = await getUserById(review.authorId);
             setAuthor(await data.user)
         }
         
@@ -21,7 +21,7 @@ const ReviewItem = ({review}) => {
                 <div className="reviewer-info">
                     <h4>{author.name}</h4>
                     <div className="review-meta">
-                        <span className="review-rating listing-rating">
+                        <span className="review-rating">
                             {[1, 2, 3, 4, 5].map(i => (
                                 <i
                                     key={i}

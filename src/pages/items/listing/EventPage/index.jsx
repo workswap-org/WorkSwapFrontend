@@ -140,9 +140,7 @@ const EventPage = () => {
                     <div className="listing-header">
                         <h1>{event.localizedTitle}</h1>
                         <div className="listing-meta">
-                            <span className="listing-date">
-                                {new Date(event.publishedAt).toLocaleDateString("ru-RU")}
-                            </span>
+                            <span>{new Date(event.publishedAt).toLocaleDateString("ru-RU")}</span>
                             <span className="listing-views">
                                 {t(`labels.views`, { ns: 'common' })}: <span>{event.views}</span>
                             </span>
@@ -171,7 +169,7 @@ const EventPage = () => {
                                     <div className="listing-details fade-down">
                                         <div className="detail-item">
                                             <span className="detail-label">{t(`labels.event.price`, { ns: 'common' })}:</span>
-                                            <PriceTypes listing={event} className={'detail-value'}/>
+                                            <PriceTypes listing={event} />
                                         </div>
                                         <div className="detail-item">
                                             <span className="detail-label">{t(`labels.event.date`, { ns: 'common' })}:</span>

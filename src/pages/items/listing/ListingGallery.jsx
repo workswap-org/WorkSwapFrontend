@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import {  
-    getListingImages
-} from '@core/lib';
+import { getListingImages } from '@core/lib';
 
 const ListingGallery = ( { id } ) => {
 
@@ -84,7 +82,7 @@ const ListingGallery = ( { id } ) => {
                                         src={image.path}
                                         onError={(e) => e.currentTarget.src = `/images/default-listing.svg`}
                                         alt="Дополнительное изображение"
-                                        className="clickable-image thumbnail-img"
+                                        className="clickable-image"
                                         onClick={() => setMainImageIndex(index)}
                                     />
                                 </div>
@@ -96,7 +94,7 @@ const ListingGallery = ( { id } ) => {
 
             {/* Модальное окно (fullscreen) */}
             {isModalOpen && (
-                <div id="fullscreen-modal" className="fullscreen-modal">
+                <div className="fullscreen-modal">
                     <span className="close" id="close-modal" onClick={closeModal}>
                         &times;
                     </span>
@@ -104,7 +102,6 @@ const ListingGallery = ( { id } ) => {
                         &#10094;
                     </button>
                     <img
-                        id="fullscreen-image"
                         src={images[mainImageIndex].path}
                         alt="Fullscreen"
                     />

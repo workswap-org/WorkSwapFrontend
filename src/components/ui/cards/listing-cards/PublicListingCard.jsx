@@ -42,26 +42,24 @@ const PublicListingCard = ({listing, isMainListing}) => {
         <article onClick={() => navigator()} className="listing-card hover-animation-card">
             <img 
                 src={listing.imagePath || `/images/default-listing.svg`}
-                className="listing-img"
                 alt="Изображение объявления"/>
 
             {isNew && (
                 <div className="listing-status red">{t(`catalog.newListing`, { ns: 'tooltips' })}</div>
             )}
-            <div className="listing-card-body">
-                <h3 className="listing-card-title">{listing.localizedTitle}</h3>
-                {/* <p className="listing-card-text">{listing.localizedDescription}</p> */}
-                <div className="listing-card-footer">
+            <div className="body">
+                <h3 className="title">{listing.localizedTitle}</h3>
+                {/* <p className="text">{listing.localizedDescription}</p> */}
+                <div className="footer">
                     <div className="flex-column">
                         {/* компонент для отображение цены (с типом) */}
                         <PriceTypes listing={listing} />
                         <ListingRating listing={listing} />
                     </div>
-                    {/* <span className="partner-sign" th:if="${listing.author.role.name() == 'BUSINESS'}" th:text="#{partner}"></span> */}
-                    <span className="listing-location">{listing.location}</span>
+                    <span className="location">{listing.location}</span>
                 </div>
                 {user && (
-                    <div className="listing-card-overlay-actions">
+                    <div className="actions">
                         <i 
                             className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
                             onClick={(e) => toggleFavorite(listing.id, setFavorite, isFavorite, e)}></i>

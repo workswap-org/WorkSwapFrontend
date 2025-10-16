@@ -82,14 +82,13 @@ const PrivateListingCard  = ({listing}) => {
             </div>
             <img 
                 src={listing.imagePath || `/images/default-listing.svg`}
-                className="listing-img" 
                 alt="Изображение объявления"
             />
 
-            <div className="listing-card-body">
-                <h3 className="listing-card-title">{listing.localizedTitle}</h3>
-                {/* <p className="listing-card-text">{listing.localizedDescription}</p> */}
-                <div className="listing-card-footer">
+            <div className="body">
+                <h3 className="title">{listing.localizedTitle}</h3>
+                {/* <p className="text">{listing.localizedDescription}</p> */}
+                <div className="footer">
                     <div>
                         {/* компонент для отображение цены (с типом) */}
                         <PriceTypes listing={listing} />

@@ -111,9 +111,7 @@ const ListingPage = () => {
                             <div className="listing-header">
                                 <h1>{listing.localizedTitle}</h1>
                                 <div className="listing-meta">
-                                    <span className="listing-date">
-                                        {new Date(listing.publishedAt).toLocaleDateString("ru-RU")}
-                                    </span>
+                                    <span>{new Date(listing.publishedAt).toLocaleDateString("ru-RU")}</span>
                                     <span className="listing-views">
                                         {t(`labels.views`, { ns: 'common' })}: <span>{listing.views}</span>
                                     </span>
@@ -139,9 +137,9 @@ const ListingPage = () => {
                                 <div className="listing-sidebar">
                                     {listing.id && (
                                         <div className="listing-details fade-down">
-                                            <div className="listing-page-price">
+                                            <div className="detail-item">
                                                 <span className="detail-label">{t(`labels.price`, { ns: 'common' })}:</span>
-                                                <h1><PriceTypes listing={listing} className={"price"} /></h1>
+                                                <h1><PriceTypes listing={listing} className={"listing"} /></h1>
                                             </div>
                                             <div className="detail-item">
                                                 <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>

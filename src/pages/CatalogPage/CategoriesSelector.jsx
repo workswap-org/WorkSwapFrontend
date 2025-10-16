@@ -126,26 +126,25 @@ const CategoriesSelector = ({
                         </div>
                     )}
                     {(categoryParent && children(categoryParent.id) != null) && (
-                            <div className="categories-list">
-                                {children(categoryParent.id).map((child) =>
-                                    <div key={child.id}>
-                                        <button
-                                            className={`sub-category-item hover ${categoryId === child.id ? "active" : ""}`}
-                                            onClick={() => {
-                                                if (child.id === categoryId) {
-                                                    setCategoryId(null);
-                                                } else {
-                                                    setCategoryId(child.id);
-                                                    selectSubcategory(child)
-                                                };
-                                            }}
-                                        >
-                                            {t(`category.${child.name}`, { ns: 'categories' })}
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                        <div className="categories-list">
+                            {children(categoryParent.id).map((child) =>
+                                <button
+                                    key={child.id}
+                                    className={`sub-category-item hover ${categoryId === child.id ? "active" : ""}`}
+                                    onClick={() => {
+                                        if (child.id === categoryId) {
+                                            setCategoryId(null);
+                                        } else {
+                                            setCategoryId(child.id);
+                                            selectSubcategory(child)
+                                        };
+                                    }}
+                                >
+                                    {t(`category.${child.name}`, { ns: 'categories' })}
+                                </button>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
             {selectedCategory && (

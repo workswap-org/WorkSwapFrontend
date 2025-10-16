@@ -24,29 +24,10 @@ body {
     height: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
 a {
     text-decoration: none;
     transition: all 0.3s ease;
     color: inherit;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-input[type="number"] {
-    max-width: none !important;
-}
-
-.admin-form-control input[type="file"] {
-    display: none;
 }
 
 .card {
@@ -57,36 +38,15 @@ input[type="number"] {
     display: flex;
     flex-direction: column;
     height: 100%;
-}
 
-.card-body {
-    padding: 1rem;
-}
-
-.card-title {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-}
-
-.card-title a {
-    color: var(--text-color);
-    text-decoration: none;
-}
-
-.card-title a:hover {
-    color: var(--primary);
-}
-
-.card-footer {
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
-    font-size: 0.8rem;
-    color: var(--gray);
+    .body {
+        padding: 1rem;
+    }
 }
 
 .body-center {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 100vh;
 }
