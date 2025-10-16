@@ -5,9 +5,9 @@
 }
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 равных столбца */
-  gap: 1rem; /* расстояние между ячейками, можно менять */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
 
 .stat-card {

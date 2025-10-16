@@ -94,17 +94,11 @@
     margin-bottom: 1rem;
 }
 
-ol, ul {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-    list-style-type: disc; /* для ul, или decimal — для ol */
-}
-
-
 .cta {
     margin: 3rem 0;
     text-align: center;
 }
+
 .cta-card {
     background: var(--background-l1);
     padding: 2rem;
@@ -169,8 +163,4 @@ ol, ul {
         font-size: 1rem;
     }
 }
-
-/*@media (max-width: 480px) {
-
-}*/
 

@@ -109,7 +109,7 @@ const ListingEditPage = () => {
                 )} 
             </div>
             
-            <div className="edit-listing-form form-grid">
+            <div className="edit-listing-form">
 
                 <div className="form-group two-columns-grid">
                     <h3>{t(`labels.translations`, { ns: 'common' })}</h3>
@@ -141,10 +141,10 @@ const ListingEditPage = () => {
 
                 <div className="form-group">
                     <label htmlFor="price">{t(`labels.price`, { ns: 'common' })}</label>
-                    <div className="price-edit">
+                    <div className="duo">
                         {selectedPriceType != 'NEGOTIABLE' && (
                             <input
-                                className="form-control price-edit-duo"
+                                className="form-control first"
                                 type="number"
                                 id="price"
                                 name="price"
@@ -160,7 +160,7 @@ const ListingEditPage = () => {
                         <select
                             id="priceType"
                             name="priceType"
-                            className={`form-control ${selectedPriceType != 'NEGOTIABLE' ? 'price-edit-duo-2' : ''}`}
+                            className={`form-control ${selectedPriceType != 'NEGOTIABLE' ? 'second' : ''}`}
                             required
                             value={selectedPriceType ?? ""}
                             onChange={(e) => {

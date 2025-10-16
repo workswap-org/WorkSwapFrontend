@@ -65,6 +65,8 @@ const EventSettings = ({
     }, [listing.id]);
 
     useEffect(() => {
+
+        console.log(event);
     
         setEventDate(event.eventDate);
         setRegistrationCloseTime(event.registrationCloseTime)
@@ -73,7 +75,7 @@ const EventSettings = ({
         setMaxParticipants(event.maxParticipants);
         setMinParticipants(event.minParticipants);
         setEventStatus(event.eventStatus);
-        setPublic(event.isPublic);
+        setPublic(event.public);
 
     }, [event]);
 
@@ -139,9 +141,9 @@ const EventSettings = ({
 
             <div className="form-group">
                 <h3 htmlFor="price">Участники минимально/максимально</h3>
-                <div className="participants-edit">
+                <div className="duo">
                     <input
-                        className="form-control price-edit-duo"
+                        className="form-control first"
                         type="number"
                         value={minParticipants ?? ""}
                         onChange={(e) => {
@@ -151,7 +153,7 @@ const EventSettings = ({
                         step="1"
                     />
                     <input
-                        className="form-control price-edit-duo-2"
+                        className="form-control second"
                         type="number"
                         value={maxParticipants ?? ""}
                         onChange={(e) => {

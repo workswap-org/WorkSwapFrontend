@@ -15,7 +15,8 @@ import './components/base.css';
 import './components/buttons.scss';
 import './components/header.css';
 import './components/listings-management.css';
-import './components/data-fields.css';
+
+import './components/data-fields.scss'; /* scss */
 
 import './variables.css';
 
