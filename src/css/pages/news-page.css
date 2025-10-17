@@ -115,11 +115,6 @@
         position: static;
     }
 
-    .chat-container {
-        height: auto;
-        max-height: 400px;
-    }
-
     .site-stats {
         grid-template-columns: 1fr;
     }
@@ -130,9 +125,5 @@
 
     .news-title {
         font-size: 1.3rem;
-    }
-
-    .message {
-        max-width: 90%;
     }
 }

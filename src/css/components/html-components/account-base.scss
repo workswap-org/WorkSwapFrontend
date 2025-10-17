@@ -1,0 +1,61 @@
+/* Основной контейнер */
+.account-container {
+    padding: 2rem 0;
+    background-color: var(--background);
+
+    @media (max-width: 992px) {
+        padding: 1rem 0;
+        padding-bottom: 5rem;
+    }
+
+    .account-layout {
+        display: flex;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+
+        @media (max-width: 992px) {
+            flex-direction: column;
+            padding: 0 0.3rem;
+            min-height: 100%;
+            height: max-content;
+        }
+
+
+        .account-main {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            background: var(--background-l1);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            padding: 1.5rem;
+
+            @media (max-width: 992px) {
+                padding: 0.5rem;
+                min-height: 100%;
+                height: fit-content;
+            }
+
+            .account-header {
+                display: flex;
+                gap: 0.5rem;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid var(--border-color);
+
+                h2 {
+                    margin: 0;
+                }
+
+                @media (max-width: 992px) {
+                    flex-direction: column;
+                }
+            }
+        }
+    }
+}

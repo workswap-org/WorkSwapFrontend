@@ -51,75 +51,82 @@ const ChatContainer = ({
     }, [currentChatId, setChatListing]);
 
     return (
-        <div 
-            className="chat-container"
-            data-chat-id="${selectedChat.id}"
-        >
-            <div className="chat-header">
-                <div className="chat-user">
-                    <button id="dialogsToggleBtn" onClick={() => showMobileDialogs()} className="mobile-dialogs-toggle">
-                        <i className="fa-regular fa-arrow-left fa-2xl"></i>
-                    </button>
-                    <img className="avatar p50-avatar" src={interlocutor.avatarUrl ?? "/images/avatar-placeholder.png"} alt="Аватар" />
-                    <div>
-                        <h4 id="interlocutorName">{interlocutor.name}</h4>
-                        <p className="user-status"></p>
-                    </div>
-                </div>
-                <div className="mobile-chat-actions">
-                    <Link to={`/profile/${interlocutor.id}`} className="btn btn-outline-primary btn-sm">
-                        <i className="fa-regular fa-user fa-lg"></i>
-                    </Link>
-                    {chatListing && (
-                        <button className="btn btn-primary btn-sm" onClick={() => toggleChatListing()}>
-                            <i className="fa-regular fa-cards-blank fa-lg"></i>
-                        </button>
-                    )}
-                </div>
-                <div className="chat-actions">
-                    {/* <button className="btn btn-outline-danger btn-sm">Заблокировать</button> */}
-                    <Link 
-                        to={`/profile/${interlocutor.id}`} 
-                        className="btn btn-outline-primary btn-sm"
-                    >{t(`messenger.profile`, { ns: 'buttons' })}</Link>
-                    {chatListing && (
+        <div className="chat-window">
+            <div className="chat-container">
+                <div className="chat-header">
+                    <div className="chat-user">
                         <button 
-                            className="btn btn-primary btn-sm" 
-                            onClick={() => toggleChatListing()}
-                        >{t(`messenger.listing`, { ns: 'buttons' })}</button>
-                    )}
-                </div>
-            </div>
-
-            <div 
-                className="messages-container" 
-                ref={messagesContainer}
-            >
-                {error && (
-                    <div className="web-socket-connection-status">
-                        <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
-                        <br/>
-                        <i className="fa-solid fa-spinner-third fa-spin"></i>
+                            id="dialogsToggleBtn" 
+                            onClick={() => showMobileDialogs()} 
+                            className="mobile-dialogs-toggle"
+                        >
+                            <i className="fa-regular fa-arrow-left fa-2xl"></i>
+                        </button>
+                        <img 
+                            className="avatar p50-avatar" 
+                            src={interlocutor.avatarUrl ?? "/images/avatar-placeholder.png"} 
+                            alt="Аватар" 
+                        />
+                        <div>
+                            <h4 id="interlocutorName">{interlocutor.name}</h4>
+                            <p className="user-status"></p>
+                        </div>
                     </div>
-                )}
+                    <div className="mobile-chat-actions">
+                        <Link to={`/profile/${interlocutor.id}`} className="btn btn-outline-primary btn-sm">
+                            <i className="fa-regular fa-user fa-lg"></i>
+                        </Link>
+                        {chatListing && (
+                            <button className="btn btn-primary btn-sm" onClick={() => toggleChatListing()}>
+                                <i className="fa-regular fa-cards-blank fa-lg"></i>
+                            </button>
+                        )}
+                    </div>
+                    <div className="chat-actions">
+                        {/* <button className="btn btn-outline-danger btn-sm">Заблокировать</button> */}
+                        <Link 
+                            to={`/profile/${interlocutor.id}`} 
+                            className="btn btn-outline-primary btn-sm"
+                        >{t(`messenger.profile`, { ns: 'buttons' })}</Link>
+                        {chatListing && (
+                            <button 
+                                className="btn btn-primary btn-sm" 
+                                onClick={() => toggleChatListing()}
+                            >{t(`messenger.listing`, { ns: 'buttons' })}</button>
+                        )}
+                    </div>
+                </div>
 
-                {/* <div className="chat-order">
-                    <span>Заказ #{order?.id} создан</span>
-                </div> */}
-                {/* <div className="message-date">Сегодня</div> */}
+                <div 
+                    className="messages-container" 
+                    ref={messagesContainer}
+                >
+                    {error && (
+                        <div className="web-socket-connection-status">
+                            <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
+                            <br/>
+                            <i className="fa-solid fa-spinner-third fa-spin"></i>
+                        </div>
+                    )}
 
-                {(messages.length === 0 && !error) && (
-                    <p className="no-messages">{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
-                )}
-                {messages.map((message) => (
-                    <Message 
-                        key={message.id}
-                        message={message} 
-                    />
-                ))}
+                    {/* <div className="chat-order">
+                        <span>Заказ #{order?.id} создан</span>
+                    </div> */}
+                    {/* <div className="message-date">Сегодня</div> */}
+
+                    {(messages.length === 0 && !error) && (
+                        <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
+                    )}
+                    {messages.map((message) => (
+                        <Message 
+                            key={message.id}
+                            message={message} 
+                        />
+                    ))}
+                </div>
+
+                <SendMessageArea currentChatId={currentChatId}/>
             </div>
-
-            <SendMessageArea currentChatId={currentChatId}/>
         </div>
     );
 };

@@ -157,16 +157,14 @@ const MessengerPage = () => {
                     ))}
                 </div>
                 
-                <div className="chat-window">
-                    <ChatContainer
-                        interlocutor={currentInterlocutor} 
-                        currentChatId={currentChatId}
-                        setChatListing={setChatListing}
-                        chatListing={chatListing}
-                        toggleChatListing={toggleChatListing}
-                        showMobileDialogs={showMobileDialogs}
-                    />
-                </div>
+                <ChatContainer
+                    interlocutor={currentInterlocutor} 
+                    currentChatId={currentChatId}
+                    setChatListing={setChatListing}
+                    chatListing={chatListing}
+                    toggleChatListing={toggleChatListing}
+                    showMobileDialogs={showMobileDialogs}
+                />
             </div>
         </>
     );

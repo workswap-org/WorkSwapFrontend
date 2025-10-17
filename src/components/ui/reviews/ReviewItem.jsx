@@ -14,9 +14,10 @@ const ReviewItem = ({review}) => {
         
         loadAuthorInfo()
     }, [review])
+    
     return (
         <article className="review-card">
-            <div className="review-header">
+            <div className="review-card-header">
                 <Avatar user={author} size={50} />
                 <div className="reviewer-info">
                     <h4>{author.name}</h4>
@@ -38,7 +39,7 @@ const ReviewItem = ({review}) => {
                         </span>
                     </div>
                 </div>
-                <span className="review-date">
+                <span className="date">
                     <FormattedDate isoDate={review.createdAt} format="DMYHM" />
                 </span>
                 
@@ -51,7 +52,7 @@ const ReviewItem = ({review}) => {
                     </Link>
                 )} */}
             </div>
-            <div className="review-content">
+            <div className="review-card-content">
                 <span>{review.text}</span>
             </div>
         </article>

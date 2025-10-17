@@ -63,15 +63,16 @@ const SendMessageArea = ({ currentChatId }) => {
     return (
         <div className="message-input-container">
             <textarea
+                id="message-input"
                 className="message-input"
-                placeholder={isDisabled ? "Согласитесь с условиями пользования чатом" : t(`placeholders.typeMessage`, { ns: 'common' })}
+                placeholder={isDisabled ? "" : t(`placeholders.typeMessage`, { ns: 'common' })}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
                 disabled={isDisabled}
             />
             <button
-                className="img-send-btn"
+                className="send-btn"
                 onClick={sendMessage}
                 disabled={isDisabled}
             >

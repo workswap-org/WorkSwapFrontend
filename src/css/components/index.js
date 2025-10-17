@@ -4,8 +4,8 @@ import './cards/listing-small-card.css';
 import './cards/listing-card.scss'; // scss
 import './cards/resume-card.css';
 
-import './html-components/account-base.css';
-import './html-components/account-sidebar.css';
+import './html-components/account-base.scss'; // scss
+import './html-components/account-sidebar.scss'; // scss
 import './html-components/author-info-sidebar.css';
 import './html-components/reviews.scss'; // scss
 

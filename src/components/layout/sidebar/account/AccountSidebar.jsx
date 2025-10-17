@@ -49,10 +49,10 @@ const AccountSidebar = () => {
                 <Avatar 
                     user={user}
                     size={100}
-                    className='profile-avatar'
+                    className='profile-card-avatar'
                 />
-                <h4 className="profile-name">{user?.name}</h4>
-                <p className="profile-rating">
+                <h4 className="profile-card-name">{user?.name}</h4>
+                <p className="profile-card-rating">
                     {Array.from({ length: 5 }, (_, i) => {
                         const starValue = i + 1;
 
