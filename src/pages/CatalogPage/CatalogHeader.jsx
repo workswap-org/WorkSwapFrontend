@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import CategoriesSelector from "./CategoriesSelector";
+import CatalogCategories from "./CatalogCategories";
 
 const CatalogHeader = ({
     searchQuery,
@@ -25,7 +25,7 @@ const CatalogHeader = ({
                     <span className="normal-only">{t('category.all-categories', { ns: 'categories' })}</span>
                 </button>
 
-                <CategoriesSelector 
+                <CatalogCategories 
                     categoriesMenu={categoriesMenu}
                     setCategoriesMenu={setCategoriesMenu}
                     categoryId={categoryId}
