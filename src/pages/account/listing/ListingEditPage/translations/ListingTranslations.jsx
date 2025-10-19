@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { 
     getSupportedLanguages,
     getListingTranslations
@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import TranslationModal from "./TranslationModal";
 import TranslationsStatus from "./TranslationsStatus";
 
-const ListingTranslations = ({ id, onChange }) => {
+const ListingTranslations = ({ id, updateListing }) => {
 
     const { t } = useTranslation('common');
 
@@ -17,11 +17,16 @@ const ListingTranslations = ({ id, onChange }) => {
     const [currentLang, setCurrentLang] = useState("");
     const [langs, setLangs] = useState([]);
 
+    const translationsChange = useCallback((translation) => {
+        console.log("[T] Перевод:", translation);
+        updateListing({ translation });
+    }, [updateListing]);
+
     useEffect(() => {
         if (initialized) {
-            onChange?.(translations);
+            translationsChange?.(translations);
         }
-    }, [translations, initialized, onChange]);
+    }, [translations, initialized, translationsChange]);
 
     useEffect(() => {
         async function loadLanguages() {

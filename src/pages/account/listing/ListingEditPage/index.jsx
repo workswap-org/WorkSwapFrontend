@@ -5,7 +5,7 @@ import { LocationSelector } from "@/components";
 import { 
     modifyListing, 
     useNotification,
-    getSupportedPryceTypes,
+    getSupportedPriceTypes,
     getListingById
 } from "@core/lib";
 import ListingEditActions from "./ListingEditActions";
@@ -44,11 +44,6 @@ const ListingEditPage = () => {
             throw err;
         }
     }, [id, notificate, t]);
-    
-    const translationsChange = useCallback((translation) => {
-        console.log("[T] Перевод:", translation);
-        updateListing({ translation });
-    }, [updateListing]);
 
     // locationChange (у тебя уже был)
     const locationChange = useCallback((lastId, path) => {
@@ -60,7 +55,7 @@ const ListingEditPage = () => {
     useEffect(() => {
 
         async function loadPriceTypes() {
-            const data = await getSupportedPryceTypes();
+            const data = await getSupportedPriceTypes();
             setPriceTypes(data.priceTypes);
         }
 
@@ -105,11 +100,11 @@ const ListingEditPage = () => {
 
                 <div className="form-group two-columns-grid">
                     <h3>{t(`labels.translations`, { ns: 'common' })}</h3>
-                    <ListingTranslations id={id} onChange={translationsChange} />
+                    <ListingTranslations id={id} updateListing={updateListing} />
                 </div>
 
                 <div className="form-group">
-                    <h3>{t(`labels.listingStatus`, { ns: 'common' })}</h3>
+                    <h3>{t(`labels.status.listing`, { ns: 'common' })}</h3>
                     <div className="status-toggle">
                         <label className="switch">
                             <input 

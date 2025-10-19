@@ -81,9 +81,9 @@ const EventSettings = ({
 
     return (
         <>
-            <h2 className="two-columns-grid">Настройки события</h2>
+            <h2 className="two-columns-grid">{t(`labels.settings.event`, { ns: 'common' })}</h2>
             <div className="form-group">
-                <label htmlFor="event-date">Выберите дату события:</label>
+                <label htmlFor="event-date">{t(`labels.event.date`, { ns: 'common' })}:</label>
                 <input 
                     type="datetime-local"
                     value={eventDate}
@@ -97,7 +97,7 @@ const EventSettings = ({
             </div>
 
             <div className="form-group">
-                <label htmlFor="event-date">Выберите дату закрытия набора участников:</label>
+                <label htmlFor="event-date">{t(`labels.event.registerClosingDate`, { ns: 'common' })}:</label>
                 <input 
                     type="datetime-local"
                     value={registrationCloseTime}
@@ -111,7 +111,7 @@ const EventSettings = ({
             </div>
 
             <div className="form-group">
-                <h3>Статус</h3>
+                <h3>{t(`labels.status.event.title`, { ns: 'common' })}</h3>
                 <div className="status-toggle">
                     <select
                         value={eventStatus}
@@ -126,13 +126,13 @@ const EventSettings = ({
                         >
                             Выберите статус события
                         </option>
-                        {eventStatuses.map((r) => (
+                        {eventStatuses.map((es) => (
                             <option 
-                                key={r} 
-                                value={r}
-                                selected={r == eventStatus}
+                                key={es} 
+                                value={es}
+                                selected={es == eventStatus}
                             >
-                                {r}
+                                {t(`labels.status.event.${es}`, { ns: 'common' })}
                             </option>
                         ))}
                     </select>
@@ -140,9 +140,10 @@ const EventSettings = ({
             </div>
 
             <div className="form-group">
-                <h3 htmlFor="price">Участники минимально/максимально</h3>
+                <h3>{t(`labels.event.minMaxParticipants`, { ns: 'common' })}</h3>
                 <div className="duo">
                     <input
+                        id="minParticipants"
                         className="form-control first"
                         type="number"
                         value={minParticipants ?? ""}
@@ -153,6 +154,7 @@ const EventSettings = ({
                         step="1"
                     />
                     <input
+                        id="maxParticipants"
                         className="form-control second"
                         type="number"
                         value={maxParticipants ?? ""}
@@ -166,7 +168,7 @@ const EventSettings = ({
             </div>
 
             <div className="form-group">
-                <h3>Доступность</h3>
+                <h3>{t(`labels.event.visibility.title`, { ns: 'common' })}</h3>
                 <div className="status-toggle">
                     <label className="switch">
                         <input 
@@ -181,15 +183,15 @@ const EventSettings = ({
                         <span className="slider"></span>
                     </label>
                     {isPublic ? (
-                        <p>Открытое</p>
+                        <p>{t(`labels.event.visibility.public`, { ns: 'common' })}</p>
                     ) : (
-                        <p>Закрытое</p>
+                        <p>{t(`labels.event.visibility.private`, { ns: 'common' })}</p>
                     )}
                 </div>
             </div>
 
             <div className="form-group">
-                <h3>Событие многоразовое?</h3>
+                <h3>{t(`labels.event.recurrence.title`, { ns: 'common' })}</h3>
                 <div className="status-toggle">
                     <label className="switch">
                         <input 
@@ -204,16 +206,16 @@ const EventSettings = ({
                         <span className="slider"></span>
                     </label>
                     {isRecurring ? (
-                        <p>Да</p>
+                        <p>{t(`labels.event.recurrence.repeat`, { ns: 'common' })}</p>
                     ) : (
-                        <p>Нет</p>
+                        <p>{t(`labels.event.recurrence.single`, { ns: 'common' })}</p>
                     )}
                 </div>
             </div>
 
             {isRecurring && (
                 <div className="form-group">
-                    <h3>Частота проведения</h3>
+                    <h3>{t(`labels.event.recurrenceParam.title`, { ns: 'common' })}</h3>
                     <div className="status-toggle">
                         <select
                             value={recurrence}
@@ -234,7 +236,7 @@ const EventSettings = ({
                                     value={r}
                                     selected={r == recurrence}
                                 >
-                                    {r}
+                                    {t(`labels.event.recurrenceParam.${r}`, { ns: 'common' })}
                                 </option>
                             ))}
                         </select>
