@@ -55,21 +55,29 @@ $radius: var(--radius);
 		}
 
 		.categories-menu {
-			translate: 0 0.5rem;
-			top: 100%;
-			padding: 0.3rem;
+			position: fixed;
+			z-index: 95;
+			top: 8rem;
 			width: 100%;
 			max-width: 100%;
-			position: absolute;
+
+			gap: 0.7rem;
+
+			padding: 0.3rem 25%;
+
 			background-color: var(--background-l1);
 			border-bottom: 3px solid var(--border-color);
 			border-radius: 0 0 8px 8px;
-			z-index: 95;
+
 			display: none;
 			overflow: hidden;
 			flex-direction: column;
 			transform-origin: top;
 			animation: expandDown 0.3s ease forwards;
+
+			@include mobile {
+				padding: 0.3rem;
+			}
 
 			@include small-mobile {
 				max-height: 80vh;
@@ -77,7 +85,7 @@ $radius: var(--radius);
 			}
 
 			&.active {
-				display: flex;;
+				display: flex;
 			}
 
 			* {
@@ -86,6 +94,44 @@ $radius: var(--radius);
 
 			&.active * {
 				visibility: visible;
+			}
+
+			.category-types {
+				margin: 0 auto;
+				display: inline-flex;
+				gap: 0.2rem;
+
+				@include small-mobile {
+					width: 100%;
+				}
+
+				button {
+					padding: 0.7rem 5rem;
+					font-size: medium;
+					font-weight: bold;
+					border-bottom: 2px solid var(--gray);
+					position: relative;
+
+					@include small-mobile {
+						padding: 0.7rem;
+						padding-right: 2rem;
+						width: 100%;
+					}
+
+					.indicator {
+						border-radius: 4px;
+						position: absolute;
+						top: 50%;
+						right: 0.5rem;
+						translate: 0 -50%;
+						transition: all 0.3s ease;
+						background-color: transparent;
+
+						&.active {
+							background-color: rgba(35, 119, 24, 0.514);
+						}
+					}
+				}
 			}
 
 			.categories-container {
@@ -104,7 +150,9 @@ $radius: var(--radius);
 						gap: 0.3rem;
 
 						.category-item {
-							padding: 0.5rem 20px;
+							padding: 0.5rem;
+							padding-right: 2rem;
+							text-align: left;
 							font-size: 15px;
 							color: var(--text-color);
 							transition: all 0.2s ease;
@@ -112,6 +160,7 @@ $radius: var(--radius);
 							border-radius: 4px;
 							background-color: var(--background-l1);
 							width: 100%;
+							position: relative;
 
 							&:hover,
 							&:focus {
@@ -119,9 +168,18 @@ $radius: var(--radius);
 								color: var(--primary);
 							}
 
-							&.active {
-								background-color: var(--primary-light);
-								color: var(--text-color);
+							.indicator {
+								border-radius: 4px;
+								position: absolute;
+								top: 50%;
+								right: 0.5rem;
+								translate: 0 -50%;
+								transition: all 0.3s ease;
+								background-color: transparent;
+
+								&.active {
+									background-color: rgba(35, 119, 24, 0.514);
+								}
 							}
 						}
 					}
@@ -144,40 +202,17 @@ $radius: var(--radius);
 							border-radius: 4px;
 							background-color: var(--background-l1);
 							width: 100%;
-						}
-					}
 
-					.selected-subcategory {
-						position: relative;
-						padding: 0.5rem 20px;
-						font-size: 15px;
-						color: var(--text-color);
-						transition: all 0.2s ease;
-						border: 0;
-						border-radius: 4px;
-						background-color: var(--selected-category);
-						width: 100%;
-						margin-bottom: 0.5rem;
-						display: inline-flex;
-						justify-content: center;
-
-						.list-button {
-							position: absolute;
-							width: 1.3rem;
-							height: 1.3rem;
-							border-radius: 4px;
-							right: 1rem;
-							top: 50%;
-							translate: 0 -50%;
-							background-color: rgba(0, 0, 0, 0.2);
-							border: 2px solid var(--background-l1);
+							&.active {
+								color: var(--primary-dark);
+								font-weight: bolder;
+							}
 						}
 					}
 				}
 			}
 
 			.selected-category-label {
-				padding-top: 0.5rem;
 				width: 100%;
 				text-align: center;
 			}

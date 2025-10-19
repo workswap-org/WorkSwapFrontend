@@ -22,7 +22,7 @@
     }
 
     &:hover {
-        .img {
+        img {
             transform: scale(1.05);
         }
         
@@ -35,7 +35,7 @@
         max-width: 300px;
         min-width: 150px;
 
-        .img {
+        img {
             height: 150px;
         }
     }

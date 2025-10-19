@@ -9,11 +9,12 @@ const CatalogCategories = ({
     setCategoryId
 }) => {
 
+    let closeTimeout;
+
     const [categories, setCategories] = useState([]);
 
     const [selectedCategory, setSelectedCategory] = useState(undefined);
     const [categoryParent, setCategoryParent] = useState([])
-    const [subCategory, setSubCategory] = useState(undefined);
     const [listingType, setListingType] = useState("product");
 
     const { t } = useTranslation('categories')
@@ -37,24 +38,9 @@ const CatalogCategories = ({
         return childrenList;
     }
 
-    const selectSubcategory = (category) => {
-        const hasChildren = categories[listingType]?.some(c => c.parentId === category.id);
-
-        if (hasChildren) {
-            setSubCategory(category);
-            setCategoryParent(category);
-        }
-    }
-
     const rootCategories = (type) => {
         if (!type) return [];
         return categories[type]?.filter(category => category.parentId === null) || [];
-    }
-
-    const selectParentCategory = (category) => {
-        const parent = categories[listingType]?.find(cat => category.parentId === cat.id);
-        setCategoryParent(parent);
-        setSubCategory(null);
     }
 
     const findCategory = useCallback((categoryId) => {
@@ -66,18 +52,38 @@ const CatalogCategories = ({
         findCategory(categoryId)
     }, [categoryId, findCategory])
 
+    const handleMouseLeave = () => {
+        closeTimeout = setTimeout(() => {
+            setCategoriesMenu(false);
+        }, 500);
+    };
+
+    const handleMouseEnter = () => {
+        clearTimeout(closeTimeout);
+    };
+
     return (
-        <div className={`categories-menu ${categoriesMenu ? "active" : ""}`} onMouseLeave={() => setCategoriesMenu(false)}>
-            <div>
+        <div 
+            className={`categories-menu ${categoriesMenu ? "active" : ""}`} 
+            onMouseEnter={handleMouseEnter} 
+            onMouseLeave={handleMouseLeave}
+        >
+            <div className="category-types">
                 <button
-                    onClick={() => setListingType("service")}
+                    className="hover"
+                    value={"service"}
+                    onClick={(e) => setListingType(e.target.value)}
                 >
-                    услуги
+                    {t(`listingType.SERVICES`, { ns: 'categories' })}
+                    <div className={`indicator ${listingType === "service" ? "active" : ""}`}><i className="fa-solid fa-angle-down"></i></div>
                 </button>
                 <button
-                    onClick={() => setListingType("product")}
+                    className="hover"
+                    value={"product"}
+                    onClick={(e) => setListingType(e.target.value)}
                 >
-                    товары
+                    {t(`listingType.PRODUCT_SALE`, { ns: 'categories' })}
+                    <div className={`indicator ${listingType === "product" ? "active" : ""}`}><i className="fa-solid fa-angle-down"></i></div>
                 </button>
             </div>
             <div className="categories-container">
@@ -85,38 +91,26 @@ const CatalogCategories = ({
                     <div className="categories-list">
                     {rootCategories(listingType).map((rootCategory) => (
                         <button
+                            key={rootCategory.id}
                             type="button"
-                            className={`category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
+                            className="category-item hover"
                             onClick={() => {
                                 if (rootCategory.id === categoryId) {
                                     setCategoryId(null);
+                                    setCategoryParent(null);
                                 } else {
                                     setCategoryId(rootCategory.id);
+                                    setCategoryParent(rootCategory);
                                 };
                             }}
                         >
-                            {t(`category.${rootCategory.name}`, { ns: 'categories' })}
+                            {t(`category.${listingType}.${rootCategory.name}`, { ns: 'categories' })}
+                            <div className={`indicator ${categoryId === rootCategory.id ? "active" : ""}`}><i className="fa-solid fa-angle-right"></i></div>
                         </button>
                     ))}
                     </div>
                 </div>
                 <div className="subcategories-container">
-                    {subCategory && (
-                        <div  
-                            className={`selected-subcategory`}
-                        >
-                            {t(`category.${subCategory.name}`, { ns: 'categories' })}
-                            <button
-                                type="button"
-                                className={`list-button hover`}
-                                onClick={() => {
-                                    selectParentCategory(subCategory);
-                                }}
-                            >
-                                <i className="fa-solid fa-angle-up"></i>
-                            </button>
-                        </div>
-                    )}
                     {(categoryParent && children(categoryParent.id) != null) && (
                         <div className="categories-list">
                             {children(categoryParent.id).map((child) =>
@@ -128,11 +122,10 @@ const CatalogCategories = ({
                                             setCategoryId(null);
                                         } else {
                                             setCategoryId(child.id);
-                                            selectSubcategory(child)
                                         };
                                     }}
                                 >
-                                    {t(`category.${child.name}`, { ns: 'categories' })}
+                                    {t(`category.${listingType}.${child.name}`, { ns: 'categories' })}
                                 </button>
                             )}
                         </div>
@@ -142,7 +135,7 @@ const CatalogCategories = ({
             {selectedCategory && (
                 <span className="selected-category-label">
                     <span>{t(`catalog.selectedCategory`, { ns: 'tooltips' })}: </span>
-                    <span className="selected-category">{t(`category.${selectedCategory?.name}`, { ns: 'categories' })}</span>
+                    <span className="selected-category">{t(`category.${listingType}.${selectedCategory?.name}`, { ns: 'categories' })}</span>
                 </span>
             )}
         </div>

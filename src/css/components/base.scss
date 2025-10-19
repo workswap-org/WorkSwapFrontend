@@ -20,6 +20,12 @@ body {
     height: 100%;
 }
 
+button {
+    color: var(--text-color);
+    background-color: transparent;
+    border: 0px solid transparent;
+}
+
 #root {
     height: 100%;
 }
