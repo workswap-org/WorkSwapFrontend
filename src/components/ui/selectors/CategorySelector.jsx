@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getCategories } from "@core/lib";
+import { getCategoriesByType } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const CategorySelector = ( { categoryId, onChange } ) => {
+const CategorySelector = ({ listing, categoryId, onChange } ) => {
 
     const { t } = useTranslation(['common', 'categories']);
 
@@ -11,7 +11,7 @@ const CategorySelector = ( { categoryId, onChange } ) => {
 
     useEffect(() => {
         async function loadCategories() {
-            const data = await getCategories();
+            const data = await getCategoriesByType(listing.type);
             const cats = data.categories || [];
             setCategories(cats);
 
@@ -35,7 +35,7 @@ const CategorySelector = ( { categoryId, onChange } ) => {
         }
 
         loadCategories();
-    }, [categoryId])
+    }, [categoryId, listing.type])
 
     const getChildren = (parentId) =>
         categories.filter((c) => c.parentId === parentId);

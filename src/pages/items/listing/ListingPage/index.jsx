@@ -96,6 +96,12 @@ const ListingPage = () => {
                                     </Link>
                                     <span className="divider">/</span>
                                 </div>
+                                <div>
+                                    <Link to="/catalog">
+                                        {t(`listingType.${listing.publicType}`, { ns: 'categories' })}
+                                    </Link>
+                                    <span className="divider">/</span>
+                                </div>
                                 {categories.map((cat) => (
                                     <div key={cat.id}>
                                         <Link to={`/catalog?category=${cat.name}`}>

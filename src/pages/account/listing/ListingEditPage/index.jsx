@@ -180,7 +180,7 @@ const ListingEditPage = () => {
 
                 <div className="form-group">
                     <h3>{t(`labels.category`, { ns: 'common' })}</h3>
-                    <CategorySelector categoryId={categoryId} onChange={categoryChange} />
+                    <CategorySelector listing={listing} categoryId={categoryId} onChange={categoryChange} />
                 </div>
 
                 <div className="form-group">

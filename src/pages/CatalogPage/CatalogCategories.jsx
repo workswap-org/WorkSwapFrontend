@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getCategories } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const CategoriesSelector = ({
+const CatalogCategories = ({
     categoriesMenu,
     setCategoriesMenu,
     categoryId,
@@ -14,31 +14,31 @@ const CategoriesSelector = ({
     const [selectedCategory, setSelectedCategory] = useState(undefined);
     const [categoryParent, setCategoryParent] = useState([])
     const [subCategory, setSubCategory] = useState(undefined);
+    const [listingType, setListingType] = useState("product");
 
     const { t } = useTranslation('categories')
     
     useEffect(() => {
-        async function loadRootCategories() {
+        async function loadCategories() {
             try {
                 const data = await getCategories();
-                setCategories(data.categories || []);
+                setCategories(data);
             } catch(e) {
                 console.error(e);
             }
         }
 
-        loadRootCategories();
+        loadCategories();
     }, [])
 
     const children = (id) => {
-        const childrenList = categories
-            .filter(category => category.parentId === id);
+        const childrenList = categories[listingType]?.filter(category => category.parentId === id);
 
         return childrenList;
     }
 
     const selectSubcategory = (category) => {
-        const hasChildren = categories.some(c => c.parentId === category.id);
+        const hasChildren = categories[listingType]?.some(c => c.parentId === category.id);
 
         if (hasChildren) {
             setSubCategory(category);
@@ -46,20 +46,21 @@ const CategoriesSelector = ({
         }
     }
 
-    const rootCategories = () => {
-        return categories.filter(category => category.parentId === null);
+    const rootCategories = (type) => {
+        if (!type) return [];
+        return categories[type]?.filter(category => category.parentId === null) || [];
     }
 
     const selectParentCategory = (category) => {
-        const parent = categories.find(cat => category.parentId === cat.id);
+        const parent = categories[listingType]?.find(cat => category.parentId === cat.id);
         setCategoryParent(parent);
         setSubCategory(null);
     }
 
     const findCategory = useCallback((categoryId) => {
-        const cat = categories.find(cat => categoryId === cat.id);
+        const cat = categories[listingType]?.find(cat => categoryId === cat.id);
         setSelectedCategory(cat);
-    }, [categories]);
+    }, [categories, listingType]);
 
     useEffect(() => {
         findCategory(categoryId)
@@ -67,44 +68,35 @@ const CategoriesSelector = ({
 
     return (
         <div className={`categories-menu ${categoriesMenu ? "active" : ""}`} onMouseLeave={() => setCategoriesMenu(false)}>
+            <div>
+                <button
+                    onClick={() => setListingType("service")}
+                >
+                    услуги
+                </button>
+                <button
+                    onClick={() => setListingType("product")}
+                >
+                    товары
+                </button>
+            </div>
             <div className="categories-container">
                 <div className="categories-sidebar-container">
                     <div className="categories-list">
-                    {rootCategories().map((rootCategory) => (
-                        <div key={rootCategory.id}>
-                            {<button
-                                type="button"
-                                className={`category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
-                                onClick={() => {
-                                    if (rootCategory.id === categoryId) {
-                                        setCategoryId(null);
-                                    } else {
-                                        setCategoryId(rootCategory.id);
-                                    };
-                                }}
-                            >
-                                {t(`category.${rootCategory.name}`, { ns: 'categories' })}
-                            </button>}
-
-                            {children(rootCategory.id).map((child) =>
-                                <div key={child.id}>
-                                    <button
-                                        className={`category-item hover ${categoryId === child.id ? "active" : ""}`}
-                                        onClick={() => {
-                                            if (child.id === categoryId) {
-                                                setCategoryId(null);
-                                                setCategoryParent(null);
-                                            } else {
-                                                setCategoryId(child.id);
-                                                setCategoryParent(child);
-                                            };
-                                        }}
-                                    >
-                                        {t(`category.short.${child.name}`, { ns: 'categories' })}
-                                    </button>
-                                </div>
-                            )}
-                        </div>
+                    {rootCategories(listingType).map((rootCategory) => (
+                        <button
+                            type="button"
+                            className={`category-item hover ${categoryId === rootCategory.id ? "active" : ""}`}
+                            onClick={() => {
+                                if (rootCategory.id === categoryId) {
+                                    setCategoryId(null);
+                                } else {
+                                    setCategoryId(rootCategory.id);
+                                };
+                            }}
+                        >
+                            {t(`category.${rootCategory.name}`, { ns: 'categories' })}
+                        </button>
                     ))}
                     </div>
                 </div>
@@ -157,4 +149,4 @@ const CategoriesSelector = ({
     );
 };
 
-export default CategoriesSelector;
+export default CatalogCategories;
