@@ -1,10 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import {
-    CategorySelector,
-    LocationSelector
-} from "@/components";
+import { LocationSelector } from "@/components";
 import { 
     modifyListing, 
     useNotification,
@@ -14,7 +11,9 @@ import {
 import ListingEditActions from "./ListingEditActions";
 import ListingImagesUploader from "./ListingImagesUploader";
 import ListingTranslations from "./translations/ListingTranslations";
-import EventSettings from "./EventSettings";
+import EventSettings from "./settings/EventSettings";
+import ProductSettings from "./settings/ProductSettings";
+import ServiceSettings from "./settings/ServiceSettings";
 
 const ListingEditPage = () => {
 
@@ -49,13 +48,6 @@ const ListingEditPage = () => {
     const translationsChange = useCallback((translation) => {
         console.log("[T] Перевод:", translation);
         updateListing({ translation });
-    }, [updateListing]);
-
-    // categoryChange
-    const categoryChange = useCallback((lastId, path) => {
-        console.log("[C] Последний выбранный:", lastId);
-        console.log("[C] Путь:", path);
-        updateListing({ category: lastId });
     }, [updateListing]);
 
     // locationChange (у тебя уже был)
@@ -179,11 +171,6 @@ const ListingEditPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <h3>{t(`labels.category`, { ns: 'common' })}</h3>
-                    <CategorySelector listing={listing} categoryId={categoryId} onChange={categoryChange} />
-                </div>
-
-                <div className="form-group">
                     <h3>{t(`labels.location`, { ns: 'common' })}</h3>
                     <LocationSelector locationId={locationId} onChange={locationChange} />
                 </div>
@@ -194,6 +181,14 @@ const ListingEditPage = () => {
 
                 {listing.type == 'EVENT' && (
                     <EventSettings listing={listing} setSaving={setSaving}/>
+                )}
+
+                {listing.type == 'PRODUCT' && (
+                    <ProductSettings listing={listing} updateListing={updateListing} categoryId={categoryId}/>
+                )}
+
+                {listing.type == 'SERVICE' && (
+                    <ServiceSettings listing={listing} updateListing={updateListing} categoryId={categoryId}/>
                 )}
 
                 <div className="form-actions two-columns-grid">
