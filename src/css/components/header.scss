@@ -134,22 +134,6 @@ header {
                             min-width: 100%;
                         }
                     }
-
-                    .navbar-btn {
-                        padding: 0.75rem 1.5rem;
-                        display: flex;
-                        flex-direction: row;
-                        gap: 1rem;
-                        text-align: left;
-                        width: 100%;
-                        font-weight: 500;
-                        font-size: 1.1rem;
-                        background-color: transparent;
-                        border-width: 0;
-                        color: var(--text-color);
-                        cursor: pointer;
-                        border-radius: var(--radius);
-                    }
                 }
 
                 .nav-buttons {
@@ -265,4 +249,20 @@ header {
             }
         }
     }
+}
+
+.navbar-btn {
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    text-align: left;
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.1rem;
+    background-color: transparent;
+    border-width: 0;
+    color: var(--text-color);
+    cursor: pointer;
+    border-radius: var(--radius);
 }
