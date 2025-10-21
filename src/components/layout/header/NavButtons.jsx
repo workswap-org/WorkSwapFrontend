@@ -48,7 +48,7 @@ const NavButtons = () => {
                     style={{ display: "flex", flexDirection: "row" }}
                     className="btn btn-outline-primary"
                 >
-                    <img src="/images/google.png" className="logo" alt="Google" />
+                    <img src="/images/google.png" className="google-logo" alt="Google" />
                     <span>{t("login")}</span>
                 </Link>
             )}

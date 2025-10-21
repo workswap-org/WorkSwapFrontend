@@ -118,20 +118,3 @@
     font-size: 0.8rem;
     margin-top: 0.25rem;
 }
-
-.input-wrapper {
-    position: relative;
-    display: block;
-    width: 100%;
-
-    .char-counter {
-        position: absolute;
-        right: 8px;
-        bottom: 8px;
-        color: var(--text-color);
-        font-size: 0.8rem;
-        padding: 0 5px;
-        border-radius: 3px;
-        opacity: 0.6;
-    }
-}

@@ -1,8 +1,0 @@
-.resume-card-link {
-    display: flex;
-    flex-direction: row;
-}
-
-.resume-card {
-    box-shadow: 0 2px 8px var(--shadow-color);
-}

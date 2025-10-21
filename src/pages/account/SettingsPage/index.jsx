@@ -191,7 +191,7 @@ const SettingsPage = () => {
                 </div>
                 <div className="settings-container">
 
-                    <button className="settings-sections-togger" onClick={() => toggleMobileSections()}>
+                    <button className="settings-sections-toggler" onClick={() => toggleMobileSections()}>
                         <i className="fa-regular fa-list fa-2xl"></i>
                         <i className="fa-regular fa-left-to-dotted-line fa-2xl"></i>
                     </button>

@@ -102,17 +102,6 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                     <p className="listing-description">{author.bio}</p>
                 </div>
             )}
-            
-            
-            {/* <div className="resume-card hover-animation-card" th:if="${resume != null and resume.published and activePage == 'profile'}" th:onclick="window.location.href = '/resume/' + [[${resume.id}]]">
-                <img th:replace="~{fragments/small-components :: avatar(user=${user}, size='70', className='')}"></img>
-                <div className="resume-info">
-                    <h3 th:text="${resume.profession}">Специальность</h3>
-                    <div className="resume-meta">
-                        <span className="resume-education" th:text="#{'education.' + ${resume.education}}">Образование</span>
-                    </div>
-                </div>
-            </div> */}
         </aside>
     );
 };

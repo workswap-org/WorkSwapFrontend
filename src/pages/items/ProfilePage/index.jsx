@@ -13,7 +13,7 @@ const ProfilePage = () => {
 
     const { t } = useTranslation(['common']);
 
-    const { id } = useParams();
+    const { userId } = useParams();
 
     const [user, setUser] = useState([]);
     const [listings, setListings] = useState([])
@@ -21,7 +21,7 @@ const ProfilePage = () => {
     useEffect(()=> {
         async function loadProfile() {
             try {
-                const data = await getUserById();
+                const data = await getUserById(userId);
                 const tempUser = data.user;
                 if (tempUser) {
                     setUser(tempUser);
@@ -35,13 +35,13 @@ const ProfilePage = () => {
         }
 
         async function loadListings() {
-            const data = await getListingsByUserId(id);
+            const data = await getListingsByUserId(userId);
             setListings(data.listings);
         }
 
         loadProfile();
         loadListings();
-    }, [id]);
+    }, [userId]);
 
     return (
         <>
@@ -67,7 +67,7 @@ const ProfilePage = () => {
                                 <UserInfoSidebar listingId='' author={user}/>
                             </div>
 
-                            <ReviewsSection listingId='' profileId={id} />
+                            <ReviewsSection listingId='' profileId={userId} />
                         </main>
                     </div>
                 </div>

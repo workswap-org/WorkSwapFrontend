@@ -26,7 +26,7 @@ import NotFoundPage from "@core/pages/NotFoundPage";
 
 const ListingPage = () => {
 
-    const { id } = useParams();
+    const { listigId } = useParams();
     const {notificate} = useNotification();
     const { t } = useTranslation(['categories', 'common', 'navigation']);
 
@@ -41,10 +41,10 @@ const ListingPage = () => {
     useEffect(() => {
         async function loadData() {
             try {
-                const listingData = await getListingById(id);
+                const listingData = await getListingById(listigId);
                 setListing(listingData.listing || null);
 
-                await viewListing(id);
+                await viewListing(listigId);
             } catch (err) {
                 console.error('Ошибка загрузки данных:', err);
                 setListing(null);
@@ -52,7 +52,7 @@ const ListingPage = () => {
         }
 
         loadData();
-    }, [id]);
+    }, [listigId]);
 
     useEffect(() => {
         async function loadListingAuthor(authorId) {
@@ -60,8 +60,8 @@ const ListingPage = () => {
             setAuthor(await data.user);
         }
 
-        async function loadCategoryPath(id) {
-            const data = await getPathToCategory(id);
+        async function loadCategoryPath(listigId) {
+            const data = await getPathToCategory(listigId);
             setCategories(data.categories);
         }
 

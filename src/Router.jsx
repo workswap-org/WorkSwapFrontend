@@ -69,8 +69,8 @@ const AppRouter = () => {
                             {/* публичные страницы */}
                         <Route path="catalog" element={<CatalogPage />} />
                         <Route path="event/:eventId" element={<EventPage />} />
-                        <Route path="listing/:id" element={<ListingPage />} />
-                        <Route path="profile/:id" element={<ProfilePage />} />
+                        <Route path="listing/:listigId" element={<ListingPage />} />
+                        <Route path="profile/:userId" element={<ProfilePage />} />
 
                         {/* приватные страницы */}
                         <Route path="secure" element={<PrivateRoute />}>

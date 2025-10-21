@@ -5,6 +5,23 @@
     flex-direction: column;
     flex-wrap: wrap;
 
+    .input-wrapper {
+        position: relative;
+        display: block;
+        width: 100%;
+
+        .char-counter {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            color: var(--text-color);
+            font-size: 0.8rem;
+            padding: 0 5px;
+            border-radius: 3px;
+            opacity: 0.6;
+        }
+    }
+
     label,
     h3 {
         margin-bottom: 0.5rem;

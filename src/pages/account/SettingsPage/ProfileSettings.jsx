@@ -148,13 +148,6 @@ const ProfileSettings = ({
                         <span>{t(`settings.avatarTypes.default`, { ns: 'common' })}</span>
                     </div>
                 </div>
-
-                {avatarType === "uploaded" && (
-                    <div className="upload-controls">
-                        {/* Твой uploadControls компонент */}
-                        <input type="file" name="avatarFile" />
-                    </div>
-                )}
             </div>
 
             {/* Bio */}
@@ -164,6 +157,7 @@ const ProfileSettings = ({
                     <p>{t(`settings.bio`, { ns: 'tooltips' })}</p>
                     <div className="input-wrapper">
                         <textarea 
+                            className='bio'
                             value={bio ?? ""}
                             onChange={(e) => bioChange(e.target.value)}
                             maxLength={maxBioLen}
