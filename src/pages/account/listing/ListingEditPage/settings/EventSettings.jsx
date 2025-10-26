@@ -5,7 +5,8 @@ import {
 import { 
     useNotification,
     modifyEvent,
-    getEventSettings
+    getEventSettings,
+    getListingAccessToken
 } from "@core/lib";
 
 const recurrencePatterns = [
@@ -25,6 +26,7 @@ const eventStatuses = [
 
 const EventSettings = ({
     setSaving,
+    updateListing,
     listing
 }) => {
 
@@ -41,6 +43,8 @@ const EventSettings = ({
     const [eventStatus, setEventStatus] = useState('RECRUITING');
     const [registrationCloseTime, setRegistrationCloseTime] = useState(0);
     const [isPublic, setPublic] = useState(true);
+
+    const [accessToken, setAccessToken] = useState("");
 
     const updateEvent = useCallback(async (updates) => {
             if (!listing.id || updates === undefined) return;
@@ -61,7 +65,14 @@ const EventSettings = ({
             setEvent(data);
         }
 
+        const loadToken = async () => {
+            const data = await getListingAccessToken(listing.id);
+            setAccessToken(data.token);
+        };
+
         loadEventSettings();
+
+        loadToken();
     }, [listing.id]);
 
     useEffect(() => {
@@ -188,6 +199,32 @@ const EventSettings = ({
                         <p>{t(`labels.event.visibility.private`, { ns: 'common' })}</p>
                     )}
                 </div>
+
+                {!isPublic && (
+                    <>
+                        <h4>Пароль к объявлению</h4>
+                        <input
+                            className="form-control first"
+                            type="text"
+                            id="accessToken"
+                            value={accessToken ?? ""}
+                            onChange={(e) => {
+                                setAccessToken(e.target.value);
+                                updateListing({ accessToken: e.target.value });
+                            }}
+                            step="0.01"
+                            required
+                        />
+                        <div 
+                            className="btn hover"
+                            onClick={() => {
+                                navigator.clipboard.writeText(window.location.origin + `/event/${listing.id}/?token=${accessToken}`)
+                                    .then(() => notificate(t(`notification.success.copyListingLink`, { ns: 'messages' }), "success"))
+                                    .catch(() => notificate("Ошибка", "error"));
+                            }}
+                        >Скопировать ссылку</div>
+                    </>
+                )}
             </div>
 
             <div className="form-group">
@@ -211,38 +248,38 @@ const EventSettings = ({
                         <p>{t(`labels.event.recurrence.single`, { ns: 'common' })}</p>
                     )}
                 </div>
-            </div>
 
-            {isRecurring && (
-                <div className="form-group">
-                    <h3>{t(`labels.event.recurrenceParam.title`, { ns: 'common' })}</h3>
-                    <div className="status-toggle">
-                        <select
-                            value={recurrence}
-                            onChange={(e) => {
-                                setRecurrence(e.target.value);
-                                updateEvent({ recurrence: e.target.value });
-                            }}
-                        >
-                            <option 
-                                selected
-                                disabled
+                {isRecurring && (
+                    <>
+                        <h4>{t(`labels.event.recurrenceParam.title`, { ns: 'common' })}</h4>
+                        <div className="status-toggle">
+                            <select
+                                value={recurrence}
+                                onChange={(e) => {
+                                    setRecurrence(e.target.value);
+                                    updateEvent({ recurrence: e.target.value });
+                                }}
                             >
-                                Выберите частоту повторения
-                            </option>
-                            {recurrencePatterns.map((r) => (
                                 <option 
-                                    key={r} 
-                                    value={r}
-                                    selected={r == recurrence}
+                                    selected
+                                    disabled
                                 >
-                                    {t(`labels.event.recurrenceParam.${r}`, { ns: 'common' })}
+                                    Выберите частоту повторения
                                 </option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-            )}
+                                {recurrencePatterns.map((r) => (
+                                    <option 
+                                        key={r} 
+                                        value={r}
+                                        selected={r == recurrence}
+                                    >
+                                        {t(`labels.event.recurrenceParam.${r}`, { ns: 'common' })}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </>
+                )}
+            </div>
         </>
     );
 };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation} from "react-router-dom";
 import {
     ListingRating,
     PriceTypes,
@@ -34,6 +34,9 @@ import NotFoundPage from "@core/pages/NotFoundPage";
 const EventPage = () => {
 
     const { eventId } = useParams();
+    const { search } = useLocation();
+    const query = new URLSearchParams(search);
+    const token = query.get("token");
     const {notificate} = useNotification();
     const { t } = useTranslation(['categories', 'common', 'navigation']);
 
@@ -52,7 +55,9 @@ const EventPage = () => {
     useEffect(() => {
         async function loadData() {
             try {
-                const listingData = await getEventListing(eventId);
+                const params = {token};
+                console.log(params)
+                const listingData = await getEventListing(eventId, params);
                 setEvent(listingData);
                 setParticipantsCount(listingData.participants);
 
@@ -70,7 +75,7 @@ const EventPage = () => {
         }
 
         loadData();
-    }, [eventId]);
+    }, [eventId, token]);
 
     useEffect(() => {
 
@@ -244,7 +249,10 @@ const EventPage = () => {
                                             <h3>{t(`labels.event.participants`, { ns: 'common' })}</h3>
                                             <div className="event-participants">
                                                 {participants.map((participant) => (
-                                                    <div className="event-participant">
+                                                    <div 
+                                                        key={participant.name}
+                                                        className="event-participant"
+                                                    >
                                                         <Avatar 
                                                             user={participant}
                                                             className='seller-avatar'

@@ -175,7 +175,7 @@ const ListingEditPage = () => {
                 </div>
 
                 {listing.type == 'EVENT' && (
-                    <EventSettings listing={listing} setSaving={setSaving}/>
+                    <EventSettings listing={listing} updateListing={updateListing} setSaving={setSaving}/>
                 )}
 
                 {listing.type == 'PRODUCT' && (

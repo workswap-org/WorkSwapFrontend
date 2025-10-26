@@ -52,6 +52,17 @@
         }
     }
 
+    select:hover {
+        cursor: pointer;
+    }
+
+    input,
+    textarea{
+        &:hover {
+            cursor: text;
+        }
+    }
+
     .duo {
         display: inline-flex;
         flex-wrap: nowrap;
