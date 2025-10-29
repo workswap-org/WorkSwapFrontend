@@ -129,7 +129,7 @@ const ListingEditPage = () => {
                 <div className="form-group">
                     <label htmlFor="price">{t(`labels.price`, { ns: 'common' })}</label>
                     <div className="duo">
-                        {selectedPriceType != 'NEGOTIABLE' && (
+                        {(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') && (
                             <input
                                 className="form-control first"
                                 type="number"
@@ -147,7 +147,7 @@ const ListingEditPage = () => {
                         <select
                             id="priceType"
                             name="priceType"
-                            className={`form-control ${selectedPriceType != 'NEGOTIABLE' ? 'second' : ''}`}
+                            className={`form-control ${(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') ? 'second' : ''}`}
                             required
                             value={selectedPriceType ?? ""}
                             onChange={(e) => {
