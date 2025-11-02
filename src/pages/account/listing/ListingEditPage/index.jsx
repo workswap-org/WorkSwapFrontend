@@ -24,11 +24,11 @@ const ListingEditPage = () => {
     const {notificate} = useNotification();
 
     const [priceTypes, setPriceTypes] = useState([])
-    const [listing, setListing] = useState([])
+    const [listing, setListing] = useState(null)
 
     const [saving, setSaving] = useState(false);
-    const [locationId, setLocationId] = useState([]);
-    const [categoryId, setCategoryId] = useState([]);
+    const [locationId, setLocationId] = useState(null);
+    const [categoryId, setCategoryId] = useState(null);
     const [price, setPrice] = useState(listing?.price || "");
     const [selectedPriceType, setSelectedPriceType] = useState("");
     const [isActive, setActive] = useState(false);
@@ -37,7 +37,7 @@ const ListingEditPage = () => {
         if (!id || updates === undefined) return;
         setSaving(true);
         try {
-            modifyListing(id, updates);
+            await modifyListing(id, updates);
             setSaving(false);
         } catch (err) {
             notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error");

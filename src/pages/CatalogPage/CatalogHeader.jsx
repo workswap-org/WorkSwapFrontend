@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import CatalogCategories from "./CatalogCategories";
+import CatalogCategories from "./categories/CatalogCategories";
 
 const CatalogHeader = ({
     searchQuery,
@@ -20,9 +20,10 @@ const CatalogHeader = ({
                 <button 
                     className="btn btn-primary categories-btn" 
                     onMouseEnter={() => setCategoriesMenu(true)}
+                    onClick={() => setCategoriesMenu(prev => !prev)}
                 >
                     <div><i className="fa-solid fa-list fa-lg perm-light"></i></div>
-                    <span className="normal-only">{t('category.all-categories', { ns: 'categories' })}</span>
+                    <span className="normal-only">{t('category.all-categories')}</span>
                 </button>
 
                 <CatalogCategories 

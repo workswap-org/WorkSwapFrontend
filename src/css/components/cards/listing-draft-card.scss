@@ -15,8 +15,7 @@
     &.new {
         align-items: center;
         justify-content: center;
-        border-style: dashed;
-        border-width: 4px;
+        border: 4px dashed var(--border-color);
         height: 100%;
     }
 

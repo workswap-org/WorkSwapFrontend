@@ -44,9 +44,8 @@ const NavButtons = () => {
             {/* Для неавторизованных */}
             {!isAuthenticated && (
                 <Link
-                    to="/login"
-                    style={{ display: "flex", flexDirection: "row" }}
-                    className="btn btn-outline-primary"
+                    to={`/login?redirect=${window.location.href}`}
+                    className="btn btn-outline-primary flex-row"
                 >
                     <img src="/images/google.png" className="google-logo" alt="Google" />
                     <span>{t("login")}</span>

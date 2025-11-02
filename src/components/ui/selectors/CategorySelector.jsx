@@ -52,6 +52,7 @@ const CategorySelector = ({ listing, categoryId, onChange } ) => {
     const renderSelectors = () => {
         const selectors = [];
         let parentId = null;
+        const listingType = listing.type.toLowerCase()
 
         for (let level = 0; ; level++) {
             const children = getChildren(parentId);
@@ -70,7 +71,7 @@ const CategorySelector = ({ listing, categoryId, onChange } ) => {
                     </option>
                     {children.map((c) => (
                         <option key={c.id} value={c.id}>
-                            {t(`category.${c.name}`, { ns: 'categories' })}
+                            {t(`category.${listingType}.${c.name}`, { ns: 'categories' })}
                         </option>
                     ))}
                 </select>

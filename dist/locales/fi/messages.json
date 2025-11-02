@@ -1,0 +1,35 @@
+{
+    "confirms": {
+        "deleteAccount": "Oletko varma, että haluat poistaa tilin? Tämä toiminto on peruuttamaton.",
+        "deleteListing": "Haluatko varmasti poistaa ilmoituksen? Tätä toimintoa ei voi peruuttaa."
+    },
+
+    "notification": {
+        "success": {
+            "listingDelete": "Ilmoitus poistettu",
+            "publish": "Ilmoitus julkaistu",
+            "createDraft": "Ilmoituksen luonnos tallennettu",
+            "listingUpdate": "Ilmoitus päivitetty",
+            "reviewCreate": "Arvostelu tallennettu onnistuneesti",
+            "copyListingLink": "Ilmoituksen linkki kopioitu",
+            "copyEmail": "Sähköposti kopioitu",
+            "copyPhone": "Puhelinnumero kopioitu",
+            "copyTelegramTag": "Tunniste kopioitu"
+        },
+        "error": {
+            "listingDelete": "Virhe ilmoituksen poistossa",
+            "listingUpdate": "Virhe Ilmoituksen päivitessä",
+            "reviewCreate": "Arvostelua ei voitu jättää",
+            "toggleFavorite": "Virhe suosikin vaihtamisessa"
+        },
+        "misc": {
+            "hadDraft": "Sinulla on vielä tallennettu luonnos",
+            "nullReviewText": "Kirjoita arvosteluteksti",
+            "nullReviewRating": "Anna ilmoitukselle arvio",
+            "error": {
+                "draftsLoading": "Virhe luonnosten lataamisessa",
+                "listingCreate": "Virhe ilmoituksen luomisessa"
+            }
+        }
+    }
+}

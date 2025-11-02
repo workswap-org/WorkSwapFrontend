@@ -1,0 +1,35 @@
+{
+    "back": "Назад",
+    
+    "catalogSidebar": {
+        "links": {
+            "about": "Что это за сайт?",
+            "account": "Аккаунт",
+            "createListing": "Создать объявление",
+            "myListings": "Мои объявления",
+            "messenger": "Мои сообщения"
+        }
+    },
+    "accountSidebar": {
+        "login": "Войти в аккаунт",
+        "logout": "Выйти из аккаунта",
+        "links": {
+            "catalog": "Каталог",
+            "account": "Аккаунт",
+            "my-listings": "Мои объявления",
+            "favorites": "Избранное",
+            "messenger": "Сообщения",
+            "settings": "Настройки",
+            "security": "Безопасность",
+            "editProfile": "Редактировать профиль"
+        }
+    },
+    "breadcrumps": {
+        "catalog": "Каталог"
+    },
+    "settings": {
+        "profile": "Профиль",
+        "privacy": "Конфиденциальность",
+        "preferences": "Предпочтения"
+    }
+}

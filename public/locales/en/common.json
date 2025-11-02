@@ -1,0 +1,174 @@
+{
+    "all-listings": "All listings",
+    
+    "placeholders": {
+        "search": "Search listings",
+        "email": "Enter email",
+        "category": "Select category...",
+        "priceType": "Select price type...",
+        "location": "Select location...",
+        "review": "Write a review...",
+        "typeMessage": "Type a message..."
+    },
+    "sorts": {
+        "date": "By date",
+        "price": "By price",
+        "rating": "By rating",
+        "popularity": "By views"
+    },
+    "priceTypes": {
+        "fixed": "€",
+        "per-hour": "€ / hour",
+        "per-day": "€ / day",
+        "negotiable": "Negotiable",
+        "swap": "Swap",
+        "null": ""
+    },
+    "statuses": {
+        "published": "Published",
+        "active": "Active",
+        "blocked": "Blocked",
+        "inactive": "Inactive",
+        "draft": "Draft"
+    },
+    "languages": {
+        "ru": "Russian",
+        "en": "English",
+        "fi": "Finnish",
+        "it": "Italian"
+    },
+    "labels": {
+        "price": "Price",
+        "priceType": "Price type",
+        "images": "Images",
+        "category": "Category",
+        "location": "Location",
+        "title": "Title",
+        "description": "Description",
+        "name": "Name",
+        "phone": "Phone",
+        "views": "Views",
+        "rating": "Rating",
+        "contacts": "Contact information",
+        "translations": "Listing translations",
+        "status": {
+            "listing": "Listing status",
+            "event": {
+                "title": "Event status",
+                "RECRUITING": "Recruiting participants",
+                "CLOSED": "Recruitment closed",
+                "FINISHED": "Event finished",
+                "ARCHIVED": "Archived"
+            }
+        },
+
+        "event": {
+            "participants": "Participants",
+            "price": "Event price",
+            "date": "Event date",
+            "registerClosingDate": "Registration closing date",
+            "minMaxParticipants": "Min/Max participants",
+            "visibility": {
+                "title": "Visibility",
+                "public": "Public",
+                "private": "Accessible by link"
+            },
+            "recurrence": {
+                "title": "Recurrence",
+                "repeat": "Recurring",
+                "single": "One-time"
+            },
+            "recurrenceParam": {
+                "title": "Recurrence frequency",
+                "NONE": "None",
+                "DAILY": "Daily",
+                "WEEKLY": "Weekly",
+                "MONTHLY": "Monthly",
+                "YEARLY": "Yearly"
+            }
+        },
+        
+        "settings": {
+            "event": "Event settings",
+            "product": "Product settings",
+            "service": "Service settings"
+        }
+    },
+    "titles": {
+        "account": "My Account",
+        "favorites": "Favorites",
+        "myListings": "My Listings",
+        "messenger": "Messages",
+        "settings": "User Settings",
+        "security": "Security",
+        "listingCreate": "Create listing",
+        "listingEdit": "Manage Listing",
+        "listingDrafts": "My Drafts"
+    },
+    "fallbacks": {
+        "noTitle": "Untitled",
+        "noListings": "No listings found",
+        "noMessages": "No messages",
+        "pageNotFound": "Page not found"
+    },
+    "catalog": {
+        "sidebar": {
+            "search": "Search",
+            "sort": "Sort",
+            "filters": "Filters",
+            "hasReviews": "With Reviews",
+            "usefulLinks": "Useful Links"
+        }
+    },
+    "settings": {
+        "avatarTypes": {
+            "uploaded": "Uploaded",
+            "google": "Google",
+            "default": "Default"
+        },
+        "labels": {
+            "baseInfo": "Basic Information",
+            "privacy": "Privacy",
+            "avatar": "Avatar",
+            "myLanguages": "Languages I Speak",
+            "myLocation": "My Location",
+            "bio": "About Me"
+        }
+    },
+    "messenger": {
+        "placeholders": {
+            "noDialogs": "You don't have any messages yet.",
+            "startChats": "Start a conversation by replying to a listing or sending a message to a user."
+        }
+    },
+    "listing": {
+        "similarListings": "Similar Listings"
+    },
+    "profile": {
+        "listings": "User Listings"
+    },
+    "reviews": {
+        "listLabel": "Reviews",
+        "item": {
+            "label": "Leave your review",
+            "rating": "Rating",
+            "text": "Review text"
+        }
+    },
+
+    "login": {
+        "label": "Log in"
+    },
+
+    "register": {
+        "label": "Register",
+        "welcomeUser": "Welcome, {{name}}!",
+        "acceptTerms": "I accept the <0>Terms of Use</0> and <1>Privacy Policy</1>",
+        "acceptStudy": "I understand that this is a study project and the site is not a commercial service",
+        "afterRegister": "After confirming your registration, you will be redirected to the catalog."
+    },
+
+    "listingCreate": {
+        "selectType": "What type of listing do you want to create?"
+    }
+}
