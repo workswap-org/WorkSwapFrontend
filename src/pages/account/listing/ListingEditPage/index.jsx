@@ -74,6 +74,7 @@ const ListingEditPage = () => {
 
     useEffect(() => {
 
+        if (!listing) return;
         setCategoryId(listing.categoryId);
         setLocationId(listing.locationId);
         setPrice(listing.price);
@@ -89,109 +90,110 @@ const ListingEditPage = () => {
                 {saving && (
                     <i className="fa-regular fa-download fa-spin fa-spin-reverse fa-2xl"></i>
                 )}
-                {listing.temporary ? (
+                {listing?.temporary ? (
                     <p>({t(`statuses.draft`, { ns: 'common' })})</p>
                 ) : (
                     <p>({t(`statuses.published`, { ns: 'common' })})</p>
                 )} 
             </div>
             
-            <div className="edit-listing-form">
-
-                <div className="form-group two-columns-grid">
-                    <h3>{t(`labels.translations`, { ns: 'common' })}</h3>
-                    <ListingTranslations id={id} updateListing={updateListing} />
-                </div>
-
-                <div className="form-group">
-                    <h3>{t(`labels.status.listing`, { ns: 'common' })}</h3>
-                    <div className="status-toggle">
-                        <label className="switch">
-                            <input 
-                                type="checkbox" 
-                                checked={isActive ?? false}
-                                onChange={(e) => {
-                                    setActive(e.target.checked);
-                                    updateListing({ active: e.target.checked });
-                                }}
-                                value="true"
-                            />
-                            <span className="slider"></span>
-                        </label>
-                        {isActive ? (
-                            <p>{t(`statuses.active`, { ns: 'common' })}</p>
-                        ) : (
-                            <p>{t(`statuses.inactive`, { ns: 'common' })}</p>
-                        )}
+            {listing && (
+                <div className="edit-listing-form">
+                    <div className="form-group two-columns-grid">
+                        <h3>{t(`labels.translations`, { ns: 'common' })}</h3>
+                        <ListingTranslations id={id} updateListing={updateListing} />
                     </div>
-                </div>
 
-                <div className="form-group">
-                    <label htmlFor="price">{t(`labels.price`, { ns: 'common' })}</label>
-                    <div className="duo">
-                        {(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') && (
-                            <input
-                                className="form-control first"
-                                type="number"
-                                id="price"
-                                name="price"
-                                value={price ?? ""}
-                                onChange={(e) => {
-                                    setPrice(e.target.value);
-                                    updateListing({ price: e.target.value });
-                                }}
-                                step="0.01"
+                    <div className="form-group">
+                        <h3>{t(`labels.status.listing`, { ns: 'common' })}</h3>
+                        <div className="status-toggle">
+                            <label className="switch">
+                                <input 
+                                    type="checkbox" 
+                                    checked={isActive ?? false}
+                                    onChange={(e) => {
+                                        setActive(e.target.checked);
+                                        updateListing({ active: e.target.checked });
+                                    }}
+                                    value="true"
+                                />
+                                <span className="slider"></span>
+                            </label>
+                            {isActive ? (
+                                <p>{t(`statuses.active`, { ns: 'common' })}</p>
+                            ) : (
+                                <p>{t(`statuses.inactive`, { ns: 'common' })}</p>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="price">{t(`labels.price`, { ns: 'common' })}</label>
+                        <div className="duo">
+                            {(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') && (
+                                <input
+                                    className="form-control first"
+                                    type="number"
+                                    id="price"
+                                    name="price"
+                                    value={price ?? ""}
+                                    onChange={(e) => {
+                                        setPrice(e.target.value);
+                                        updateListing({ price: e.target.value });
+                                    }}
+                                    step="0.01"
+                                    required
+                                />
+                            )}
+                            <select
+                                id="priceType"
+                                name="priceType"
+                                className={`form-control ${(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') ? 'second' : ''}`}
                                 required
-                            />
-                        )}
-                        <select
-                            id="priceType"
-                            name="priceType"
-                            className={`form-control ${(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') ? 'second' : ''}`}
-                            required
-                            value={selectedPriceType ?? ""}
-                            onChange={(e) => {
-                                setSelectedPriceType(e.target.value);
-                                updateListing({ priceType: e.target.value });
-                            }}
-                        >
-                            <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
-                            {priceTypes.map((type) => (
-                                <option key={type.name} value={type.name}>
-                                    {t(`priceTypes.${type.displayName}`, { ns: 'common' })}
-                                </option>
-                            ))}
-                        </select>
+                                value={selectedPriceType ?? ""}
+                                onChange={(e) => {
+                                    setSelectedPriceType(e.target.value);
+                                    updateListing({ priceType: e.target.value });
+                                }}
+                            >
+                                <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
+                                {priceTypes.map((type) => (
+                                    <option key={type.name} value={type.name}>
+                                        {t(`priceTypes.${type.displayName}`, { ns: 'common' })}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <h3>{t(`labels.location`, { ns: 'common' })}</h3>
+                        <LocationSelector locationId={locationId} onChange={locationChange} />
+                    </div>
+
+                    <div className="form-group two-columns-grid">
+                        <ListingImagesUploader updateListing={updateListing} listing={listing}/>
+                    </div>
+
+                    {listing.type == 'EVENT' && (
+                        <EventSettings listing={listing} updateListing={updateListing} setSaving={setSaving}/>
+                    )}
+
+                    {listing.type == 'PRODUCT' && (
+                        <ProductSettings listing={listing} updateListing={updateListing} categoryId={categoryId}/>
+                    )}
+
+                    {listing.type == 'SERVICE' && (
+                        <ServiceSettings listing={listing} updateListing={updateListing} categoryId={categoryId}/>
+                    )}
+
+                    <div className="form-actions two-columns-grid">
+                        <ListingEditActions
+                            listing={listing}
+                        />
                     </div>
                 </div>
-
-                <div className="form-group">
-                    <h3>{t(`labels.location`, { ns: 'common' })}</h3>
-                    <LocationSelector locationId={locationId} onChange={locationChange} />
-                </div>
-
-                <div className="form-group two-columns-grid">
-                    <ListingImagesUploader updateListing={updateListing} listing={listing}/>
-                </div>
-
-                {listing.type == 'EVENT' && (
-                    <EventSettings listing={listing} updateListing={updateListing} setSaving={setSaving}/>
-                )}
-
-                {listing.type == 'PRODUCT' && (
-                    <ProductSettings listing={listing} updateListing={updateListing} categoryId={categoryId}/>
-                )}
-
-                {listing.type == 'SERVICE' && (
-                    <ServiceSettings listing={listing} updateListing={updateListing} categoryId={categoryId}/>
-                )}
-
-                <div className="form-actions two-columns-grid">
-                    <ListingEditActions
-                        listing={listing}
-                    />
-                </div>
-            </div>
+            )}
         </>
     );
 };
