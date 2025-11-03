@@ -44,7 +44,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                                     </>
                                 ) : (
                                     <Link 
-                                        to="/login" 
+                                        to={`/login?redirect=${window.location.pathname}`}
                                         className="btn btn-primary"
                                     >
                                         {t(`loginToWrite`, { ns: 'buttons' })}
