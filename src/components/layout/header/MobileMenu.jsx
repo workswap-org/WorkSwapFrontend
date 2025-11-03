@@ -36,7 +36,7 @@ const MobileMenu = () => {
                     <span>{t(`accountSidebar.logout`, { ns: 'navigation' })}</span> 
                 </Link>
             ) : (
-                <Link className="navbar-btn" to='/login'>
+                <Link className="navbar-btn" to='/login?redirect=${window.location.pathname}'>
                     <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>
                     <span>{t(`accountSidebar.login`, { ns: 'navigation' })}</span> 
                 </Link>

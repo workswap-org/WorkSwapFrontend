@@ -41,6 +41,7 @@ import {
 import {
     LoginPage,
     RegisterPage,
+    RegisterOauthPage,
     LoginSuccessPage,
     LogoutPage
 } from "@core/pages";
@@ -57,6 +58,7 @@ const AppRouter = () => {
                 <Route path="/" element={<Layout />}>
                     <Route path="login" element={<LoginPage />} />
                     <Route path="register" element={<RegisterPage />} />
+                    <Route path="register/oauth" element={<RegisterOauthPage />} />
                     <Route path="login/success" element={<LoginSuccessPage />} />
                     <Route path="logout" element={<LogoutPage />} />
                     <Route index element={<Navigate to="/catalog" replace />} />

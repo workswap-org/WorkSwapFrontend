@@ -27,11 +27,6 @@
         margin-bottom: 1rem;
     }
 
-    .error-message {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
     .home-link {
         @include button(var(--primary), var(--primary-dark));
     }
