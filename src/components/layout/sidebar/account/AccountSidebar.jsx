@@ -66,7 +66,7 @@ const AccountSidebar = () => {
                     })}
                     (<span>{user?.rating}</span>)
                 </p>
-                {/* <a href="/secure/settings" className="btn btn-outline-primary btn-sm">{t(`accountSidebar.links.editProfile`, { ns: 'navigation' })}</a> */}
+                {/* <a href="/account/settings" className="btn btn-outline-primary btn-sm">{t(`accountSidebar.links.editProfile`, { ns: 'navigation' })}</a> */}
             </div>
 
             <AccountSidebarLinks/>

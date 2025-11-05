@@ -51,7 +51,7 @@ const PrivateListingCard  = ({listing}) => {
                     <>
                         <Link 
                             className="overlay-action-item hover"
-                            to={`/secure/listing/edit/${listing.id}`}
+                            to={`/account/listing/edit/${listing.id}`}
                         >
                             <i className="fa-solid fa-pen-to-square fa-lg"></i>
                         </Link>
@@ -82,6 +82,7 @@ const PrivateListingCard  = ({listing}) => {
             </div>
             <img 
                 src={listing.imagePath || `/images/default-listing.svg`}
+                onError={(e) => { e.currentTarget.src = `/images/default-listing.svg`; }}
                 alt="Изображение объявления"
             />
 

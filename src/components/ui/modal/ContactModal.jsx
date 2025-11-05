@@ -34,7 +34,7 @@ const ContactModal = () => {
                 title={t(`menu.contactToSupport`, { ns: 'buttons' })}
             >
                 <Link
-                    to={`/secure/chat-start?sellerId=1`} 
+                    to={`/account/chat-start?sellerId=1`} 
                     className="btn btn-primary"
                 >
                     {t(`listing.contactToAuthor`, { ns: 'buttons' })}

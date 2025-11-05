@@ -168,7 +168,7 @@ const ListingPage = () => {
                                                     </div>
                                                 ) : (
                                                     <Link
-                                                        to={`/secure/listing/edit/${listing.id}`}
+                                                        to={`/account/listing/edit/${listing.id}`}
                                                         className="listing-action-item hover"
                                                     >
                                                         <i className="fa-solid fa-pen"></i>

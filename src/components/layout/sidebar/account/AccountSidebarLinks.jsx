@@ -31,7 +31,7 @@ const AccountSidebarLinks = () => {
             {links.map((link) => (
                 <Link
                     key={link.key}
-                    to={`/secure/${link.key}`}
+                    to={`/account/${link.key}`}
                     className={`account-menu-item ${activePage === link.key ? "active" : ""}`}
                 >
                     <div><i className={`fa-regular ${link.icon} fa-lg`}></i></div>

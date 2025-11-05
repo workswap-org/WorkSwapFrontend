@@ -225,7 +225,7 @@ const EventPage = () => {
                                                 </>
                                             ) : (
                                                 <Link
-                                                    to={`/secure/listing/edit/${event.id}`}
+                                                    to={`/account/listing/edit/${event.id}`}
                                                     className="listing-action-item hover"
                                                 >
                                                     <i className="fa-solid fa-pen"></i>

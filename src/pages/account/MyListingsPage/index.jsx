@@ -36,7 +36,7 @@ const MyListingsPage = () => {
                 <h2>{t(`titles.myListings`, { ns: 'common' })}</h2>
                 <button
                     className="btn btn-primary"
-                    onClick={() => navigate("/secure/listing/create")}
+                    onClick={() => navigate("/account/listing/create")}
                 >
                     {t(`listing.addNew`, { ns: 'buttons' })}
                 </button>
@@ -71,7 +71,7 @@ const MyListingsPage = () => {
                                 ))}
                                 <Tooltip text={t(`listing.addNew`, { ns: 'buttons' })}>
                                     <article 
-                                        onClick={() => navigate("/secure/listing/create")} 
+                                        onClick={() => navigate("/account/listing/create")} 
                                         className="draft-listing-card new"
                                     >
                                         <i className="fa-solid fa-plus fa-xl"></i>

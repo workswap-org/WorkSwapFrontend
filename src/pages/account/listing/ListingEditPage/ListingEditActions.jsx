@@ -18,7 +18,7 @@ const ListingEditActions = ({
         const data = await publishListing(listing.id);
         if (data.message) {
             notificateFromRes(data);
-            navigate(`/secure/my-listings`);
+            navigate(`/account/my-listings`);
         }
     }
 
@@ -29,7 +29,7 @@ const ListingEditActions = ({
                     const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
                     if (confirmed) {
                         deleteListing(listing.id, notificateFromRes);
-                        navigate(`/secure/my-listings`);
+                        navigate(`/account/my-listings`);
                     }
                 }}
                 type="button" 
@@ -39,7 +39,7 @@ const ListingEditActions = ({
             </button>
             
             <Link 
-                to="/secure/my-listings" 
+                to="/account/my-listings" 
                 type="button" 
                 className="btn btn-outline-primary"
             >

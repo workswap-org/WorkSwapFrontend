@@ -22,7 +22,7 @@ const NavButtons = () => {
 
                 {isAuthenticated && (
                     <>
-                        {/* <Link to="/secure/messenger" className="nav-link">
+                        {/* <Link to="/account/messenger" className="nav-link">
                             <i className="fa-solid fa-comments-question fa-lg" style={{ lineHeight: "normal" }}></i>
                         </Link> */}
 
@@ -55,7 +55,7 @@ const NavButtons = () => {
             {/* Для авторизованных */}
             {isAuthenticated && (
                 <div className="account-link-container">
-                    <Link to="/secure/account" className="account-link">
+                    <Link to="/account/account" className="account-link">
                         <Avatar 
                             user={user}
                             size={32}

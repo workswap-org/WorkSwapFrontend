@@ -42,7 +42,9 @@ const PublicListingCard = ({listing, isMainListing}) => {
         <article onClick={() => navigator()} className="listing-card hover-animation-card">
             <img 
                 src={listing.imagePath || `/images/default-listing.svg`}
-                alt="Изображение объявления"/>
+                alt="Изображение объявления"
+                onError={(e) => { e.currentTarget.src = `/images/default-listing.svg`; }}
+            />
 
             {isNew && (
                 <div className="listing-status red">{t(`catalog.newListing`, { ns: 'tooltips' })}</div>

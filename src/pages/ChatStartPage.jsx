@@ -33,7 +33,7 @@ const ChatStartPage = () => {
 
     useEffect(() => {
         if(chatId) {
-            navigate(`/secure/messenger?chatId=${chatId}`, { replace: true})
+            navigate(`/account/messenger?chatId=${chatId}`, { replace: true})
         }
     }, [chatId, navigate])
 

@@ -27,7 +27,7 @@ export default function ListingCreatePage() {
 
             notificateFromRes(data);
 
-            navigate(`/secure/listing/edit/${data.id}`, { replace: true });
+            navigate(`/account/listing/edit/${data.id}`, { replace: true });
         } catch (err) {
             console.error(err);
             notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error");

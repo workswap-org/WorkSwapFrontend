@@ -75,12 +75,12 @@ const AppRouter = () => {
                         <Route path="profile/:userId" element={<ProfilePage />} />
 
                         {/* приватные страницы */}
-                        <Route path="secure" element={<PrivateRoute />}>
+                        <Route path="account" element={<PrivateRoute />}>
                             <Route element={<AccountLayout />}>
                             
-                                <Route index element={<Navigate to="/secure/my-listings" replace />} />
+                                <Route index element={<Navigate to="/account/my-listings" replace />} />
                                 {/* <Route path="account" element={<AccountPage />} /> */}
-                                <Route path="account" element={<Navigate to="/secure/my-listings" replace />} />
+                                <Route path="account" element={<Navigate to="/account/my-listings" replace />} />
 
                                 <Route path="my-listings" element={<MyListingsPage />} />
                                 <Route path="favorites" element={<FavoritesPage />} />
