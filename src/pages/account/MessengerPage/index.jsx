@@ -122,7 +122,6 @@ const MessengerPage = () => {
             </div>
 
             <div className="messenger-container">
-                {/* Список диалогов */}
                 {chatListing && (
                     <div 
                         id="listingCardContainer" 

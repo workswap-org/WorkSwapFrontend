@@ -32,14 +32,12 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                                 {isAuthenticated ? (
                                     <>  
                                         {!isOwner && (
-                                            <>
-                                                <Link 
-                                                    to={`/secure/chat-start?listingId=${listingId}&sellerId=${author.id}`} 
-                                                    className="btn btn-primary"
-                                                >
-                                                    {t(`listing.contactToAuthor`, { ns: 'buttons' })}
-                                                </Link>
-                                            </>
+                                            <Link 
+                                                to={`/secure/chat-start?listingId=${listingId}&sellerId=${author.id}`} 
+                                                className="btn btn-primary"
+                                            >
+                                                {t(`listing.contactToAuthor`, { ns: 'buttons' })}
+                                            </Link>
                                         )}
                                     </>
                                 ) : (
@@ -85,7 +83,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                                 }}
                             >
                                 <div><i className="fa-regular fa-envelope fa-lg"></i></div>
-                                <span className="contact-value">{author.email}</span>
+                                <span className="contact-value ellipsis">{author.email}</span>
                             </div>
                         )}
 

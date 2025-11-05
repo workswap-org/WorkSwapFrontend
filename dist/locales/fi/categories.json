@@ -161,18 +161,27 @@
     },
 
     "listingType": {
-        "SERVICE_OFFER": "Palvelutarjous",
-        "SERVICE_REQUEST": "Palvelupyyntö",
+        "SERVICE_OFFER": "Palvelutarjoukset",
+        "SERVICE_REQUEST": "Palvelupyynnöt",
         "SERVICES": "Palvelut",
-        "PRODUCT_SALE": "Tuotemyynti",
-        "EVENT": "Tapahtuma",
+        "PRODUCT_SALE": "Myytävät tuotteet",
+        "PRODUCT_PURCHASE": "Tarvittavat tuotteet",
+        "PRODUCT_SWAP": "Vaihto",
+        "PRODUCT_GIVEAWAY": "Annetaan ilmaiseksi",
+        "PRODUCT_WANTED_FREE": "Otan lahjoituksena",
+        "EVENT": "Tapahtumat",
         "SERVICE": "Palvelut",
         "PRODUCT": "Tuotteet",
+        "misc": "Muut",
         "create": {
-            "SERVICE_OFFER": "Haluan tarjota palvelua",
-            "SERVICE_REQUEST": "Etsin palvelua",
-            "PRODUCT_SALE": "Haluan myydä tuotteen",
-            "EVENT": "Haluan suunnitella tapahtuman"
+            "SERVICE_OFFER": "Tarjoan palvelua",
+            "SERVICE_REQUEST": "Tarvitsen palvelua",
+            "PRODUCT_SALE": "Myyn tuotteen",
+            "PRODUCT_PURCHASE": "Tarvitsen tuotteen",
+            "PRODUCT_SWAP": "Vaihdan tuotteen",
+            "PRODUCT_GIVEAWAY": "Annan ilmaiseksi",
+            "PRODUCT_WANTED_FREE": "Otan lahjoituksena",
+            "EVENT": "Luo tapahtuma"
         }
     }
 }

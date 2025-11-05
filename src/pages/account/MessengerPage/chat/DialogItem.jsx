@@ -35,7 +35,11 @@ const DialogItem = ({ chat, changeChat, startChatId, currentChatId }) => {
     return (
         <div className="dialog-item-box">
             <div className="dialog-item" onClick={() => changeChat(chat.id, interlocutor)}>
-                <img className="avatar p50-avatar" src={interlocutor.avatarUrl} alt="Аватар" />
+                <img 
+                    className="avatar p50-avatar" 
+                    src={interlocutor.avatarUrl || "/images/avatar-placeholder.png"} 
+                    alt="Аватар" 
+                />
                 <div className="dialog-content">
                     <div className="dialog-header">
                         <h4>{interlocutor.name}</h4>

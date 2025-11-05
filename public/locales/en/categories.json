@@ -163,18 +163,27 @@
     },
     
     "listingType": {
-        "SERVICE_OFFER": "Service offers",
-        "SERVICE_REQUEST": "Service requests",
+        "SERVICE_OFFER": "Service Offers",
+        "SERVICE_REQUEST": "Service Requests",
         "SERVICES": "Services",
-        "PRODUCT_SALE": "Products",
-        "EVENT": "Event",
+        "PRODUCT_SALE": "Items for Sale",
+        "PRODUCT_PURCHASE": "Wanted Items",
+        "PRODUCT_SWAP": "Exchange",
+        "PRODUCT_GIVEAWAY": "Give Away",
+        "PRODUCT_WANTED_FREE": "Looking for Free",
+        "EVENT": "Events",
         "SERVICE": "Services",
         "PRODUCT": "Products",
+        "misc": "Miscellaneous",
         "create": {
-            "SERVICE_OFFER": "I want to offer a service",
-            "SERVICE_REQUEST": "I am looking for a service",
-            "PRODUCT_SALE": "I want to sell a product",
-            "EVENT": "I want to schedule an event"
+            "SERVICE_OFFER": "Offer a Service",
+            "SERVICE_REQUEST": "Request a Service",
+            "PRODUCT_SALE": "Sell an Item",
+            "PRODUCT_PURCHASE": "Looking for an Item",
+            "PRODUCT_SWAP": "Exchange an Item",
+            "PRODUCT_GIVEAWAY": "Give Away",
+            "PRODUCT_WANTED_FREE": "Accept as a Gift",
+            "EVENT": "Create an Event"
         }
     }
 }

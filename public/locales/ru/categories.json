@@ -164,15 +164,24 @@
         "SERVICE_OFFER": "Предложения услуг",
         "SERVICE_REQUEST": "Запросы услуг",
         "SERVICES": "Услуги",
-        "PRODUCT_SALE": "Товары",
-        "EVENT": "Событие",
+        "PRODUCT_SALE": "Продаваемые товары",
+        "PRODUCT_PURCHASE": "Нужные товары",
+        "PRODUCT_SWAP": "Обмен",
+        "PRODUCT_GIVEAWAY": "Отдам бесплатно",
+        "PRODUCT_WANTED_FREE": "Приму в дар",
+        "EVENT": "События",
         "SERVICE": "Услуги",
         "PRODUCT": "Товары",
+        "misc": "Разное",
         "create": {
-            "SERVICE_OFFER": "Хочу предложить услугу",
-            "SERVICE_REQUEST": "Ищу услугу",
-            "PRODUCT_SALE": "Хочу продать товар",
-            "EVENT": "Хочу запланировать событие"
+            "SERVICE_OFFER": "Предлагаю услугу",
+            "SERVICE_REQUEST": "Нужна услуга",
+            "PRODUCT_SALE": "Продать товар",
+            "PRODUCT_PURCHASE": "Нужен товар",
+            "PRODUCT_SWAP": "Обменять товар",
+            "PRODUCT_GIVEAWAY": "Отдам бесплатно",
+            "PRODUCT_WANTED_FREE": "Приму в дар",
+            "EVENT": "Создать Событие"
         }
     }
 }

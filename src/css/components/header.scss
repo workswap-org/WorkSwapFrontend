@@ -1,3 +1,18 @@
+@mixin nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    display: block;
+    background: transparent;
+    border: none;
+    height: fit-content;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--primary);
+    }
+}
+
 header {
     position: fixed;
     top: 0;
@@ -20,6 +35,10 @@ header {
             height: 100%;
             z-index: 100;
             background-color: var(--background-l1);
+
+            .nav-link {
+                @include nav-link;
+            }
 
             &-brand {
                 color: var(--text-color);
@@ -154,17 +173,7 @@ header {
                     }
 
                     .nav-link {
-                        font-weight: 500;
-                        padding: 0.5rem 1rem;
-                        color: var(--text-color);
-                        display: block;
-                        background: transparent;
-                        border: none;
-                        cursor: pointer;
-
-                        &:hover {
-                            color: var(--primary);
-                        }
+                        @include nav-link;
                     }
 
                     .account-link-container {

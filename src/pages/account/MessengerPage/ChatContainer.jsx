@@ -64,7 +64,7 @@ const ChatContainer = ({
                         </button>
                         <img 
                             className="avatar p50-avatar" 
-                            src={interlocutor.avatarUrl ?? "/images/avatar-placeholder.png"} 
+                            src={interlocutor.avatarUrl || "/images/avatar-placeholder.png"} 
                             alt="Аватар" 
                         />
                         <div>
