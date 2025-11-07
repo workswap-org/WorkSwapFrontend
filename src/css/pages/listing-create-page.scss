@@ -1,3 +1,5 @@
+@use "@core/css/components/global-mixins" as *;
+
 .listing-create-container {
     background: var(--background-l1);
     border: 1px solid var(--border-color);
@@ -6,14 +8,12 @@
     max-width: 460px;
     border-radius: 18px;
     box-shadow: 0 4px 32px rgba(66, 97, 191, 0.13);
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     gap: 32px;
     align-items: center;
 
     .listing-create-type-selector {
-        display: flex;
-        flex-direction: column;
+        @include flex-column;
         gap: 20px;
         margin: 18px 0 32px 0;
         flex-wrap: wrap;

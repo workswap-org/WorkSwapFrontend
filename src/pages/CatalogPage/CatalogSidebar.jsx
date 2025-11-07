@@ -8,6 +8,7 @@ const sorts = [
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@core/lib';
+import { useEffect } from 'react';
 
 const CatalogSidebar = ({
     hasReviews,
@@ -17,6 +18,10 @@ const CatalogSidebar = ({
     sidebarOpened,
     toggleSidebar
 }) => {
+
+    useEffect(() => {
+        console.log(hasReviews);
+    }, [hasReviews])
 
     const { user } = useAuth()
 
@@ -29,43 +34,50 @@ const CatalogSidebar = ({
             </button>
 
             <div className="sorting-sidebar">
-                <h5>{t(`catalog.sidebar.sort`, { ns: 'common' })}</h5>
-                <div className="list-group">
-                    {sorts.map(sort => (
-                        <a
-                            key={sort.key}
-                            className={`list-group-item ${activeSort === sort.key ? "active" : ""}`}
-                            onClick={() => setActiveSort(sort.key)}
-                        >
-                            {t(`sorts.${sort.key}`, { ns: 'common' })}
-                        </a>
-                    ))}
-                </div>
-
-                <h5>{t(`catalog.sidebar.filters`, { ns: 'common' })}</h5>
-                <div className="form-check custom-checkbox">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="filter2"
-                        name="hasReviews"
-                        checked={hasReviews}
-                        onChange={(e) => setHasReviews(e.target.checked)}
-                    />
-                    <label className="form-check-label" htmlFor="filter2">
-                        <span className="checkmark"></span>
-                        <span>{t(`catalog.sidebar.hasReviews`, { ns: 'common' })}</span>
-                    </label>
-                </div>
+                <section>
+                    <h5>{t(`catalog.sidebar.sort`, { ns: 'common' })}</h5>
+                    <div className="list-group">
+                        {sorts.map(sort => (
+                            <button
+                                key={sort.key}
+                                className={`list-group-item ${activeSort === sort.key ? "active" : ""}`}
+                                onClick={() => setActiveSort(sort.key)}
+                            >
+                                {t(`sorts.${sort.key}`, { ns: 'common' })}
+                            </button>
+                        ))}
+                    </div>
+                </section>
+                
+                <section>
+                    <h5>{t(`catalog.sidebar.filters`, { ns: 'common' })}</h5>
+                    <div className="ws-checkbox hover">
+                        <input
+                            type="checkbox"
+                            id="filter2"
+                            name="hasReviews"
+                            checked={hasReviews}
+                            onChange={(e) => setHasReviews(e.target.checked)}
+                        />
+                        <label htmlFor="filter2">
+                            <span className="checkmark"></span>
+                            <span>{t(`catalog.sidebar.hasReviews`, { ns: 'common' })}</span>
+                        </label>
+                    </div>
+                </section>
             </div>
             {user && (
                 <div className="sorting-sidebar sidebar-links">
-                    <h5>{t(`catalog.sidebar.usefulLinks`, { ns: 'common' })}</h5>
-                    {/* <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link> */}
-                    {/* <Link to="/account/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link> */}
-                    <Link to="/account/listing/create" className="catalog-sidebar-btn">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
-                    <Link to="/account/my-listings" className="catalog-sidebar-btn">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
-                    <Link to="/account/messenger" className="catalog-sidebar-btn">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
+                    <section>
+                        <h5>{t(`catalog.sidebar.usefulLinks`, { ns: 'common' })}</h5>
+                        <div className="list-group">
+                            {/* <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link> */}
+                            {/* <Link to="/account/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link> */}
+                            <Link to="/account/listing/create" className="list-group-item">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
+                            <Link to="/account/my-listings" className="list-group-item">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
+                            <Link to="/account/messenger" className="list-group-item">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
+                        </div>
+                    </section>
                 </div>
             )}
         </aside>

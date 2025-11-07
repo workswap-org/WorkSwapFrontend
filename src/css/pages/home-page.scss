@@ -1,3 +1,5 @@
+@use "@core/css/components/global-mixins" as *;
+
 .hero {
     background-size: cover;
     color: var(--text-color);
@@ -106,7 +108,7 @@
     box-shadow: 0 2px 8px var(--shadow-color);
 }
 
-@media (max-width: 768px) {
+@include mobile {
     .hero {
         padding: 2rem 1rem;
     }

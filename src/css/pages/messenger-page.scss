@@ -1,3 +1,5 @@
+@use "@core/css/components/global-mixins" as *;
+
 .messenger-container {
     display: flex;
     flex: 1;
@@ -7,7 +9,7 @@
     position: relative;
     max-height: 70vh;
 
-    @media (max-width: 768px) {
+    @include mobile {
         flex-direction: column;
         height: auto;
         min-height: 0;
@@ -22,7 +24,7 @@
         width: 300px;
         background: rgba(0, 0, 0, 0.5);
 
-        @media (max-width: 768px) {
+        @include mobile {
             position: absolute;
             z-index: 100;
             top: 5rem;
@@ -36,7 +38,7 @@
         border-right: 1px solid var(--border-color);
         overflow-y: auto;
 
-        @media (max-width: 768px) {
+        @include mobile {
             position: fixed;
             top: var(--header-height);
             left: -100%;
@@ -145,14 +147,13 @@
 
     .chat-window {
         flex: 1;
-        display: flex;
-        flex-direction: column;
+        @include flex-column;
         background-color: var(--background);
         border-radius: var(--radius);
         overflow: hidden;
         position: relative;
 
-        @media (max-width: 768px) {
+        @include mobile {
             height: calc(100vh - 250px);
             max-height: none;
             flex: none;
@@ -161,8 +162,7 @@
 
 
         .chat-container {
-            display: flex;
-            flex-direction: column;
+            @include flex-column;
             height: 100%;
 
             .chat-header {
@@ -186,7 +186,7 @@
                     align-items: center;
                     gap: 1rem;
 
-                    @media (max-width: 768px) {
+                    @include mobile {
                         flex-direction: row;
                         align-items: center;
 
@@ -203,7 +203,7 @@
                         border-width: 0;
                         color: var(--text-color);
 
-                        @media (max-width: 768px) {
+                        @include mobile {
                             display: block;
                             margin: 0;
                         }
@@ -220,7 +220,7 @@
                     display: none;
                     gap: 0.5rem;
 
-                    @media (max-width: 768px) {
+                    @include mobile {
                         display: flex;
                     }
                 }
@@ -229,15 +229,14 @@
                     display: flex;
                     gap: 0.5rem;
 
-                    @media (max-width: 768px) {
+                    @include mobile {
                         display: none;
                     }
                 }
             }
 
             .messages-container {
-                display: flex;
-                flex-direction: column;
+                @include flex-column;
                 position: relative;
                 flex: 1;
                 padding: 0.5rem;
@@ -245,7 +244,7 @@
                 background-color: var(--background-l1);
                 gap: 0.5rem;
 
-                @media (max-width: 768px) {
+                @include mobile {
                     background-color: var(--background);
                     padding-bottom: 0.5rem;
                     max-height: 100%;
@@ -271,7 +270,7 @@
                             background-color: var(--background);
                             margin-right: auto;
 
-                            @media (max-width: 768px) {
+                            @include mobile {
                                 background-color: var(--background-l2);
                             }
                         }
@@ -310,8 +309,7 @@
                 .chat-order {
                     background-color: var(--background-l2);
                     padding: 0.7rem;
-                    display: flex;
-                    flex-direction: column;
+                    @include flex-column;
                     align-items: center;
 
                     * {
@@ -352,7 +350,7 @@
                 background-color: var(--background-l1);
                 border-top: 1px solid var(--border-color);
 
-                @media (max-width: 768px) {
+                @include mobile {
                     position: fixed;
                     bottom: 0;
                     left: 0;
@@ -382,7 +380,7 @@
                         box-shadow: 0 0 0 2px var(--primary-light);
                     }
 
-                    @media (max-width: 768px) {
+                    @include mobile {
                         width: 100%;
                     }
                 }

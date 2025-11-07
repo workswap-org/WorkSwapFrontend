@@ -1,13 +1,14 @@
+@use "@core/css/components/global-mixins" as *;
+
 .listing-card {
     z-index: 1;
     width: 100%;
     height: 100%;
-    display: flex;
     background-color: var(--background-l1);
     border: 2px solid var(--border-color);
     border-radius: calc(var(--radius) * 1.5);
     box-shadow: 0 2px 8px var(--shadow-color);
-    flex-direction: column;
+    @include flex-column;
     transition: all 0.3s ease;
     overflow: hidden;
     position: relative;
@@ -31,7 +32,7 @@
         }
     }
 
-    @media (max-width: 1120px) {
+    @include laptop {
         max-width: 300px;
         min-width: 150px;
 
@@ -40,7 +41,7 @@
         }
     }
 
-    @media (max-width: 600px) {
+    @include mobile {
         max-width: 320px;
         min-width: 150px;
 
@@ -75,13 +76,12 @@
     }
 
     .body {
-        display: flex;
-        flex-direction: column;
+        @include flex-column;
         flex-grow: 1;
         padding: 1rem;
         position: relative;
 
-        @media (max-width: 1120px), (max-width: 600px) {
+        @include laptop {
             padding: 0.5rem;
         }
 
@@ -96,7 +96,7 @@
             line-clamp: 2;
             -webkit-box-orient: vertical;
 
-            @media (max-width: 1120px), (max-width: 600px) {
+            @include laptop {
                 margin-bottom: 0.3rem;
                 font-size: 1rem;
             }
@@ -120,12 +120,11 @@
             margin-top: auto;
             padding-top: 0.4rem;
             border-top: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: row;
+            @include flex-row;
             justify-content: space-between;
             align-items: center;
 
-            @media (max-width: 1120px), (max-width: 600px) {
+            @include laptop {
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -168,12 +167,12 @@
                 cursor: pointer;
             }
 
-            @media (max-width: 1120px) {
+            @include laptop {
                 right: 0.4rem;
                 translate: 0 -60%;
             }
 
-            @media (max-width: 600px) {
+            @include mobile {
                 right: 0.4rem;
                 translate: 0 -70%;
             }

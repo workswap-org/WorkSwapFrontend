@@ -1,13 +1,14 @@
+@use "@core/css/components/global-mixins" as *;
+
 /* Сайдбар */
 .account-sidebar {
     flex: 0 0 280px;
     position: sticky;
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     gap: 1.5rem;
     top: calc(var(--header-height) + 20px);
 
-    @media (max-width: 992px) {
+    @include tablet-lg {
         position: static;
         width: 100%;
         display: none;
@@ -18,8 +19,7 @@
         border-radius: var(--radius);
         padding: 1.5rem;
         box-shadow: 0 2px 8px var(--shadow-color);
-        display: flex;
-        flex-direction: column;
+        @include flex-column;
         gap: 0.5rem;
         text-align: center;
         justify-content: center;

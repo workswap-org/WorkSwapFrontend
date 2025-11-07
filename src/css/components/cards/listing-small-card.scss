@@ -1,15 +1,14 @@
-/* =========== Стили для маленьких карточек для статистики ==============*/
+@use "@core/css/components/global-mixins" as *;
 
 .listing-small-card {
     width: 100%;
     height: 100%;
-    display: flex;
     background-color: var(--background-l1);
     border-color: var(--border-color);
     border-radius: calc(var(--radius) * 1.5);
     box-shadow: 0 2px 8px var(--shadow-color);
     border-width: 2px;
-    flex-direction: column;
+    @include flex-column;
     transition: all 0.3s ease;
     overflow: hidden;
 }
@@ -26,8 +25,7 @@
 }
 
 .listing-small-card-body {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     flex-grow: 1;
     padding: 1rem;
     gap: 0.5rem;

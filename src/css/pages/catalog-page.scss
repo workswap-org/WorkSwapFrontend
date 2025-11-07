@@ -1,22 +1,8 @@
-// ===== Variables =====
-$breakpoint-mobile: 1120px;
-$breakpoint-small: 600px;
+@use "@core/css/components/global-mixins" as *;
+
 $sidebar-width: var(--sidebar-width);
 $header-height: var(--header-height);
 $radius: var(--radius);
-
-// ===== Mixins =====
-@mixin mobile {
-	@media (max-width: #{$breakpoint-mobile}) {
-		@content;
-	}
-}
-
-@mixin small-mobile {
-	@media (max-width: #{$breakpoint-small}) {
-		@content;
-	}
-}
 
 // ===== Header Styles =====
 .catalog-header {
@@ -31,7 +17,7 @@ $radius: var(--radius);
 	width: 100%;
 	justify-content: center;
 
-	@include mobile {
+	@include laptop {
 		height: 4rem;
 		padding: 0.5rem;
 	}
@@ -75,11 +61,11 @@ $radius: var(--radius);
 			transform-origin: top;
 			animation: expandDown 0.3s ease forwards;
 
-			@include mobile {
+			@include laptop {
 				padding: 0.3rem;
 			}
 
-			@include small-mobile {
+			@include mobile {
 				max-height: 80vh;
 				overflow: auto;
 			}
@@ -101,7 +87,7 @@ $radius: var(--radius);
 				display: inline-flex;
 				gap: 0.2rem;
 
-				@include small-mobile {
+				@include mobile {
 					width: 100%;
 				}
 
@@ -112,7 +98,7 @@ $radius: var(--radius);
 					border-bottom: 2px solid var(--gray);
 					position: relative;
 
-					@include small-mobile {
+					@include mobile {
 						padding: 0.7rem;
 						padding-right: 2rem;
 						width: 100%;
@@ -139,14 +125,12 @@ $radius: var(--radius);
 				gap: 0.7rem;
 
 				.categories-sidebar-container {
-					display: flex;
-					flex-direction: column;
+					@include flex-column;
 					gap: 0.2rem;
 					width: max-content;
 
 					.categories-list {
-						display: flex;
-						flex-direction: column;
+						@include flex-column;
 						gap: 0.3rem;
 
 						.category-item {
@@ -189,8 +173,7 @@ $radius: var(--radius);
 					flex: 1;
 
 					.categories-list {
-						display: flex;
-						flex-direction: column;
+						@include flex-column;
 						gap: 0.3rem;
 
 						.sub-category-item {
@@ -236,7 +219,7 @@ $radius: var(--radius);
 				outline: none;
 				box-shadow: none;
 
-				@include mobile {
+				@include laptop {
 					min-width: auto;
 					padding: 0.6rem 0.6rem;
 				}
@@ -264,7 +247,7 @@ $radius: var(--radius);
 	padding-top: 5rem;
 	height: 100%;
 
-	@include mobile {
+	@include laptop {
 		flex-direction: column;
 		padding-left: 0;
 		gap: 2rem;
@@ -280,20 +263,22 @@ $radius: var(--radius);
 		max-width: 80%;
 		height: 100%;
 
-		@include mobile {
+		@include laptop {
 			min-width: 100%;
 			padding: 0.5rem;
 		}
 
 		.listing-types-list {
-			display: flex;
-			flex-direction: row;
+			display: inline-flex;
 			overflow-x: auto;
 			gap: 0.4rem;
 			width: max-content;
 			width: 100%;
 			-webkit-overflow-scrolling: touch;
-			padding-bottom: 1rem;
+			padding-bottom: 0.5rem;
+			scrollbar-color: var(--border-color) #00000000;
+			scrollbar-gutter: initial;
+			margin-bottom: 0.5rem;
 
 			.listing-type-item {
 				display: inline-flex;
@@ -322,11 +307,14 @@ $radius: var(--radius);
 
 	// ===== Filter Sidebar =====
 	.catalog-sidebar {
+		@include flex-column;
 		flex: 0 0 $sidebar-width;
 		position: sticky;
 		top: calc(#{$header-height} + 5rem);
+		padding: 1.5rem 0;
+		gap: 1.5rem;
 
-		@include mobile {
+		@include laptop {
 			position: fixed;
 			top: 200px;
 			right: -252px;
@@ -355,7 +343,7 @@ $radius: var(--radius);
 				transition: transform 0.2s;
 			}
 
-			@include mobile {
+			@include laptop {
 				background: var(--primary);
 				border: none;
 				border-radius: 12px 0 0 12px;
@@ -368,7 +356,6 @@ $radius: var(--radius);
 		}
 
 		.sorting-sidebar {
-			margin-top: 20px;
 			width: $sidebar-width;
 			top: calc(#{$header-height} + 60px);
 			align-self: flex-start;
@@ -378,21 +365,56 @@ $radius: var(--radius);
 			box-shadow: 0 2px 8px var(--shadow-color);
 			width: 100%;
 			position: static;
-			margin-bottom: 1.5rem;
+			@include flex-column;
+			gap: 1rem;
 
-			h5 {
-				margin-bottom: 1rem;
-			}
+			section {
+				
+				h5 {
+					margin-bottom: 0.5rem;
+				}
 
-			&.sidebar-links {
-				display: block;
+				&.sidebar-links {
+					display: block;
 
-				@include mobile {
-					display: none !important;
+					@include laptop {
+						display: none !important;
+					}
+				}
+
+				.list-group {
+					list-style: none;
+					@include flex-column;
+					gap: 0.5rem;
+
+					&-item {
+						display: block;
+						padding: 0.6rem 1.25rem;
+						font-size: 1rem;
+						width: 100%;
+						text-align: left;
+						border-radius: $radius;
+						line-height: 1.5;
+						border: 1px solid var(--border-color);
+						color: var(--text-color);
+						text-decoration: none;
+						transition: all 0.2s ease;
+						cursor: pointer;
+						
+						&:hover {
+							border-color: var(--primary);
+						}
+						
+						&.active {
+							background-color: var(--primary);
+							border-color: var(--primary);
+							color: var(--background-l1);
+						}
+					}
 				}
 			}
 
-			@include mobile {
+			@include laptop {
 				margin-top: 0;
 				width: $sidebar-width;
 				align-self: flex-start;
@@ -419,101 +441,6 @@ $radius: var(--radius);
 
 				&:hover {
 					border-color: var(--primary);
-				}
-			}
-
-			.custom-checkbox {
-				position: relative;
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-				cursor: pointer;
-
-				.form-check-input {
-					opacity: 0;
-					width: 1rem;
-					height: 1rem;
-					margin: 0;
-					position: absolute;
-					left: 0;
-					top: 0;
-					z-index: 1;
-					cursor: pointer;
-
-					float: none;
-					white-space: nowrap;
-					max-width: 30px;
-				}
-
-				.form-check-label {
-					display: inline-flex;
-					align-items: center;
-					gap: 0.5rem;
-					cursor: pointer;
-					padding-left: 1.5rem;
-					position: relative;
-					user-select: none;
-					margin-bottom: 0;
-				}
-
-				.checkmark {
-					position: absolute;
-					left: 0;
-					bottom: 0.3rem;
-					height: 1rem;
-					width: 1rem;
-					background-color: #fff;
-					border: 2px solid #888;
-					border-radius: 0.25rem;
-					transition: all 0.2s ease;
-				}
-
-				.form-check-input:checked + .form-check-label .checkmark {
-					background-color: var(--primary);
-					border-color: var(--primary);
-				}
-
-				.checkmark::after {
-					content: "";
-					position: absolute;
-					display: none;
-					left: 0.25rem;
-					top: 0.05rem;
-					width: 0.3rem;
-					height: 0.6rem;
-					border: solid white;
-					border-width: 0 2px 2px 0;
-					transform: rotate(45deg);
-				}
-
-				.form-check-input:checked + .form-check-label .checkmark::after {
-					display: block;
-				}
-			}
-
-			.list-group {
-				list-style: none;
-
-				.list-group-item {
-					display: block;
-					padding: 0.75rem 1.25rem;
-					border-radius: $radius;
-					margin-bottom: 0.5rem;
-					border: 1px solid var(--border-color);
-					color: var(--text-color);
-					text-decoration: none;
-					transition: all 0.2s ease;
-					cursor: pointer;
-					
-					&:hover {
-						border-color: var(--primary);
-					}
-					
-					&.active {
-						background-color: var(--primary);
-						border-color: var(--primary);
-						color: var(--background-l1);
-					}
 				}
 			}
 		}

@@ -1,9 +1,11 @@
+@use "@core/css/components/global-mixins" as *;
+
 .lang-cards {
     display: inline-flex;
     gap: 0.5rem;
     width: 100%;
 
-    @media (max-width: 600px) {
+    @include mobile {
         flex-direction: column;
     }
 
@@ -64,7 +66,7 @@
         grid-column: span 2;
     }
 
-    @media (max-width: 600px) {
+    @include mobile {
         grid-template-columns: 1fr;
 
         .two-columns-grid {

@@ -1,3 +1,5 @@
+@use "@core/css/components/global-mixins" as *;
+
 @mixin button($bg, $hover-bg, $text-color: #fff) {
     display: inline-block;
     padding: 0.75rem 1.5rem;

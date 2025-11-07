@@ -1,8 +1,9 @@
+@use "@core/css/components/global-mixins" as *;
+
 .form-group {
     margin-bottom: 1rem;
     gap: 0.4rem;
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     flex-wrap: wrap;
 
     .input-wrapper {
@@ -94,12 +95,12 @@
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
 
-    @media (max-width: 600px) {
+    @include mobile {
         flex-direction: column;
     }
 }
 
-@media (max-width: 992px) {
+@include tablet-lg {
     .form-control {
         width: 100%;
     }

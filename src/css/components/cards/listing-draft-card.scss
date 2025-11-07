@@ -1,8 +1,7 @@
-/* =========== Стили для карточек черновиков ==============*/
+@use "@core/css/components/global-mixins" as *;
 
 .draft-listing-card {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
 
     border: 3px solid var(--border-color);
     border-radius: var(--radius);

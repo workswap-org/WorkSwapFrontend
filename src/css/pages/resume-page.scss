@@ -1,3 +1,5 @@
+@use "@core/css/components/global-mixins" as *;
+
 .resume-status {
     display: flex;
     align-items: center;
@@ -51,7 +53,7 @@
     flex: 1;
 }
 
-@media (max-width: 768px) {
+@include mobile {
 
     .language-item {
         flex-direction: column;

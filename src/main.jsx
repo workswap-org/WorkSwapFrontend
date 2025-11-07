@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { AppProviders } from "@core/lib/providers/AppProviders";
-import "@/css";
+import "@/css/main.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 

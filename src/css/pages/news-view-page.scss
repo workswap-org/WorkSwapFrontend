@@ -1,3 +1,5 @@
+@use "@core/css/components/global-mixins" as *;
+
 .news-container {
     padding: 2rem 0;
     background-color: var(--background);
@@ -48,7 +50,6 @@
     justify-content: space-between;
     font-size: 0.85rem;
 }
-
 
 /* Изображение новости */
 .news-image {
@@ -266,7 +267,7 @@
 }
 
 /* Адаптивность */
-@media (max-width: 768px) {
+@include mobile {
     .news-header h1 {
         font-size: 1.5rem;
     }

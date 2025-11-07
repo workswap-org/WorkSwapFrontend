@@ -47,7 +47,6 @@ const NavButtons = () => {
                     to={`/login?redirect=${window.location.pathname}`}
                     className="btn btn-outline-primary flex-row"
                 >
-                    <img src="/images/google.png" className="google-logo" alt="Google" />
                     <span>{t("login")}</span>
                 </Link>
             )}

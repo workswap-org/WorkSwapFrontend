@@ -1,3 +1,5 @@
+@use "@core/css/components/global-mixins" as *;
+
 .resume-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -13,8 +15,7 @@
 }
 
 .resume-layout {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
 }
 
 .resume-header {
@@ -93,8 +94,7 @@
 }
 
 .languages-list {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     gap: 8px;
 }
 
@@ -103,7 +103,7 @@
 }
 
 /* Адаптация для мобильных устройств */
-@media (max-width: 768px) {
+@include mobile {
     .resume-content {
         flex-direction: column;
     }

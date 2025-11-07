@@ -1,3 +1,5 @@
+@use "@core/css/components/global-mixins" as *;
+
 .btn {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -8,7 +10,7 @@
     text-align: center;
     transition: all 0.3s ease;
 
-    @media (max-width: 600px) {
+    @include mobile {
         width: 100%;
     }
 }
@@ -177,7 +179,7 @@
         border-radius: 8px;
     }
 
-    @media (max-width: 600px) {
+    @include mobile {
         &.hover-show { opacity: 1; }
     }
 }
