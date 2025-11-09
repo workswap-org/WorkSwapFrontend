@@ -3,6 +3,8 @@
 /* Основной контейнер */
 .account-container {
     padding: 2rem 0;
+    flex: 1;
+    height: fit-content;
     background-color: var(--background);
 
     @include tablet-lg {
