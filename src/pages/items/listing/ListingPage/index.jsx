@@ -70,9 +70,9 @@ const ListingPage = () => {
 
     }, [listing])
 
-    const params = {
+    /* const params = {
         categoryId: listing?.categoryId,
-    }
+    } */
 
     useEffect(() => {
 
@@ -197,12 +197,12 @@ const ListingPage = () => {
                             <ReviewsSection listingId={listing.id} profileId={author.id} />
 
                             {/* Похожие объявления */}
-                            {listing.category && (
+                            {/* {listing.category && (
                                 <section className="similar-listings">
                                     <h2>{t(`listing.similarListings`, { ns: 'common' })}</h2>
                                     <CatalogContent mainListingId={listing.id} params={params}/>
                                 </section>
-                            )}
+                            )} */}
                         </main>
                     </div>
                 </div>

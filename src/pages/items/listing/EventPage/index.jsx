@@ -112,9 +112,9 @@ const EventPage = () => {
         
     }, [event?.id, isAuthenticated]);
 
-    const params = {
+    /* const params = {
         categoryId: event?.categoryId,
-    }
+    } */
 
     if (!event) return <NotFoundPage/>;
 
@@ -295,12 +295,12 @@ const EventPage = () => {
                     <ReviewsSection listingId={event.id} profileId={author.id} />
 
                     {/* Похожие объявления */}
-                    {event.category && (
+                    {/* {event.category && (
                         <section className="similar-listings">
                             <h2>{t(`listing.similarListings`, { ns: 'common' })}</h2>
                             <CatalogContent mainListingId={event.id} params={params}/>
                         </section>
-                    )}
+                    )} */}
                 </main>
             </div>
         </div>
