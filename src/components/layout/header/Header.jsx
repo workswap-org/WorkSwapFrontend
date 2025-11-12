@@ -51,11 +51,8 @@ const Header = ({ isEmpty }) => {
                             <div><i className="fa-solid fa-bars"></i></div>
                         </button>
                     </div>
-                    <div className={`navbar-collapse ${mobileVisible ? 'show' : ""}`}>
-                        <NavButtons />
-
-                        <MobileMenu />
-                    </div>
+                    <NavButtons />
+                    <MobileMenu mobileVisible={mobileVisible} />
                 </nav>
             </div>
         </header>

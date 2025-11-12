@@ -12,7 +12,7 @@ html {
     scroll-behavior: smooth;
 
     body {
-        padding-top: var(--header-height);
+        /* padding-top: var(--header-height); */
         font-family: 'Inter', -apple-system, sans-serif;
         line-height: 1.5;
         color: var(--text-color);
@@ -21,9 +21,9 @@ html {
         height: 100vh;
 
         #root {
-            height: 100%;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            height: 100%;
         }
     }
 }

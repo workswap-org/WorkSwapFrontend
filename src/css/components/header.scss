@@ -16,14 +16,12 @@
 }
 
 header {
-    position: fixed;
-    top: 0;
-    z-index: 101;
     background-color: var(--background-l1);
     box-shadow: 0 2px 10px var(--shadow-color);
     height: var(--header-height);
     padding: 0.4rem 2rem;
     width: 100%;
+    translate: 0;
 
     .header-container {
         width: 100%;
@@ -97,17 +95,15 @@ header {
             &-collapse {
                 display: flex;
                 align-items: center;
+                position: fixed;
 
                 @include mobile {
-                    position: fixed;
-
                     left: 0;
                     top: var(--header-height);
 
                     width: 100%;
                     height: 100%;
 
-                    background-color: var(--background-l2);
                     box-shadow: 0 2px 5px var(--shadow-color);
 
                     transform: translateX(100%);
@@ -118,139 +114,103 @@ header {
                 h2 {
                     margin-bottom: 0;
                 }
+            }
 
-                &.show {
-                    @include mobile {
-                        transform: translateX(0);
-                        visibility: visible;
-                    }
-                }
+            .nav-buttons {
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                gap: 0.5rem;
 
-                .mobile-menu {
+                @include mobile {
                     display: none;
-
-                    @include mobile {
-                        height: 100%;
-                        align-items: center;
-                        @include flex-column;
-                        padding: 0.4rem 1rem;
-                        gap: 0.5rem;
-                        overflow-y: auto;
-
-                        .user-info-menu {
-                            height: 152px;
-                            align-items: center;
-                            @include flex-column;
-                            gap: 0.5rem;
-                        }
-                    }
-
-                    .account-manager {
-                        display: none;
-
-                        @include mobile {
-                            display: block;
-                            min-width: 100%;
-                        }
-                    }
+                }
+                
+                .google-logo {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 0.5rem;
+                    object-fit: cover;
                 }
 
-                .nav-buttons {
+                .nav-link {
+                    @include nav-link;
+                }
+
+                .account-link-container {
+                    position: relative;
                     display: flex;
-                    align-items: center;
                     flex-direction: row;
-                    gap: 0.5rem;
+                    border: 1px solid var(--primary);
+                    border-radius: var(--radius);
+                    height: 100%;
+                    width: fit-content;
 
-                    @include mobile {
-                        display: none;
-                    }
-                    
-                    .google-logo {
-                        width: 20px;
-                        height: 20px;
-                        margin-right: 0.5rem;
-                        object-fit: cover;
-                    }
-
-                    .nav-link {
-                        @include nav-link;
-                    }
-
-                    .account-link-container {
-                        position: relative;
+                    .account-link {
                         display: flex;
                         flex-direction: row;
-                        border: 1px solid var(--primary);
+                        text-decoration: none;
+                        align-items: center;
+                        color: var(--text-color);
+                        padding: 0.5rem 1rem;
+                        background-color: var(--background-l1);
                         border-radius: var(--radius);
+                        border-right: 1px solid var(--primary);
+                        transition: all 0.2s;
+                        gap: 0.5rem;
                         height: 100%;
-                        width: fit-content;
+                        white-space: nowrap;
+                        position: relative;
+                        z-index: 2;
 
-                        .account-link {
-                            display: flex;
-                            flex-direction: row;
-                            text-decoration: none;
-                            align-items: center;
-                            color: var(--text-color);
-                            padding: 0.5rem 1rem;
-                            background-color: var(--background-l1);
-                            border-radius: var(--radius);
-                            border-right: 1px solid var(--primary);
-                            transition: all 0.2s;
-                            gap: 0.5rem;
-                            height: 100%;
-                            white-space: nowrap;
-                            position: relative;
-                            z-index: 2;
-
-                            &:hover {
-                                background-color: rgba(99, 102, 241, 0.1);
-                                color: var(--primary);
-                            }
-
-                            @include mobile {
-                                width: max-content;
-                            }
+                        &:hover {
+                            background-color: rgba(99, 102, 241, 0.1);
+                            color: var(--primary);
                         }
 
-                        .logout-btn {
-                            position: relative;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            color: var(--primary);
-                            background-color: transparent;
+                        @include mobile {
+                            width: max-content;
+                        }
+                    }
+
+                    .logout-btn {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: var(--primary);
+                        background-color: transparent;
+                        border-radius: var(--radius);
+                        font-size: 0.9rem;
+                        font-weight: 500;
+                        transition: all 0.2s ease;
+                        height: 3rem;
+                        width: 3rem;
+                        padding: 0;
+                        text-decoration: none;
+                        z-index: 1;
+                        border-width: 0;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            width: 130%;
+                            height: 100%;
+                            background-color: var(--primary);
                             border-radius: var(--radius);
-                            font-size: 0.9rem;
-                            font-weight: 500;
                             transition: all 0.2s ease;
-                            height: 3rem;
-                            width: 3rem;
-                            padding: 0;
-                            text-decoration: none;
-                            z-index: 1;
-                            border-width: 0;
+                            z-index: -1;
+                            opacity: 0;
+                        }
+
+                        &:hover {
+                            color: var(--background-l1);
 
                             &::before {
-                                content: '';
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                width: 130%;
-                                height: 100%;
-                                background-color: var(--primary);
-                                border-radius: var(--radius);
-                                transition: all 0.2s ease;
-                                z-index: -1;
-                                opacity: 0;
-                            }
-
-                            &:hover {
-                                color: var(--background-l1);
-
-                                &::before {
-                                    opacity: 1;
-                                    transform: translateX(0);
-                                }
+                                opacity: 1;
+                                transform: translateX(0);
                             }
                         }
                     }
@@ -274,4 +234,47 @@ header {
     color: var(--text-color);
     cursor: pointer;
     border-radius: var(--radius);
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: var(--header-height);
+    visibility: hidden;
+    background-color: var(--background-l2);
+    transform: translateX(100%);
+    transition: all 0.5s ease;
+    z-index: 100;
+
+    @include mobile {
+        height: 100%;
+        align-items: center;
+        @include flex-column;
+        padding: 0.4rem 1rem;
+        gap: 0.5rem;
+        overflow-y: auto;
+
+        .user-info-menu {
+            height: 152px;
+            align-items: center;
+            @include flex-column;
+            gap: 0.5rem;
+        }
+    }
+
+    &.show {
+        @include mobile {
+            transform: translateX(0);
+            visibility: visible;
+        }
+    }
+
+    .account-manager {
+        display: none;
+
+        @include mobile {
+            display: block;
+            min-width: 100%;
+        }
+    }
 }
