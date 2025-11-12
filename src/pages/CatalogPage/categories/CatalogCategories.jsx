@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useRef, useMemo } from "react";
-import { getCategories } from "@core/lib";
+import { getAllCategories } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const CategoryButton = ({ active, onClick, children }) => (
@@ -30,7 +30,7 @@ const CatalogCategories = ({
     useEffect(() => {
         (async () => {
         try {
-            const data = await getCategories();
+            const data = await getAllCategories();
             setCategories(data);
         } catch (e) {
             console.error(e);

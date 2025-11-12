@@ -30,7 +30,7 @@ const MobileMenu = () => {
                 <h2>{user?.name}</h2>
             </div>
 
-            {isAuthenticated ? (
+            {user ? (
                 <Link className="navbar-btn" to='/logout'>
                     <div><i className="fa-regular fa-left-from-bracket fa-lg"></i></div>
                     <span>{t(`accountSidebar.logout`, { ns: 'navigation' })}</span> 

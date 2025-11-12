@@ -1,10 +1,99 @@
 {
     "category": {
         "all-categories": "Kaikki kategoriat",
-        "product": {
-            "misc": "Sekalaiset",
-            "sport": "Urheilutarvikkeet",
-            "bike": "Polkupyörät"
+"product": {
+            "home-and-living": "Koti ja asuminen",
+            "furniture": "Huonekalut",
+            "textiles-and-interior": "Tekstiilit ja sisustus",
+            "lighting": "Valaistus",
+            "tableware-and-kitchenware": "Astiat ja keittiötarvikkeet",
+            "household-goods": "Kodintarvikkeet",
+            "cleaning-and-storage": "Siivous ja säilytys",
+            "garden-and-cottage": "Puutarha ja mökki",
+
+            "electronics-and-appliances": "Elektroniikka ja kodinkoneet",
+            "smartphones-and-accessories": "Älypuhelimet ja tarvikkeet",
+            "computers-and-laptops": "Tietokoneet ja kannettavat",
+            "peripherals": "Oheislaitteet",
+            "tvs-and-audio": "Televisiot ja äänentoisto",
+            "photo-and-video": "Kuvaus ja video",
+            "home-appliances": "Kodinkoneet",
+            "smart-home": "Älykoti",
+
+            "transport": "Ajoneuvot",
+            "cars": "Autot",
+            "motorcycles-and-scooters": "Moottoripyörät ja skootterit",
+            "bicycles-and-scooters": "Polkupyörät ja potkulaudat",
+            "auto-parts-and-accessories": "Auton osat ja tarvikkeet",
+            "tires-and-wheels": "Renkaat ja vanteet",
+            "equipment-and-tools": "Varusteet ja työkalut",
+
+            "clothing-and-footwear": "Vaatteet ja kengät",
+            "mens-clothing": "Miesten vaatteet",
+            "womens-clothing": "Naisten vaatteet",
+            "kids-clothing": "Lasten vaatteet",
+            "footwear": "Kengät",
+            "accessories": "Asusteet",
+            "jewelry-and-watches": "Korut ja kellot",
+
+            "kids": "Lapsille",
+            "toys": "Lelut",
+            "kids-furniture": "Lasten huonekalut",
+            "strollers-and-carseats": "Lastenvaunut ja turvaistuimet",
+            "baby-care-products": "Vauvanhoitotuotteet",
+
+            "hobbies-and-creativity": "Harrastukset ja luovuus",
+            "musical-instruments": "Soittimet",
+            "handicrafts-and-creativity": "Käsityöt ja askartelu",
+            "collectibles": "Keräily",
+            "board-games-and-puzzles": "Lautapelit ja palapelit",
+            "models-and-rc": "Mallit ja radio-ohjattavat",
+
+            "entertainment-and-media": "Viihde ja media",
+            "consoles-and-games": "Pelikonsolit ja pelit",
+            "books": "Kirjat",
+            "movies-and-music": "Elokuvat ja musiikki",
+            "sports-goods": "Urheilutarvikkeet",
+            "tourism-and-recreation": "Matkailu ja vapaa-aika",
+
+            "sports-and-health": "Urheilu ja terveys",
+            "fitness-and-gym": "Kuntoilu ja kuntosali",
+            "cycling-and-running": "Pyöräily ja juoksu",
+            "yoga-and-pilates": "Jooga ja pilates",
+            "medical-and-health-products": "Terveystuotteet ja lääkintä",
+            "sportswear-and-shoes": "Urheiluvaatteet ja -kengät",
+
+            "tools-and-building-materials": "Työkalut ja rakennustarvikkeet",
+            "power-tools": "Sähkötyökalut",
+            "hand-tools": "Käsityökalut",
+            "building-materials": "Rakennusmateriaalit",
+            "plumbing": "LVI ja putkityöt",
+            "electrical": "Sähkö",
+            "heating-and-ventilation": "Lämmitys ja ilmanvaihto",
+
+            "pets": "Lemmikit",
+            "pet-food": "Eläinten ruoka",
+            "pet-accessories": "Lemmikkitarvikkeet",
+            "houses-and-cages": "Talot ja häkit",
+            "veterinary-products": "Eläinlääkintätuotteet",
+
+            "food-and-drinks": "Ruoka ja juomat",
+            "groceries": "Elintarvikkeet",
+            "drinks": "Juomat",
+            "organic-food": "Luomuruoka",
+            "coffee-tea-and-sweets": "Kahvi, tee ja makeiset",
+
+            "work-and-business": "Työ ja liiketoiminta",
+            "commercial-real-estate": "Liike- ja toimitilat",
+            "office-supplies": "Toimistotarvikkeet",
+            "services-and-franchises": "Palvelut ja franchising",
+
+            "real-estate": "Kiinteistöt",
+            "apartments": "Asunnot",
+            "houses-and-cottages": "Talon ja mökit",
+            "rooms": "Huoneet",
+            "land-plots": "Tontit",
+            "garages-and-parking": "Autotallit ja pysäköinti"
         },
         "service": {
             "accounting-and-taxes": "Kirjanpito ja verot",

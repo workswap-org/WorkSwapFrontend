@@ -19,7 +19,6 @@ const CatalogHeader = ({
 
                 <button 
                     className="btn btn-primary categories-btn" 
-                    onMouseEnter={() => setCategoriesMenu(true)}
                     onClick={() => setCategoriesMenu(prev => !prev)}
                 >
                     <div><i className="fa-solid fa-list fa-lg perm-light"></i></div>

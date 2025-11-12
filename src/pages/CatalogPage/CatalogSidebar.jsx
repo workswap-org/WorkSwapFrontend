@@ -51,7 +51,7 @@ const CatalogSidebar = ({
                 
                 <section>
                     <h5>{t(`catalog.sidebar.filters`, { ns: 'common' })}</h5>
-                    <div className="ws-checkbox hover">
+                    <div className="checkbox hover">
                         <input
                             type="checkbox"
                             id="filter2"

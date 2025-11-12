@@ -41,20 +41,9 @@ const NavButtons = () => {
                 </Link> */}
             </div>
 
-            {/* Для неавторизованных */}
-            {!isAuthenticated && (
-                <Link
-                    to={`/login?redirect=${window.location.pathname}`}
-                    className="btn btn-outline-primary flex-row"
-                >
-                    <span>{t("login")}</span>
-                </Link>
-            )}
-
-            {/* Для авторизованных */}
-            {isAuthenticated && (
+            {isAuthenticated ? (
                 <div className="account-link-container">
-                    <Link to="/account/account" className="account-link">
+                    <Link to="/account" className="account-link">
                         <Avatar 
                             user={user}
                             size={32}
@@ -70,6 +59,13 @@ const NavButtons = () => {
                         <i className="fa fa-arrow-left-from-bracket fa-lg" aria-hidden="true"></i>
                     </Link>
                 </div>
+            ) : (
+                <Link
+                    to={`/login?redirect=${window.location.pathname}`}
+                    className="btn btn-outline-primary flex-row"
+                >
+                    <span>{t("login")}</span>
+                </Link>
             )}
         </div>
     );
