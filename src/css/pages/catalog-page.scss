@@ -265,6 +265,8 @@ $radius: var(--radius);
 		min-width: 0;
 		max-width: 80%;
 		height: 100%;
+		overflow-y: auto;
+		scrollbar-color: var(--border-color) #00000000;
 
 		@include laptop {
 			min-width: 100%;
@@ -311,7 +313,7 @@ $radius: var(--radius);
 	.catalog-sidebar {
 		@include flex-column;
 		flex: 0 0 $sidebar-width;
-		position: sticky;
+		position: static;
 		top: calc(#{$header-height} + 5rem);
 		padding: 1.5rem 0;
 		gap: 1.5rem;
