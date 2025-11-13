@@ -25,7 +25,7 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
     useEffect(() => {
         async function loadImages() {
             const data = await getListingImages(listing.id);
-            setImages(data.images);
+            setImages(data);
         }
 
         if (listing.id) loadImages();

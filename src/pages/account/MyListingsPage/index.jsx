@@ -22,9 +22,9 @@ const MyListingsPage = () => {
         async function loadListings() {
             const data = await getMyListings();
             setLoading(false);
-            setListings(data.listings);
-            setActiveListings(data.listings.filter(listing => !listing.temporary));
-            setDrafts(data.listings.filter(listing => listing.temporary));
+            setListings(data);
+            setActiveListings(data.filter(listing => !listing.temporary));
+            setDrafts(data.filter(listing => listing.temporary));
         }
 
         loadListings()

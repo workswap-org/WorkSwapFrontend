@@ -11,13 +11,13 @@ const ListingEditActions = ({
 }) => {
 
     const { t } = useTranslation('common');
-    const {notificateFromRes} = useNotification();
+    const { notificate, notificateFromRes} = useNotification();
     const navigate = useNavigate();
 
     async function publishL() {
-        const data = await publishListing(listing.id);
-        if (data.message) {
-            notificateFromRes(data);
+        const res = await publishListing(listing.id);
+        if (res.ok) {
+            notificate(t(`notification.success.publish`, { ns: 'messages' }), "success");
             navigate(`/account/my-listings`);
         }
     }

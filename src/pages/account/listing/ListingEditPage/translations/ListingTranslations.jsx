@@ -36,8 +36,8 @@ const ListingTranslations = ({ id, updateListing }) => {
 
         async function loadListingTranslations() {
             const data = await getListingTranslations(id);
-            if (data.translations) {
-                setTranslations(data.translations);
+            if (data) {
+                setTranslations(data);
             }
             setInitialized(true); // включаем после загрузки
         }
