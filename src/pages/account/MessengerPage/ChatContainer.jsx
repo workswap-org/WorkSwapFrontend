@@ -36,7 +36,7 @@ const ChatContainer = ({
     useEffect(() => {
         async function loadChatListing(currentChatId) {
             const data = await getListingByChatId(currentChatId);
-            setChatListing(data.listing)
+            setChatListing(data)
         }
 
         async function loadOrder(currentChatId) {

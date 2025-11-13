@@ -36,7 +36,7 @@ const ProfilePage = () => {
 
         async function loadListings() {
             const data = await getListingsByUserId(userId);
-            setListings(data.listings);
+            setListings(data);
         }
 
         loadProfile();

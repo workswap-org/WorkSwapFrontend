@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 export default function ListingCreatePage() {
 
     const navigate = useNavigate();
-    const { notificate, notificateFromRes } = useNotification();
+    const { notificate } = useNotification();
     const [listingType, setListingType] = useState(null);
     const { t } = useTranslation('categories');
     const productTypes = listingTypes.filter(t => t.key.startsWith("PRODUCT"));
@@ -21,18 +21,18 @@ export default function ListingCreatePage() {
         try {
             const data = await createListing(listingType);
 
-            if (!data.id) {
+            if (!data.newListingId) {
                 throw new Error(t(`notification.misc.error.listingCreate`, { ns: 'messages' }));
             }
 
-            notificateFromRes(data);
+            notificate(t(`notification.success.createDraft`, { ns: 'messages' }), "success");
 
-            navigate(`/account/listing/edit/${data.id}`, { replace: true });
+            navigate(`/account/listing/edit/${data.newListingId}`, { replace: true });
         } catch (err) {
             console.error(err);
             notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error");
         }
-    }, [navigate, notificate, notificateFromRes, t]);
+    }, [navigate, notificate, t]);
 
     return (
         <>

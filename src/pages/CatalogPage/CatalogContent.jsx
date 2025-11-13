@@ -22,7 +22,7 @@ const CatalogContent = ({ mainListingId, params}) => {
                 const data = await getSortedListings(params);
 
                 if (requestId === lastRequestId.current) {
-                    setListings(data.listings);
+                    setListings(data);
                     setLoading(false)
                 }
             } catch (err) {
