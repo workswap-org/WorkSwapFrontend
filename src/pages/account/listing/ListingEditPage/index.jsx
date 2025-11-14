@@ -5,7 +5,6 @@ import { LocationSelector } from "@/components";
 import { 
     modifyListing, 
     useNotification,
-    getSupportedPriceTypes,
     getListingById
 } from "@core/lib";
 import ListingEditActions from "./ListingEditActions";
@@ -14,6 +13,7 @@ import ListingTranslations from "./translations/ListingTranslations";
 import EventSettings from "./settings/EventSettings";
 import ProductSettings from "./settings/ProductSettings";
 import ServiceSettings from "./settings/ServiceSettings";
+import PriceEdit from "./PriceEdit";
 
 const ListingEditPage = () => {
 
@@ -23,14 +23,11 @@ const ListingEditPage = () => {
 
     const {notificate} = useNotification();
 
-    const [priceTypes, setPriceTypes] = useState([])
     const [listing, setListing] = useState(null)
 
     const [saving, setSaving] = useState(false);
     const [locationId, setLocationId] = useState(null);
     const [categoryId, setCategoryId] = useState(null);
-    const [price, setPrice] = useState(listing?.price || "");
-    const [selectedPriceType, setSelectedPriceType] = useState("");
     const [isActive, setActive] = useState(false);
     
     const updateListing = useCallback(async (updates) => {
@@ -54,19 +51,9 @@ const ListingEditPage = () => {
 
     useEffect(() => {
 
-        async function loadPriceTypes() {
-            const data = await getSupportedPriceTypes();
-            setPriceTypes(data.priceTypes);
-        }
-
-        loadPriceTypes();
-    }, [])
-
-    useEffect(() => {
-
         async function loadListing() {
             const data = await getListingById(id);
-            setListing(data.listing);
+            setListing(data);
         }
 
         loadListing();
@@ -77,8 +64,6 @@ const ListingEditPage = () => {
         if (!listing) return;
         setCategoryId(listing.categoryId);
         setLocationId(listing.locationId);
-        setPrice(listing.price);
-        setSelectedPriceType(listing.priceType?.toUpperCase());
         setActive(listing.active);
 
     }, [listing]);
@@ -127,44 +112,7 @@ const ListingEditPage = () => {
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="price">{t(`labels.price`, { ns: 'common' })}</label>
-                        <div className="duo">
-                            {(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') && (
-                                <input
-                                    className="form-control first"
-                                    type="number"
-                                    id="price"
-                                    name="price"
-                                    value={price ?? ""}
-                                    onChange={(e) => {
-                                        setPrice(e.target.value);
-                                        updateListing({ price: e.target.value });
-                                    }}
-                                    step="0.01"
-                                    required
-                                />
-                            )}
-                            <select
-                                id="priceType"
-                                name="priceType"
-                                className={`form-control ${(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') ? 'second' : ''}`}
-                                required
-                                value={selectedPriceType ?? ""}
-                                onChange={(e) => {
-                                    setSelectedPriceType(e.target.value);
-                                    updateListing({ priceType: e.target.value });
-                                }}
-                            >
-                                <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
-                                {priceTypes.map((type) => (
-                                    <option key={type.name} value={type.name}>
-                                        {t(`priceTypes.${type.displayName}`, { ns: 'common' })}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+                    <PriceEdit listing={listing} updateListing={updateListing}/>
 
                     <div className="form-group">
                         <h3>{t(`labels.location`, { ns: 'common' })}</h3>
