@@ -17,11 +17,13 @@
         "popularity": "По просмотрам"
     },
     "priceTypes": {
-        "fixed": "€",
-        "per-hour": "€ / час",
-        "per-day": "€ / день",
-        "negotiable": "Договорная",
-        "swap": "Обмен",
+        "FIXED": "€",
+        "PER_HOUR": "€ / час",
+        "PER_DAY": "€ / день",
+        "NEGOTIABLE": "Договорная",
+        "SWAP": "Обмен",
+        "FREE": "Бесплатно",
+        "WANTED_FREE": "Ищу бесплатно",
         "null": ""
     },
     "statuses": {

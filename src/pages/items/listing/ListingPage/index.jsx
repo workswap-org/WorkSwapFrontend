@@ -42,7 +42,7 @@ const ListingPage = () => {
         async function loadData() {
             try {
                 const listingData = await getListingById(listigId);
-                setListing(listingData.listing || null);
+                setListing(listingData || null);
 
                 await viewListing(listigId);
             } catch (err) {

@@ -17,11 +17,13 @@
         "popularity": "Näyttökertojen mukaan"
     },
     "priceTypes": {
-        "fixed": "€",
-        "per-hour": "€ / tunti",
-        "per-day": "€ / päivä",
-        "negotiable": "Sop.hinta",
-        "swap": "Vaihto",
+        "FIXED": "€",
+        "PER_HOUR": "€ / tunti",
+        "PER_DAY": "€ / päivä",
+        "NEGOTIABLE": "Sop.hinta",
+        "SWAP": "Vaihto",
+        "FREE": "Ilmainen",
+        "WANTED_FREE": "Halutaan ilmaiseksi",
         "null": ""
     },
     "statuses": {

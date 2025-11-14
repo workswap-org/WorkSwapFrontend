@@ -17,11 +17,13 @@
         "popularity": "By views"
     },
     "priceTypes": {
-        "fixed": "€",
-        "per-hour": "€ / hour",
-        "per-day": "€ / day",
-        "negotiable": "Negotiable",
-        "swap": "Swap",
+        "FIXED": "€",
+        "PER_HOUR": "€ / hour",
+        "PER_DAY": "€ / day",
+        "NEGOTIABLE": "Negotiable",
+        "SWAP": "Swap",
+        "FREE": "Free",
+        "WANTED_FREE": "Wanted for free",
         "null": ""
     },
     "statuses": {
