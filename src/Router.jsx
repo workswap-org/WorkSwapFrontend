@@ -31,7 +31,7 @@ import {
     SecurityPage,
 
     /* Страницы управления объявлениями */
-    ListingEditPage,
+    ListingManagePage,
     ListingCreatePage,
 
     ChatStartPage
@@ -90,7 +90,7 @@ const AppRouter = () => {
 
                                 <Route path="chat-start" element={<ChatStartPage />} />
                                 <Route path="listing/create" element={<ListingCreatePage />} />
-                                <Route path="listing/edit/:id" element={<ListingEditPage />} />
+                                <Route path="listing/edit/:id" element={<ListingManagePage />} />
                             </Route>
                         </Route>
                     </Route>

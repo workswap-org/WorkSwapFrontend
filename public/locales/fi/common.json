@@ -171,5 +171,12 @@
 
     "listingCreate": {
         "selectType": "Minkä ilmoituksen haluat luoda?"
+    },
+    "listingManage": {
+        "menus": {
+            "SETTINGS": "Asetukset",
+            "ANALYTICS": "Analytiikka",
+            "MESSAGES": "Viestit"
+        }
     }
 }

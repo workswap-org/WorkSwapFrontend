@@ -25,7 +25,6 @@ const eventStatuses = [
 ];
 
 const EventSettings = ({
-    setSaving,
     updateListing,
     listing
 }) => {
@@ -48,15 +47,13 @@ const EventSettings = ({
 
     const updateEvent = useCallback(async (updates) => {
             if (!listing.id || updates === undefined) return;
-            setSaving(true);
             try {
                 modifyEvent(listing.id, updates);
-                setSaving(false);
             } catch (err) {
                 notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error");
                 throw err;
             }
-        }, [listing.id, notificate, setSaving, t]);
+        }, [listing.id, notificate, t]);
 
     useEffect(() => {
 

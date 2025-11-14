@@ -1,5 +1,33 @@
 @use "@core/css/components/global-mixins" as *;
 
+.listing-manage-page {
+    @include flex-row;
+
+    .listing-manage-menus {
+        @include flex-column;
+        gap: 0.5rem;
+
+        .listing-manage-menu-item {
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            border-radius: 8px;
+
+            .active {
+
+            }
+        }
+    }
+
+    .listing-settings {
+        @include flex-column;
+
+        section {
+
+        }
+    }
+}
+
 .lang-cards {
     display: inline-flex;
     gap: 0.5rem;

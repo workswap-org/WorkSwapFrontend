@@ -15,13 +15,11 @@ const CatalogContent = ({ mainListingId, params}) => {
     const navigate = useNavigate();
 
     const [listings, setListings] = useState([]);
-    const [loading, setLoading] = useState(true)
 
     const lastRequestId = useRef(0);
 
     useEffect(() => {
         const requestId = ++lastRequestId.current;
-        setLoading(true)
 
         async function loadSortedListings(params) {
             try {
@@ -29,7 +27,6 @@ const CatalogContent = ({ mainListingId, params}) => {
 
                 if (requestId === lastRequestId.current) {
                     setListings(data);
-                    setLoading(false)
                 }
             } catch (err) {
                 console.error(err);

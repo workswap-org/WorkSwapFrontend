@@ -181,5 +181,12 @@
 
     "listingCreate": {
         "selectType": "Какое объявление вы хотите создать?"
+    },
+    "listingManage": {
+        "menus": {
+            "SETTINGS": "Настройки",
+            "ANALYTICS": "Аналитика",
+            "MESSAGES": "Отклики"
+        }
     }
 }

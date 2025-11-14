@@ -5,7 +5,6 @@ import { CategorySelector } from "@/components";
 
 const ServiceSettings = ({
     updateListing,
-    categoryId,
     listing
 }) => {
 
@@ -23,7 +22,7 @@ const ServiceSettings = ({
             <h2 className="two-columns-grid">{t(`labels.settings.service`, { ns: 'common' })}</h2>
             <div className="form-group">
                 <h3>{t(`labels.category`, { ns: 'common' })}</h3>
-                <CategorySelector listing={listing} categoryId={categoryId} onChange={categoryChange} />
+                <CategorySelector listing={listing} categoryId={listing.categoryId} onChange={categoryChange} />
             </div>
         </>
     );
