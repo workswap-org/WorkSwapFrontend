@@ -2,10 +2,15 @@
 
 .listing-manage-page {
     @include flex-row;
+    gap: 1rem;
+    height: 100%;
 
     .listing-manage-menus {
         @include flex-column;
         gap: 0.5rem;
+        padding-right: 1rem;
+        height: 100%;
+        border-right: 1px solid var(--border-color);
 
         .listing-manage-menu-item {
             padding: 0.5rem 1rem;
@@ -40,7 +45,7 @@
     .lang-card {
         border: 3px solid var(--border-color);
         border-radius: var(--radius);
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 2rem;
         text-align: center;
         width: 100%;
         position: relative;
