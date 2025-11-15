@@ -40,7 +40,6 @@ const PriceEdit = ({ listing, updateListing }) => {
 
     return (
         <div className="form-group">
-            <label htmlFor="price">{t(`labels.price`, { ns: 'common' })}</label>
             <div className="duo">
                 {(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') && (
                     <input
@@ -71,7 +70,7 @@ const PriceEdit = ({ listing, updateListing }) => {
                     <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
                     {priceTypes.map((type) => (
                         <option key={type.name} value={type.name}>
-                            {t(`priceTypes.${type.displayName}`, { ns: 'common' })}
+                            {t(`priceTypes.${type.name}`, { ns: 'common' })}
                         </option>
                     ))}
                 </select>

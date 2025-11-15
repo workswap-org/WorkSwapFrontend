@@ -5,11 +5,8 @@ import {
     uploadListingImage,
     getListingImages
 } from "@core/lib";
-import { useTranslation } from 'react-i18next';
 
 const ListingImagesUploader = ({ updateListing, listing }) => {
-
-    const { t } = useTranslation('common');
 
     const {notificate} = useNotification();
 
@@ -108,7 +105,6 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
 
     return (
         <>
-            <h3>{t(`labels.images`, { ns: 'common' })}</h3>
             <div className="image-gallery-grid">
                 {imageList.map((img) => (
                     <div key={img.id} className="image-item">

@@ -91,6 +91,7 @@
         },
 
         "settings": {
+            "main": "Yleiset asetukset",
             "event": "Tapahtuman asetukset",
             "product": "Tuotteen asetukset",
             "service": "Palvelun asetukset"

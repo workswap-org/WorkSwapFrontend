@@ -79,6 +79,9 @@
                     .avatar-preview {
                         border: 3px solid #ddd;
                         transition: border-color 0.3s;
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 50%;
                     }
 
                     .upload-avatar {

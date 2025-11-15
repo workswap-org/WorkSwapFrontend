@@ -2,6 +2,7 @@ import { useCallback, } from "react";
 import { useTranslation } from 'react-i18next';
 
 import { CategorySelector } from "@/components";
+import ListingSetting from "../ListingSetting";
 
 const ServiceSettings = ({
     updateListing,
@@ -20,10 +21,9 @@ const ServiceSettings = ({
     return (
         <>
             <h2 className="two-columns-grid">{t(`labels.settings.service`, { ns: 'common' })}</h2>
-            <div className="form-group">
-                <h3>{t(`labels.category`, { ns: 'common' })}</h3>
+            <ListingSetting title={t(`labels.category`, { ns: 'common' })}>
                 <CategorySelector listing={listing} categoryId={listing.categoryId} onChange={categoryChange} />
-            </div>
+            </ListingSetting>
         </>
     );
 };

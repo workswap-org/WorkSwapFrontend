@@ -91,6 +91,7 @@
         },
         
         "settings": {
+            "main": "General settings",
             "event": "Event settings",
             "product": "Product settings",
             "service": "Service settings"

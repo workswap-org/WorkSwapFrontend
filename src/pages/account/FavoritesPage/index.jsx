@@ -12,7 +12,7 @@ const FavoritesPage = () => {
     useEffect(() => {
         async function loadFavorites() {
             const data = await getFavoritesListings();
-            setListings(data.listings);
+            setListings(data);
         }
 
         loadFavorites()

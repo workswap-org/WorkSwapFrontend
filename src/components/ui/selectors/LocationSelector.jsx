@@ -87,7 +87,7 @@ const LocationSelector = ({ locationId, onChange }) => {
         return selectors;
     };
 
-    return <>{renderSelectors()}</>;
+    return <div className="form-group">{renderSelectors()}</div>;
 };
 
 export default LocationSelector;

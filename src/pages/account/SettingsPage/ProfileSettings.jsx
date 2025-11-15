@@ -115,7 +115,7 @@ const ProfileSettings = ({
                         onClick={() => avatarTypeChange("uploaded", uploadedAvatar)}
                     >
                         <img 
-                            className="avatar-preview avatar p80-avatar" 
+                            className="avatar-preview avatar"
                             src={uploadedAvatar || "/images/upload-foto.png"} 
                             onError={(e) => {
                                 e.target.src = "/images/upload-foto.png"; // путь к запасной картинке
@@ -137,14 +137,17 @@ const ProfileSettings = ({
                         className={`avatar-option ${avatarType === "google" ? "selected" : ""}`}
                         onClick={() => avatarTypeChange("google", user.googleAvatar)}
                     >
-                        <img className="avatar-preview avatar p80-avatar" src={user.googleAvatar} alt="Google" />
+                        <img 
+                            className="avatar-preview avatar"
+                            src={user.googleAvatar} 
+                            alt="Google" />
                         <span>{t(`settings.avatarTypes.google`, { ns: 'common' })}</span>
                     </div>
                     <div
                         className={`avatar-option ${avatarType === "default" ? "selected" : ""}`}
                         onClick={() => avatarTypeChange("default", "/images/avatar-placeholder.png")}
                     >
-                        <img className="avatar-preview avatar p80-avatar" src="/images/avatar-placeholder.png" alt="Default" />
+                        <img className="avatar-preview avatar" src="/images/avatar-placeholder.png" alt="Default" />
                         <span>{t(`settings.avatarTypes.default`, { ns: 'common' })}</span>
                     </div>
                 </div>

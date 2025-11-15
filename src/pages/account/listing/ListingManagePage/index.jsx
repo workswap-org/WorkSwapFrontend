@@ -7,9 +7,9 @@ import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
 import ListingMessagesMenu from './menus/ListingMessagesMenu';
 
 export const ListingMenu = Object.freeze({
-    SETTINGS: "SETTINGS",
-    ANALYTICS: "ANALYTICS",
-    MESSAGES: "MESSAGES"
+    SETTINGS: { name: "SETTINGS", icon: "gear" },
+    ANALYTICS: { name: "ANALYTICS", icon: "chart-mixed" },
+    MESSAGES: { name: "MESSAGES", icon: "message-lines" }
 });
 const ListingManagePage = () => {
 
@@ -34,15 +34,15 @@ const ListingManagePage = () => {
     const renderMenuContent = () => {
         if (!listing) return null;
 
-        switch (currentMenu) {
+        switch (currentMenu.name) {
             case "SETTINGS":
                 return <ListingSettingsMenu listing={listing} />;
 
             case "ANALYTICS":
-                return <ListingAnalyticMenu />;
+                return <ListingAnalyticMenu listing={listing}  />;
 
             case "MESSAGES":
-                return <ListingMessagesMenu />;
+                return <ListingMessagesMenu listing={listing}  />;
 
             default:
                 return null;
@@ -65,15 +65,16 @@ const ListingManagePage = () => {
                 <div className="listing-manage-menus">
                     {Object.values(ListingMenu).map((menu) => (
                         <button
-                            key={menu}
-                            className={`listing-manage-menu-item hover ${menu == currentMenu ? "active" : ""}`}
+                            key={menu.name}
+                            className={`listing-manage-menu-btn hover ${menu == currentMenu ? "active" : ""}`}
                             onClick={() => setCurrentMenu(menu)}
                         >
-                            {t(`listingManage.menus.${menu}`)}
+                            <div><i className={`fa-regular fa-${menu.icon}`}></i></div>
+                            {t(`listingManage.menus.${menu.name}`)}
                         </button>
                     ))}
                 </div>
-                <div className="listing-settings">
+                <div className="listing-menu">
                     {renderMenuContent()}
                 </div>
             </div>

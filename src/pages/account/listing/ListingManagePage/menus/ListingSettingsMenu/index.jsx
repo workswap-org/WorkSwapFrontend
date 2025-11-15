@@ -12,6 +12,7 @@ import EventSettings from "./settings/EventSettings";
 import ProductSettings from "./settings/ProductSettings";
 import ServiceSettings from "./settings/ServiceSettings";
 import PriceEdit from "./PriceEdit";
+import ListingSetting from "./ListingSetting";
 
 const ListingSettingsMenu = ({listing}) => {
     
@@ -39,45 +40,49 @@ const ListingSettingsMenu = ({listing}) => {
     }, [updateListing]);
 
     return listing ? (
-        <div className="edit-listing-form">
-            <div className="form-group two-columns-grid">
-                <h3>{t(`labels.translations`, { ns: 'common' })}</h3>
-                <ListingTranslations id={listing.id} updateListing={updateListing} />
-            </div>
-
-            <div className="form-group">
-                <h3>{t(`labels.status.listing`, { ns: 'common' })}</h3>
-                <div className="status-toggle">
-                    <label className="switch">
-                        <input 
-                            type="checkbox" 
-                            checked={isActive ?? false}
-                            onChange={(e) => {
-                                setActive(e.target.checked);
-                                updateListing({ active: e.target.checked });
-                            }}
-                            value="true"
-                        />
-                        <span className="slider"></span>
-                    </label>
-                    {isActive ? (
-                        <p>{t(`statuses.active`, { ns: 'common' })}</p>
-                    ) : (
-                        <p>{t(`statuses.inactive`, { ns: 'common' })}</p>
-                    )}
+        <>
+            <h2>{t(`labels.settings.main`, { ns: 'common' })}</h2>
+            <ListingSetting title={t(`labels.translations`, { ns: 'common' })}>
+                <div className="form-group">
+                    <ListingTranslations id={listing.id} updateListing={updateListing} />
                 </div>
-            </div>
+            </ListingSetting>
 
-            <PriceEdit listing={listing} updateListing={updateListing}/>
+            <ListingSetting title={t(`labels.status.listing`, { ns: 'common' })}>
+                <div className="form-group">
+                    <div className="status-toggle">
+                        <label className="switch">
+                            <input 
+                                type="checkbox" 
+                                checked={isActive ?? false}
+                                onChange={(e) => {
+                                    setActive(e.target.checked);
+                                    updateListing({ active: e.target.checked });
+                                }}
+                                value="true"
+                            />
+                            <span className="slider"></span>
+                        </label>
+                        {isActive ? (
+                            <p>{t(`statuses.active`, { ns: 'common' })}</p>
+                        ) : (
+                            <p>{t(`statuses.inactive`, { ns: 'common' })}</p>
+                        )}
+                    </div>
+                </div>
+            </ListingSetting>
 
-            <div className="form-group">
-                <h3>{t(`labels.location`, { ns: 'common' })}</h3>
+            <ListingSetting title={t(`labels.price`, { ns: 'common' })}>
+                <PriceEdit listing={listing} updateListing={updateListing}/>
+            </ListingSetting>
+
+            <ListingSetting title={t(`labels.location`, { ns: 'common' })}>
                 <LocationSelector locationId={listing.locationId} onChange={locationChange} />
-            </div>
+            </ListingSetting>
 
-            <div className="form-group two-columns-grid">
+            <ListingSetting title={t(`labels.images`, { ns: 'common' })}>
                 <ListingImagesUploader updateListing={updateListing} listing={listing}/>
-            </div>
+            </ListingSetting>
 
             {listing.type == 'EVENT' && (
                 <EventSettings listing={listing} updateListing={updateListing}/>
@@ -96,7 +101,7 @@ const ListingSettingsMenu = ({listing}) => {
                     listing={listing}
                 />
             </div>
-        </div>
+        </>
     ) : (
         <></>
     );

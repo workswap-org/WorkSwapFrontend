@@ -34,9 +34,7 @@ const PreferencesSettings = ({
             <div className="form-section">
                 <h3>{t(`settings.labels.myLocation`, { ns: 'common' })}</h3>
                 <p>{t(`settings.myLocation`, { ns: 'tooltips' })}</p>
-                <div className="form-group">
-                    <LocationSelector locationId={locationId} onChange={locationChange} />
-                </div>
+                <LocationSelector locationId={locationId} onChange={locationChange} />
             </div>
         </>
     );
