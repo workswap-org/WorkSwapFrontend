@@ -276,9 +276,10 @@ $radius: var(--radius);
 			width: max-content;
 			width: 100%;
 			-webkit-overflow-scrolling: touch;
-			padding-bottom: 0.5rem;
-			scrollbar-color: var(--border-color) #00000000;
+			padding-bottom: 1rem;
 			margin-bottom: 0.5rem;
+			scrollbar-color: var(--border-color) #00000000;
+			scrollbar-gutter: auto;
 
 			.listing-type-item {
 				display: inline-flex;

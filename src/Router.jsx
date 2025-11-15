@@ -43,7 +43,8 @@ import {
     RegisterPage,
     RegisterOauthPage,
     LoginSuccessPage,
-    LogoutPage
+    LogoutPage,
+    VerifyAccountPage
 } from "@core/pages";
 
 import {
@@ -58,6 +59,7 @@ const AppRouter = () => {
                 <Route path="/" element={<Layout />}>
                     <Route path="login" element={<LoginPage />} />
                     <Route path="register" element={<RegisterPage />} />
+                    <Route path="verify" element={<VerifyAccountPage />} />
                     <Route path="register/oauth" element={<RegisterOauthPage />} />
                     <Route path="login/success" element={<LoginSuccessPage />} />
                     <Route path="logout" element={<LogoutPage />} />

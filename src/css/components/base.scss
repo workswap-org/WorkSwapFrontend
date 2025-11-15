@@ -10,8 +10,8 @@
 
 html {
     scroll-behavior: smooth;
-    scrollbar-gutter: stable;
-
+    scrollbar-gutter: auto;
+    
     body {
         /* padding-top: var(--header-height); */
         font-family: 'Inter', -apple-system, sans-serif;
