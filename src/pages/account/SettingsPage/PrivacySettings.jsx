@@ -1,13 +1,22 @@
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const PrivacySettings = ( {
-    phoneVisible,
-    phoneVisibleChange,
-    emailVisible,
-    emailVisibleChange
-} ) => {
+const PrivacySettings = ({ user, updateUser }) => {
 
     const { t } = useTranslation(['tooltips', 'common'])
+
+    const [phoneVisible, setPhoneVisible] = useState(user.phoneVisible || false);
+    const [emailVisible, setEmailVisible] = useState(user.emailVisible || false);
+
+    const phoneVisibleChange = useCallback((phoneVisible) => {
+        setPhoneVisible(phoneVisible);
+        updateUser({ phoneVisible });
+    }, [updateUser]);
+
+    const emailVisibleChange = useCallback((emailVisible) => {
+        setEmailVisible(emailVisible);
+        updateUser({ emailVisible });
+    }, [updateUser]);
 
     return (
         <div className="form-section">

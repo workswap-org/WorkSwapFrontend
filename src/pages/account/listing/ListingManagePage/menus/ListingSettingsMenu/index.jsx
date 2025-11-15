@@ -14,6 +14,8 @@ import ServiceSettings from "./settings/ServiceSettings";
 import PriceEdit from "./PriceEdit";
 import ListingSetting from "./ListingSetting";
 
+const disabledTypesForPrice = ["PRODUCT_SWAP", "PRODUCT_GIVEAWAY", "PRODUCT_WANTED_FREE"];
+
 const ListingSettingsMenu = ({listing}) => {
     
     const { t } = useTranslation('common');
@@ -70,11 +72,20 @@ const ListingSettingsMenu = ({listing}) => {
                         )}
                     </div>
                 </div>
+                <div className="form-group">
+                    {listing?.temporary ? (
+                        <p>({t(`statuses.draft`, { ns: 'common' })})</p>
+                    ) : (
+                        <p>({t(`statuses.published`, { ns: 'common' })})</p>
+                    )} 
+                </div>
             </ListingSetting>
 
-            <ListingSetting title={t(`labels.price`, { ns: 'common' })}>
-                <PriceEdit listing={listing} updateListing={updateListing}/>
-            </ListingSetting>
+            {listing && !disabledTypesForPrice.includes(listing.publicType) &&
+                <ListingSetting title={t(`labels.price`, { ns: 'common' })}>
+                    <PriceEdit listing={listing} updateListing={updateListing}/>
+                </ListingSetting>
+            }
 
             <ListingSetting title={t(`labels.location`, { ns: 'common' })}>
                 <LocationSelector locationId={listing.locationId} onChange={locationChange} />

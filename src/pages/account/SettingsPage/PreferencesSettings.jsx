@@ -1,14 +1,32 @@
 import { useTranslation } from 'react-i18next';
 import { LocationSelector } from "@/components";
+import { useCallback, useEffect, useState } from 'react';
 
-const PreferencesSettings = ({
-    languages,
-    toggleLanguage,
-    locationId,
-    locationChange
-}) => {
-
+const PreferencesSettings = ({ user, updateUser }) => {
     const { t } = useTranslation(['tooltips', 'common'])
+
+    const [languages, setLanguages] = useState(user.languages || []);
+
+    const locationChange = useCallback((lastId) => {
+        updateUser({ location: lastId });
+    }, [updateUser]);
+    
+    const changeLanguages = useCallback(() => {
+        updateUser({ languages });
+    }, [updateUser, languages]);
+
+    // Языки (переключение кнопок)
+    const toggleLanguage = (lang) => {
+        setLanguages((prev) =>
+            prev.includes(lang)
+                ? prev.filter((l) => l !== lang)
+                : [...prev, lang]
+        );
+    };
+
+    useEffect(() => {
+        changeLanguages();
+    }, [languages, changeLanguages]);
 
     return (
         <>
@@ -34,7 +52,7 @@ const PreferencesSettings = ({
             <div className="form-section">
                 <h3>{t(`settings.labels.myLocation`, { ns: 'common' })}</h3>
                 <p>{t(`settings.myLocation`, { ns: 'tooltips' })}</p>
-                <LocationSelector locationId={locationId} onChange={locationChange} />
+                <LocationSelector locationId={user.locationId} onChange={locationChange} />
             </div>
         </>
     );

@@ -26,10 +26,5 @@
     },
     "breadcrumps": {
         "catalog": "Catalog"
-    },
-    "settings": {
-        "profile": "Profile",
-        "privacy": "Privacy",
-        "preferences": "Preferences"
     }
 }

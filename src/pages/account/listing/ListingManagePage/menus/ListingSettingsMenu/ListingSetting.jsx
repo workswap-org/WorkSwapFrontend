@@ -1,8 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const ListingSetting = ({ title, children}) => {
 
     const [active, setActive] = useState(false);
+
+    const validChildren = React.Children.toArray(children).filter(c => c !== null && c !== false);
+
+    console.log(title, validChildren)
+
+    if (validChildren.length === 0) return null;
 
     return (
         <div className="listing-setting">
@@ -10,7 +16,9 @@ const ListingSetting = ({ title, children}) => {
                 <h3>{title}</h3>
             </div>
             <div className={`body ${active ? "active" : ""}`}>
-                {children}
+                <div>
+                    {children} 
+                </div>
             </div>
         </div>
     );

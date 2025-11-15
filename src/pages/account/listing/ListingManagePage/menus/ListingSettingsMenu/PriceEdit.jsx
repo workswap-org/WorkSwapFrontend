@@ -5,8 +5,6 @@ import {
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const disabledTypes = ["PRODUCT_SWAP", "PRODUCT_GIVEAWAY", "PRODUCT_WANTED_FREE"];
-
 const PriceEdit = ({ listing, updateListing }) => {
 
     const { t } = useTranslation('common');
@@ -33,10 +31,6 @@ const PriceEdit = ({ listing, updateListing }) => {
         setSelectedPriceType(listing.priceType?.toUpperCase());
 
     }, [listing]);
-
-    if (!listing || disabledTypes.includes(listing.publicType)) {
-        return null;
-    }
 
     return (
         <div className="form-group">

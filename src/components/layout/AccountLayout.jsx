@@ -12,7 +12,7 @@ const AccountLayout = () => {
 
                     <main className="account-main">
 
-                        <Outlet />
+                        <Outlet key={location.key} />
                     </main>
                 </div>
             </div>

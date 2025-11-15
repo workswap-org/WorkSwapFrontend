@@ -26,10 +26,5 @@
     },
     "breadcrumps": {
         "catalog": "Каталог"
-    },
-    "settings": {
-        "profile": "Профиль",
-        "privacy": "Конфиденциальность",
-        "preferences": "Предпочтения"
     }
 }

@@ -141,6 +141,11 @@
             "myLanguages": "Языки которыми я владею",
             "myLocation": "Моё местоположение",
             "bio": "О себе"
+        },
+        "sections": {
+            "profile": "Профиль",
+            "privacy": "Конфиденциальность",
+            "preferences": "Предпочтения"
         }
     },
 
@@ -184,7 +189,7 @@
         "selectType": "Какое объявление вы хотите создать?"
     },
     "listingManage": {
-        "menus": {
+        "sections": {
             "SETTINGS": "Настройки",
             "ANALYTICS": "Аналитика",
             "MESSAGES": "Отклики"

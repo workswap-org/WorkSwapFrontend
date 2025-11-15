@@ -136,6 +136,11 @@
             "myLanguages": "Puhumani kielet",
             "myLocation": "Sijaintini",
             "bio": "Tietoa minusta"
+        },
+        "sections": {
+            "profile": "Profiili",
+            "privacy": "Yksityisyys",
+            "preferences": "Asetukset"
         }
     },
     "messenger": {
@@ -174,7 +179,7 @@
         "selectType": "Minkä ilmoituksen haluat luoda?"
     },
     "listingManage": {
-        "menus": {
+        "sections": {
             "SETTINGS": "Asetukset",
             "ANALYTICS": "Analytiikka",
             "MESSAGES": "Viestit"

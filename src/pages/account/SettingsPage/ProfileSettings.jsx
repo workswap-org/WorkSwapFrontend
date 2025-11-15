@@ -1,24 +1,19 @@
 import { useTranslation } from 'react-i18next';
 import { useNotification, uploadAvatar } from "@core/lib";
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-const ProfileSettings = ({
-    user,
-    name,
-    email,
-    phone,
-    avatarType,
-    bio,
+const ProfileSettings = ({ user, updateUser }) => {
 
-    nameChange,
-    phoneChange,
-    avatarTypeChange,
-    bioChange,
+    const [name, setName] = useState(user.name || "");
+    const [email, setEmail] = useState(user.email || "");
+    const [phone, setPhone] = useState(user.phone || "");
+    const [bio, setBio] = useState(user.bio || "");
+    const [avatarType, setAvatarType] = useState(user.avatarType || "uploaded");
 
-    maxBioLen,
-    maxNameLen,
-    maxPhoneLen,
-}) => {
+    // Подсчёт символов
+    const maxNameLen = 30;
+    const maxPhoneLen = 16;
+    const maxBioLen = 1900;
 
     const { t } = useTranslation(['tooltips', 'common'])
     const {notificate} = useNotification();
@@ -28,6 +23,40 @@ const ProfileSettings = ({
     useEffect(() => {
         if(user) setUploadedAvatar(user?.uploadedAvatar)
     }, [user])
+
+    const nameChange = useCallback((name) => {
+        setName(name);
+        updateUser({ name });
+    }, [updateUser]);
+
+    const phoneChange = useCallback((phone) => {
+        setPhone(validatePhone(phone));
+        updateUser({ phone });
+    }, [updateUser]);
+
+    const bioChange = useCallback((bio) => {
+        setBio(bio);
+        updateUser({ bio });
+    }, [updateUser]);
+
+    const avatarTypeChange = useCallback((avatarType, avatarUrl) => {
+        setAvatarType(avatarType);
+        if (avatarType) updateUser({ avatarType });
+        if (avatarUrl) updateUser({ avatarUrl });
+    }, [updateUser]);
+
+    // Валидация телефона
+    function validatePhone(value) {
+        let val = value;
+        if (val.indexOf("+") > 0) val = val.replace(/\+/g, "");
+        val = val.replace(/[^0-9+]/g, "");
+        if (val.indexOf("+") > 0) val = val.replace(/\D/g, "");
+        if ((val.match(/\+/g) || []).length > 1) {
+            const parts = val.split("+");
+            val = "+" + parts.slice(1).join("");
+        }
+        return val;
+    }
 
     const uploadtoCloud = async (file) => {
         try {

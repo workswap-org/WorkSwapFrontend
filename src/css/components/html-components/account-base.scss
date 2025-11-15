@@ -34,11 +34,16 @@
             border-radius: var(--radius);
             box-shadow: 0 2px 8px var(--shadow-color);
             padding: 1.5rem;
+            transition: max-height 0.2s ease;
 
             @include tablet-lg {
                 padding: 0.5rem;
                 min-height: 100%;
                 height: fit-content;
+            }
+
+            @include mobile {
+                overflow-x: hidden;
             }
 
             .account-header {
