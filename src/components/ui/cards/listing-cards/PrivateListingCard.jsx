@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 const PrivateListingCard  = ({listing}) => {
 
-    const { t } = useTranslation('common')
+    const { t } = useTranslation(['common', 'buttons'])
 
     const navigate = useNavigate();
 
@@ -42,8 +42,8 @@ const PrivateListingCard  = ({listing}) => {
                     to={`/account/listing/edit/${listing.id}`}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <i className="fa-solid fa-gear fa-lg"></i>
-                    {t('accountSidebar.links.settings', { ns: 'navigation' } )}
+                    <div><i className="fa-solid fa-gear fa-lg"></i></div>
+                    {t('listing.manage', { ns: 'buttons' } )}
                 </Link>
             </div>
         </article>

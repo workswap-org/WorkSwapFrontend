@@ -105,7 +105,7 @@
         "settings": "Käyttäjäasetukset",
         "security": "Turvallisuus",
         "listingCreate": "Ilmoituksen luominen",
-        "listingEdit": "Hallinnoi ilmoitusta",
+        "listingManage": "Hallinnoi ilmoitusta",
         "listingDrafts": "Omat luonnokset"
     },
     "fallbacks": {

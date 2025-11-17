@@ -37,14 +37,14 @@ export default function ListingCreatePage() {
     return (
         <>
             <div className="account-header">
-                <h2>{t(`titles.listingCreate`, { ns: 'common' })}</h2>
-                <button
-                    className="btn btn-primary"
-                    onClick={() => navigate(-1)}
-                >
-                    <i className="fa-solid fa-left perm-light"></i>
-                    {t(`back`, { ns: 'navigation' })}
-                </button>
+                <div className='flex-row'>
+                    <div className='mobile-actions media-only-flex'>
+                        <Link to='/account/my-listings' className='back-link-arrow'>
+                            <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
+                        </Link>
+                    </div>
+                    <h2>{t(`titles.listingCreate`, { ns: 'common' })}</h2>
+                </div>
             </div>
             <div className="listing-create-container">
                 <h3>{t(`listingCreate.selectType`, { ns: 'common' })}</h3>

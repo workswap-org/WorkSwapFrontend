@@ -37,7 +37,8 @@
             "remove": "Remove from favorites"
         },
         "contactToAuthor": "Send message",
-        "edit": "Edit listing"
+        "edit": "Edit listing",
+        "manage": "Manage"
     },
 
     "event": {

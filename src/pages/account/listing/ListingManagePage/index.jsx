@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getListingById } from "@core/lib";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ListingSettingsMenu from './menus/ListingSettingsMenu';
 import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
 import ListingMessagesMenu from './menus/ListingMessagesMenu';
@@ -33,7 +33,14 @@ const ListingManagePage = () => {
     return (
         <>
             <div className="account-header">
-                <h2>{t(`titles.listingEdit`, { ns: 'common' })}</h2>
+                <div className='flex-row'>
+                    <div className='mobile-actions media-only-flex'>
+                        <Link to='/account/my-listings' className='back-link-arrow'>
+                            <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
+                        </Link>
+                    </div>
+                    <h2>{t(`titles.listingEdit`, { ns: 'common' })}</h2>
+                </div>
             </div>
 
             <SidebarSectionLayout

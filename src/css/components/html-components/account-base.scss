@@ -58,10 +58,20 @@
 
                 h2 {
                     margin: 0;
+                    font-size: 1.4rem;
                 }
 
                 @include tablet-lg {
                     flex-direction: column;
+                }
+
+                .back-link-arrow {
+                    display: flex;
+                    align-items: center;
+                }
+
+                & > .flex-row {
+                    gap: 0.5rem;
                 }
             }
         }

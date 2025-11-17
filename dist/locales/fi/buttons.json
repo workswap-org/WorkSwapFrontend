@@ -37,7 +37,8 @@
             "remove": "Poista suosikeista"
         },
         "contactToAuthor": "Lähetä viesti",
-        "edit": "Muokkaa ilmoitusta"
+        "edit": "Muokkaa ilmoitusta",
+        "manage": "Hallita"
     },
 
     "event": {
