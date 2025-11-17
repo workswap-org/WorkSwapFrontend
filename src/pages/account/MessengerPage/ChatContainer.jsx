@@ -1,29 +1,23 @@
-import Message from "./chat/Message";
-import SendMessageArea from "./chat/SendMessageArea";
-import { 
-    useChatSubscription,
-    getListingByChatId,
-    useWebSocket,
-    getOrderByChat
-} from "@core/lib";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import {
+    useWebSocket,
+    useChats
+} from "@core/lib";
+import { Avatar } from "@core/components";
+import Message from "./chat/Message";
+import SendMessageArea from "./chat/SendMessageArea";
 
-const ChatContainer = ({ 
-    currentChatId, 
-    interlocutor, 
-    setChatListing, 
-    chatListing, 
-    toggleChatListing,
+const ChatContainer = ({
     showMobileDialogs
 }) => {
 
     const { t } = useTranslation('common')
 
+    const { currentChat, chatListing, setChatListingVisible } = useChats();
+
     const { error } = useWebSocket();
-    const { messages } = useChatSubscription(currentChatId);
-    const [order, setOrder] = useState([])
 
     const messagesContainer = useRef(null);
 
@@ -31,24 +25,7 @@ const ChatContainer = ({
         if (messagesContainer.current) {
             messagesContainer.current.scrollTop = messagesContainer.current.scrollHeight;
         }
-    }, [messages]);
-
-    useEffect(() => {
-        async function loadChatListing(currentChatId) {
-            const data = await getListingByChatId(currentChatId);
-            setChatListing(data)
-        }
-
-        async function loadOrder(currentChatId) {
-            const data = await getOrderByChat(currentChatId);
-            setOrder(data.order)
-        }
-
-        if (currentChatId) {
-            loadChatListing(currentChatId);
-            loadOrder(currentChatId);
-        }
-    }, [currentChatId, setChatListing]);
+    }, [currentChat.messages]);
 
     return (
         <div className="chat-window">
@@ -62,22 +39,18 @@ const ChatContainer = ({
                         >
                             <i className="fa-regular fa-arrow-left fa-2xl"></i>
                         </button>
-                        <img 
-                            className="avatar p50-avatar" 
-                            src={interlocutor.avatarUrl || "/images/avatar-placeholder.png"} 
-                            alt="Аватар" 
-                        />
+                        <Avatar user={currentChat.interlocutor} size={50} />
                         <div>
-                            <h4 id="interlocutorName">{interlocutor.name}</h4>
+                            <h4 id="interlocutorName">{currentChat.interlocutor?.name}</h4>
                             <p className="user-status"></p>
                         </div>
                     </div>
                     <div className="mobile-chat-actions">
-                        <Link to={`/profile/${interlocutor.id}`} className="btn btn-outline-primary btn-sm">
+                        <Link to={`/profile/${currentChat.interlocutor?.id}`} className="btn btn-outline-primary btn-sm">
                             <i className="fa-regular fa-user fa-lg"></i>
                         </Link>
                         {chatListing && (
-                            <button className="btn btn-primary btn-sm" onClick={() => toggleChatListing()}>
+                            <button className="btn btn-primary btn-sm" onClick={() => setChatListingVisible(prev => !prev)}>
                                 <i className="fa-regular fa-cards-blank fa-lg"></i>
                             </button>
                         )}
@@ -85,13 +58,15 @@ const ChatContainer = ({
                     <div className="chat-actions">
                         {/* <button className="btn btn-outline-danger btn-sm">Заблокировать</button> */}
                         <Link 
-                            to={`/profile/${interlocutor.id}`} 
+                            to={`/profile/${currentChat.interlocutor?.id}`} 
                             className="btn btn-outline-primary btn-sm"
-                        >{t(`messenger.profile`, { ns: 'buttons' })}</Link>
+                        >
+                            {t(`messenger.profile`, { ns: 'buttons' })}
+                        </Link>
                         {chatListing && (
                             <button 
                                 className="btn btn-primary btn-sm" 
-                                onClick={() => toggleChatListing()}
+                                onClick={() => setChatListingVisible(prev => !prev)}
                             >{t(`messenger.listing`, { ns: 'buttons' })}</button>
                         )}
                     </div>
@@ -114,10 +89,11 @@ const ChatContainer = ({
                     </div> */}
                     {/* <div className="message-date">Сегодня</div> */}
 
-                    {(messages.length === 0 && !error) && (
+                    {(currentChat.messages?.length === 0 && !error) && (
                         <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
                     )}
-                    {messages.map((message) => (
+
+                    {currentChat.messages?.map((message) => (
                         <Message 
                             key={message.id}
                             message={message} 
@@ -125,7 +101,7 @@ const ChatContainer = ({
                     ))}
                 </div>
 
-                <SendMessageArea currentChatId={currentChatId}/>
+                <SendMessageArea/>
             </div>
         </div>
     );

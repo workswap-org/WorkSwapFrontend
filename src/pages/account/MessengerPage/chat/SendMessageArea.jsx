@@ -1,27 +1,28 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { 
-    useChatSubscription ,
     useWebSocket,
-    useAuth
+    useAuth,
+    useChats
 } from "@core/lib";
 
-const SendMessageArea = ({ currentChatId }) => {
+const SendMessageArea = () => {
     const { user } = useAuth();
 
+    const { currentChat, setCurrentChat } = useChats();
+
     const { client, connected } = useWebSocket();
-    const { setMessages } = useChatSubscription(currentChatId);
     const { t } = useTranslation();
     const [message, setMessage] = useState("");
 
     // Проверка, можно ли писать сообщение
-    const isDisabled = !currentChatId;
+    const isDisabled = !currentChat.id;
 
     const sendMessage = () => {
 
         if (!connected || !client) return;
 
-        if (!currentChatId) {
+        if (!currentChat.id) {
             alert("Пожалуйста, выберите диалог для отправки сообщения");
             return;
         }
@@ -30,19 +31,23 @@ const SendMessageArea = ({ currentChatId }) => {
         if (!trimmed) return;
 
         const newMsg = {
-            chatId: currentChatId,
+            chatId: currentChat.id,
             own: true,
             sentAt: new Date(),
             text: trimmed,
-            id: `temp-${Date.now()}`
+            id: `temp-${Date.now()}`,
+            senderId: user.id
         }
 
-        setMessages(prev => [...prev, newMsg]);
+        setCurrentChat(prev => ({
+            ...prev,
+            messages: [...prev.messages, newMsg]
+        }));
         
         const msg = {
             text: trimmed,
             senderId: user.id,
-            chatId: currentChatId
+            chatId: currentChat.id
         };
 
         client.publish({

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import ListingSettingsMenu from './menus/ListingSettingsMenu';
 import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
 import ListingMessagesMenu from './menus/ListingMessagesMenu';
-import { SidebarSectionLayout } from '@/components';
+import { SidebarSectionLayout } from '@core/components';
 
 export const ListingMenu = Object.freeze({
     SETTINGS: { first: true, name: "SETTINGS", icon: "gear" },

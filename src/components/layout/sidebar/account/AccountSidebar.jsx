@@ -19,10 +19,9 @@ const AccountSidebar = () => {
 
     async function connectTelegram() {
         try {
-            const response = await connectUserTelegram();
+            const linkUrl = await connectUserTelegram();
 
-            if (response.link) {
-                const linkUrl = await response.link; // Получаем URL как строку
+            if (linkUrl) {
                 setTelegramConnected(true);
                 window.open(linkUrl, '_blank'); // Открываем в новой вкладке
                 notificate("Telegram успешно подключён, теперь вам будут приходить уведомления через это приложение!", "success")
@@ -34,13 +33,7 @@ const AccountSidebar = () => {
     }
 
     useEffect(() => {
-
-        async function checkTelegram() {
-            const data = await checkTelegramConnected();
-            setTelegramConnected(data.telegramConnected);
-        }
-
-        checkTelegram();
+        setTelegramConnected(checkTelegramConnected());
     }, []);
 
     return(

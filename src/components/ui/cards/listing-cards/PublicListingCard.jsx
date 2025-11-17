@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
-const PublicListingCard = ({listing, isMainListing}) => {
+const PublicListingCard = ({listing}) => {
 
     const navigate = useNavigate();
     const [isFavorite, setFavorite] = useState(false);
@@ -28,7 +28,7 @@ const PublicListingCard = ({listing, isMainListing}) => {
         
     }, [listing.id, user]);
 
-    if (listing.testMode || isMainListing || listing.temporary) return null;
+    if (listing.testMode || listing.temporary) return null;
 
     const navigator = () => {
         if (listing.type == "EVENT") {
@@ -49,19 +49,19 @@ const PublicListingCard = ({listing, isMainListing}) => {
             {isNew && (
                 <div className="listing-status red">{t(`catalog.newListing`, { ns: 'tooltips' })}</div>
             )}
-            <div className="body">
-                <h3 className="title">{listing.localizedTitle}</h3>
+            <div className="listing-card_body">
+                <h3 className="listing-card_title">{listing.localizedTitle}</h3>
                 {/* <p className="text">{listing.localizedDescription}</p> */}
-                <div className="footer">
+                <div className="listing-card_footer">
                     <div className="flex-column">
                         {/* компонент для отображение цены (с типом) */}
                         <PriceTypes listing={listing} />
                         <ListingRating listing={listing} />
                     </div>
-                    <span className="location">{listing.location}</span>
+                    <span className="listing-card_location">{listing.location}</span>
                 </div>
                 {user && (
-                    <div className="actions">
+                    <div className="listing-card_actions">
                         <i 
                             className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
                             onClick={(e) => toggleFavorite(listing.id, setFavorite, isFavorite, e)}></i>

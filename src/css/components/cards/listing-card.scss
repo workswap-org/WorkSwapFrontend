@@ -82,7 +82,7 @@
         }
     }
 
-    .body {
+    .listing-card_body {
         @include flex-column;
         flex-grow: 1;
         padding: 1rem;
@@ -92,7 +92,7 @@
             padding: 0.5rem;
         }
 
-        .title {
+        .listing-card_title {
             font-weight: 600;
             margin-bottom: 0.5rem;
             font-size: 1.1rem;
@@ -109,7 +109,7 @@
             }
         }
 
-        .text {
+        .listing-card_text {
             flex-grow: 1;
             margin-bottom: 1rem;
             font-size: 0.95rem;
@@ -123,7 +123,7 @@
             -webkit-box-orient: vertical;
         }
 
-        .footer {
+        .listing-card_footer {
             margin-top: auto;
             padding-top: 0.4rem;
             border-top: 1px solid var(--border-color);
@@ -136,7 +136,7 @@
                 align-items: flex-start;
             }
 
-            .location {
+            .listing-card_location {
                 color: var(--gray);
                 font-size: 0.8rem;
             }
@@ -149,7 +149,7 @@
             }
         }
 
-        .actions {
+        .listing-card_actions {
             position: absolute;
             width: 2.5rem;
             height: 2.5rem;

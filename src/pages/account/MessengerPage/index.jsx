@@ -4,7 +4,9 @@ import { useTranslation } from "react-i18next";
 import { 
     useWebSocket,
     deleteTemporaryChats,
-    useChatsUpdates
+    useChats,
+    useChatSubscription,
+    useChatsLoad
 } from "@core/lib";
 import { PublicListingCard } from "@/components";
 import ChatContainer from "./ChatContainer";
@@ -15,20 +17,18 @@ const MessengerPage = () => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
 
+    const { currentChat, changeCurrentChat, chatListing, chatListingVisible, chats } = useChats();
+
     const { i18n, t } = useTranslation('common');
     const userLocale = i18n.language || "fi";
     const [startChatId, setStartChatId] = useState(params.get("chatId") || undefined);
-    const [currentChatId, setCurrentChatId] = useState(undefined);
-    const [currentInterlocutor, setCurrentInterlocutor] = useState([]);
-
-    const [chatListing, setChatListing] = useState(undefined);
-    const [chatListingVisible, setChatListingVisible] = useState(false);
+    
     const [mobileDialogs, setMobileDialogs] = useState(false);
 
     const { client, connected } = useWebSocket();
-    const [chats, setChats] = useState([]);
 
-    useChatsUpdates(client, connected, chats, setChats, currentChatId);
+    useChatSubscription();
+    useChatsLoad();
 
     useEffect(() => {
         return () => {
@@ -37,24 +37,23 @@ const MessengerPage = () => {
     }, []);
 
     useEffect(() => {
-        if (!currentChatId || !client || !client.active || !connected) return;
+        if (!currentChat.id || !client || !client.active || !connected) return;
 
         client.publish({
-            destination: `/app/chat.markAsRead/${currentChatId}`
+            destination: `/app/chat.markAsRead/${currentChat.id}`
         });
 
         const url = new URL(window.location);
-        url.searchParams.set("chatId", currentChatId);
+        url.searchParams.set("chatId", currentChat.id);
         window.history.pushState({}, '', url);
         
-    }, [currentChatId, client, connected, userLocale]);
+    }, [currentChat.id, client, connected, userLocale]);
 
-    const changeChat = useCallback((chatId, interlocutor) => {
-        setCurrentChatId(chatId);
-        setCurrentInterlocutor(interlocutor);
+    const changeChat = useCallback((chatId) => {
+        changeCurrentChat(chatId);
         setStartChatId(chatId)
         hideMobileDialogs()
-    }, [])
+    }, [changeCurrentChat])
  
     function showMobileDialogs() {
         setMobileDialogs(true);
@@ -62,57 +61,6 @@ const MessengerPage = () => {
 
     function hideMobileDialogs() {
         setMobileDialogs(false);
-    }
-
-    useEffect(() => {
-
-        if (!connected || !client?.active) return;
-
-        function loadChats(client) {
-
-            client.publish({
-                destination: "/app/chat.get-chats",
-                body: JSON.stringify({})
-            });
-        }
-
-        const sub = client.subscribe("/user/queue/chats", (message) => {
-
-            const chats = JSON.parse(message.body);
-
-            chats.forEach(chat => {
-                setChats(prev => {
-                    // если чат уже есть, обновляем его, иначе добавляем
-                    const existingIndex = prev.findIndex(c => c.id === chat.id);
-                    if (existingIndex >= 0) {
-                        const newChats = [...prev];
-                        newChats[existingIndex] = chat;
-                        return newChats;
-                    }
-                    return [chat, ...prev];
-                });
-            });
-        });
-
-        // Подписка на обновление информации о собеседнике
-        if (connected) {
-            client.subscribe('/user/queue/interlocutorInfo', function (message) {
-                const interlocutorInfo = JSON.parse(message.body);
-                if (interlocutorInfo && interlocutorInfo.name && interlocutorInfo.avatar) {
-                    document.getElementById('interlocutorName').innerText = interlocutorInfo.name;
-                    document.getElementById('interlocutorAvatar').src = interlocutorInfo.avatar;
-                }
-            });
-        }
-
-        // Загружаем разговоры сразу после подключения
-        loadChats(client, userLocale);
-
-        return () => sub.unsubscribe();
-    }, [client, connected, userLocale]);
-
-    function toggleChatListing() {
-        setChatListingVisible(!chatListingVisible);
     }
 
     return (
@@ -127,11 +75,7 @@ const MessengerPage = () => {
                         id="listingCardContainer" 
                         className={`listing-card-container appearance-left-animation ${chatListingVisible ? "visible" : ''}`}
                     >
-                        <PublicListingCard 
-                            key={chatListing.id}
-                            listing={chatListing}
-                            isMainListing={false}
-                        />
+                        <PublicListingCard listing={chatListing} />
                     </div>
                 )}
 
@@ -146,24 +90,17 @@ const MessengerPage = () => {
                         .slice()
                         .sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime))
                         .map(chat => (
-                        <DialogItem 
-                            key={chat.id}
-                            startChatId={startChatId}
-                            chat={chat}
-                            changeChat={changeChat} 
-                            currentChatId={currentChatId}
-                        />
-                    ))}
+                            <DialogItem 
+                                key={chat.id}
+                                startChatId={startChatId}
+                                chat={chat}
+                                changeChat={changeChat} 
+                            />
+                        ))
+                    }
                 </div>
                 
-                <ChatContainer
-                    interlocutor={currentInterlocutor} 
-                    currentChatId={currentChatId}
-                    setChatListing={setChatListing}
-                    chatListing={chatListing}
-                    toggleChatListing={toggleChatListing}
-                    showMobileDialogs={showMobileDialogs}
-                />
+                <ChatContainer showMobileDialogs={showMobileDialogs} />
             </div>
         </>
     );

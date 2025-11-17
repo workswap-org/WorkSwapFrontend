@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getFavoritesListings } from "@core/lib";
-import { PrivateListingCard } from "@/components";
+import { PublicListingCard } from "@/components";
 import { useTranslation } from 'react-i18next';
 
 const FavoritesPage = () => {
@@ -26,7 +26,7 @@ const FavoritesPage = () => {
 
             <div className="listings-grid">
                 {listings.map((listing) => (
-                    <PrivateListingCard 
+                    <PublicListingCard 
                         key={listing.id}
                         listing={listing}
                     /> 

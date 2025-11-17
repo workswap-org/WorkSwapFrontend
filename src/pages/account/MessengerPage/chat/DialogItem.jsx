@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { getInterlocutorInfo } from "@core/lib";
+import { getInterlocutorInfo, useChats } from "@core/lib";
+import { Avatar } from "@core/components";
 
-const DialogItem = ({ chat, changeChat, startChatId, currentChatId }) => {
+const DialogItem = ({ chat, changeChat, startChatId }) => {
+
+    const { currentChat } = useChats();
 
     const [interlocutor, setInterlocutor] = useState({ name: "User", avatarUrl: "/images/avatar-placeholder.png" });
     const [loading, setLoading] = useState(true);
@@ -21,12 +24,12 @@ const DialogItem = ({ chat, changeChat, startChatId, currentChatId }) => {
 
         if(!loading && startChatId == chat.id) changeChat(chat.id, interlocutor); 
 
-        if(!loading && !startChatId && !currentChatId) {
+        if(!loading && !startChatId && !currentChat.id) {
 
             changeChat(chat.id, interlocutor);
         }
 
-    }, [changeChat, loading, chat, startChatId, interlocutor, currentChatId]);
+    }, [changeChat, loading, chat, startChatId, interlocutor, currentChat.id]);
 
     const formattedDate = chat.lastMessageTime 
         ? new Date(chat.lastMessageTime).toLocaleDateString('ru-RU')
@@ -35,11 +38,7 @@ const DialogItem = ({ chat, changeChat, startChatId, currentChatId }) => {
     return (
         <div className="dialog-item-box">
             <div className="dialog-item" onClick={() => changeChat(chat.id, interlocutor)}>
-                <img 
-                    className="avatar p50-avatar" 
-                    src={interlocutor.avatarUrl || "/images/avatar-placeholder.png"} 
-                    alt="Аватар" 
-                />
+                <Avatar user={interlocutor} size={50} />
                 <div className="dialog-content">
                     <div className="dialog-header">
                         <h4>{interlocutor.name}</h4>

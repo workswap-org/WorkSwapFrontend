@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import PrivacySettings from "./PrivacySettings";
 import ProfileSettings from "./ProfileSettings";
 import PreferencesSettings from "./PreferencesSettings";
-import { SidebarSectionLayout } from '@/components';
+import { SidebarSectionLayout } from '@core/components';
 
 const SettingsSections = Object.freeze({
     PROFILE: { first: true, name: "profile", icon: "user" },
@@ -36,9 +36,7 @@ const SettingsPage = () => {
         try {
             const res = await modifyUserSettings(updates);
 
-            if (res.message) {
-                // ничего
-            } else {
+            if (!res.ok) {
                 notificate("Ошибка обновления пользователя", "error");
             }
         } catch (err) {
