@@ -3,12 +3,13 @@ import { useAuth, useNotification } from "@core/lib";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-const UserInfoSidebar = ( {listingId, author} ) => {
+const UserInfoSidebar = ( {listingId, author} ) => { 
 
     const { t } = useTranslation();
     const {notificate} = useNotification();
-
     const {user, isAuthenticated} = useAuth();
+
+    if (!author) return null;
 
     const isOwner = !!(user?.id == author.id);
 

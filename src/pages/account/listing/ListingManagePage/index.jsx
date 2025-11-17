@@ -39,7 +39,7 @@ const ListingManagePage = () => {
                             <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
                         </Link>
                     </div>
-                    <h2>{t(`titles.listingEdit`, { ns: 'common' })}</h2>
+                    <h2>{t(`titles.listingManage`, { ns: 'common' })}</h2>
                 </div>
             </div>
 

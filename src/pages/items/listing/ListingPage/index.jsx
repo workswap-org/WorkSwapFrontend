@@ -56,8 +56,8 @@ const ListingPage = () => {
 
     useEffect(() => {
         async function loadListingAuthor(authorId) {
-            const data = await getUserById(authorId);
-            setAuthor(await data.user);
+            const user = await getUserById(authorId);
+            setAuthor(await user);
         }
 
         async function loadCategoryPath(listigId) {

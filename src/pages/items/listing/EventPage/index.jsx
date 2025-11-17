@@ -90,8 +90,8 @@ const EventPage = () => {
 
     useEffect(() => {
         async function loadListingAuthor(authorId) {
-            const data = await getUserById(authorId);
-            setAuthor(await data.user);
+            const user = await getUserById(authorId);
+            setAuthor(user);
         }
 
         async function loadCategoryPath(id) {
@@ -287,12 +287,12 @@ const EventPage = () => {
                             )}
 
                             {/* Боковая панель с контактами */}
-                            <UserInfoSidebar listingId={event.id} author={author} />
+                            <UserInfoSidebar listingId={event?.id} author={author} />
                         </div>
                     </div>
 
                     {/* Блок с отзывами */}
-                    <ReviewsSection listingId={event.id} profileId={author.id} />
+                    <ReviewsSection listingId={event?.id} profileId={author?.id} />
 
                     {/* Похожие объявления */}
                     {/* {event.category && (
