@@ -5,8 +5,6 @@ import {
     useWebSocket,
     deleteTemporaryChats,
     useChats,
-    useChatSubscription,
-    useChatsLoad
 } from "@core/lib";
 import { PublicListingCard } from "@/components";
 import ChatContainer from "./ChatContainer";
@@ -17,7 +15,7 @@ const MessengerPage = () => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
 
-    const { currentChat, changeCurrentChat, chatListing, chatListingVisible, chats } = useChats();
+    const { currentChatId, setCurrentChatId, chatListing, chatListingVisible, chats, setInterlocutor } = useChats();
 
     const { i18n, t } = useTranslation('common');
     const userLocale = i18n.language || "fi";
@@ -27,9 +25,6 @@ const MessengerPage = () => {
 
     const { client, connected } = useWebSocket();
 
-    useChatSubscription();
-    useChatsLoad();
-
     useEffect(() => {
         return () => {
             deleteTemporaryChats();
@@ -37,31 +32,24 @@ const MessengerPage = () => {
     }, []);
 
     useEffect(() => {
-        if (!currentChat.id || !client || !client.active || !connected) return;
+        if (!currentChatId || !client || !client.active || !connected) return;
 
         client.publish({
-            destination: `/app/chat.markAsRead/${currentChat.id}`
+            destination: `/app/chat.markAsRead/${currentChatId}`
         });
 
         const url = new URL(window.location);
-        url.searchParams.set("chatId", currentChat.id);
+        url.searchParams.set("chatId", currentChatId);
         window.history.pushState({}, '', url);
         
-    }, [currentChat.id, client, connected, userLocale]);
+    }, [currentChatId, client, connected, userLocale]);
 
-    const changeChat = useCallback((chatId) => {
-        changeCurrentChat(chatId);
+    const changeChat = useCallback((chatId, interlocutor) => {
+        setCurrentChatId(chatId);
+        setInterlocutor(interlocutor)
         setStartChatId(chatId)
-        hideMobileDialogs()
-    }, [changeCurrentChat])
- 
-    function showMobileDialogs() {
-        setMobileDialogs(true);
-    }
-
-    function hideMobileDialogs() {
-        setMobileDialogs(false);
-    }
+        setMobileDialogs(false)
+    }, [setCurrentChatId, setInterlocutor])
 
     return (
         <>
@@ -80,27 +68,26 @@ const MessengerPage = () => {
                 )}
 
                 <div className={`dialogs-list ${mobileDialogs ? "show" : ""}`}>
-                    {chats.length === 0 && (
+                    {chats.length === 0 ? (
                         <div className="no-dialogs" id="no-dialogs">
                             <p>{t(`messenger.placeholders.noDialogs`, { ns: 'common' })}</p>
                             <p>{t(`messenger.placeholders.startChats`, { ns: 'common' })}</p>
                         </div>
-                    )}
-                    {chats
-                        .slice()
-                        .sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime))
-                        .map(chat => (
-                            <DialogItem 
-                                key={chat.id}
-                                startChatId={startChatId}
-                                chat={chat}
-                                changeChat={changeChat} 
-                            />
-                        ))
+                    ) : chats
+                            .slice()
+                            .sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime))
+                            .map(chat => (
+                                <DialogItem 
+                                    key={chat.id}
+                                    startChatId={startChatId}
+                                    chat={chat}
+                                    changeChat={changeChat} 
+                                />
+                            ))
                     }
                 </div>
                 
-                <ChatContainer showMobileDialogs={showMobileDialogs} />
+                <ChatContainer showMobileDialogs={() => setMobileDialogs(true)} />
             </div>
         </>
     );

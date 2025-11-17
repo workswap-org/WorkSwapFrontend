@@ -10,7 +10,7 @@ const ListingGallery = ( { id } ) => {
     useEffect(() => {
         async function loadData() {
             const imageData = await getListingImages(id);
-            setImages(imageData.images || []);
+            setImages(imageData);
             setLoading(false)
         }
 

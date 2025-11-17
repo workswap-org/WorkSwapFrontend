@@ -9,20 +9,20 @@ import {
 const SendMessageArea = () => {
     const { user } = useAuth();
 
-    const { currentChat, setCurrentChat } = useChats();
+    const { currentChatId, pushMessages } = useChats();
 
     const { client, connected } = useWebSocket();
     const { t } = useTranslation();
     const [message, setMessage] = useState("");
 
     // Проверка, можно ли писать сообщение
-    const isDisabled = !currentChat.id;
+    const isDisabled = !currentChatId;
 
     const sendMessage = () => {
 
         if (!connected || !client) return;
 
-        if (!currentChat.id) {
+        if (!currentChatId) {
             alert("Пожалуйста, выберите диалог для отправки сообщения");
             return;
         }
@@ -31,7 +31,7 @@ const SendMessageArea = () => {
         if (!trimmed) return;
 
         const newMsg = {
-            chatId: currentChat.id,
+            chatId: currentChatId,
             own: true,
             sentAt: new Date(),
             text: trimmed,
@@ -39,15 +39,12 @@ const SendMessageArea = () => {
             senderId: user.id
         }
 
-        setCurrentChat(prev => ({
-            ...prev,
-            messages: [...prev.messages, newMsg]
-        }));
+        pushMessages(newMsg)
         
         const msg = {
             text: trimmed,
             senderId: user.id,
-            chatId: currentChat.id
+            chatId: currentChatId
         };
 
         client.publish({
