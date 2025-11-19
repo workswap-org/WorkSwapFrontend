@@ -31,6 +31,14 @@
         background-color: var(--background-l1);
     }
 
+    &#listingDescription{
+        height: 100%;
+
+        textarea {
+            height: calc(100% - 2rem);
+        }
+    }
+
     input,
     select,
     textarea {
