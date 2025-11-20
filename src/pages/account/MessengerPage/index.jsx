@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { 
     useWebSocket,
-    deleteTemporaryChats,
     useChats,
 } from "@core/lib";
 import { PublicListingCard } from "@/components";
@@ -24,12 +23,6 @@ const MessengerPage = () => {
     const [mobileDialogs, setMobileDialogs] = useState(false);
 
     const { client, connected } = useWebSocket();
-
-    useEffect(() => {
-        return () => {
-            deleteTemporaryChats();
-        }
-    }, []);
 
     useEffect(() => {
         if (!currentChatId || !client || !client.active || !connected) return;

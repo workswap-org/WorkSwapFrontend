@@ -62,7 +62,7 @@ const ListingPage = () => {
 
         async function loadCategoryPath(listigId) {
             const data = await getPathToCategory(listigId);
-            setCategories(data.categories);
+            setCategories(data?.categories || []);
         }
 
         if (listing?.categoryId) loadCategoryPath(listing.categoryId);
@@ -96,12 +96,14 @@ const ListingPage = () => {
                                     </Link>
                                     <span className="divider">/</span>
                                 </div>
-                                <div>
-                                    <Link to="/catalog">
-                                        {t(`listingType.${listing.publicType}`, { ns: 'categories' })}
-                                    </Link>
-                                    <span className="divider">/</span>
-                                </div>
+                                {listing.publicType && (
+                                    <div>
+                                        <Link to="/catalog">
+                                            {t(`listingType.${listing.publicType}`, { ns: 'categories' })}
+                                        </Link>
+                                        <span className="divider">/</span>
+                                    </div>
+                                )}
                                 {categories.map((cat) => (
                                     <div key={cat.id}>
                                         <Link to={`/catalog?category=${cat.name}`}>
@@ -196,13 +198,6 @@ const ListingPage = () => {
                             {/* Блок с отзывами */}
                             <ReviewsSection listingId={listing.id} profileId={author.id} />
 
-                            {/* Похожие объявления */}
-                            {/* {listing.category && (
-                                <section className="similar-listings">
-                                    <h2>{t(`listing.similarListings`, { ns: 'common' })}</h2>
-                                    <CatalogContent mainListingId={listing.id} params={params}/>
-                                </section>
-                            )} */}
                         </main>
                     </div>
                 </div>

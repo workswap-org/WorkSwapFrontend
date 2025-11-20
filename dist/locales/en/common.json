@@ -52,7 +52,7 @@
         "views": "Views",
         "rating": "Rating",
         "contacts": "Contact information",
-        "translations": "Listing translations",
+        "translations": "Publication Languages",
         "status": {
             "listing": "Listing status",
             "event": {

@@ -8,12 +8,14 @@ const ReviewItem = ({review}) => {
 
     useEffect(() => {
         async function loadAuthorInfo() {
-            const data = await getUserById(review.authorId);
-            setAuthor(await data.user)
+            const user = await getUserById(review.authorId);
+            setAuthor(user)
         }
         
         loadAuthorInfo()
     }, [review])
+
+    if (!author) return null;
     
     return (
         <article className="review-card">

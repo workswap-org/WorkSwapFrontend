@@ -5,7 +5,8 @@ import {
 } from "@/components";
 import {
     Avatar, 
-    NotificationMobileButton
+    NotificationMobileButton,
+    LanguageSwitcher
 } from "@core/components";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
@@ -27,6 +28,9 @@ const MobileMenu = ({mobileVisible}) => {
     return mobileMenuEm
         ? createPortal(
             <div className={`mobile-menu ${mobileVisible ? "show" : ""}`}>
+
+                <LanguageSwitcher/>
+
                 <div className="user-info-menu">
                     {isAuthenticated && (
                         <Avatar

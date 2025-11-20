@@ -31,7 +31,7 @@
         "publish": "Publish",
         "cleanDraft": "Clear draft",
         "delete": "Delete listing",
-        "saveTranslation": "Save translation",
+        "saveTranslation": "Save",
         "favorite": {
             "add": "Add to favorites",
             "remove": "Remove from favorites"

@@ -45,12 +45,16 @@ const MyListingsPage = () => {
             {!loading && (
                 <>
                     {listings.length == 0 && !loading ? (
-                        <div className="no-listings">
-                            <img src="/images/maskot/laying.png"/>
+                        <div className="listings-grid">
+                            <article onClick={() => navigate("/account/listing/create")} className="listing-card hover-animation-card">
+                                <div className="center">
+                                    <h3>{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</h3>
+                                </div>
+                            </article>
                         </div>
                     ) : (
                         <>
-                            <h3>Активые объявления</h3>
+                            <h3>Активные объявления</h3>
                             <div className="listings-grid">
                                 {activeListings.map((listing) => (
                                         <PrivateListingCard 

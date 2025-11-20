@@ -83,7 +83,7 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
     const deleteImage = async (img) => {
         console.log(img)
         try {
-            const response = await deleteListingImage(img);
+            const response = await deleteListingImage(listing.id, img);
 
             if (!response.message) throw new Error(`Ошибка при удалении: ${response.statusText}`);
             deleteListingImageUrl(img);

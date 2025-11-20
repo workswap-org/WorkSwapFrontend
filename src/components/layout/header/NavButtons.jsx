@@ -1,7 +1,8 @@
 import { 
     ThemeChanger, 
     Avatar, 
-    NotificationHeaderButton 
+    NotificationHeaderButton,
+    LanguageSwitcher 
 } from "@core/components";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -67,6 +68,8 @@ const NavButtons = () => {
                     <span>{t("login")}</span>
                 </Link>
             )}
+
+            <LanguageSwitcher/>
         </div>
     );
 };

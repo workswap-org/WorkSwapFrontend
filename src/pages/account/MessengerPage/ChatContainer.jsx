@@ -46,13 +46,7 @@ const ChatContainer = ({
                         </div>
                     </div>
                     <div className="mobile-chat-actions">
-                        <Link 
-                            to={`/profile/${interlocutor?.id}`} 
-                            className="btn btn-outline-primary btn-sm"
-                        >
-                            <i className="fa-regular fa-user fa-lg"></i>
-                        </Link>
-                        {chatListing && (
+                        {chatListing?.id && (
                             <button 
                                 className="btn btn-primary btn-sm" 
                                 onClick={() => setChatListingVisible(prev => !prev)}
@@ -60,21 +54,27 @@ const ChatContainer = ({
                                 <i className="fa-regular fa-cards-blank fa-lg"></i>
                             </button>
                         )}
+                        <Link 
+                            to={`/profile/${interlocutor?.id}`} 
+                            className="btn btn-outline-primary btn-sm"
+                        >
+                            <i className="fa-regular fa-user fa-lg"></i>
+                        </Link>
                     </div>
                     <div className="chat-actions">
                         {/* <button className="btn btn-outline-danger btn-sm">Заблокировать</button> */}
+                        {chatListing?.id && (
+                            <button 
+                                className="btn btn-primary btn-sm" 
+                                onClick={() => setChatListingVisible(prev => !prev)}
+                            >{t(`messenger.listing`, { ns: 'buttons' })}</button>
+                        )}
                         <Link 
                             to={`/profile/${interlocutor?.id}`} 
                             className="btn btn-outline-primary btn-sm"
                         >
                             {t(`messenger.profile`, { ns: 'buttons' })}
                         </Link>
-                        {chatListing && (
-                            <button 
-                                className="btn btn-primary btn-sm" 
-                                onClick={() => setChatListingVisible(prev => !prev)}
-                            >{t(`messenger.listing`, { ns: 'buttons' })}</button>
-                        )}
                     </div>
                 </div>
 

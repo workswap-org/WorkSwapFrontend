@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth, getChat } from "@core/lib";
+import { useAuth, getChat, useChatsLoad, useChats } from "@core/lib";
 
 const ChatStartPage = () => {
 
@@ -12,7 +12,9 @@ const ChatStartPage = () => {
     const listingId = params.get("listingId") || undefined;
 
     const [chatId, setChatId] = useState(0);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { reloadChats } = useChatsLoad();
+    const { setCurrentChatId } = useChats();
 
     useEffect(() => {
     
@@ -24,18 +26,21 @@ const ChatStartPage = () => {
 
         async function loadChat() {
             const data = await getChat(newParams);
-            setChatId(await data.chatId);
+            console.log(data);
+            reloadChats();
+            setChatId(data.chatId);
         }
 
         loadChat();
         
-    }, [sellerId, listingId, user]);
+    }, [sellerId, listingId, user, reloadChats]);
 
     useEffect(() => {
         if(chatId) {
+            setCurrentChatId(chatId);
             navigate(`/account/messenger?chatId=${chatId}`, { replace: true})
         }
-    }, [chatId, navigate])
+    }, [chatId, navigate, setCurrentChatId])
 
     return (
         <>

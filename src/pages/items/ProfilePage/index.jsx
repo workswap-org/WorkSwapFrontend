@@ -21,10 +21,9 @@ const ProfilePage = () => {
     useEffect(()=> {
         async function loadProfile() {
             try {
-                const data = await getUserById(userId);
-                const tempUser = data.user;
-                if (tempUser) {
-                    setUser(tempUser);
+                const user = await getUserById(userId);
+                if (user) {
+                    setUser(user);
                 } else {
                     setUser(undefined);
                 }

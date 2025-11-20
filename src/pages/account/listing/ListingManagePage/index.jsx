@@ -43,17 +43,21 @@ const ListingManagePage = () => {
                 </div>
             </div>
 
-            <SidebarSectionLayout
-                pageName={'listingManage'}
-                sections={ListingMenu}
-            >
-                {(currentSection) => (
-                    currentSection === ListingMenu.SETTINGS ? <ListingSettingsMenu listing={listing} /> :
-                    currentSection === ListingMenu.ANALYTICS ? <ListingAnalyticMenu listing={listing} /> :
-                    currentSection === ListingMenu.MESSAGES ? <ListingMessagesMenu listing={listing} /> :
-                    null
-                )}
-            </SidebarSectionLayout>
+            {listing && (
+                <SidebarSectionLayout
+                    pageName={'listingManage'}
+                    sections={ListingMenu}
+                >
+                    {(currentSection) => (
+                        currentSection === ListingMenu.SETTINGS ? <ListingSettingsMenu listing={listing} /> :
+                        currentSection === ListingMenu.ANALYTICS ? <ListingAnalyticMenu listing={listing} /> :
+                        currentSection === ListingMenu.MESSAGES ? <ListingMessagesMenu listing={listing} /> :
+                        null
+                    )}
+                </SidebarSectionLayout>
+            )}
+
+            
         </>
     );
 };

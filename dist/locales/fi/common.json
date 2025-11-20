@@ -52,7 +52,7 @@
         "views": "Näytöt",
         "rating": "Arvostelu",
         "contacts": "Yhteystiedot",
-        "translations": "Ilmoituksen käännökset",
+        "translations": "Julkaisukielet",
         "status": {
             "listing": "Ilmoituksen tila",
             "event": {
