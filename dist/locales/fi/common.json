@@ -8,7 +8,11 @@
         "priceType": "Valitse hintatyyppi...",
         "location": "Valitse sijainti...",
         "review": "Kirjoita arvostelu...",
-        "typeMessage": "Kirjoita viesti..."
+        "typeMessage": "Kirjoita viesti...",
+        "login": "Sähköposti",
+        "password": "Salasana",
+        "passwordConfirm": "Vahvista salasana",
+        "name": "Nimi"
     },
     "sorts": {
         "date": "Päivämäärän mukaan",
