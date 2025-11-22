@@ -124,6 +124,7 @@
             "sort": "Lajittelu",
             "filters": "Suodattimet",
             "hasReviews": "Arvostelujen kanssa",
+            "translationsFilter": "Filter by languages",
             "usefulLinks": "Hyödyllisiä linkkejä"
         }
     },

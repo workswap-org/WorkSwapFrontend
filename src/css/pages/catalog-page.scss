@@ -269,6 +269,11 @@ $radius: var(--radius);
 			padding: 0.5rem;
 		}
 
+		.checkbox#translationsFilter {
+			width: fit-content;
+			padding: 0.5rem 1.5rem;
+		}
+
 		.listing-types-list {
 			display: inline-flex;
 			overflow-x: auto;

@@ -1,6 +1,5 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
 import HttpBackend from "i18next-http-backend";
 
 const supportedLngs = ['en', 'ru', 'fi', 'it'];
@@ -21,11 +20,9 @@ const getInitialLanguage = () => {
 
 i18n
     .use(HttpBackend)
-    .use(LanguageDetector) // Если всегда нужна автодетекция, оставь
     .use(initReactI18next)
     .init({
         lng: getInitialLanguage(),
-        fallbackLng: 'en',
         debug: false,
         interpolation: { escapeValue: false },
         load: 'languageOnly',
@@ -35,7 +32,6 @@ i18n
         detection: { caches: ['localStorage'] },
         backend: {
         loadPath: '/locales/{{lng}}/{{ns}}.json'
-        // так сработает lazy loading на стороне клиента для каждого языка/нэймспейса
         },
         defaultNS: 'common', // Можно не указывать ns в каждом компоненте, если ключ есть в common
     });

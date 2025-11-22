@@ -124,6 +124,7 @@
             "sort": "Sort",
             "filters": "Filters",
             "hasReviews": "With Reviews",
+            "translationsFilter": "Filter by languages",
             "usefulLinks": "Useful Links"
         }
     },

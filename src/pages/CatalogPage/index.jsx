@@ -16,6 +16,7 @@ const CatalogPage = () => {
     const [categoryId, setCategoryId] = useState(params.get("categoryId") || "");
     const [searchQuery, setSearchQuery] = useState(params.get("searchQuery") || "");
     const [hasReviews, setHasReviews] = useState(params.get("hasReviews") || false);
+    const [translationsFilter, setTranslationsFilter] = useState(params.get("translationsFilter") || false);
     const [activeSort, setActiveSort] = useState(params.get("sortBy") || "date");
     const [listingType, setListingType] = useState(params.get("type") || "");
 
@@ -35,6 +36,7 @@ const CatalogPage = () => {
             if (activeSort) newParams.sortBy = activeSort;
             if (searchQuery) newParams.searchQuery = searchQuery;
             if (hasReviews) newParams.hasReviews = "on";
+            if (translationsFilter) newParams.translationsFilter = "on";
             if (listingType) newParams.type = listingType;
 
             setSearchParams(newParams);
@@ -45,7 +47,7 @@ const CatalogPage = () => {
         }
 
         initParams();
-    }, [categoryId, searchQuery, hasReviews, activeSort, listingType])
+    }, [categoryId, searchQuery, hasReviews, activeSort, listingType, translationsFilter])
 
     return(
         <>
@@ -65,6 +67,8 @@ const CatalogPage = () => {
                     setActiveSort={setActiveSort}
                     sidebarOpened={sidebarOpened}
                     toggleSidebar={toggleSidebar}
+                    translationsFilter={translationsFilter}
+                    setTranslationsFilter={setTranslationsFilter}
                 />
                 <main className="catalog-main">
                     <div className="listing-types-list">
@@ -84,6 +88,22 @@ const CatalogPage = () => {
                                 {t(`listingType.${type.key}`, { ns: 'categories' })}
                             </button>
                         ))}
+                    </div>
+                    <div 
+                        className="checkbox hover media-only-block"
+                        id="translationsFilter"
+                    >
+                        <input
+                            type="checkbox"
+                            id="translationsCheckbox"
+                            name="translationsCheckbox"
+                            checked={translationsFilter}
+                            onChange={(e) => setTranslationsFilter(e.target.checked)}
+                        />
+                        <label htmlFor="translationsCheckbox">
+                            <span className="checkmark"></span>
+                            <span>{t(`catalog.sidebar.translationsFilter`, { ns: 'common' })}</span>
+                        </label>
                     </div>
                     <CatalogContent params={searchParams}/>
                 </main>

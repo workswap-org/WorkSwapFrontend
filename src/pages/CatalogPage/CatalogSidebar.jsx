@@ -16,7 +16,9 @@ const CatalogSidebar = ({
     activeSort,
     setActiveSort,
     sidebarOpened,
-    toggleSidebar
+    toggleSidebar,
+    translationsFilter,
+    setTranslationsFilter,
 }) => {
 
     useEffect(() => {
@@ -62,6 +64,23 @@ const CatalogSidebar = ({
                         <label htmlFor="filter2">
                             <span className="checkmark"></span>
                             <span>{t(`catalog.sidebar.hasReviews`, { ns: 'common' })}</span>
+                        </label>
+                    </div>
+
+                    <div 
+                        className="checkbox hover"
+                        id="translationsFilter"
+                    >
+                        <input
+                            type="checkbox"
+                            id="translationsCheckbox"
+                            name="translationsCheckbox"
+                            checked={translationsFilter}
+                            onChange={(e) => setTranslationsFilter(e.target.checked)}
+                        />
+                        <label htmlFor="translationsCheckbox">
+                            <span className="checkmark"></span>
+                            <span>{t(`catalog.sidebar.translationsFilter`, { ns: 'common' })}</span>
                         </label>
                     </div>
                 </section>
