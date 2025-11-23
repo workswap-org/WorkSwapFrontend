@@ -56,7 +56,10 @@ const MyListingsPage = () => {
                         <>
                             <h3>Активные объявления</h3>
                             <div className="listings-grid">
-                                {activeListings.map((listing) => (
+                                {activeListings
+                                    .slice()
+                                    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+                                    .map((listing) => (
                                         <PrivateListingCard 
                                             key={listing.id}
                                             listing={listing}

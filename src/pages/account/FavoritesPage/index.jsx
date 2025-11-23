@@ -25,12 +25,16 @@ const FavoritesPage = () => {
             </div>
 
             <div className="listings-grid">
-                {listings.map((listing) => (
-                    <PublicListingCard 
-                        key={listing.id}
-                        listing={listing}
-                    /> 
-                ))}
+                {listings
+                    .slice()
+                    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+                    .map((listing) => (
+                        <PublicListingCard 
+                            key={listing.id}
+                            listing={listing}
+                        />
+                    ))
+                }
             </div>
         </>
     );

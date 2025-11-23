@@ -29,12 +29,13 @@ const ProfilePage = () => {
                 }
             } catch (error) {
                 console.error("Ошибка загрузки профиля:", error);
-                setUser(undefined); // при 500 выставляем undefined
+                setUser(undefined);
             }
         }
 
         async function loadListings() {
             const data = await getListingsByUserId(userId);
+            console.log(data);
             setListings(data);
         }
 
@@ -53,7 +54,10 @@ const ProfilePage = () => {
                             <div className="listing-main-content">
                                 <div className="listing-content">
                                     <div className="listings-grid">
-                                        {listings.map((listing) => (
+                                        {listings
+                                            .slice()
+                                            .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+                                            .map((listing) => (
                                                 <PublicListingCard 
                                                     key={listing.id}
                                                     listing={listing}
