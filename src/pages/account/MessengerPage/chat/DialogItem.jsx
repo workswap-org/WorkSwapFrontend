@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { getInterlocutorInfo, useChats } from "@core/lib";
 import { Avatar } from "@core/components";
+import { useLocation } from "react-router-dom";
 
-const DialogItem = ({ chat, changeChat, startChatId }) => {
+const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }) => {
+    
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
+    const startChatId = params.get("chatId") || null;
 
     const { currentChatId } = useChats();
 
@@ -22,14 +27,22 @@ const DialogItem = ({ chat, changeChat, startChatId }) => {
 
     useEffect(() => {
 
-        if(!loading && startChatId == chat.id) changeChat(chat.id, dialogInterlocutor); 
+        if(!loading && startChatId == chat.id && pageLoading) {
+            setPageLoading(false);
+            
+            console.log(startChatId);
+            changeChat(chat.id, dialogInterlocutor);
+        } 
 
-        if(!loading && !startChatId && !currentChatId) {
+        if(!loading && !startChatId && !currentChatId && pageLoading) {
 
+            setPageLoading(false);
+
+            console.log(startChatId);
             changeChat(chat.id, dialogInterlocutor);
         }
 
-    }, [changeChat, loading, chat, startChatId, dialogInterlocutor, currentChatId]);
+    }, [changeChat, loading, chat, startChatId, dialogInterlocutor, currentChatId, pageLoading, setPageLoading]);
 
     const formattedDate = chat.lastMessageTime 
         ? new Date(chat.lastMessageTime).toLocaleDateString('ru-RU')

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth, getChat, useChatsLoad, useChats } from "@core/lib";
+import { useAuth, getListingDiscussion, getPrivateChat, useChatsLoad, useChats } from "@core/lib";
 
 const ChatStartPage = () => {
 
@@ -8,7 +8,7 @@ const ChatStartPage = () => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
 
-    const sellerId = params.get("sellerId") || undefined;
+    const interLocutorId = params.get("interLocutorId") || undefined;
     const listingId = params.get("listingId") || undefined;
 
     const [chatId, setChatId] = useState(0);
@@ -18,22 +18,35 @@ const ChatStartPage = () => {
 
     useEffect(() => {
     
-        if (!sellerId || !user) return;
+        if (!interLocutorId || !user) return;
 
         const newParams = {};
-        if (sellerId) newParams.sellerId = sellerId;
-        if (listingId) newParams.listingId = listingId;
 
-        async function loadChat() {
-            const data = await getChat(newParams);
-            console.log(data);
-            reloadChats();
-            setChatId(data.chatId);
+        if (listingId) {
+            newParams.listingId = listingId;
+
+            async function loadListingChat() {
+                const data = await getListingDiscussion(newParams);
+                console.log(data);
+                reloadChats();
+                setChatId(data.chatId);
+            }
+
+            loadListingChat();
+        } else if (interLocutorId) {
+            newParams.interLocutorId = interLocutorId;
+
+            async function loadPrivateChat() {
+                const data = await getPrivateChat(newParams);
+                console.log(data);
+                reloadChats();
+                setChatId(data.chatId);
+            }
+
+            loadPrivateChat();
         }
-
-        loadChat();
         
-    }, [sellerId, listingId, user, reloadChats]);
+    }, [listingId, user, reloadChats, interLocutorId]);
 
     useEffect(() => {
         if(chatId) {

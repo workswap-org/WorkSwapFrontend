@@ -11,12 +11,10 @@
 
     @include mobile {
         flex-direction: column;
-        height: auto;
         min-height: 0;
         max-height: none;
         gap: 0;
     }
-
 
     .listing-card-container {
         position: absolute;
@@ -44,20 +42,9 @@
         overflow-y: auto;
 
         @include mobile {
-            position: fixed;
-            top: var(--header-height);
-            left: -100%;
-            width: 100%;
+            flex: 0;
             height: 100%;
-            background: var(--background-l1);
-            z-index: 99;
-            padding: 1rem;
-            transition: left 0.3s ease;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-
-            &.show {
-                left: 0;
-            }
+            border-right: 0;
         }
 
         .no-dialogs {
@@ -159,16 +146,32 @@
         position: relative;
 
         @include mobile {
-            height: calc(100vh - 250px);
+            position: fixed;
+            top: var(--header-height);
+            left: 100%;
+            width: 100%;
+            height: calc(100vh - var(--header-height));
+            background: var(--background-l1);
+            border-radius: 0;
             max-height: none;
             flex: none;
-            width: 100%;
-        }
+            z-index: 99;
+            padding: 0 0.5rem;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 
+            &.show {
+                left: 0;
+            }
+        }
 
         .chat-container {
             @include flex-column;
             height: 100%;
+
+            @include mobile {
+                padding-bottom: 4rem;
+            }
 
             .chat-header {
                 display: flex;
@@ -177,6 +180,10 @@
                 padding: 0.7rem;
                 background-color: var(--background-l1);
                 border-bottom: 1px solid var(--border-color);
+
+                @include mobile {
+                    padding: 0.5rem;
+                }
                 
                 h4 {
                     font-size: 1rem;
@@ -192,13 +199,11 @@
                     gap: 1rem;
 
                     @include mobile {
-                        flex-direction: row;
                         align-items: center;
 
                         img {
                             width: 40px;
                             height: 40px;
-                            margin-right: 0.5rem;
                         }
                     }
 
@@ -356,7 +361,7 @@
                 border-top: 1px solid var(--border-color);
 
                 @include mobile {
-                    position: fixed;
+                    position: absolute;
                     bottom: 0;
                     left: 0;
                     right: 0;

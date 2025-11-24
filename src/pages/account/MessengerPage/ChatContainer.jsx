@@ -9,13 +9,11 @@ import { Avatar } from "@core/components";
 import Message from "./chat/Message";
 import SendMessageArea from "./chat/SendMessageArea";
 
-const ChatContainer = ({
-    showMobileDialogs
-}) => {
+const ChatContainer = ({changeChat}) => {
 
     const { t } = useTranslation('common')
 
-    const { messages, chatListing, setChatListingVisible, interlocutor } = useChats();
+    const { messages, chatListing, setChatListingVisible, interlocutor, currentChatId } = useChats();
 
     const { error } = useWebSocket();
 
@@ -27,19 +25,23 @@ const ChatContainer = ({
         }
     }, [messages]);
 
+    useEffect(() => {
+        console.log(currentChatId)
+    }, [currentChatId])
+
     return (
-        <div className="chat-window">
+        <div className={`chat-window ${currentChatId ? "show" : ""}`}>
             <div className="chat-container">
                 <div className="chat-header">
                     <div className="chat-user">
                         <button 
                             id="dialogsToggleBtn" 
-                            onClick={() => showMobileDialogs()} 
+                            onClick={() => changeChat(null, {})} 
                             className="mobile-dialogs-toggle"
                         >
                             <i className="fa-regular fa-arrow-left fa-2xl"></i>
                         </button>
-                        <Avatar user={interlocutor} size={50} />
+                        <Avatar user={interlocutor} size={40} />
                         <div>
                             <h4 id="interlocutorName">{interlocutor?.name}</h4>
                             <p className="user-status"></p>

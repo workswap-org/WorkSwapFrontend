@@ -34,7 +34,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                                     <>  
                                         {!isOwner && (
                                             <Link 
-                                                to={`/account/chat-start?listingId=${listingId}&sellerId=${author.id}`} 
+                                                to={`/account/chat-start?listingId=${listingId}&interLocutorId=${author.id}`} 
                                                 className="btn btn-primary"
                                             >
                                                 {t(`listing.contactToAuthor`, { ns: 'buttons' })}

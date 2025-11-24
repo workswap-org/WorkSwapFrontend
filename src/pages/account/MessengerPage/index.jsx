@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { 
     useWebSocket,
@@ -11,18 +10,13 @@ import DialogItem from "./chat/DialogItem";
 
 const MessengerPage = () => {
 
-    const { search } = useLocation();
-    const params = new URLSearchParams(search);
-
     const { currentChatId, setCurrentChatId, chatListing, chatListingVisible, chats, setInterlocutor } = useChats();
 
     const { i18n, t } = useTranslation('common');
     const userLocale = i18n.language || "fi";
-    const [startChatId, setStartChatId] = useState(params.get("chatId") || undefined);
     
-    const [mobileDialogs, setMobileDialogs] = useState(false);
-
     const { client, connected } = useWebSocket();
+    const [pageLoading, setPageLoading] = useState(true);
 
     useEffect(() => {
         if (!currentChatId || !client || !client.active || !connected) return;
@@ -39,9 +33,7 @@ const MessengerPage = () => {
 
     const changeChat = useCallback((chatId, interlocutor) => {
         setCurrentChatId(chatId);
-        setInterlocutor(interlocutor)
-        setStartChatId(chatId)
-        setMobileDialogs(false)
+        setInterlocutor(interlocutor);
     }, [setCurrentChatId, setInterlocutor])
 
     return (
@@ -60,7 +52,7 @@ const MessengerPage = () => {
                     </div>
                 )}
 
-                <div className={`dialogs-list ${mobileDialogs ? "show" : ""}`}>
+                <div className="dialogs-list">
                     {chats.length === 0 ? (
                         <div className="no-dialogs" id="no-dialogs">
                             <p>{t(`messenger.placeholders.noDialogs`, { ns: 'common' })}</p>
@@ -72,15 +64,16 @@ const MessengerPage = () => {
                             .map(chat => (
                                 <DialogItem 
                                     key={chat.id}
-                                    startChatId={startChatId}
                                     chat={chat}
+                                    setPageLoading={setPageLoading}
+                                    pageLoading={pageLoading}
                                     changeChat={changeChat} 
                                 />
                             ))
                     }
                 </div>
                 
-                <ChatContainer showMobileDialogs={() => setMobileDialogs(true)} />
+                <ChatContainer changeChat={changeChat} />
             </div>
         </>
     );
