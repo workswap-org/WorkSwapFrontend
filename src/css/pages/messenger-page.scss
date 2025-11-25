@@ -281,7 +281,7 @@
                             margin-right: auto;
 
                             @include mobile {
-                                background-color: var(--background-l2);
+                                background-color: var(--message-in);
                             }
                         }
                     }
@@ -379,9 +379,9 @@
                     color: var(--text-color);
                     background-color: var(--background-l1);
                     resize: none;
-                    height: 44px;
+                    height: 45px;
                     max-height: 120px;
-                    font-size: 0.9rem;
+                    font-size: 1rem;
                     transition: all 0.2s;
 
                     &:focus {

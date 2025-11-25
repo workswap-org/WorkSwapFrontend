@@ -54,10 +54,7 @@
                 background: transparent;
                 box-shadow: 0;
                 border-radius: 0;
-
-                &:has(.messenger-container) {
-                    max-height: calc(100vh - var(--header-height));
-                }
+                max-height: calc(100vh - var(--header-height));
             }
 
             .account-header {
