@@ -8,6 +8,26 @@
     gap: 1rem;
     flex: 1;
 
+    textarea.forum-input {
+        padding: 0.6rem;
+        background-color: transparent;
+        font-size: medium;
+        border: 1px solid var(--border-color);
+        width: 100%;
+        border-radius: 8px;
+        color: var(--text-color);
+        line-height: 22px;
+        resize: none;
+        overflow: hidden;
+        height: 42px;
+        min-height: 42px;
+        transition: outline-width 0.1s ease-in;
+
+        &:focus {
+            outline: 3px solid var(--primary);
+        }
+    }
+
     .forum-page {
         height: 100%;
         flex: 1;
@@ -17,6 +37,20 @@
         .forum-topic-list {
             @include flex-column;
             gap: 0.7rem;
+
+            .forum-topic-form {
+                display: flex;
+                gap: 0.5rem;
+
+                #sendBtn {
+                    cursor: pointer;
+                    border-radius: 8px;
+                    padding: 0.7rem;
+                    aspect-ratio: 1;
+                    right: 0.2rem;
+                    top: 0.2rem;
+                }
+            }
 
             .forum-topic-card {
                 @include card;
@@ -33,10 +67,17 @@
                 }
 
                 .read-btn {
+                    display: flex;
+                    gap: 0.7rem;
                     padding: 0.3rem 0.5rem;
                     height: fit-content;
                     border-radius: var(--radius);
                     background-color: #2eac399c;
+                    font-weight: 600;
+
+                    i {
+                        margin-left: 3px;
+                    }
                 }
 
                 .forum-topic-card-meta {
@@ -74,25 +115,96 @@
             }
         }
 
-        .forum-topic-post-list {
+        .forum-post-list {
             @include flex-column;
             padding-left: 1rem;
             gap: 0.5rem;
 
-            .forum-topic-post {
+            .forum-post-form {
                 display: flex;
-                gap: 1rem;
+                gap: 0.5rem;
                 padding: 1rem;
                 border-radius: 1rem;
                 border: 1px solid var(--border-color);
 
-                .forum-topic-post-content {
-                    @include flex-column;
-                    gap: 0.5rem;
+                #sendBtn {
+                    cursor: pointer;
+                    border-radius: 8px;
+                    padding: 0.7rem;
+                    aspect-ratio: 1;
+                    right: 0.2rem;
+                    top: 0.2rem;
+                }
+            }
 
-                    .forum-topic-post-author-name {
-                        font-size: larger;
-                        font-weight: 500;
+            .forum-post-card {
+                @include flex-column;
+                border-radius: 1rem;
+                border: 1px solid var(--border-color);
+
+                .forum-post {
+                    display: flex;
+                    padding: 1rem;
+                    gap: 1rem;
+                    border-bottom: 1px solid var(--border-color);
+
+                    .forum-post-content {
+                        @include flex-column;
+                        gap: 0.5rem;
+
+                        #authorName {
+                            font-size: larger;
+                            font-weight: 500;
+                        }
+                    }
+                }
+
+                .forum-comment-list {
+                    @include flex-column;
+                    padding: 1rem;
+                    gap: 1rem;
+
+                    .forum-comment-form {
+                        position: relative;
+
+                        textarea.forum-input {
+                            border: 0px;
+                            border-bottom: 1px solid var(--border-color);
+                            border-radius: 0;
+                            padding: 8px 1rem;
+                            height: 38px;
+                            min-height: 38px;
+                            transition: border-color 0.2s ease-in;
+
+                            &:focus {
+                                outline: none;
+                                border-bottom: 2px solid var(--primary);
+                            }
+                        }
+
+                        #sendBtn {
+                            cursor: pointer;
+                            border-radius: 8px;
+                            padding: 0.3rem;
+                            aspect-ratio: 1;
+                            position: absolute;
+                            right: 0.2rem;
+                            top: 0.2rem;
+                        }
+                    }
+
+                    .forum-comment-card {
+                        @include flex-row;
+                        gap: 1rem;
+
+                        .forum-comment-content {
+                            @include flex-column;
+
+                            #authorName {
+                                font-size: 0.9rem;
+                                text-decoration: underline;
+                            }
+                        }
                     }
                 }
             }

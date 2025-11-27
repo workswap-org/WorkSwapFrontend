@@ -5,7 +5,7 @@ import {
     LanguageSwitcher 
 } from "@core/components";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "@core/lib";
 
 const NavButtons = () => {
@@ -21,25 +21,19 @@ const NavButtons = () => {
                     <ThemeChanger id={"themeChangerMobile"}/>
                 </div>
 
-                {isAuthenticated && (
-                    <>
-                        {/* <Link to="/account/messenger" className="nav-link">
-                            <i className="fa-solid fa-comments-question fa-lg" style={{ lineHeight: "normal" }}></i>
-                        </Link> */}
+                <NavLink to="/forum" className="nav-link">
+                    Форум
+                </NavLink>
 
-                        <NotificationHeaderButton />
-                    </>
-                )}
+                <NavLink to="/catalog" className="nav-link">
+                    Каталог
+                </NavLink>
 
                 {isAdmin && (
                     <a href="https://dash.workswap.org" className="nav-link" target="_blank" rel="noreferrer">
                         Админка
                     </a>
                 )}
-
-                {/* <Link to="/news" className="nav-link">
-                    Новости
-                </Link> */}
             </div>
 
             {isAuthenticated ? (
@@ -53,6 +47,7 @@ const NavButtons = () => {
                         />
                         <span className="ellipsis">{user?.name || "Пользователь"}</span>
                     </Link>
+                    <NotificationHeaderButton />
                     <Link
                         className="logout-btn"
                         to='/logout'

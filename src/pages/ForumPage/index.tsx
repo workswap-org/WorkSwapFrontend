@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { createForumTopic } from '@core/lib';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { createForumTopic, getRecentTopics, ShortForumTopic } from '@core/lib';
+import { Link, useNavigate } from 'react-router-dom';
 
 const forumTopics = [
     {
@@ -38,6 +38,7 @@ export const ForumPage = () => {
     const [theme, setTheme] = useState("");
     const navigate = useNavigate();
     const [tag, setTag] = useState({name: ""});
+    const [forumTopics, setForumTopics] = useState<ShortForumTopic[] | []>([]);
 
     const createTopic = async () => {
         const topicOpenId: string = await createForumTopic(theme, tag.name);
@@ -46,28 +47,49 @@ export const ForumPage = () => {
         }
     } 
 
+    useEffect(() => {
+        async function loadRecentTopics(count: number, translationsFilter: boolean) {
+            const data = await getRecentTopics(count, translationsFilter);
+            setForumTopics(data);
+        }
+
+        loadRecentTopics(7, false);
+    }, [])
+
     return (
         <div className="forum-page">
+            <h1>Форум</h1>
+            <h3>Создать тему</h3>
             <div className="forum-topic-list">
-                <div>
-                    <h2>Создать тему</h2>
-                    <input 
-                        type="text"
+                <div className='forum-topic-form'>
+                    <textarea 
+                        className="forum-input"
                         value={theme}
                         onChange={(e) => setTheme(e.target.value)}
                         placeholder="Введите тему..."
                     />
-                    <button onClick={createTopic}>Начать обсуждение</button>
+                    <button onClick={createTopic} id="sendBtn" className="hover">
+                        <i className="fa-solid fa-paper-plane-top fa-lg"></i>
+                    </button>
                 </div>
-                {forumTopics.map((topic) => (
-                    <div key={topic.tag} className="forum-topic-card">
-                        <div className="forum-topic-card-meta">
-                            <span>{topic.title}</span>
-                            <div className="forum-topic-card-tag">{topic.tag}</div>
+                {forumTopics
+                    .slice()
+                    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                    .map((topic) => (
+                        <div key={topic.openId} className="forum-topic-card">
+                            <div className="forum-topic-card-meta">
+                                <span>{topic.theme}</span>
+                                {topic.tagName && (
+                                    <div className="forum-topic-card-tag">{topic.tagName}</div>
+                                )}
+                            </div>
+                            <Link to={`/forum/topic/${topic.openId}`} className="read-btn">
+                                <span>Читать</span>
+                                <div>{topic.postsCount}<i className="fa-regular fa-messages"></i></div>
+                            </Link>
                         </div>
-                        <div className="read-btn">Читать</div>
-                    </div>
-                ))}
+                    ))
+                }
             </div>
         </div>
     );
