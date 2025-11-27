@@ -53,14 +53,14 @@ export const ForumPage = () => {
             setForumTopics(data);
         }
 
-        loadRecentTopics(7, false);
+        loadRecentTopics(20, false);
     }, [])
 
     return (
         <div className="forum-page">
             <h1>Форум</h1>
-            <h3>Создать тему</h3>
             <div className="forum-topic-list">
+                <h3>Создать тему</h3>
                 <div className='forum-topic-form'>
                     <textarea 
                         className="forum-input"
@@ -72,6 +72,7 @@ export const ForumPage = () => {
                         <i className="fa-solid fa-paper-plane-top fa-lg"></i>
                     </button>
                 </div>
+                <h3>Последние темы</h3>
                 {forumTopics
                     .slice()
                     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
