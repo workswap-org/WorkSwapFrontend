@@ -12,6 +12,12 @@ import {
 /* Страницы */
 import {
     CatalogPage,
+    
+    ForumPage,
+    ForumLayout,
+    ForumTagPage,
+    ForumTopicPage,
+
 
     /* Страницы items */
     ListingPage,
@@ -75,6 +81,12 @@ const AppRouter = () => {
                         <Route path="event/:eventId" element={<EventPage />} />
                         <Route path="listing/:listigId" element={<ListingPage />} />
                         <Route path="profile/:userId" element={<ProfilePage />} />
+
+                        <Route path="forum" element={<ForumLayout />}>
+                            <Route index element={<ForumPage />} />
+                            <Route path="topic/:topicOpenId" element={<ForumTopicPage />} />
+                            <Route path="tag/:tag" element={<ForumTagPage />} />
+                        </Route>
 
                         {/* приватные страницы */}
                         <Route path="account" element={<PrivateRoute />}>

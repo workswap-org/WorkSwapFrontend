@@ -3,10 +3,10 @@
 /* Сайдбар */
 .account-sidebar {
     flex: 0 0 280px;
+    top: 0;
     position: sticky;
     @include flex-column;
     gap: 1.5rem;
-    top: calc(var(--header-height) + 20px);
 
     @include tablet-lg {
         position: static;

@@ -33,7 +33,12 @@ const AccountSidebar = () => {
     }
 
     useEffect(() => {
-        setTelegramConnected(checkTelegramConnected());
+        async function checkTelegram() {
+            const data = await checkTelegramConnected();
+            setTelegramConnected(data);
+        }
+
+        checkTelegram();
     }, []);
 
     return(

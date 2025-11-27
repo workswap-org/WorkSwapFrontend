@@ -4,19 +4,16 @@ import { Outlet } from "react-router-dom";
 const AccountLayout = () => {
 
     return (
-        <>
-            <div className="account-container">
-                <div className="account-layout">
+        <div className="account-layout">
 
-                    <AccountSidebar/>
+            <AccountSidebar/>
 
-                    <main className="account-main">
-
-                        <Outlet key={location.key} />
-                    </main>
+            <main className="account-main">
+                <div className="card">
+                    <Outlet key={location.key} />
                 </div>
-            </div>
-        </>
+            </main>
+        </div>
     );
 };
 

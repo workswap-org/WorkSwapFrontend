@@ -1,47 +1,48 @@
 @use "@core/css/components/global-mixins" as *;
 
-/* Основной контейнер */
-.account-container {
-    padding: 2rem 0;
+
+.account-layout {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
     flex: 1;
-    height: fit-content;
-    background-color: var(--background);
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    height: calc(100vh - var(--header-height));
+    width: 100%;
+    overflow-y: auto; 
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     @include tablet-lg {
-        padding: 1rem 0;
-        padding-bottom: 5rem;
+        flex-direction: column;
+        padding: 0 0.3rem;
+        min-height: 100%;
+        height: max-content;
     }
 
     @include mobile {
         padding: 0;
     }
 
-    .account-layout {
-        display: flex;
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1rem;
+    .account-main {
+        @include flex-column;
+        flex: 1;
+        transition: max-height 0.2s ease;
+        max-height: calc(100vh - var(--header-height));
+        overflow: visible;
 
-        @include tablet-lg {
-            flex-direction: column;
-            padding: 0 0.3rem;
-            min-height: 100%;
-            height: max-content;
-        }
-
-        @include mobile {
-            padding: 0;
-        }
-
-        .account-main {
-            @include flex-column;
+        .card {
             flex: 1;
+            @include flex-column;
             background: var(--background-l1);
             border-radius: var(--radius);
-            box-shadow: 0 2px 8px var(--shadow-color);
             padding: 1.5rem;
-            transition: max-height 0.2s ease;
+            height: fit-content;
+            overflow: visible;
 
             @include tablet-lg {
                 padding: 0.5rem;
@@ -51,7 +52,6 @@
 
             @include mobile {
                 overflow-x: hidden;
-                background: transparent;
                 box-shadow: 0;
                 border-radius: 0;
                 max-height: calc(100vh - var(--header-height));
