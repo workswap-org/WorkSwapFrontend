@@ -1,7 +1,8 @@
 @use "@core/css/components/global-mixins" as *;
 
 .forum-layout {
-    padding: 0 calc((100vw - 1200px) / 2);
+    max-width: 1200px;
+    margin: 0 auto;
     padding-top: 2rem;
     padding-bottom: 1rem;
     display: flex;
@@ -33,6 +34,7 @@
         flex: 1;
         @include card;
         padding: 1.5rem;
+        max-width: calc(1200px - 300px - 1rem);
 
         .forum-topic-list {
             @include flex-column;
@@ -56,15 +58,11 @@
                 @include card;
                 padding: 0.5rem 1.5rem;
                 background-color: var(--background-l2);
-                cursor: pointer;
                 @include flex-row;
+                gap: 1rem;
                 justify-content: space-between;
 
                 transition: background-color 0.2s ease-in-out;
-
-                &:hover {
-                    background-color: var(--background-l3);
-                }
 
                 .read-btn {
                     display: flex;
@@ -74,15 +72,27 @@
                     border-radius: var(--radius);
                     background-color: #2eac399c;
                     font-weight: 600;
+                    cursor: pointer;
 
                     i {
                         margin-left: 3px;
+                    }
+
+                    &:hover {
+                        background-color: #3bc7479c;
                     }
                 }
 
                 .forum-topic-card-meta {
                     @include flex-column;
                     gap: 0.3rem;
+                    overflow: hidden;
+
+                    #topicTheme {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
                 }
 
                 .forum-topic-card-tag {
@@ -213,6 +223,7 @@
 
     .forum-sidebar {
         width: 300px;
+        min-width: 300px;
         @include card;
     }
 }

@@ -19,10 +19,13 @@ const ForumTopicPage = () => {
     const [topic, setTopic] = useState<FullForumTopic | null>(null);
     const { topicOpenId } = useParams();
     const [newPostTxt, setNewPostTxt] = useState('');
+    const [sending, setSending] = useState(false);
 
     const createPost = async() => {
+        setSending(true);
         const res = await createForumPost(topicOpenId, newPostTxt);
         if (res.ok) {
+            setNewPostTxt('');
             const newPost: ForumPost = {
                 openId: randomString(10), 
                 content: newPostTxt,
@@ -40,6 +43,7 @@ const ForumTopicPage = () => {
                 };
             });
         }
+        setSending(false);
     }
 
     useEffect(() => {
@@ -75,9 +79,16 @@ const ForumTopicPage = () => {
                         }}
                         placeholder="Напишите ответ..."
                     />
-                    <button onClick={createPost} id="sendBtn" className="hover">
-                        <i className="fa-solid fa-paper-plane-top fa-lg"></i>
-                    </button>
+                    {newPostTxt.length > 0 && (
+                        <button 
+                            onClick={createPost} 
+                            disabled={sending}
+                            id="sendBtn" 
+                            className="hover"
+                        >
+                            <i className="fa-solid fa-paper-plane-top fa-lg"></i>
+                        </button>
+                    )}
                 </div>
                 {topic?.posts
                     .slice()
@@ -98,11 +109,14 @@ const ForumTopicPost = ({
     }) => {
 
     const [newCommentTxt, setNewCommentTxt] = useState('');
+    const [sending, setSending] = useState(false);
     const { user } = useAuth();
 
     const createComment = async(postOpenId: string) => {
+        setSending(true);
         const res = await createForumComment(postOpenId, newCommentTxt);
         if (res.ok) {
+            setNewCommentTxt('');
             const newComment: ForumComment = {
                 id: 1, 
                 content: newCommentTxt, 
@@ -126,6 +140,7 @@ const ForumTopicPost = ({
                 };
             });
         }
+        setSending(false);
     }
 
     return (
@@ -149,9 +164,16 @@ const ForumTopicPost = ({
                         }}
                         placeholder="Введите комментарий..."
                     />
-                    <button onClick={() => createComment(post.openId)} id="sendBtn" className="hover">
-                        <i className="fa-solid fa-paper-plane-top fa-lg"></i>
-                    </button>
+                    {newCommentTxt.length > 0 && (
+                        <button 
+                            onClick={() => createComment(post.openId)}
+                            disabled={sending} 
+                            id="sendBtn" 
+                            className="hover"
+                        >
+                            <i className="fa-solid fa-paper-plane-top fa-lg"></i>
+                        </button>
+                    )}
                 </div>
                 {post.comments
                     .slice()

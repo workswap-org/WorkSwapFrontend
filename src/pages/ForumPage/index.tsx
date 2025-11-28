@@ -38,11 +38,15 @@ export const ForumPage = () => {
     const [theme, setTheme] = useState("");
     const navigate = useNavigate();
     const [tag, setTag] = useState({name: ""});
+    const [sending, setSending] = useState(false);
     const [forumTopics, setForumTopics] = useState<ShortForumTopic[] | []>([]);
 
     const createTopic = async () => {
+        setSending(true);
         const topicOpenId: string = await createForumTopic(theme, tag.name);
+        setSending(false);
         if (topicOpenId) {
+            setTheme('');
             navigate(`/forum/topic/${topicOpenId}`);
         }
     } 
@@ -68,7 +72,7 @@ export const ForumPage = () => {
                         onChange={(e) => setTheme(e.target.value)}
                         placeholder="Введите тему..."
                     />
-                    <button onClick={createTopic} id="sendBtn" className="hover">
+                    <button onClick={createTopic} id="sendBtn" className="hover" disabled={sending}>
                         <i className="fa-solid fa-paper-plane-top fa-lg"></i>
                     </button>
                 </div>
@@ -79,14 +83,14 @@ export const ForumPage = () => {
                     .map((topic) => (
                         <div key={topic.openId} className="forum-topic-card">
                             <div className="forum-topic-card-meta">
-                                <span>{topic.theme}</span>
+                                <span id="topicTheme">{topic.theme}</span>
                                 {topic.tagName && (
                                     <div className="forum-topic-card-tag">{topic.tagName}</div>
                                 )}
                             </div>
                             <Link to={`/forum/topic/${topic.openId}`} className="read-btn">
                                 <span>Читать</span>
-                                <div>{topic.postsCount}<i className="fa-regular fa-messages"></i></div>
+                                <div className='flex-row'>{topic.postsCount}<div><i className="fa-regular fa-messages"></i></div></div>
                             </Link>
                         </div>
                     ))
