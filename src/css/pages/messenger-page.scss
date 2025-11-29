@@ -42,7 +42,7 @@
         overflow-y: auto;
 
         @include mobile {
-            flex: 0;
+            flex: 1;
             height: 100%;
             border-right: 0;
         }

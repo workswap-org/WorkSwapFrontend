@@ -28,6 +28,13 @@ const AccountSidebarLinks = () => {
                 <div><i className={`fa-regular fa-grid-2 fa-lg`}></i></div>
                 {t(`accountSidebar.links.catalog`, { ns: 'navigation' })}
             </Link>
+            <Link
+                to='/forum'
+                className={`account-menu-item`}
+            >
+                <div><i className={`fa-regular fa-comments fa-lg`}></i></div>
+                {t(`accountSidebar.links.forum`, { ns: 'navigation' })}
+            </Link>
             {links.map((link) => (
                 <Link
                     key={link.key}

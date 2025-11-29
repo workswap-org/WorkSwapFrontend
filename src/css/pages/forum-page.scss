@@ -1,5 +1,8 @@
 @use "@core/css/components/global-mixins" as *;
 
+$sidebar-wight: 300px;
+$sidebar-page: 1200px;
+
 .forum-layout {
     max-width: 1200px;
     margin: 0 auto;
@@ -7,26 +10,14 @@
     padding-bottom: 1rem;
     display: flex;
     gap: 1rem;
+    width: 100%;
     flex: 1;
 
-    textarea.forum-input {
-        padding: 0.6rem;
-        background-color: transparent;
-        font-size: medium;
-        border: 1px solid var(--border-color);
-        width: 100%;
-        border-radius: 8px;
-        color: var(--text-color);
-        line-height: 22px;
-        resize: none;
-        overflow: hidden;
-        height: 42px;
-        min-height: 42px;
-        transition: outline-width 0.1s ease-in;
-
-        &:focus {
-            outline: 3px solid var(--primary);
-        }
+    @include mobile {
+        padding-top: 1rem;
+        min-height: calc(100vh - var(--header-height));
+        overflow-y: auto;
+        scrollbar-width: none;
     }
 
     .forum-page {
@@ -34,7 +25,18 @@
         flex: 1;
         @include card;
         padding: 1.5rem;
-        max-width: calc(1200px - 300px - 1rem);
+        max-width: calc($sidebar-page - $sidebar-wight - 1rem);
+
+        @include mobile {
+            min-height: 100%;
+            height: fit-content;
+            max-width: 100%;
+            padding: .5rem;
+
+            h1 { margin-left: 1rem; }
+
+            h3 { margin-left: .5rem; }
+        }
 
         .forum-topic-list {
             @include flex-column;
@@ -55,6 +57,7 @@
             }
 
             .forum-topic-card {
+                position: relative;
                 @include card;
                 padding: 0.5rem 1.5rem;
                 background-color: var(--background-l2);
@@ -63,6 +66,13 @@
                 justify-content: space-between;
 
                 transition: background-color 0.2s ease-in-out;
+
+                @include mobile {
+                    @include flex-column;
+                    font-size: 0.9rem;
+                    gap: 4px;
+                    padding: .5rem;
+                }
 
                 .read-btn {
                     display: flex;
@@ -81,6 +91,31 @@
                     &:hover {
                         background-color: #3bc7479c;
                     }
+
+                    @include mobile {
+                        width: fit-content;
+                    }
+                }
+
+                button.collapse-theme {
+                    position: absolute;
+                    bottom: 2px;
+                    white-space: nowrap;
+                    font-weight: 700;
+                    color: var(--primary);
+                    cursor: pointer;
+                    right: 150px;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+                    @include mobile {
+                        width: fit-content;
+                        margin-left: auto;
+                        margin-right: 1rem;
+                        position: static;
+                    }
                 }
 
                 .forum-topic-card-meta {
@@ -92,6 +127,10 @@
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
+
+                        &.open {
+                            white-space: normal;
+                        }
                     }
                 }
 
@@ -113,14 +152,36 @@
             border-radius: 1rem;
             border: 1px solid var(--border-color);
             margin-bottom: 4rem;
+            position: relative;
+
+            @include mobile {
+                @include flex-column;
+                margin-bottom: 2rem;
+                gap: 5px;
+                .avatar {
+                    width: 40px !important;
+                    height: 40px !important;
+                }
+            }
 
             .forum-topic-theme-content {
                 @include flex-column;
                 gap: 0.5rem;
 
-                .forum-topic-theme-content-author-name {
+                #authorName {
                     font-size: larger;
                     font-weight: 500;
+
+                    @include mobile {
+                        position: absolute;
+                        left: 66px;
+                        top: calc(0.7rem + 10px);
+                    }
+                }
+
+                #date {
+                    font-size: 0.9rem;
+                    color: var(--gray)
                 }
             }
         }
@@ -128,6 +189,7 @@
         .forum-post-list {
             @include flex-column;
             padding-left: 1rem;
+            padding-bottom: 1rem;
             gap: 0.5rem;
 
             .forum-post-form {
@@ -137,6 +199,11 @@
                 border-radius: 1rem;
                 border: 1px solid var(--border-color);
 
+                @include mobile {
+                    padding: 0.7rem;
+                    gap: 0.3rem;
+                }
+
                 #sendBtn {
                     cursor: pointer;
                     border-radius: 8px;
@@ -144,6 +211,10 @@
                     aspect-ratio: 1;
                     right: 0.2rem;
                     top: 0.2rem;
+
+                    @include mobile {
+                        padding: 0.7rem .3rem;
+                    }
                 }
             }
 
@@ -156,7 +227,14 @@
                     display: flex;
                     padding: 1rem;
                     gap: 1rem;
+                    position: relative;
                     border-bottom: 1px solid var(--border-color);
+
+                    @include mobile {
+                        @include flex-column;
+                        padding: 0.7rem;
+                        gap: 5px;
+                    }
 
                     .forum-post-content {
                         @include flex-column;
@@ -165,6 +243,17 @@
                         #authorName {
                             font-size: larger;
                             font-weight: 500;
+
+                            @include mobile {
+                                position: absolute;
+                                left: 60px;
+                                top: calc(0.7rem + 5px);
+                            }
+                        }
+
+                        #date {
+                            font-size: 0.9rem;
+                            color: var(--gray)
                         }
                     }
                 }
@@ -174,10 +263,14 @@
                     padding: 1rem;
                     gap: 1rem;
 
+                    @include mobile {
+                        padding: 0.7rem;
+                    }
+
                     .forum-comment-form {
                         position: relative;
 
-                        textarea.forum-input {
+                        textarea.forum-comment {
                             border: 0px;
                             border-bottom: 1px solid var(--border-color);
                             border-radius: 0;
@@ -205,14 +298,25 @@
 
                     .forum-comment-card {
                         @include flex-row;
+                        position: relative;
                         gap: 1rem;
 
                         .forum-comment-content {
                             @include flex-column;
 
+                            .absolute-actions {
+                                top: 0;
+                                right: 0;
+                            }
+
                             #authorName {
                                 font-size: 0.9rem;
                                 text-decoration: underline;
+                            }
+
+                            #date {
+                                font-size: 0.9rem;
+                                color: var(--gray)
                             }
                         }
                     }
@@ -222,8 +326,12 @@
     }
 
     .forum-sidebar {
-        width: 300px;
-        min-width: 300px;
+        width: $sidebar-wight;
+        min-width: $sidebar-wight;
         @include card;
+
+        @include mobile {
+            display: none;
+        }
     }
 }

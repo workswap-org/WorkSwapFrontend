@@ -15,6 +15,7 @@
         "logout": "Выйти из аккаунта",
         "links": {
             "catalog": "Каталог",
+            "forum": "Форум",
             "account": "Аккаунт",
             "my-listings": "Мои объявления",
             "favorites": "Избранное",

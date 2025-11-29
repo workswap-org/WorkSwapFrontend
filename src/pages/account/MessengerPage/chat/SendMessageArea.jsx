@@ -5,6 +5,7 @@ import {
     useAuth,
     useChats
 } from "@core/lib";
+import { TextareaRT1 } from "@core/components";
 
 const SendMessageArea = () => {
     const { user } = useAuth();
@@ -64,14 +65,13 @@ const SendMessageArea = () => {
 
     return (
         <div className="message-input-container">
-            <textarea
-                id="message-input"
-                className="message-input"
-                placeholder={isDisabled ? "" : t(`placeholders.typeMessage`, { ns: 'common' })}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+            <TextareaRT1
+                value={message} 
+                setValue={setMessage} 
                 onKeyDown={handleKeyDown}
                 disabled={isDisabled}
+                className="" 
+                placeholder={isDisabled ? "" : t(`placeholders.typeMessage`, { ns: 'common' })}
             />
             <button
                 className="send-btn"

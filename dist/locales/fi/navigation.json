@@ -15,6 +15,7 @@
         "logout": "Kirjaudu ulos",
         "links": {
             "catalog": "Luettelo",
+            "forum": "Forum",
             "account": "Tili",
             "my-listings": "Omat ilmoitukset",
             "favorites": "Suosikit",

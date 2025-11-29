@@ -8,6 +8,7 @@ const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }) => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
     const startChatId = params.get("chatId") || null;
+    const isMobile = window.innerWidth <= 600;
 
     const { currentChatId } = useChats();
 
@@ -34,7 +35,7 @@ const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }) => {
             changeChat(chat.id, dialogInterlocutor);
         } 
 
-        if(!loading && !startChatId && !currentChatId && pageLoading) {
+        if(!loading && !startChatId && !currentChatId && pageLoading && !isMobile) {
 
             setPageLoading(false);
 
@@ -42,7 +43,7 @@ const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }) => {
             changeChat(chat.id, dialogInterlocutor);
         }
 
-    }, [changeChat, loading, chat, startChatId, dialogInterlocutor, currentChatId, pageLoading, setPageLoading]);
+    }, [changeChat, loading, chat, startChatId, dialogInterlocutor, currentChatId, pageLoading, setPageLoading, isMobile]);
 
     const formattedDate = chat.lastMessageTime 
         ? new Date(chat.lastMessageTime).toLocaleDateString('ru-RU')

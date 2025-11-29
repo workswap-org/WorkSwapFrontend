@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createForumTopic, getRecentTopics, ShortForumTopic } from '@core/lib';
 import { Link, useNavigate } from 'react-router-dom';
+import { TextareaRT1 } from '@core/components';
 
 const forumTopics = [
     {
@@ -66,11 +67,11 @@ export const ForumPage = () => {
             <div className="forum-topic-list">
                 <h3>Создать тему</h3>
                 <div className='forum-topic-form'>
-                    <textarea 
-                        className="forum-input"
-                        value={theme}
-                        onChange={(e) => setTheme(e.target.value)}
-                        placeholder="Введите тему..."
+                    <TextareaRT1 
+                        value={theme} 
+                        setValue={setTheme} 
+                        className="forum-comment" 
+                        placeholder='Введите тему...'
                     />
                     <button onClick={createTopic} id="sendBtn" className="hover" disabled={sending}>
                         <i className="fa-solid fa-paper-plane-top fa-lg"></i>
@@ -80,25 +81,39 @@ export const ForumPage = () => {
                 {forumTopics
                     .slice()
                     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-                    .map((topic) => (
-                        <div key={topic.openId} className="forum-topic-card">
-                            <div className="forum-topic-card-meta">
-                                <span id="topicTheme">{topic.theme}</span>
-                                {topic.tagName && (
-                                    <div className="forum-topic-card-tag">{topic.tagName}</div>
-                                )}
-                            </div>
-                            <Link to={`/forum/topic/${topic.openId}`} className="read-btn">
-                                <span>Читать</span>
-                                <div className='flex-row'>{topic.postsCount}<div><i className="fa-regular fa-messages"></i></div></div>
-                            </Link>
-                        </div>
+                    .map((topic: ShortForumTopic) => (
+                        <ForumTopicCard topic={topic} />
                     ))
                 }
             </div>
         </div>
     );
 } 
+
+const ForumTopicCard = ({topic}: {topic: ShortForumTopic}) => {
+
+    const [isOpen, setOpen] = useState(false);
+
+    return (
+        <div key={topic.openId} className="forum-topic-card">
+            <div className="forum-topic-card-meta">
+                <span id="topicTheme" className={isOpen ? "open" : ""}>{topic.theme}</span>
+                {topic.tagName && (
+                    <div className="forum-topic-card-tag">{topic.tagName}</div>
+                )}
+            </div>
+            <div className='flex-row'>
+                <button className='collapse-theme' onClick={() => setOpen(prev => !prev)}>
+                    {isOpen ? "Свернуть" : "Развернуть полностью.."}
+                </button>
+                <Link to={`/forum/topic/${topic.openId}`} className="read-btn">
+                    <span>Читать</span>
+                    <div className='flex-row'>{topic.postsCount}<div><i className="fa-regular fa-messages"></i></div></div>
+                </Link>
+            </div>
+        </div>
+    );
+}
 
 export {default as ForumLayout} from './ForumLayout';
 export {default as ForumTagPage} from './ForumTagPage';
