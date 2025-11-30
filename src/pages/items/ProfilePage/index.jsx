@@ -19,28 +19,8 @@ const ProfilePage = () => {
     const [listings, setListings] = useState([])
 
     useEffect(()=> {
-        async function loadProfile() {
-            try {
-                const user = await getUserById(userId);
-                if (user) {
-                    setUser(user);
-                } else {
-                    setUser(undefined);
-                }
-            } catch (error) {
-                console.error("Ошибка загрузки профиля:", error);
-                setUser(undefined);
-            }
-        }
-
-        async function loadListings() {
-            const data = await getListingsByUserId(userId);
-            console.log(data);
-            setListings(data);
-        }
-
-        loadProfile();
-        loadListings();
+        getListingsByUserId(userId).then(data => setListings(data));
+        getUserById(userId).then(data => setUser(data)).catch(setUser(undefined));
     }, [userId]);
 
     return (

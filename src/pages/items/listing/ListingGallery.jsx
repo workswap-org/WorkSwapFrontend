@@ -8,13 +8,11 @@ const ListingGallery = ( { id } ) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function loadData() {
-            const imageData = await getListingImages(id);
-            setImages(imageData);
+        if (!id) return;
+        getListingImages(id).then(data => {
+            setImages(data)
             setLoading(false)
-        }
-
-        if (id) loadData();
+        })
     }, [id]);
 
     const openModal = (index) => {

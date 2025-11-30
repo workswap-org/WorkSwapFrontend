@@ -9,14 +9,7 @@ const FavoritesPage = () => {
 
     const [listings, setListings] = useState([]);
     
-    useEffect(() => {
-        async function loadFavorites() {
-            const data = await getFavoritesListings();
-            setListings(data);
-        }
-
-        loadFavorites()
-    }, [])
+    useEffect(() => getFavoritesListings().then(data => setListings(data)), [])
 
     return (
         <>

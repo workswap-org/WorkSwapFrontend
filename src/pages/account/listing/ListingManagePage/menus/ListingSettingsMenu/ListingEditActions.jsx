@@ -11,16 +11,8 @@ const ListingEditActions = ({
 }) => {
 
     const { t } = useTranslation('common');
-    const { notificate, notificateFromRes} = useNotification();
+    const { notificate } = useNotification();
     const navigate = useNavigate();
-
-    async function publishL() {
-        const res = await publishListing(listing.id);
-        if (res.ok) {
-            notificate(t(`notification.success.publish`, { ns: 'messages' }), "success");
-            navigate(`/account/my-listings`);
-        }
-    }
 
     return (
         <>
@@ -28,7 +20,9 @@ const ListingEditActions = ({
                 onClick={() => {
                     const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
                     if (confirmed) {
-                        deleteListing(listing.id, notificateFromRes);
+                        deleteListing(listing.id)
+                            .then(notificate(t(`notification.success.listingDelete`, { ns: 'messages' }), "success"))
+                            .catch(notificate(t(`notification.error.listingDelete`, { ns: 'messages' }), "error"));
                         navigate(`/account/my-listings`);
                     }
                 }}
@@ -48,7 +42,12 @@ const ListingEditActions = ({
 
             {listing.temporary && (
                 <button 
-                    onClick={() => publishL()} 
+                    onClick={() => publishListing(listing.id)
+                        .then(() => {
+                            notificate(t(`notification.success.publish`, { ns: 'messages' }), "success");
+                            navigate(`/account/my-listings`)
+                        })
+                    } 
                     type="button" 
                     className="btn btn-primary"
                 >

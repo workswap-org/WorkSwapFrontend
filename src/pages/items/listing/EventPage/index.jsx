@@ -53,28 +53,19 @@ const EventPage = () => {
     const [isParticipant, setParticipant] = useState(false);
 
     useEffect(() => {
-        async function loadData() {
-            try {
-                const params = {token};
-                console.log(params)
-                const listingData = await getEventListing(eventId, params);
-                setEvent(listingData);
-                setParticipantsCount(listingData.participants);
+        const params = {token};
 
-                const subscribeData = await checkSubscribtion(eventId, 'EVENT');
-                setSubscribed(subscribeData);
+        getEventListing(eventId, params)
+            .then(data => {
+                setEvent(data)
+                setParticipantsCount(data.participants);
+            })
+            .catch(setEvent(null))
 
-                const participantData = await checkEventParticipant(eventId);
-                setParticipant(participantData)
+        checkSubscribtion(eventId, 'EVENT').then(data => setSubscribed(data))
+        checkEventParticipant(eventId).then(data => setParticipant(data))
+        viewListing(eventId).then();
 
-                await viewListing(eventId);
-            } catch (err) {
-                console.error('Ошибка загрузки данных:', err);
-                setEvent(null);
-            }
-        }
-
-        loadData();
     }, [eventId, token]);
 
     useEffect(() => {
@@ -89,27 +80,17 @@ const EventPage = () => {
     }, [eventId, isOwner]);
 
     useEffect(() => {
-        async function loadListingAuthor(authorId) {
-            const user = await getUserById(authorId);
-            setAuthor(user);
-        }
-
-        async function loadCategoryPath(id) {
-            const data = await getPathToCategory(id);
-            setCategories(data);
-        }
-
-        if (event?.categoryId) loadCategoryPath(event.categoryId);
-        if (event?.authorId) loadListingAuthor(event.authorId);
+        if (event?.categoryId) getPathToCategory(event.categoryId)
+            .then(data => setCategories(data));
+        if (event?.authorId) getUserById(event.authorId)
+            .then(data => setAuthor(data));
 
     }, [event])
 
     useEffect(() => {
+        if (!event?.id || !isAuthenticated) return;
 
-        if (event?.id && isAuthenticated) {
-            checkFavorite(event.id, setFavorite);
-        }
-        
+        checkFavorite(event.id).then(data => setFavorite(data));
     }, [event?.id, isAuthenticated]);
 
     /* const params = {
@@ -211,7 +192,12 @@ const EventPage = () => {
 
                                                     <div 
                                                         className="listing-action-item"
-                                                        onClick={() => toggleFavorite(eventId, setFavorite, isFavorite)}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setFavorite(!isFavorite)
+                                                            toggleFavorite(eventId)
+                                                                .catch(() => setFavorite(isFavorite))
+                                                        }}
                                                     >
                                                         <i className={`
                                                                 ${isFavorite ? 

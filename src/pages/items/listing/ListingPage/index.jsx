@@ -39,35 +39,18 @@ const ListingPage = () => {
     const [isFavorite, setFavorite] = useState(false);
 
     useEffect(() => {
-        async function loadData() {
-            try {
-                const listingData = await getListingById(listigId);
-                setListing(listingData || null);
+        getListingById(listigId)
+            .then(data => {
+                setListing(data)
+            })
+            .catch(setListing(null))
 
-                await viewListing(listigId);
-            } catch (err) {
-                console.error('Ошибка загрузки данных:', err);
-                setListing(null);
-            }
-        }
-
-        loadData();
+        viewListing(listigId).then()
     }, [listigId]);
 
     useEffect(() => {
-        async function loadListingAuthor(authorId) {
-            const user = await getUserById(authorId);
-            setAuthor(await user);
-        }
-
-        async function loadCategoryPath(listigId) {
-            const data = await getPathToCategory(listigId);
-            setCategories(data || []);
-        }
-
-        if (listing?.categoryId) loadCategoryPath(listing.categoryId);
-        if (listing?.authorId) loadListingAuthor(listing.authorId);
-
+        if (listing?.categoryId) getPathToCategory(listing.categoryId).then(data => setCategories(data));
+        if (listing?.authorId) getUserById(listing.authorId).then(data => setAuthor(data));
     }, [listing])
 
     /* const params = {
@@ -75,11 +58,9 @@ const ListingPage = () => {
     } */
 
     useEffect(() => {
-
-        if (listing?.id && isAuthenticated) {
-            checkFavorite(listing.id, setFavorite);
-        }
+        if (!listing?.id || !isAuthenticated) return;
         
+        checkFavorite(listing.id).then(data => setFavorite(data));
     }, [listing?.id, isAuthenticated]);
 
     return (
@@ -164,7 +145,12 @@ const ListingPage = () => {
                                                 {!isOwner ? (
                                                     <div 
                                                         className="listing-action-item"
-                                                        onClick={() => toggleFavorite(listing.id, setFavorite, isFavorite)}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setFavorite(!isFavorite)
+                                                            toggleFavorite(listing.id)
+                                                                .catch(() => setFavorite(isFavorite))
+                                                        }}
                                                     >
                                                         <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart like`}></i>
                                                     </div>

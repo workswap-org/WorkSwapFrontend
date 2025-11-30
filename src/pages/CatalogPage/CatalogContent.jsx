@@ -21,19 +21,12 @@ const CatalogContent = ({ mainListingId, params}) => {
     useEffect(() => {
         const requestId = ++lastRequestId.current;
 
-        async function loadSortedListings(params) {
-            try {
-                const data = await getSortedListings(params);
-
+        getSortedListings(params)
+            .then(data => {
                 if (requestId === lastRequestId.current) {
                     setListings(data);
                 }
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        loadSortedListings(params);
+            });
     }, [params, userLocale]);
     
     return (

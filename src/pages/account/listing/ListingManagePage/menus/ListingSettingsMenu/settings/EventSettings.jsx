@@ -57,20 +57,8 @@ const EventSettings = ({
         }, [listing.id, notificate, t]);
 
     useEffect(() => {
-
-        async function loadEventSettings() {
-            const data = await getEventSettings(listing.id);
-            setEvent(data);
-        }
-
-        const loadToken = async () => {
-            const data = await getListingAccessToken(listing.id);
-            setAccessToken(data.token);
-        };
-
-        loadEventSettings();
-
-        loadToken();
+        getEventSettings(listing.id).then(data => setEvent(data));
+        getListingAccessToken(listing.id).then(data => setAccessToken(data))
     }, [listing.id]);
 
     useEffect(() => {

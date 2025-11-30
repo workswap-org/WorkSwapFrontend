@@ -29,21 +29,13 @@ const ListingTranslations = ({ id, updateListing }) => {
     }, [translations, initialized, translationsChange]);
 
     useEffect(() => {
-        async function loadLanguages() {
-            const data = await getSupportedLanguages();
-            setLangs(data);
-        }
-
-        async function loadListingTranslations() {
-            const data = await getListingTranslations(id);
+        getSupportedLanguages().then(data => setLangs(data));
+        getListingTranslations(id).then(data => {
             if (data) {
                 setTranslations(data);
             }
-            setInitialized(true); // включаем после загрузки
-        }
-
-        loadListingTranslations();
-        loadLanguages();
+            setInitialized(true)
+        })
     }, [id]);
 
     return (

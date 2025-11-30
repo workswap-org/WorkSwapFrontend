@@ -10,17 +10,14 @@ const CategorySelector = ({ listing, categoryId, onChange } ) => {
     const [selectedPath, setSelectedPath] = useState([]);
 
     useEffect(() => {
-        async function loadCategories() {
-            const data = await getCategoriesByType(listing.type);
-            const cats = data || [];
-            setCategories(cats);
-
-            // если уже есть categoryId → восстановим путь
-            if (categoryId) {
-                const path = findPathToCategory(cats, categoryId);
-                setSelectedPath(path);
-            }
-        }
+        getCategoriesByType(listing.type)
+            .then(data => {
+                setCategories(data)
+                if (categoryId) {
+                    const path = findPathToCategory(data, categoryId);
+                    setSelectedPath(path);
+                }
+            })
 
         function findPathToCategory(categories, categoryId) {
             const category = categories.find(c => c.id === categoryId);
@@ -33,8 +30,6 @@ const CategorySelector = ({ listing, categoryId, onChange } ) => {
                 return [category.id];
             }
         }
-
-        loadCategories();
     }, [categoryId, listing.type])
 
     const getChildren = (parentId) =>

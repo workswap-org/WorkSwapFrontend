@@ -21,11 +21,9 @@ const PublicListingCard = ({listing}) => {
     const isNew = (new Date() - new Date(listing.publishedAt)) < 3 * 24 * 60 * 60 * 1000;
 
     useEffect(() => {
+        if (!listing.id || !user) return;
 
-        if (listing.id && user) {
-            checkFavorite(listing.id, setFavorite);
-        }
-        
+        checkFavorite(listing.id).then(data => setFavorite(data));
     }, [listing.id, user]);
 
     if (listing.testMode || listing.temporary) return null;
@@ -64,7 +62,13 @@ const PublicListingCard = ({listing}) => {
                     <div className="listing-card_actions">
                         <i 
                             className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
-                            onClick={(e) => toggleFavorite(listing.id, setFavorite, isFavorite, e)}></i>
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setFavorite(!isFavorite)
+                                toggleFavorite(listing.id)
+                                    .catch(() => setFavorite(isFavorite))
+                            }}
+                        ></i>
                     </div>
                 )}
             </div>

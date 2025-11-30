@@ -20,12 +20,8 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
     }, [images, listing])
 
     useEffect(() => {
-        async function loadImages() {
-            const data = await getListingImages(listing.id);
-            setImages(data);
-        }
-
-        if (listing.id) loadImages();
+        if (!listing.id) return;
+        getListingImages(listing.id).then(data => setImages(data))
     }, [listing.id]);
 
     const imagesChange = useCallback((images, mainImage) => {
@@ -52,45 +48,18 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
 
     // Загрузка нового изображения
     const uploadImage = async (file) => {
-        try {
-            const formData = new FormData();
-            formData.append("image", file);
 
-            const data = await uploadListingImage(listing.id, formData);
+        const formData = new FormData();
+        formData.append("image", file);
 
-            if (data.id) {
-                notificate("Успешно", "success");
-            } else {
-                return;
-            }
-
-            const newImage = {
-                id: data.id,
-                path: data.path
-            }
-
-            addListingImageUrl(newImage);
-            if (!mainImage) setMainImage(data.path); // если основное еще не выбрано
-        } catch (error) {
-            console.error("Ошибка загрузки файла:", error);
-            notificate("Ошибка загрузки изображения", "error");
-        }
-    };
-
-    // Удаление изображения с сервера
-    const deleteImage = async (img) => {
-        console.log(img)
-        try {
-            const message = await deleteListingImage(listing.id, img);
-
-            if (!message) throw new Error(`Ошибка: ${message}`);
-            deleteListingImageUrl(img);
-            notificate(message, "success")
-            return true;
-        } catch (error) {
-            console.error("Ошибка удаления:", error);
-            return false;
-        }
+        uploadListingImage(listing.id, formData)
+            .then(data => {
+                notificate("Успешно", "success")
+                const newImage = { id: data.id, path: data.path }
+                addListingImageUrl(newImage);
+                if (!mainImage) setMainImage(data.path);
+            })
+            .catch(notificate("Ошибка загрузки изображения", "error"))
     };
 
     const handleImageUpload = async (e) => {
@@ -125,7 +94,13 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
                                 <button
                                     type="button"
                                     className="btn btn-sm btn-danger"
-                                    onClick={() => deleteImage(img)}
+                                    onClick={() => deleteListingImage(listing.id, img)
+                                        .then(message => {
+                                            notificate(message)
+                                            deleteListingImageUrl(img)
+                                        })
+                                        .catch(notificate("Ошибка удаления изображения с сервера", "error"))
+                                    }
                                 >
                                     <i className="fa-solid fa-trash"></i>
                                 </button>

@@ -19,15 +19,12 @@ const MyListingsPage = () => {
     const [loading, setLoading] = useState(true)
     
     useEffect(() => {
-        async function loadListings() {
-            const data = await getMyListings();
+        getMyListings().then(data => {
             setLoading(false);
             setListings(data);
             setActiveListings(data.filter(listing => !listing.temporary));
             setDrafts(data.filter(listing => listing.temporary));
-        }
-
-        loadListings()
+        })
     }, [])
 
     return (

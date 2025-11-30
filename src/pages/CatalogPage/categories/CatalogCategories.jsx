@@ -27,16 +27,7 @@ const CatalogCategories = ({
 
     const timeoutRef = useRef();
 
-    useEffect(() => {
-        (async () => {
-        try {
-            const data = await getAllCategories();
-            setCategories(data);
-        } catch (e) {
-            console.error(e);
-        }
-        })();
-    }, []);
+    useEffect(() => getAllCategories().then(data => setCategories(data)), []);
 
     const rootCategories = useMemo(() => (
         categories[listingType]?.filter(cat => cat.parentId == null) || []

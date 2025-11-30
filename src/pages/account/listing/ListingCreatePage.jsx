@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { 
     useNotification,
@@ -16,23 +16,6 @@ export default function ListingCreatePage() {
     const productTypes = listingTypes.filter(t => t.key.startsWith("PRODUCT"));
     const serviceTypes = listingTypes.filter(t => t.key.startsWith("SERVICE"));
     const miscTypes = listingTypes.filter(t => !t.key.startsWith("SERVICE") && !t.key.startsWith("PRODUCT"));
-
-    const createL = useCallback(async (listingType) => {
-        try {
-            const data = await createListing(listingType);
-
-            if (!data.newListingId) {
-                throw new Error(t(`notification.misc.error.listingCreate`, { ns: 'messages' }));
-            }
-
-            notificate(t(`notification.success.createDraft`, { ns: 'messages' }), "success");
-
-            navigate(`/account/listing/edit/${data.newListingId}`, { replace: true });
-        } catch (err) {
-            console.error(err);
-            notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error");
-        }
-    }, [navigate, notificate, t]);
 
     return (
         <>
@@ -90,7 +73,12 @@ export default function ListingCreatePage() {
                 </div>
                 <button 
                     className="btn btn-success"
-                    onClick={() => createL(listingType)}
+                    onClick={() => createListing(listingType)
+                        .then(data => {
+                            notificate(t(`notification.success.createDraft`, { ns: 'messages' }), "success");
+                            navigate(`/account/listing/edit/${data}`, { replace: true });
+                        })
+                        .catch(notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error"))}
                     disabled={!listingType}
                 >
                     {t(`listing.createListing`, { ns: 'buttons' })}
