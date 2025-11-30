@@ -96,7 +96,7 @@ const EventPage = () => {
 
         async function loadCategoryPath(id) {
             const data = await getPathToCategory(id);
-            setCategories(data.categories);
+            setCategories(data);
         }
 
         if (event?.categoryId) loadCategoryPath(event.categoryId);

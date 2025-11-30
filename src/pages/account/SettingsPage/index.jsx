@@ -26,7 +26,7 @@ const SettingsPage = () => {
     useEffect(() => {
         async function loadSettings() {
             const data = await getUserSettings();
-            setUser(data.user);
+            setUser(data);
         }
 
         loadSettings();

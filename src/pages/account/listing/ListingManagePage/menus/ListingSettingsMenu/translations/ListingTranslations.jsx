@@ -31,7 +31,7 @@ const ListingTranslations = ({ id, updateListing }) => {
     useEffect(() => {
         async function loadLanguages() {
             const data = await getSupportedLanguages();
-            setLangs(data.langs);
+            setLangs(data);
         }
 
         async function loadListingTranslations() {

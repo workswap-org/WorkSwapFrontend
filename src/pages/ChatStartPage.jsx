@@ -29,7 +29,7 @@ const ChatStartPage = () => {
                 const data = await getListingDiscussion(newParams);
                 console.log(data);
                 reloadChats();
-                setChatId(data.chatId);
+                setChatId(data);
             }
 
             loadListingChat();
@@ -40,7 +40,7 @@ const ChatStartPage = () => {
                 const data = await getPrivateChat(newParams);
                 console.log(data);
                 reloadChats();
-                setChatId(data.chatId);
+                setChatId(data);
             }
 
             loadPrivateChat();

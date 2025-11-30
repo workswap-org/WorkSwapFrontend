@@ -13,7 +13,7 @@ const LocationSelector = ({ locationId, onChange }) => {
         async function loadLocations() {
             const data = await getLocations();
 
-            const locs = data.locations || [];
+            const locs = data || [];
             setLocations(locs);
 
             // если уже есть categoryId → восстановим путь

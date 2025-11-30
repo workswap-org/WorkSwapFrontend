@@ -58,21 +58,19 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
 
             const data = await uploadListingImage(listing.id, formData);
 
-            if (data.imageUrl) {
+            if (data.id) {
                 notificate("Успешно", "success");
             } else {
                 return;
             }
 
             const newImage = {
-                id: data.imageId,
-                path: data.imageUrl
+                id: data.id,
+                path: data.path
             }
 
             addListingImageUrl(newImage);
-            if (!mainImage) setMainImage(data.imageUrl); // если основное еще не выбрано
-
-            return data.url;
+            if (!mainImage) setMainImage(data.path); // если основное еще не выбрано
         } catch (error) {
             console.error("Ошибка загрузки файла:", error);
             notificate("Ошибка загрузки изображения", "error");
@@ -83,11 +81,11 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
     const deleteImage = async (img) => {
         console.log(img)
         try {
-            const response = await deleteListingImage(listing.id, img);
+            const message = await deleteListingImage(listing.id, img);
 
-            if (!response.message) throw new Error(`Ошибка при удалении: ${response.statusText}`);
+            if (!message) throw new Error(`Ошибка: ${message}`);
             deleteListingImageUrl(img);
-            notificate(response.message, "success")
+            notificate(message, "success")
             return true;
         } catch (error) {
             console.error("Ошибка удаления:", error);

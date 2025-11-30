@@ -12,7 +12,7 @@ const CategorySelector = ({ listing, categoryId, onChange } ) => {
     useEffect(() => {
         async function loadCategories() {
             const data = await getCategoriesByType(listing.type);
-            const cats = data.categories || [];
+            const cats = data || [];
             setCategories(cats);
 
             // если уже есть categoryId → восстановим путь

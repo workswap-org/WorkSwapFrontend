@@ -18,7 +18,7 @@ const PriceEdit = ({ listing, updateListing }) => {
     
         async function loadPriceTypes() {
             const data = await getSupportedPriceTypes();
-            setPriceTypes(data.priceTypes);
+            setPriceTypes(data);
         }
 
         loadPriceTypes();
@@ -63,8 +63,8 @@ const PriceEdit = ({ listing, updateListing }) => {
                 >
                     <option value="" disabled>{t(`placeholders.priceType`, { ns: 'common' })}</option>
                     {priceTypes.map((type) => (
-                        <option key={type.name} value={type.name}>
-                            {t(`priceTypes.${type.name}`, { ns: 'common' })}
+                        <option key={type} value={type}>
+                            {t(`priceTypes.${type}`, { ns: 'common' })}
                         </option>
                     ))}
                 </select>

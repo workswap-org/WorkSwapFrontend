@@ -62,7 +62,7 @@ const ListingPage = () => {
 
         async function loadCategoryPath(listigId) {
             const data = await getPathToCategory(listigId);
-            setCategories(data?.categories || []);
+            setCategories(data || []);
         }
 
         if (listing?.categoryId) loadCategoryPath(listing.categoryId);

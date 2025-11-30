@@ -15,7 +15,7 @@ const ReviewsSection = ( {listingId, profileId} ) => {
 
         async function loadReviews() {
             const data = await getReviewslist(params);
-            setReviews(await data.reviews);
+            setReviews(await data);
         }
 
         loadReviews();

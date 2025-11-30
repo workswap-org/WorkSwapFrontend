@@ -63,16 +63,14 @@ const ProfileSettings = ({ user, updateUser }) => {
             const formData = new FormData();
             formData.append("image", file);
 
-            const data = await uploadAvatar(formData);
+            const imageUrl = await uploadAvatar(formData);
 
-            if (data.imageUrl) {
-                setUploadedAvatar(data.imageUrl)
+            if (imageUrl) {
+                setUploadedAvatar(imageUrl)
                 notificate("Успешно", "success");
             } else {
                 return;
             }
-
-            return data.url;
         } catch (error) {
             console.error("Ошибка загрузки файла:", error);
             notificate("Ошибка загрузки изображения", "error");

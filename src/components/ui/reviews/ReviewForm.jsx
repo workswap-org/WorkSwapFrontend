@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const ReviewForm = ({setReviews, listingId, profileId}) => {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('messages');
 
     const {user, isAuthenticated} = useAuth();
     const {notificate, notificateFromRes} = useNotification();
@@ -36,12 +36,11 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
             rating,
             authorId: user.id
         };
-        console.log("Submitting:", newReview);
         
         const res = await createReview(newReview);
 
-        if (res) {
-            notificateFromRes(res);
+        if (res.ok) {
+            notificate(t(`notification.success.reviewCreate`, { ns: 'messages' }), "success");
             newReview.id = Date.now();
             setReviews(prev => [newReview, ...prev]);
             setText('');

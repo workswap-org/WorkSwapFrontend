@@ -19,7 +19,7 @@ const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }) => {
 
         async function loadInterlocutorInfo() {
             const data = await getInterlocutorInfo(chat.id);
-            setDialogInterlocutor(data.interlocutor)
+            setDialogInterlocutor(data)
             setLoading(false)
         }
 
