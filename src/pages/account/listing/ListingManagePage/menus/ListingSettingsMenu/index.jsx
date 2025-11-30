@@ -27,7 +27,7 @@ const ListingSettingsMenu = ({listing}) => {
     const updateListing = useCallback(async (updates) => {
         if (!listing.id || updates === undefined) return;
         modifyListing(listing.id, updates)
-            .catch(notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error"))
+            .catch(() => notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error"))
     }, [listing, notificate, t]);
 
     // locationChange (у тебя уже был)

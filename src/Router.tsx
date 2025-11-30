@@ -80,7 +80,7 @@ const AppRouter = () => {
                         <Route path="catalog" element={<CatalogPage />} />
                         <Route path="event/:eventId" element={<EventPage />} />
                         <Route path="listing/:listigId" element={<ListingPage />} />
-                        <Route path="profile/:userId" element={<ProfilePage />} />
+                        <Route path="profile/:userOpenId" element={<ProfilePage />} />
 
                         <Route path="forum" element={<ForumLayout />}>
                             <Route index element={<ForumPage />} />

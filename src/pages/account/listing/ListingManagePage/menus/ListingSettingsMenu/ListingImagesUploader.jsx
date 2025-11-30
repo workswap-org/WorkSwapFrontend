@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { 
     useNotification, 
     deleteListingImage,
@@ -24,12 +24,6 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
         getListingImages(listing.id).then(data => setImages(data))
     }, [listing.id]);
 
-    const imagesChange = useCallback((images, mainImage) => {
-        console.log("[I] Изображения:", images);
-        setImages(images);
-        updateListing({ mainImage })
-    }, [updateListing]);
-
     // Добавляем новое изображение
     const addListingImageUrl = (newImage) => {
         setImageList(prev => [...prev, newImage]);
@@ -37,7 +31,7 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
 
     const setMainImageToListing = (mainImageUrl) => {
         setMainImage(mainImageUrl)
-        imagesChange(images, mainImageUrl);
+        updateListing({ mainImage: mainImageUrl })
     };
 
     // Удаляем изображение
@@ -59,7 +53,7 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
                 addListingImageUrl(newImage);
                 if (!mainImage) setMainImage(data.path);
             })
-            .catch(notificate("Ошибка загрузки изображения", "error"))
+            .catch(() => notificate("Ошибка загрузки изображения", "error"))
     };
 
     const handleImageUpload = async (e) => {
@@ -99,7 +93,7 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
                                             notificate(message)
                                             deleteListingImageUrl(img)
                                         })
-                                        .catch(notificate("Ошибка удаления изображения с сервера", "error"))
+                                        .catch(() => notificate("Ошибка удаления изображения с сервера", "error"))
                                     }
                                 >
                                     <i className="fa-solid fa-trash"></i>

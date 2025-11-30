@@ -78,7 +78,7 @@ export default function ListingCreatePage() {
                             notificate(t(`notification.success.createDraft`, { ns: 'messages' }), "success");
                             navigate(`/account/listing/edit/${data}`, { replace: true });
                         })
-                        .catch(notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error"))}
+                        .catch(() => notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error"))}
                     disabled={!listingType}
                 >
                     {t(`listing.createListing`, { ns: 'buttons' })}

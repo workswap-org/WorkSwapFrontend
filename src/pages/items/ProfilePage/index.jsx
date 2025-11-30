@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { getListingsByUserId, getUserById } from "@core/lib";
+import { getUserProfile } from "@core/lib";
 import {
     PublicListingCard,
     UserInfoSidebar,
@@ -13,19 +13,16 @@ const ProfilePage = () => {
 
     const { t } = useTranslation(['common']);
 
-    const { userId } = useParams();
-
-    const [user, setUser] = useState([]);
-    const [listings, setListings] = useState([])
+    const { userOpenId } = useParams();
+    const [user, setUser] = useState({listings: []});
 
     useEffect(()=> {
-        getListingsByUserId(userId).then(data => setListings(data));
-        getUserById(userId).then(data => setUser(data)).catch(setUser(undefined));
-    }, [userId]);
+        getUserProfile(userOpenId).then(data => setUser(data)).catch(() => setUser(undefined));
+    }, [userOpenId]);
 
     return (
         <>
-            {(user && user.status != 'TEMP') ? (
+            {user ? (
                 <div className="listing-container">
                     <div className="listing-layout">
                         <main className="listing-main">
@@ -34,7 +31,7 @@ const ProfilePage = () => {
                             <div className="listing-main-content">
                                 <div className="listing-content">
                                     <div className="listings-grid">
-                                        {listings
+                                        {user.listings
                                             .slice()
                                             .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
                                             .map((listing) => (
@@ -50,7 +47,7 @@ const ProfilePage = () => {
                                 <UserInfoSidebar listingId='' author={user}/>
                             </div>
 
-                            <ReviewsSection listingId='' profileId={userId} />
+                            <ReviewsSection listingId='' profileId={user.id} />
                         </main>
                     </div>
                 </div>

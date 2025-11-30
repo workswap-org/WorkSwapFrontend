@@ -34,7 +34,7 @@ const ListingPage = () => {
 
     const [listing, setListing] = useState([]);
     const [author, setAuthor] = useState([]);
-    const isOwner = !!(user?.id == author?.id);
+    const isOwner = !!(user?.openId == author?.openId);
     const [categories, setCategories] = useState([]);
     const [isFavorite, setFavorite] = useState(false);
 
@@ -43,13 +43,13 @@ const ListingPage = () => {
             .then(data => {
                 setListing(data)
             })
-            .catch(setListing(null))
+            .catch(() => setListing(null))
 
-        viewListing(listigId).then()
+        viewListing(listigId).then(() => {});
     }, [listigId]);
 
     useEffect(() => {
-        if (listing?.categoryId) getPathToCategory(listing.categoryId).then(data => setCategories(data));
+        if (listing?.categoryId && listing.type) getPathToCategory(listing.categoryId, listing.type).then(data => setCategories(data));
         if (listing?.authorId) getUserById(listing.authorId).then(data => setAuthor(data));
     }, [listing])
 

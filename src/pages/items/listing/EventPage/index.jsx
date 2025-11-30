@@ -43,8 +43,8 @@ const EventPage = () => {
     const {user, isAuthenticated} = useAuth();
 
     const [event, setEvent] = useState([]);
-    const [author, setAuthor] = useState([]);
-    const isOwner = !!(user?.id == author?.id);
+    const [author, setAuthor] = useState({});
+    const isOwner = !!(user?.openId == author?.openId);
     const [categories, setCategories] = useState([]);
     const [isFavorite, setFavorite] = useState(false);
     const [subscribed, setSubscribed] = useState(false);
@@ -60,11 +60,11 @@ const EventPage = () => {
                 setEvent(data)
                 setParticipantsCount(data.participants);
             })
-            .catch(setEvent(null))
+            .catch(() => setEvent(null))
 
         checkSubscribtion(eventId, 'EVENT').then(data => setSubscribed(data))
         checkEventParticipant(eventId).then(data => setParticipant(data))
-        viewListing(eventId).then();
+        viewListing(eventId).then(() => {});
 
     }, [eventId, token]);
 
@@ -80,7 +80,7 @@ const EventPage = () => {
     }, [eventId, isOwner]);
 
     useEffect(() => {
-        if (event?.categoryId) getPathToCategory(event.categoryId)
+        if (event?.categoryId && event?.type) getPathToCategory(event.categoryId, event?.type)
             .then(data => setCategories(data));
         if (event?.authorId) getUserById(event.authorId)
             .then(data => setAuthor(data));

@@ -41,7 +41,7 @@ const ChatContainer = ({changeChat}) => {
                         >
                             <i className="fa-regular fa-arrow-left fa-2xl"></i>
                         </button>
-                        <Avatar user={interlocutor} size={40} />
+                        <Avatar user={interlocutor} size={40} link={false} />
                         <div>
                             <h4 id="interlocutorName">{interlocutor?.name}</h4>
                             <p className="user-status"></p>
@@ -57,14 +57,13 @@ const ChatContainer = ({changeChat}) => {
                             </button>
                         )}
                         <Link 
-                            to={`/profile/${interlocutor?.id}`} 
+                            to={`/profile/${interlocutor?.openId}`} 
                             className="btn btn-outline-primary btn-sm"
                         >
                             <i className="fa-regular fa-user fa-lg"></i>
                         </Link>
                     </div>
                     <div className="chat-actions">
-                        {/* <button className="btn btn-outline-danger btn-sm">Заблокировать</button> */}
                         {chatListing?.id && (
                             <button 
                                 className="btn btn-primary btn-sm" 
@@ -72,7 +71,7 @@ const ChatContainer = ({changeChat}) => {
                             >{t(`messenger.listing`, { ns: 'buttons' })}</button>
                         )}
                         <Link 
-                            to={`/profile/${interlocutor?.id}`} 
+                            to={`/profile/${interlocutor?.openId}`} 
                             className="btn btn-outline-primary btn-sm"
                         >
                             {t(`messenger.profile`, { ns: 'buttons' })}

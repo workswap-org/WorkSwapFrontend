@@ -16,6 +16,10 @@
         aspect-ratio: 1 / 1;
         width: 150px;
 
+        .card {
+            padding: 0;
+        }
+
         &:hover .overlay-actions{
             opacity: 1;
         }

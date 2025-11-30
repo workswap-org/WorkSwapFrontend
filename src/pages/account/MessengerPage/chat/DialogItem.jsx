@@ -12,18 +12,15 @@ const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }) => {
 
     const { currentChatId } = useChats();
 
-    const [dialogInterlocutor, setDialogInterlocutor] = useState({ name: "User", avatarUrl: "/images/avatar-placeholder.png" });
+    const [dialogInterlocutor, setDialogInterlocutor] = useState({ openId: null, name: "User", avatarUrl: "/images/avatar-placeholder.png" });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
-        async function loadInterlocutorInfo() {
-            const data = await getInterlocutorInfo(chat.id);
+        getInterlocutorInfo(chat.id).then(data => {
             setDialogInterlocutor(data)
+            console.log(data)
             setLoading(false)
-        }
-
-        loadInterlocutorInfo();
+        })
     }, [chat.id]);
 
     useEffect(() => {
@@ -52,7 +49,7 @@ const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }) => {
     return (
         <div className="dialog-item-box">
             <div className="dialog-item" onClick={() => changeChat(chat.id, dialogInterlocutor)}>
-                <Avatar user={dialogInterlocutor} size={50} />
+                <Avatar user={dialogInterlocutor} size={50} link={false} />
                 <div className="dialog-content">
                     <div className="dialog-header">
                         <h4>{dialogInterlocutor.name}</h4>

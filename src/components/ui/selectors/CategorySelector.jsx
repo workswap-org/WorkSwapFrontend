@@ -10,6 +10,7 @@ const CategorySelector = ({ listing, categoryId, onChange } ) => {
     const [selectedPath, setSelectedPath] = useState([]);
 
     useEffect(() => {
+        if(!listing.type) return;
         getCategoriesByType(listing.type)
             .then(data => {
                 setCategories(data)

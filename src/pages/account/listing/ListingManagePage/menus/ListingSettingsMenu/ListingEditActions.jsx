@@ -21,8 +21,8 @@ const ListingEditActions = ({
                     const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
                     if (confirmed) {
                         deleteListing(listing.id)
-                            .then(notificate(t(`notification.success.listingDelete`, { ns: 'messages' }), "success"))
-                            .catch(notificate(t(`notification.error.listingDelete`, { ns: 'messages' }), "error"));
+                            .then(() => notificate(t(`notification.success.listingDelete`, { ns: 'messages' }), "success"))
+                            .catch(() => notificate(t(`notification.error.listingDelete`, { ns: 'messages' }), "error"));
                         navigate(`/account/my-listings`);
                     }
                 }}
