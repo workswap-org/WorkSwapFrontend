@@ -9,7 +9,9 @@ const FavoritesPage = () => {
 
     const [listings, setListings] = useState([]);
     
-    useEffect(() => getFavoritesListings().then(data => setListings(data)), [])
+    useEffect(() => {
+        getFavoritesListings().then(data => setListings(data))
+    }, [])
 
     return (
         <>

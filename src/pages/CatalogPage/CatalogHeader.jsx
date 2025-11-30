@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import CatalogCategories from "./categories/CatalogCategories";
+import CatalogCategories from "./CatalogCategories";
 
 const CatalogHeader = ({
     searchQuery,
