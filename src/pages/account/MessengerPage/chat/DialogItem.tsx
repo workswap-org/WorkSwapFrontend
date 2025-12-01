@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
-import { getInterlocutorInfo, useChats } from "@core/lib";
+import { ChatType, getInterlocutorInfo, ShortUser, useChats } from "@core/lib";
 import { Avatar } from "@core/components";
 import { useLocation } from "react-router-dom";
 
-const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }) => {
+interface DialogItemProps {
+    chat: ChatType,
+    changeChat: (chatId: number, interlocutor: ShortUser | null) => void,
+    pageLoading: boolean,
+    setPageLoading: React.Dispatch<React.SetStateAction<boolean | null>>
+}
+
+const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }: DialogItemProps) => {
     
     const { search } = useLocation();
     const params = new URLSearchParams(search);
-    const startChatId = params.get("chatId") || null;
+    const startChatId = Number(params.get("chatId")) || null;
     const isMobile = window.innerWidth <= 600;
 
     const { currentChatId } = useChats();
 
-    const [dialogInterlocutor, setDialogInterlocutor] = useState({ openId: null, name: "User", avatarUrl: "/images/avatar-placeholder.png" });
+    const [dialogInterlocutor, setDialogInterlocutor] = useState<ShortUser | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getInterlocutorInfo(chat.id).then(data => {
             setDialogInterlocutor(data)
-            console.log(data)
             setLoading(false)
         })
     }, [chat.id]);
@@ -52,7 +58,7 @@ const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }) => {
                 <Avatar user={dialogInterlocutor} size={50} link={false} />
                 <div className="dialog-content">
                     <div className="dialog-header">
-                        <h4>{dialogInterlocutor.name}</h4>
+                        <h4>{dialogInterlocutor?.name}</h4>
                         <span className="dialog-time">{formattedDate}</span>
                     </div>
                     <div className="dialog-meta">

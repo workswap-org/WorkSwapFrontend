@@ -1,6 +1,6 @@
-import { useAuth } from "@core/lib";
+import { MessageType, useAuth } from "@core/lib";
 
-const Message = ({message}) => {
+const Message = ({message}: {message: MessageType}) => {
 
     const { user } = useAuth();
 
@@ -9,7 +9,7 @@ const Message = ({message}) => {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const formattedTime = `${hours}:${minutes}`;
 
-    const isOwn = (message.senderId == user.id)
+    const isOwn = (message.senderId == user?.id)
 
     return (
         <div className={`message ${isOwn ? 'message-out' : 'message-in'}`}>

@@ -6,7 +6,7 @@ import {
     useChats
 } from "@core/lib";
 import { Avatar } from "@core/components";
-import Message from "./chat/Message";
+import Message from "./chat/Message.tsx";
 import SendMessageArea from "./chat/SendMessageArea";
 
 const ChatContainer = ({changeChat}) => {
@@ -31,85 +31,83 @@ const ChatContainer = ({changeChat}) => {
 
     return (
         <div className={`chat-window ${currentChatId ? "show" : ""}`}>
-            <div className="chat-container">
-                <div className="chat-header">
-                    <div className="chat-user">
+            <div className="chat-header">
+                <div className="chat-user">
+                    <button 
+                        id="dialogsToggleBtn" 
+                        onClick={() => changeChat(null, {})} 
+                        className="mobile-dialogs-toggle"
+                    >
+                        <i className="fa-regular fa-arrow-left fa-2xl"></i>
+                    </button>
+                    <Avatar user={interlocutor} size={40} link={false} />
+                    <div>
+                        <h4 id="interlocutorName">{interlocutor?.name}</h4>
+                        <p className="user-status"></p>
+                    </div>
+                </div>
+                <div className="mobile-chat-actions">
+                    {chatListing?.id && (
                         <button 
-                            id="dialogsToggleBtn" 
-                            onClick={() => changeChat(null, {})} 
-                            className="mobile-dialogs-toggle"
+                            className="btn btn-primary btn-sm" 
+                            onClick={() => setChatListingVisible(prev => !prev)}
                         >
-                            <i className="fa-regular fa-arrow-left fa-2xl"></i>
+                            <i className="fa-regular fa-cards-blank fa-lg"></i>
                         </button>
-                        <Avatar user={interlocutor} size={40} link={false} />
-                        <div>
-                            <h4 id="interlocutorName">{interlocutor?.name}</h4>
-                            <p className="user-status"></p>
-                        </div>
-                    </div>
-                    <div className="mobile-chat-actions">
-                        {chatListing?.id && (
-                            <button 
-                                className="btn btn-primary btn-sm" 
-                                onClick={() => setChatListingVisible(prev => !prev)}
-                            >
-                                <i className="fa-regular fa-cards-blank fa-lg"></i>
-                            </button>
-                        )}
-                        <Link 
-                            to={`/profile/${interlocutor?.openId}`} 
-                            className="btn btn-outline-primary btn-sm"
-                        >
-                            <i className="fa-regular fa-user fa-lg"></i>
-                        </Link>
-                    </div>
-                    <div className="chat-actions">
-                        {chatListing?.id && (
-                            <button 
-                                className="btn btn-primary btn-sm" 
-                                onClick={() => setChatListingVisible(prev => !prev)}
-                            >{t(`messenger.listing`, { ns: 'buttons' })}</button>
-                        )}
-                        <Link 
-                            to={`/profile/${interlocutor?.openId}`} 
-                            className="btn btn-outline-primary btn-sm"
-                        >
-                            {t(`messenger.profile`, { ns: 'buttons' })}
-                        </Link>
-                    </div>
-                </div>
-
-                <div 
-                    className="messages-container" 
-                    ref={messagesContainer}
-                >
-                    {error && (
-                        <div className="web-socket-connection-status">
-                            <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
-                            <br/>
-                            <i className="fa-solid fa-spinner-third fa-spin"></i>
-                        </div>
                     )}
-
-                    {/* <div className="chat-order">
-                        <span>Заказ #{order?.id} создан</span>
-                    </div> */}
-                    {/* <div className="message-date">Сегодня</div> */}
-
-                    {(messages?.length === 0 && !error) && (
-                        <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
-                    )}
-
-                    {messages?.map((message) => (
-                        <Message 
-                            key={message.id}
-                            message={message} 
-                        />
-                    ))}
+                    <Link 
+                        to={`/profile/${interlocutor?.openId}`} 
+                        className="btn btn-outline-primary btn-sm"
+                    >
+                        <i className="fa-regular fa-user fa-lg"></i>
+                    </Link>
                 </div>
-
-                <SendMessageArea/>
+                <div className="chat-actions">
+                    {chatListing?.id && (
+                        <button 
+                            className="btn btn-primary btn-sm" 
+                            onClick={() => setChatListingVisible(prev => !prev)}
+                        >{t(`messenger.listing`, { ns: 'buttons' })}</button>
+                    )}
+                    <Link 
+                        to={`/profile/${interlocutor?.openId}`} 
+                        className="btn btn-outline-primary btn-sm"
+                    >
+                        {t(`messenger.profile`, { ns: 'buttons' })}
+                    </Link>
+                </div>
             </div>
+
+            <div 
+                className="messages-container" 
+                ref={messagesContainer}
+            >
+                {error && (
+                    <div className="web-socket-connection-status">
+                        <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
+                        <br/>
+                        <i className="fa-solid fa-spinner-third fa-spin"></i>
+                    </div>
+                )}
+
+                {/* <div className="chat-order">
+                    <span>Заказ #{order?.id} создан</span>
+                </div> */}
+                {/* <div className="message-date">Сегодня</div> */}
+
+                {(messages?.length === 0 && !error) && (
+                    <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
+                )}
+
+                {messages?.map((message) => (
+                    <Message 
+                        key={message.id}
+                        message={message} 
+                    />
+                ))}
+            </div>
+
+            <SendMessageArea/>
         </div>
     );
 };

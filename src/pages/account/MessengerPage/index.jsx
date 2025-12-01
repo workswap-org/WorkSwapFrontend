@@ -6,7 +6,7 @@ import {
 } from "@core/lib";
 import { PublicListingCard } from "@/components";
 import ChatContainer from "./ChatContainer";
-import DialogItem from "./chat/DialogItem";
+import DialogItem from "./chat/DialogItem.tsx";
 
 const MessengerPage = () => {
 
