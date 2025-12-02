@@ -88,7 +88,7 @@ const ListingPage = () => {
                                 {categories.map((cat) => (
                                     <div key={cat.id}>
                                         <Link to={`/catalog?category=${cat.name}`}>
-                                            {t(`category.${cat.name}`, { ns: 'categories' })}
+                                            {t(`category.${listing.type.toLowerCase()}.${cat.name}`, { ns: 'categories' })}
                                         </Link>
                                         <span className="divider">/</span>
                                     </div>
@@ -182,7 +182,7 @@ const ListingPage = () => {
                             </div>
 
                             {/* Блок с отзывами */}
-                            <ReviewsSection listingId={listing.id} profileId={author.id} />
+                            <ReviewsSection listingId={listing.id} profileId={listing.authorId} />
 
                         </main>
                     </div>

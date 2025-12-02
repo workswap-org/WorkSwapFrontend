@@ -11,7 +11,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
     const { t } = useTranslation('messages');
 
     const {user, isAuthenticated} = useAuth();
-    const {notificate, notificateFromRes} = useNotification();
+    const { notificate } = useNotification();
 
     const [text, setText] = useState('');
     const [rating, setRating] = useState(0);   // выбранная оценка
@@ -50,7 +50,7 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
 
     return (
         <>
-            {(isAuthenticated && profileId && profileId != user.id) && (
+            {(isAuthenticated && profileId && profileId != user?.id) && (
                 <section className="review-form">
                     <h3>{t(`reviews.item.label`, { ns: 'common' })}</h3>
                     <div className="form-row">

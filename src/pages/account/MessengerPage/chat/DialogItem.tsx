@@ -28,7 +28,7 @@ const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }: DialogIte
             setLoading(false)
         })
     }, [chat.id]);
-
+    
     useEffect(() => {
 
         if(!loading && startChatId == chat.id && pageLoading) {
@@ -45,6 +45,8 @@ const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }: DialogIte
             console.log(startChatId);
             changeChat(chat.id, dialogInterlocutor);
         }
+
+        if (currentChatId == chat.id) changeChat(chat.id, dialogInterlocutor);
 
     }, [changeChat, loading, chat, startChatId, dialogInterlocutor, currentChatId, pageLoading, setPageLoading, isMobile]);
 

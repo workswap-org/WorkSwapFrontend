@@ -291,7 +291,7 @@ const EventPage = () => {
                     </div>
 
                     {/* Блок с отзывами */}
-                    <ReviewsSection listingId={event?.id} profileId={author?.id} />
+                    <ReviewsSection listingId={event?.id} profileId={event.authorId} />
 
                     {/* Похожие объявления */}
                     {/* {event.category && (
