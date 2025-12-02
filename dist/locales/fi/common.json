@@ -12,7 +12,11 @@
         "login": "Sähköposti",
         "password": "Salasana",
         "passwordConfirm": "Vahvista salasana",
-        "name": "Nimi"
+        "name": "Nimi",
+        "listing": {
+            "title": "Syötä ilmoituksen nimi...",
+            "description": "Kuvaile ilmoitus..."
+        }
     },
     "sorts": {
         "date": "Päivämäärän mukaan",

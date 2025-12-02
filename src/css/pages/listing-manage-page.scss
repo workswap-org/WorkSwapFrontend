@@ -40,25 +40,41 @@
         }
     }
 }
-
-.lang-cards {
-    display: inline-flex;
+.translation-editor {
+    @include flex-column;
     gap: 0.5rem;
-    width: 100%;
 
-    @include mobile {
-        flex-direction: column;
-    }
-
-    .lang-card {
-        border: 3px solid var(--border-color);
-        border-radius: var(--radius);
-        padding: 0.5rem 2rem;
-        text-align: center;
+    .lang-cards {
+        display: inline-flex;
+        gap: 0.5rem;
         width: 100%;
-        position: relative;
+
+        @include mobile {
+            flex-direction: column;
+        }
+
+        .lang-card {
+            border: 3px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 0.5rem 2rem;
+            text-align: center;
+            width: 100%;
+            position: relative;
+
+            &.active {
+                border-radius: var(--radius) var(--radius) 0 0;
+                border-bottom: 3px solid transparent;
+
+                @include mobile {
+                    border: 3px solid var(--border-color);
+                    border-radius: var(--radius);
+                    background-color: #6a8fc748;
+                }
+            }
+        }
     }
 }
+
 
 .translation-status {
     height: 1.5rem;

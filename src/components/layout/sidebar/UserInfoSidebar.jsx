@@ -11,7 +11,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
 
     if (!author) return null;
 
-    const isOwner = !!(user?.id == author.id);
+    const isOwner = !!(user?.openId == author.openId);
 
     return (
         <aside className="user-info-sidebar">

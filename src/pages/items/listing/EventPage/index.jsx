@@ -25,8 +25,9 @@ import {
     checkSubscribtion,
     toggleSubscription,
     checkEventParticipant,
-    toggleParticipation,
-    getEventParticipants
+    getEventParticipants,
+    removeEventParticipant,
+    addEventParticipant
 } from '@core/lib';
 
 import NotFoundPage from "@core/pages/NotFoundPage";
@@ -69,14 +70,7 @@ const EventPage = () => {
     }, [eventId, token]);
 
     useEffect(() => {
-
-        async function loadEventParticipants() {
-            const participantsList = await getEventParticipants(eventId);
-            console.log(participantsList)
-            setParticipants(participantsList);
-        }
-
-        if (isOwner) loadEventParticipants();
+        if (isOwner) getEventParticipants(eventId).then(data => setParticipants(data));
     }, [eventId, isOwner]);
 
     useEffect(() => {
@@ -92,6 +86,25 @@ const EventPage = () => {
 
         checkFavorite(event.id).then(data => setFavorite(data));
     }, [event?.id, isAuthenticated]);
+
+    const toggleParticipation = async () => {
+        setParticipant(!isParticipant); // мгновенный отклик
+        if (isParticipant) {
+            removeEventParticipant(eventId, event?.type)
+                .then(() => setParticipantsCount(prev => prev - 1))
+                .catch(() => {
+                    setParticipant(true);
+                    setParticipantsCount(prev => prev);
+                })
+        } else {
+            addEventParticipant(eventId, event?.type)
+                .then(() => setParticipantsCount(prev => prev + 1))
+                .catch(() => {
+                    setParticipant(false);
+                    setParticipantsCount(prev => prev);
+                })
+        }
+    }
 
     /* const params = {
         categoryId: event?.categoryId,
@@ -260,7 +273,7 @@ const EventPage = () => {
                                         </div>
                                         <div 
                                             className="btn btn-primary"
-                                            onClick={() => toggleParticipation(eventId, participantsCount, setParticipantsCount, isParticipant, setParticipant)}
+                                            onClick={toggleParticipation}
                                         >
                                             {!isParticipant ? (
                                                 <span>{t(`event.participation.join`, { ns: 'buttons' })}</span>

@@ -1,60 +1,73 @@
 import { useCallback, useEffect, useState } from "react";
-import { 
-    getSupportedLanguages,
-    getListingTranslations
-} from "@core/lib";
+import { getListingTranslations, modifyListingTranslations, useNotification } from "@core/lib";
 import { useTranslation } from 'react-i18next';
-import TranslationModal from "./TranslationModal";
+import ListingInfo from "./ListingInfo";
 import TranslationsStatus from "./TranslationsStatus";
 
-const ListingTranslations = ({ id, updateListing }) => {
+const ListingTranslations = ({ id }) => {
 
-    const { t } = useTranslation('common');
+    const { t } = useTranslation(['common', 'messages']);
+
+    const { notificate } = useNotification();
 
     const [initialized, setInitialized] = useState(false);
 
+    const [loading, setLoading] = useState(true);
     const [translations, setTranslations] = useState({});
-    const [currentLang, setCurrentLang] = useState("");
+    const [currentLang, setCurrentLang] = useState("undetected");
     const [langs, setLangs] = useState([]);
-
-    const translationsChange = useCallback((translation) => {
-        console.log("[T] Перевод:", translation);
-        updateListing({ translation });
-    }, [updateListing]);
 
     useEffect(() => {
         if (initialized) {
-            translationsChange?.(translations);
+            modifyListingTranslations(id, translations)
+                .then(data => {
+                    setLangs(data)
+                })
+                .catch(() => notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error"));
         }
-    }, [translations, initialized, translationsChange]);
+    }, [translations, initialized, id, notificate, t]);
 
     useEffect(() => {
-        getSupportedLanguages().then(data => setLangs(data));
         getListingTranslations(id).then(data => {
-            if (data) {
-                setTranslations(data);
-            }
+            console.log(data);
+            setTranslations(data);
+            const firstLang = Object.keys(data)[0];
+            setLangs(Object.keys(data))
+            console.log(Object.keys(data));
+            if (firstLang) setCurrentLang(firstLang)
+            setLoading(false);
             setInitialized(true)
         })
     }, [id]);
 
+    useEffect(() => {
+        console.log(langs.length)
+    }, [langs.length]);
+
     return (
         <div className="translation-editor">
-            <div className="lang-cards">
-                {langs.map((lang) => (
-                    <div key={lang} className="lang-card hover" onClick={() => setCurrentLang(lang)}>
-                        <span>{t(`languages.${lang}`, { ns: 'common' })}</span>
-                        <TranslationsStatus lang={lang} translations={translations}/>
+            {langs.length > 0 && (
+                <div className="lang-cards">
+                    {langs.map((lang) => (
+                        <div key={lang} className={`lang-card hover ${currentLang == lang ? "active" : ""}`} onClick={() => setCurrentLang(lang)}>
+                            <span>{t(`languages.${lang}`, { ns: 'common' })}</span>
+                            <TranslationsStatus lang={lang} translations={translations}/>
+                        </div>
+                    ))}
+                    <div className={`lang-card hover ${currentLang == "undetected" ? "active" : ""}`} onClick={() => setCurrentLang("undetected")}>
+                        <span>+ Добавить язык</span>
                     </div>
-                ))}
-            </div>
+                </div>
+            )}
 
-            <TranslationModal
-                currentLang={currentLang}
-                translations={translations}
-                setTranslations={setTranslations}
-                setCurrentLang={setCurrentLang}
-            />
+            {!loading && (
+                <ListingInfo
+                    currentLang={currentLang}
+                    translations={translations}
+                    setTranslations={setTranslations}
+                    setCurrentLang={setCurrentLang}
+                />
+            )}            
         </div>
     );
 }

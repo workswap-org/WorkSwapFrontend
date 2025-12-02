@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const PrivacySettings = ({ user, updateUser }) => {
@@ -7,16 +7,6 @@ const PrivacySettings = ({ user, updateUser }) => {
 
     const [phoneVisible, setPhoneVisible] = useState(user.phoneVisible || false);
     const [emailVisible, setEmailVisible] = useState(user.emailVisible || false);
-
-    const phoneVisibleChange = useCallback((phoneVisible) => {
-        setPhoneVisible(phoneVisible);
-        updateUser({ phoneVisible });
-    }, [updateUser]);
-
-    const emailVisibleChange = useCallback((emailVisible) => {
-        setEmailVisible(emailVisible);
-        updateUser({ emailVisible });
-    }, [updateUser]);
 
     return (
         <div className="form-section">
@@ -28,7 +18,10 @@ const PrivacySettings = ({ user, updateUser }) => {
                         <input
                             type="checkbox"
                             checked={phoneVisible}
-                            onChange={(e) => phoneVisibleChange(e.target.checked)}
+                            onChange={(e) => {
+                                setPhoneVisible(e.target.checked);
+                                updateUser({ phoneVisible: e.target.checked });
+                            }}
                         />
                         <span className="slider"></span>
                     </label>
@@ -42,7 +35,10 @@ const PrivacySettings = ({ user, updateUser }) => {
                         <input
                             type="checkbox"
                             checked={emailVisible}
-                            onChange={(e) => emailVisibleChange(e.target.checked)}
+                            onChange={(e) => {
+                                setEmailVisible(e.target.checked);
+                                updateUser({ emailVisible: e.target.checked });
+                            }}
                         />
                         <span className="slider"></span>
                     </label>

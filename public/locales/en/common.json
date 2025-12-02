@@ -12,7 +12,11 @@
         "login": "Email",
         "password": "Password",
         "passwordConfirm": "Confirm password",
-        "name": "Name"
+        "name": "Name",
+        "listing": {
+            "title": "Enter the listing title...",
+            "description": "Describe the listing..."
+        }
     },
     "sorts": {
         "date": "By date",

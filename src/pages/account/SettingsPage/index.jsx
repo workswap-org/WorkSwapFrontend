@@ -33,16 +33,7 @@ const SettingsPage = () => {
     }, [])
 
     const updateUser = useCallback(async (updates) => {
-        try {
-            const res = await modifyUserSettings(updates);
-
-            if (!res.ok) {
-                notificate("Ошибка обновления пользователя", "error");
-            }
-        } catch (err) {
-            notificate("Ошибка обновления пользователя", "error");
-            throw err;
-        }
+        modifyUserSettings(updates).catch(() => notificate("Ошибка обновления пользователя", "error"))
     }, [notificate]);
 
     return (

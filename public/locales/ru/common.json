@@ -12,7 +12,11 @@
         "login": "Email",
         "password": "Пароль",
         "passwordConfirm": "Подтвердите пароль",
-        "name": "Имя"
+        "name": "Имя",
+        "listing": {
+            "title": "Введите название объявления...",
+            "description": "Опишите объявление..."
+        }
     },
     "sorts": {
         "date": "По дате",

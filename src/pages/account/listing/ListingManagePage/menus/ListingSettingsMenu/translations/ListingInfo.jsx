@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal } from '@core/components';
 
-const TranslationModal = ({
+const ListingInfo = ({
     currentLang,
     translations,
-    setTranslations,
-    setCurrentLang
+    setTranslations
 }) => {
 
     const { t } = useTranslation('common');
@@ -15,19 +14,19 @@ const TranslationModal = ({
     const [description, setDescription] = useState("");
 
     const handleAddLanguage = () => {
-        if (!currentLang) return;
+        var key;
+        if (currentLang) {
+            key = currentLang;
+        } else {
+            key = 'undetected';
+        }
 
         const updated = {
             ...translations,
-            [currentLang]: { title, description },
+            [key]: { title, description },
         };
 
         setTranslations(updated);
-
-        // сбрасываем форму
-        setCurrentLang("");
-        setTitle("");
-        setDescription("");
     };
 
     useEffect(() => {
@@ -37,40 +36,36 @@ const TranslationModal = ({
         }
     }, [currentLang, translations])
 
-    if (!currentLang) return null;
-
     return (
-        <Modal
-            isOpen={currentLang}
-            onClose={() => setCurrentLang(null)}
-            id="translationModal"
-        >
+        <>
             <label className='form-group'>
-                {t(`labels.title`, { ns: 'common' })} ({t(`languages.${currentLang}`, { ns: 'common' })}):
+                {t(`labels.title`, { ns: 'common' })}{currentLang != 'undetected' && ` (${t("languages." + currentLang)})`}:
                 <input
                     type="text"
                     value={title}
                     maxLength={250}
                     onChange={(e) => setTitle(e.target.value)}
+                    placeholder={t(`placeholders.listing.title`, { ns: 'common' })}  
                 />
             </label>
 
             <label className='form-group' id="listingDescription">
-                {t(`labels.description`, { ns: 'common' })} ({t(`languages.${currentLang}`, { ns: 'common' })}):
+                {t(`labels.description`, { ns: 'common' })}{currentLang != 'undetected' && ` (${t("languages." + currentLang, { ns: 'common' })})`}:
                 <textarea
                     id="listingDescriptionTxt"
                     rows="4"
                     value={description}
                     maxLength={1900}
                     onChange={(e) => setDescription(e.target.value)}
+                    placeholder={t("placeholders.listing.description", { ns: 'common' })}
                 />
             </label>
 
             <button type="button" className="btn btn-primary" onClick={handleAddLanguage}>
                 {t(`listing.saveTranslation`, { ns: 'buttons' })}
             </button>
-        </Modal>
+        </>
     );
 };
 
-export default TranslationModal;
+export default ListingInfo;

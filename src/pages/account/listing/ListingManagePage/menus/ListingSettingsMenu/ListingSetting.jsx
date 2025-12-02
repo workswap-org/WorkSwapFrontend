@@ -6,8 +6,6 @@ const ListingSetting = ({ title, children}) => {
 
     const validChildren = React.Children.toArray(children).filter(c => c !== null && c !== false);
 
-    console.log(title, validChildren)
-
     if (validChildren.length === 0) return null;
 
     return (

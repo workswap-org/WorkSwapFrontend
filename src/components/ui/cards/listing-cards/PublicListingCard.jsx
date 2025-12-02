@@ -15,7 +15,7 @@ const PublicListingCard = ({listing}) => {
 
     const navigate = useNavigate();
     const [isFavorite, setFavorite] = useState(false);
-    const { t } = useTranslation('common')
+    const { t } = useTranslation(['common', 'tooltips'])
     const { user } = useAuth();
 
     const isNew = (new Date() - new Date(listing.publishedAt)) < 3 * 24 * 60 * 60 * 1000;
