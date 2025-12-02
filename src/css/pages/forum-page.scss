@@ -56,6 +56,12 @@ $sidebar-page: 1200px;
                 }
             }
 
+            .tags-list {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
             .forum-topic-card {
                 position: relative;
                 @include card;
@@ -132,15 +138,6 @@ $sidebar-page: 1200px;
                             white-space: normal;
                         }
                     }
-                }
-
-                .forum-topic-card-tag {
-                    border-radius: 3rem;
-                    padding: 0.1rem 0.7rem;
-                    font-size: 0.9rem;
-                    width: fit-content;
-
-                    border: 1px solid var(--border-color);
                 }
             }
         }
@@ -333,5 +330,22 @@ $sidebar-page: 1200px;
         @include mobile {
             display: none;
         }
+    }
+}
+
+.forum-tag {
+    white-space: nowrap;
+    border-radius: 3rem;
+    padding: 0.1rem 0.7rem;
+    font-size: 0.9rem;
+    width: fit-content;
+    cursor: pointer;
+    user-select: none;
+
+    border: 1px solid var(--border-color);
+
+    &.selected {
+        background-color: #2e4bac5b;
+        border: 1px solid var(--primary);
     }
 }

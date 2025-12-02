@@ -171,31 +171,6 @@ header {
                         position: relative;
                         z-index: 2;
 
-                        &#notificationBtn {
-                            display: block;
-                            flex: 1;
-                            padding: 1rem;
-                            border-radius: 0;
-
-                            .unread-notifications-count {
-                                position: absolute;
-                                background-color: rgb(197, 38, 38);
-                                padding: 2px 6px;
-                                border-radius: 0.75em;
-                                color: #fff;
-                                font-size: 12px;
-                                line-height: 1;
-                                min-width: 1.5em;
-                                height: 1.5em;
-                                display: inline-flex;
-                                align-items: center;
-                                justify-content: center;
-                                text-align: center;
-                                top: 2px;
-                                right: 2px;
-                            }
-                        }
-
                         &:hover {
                             background-color: rgba(99, 102, 241, 0.1);
                             color: var(--primary);
@@ -204,6 +179,13 @@ header {
 
                         @include mobile {
                             width: max-content;
+                        }
+
+                        &#notificationBtn {
+                            display: block;
+                            flex: 1;
+                            padding: 1rem;
+                            border-radius: 0;
                         }
                     }
 

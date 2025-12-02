@@ -16,8 +16,11 @@ import {
 
 import { formatDistanceToNow } from 'date-fns'
 import { ru } from 'date-fns/locale'
+import { useTranslation } from "react-i18next";
 
 const ForumTopicPage = () => {
+
+    const { t } = useTranslation('forumtags')
 
     const { user } = useAuth();
     const [topic, setTopic] = useState<FullForumTopic | null>(null);
@@ -100,6 +103,9 @@ const ForumTopicPage = () => {
                                     actions={actions}
                                 />
                             </div>
+                            {topic.tagName && (
+                                <div className="forum-tag">{t(topic.tagName)}</div>
+                            )}
                         </div>
                     </div>
                     <div className="forum-post-list">

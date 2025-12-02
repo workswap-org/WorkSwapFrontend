@@ -1,50 +1,23 @@
 import { useEffect, useState } from 'react';
-import { createForumTopic, getRecentTopics, ShortForumTopic } from '@core/lib';
+import { createForumTopic, ForumTag, getFoumTags, getRecentTopics, ShortForumTopic } from '@core/lib';
 import { Link, useNavigate } from 'react-router-dom';
 import { TextareaRT1 } from '@core/components';
-
-const forumTopics = [
-    {
-        title: "Как найти подработку в своём городе?",
-        tag: "Работа"
-    },
-    {
-        title: "Обсуждение цен на услуги в 2025 году",
-        tag: "Экономика"
-    },
-    {
-        title: "Отзывы о мастерах и исполнителях",
-        tag: "Отзывы"
-    },
-    {
-        title: "Поиск напарника для совместной работы",
-        tag: "Сообщество"
-    },
-    {
-        title: "Проблемы с заказчиком — что делать?",
-        tag: "Помощь"
-    },
-    {
-        title: "Лучшие инструменты для фрилансера",
-        tag: "Инструменты"
-    },
-    {
-        title: "Баги и предложения по улучшению WorkSwap",
-        tag: "Разработка"
-    }
-];
+import { useTranslation } from 'react-i18next';
 
 export const ForumPage = () => {
 
+    const { t } = useTranslation('forumtags')
+
     const [theme, setTheme] = useState("");
     const navigate = useNavigate();
-    const [tag, setTag] = useState({name: ""});
+    const [newThemeTag, setNewThemeTag] = useState<ForumTag | null>(null);
+    const [tags, setTags] = useState<ForumTag[] | []>([]);
     const [sending, setSending] = useState(false);
     const [forumTopics, setForumTopics] = useState<ShortForumTopic[] | []>([]);
 
     const createTopic = async () => {
         setSending(true);
-        const topicOpenId: string = await createForumTopic(theme, tag.name);
+        const topicOpenId: string = await createForumTopic(theme, newThemeTag?.name);
         setSending(false);
         if (topicOpenId) {
             setTheme('');
@@ -57,7 +30,12 @@ export const ForumPage = () => {
             const data = await getRecentTopics(count, translationsFilter);
             setForumTopics(data);
         }
+        async function loadTags() {
+            const data = await getFoumTags();
+            setTags(data);
+        }
 
+        loadTags();
         loadRecentTopics(20, false);
     }, [])
 
@@ -77,6 +55,16 @@ export const ForumPage = () => {
                         <i className="fa-solid fa-paper-plane-top fa-lg"></i>
                     </button>
                 </div>
+                <div className='tags-list'>
+                    {tags.map(tag => (
+                        <div 
+                            className={`forum-tag ${tag.id == newThemeTag?.id ? "selected" : ""}`} 
+                            onClick={() => setNewThemeTag(prev => prev?.id == tag.id ? null : tag)}
+                        >
+                            {t(tag.name)}
+                        </div>
+                    ))}
+                </div>
                 <h3>Последние темы</h3>
                 {forumTopics
                     .slice()
@@ -92,6 +80,8 @@ export const ForumPage = () => {
 
 const ForumTopicCard = ({topic}: {topic: ShortForumTopic}) => {
 
+    const { t } = useTranslation('forumtags')
+
     const [isOpen, setOpen] = useState(false);
 
     return (
@@ -99,7 +89,7 @@ const ForumTopicCard = ({topic}: {topic: ShortForumTopic}) => {
             <div className="forum-topic-card-meta">
                 <span id="topicTheme" className={isOpen ? "open" : ""}>{topic.theme}</span>
                 {topic.tagName && (
-                    <div className="forum-topic-card-tag">{topic.tagName}</div>
+                    <div className="forum-tag">{t(topic.tagName)}</div>
                 )}
             </div>
             <div className='flex-row'>
