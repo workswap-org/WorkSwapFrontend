@@ -33,7 +33,7 @@ const ProfilePage = () => {
                                     <div className="listings-grid">
                                         {user.listings
                                             .slice()
-                                            .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+                                            .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
                                             .map((listing) => (
                                                 <PublicListingCard 
                                                     key={listing.id}

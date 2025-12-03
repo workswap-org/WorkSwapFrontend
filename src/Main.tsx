@@ -4,7 +4,7 @@ import App from "./App";
 import { AppProviders } from "@core/lib/providers/AppProviders";
 import "@/css/main.scss";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
 
     //<React.StrictMode> для разработки, добавляет двойной вызов функций
     <BrowserRouter> 

@@ -10,7 +10,7 @@ const AccountLayout = () => {
 
             <main className="account-main">
                 <div className="card">
-                    <Outlet key={location.key} />
+                    <Outlet/>
                 </div>
             </main>
         </div>

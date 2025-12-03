@@ -11,7 +11,8 @@ import {
     ForumPost,
     deleteForumTopic,
     deleteForumComment,
-    deleteForumPost
+    deleteForumPost,
+    ShortUser
 } from '@core/lib'
 
 import { formatDistanceToNow } from 'date-fns'
@@ -31,15 +32,26 @@ const ForumTopicPage = () => {
 
     const createPost = async() => {
         setSending(true);
-        const data = await createForumPost(topicOpenId, newPostTxt);
+        const author: ShortUser = {
+            name: user?.name ?? "",
+            avatarUrl: user?.avatarUrl ?? "",
+            openId: user?.openId ?? ""
+        }
+        const newPost: ForumPost = {
+            topicOpenId: topicOpenId ?? "",
+            openId: "", 
+            content: newPostTxt,
+            createdAt: new Date().toISOString(), 
+            author: author,
+            comments: []
+        };
+        const data = await createForumPost(newPost);
         if (data) {
             setNewPostTxt('');
-            const newPost: ForumPost = {
-                openId: data, 
-                content: newPostTxt,
-                createdAt: new Date().toISOString(), 
-                author: { name: user.name, avatarUrl: user.avatarUrl, openId: user.openId },
-                comments: []
+
+            const savedPost: ForumPost = {
+                ...newPost,
+                openId: data
             };
 
             setTopic(prev => {
@@ -47,7 +59,7 @@ const ForumTopicPage = () => {
 
                 return {
                     ...prev,
-                    posts: [...prev.posts, newPost] // добавляем новый пост в конец
+                    posts: [...prev.posts, savedPost] // добавляем новый пост в конец
                 };
             });
         }
@@ -56,7 +68,7 @@ const ForumTopicPage = () => {
 
     useEffect(() => {
 
-        async function loadTopicTheme(topicOpenId: string | undefined) {
+        async function loadTopicTheme(topicOpenId: string) {
             const data: FullForumTopic = await getForumTopic(topicOpenId);
             setTopic(data);
         }
@@ -77,7 +89,7 @@ const ForumTopicPage = () => {
             title: "Удалить",
             func: async () => {
                 const confirmed = window.confirm("Вы уверены в том хотите удалить это обсуждение? Это действие необратимо!");
-                if (confirmed) {
+                if (confirmed && topic?.openId) {
                     const res = await deleteForumTopic(topic?.openId);
                     if (res.ok) {
                         navigate("/forum");
@@ -125,7 +137,7 @@ const ForumTopicPage = () => {
                         </div>
                         {topic.posts
                             .slice()
-                            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                            .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
                             .map((post) => (
                             <ForumTopicPost key={post.openId} post={post} setTopic={setTopic} />
                         ))}
@@ -148,16 +160,25 @@ const ForumTopicPost = ({
     const { user } = useAuth();
 
     const createComment = async(postOpenId: string) => {
+        const author: ShortUser = {
+            name: user?.name ?? "",
+            avatarUrl: user?.avatarUrl ?? "",
+            openId: user?.openId ?? ""
+        }
+        const newComment: ForumComment = {
+            id: 0,
+            content: newCommentTxt,
+            targetOpenId: postOpenId,
+            createdAt: new Date().toISOString(),
+            author: author
+        }
         setSending(true);
-        const data = await createForumComment(postOpenId, newCommentTxt);
+        const data = await createForumComment(newComment);
         if (data) {
             setNewCommentTxt('');
-            const newComment: ForumComment = {
-                id: Number(data), 
-                content: newCommentTxt, 
-                targetOpenId: postOpenId, 
-                createdAt: new Date().toISOString(), 
-                author: { name: user.name, avatarUrl: user.avatarUrl, openId: user.openId }
+            const savedComment: ForumComment = {
+                ...newComment,
+                id: Number(data)
             };
             setTopic(prev => {
                 if (!prev) return prev;
@@ -168,7 +189,7 @@ const ForumTopicPost = ({
                         post.openId === postOpenId
                             ? {
                                 ...post,
-                                comments: [...post.comments, newComment]
+                                comments: [...post.comments, savedComment]
                             }
                             : post
                     )
@@ -179,7 +200,7 @@ const ForumTopicPost = ({
     }
 
     const actions = [];
-    if (user.openId == post.author.openId) {
+    if (user?.openId == post.author.openId) {
         actions.push({
             title: "Изменить",
             func: () => null,
@@ -243,7 +264,7 @@ const ForumTopicPost = ({
                 </div>
                 {post.comments
                     .slice()
-                    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
                     .map((comment) => (
                         <ForumPostComment key={comment.id} comment={comment} setTopic={setTopic} />
                     ))
@@ -263,7 +284,7 @@ const ForumPostComment = ({
     const { user } = useAuth();
 
     const actions = [];
-    if (user.openId == comment?.author.openId) {
+    if (user?.openId == comment?.author.openId) {
         actions.push({
             title: "Изменить",
             func: () => null,

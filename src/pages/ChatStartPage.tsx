@@ -8,7 +8,7 @@ const ChatStartPage = () => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
 
-    const interLocutorId = params.get("interLocutorId") || undefined;
+    const interlocutorId = params.get("interlocutorId") || undefined;
     const listingId = params.get("listingId") || undefined;
 
     const [chatId, setChatId] = useState(0);
@@ -18,12 +18,12 @@ const ChatStartPage = () => {
 
     useEffect(() => {
     
-        if (!interLocutorId || !user) return;
+        if (!interlocutorId || !user) return;
 
-        const newParams = {};
+        const newParams: { listingId: number | null, interlocutorId: string | null} = { listingId: null, interlocutorId: null };
 
         if (listingId) {
-            newParams.listingId = listingId;
+            newParams.listingId = Number(listingId);
 
             async function loadListingChat() {
                 const data = await getListingDiscussion(newParams);
@@ -33,8 +33,8 @@ const ChatStartPage = () => {
             }
 
             loadListingChat();
-        } else if (interLocutorId) {
-            newParams.interLocutorId = interLocutorId;
+        } else if (interlocutorId) {
+            newParams.interlocutorId = interlocutorId;
 
             async function loadPrivateChat() {
                 const data = await getPrivateChat(newParams);
@@ -46,7 +46,7 @@ const ChatStartPage = () => {
             loadPrivateChat();
         }
         
-    }, [listingId, user, reloadChats, interLocutorId]);
+    }, [listingId, user, reloadChats, interlocutorId]);
 
     useEffect(() => {
         if(chatId) {

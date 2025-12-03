@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { createForumTopic, ForumTag, getFoumTags, getRecentTopics, ShortForumTopic } from '@core/lib';
+import { createForumTopic, ForumTag, getForumTags, getRecentTopics, ShortForumTopic } from '@core/lib';
 import { Link, useNavigate } from 'react-router-dom';
 import { TextareaRT1 } from '@core/components';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +17,14 @@ export const ForumPage = () => {
 
     const createTopic = async () => {
         setSending(true);
-        const topicOpenId: string = await createForumTopic(theme, newThemeTag?.name);
+        const newTopic = {
+            createdAt: "",
+            openId: "",
+            theme: theme,
+            tagName: newThemeTag?.name ?? "",
+            postsCount: 0
+        }
+        const topicOpenId: string = await createForumTopic(newTopic);
         setSending(false);
         if (topicOpenId) {
             setTheme('');
@@ -31,7 +38,7 @@ export const ForumPage = () => {
             setForumTopics(data);
         }
         async function loadTags() {
-            const data = await getFoumTags();
+            const data = await getForumTags();
             setTags(data);
         }
 
@@ -105,6 +112,4 @@ const ForumTopicCard = ({topic}: {topic: ShortForumTopic}) => {
     );
 }
 
-export {default as ForumLayout} from './ForumLayout';
-export {default as ForumTagPage} from './ForumTagPage';
 export {default as ForumTopicPage} from './ForumTopicPage';

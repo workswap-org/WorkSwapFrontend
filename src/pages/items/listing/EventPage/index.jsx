@@ -17,11 +17,7 @@ import {
     getEventListing,
     viewListing, 
     getUserById,
-    getPathToCategory,
     useAuth,
-    toggleFavorite,
-    checkFavorite,
-    useNotification,
     checkSubscribtion,
     toggleSubscription,
     checkEventParticipant,
@@ -31,6 +27,7 @@ import {
 } from '@core/lib';
 
 import NotFoundPage from "@core/pages/NotFoundPage";
+import ListingPageLayout from "../ListingPageLayout";
 
 const EventPage = () => {
 
@@ -38,16 +35,13 @@ const EventPage = () => {
     const { search } = useLocation();
     const query = new URLSearchParams(search);
     const token = query.get("token");
-    const {notificate} = useNotification();
     const { t } = useTranslation(['categories', 'common', 'navigation']);
 
-    const {user, isAuthenticated} = useAuth();
+    const {user} = useAuth();
 
     const [event, setEvent] = useState([]);
     const [author, setAuthor] = useState({});
     const isOwner = !!(user?.openId == author?.openId);
-    const [categories, setCategories] = useState([]);
-    const [isFavorite, setFavorite] = useState(false);
     const [subscribed, setSubscribed] = useState(false);
     const [participantsCount, setParticipantsCount] = useState(0)
     const [participants, setParticipants] = useState(undefined)
@@ -74,18 +68,8 @@ const EventPage = () => {
     }, [eventId, isOwner]);
 
     useEffect(() => {
-        if (event?.categoryId && event?.type) getPathToCategory(event.categoryId, event?.type)
-            .then(data => setCategories(data));
-        if (event?.authorId) getUserById(event.authorId)
-            .then(data => setAuthor(data));
-
+        if (event?.authorId) getUserById(event.authorId).then(data => setAuthor(data));
     }, [event])
-
-    useEffect(() => {
-        if (!event?.id || !isAuthenticated) return;
-
-        checkFavorite(event.id).then(data => setFavorite(data));
-    }, [event?.id, isAuthenticated]);
 
     const toggleParticipation = async () => {
         setParticipant(!isParticipant); // мгновенный отклик
@@ -113,196 +97,91 @@ const EventPage = () => {
     if (!event) return <NotFoundPage/>;
 
     return (
-        <div className="listing-container">
-            <div className="listing-layout">
-                <main className="listing-main">
-                    {/* Хлебные крошки */}
-                    <nav className="breadcrumbs">
-                        <div>
-                            <Link to="/catalog">
-                                {t(`breadcrumps.catalog`, { ns: 'navigation' })}
-                            </Link>
-                            <span className="divider">/</span>
-                        </div>
-                        {categories.map((cat) => (
-                            <div key={cat.id}>
-                                <Link to={`/catalog?category=${cat.name}`}>
-                                    {t(`category.${cat.name}`, { ns: 'categories' })}
-                                </Link>
-                                <span className="divider">/</span>
+        <ListingPageLayout
+            listing={event}
+            author={author}
+            listingActions={!isOwner && (
+                <div 
+                    className="listing-action-item hover"
+                    onClick={() => 
+                        toggleSubscription(eventId, setSubscribed, subscribed, 'EVENT')
+                    }
+                >
+                    {subscribed ? (
+                        <span>Отписаться</span>
+                    ) : (
+                        <span>Подписаться</span>
+                    )}
+                </div>
+            )}
+            details={(
+                <>
+                    <div className="detail-item">
+                        <span className="detail-label">{t(`labels.event.price`, { ns: 'common' })}:</span>
+                        <PriceTypes listing={event} />
+                    </div>
+                    <div className="detail-item">
+                        <span className="detail-label">{t(`labels.event.date`, { ns: 'common' })}:</span>
+                        <span className="detail-value">
+                            <FormattedDate isoDate={event.eventDate || ""} format="DMHM"/>
+                        </span>
+                    </div>
+                    <div className="detail-item">
+                        <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
+                        <span className="detail-value">
+                            {event.location || ""}
+                        </span>
+                    </div>
+                    <div className="detail-item">
+                        <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
+                        <ListingRating listing={event}/>
+                    </div>
+                </>
+            )}
+            extraSidebarElements={(
+                <>
+                    {participants && (
+                        <div className="listing-details fade-down">
+                            <h3>{t(`labels.event.participants`, { ns: 'common' })}</h3>
+                            <div className="event-participants">
+                                {participants.map((participant) => (
+                                    <div 
+                                        key={participant.name}
+                                        className="event-participant"
+                                    >
+                                        <Avatar 
+                                            user={participant}
+                                            className='seller-avatar'
+                                            size={50}
+                                            link={false}
+                                        />
+                                        <span>{participant.name}</span>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                        <span>{event.localizedTitle}</span>
-                    </nav>
-
-                    {/* Заголовок объявления */}
-                    <div className="listing-header">
-                        <h1>{event.localizedTitle}</h1>
-                        <div className="listing-meta">
-                            <span>{new Date(event.publishedAt).toLocaleDateString("ru-RU")}</span>
-                            <span className="listing-views">
-                                {t(`labels.views`, { ns: 'common' })}: <span>{event.views}</span>
-                            </span>
                         </div>
-                    </div>
+                    )}
+                    
 
-                    <div className="listing-main-content">
-                        {/* Галерея изображений */}
-                        <div className="listing-content">
-                            <ListingGallery id={event.id}/>
-                            
-                            {event.localizedDescription && (
-                                <div className="listing-info fade-down">
-                                    <h2>{t(`labels.description`, { ns: 'common' })}</h2>
-                                    <p className="listing-description">
-                                        {event.localizedDescription || "Нет описания"}
-                                    </p>
-                                </div>
+                    <div className="listing-details fade-down">
+                        <div className="detail-item">
+                            <span className="detail-label">{t(`labels.event.participants`, { ns: 'common' })}:</span>
+                            <span className="detail-value">{participantsCount}{event.maxParticipants ? "/ " + event.maxParticipants : ""}</span>
+                        </div>
+                        <div 
+                            className="btn btn-primary"
+                            onClick={toggleParticipation}
+                        >
+                            {!isParticipant ? (
+                                <span>{t(`event.participation.join`, { ns: 'buttons' })}</span>
+                            ) : (
+                                <span>{t(`event.participation.leave`, { ns: 'buttons' })}</span>
                             )}
                         </div>
-
-                        {/* Информация о предложении */}
-                        <div className="listing-sidebar">
-                            {event.id && (
-                                <>
-                                    <div className="listing-details fade-down">
-                                        <div className="detail-item">
-                                            <span className="detail-label">{t(`labels.event.price`, { ns: 'common' })}:</span>
-                                            <PriceTypes listing={event} />
-                                        </div>
-                                        <div className="detail-item">
-                                            <span className="detail-label">{t(`labels.event.date`, { ns: 'common' })}:</span>
-                                            <span className="detail-value">
-                                                <FormattedDate isoDate={event.eventDate || ""} format="DMHM"/>
-                                            </span>
-                                        </div>
-                                        <div className="detail-item">
-                                            <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
-                                            <span className="detail-value">
-                                                {event.location || ""}
-                                            </span>
-                                        </div>
-                                        <div className="detail-item">
-                                            <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
-                                            <ListingRating listing={event}/>
-                                        </div>
-
-                                        <div className="listing-actions">
-                                            {!isOwner ? (
-                                                <>
-                                                    <div 
-                                                        className="listing-action-item hover"
-                                                        onClick={() => 
-                                                            toggleSubscription(eventId, setSubscribed, subscribed, 'EVENT')
-                                                        }
-                                                    >
-                                                        {subscribed ? (
-                                                            <span>Отписаться</span>
-                                                        ) : (
-                                                            <span>Подписаться</span>
-                                                        )}
-                                                    </div>
-
-                                                    <div 
-                                                        className="listing-action-item"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setFavorite(!isFavorite)
-                                                            toggleFavorite(eventId)
-                                                                .catch(() => setFavorite(isFavorite))
-                                                        }}
-                                                    >
-                                                        <i className={`
-                                                                ${isFavorite ? 
-                                                                    'fa-solid' : 
-                                                                    'fa-regular'
-                                                                } 
-                                                                fa-heart like
-                                                            `}
-                                                        ></i>
-                                                    </div>
-                                                </>
-                                            ) : (
-                                                <Link
-                                                    to={`/account/listing/edit/${event.id}`}
-                                                    className="listing-action-item hover"
-                                                >
-                                                    <i className="fa-solid fa-pen"></i>
-                                                </Link>
-                                            )}
-                                            <div 
-                                                className="listing-action-item hover"
-                                                onClick={() => {
-                                                    navigator.clipboard.writeText(window.location.href)
-                                                        .then(() => notificate(t(`notification.success.copyListingLink`, { ns: 'messages' }), "success"))
-                                                        .catch(() => notificate("Ошибка", "error"));
-                                                }}
-                                            >
-                                                <i className="fa-regular fa-share-nodes"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {participants && (
-                                        <div className="listing-details fade-down">
-                                            <h3>{t(`labels.event.participants`, { ns: 'common' })}</h3>
-                                            <div className="event-participants">
-                                                {participants.map((participant) => (
-                                                    <div 
-                                                        key={participant.name}
-                                                        className="event-participant"
-                                                    >
-                                                        <Avatar 
-                                                            user={participant}
-                                                            className='seller-avatar'
-                                                            size={50}
-                                                            link={false}
-                                                        />
-                                                        <span>{participant.name}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                    
-
-                                    <div className="listing-details fade-down">
-                                        <div className="detail-item">
-                                            <span className="detail-label">{t(`labels.event.participants`, { ns: 'common' })}:</span>
-                                            <span className="detail-value">{participantsCount}/{event.maxParticipants}</span>
-                                        </div>
-                                        <div 
-                                            className="btn btn-primary"
-                                            onClick={toggleParticipation}
-                                        >
-                                            {!isParticipant ? (
-                                                <span>{t(`event.participation.join`, { ns: 'buttons' })}</span>
-                                            ) : (
-                                                <span>{t(`event.participation.leave`, { ns: 'buttons' })}</span>
-                                            )}
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-
-                            {/* Боковая панель с контактами */}
-                            <UserInfoSidebar listingId={event?.id} author={author} />
-                        </div>
                     </div>
-
-                    {/* Блок с отзывами */}
-                    <ReviewsSection listingId={event?.id} profileId={event.authorId} />
-
-                    {/* Похожие объявления */}
-                    {/* {event.category && (
-                        <section className="similar-listings">
-                            <h2>{t(`listing.similarListings`, { ns: 'common' })}</h2>
-                            <CatalogContent mainListingId={event.id} params={params}/>
-                        </section>
-                    )} */}
-                </main>
-            </div>
-        </div>
+                </>
+            )}
+        />
     );
 };
 

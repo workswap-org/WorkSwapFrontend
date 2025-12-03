@@ -27,14 +27,14 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                             <h3>{author.name}</h3>
                             <div className="seller-rating">
                                 <span>{t(`labels.rating`, { ns: 'common' })}: </span>
-                                <span>{author.rating}</span> ★
+                                <span>{author.rating ?? 0}</span>
                             </div>
                             <div className="seller-actions">
                                 {isAuthenticated ? (
                                     <>  
                                         {!isOwner && (
                                             <Link 
-                                                to={`/account/chat-start?listingId=${listingId}&interLocutorId=${author.id}`} 
+                                                to={`/account/chat-start?listingId=${listingId}&interlocutorId=${author.id}`} 
                                                 className="btn btn-primary"
                                             >
                                                 {t(`listing.contactToAuthor`, { ns: 'buttons' })}

@@ -6,7 +6,8 @@ import {
 
 import {
     Layout,
-    AccountLayout
+    AccountLayout,
+    ForumLayout
 } from "@/components";
 
 /* Страницы */
@@ -14,10 +15,7 @@ import {
     CatalogPage,
     
     ForumPage,
-    ForumLayout,
-    ForumTagPage,
     ForumTopicPage,
-
 
     /* Страницы items */
     ListingPage,
@@ -85,7 +83,6 @@ const AppRouter = () => {
                         <Route path="forum" element={<ForumLayout />}>
                             <Route index element={<ForumPage />} />
                             <Route path="topic/:topicOpenId" element={<ForumTopicPage />} />
-                            <Route path="tag/:tag" element={<ForumTagPage />} />
                         </Route>
 
                         {/* приватные страницы */}

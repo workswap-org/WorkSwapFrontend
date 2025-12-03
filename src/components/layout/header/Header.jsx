@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import NavButtons from "./NavButtons";
 
-const Header = ({ isEmpty }) => {
+const Header = () => {
 
     const { t } = useTranslation('common')
 
@@ -16,16 +16,6 @@ const Header = ({ isEmpty }) => {
     useEffect(() => {
         setMobileVisible(false);
     }, [location]);
-
-    if (isEmpty) {
-        return (
-            <header>
-                <div className="header-container">
-
-                </div>
-            </header>
-        );
-    }
 
     function mobileMenuToggle() {
         setMobileVisible(!mobileVisible)

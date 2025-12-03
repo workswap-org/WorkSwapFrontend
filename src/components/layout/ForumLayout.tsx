@@ -7,7 +7,7 @@ const ForumLayout = () => {
             <Outlet />
 
             <aside className="forum-sidebar">
-
+                
             </aside>
         </div>
     );
