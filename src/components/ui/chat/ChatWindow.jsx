@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,11 +13,20 @@ const ChatWindow = ({title}) => {
 
     const { t } = useTranslation('common')
 
-    const { messages, chatListing, setChatListingVisible, interlocutor, currentChatId, changeChat } = useChats();
+    const { messages, chatListing, setChatListingVisible, interlocutor, currentChatId, changeChat, chats } = useChats();
 
     const { error } = useWebSocket();
 
+    const [chat, setChat] = useState(null);
+
     const messagesContainer = useRef(null);
+
+    useEffect(() => {
+        setChat(chats?.find((c) => c.id === currentChatId))
+        console.log(chats)
+        console.log(currentChatId)
+        console.log(chats?.find((c) => c.id === currentChatId))
+    }, [currentChatId, chats])
 
     useEffect(() => {
         if (messagesContainer.current) {
@@ -26,7 +35,7 @@ const ChatWindow = ({title}) => {
     }, [messages]);
 
     return (
-        <div className={`chat-window ${currentChatId ? "show" : ""}`}>
+        <div id={chat?.type} className={`chat-window ${currentChatId ? "show" : ""}`}>
             <div className="chat-header">
                 <div className="chat-info">
                     <button 

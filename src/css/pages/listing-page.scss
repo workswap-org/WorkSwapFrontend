@@ -231,6 +231,13 @@
                         @include flex-column;
                         gap: 0.5rem;
 
+                        @include mobile {
+                            &:has(#EVENT_TOPIC) {
+                                padding: 0;
+                                overflow: hidden;
+                            }
+                        }
+
                         h2 {
                             margin-bottom: 0;
                         }

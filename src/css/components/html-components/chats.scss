@@ -33,6 +33,10 @@ $min-radius: 1px;
         &.show {
             left: 0;
         }
+
+        &#EVENT_TOPIC.show {
+            position: static;
+        }
     }
 
     .chat-header {
