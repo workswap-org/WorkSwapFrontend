@@ -20,27 +20,23 @@ const ChatStartPage = () => {
     
         if (!interlocutorId || !user) return;
 
-        const newParams: { listingId: number | null, interlocutorId: string | null} = { listingId: null, interlocutorId: null };
-
         if (listingId) {
-            newParams.listingId = Number(listingId);
 
             async function loadListingChat() {
-                const data = await getListingDiscussion(newParams);
+                const data = await getListingDiscussion(listingId);
                 console.log(data);
                 reloadChats();
-                setChatId(data);
+                setChatId(Number(data));
             }
 
             loadListingChat();
         } else if (interlocutorId) {
-            newParams.interlocutorId = interlocutorId;
 
             async function loadPrivateChat() {
-                const data = await getPrivateChat(newParams);
+                const data = await getPrivateChat(interlocutorId);
                 console.log(data);
                 reloadChats();
-                setChatId(data);
+                setChatId(Number(data));
             }
 
             loadPrivateChat();
@@ -53,7 +49,7 @@ const ChatStartPage = () => {
             setCurrentChatId(chatId);
             navigate(`/account/messenger?chatId=${chatId}`, { replace: true})
         }
-    }, [chatId, navigate, setCurrentChatId])
+    }, [chatId, navigate, setCurrentChatId]);
 
     return (
         <>

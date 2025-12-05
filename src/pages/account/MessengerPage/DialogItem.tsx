@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChatType, getInterlocutorInfo, ShortUser, useChats } from "@core/lib";
+import { ChatType, ShortUser, useChats, useChatSubscription } from "@core/lib";
 import { Avatar } from "@core/components";
 import { useLocation } from "react-router-dom";
 
@@ -10,39 +10,37 @@ interface DialogItemProps {
     setPageLoading: React.Dispatch<React.SetStateAction<boolean | null>>
 }
 
-const DialogItem = ({ chat, changeChat, pageLoading, setPageLoading }: DialogItemProps) => {
+const DialogItem = ({ chat, pageLoading, setPageLoading }: DialogItemProps) => {
     
     const { search } = useLocation();
     const params = new URLSearchParams(search);
     const startChatId = Number(params.get("chatId")) || null;
     const isMobile = window.innerWidth <= 600;
 
-    const { currentChatId } = useChats();
+    const { currentChatId, changeChat, allIntelocutors } = useChats();
+    const { loadInterlocutorsByChat } = useChatSubscription();
 
     const [dialogInterlocutor, setDialogInterlocutor] = useState<ShortUser | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getInterlocutorInfo(chat.id).then(data => {
-            setDialogInterlocutor(data)
-            setLoading(false)
-        })
-    }, [chat.id]);
+        setDialogInterlocutor(allIntelocutors.find((i) => i.chatIds.includes(chat.id))?.user ?? null);
+    }, [allIntelocutors]);
+
+    useEffect(() => {
+        loadInterlocutorsByChat(chat.id)
+    }, []);
     
     useEffect(() => {
 
         if(!loading && startChatId == chat.id && pageLoading) {
             setPageLoading(false);
-            
-            console.log(startChatId);
             changeChat(chat.id, dialogInterlocutor);
         } 
 
         if(!loading && !startChatId && !currentChatId && pageLoading && !isMobile) {
 
             setPageLoading(false);
-
-            console.log(startChatId);
             changeChat(chat.id, dialogInterlocutor);
         }
 

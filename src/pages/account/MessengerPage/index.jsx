@@ -1,16 +1,15 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { 
     useWebSocket,
     useChats,
 } from "@core/lib";
-import { PublicListingCard } from "@/components";
-import ChatContainer from "./ChatContainer";
-import DialogItem from "./chat/DialogItem.tsx";
+import { PublicListingCard, ChatWindow } from "@/components";
+import DialogItem from "./DialogItem";
 
 const MessengerPage = () => {
 
-    const { currentChatId, setCurrentChatId, chatListing, chatListingVisible, chats, setInterlocutor } = useChats();
+    const { currentChatId, chatListing, chatListingVisible, chats } = useChats();
 
     const { i18n, t } = useTranslation('common');
     const userLocale = i18n.language || "fi";
@@ -31,10 +30,7 @@ const MessengerPage = () => {
         
     }, [currentChatId, client, connected, userLocale]);
 
-    const changeChat = useCallback((chatId, interlocutor) => {
-        setCurrentChatId(chatId);
-        setInterlocutor(interlocutor);
-    }, [setCurrentChatId, setInterlocutor])
+    const allowedTypes = ["LISTING_DISCUSSION", "PRIVATE_CHAT"];
 
     return (
         <>
@@ -53,27 +49,27 @@ const MessengerPage = () => {
                 )}
 
                 <div className="dialogs-list">
-                    {chats.length === 0 ? (
+                    {chats?.length === 0 ? (
                         <div className="no-dialogs" id="no-dialogs">
                             <p>{t(`messenger.placeholders.noDialogs`, { ns: 'common' })}</p>
                             <p>{t(`messenger.placeholders.startChats`, { ns: 'common' })}</p>
                         </div>
                     ) : chats
+                            .filter(c => allowedTypes.includes(c.type))
                             .slice()
                             .sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime))
                             .map(chat => (
-                                <DialogItem 
+                                <DialogItem
                                     key={chat.id}
                                     chat={chat}
                                     setPageLoading={setPageLoading}
                                     pageLoading={pageLoading}
-                                    changeChat={changeChat} 
                                 />
                             ))
                     }
                 </div>
                 
-                <ChatContainer changeChat={changeChat} />
+                <ChatWindow/>
             </div>
         </>
     );

@@ -8,7 +8,8 @@ import {
 } from "@core/components";
 import {
     UserInfoSidebar,
-    ReviewsSection
+    ReviewsSection,
+    ChatWindow
 } from "@/components";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
@@ -23,7 +24,9 @@ import {
     checkEventParticipant,
     getEventParticipants,
     removeEventParticipant,
-    addEventParticipant
+    addEventParticipant,
+    getEventChat,
+    useChats
 } from '@core/lib';
 
 import NotFoundPage from "@core/pages/NotFoundPage";
@@ -46,6 +49,7 @@ const EventPage = () => {
     const [participantsCount, setParticipantsCount] = useState(0)
     const [participants, setParticipants] = useState(undefined)
     const [isParticipant, setParticipant] = useState(false);
+    const { setCurrentChatId } = useChats();
 
     useEffect(() => {
         const params = {token};
@@ -61,7 +65,9 @@ const EventPage = () => {
         checkEventParticipant(eventId).then(data => setParticipant(data))
         viewListing(eventId).then(() => {});
 
-    }, [eventId, token]);
+        getEventChat(eventId).then(data => setCurrentChatId(Number(data)));
+
+    }, [eventId, setCurrentChatId, token]);
 
     useEffect(() => {
         if (isOwner) getEventParticipants(eventId).then(data => setParticipants(data));
@@ -166,7 +172,7 @@ const EventPage = () => {
                     <div className="listing-details fade-down">
                         <div className="detail-item">
                             <span className="detail-label">{t(`labels.event.participants`, { ns: 'common' })}:</span>
-                            <span className="detail-value">{participantsCount}{event.maxParticipants ? "/ " + event.maxParticipants : ""}</span>
+                            <span className="detail-value">{participantsCount}{event.maxParticipants ? " / " + event.maxParticipants : ""}</span>
                         </div>
                         <div 
                             className="btn btn-primary"
@@ -181,6 +187,13 @@ const EventPage = () => {
                     </div>
                 </>
             )}
+            extraPageElements={
+                <div className="listing-info fade-down">
+                    <div className="listing-chat">
+                        <ChatWindow title={event.localizedTitle} />
+                    </div>
+                </div>
+            }
         />
     );
 };

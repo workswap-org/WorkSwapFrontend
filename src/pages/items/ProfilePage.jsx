@@ -20,41 +20,37 @@ const ProfilePage = () => {
         getUserProfile(userOpenId).then(data => setUser(data)).catch(() => setUser(undefined));
     }, [userOpenId]);
 
+    if (!user) return <NotFoundPage/>;
+
     return (
-        <>
-            {user ? (
-                <div className="listing-container">
-                    <div className="listing-layout">
-                        <main className="listing-main">
+        <div className="listing-container">
+            <div className="listing-layout">
+                <main className="listing-main">
 
-                            <h2>{t(`profile.listings`, { ns: 'common' })}</h2>
-                            <div className="listing-main-content">
-                                <div className="listing-content">
-                                    <div className="listings-grid">
-                                        {user.listings
-                                            .slice()
-                                            .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-                                            .map((listing) => (
-                                                <PublicListingCard 
-                                                    key={listing.id}
-                                                    listing={listing}
-                                                /> 
-                                            ))
-                                        }
-                                    </div>
-                                </div>
-
-                                <UserInfoSidebar listingId='' author={user}/>
+                    <h2>{t(`profile.listings`, { ns: 'common' })}</h2>
+                    <div className="listing-main-content">
+                        <div className="listing-content">
+                            <div className="listings-grid">
+                                {user.listings
+                                    .slice()
+                                    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+                                    .map((listing) => (
+                                        <PublicListingCard 
+                                            key={listing.id}
+                                            listing={listing}
+                                        /> 
+                                    ))
+                                }
                             </div>
+                        </div>
 
-                            <ReviewsSection listingId='' profileId={user.id} />
-                        </main>
+                        <UserInfoSidebar listingId='' author={user}/>
                     </div>
-                </div>
-            ) : (
-                <NotFoundPage/>
-            )}
-        </>
+
+                    <ReviewsSection listingId='' profileId={user.id} />
+                </main>
+            </div>
+        </div>
     );
 };
 

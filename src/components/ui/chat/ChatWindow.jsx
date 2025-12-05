@@ -6,14 +6,14 @@ import {
     useChats
 } from "@core/lib";
 import { Avatar } from "@core/components";
-import Message from "./chat/Message.tsx";
-import SendMessageArea from "./chat/SendMessageArea";
+import SendMessageArea from "./SendMessageArea.jsx";
+import MessagesGroup from "./MessagesGroup.tsx";
 
-const ChatContainer = ({changeChat}) => {
+const ChatWindow = ({title}) => {
 
     const { t } = useTranslation('common')
 
-    const { messages, chatListing, setChatListingVisible, interlocutor, currentChatId } = useChats();
+    const { messages, chatListing, setChatListingVisible, interlocutor, currentChatId, changeChat } = useChats();
 
     const { error } = useWebSocket();
 
@@ -25,14 +25,10 @@ const ChatContainer = ({changeChat}) => {
         }
     }, [messages]);
 
-    useEffect(() => {
-        console.log(currentChatId)
-    }, [currentChatId])
-
     return (
         <div className={`chat-window ${currentChatId ? "show" : ""}`}>
             <div className="chat-header">
-                <div className="chat-user">
+                <div className="chat-info">
                     <button 
                         id="dialogsToggleBtn" 
                         onClick={() => changeChat(null, {})} 
@@ -41,10 +37,7 @@ const ChatContainer = ({changeChat}) => {
                         <i className="fa-regular fa-arrow-left fa-2xl"></i>
                     </button>
                     <Avatar user={interlocutor} size={40} link={false} />
-                    <div>
-                        <h4 id="interlocutorName">{interlocutor?.name}</h4>
-                        <p className="user-status"></p>
-                    </div>
+                    <h4 id="chatTitle">{title ?? interlocutor?.name}</h4>
                 </div>
                 <div className="mobile-chat-actions">
                     {chatListing?.id && (
@@ -69,12 +62,15 @@ const ChatContainer = ({changeChat}) => {
                             onClick={() => setChatListingVisible(prev => !prev)}
                         >{t(`messenger.listing`, { ns: 'buttons' })}</button>
                     )}
-                    <Link 
-                        to={`/profile/${interlocutor?.openId}`} 
-                        className="btn btn-outline-primary btn-sm"
-                    >
-                        {t(`messenger.profile`, { ns: 'buttons' })}
-                    </Link>
+                    {interlocutor?.openId && (
+                        <Link 
+                            to={`/profile/${interlocutor?.openId}`} 
+                            className="btn btn-outline-primary btn-sm"
+                        >
+                            {t(`messenger.profile`, { ns: 'buttons' })}
+                        </Link>
+                    )}
+                    
                 </div>
             </div>
 
@@ -99,11 +95,8 @@ const ChatContainer = ({changeChat}) => {
                     <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
                 )}
 
-                {messages?.map((message) => (
-                    <Message 
-                        key={message.id}
-                        message={message} 
-                    />
+                {messages?.map((group) => (
+                    <MessagesGroup group={group} key={group.messages[0].id} />
                 ))}
             </div>
 
@@ -112,4 +105,4 @@ const ChatContainer = ({changeChat}) => {
     );
 };
 
-export default ChatContainer;
+export default ChatWindow;

@@ -10,6 +10,7 @@ interface ListingPageLayoutProps {
     details: React.ReactNode,
     extraSidebarElements: React.ReactNode,
     listingActions?: React.ReactNode,
+    extraPageElements?: React.ReactNode,
     listing: {},
     author: {}
 }
@@ -20,7 +21,8 @@ const ListingPageLayout = ({
     author, 
     details, 
     extraSidebarElements,
-    listingActions
+    listingActions,
+    extraPageElements
 }: ListingPageLayoutProps) => {
 
     const {user, isAuthenticated} = useAuth();
@@ -94,6 +96,8 @@ const ListingPageLayout = ({
                                     </p>
                                 </div>
                             )}
+
+                            {extraPageElements}
                         </div>
                         
                         <div className="listing-sidebar">
