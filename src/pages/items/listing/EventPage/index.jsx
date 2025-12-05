@@ -15,17 +15,13 @@ import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
 import ListingGallery from "../ListingGallery";
 import { 
-    getEventListing,
-    viewListing, 
-    getUserById,
+    getEventPage,
     useAuth,
     checkSubscribtion,
     toggleSubscription,
     checkEventParticipant,
-    getEventParticipants,
     removeEventParticipant,
     addEventParticipant,
-    getEventChat,
     useChats
 } from '@core/lib';
 
@@ -42,6 +38,7 @@ const EventPage = () => {
 
     const {user} = useAuth();
 
+    const [loading, setLoading] = useState(true);
     const [event, setEvent] = useState([]);
     const [author, setAuthor] = useState({});
     const isOwner = !!(user?.openId == author?.openId);
@@ -54,28 +51,23 @@ const EventPage = () => {
     useEffect(() => {
         const params = {token};
 
-        getEventListing(eventId, params)
-            .then(data => {
-                setEvent(data)
-                setParticipantsCount(data.participants);
-            })
-            .catch(() => setEvent(null))
+        async function loadEventPage(params) {
+            const event = await getEventPage(eventId, params)
+
+            setEvent(event)
+            setParticipantsCount(event.participants.length);
+            setParticipants(event.participants)
+            setCurrentChatId(event.chat.id)
+            setAuthor(event.author)
+            setLoading(true);
+        }
+
+        loadEventPage(params);
 
         checkSubscribtion(eventId, 'EVENT').then(data => setSubscribed(data))
         checkEventParticipant(eventId).then(data => setParticipant(data))
-        viewListing(eventId).then(() => {});
-
-        getEventChat(eventId).then(data => setCurrentChatId(Number(data)));
 
     }, [eventId, setCurrentChatId, token]);
-
-    useEffect(() => {
-        if (isOwner) getEventParticipants(eventId).then(data => setParticipants(data));
-    }, [eventId, isOwner]);
-
-    useEffect(() => {
-        if (event?.authorId) getUserById(event.authorId).then(data => setAuthor(data));
-    }, [event])
 
     const toggleParticipation = async () => {
         setParticipant(!isParticipant); // мгновенный отклик
@@ -96,11 +88,7 @@ const EventPage = () => {
         }
     }
 
-    /* const params = {
-        categoryId: event?.categoryId,
-    } */
-
-    if (!event) return <NotFoundPage/>;
+    if (!event && !loading) return <NotFoundPage/>;
 
     return (
         <ListingPageLayout

@@ -14,6 +14,10 @@ $min-radius: 1px;
     position: relative;
     min-width: 0;
 
+    &#EVENT_TOPIC {
+        max-height: 600px;
+    }
+
     @include mobile {
         position: fixed;
         top: var(--header-height);
@@ -34,7 +38,7 @@ $min-radius: 1px;
             left: 0;
         }
 
-        &#EVENT_TOPIC.show {
+        &#EVENT_TOPIC {
             position: static;
         }
     }
@@ -150,6 +154,12 @@ $min-radius: 1px;
                 display: flex;
                 flex-direction: column;
                 gap: 0.2rem;
+
+                #authorName {
+                    display: none;
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                }
             }
 
             &.in {
@@ -157,26 +167,22 @@ $min-radius: 1px;
                 margin-right: auto;
 
                 .message {
-                    flex-direction: row;
+                    background-color: var(--background);
+                    border-radius: $small-radius $big-radius $big-radius $small-radius;
 
-                    &:first-child {
-                        .message-content {
-                            border-radius: $big-radius $big-radius $big-radius $small-radius;
-                        }
+                    @include mobile {
+                        background-color: var(--message-in);
                     }
 
                     &:last-child {
-                        .message-content {
-                            border-radius: $small-radius $big-radius $big-radius $min-radius;
-                        }
+                        border-radius: $small-radius $big-radius $big-radius $min-radius;
                     }
 
-                    .message-content {
-                        background-color: var(--background);
-                        border-radius: $small-radius $big-radius $big-radius $small-radius;
+                    &:first-child {
+                        border-radius: $big-radius $big-radius $big-radius $small-radius;
 
-                        @include mobile {
-                            background-color: var(--message-in);
+                        #authorName {
+                            display: block;
                         }
                     }
                 }
@@ -187,23 +193,15 @@ $min-radius: 1px;
                 margin-left: auto;
 
                 .message {
-                    flex-direction: row-reverse;
-
-                    &:first-child {
-                        .message-content {
-                            border-radius: $big-radius $big-radius $small-radius $big-radius;
-                        }
-                    }
+                    background-color: var(--primary-2xlight);
+                    border-radius: $big-radius $small-radius $small-radius $big-radius;
 
                     &:last-child {
-                        .message-content {
-                            border-radius: $big-radius $small-radius $min-radius $big-radius;
-                        }
+                        border-radius: $big-radius $small-radius $min-radius $big-radius;
                     }
 
-                    .message-content {
-                        background-color: var(--primary-2xlight);
-                        border-radius: $big-radius $small-radius $small-radius $big-radius;
+                    &:first-child {
+                        border-radius: $big-radius $big-radius $small-radius $big-radius;
                     }
                 }
             }
@@ -213,22 +211,23 @@ $min-radius: 1px;
             }
 
             .message {
+                width: fit-content;
                 display: flex;
-                gap: 0.5rem;
+                flex-direction: column;
+                padding: 0.3rem 0.75rem;
                 
                 .message-content {
-                    padding: 0.3rem 0.75rem;
                     position: relative;
                     display: inline-flex;
                     align-items: flex-end;
                     gap: 0.4rem;
 
-                    p {
+                    #messageText {
                         margin: 0;
                         word-wrap: break-word;
                     }
 
-                    .message-time {
+                    #messageTime {
                         font-size: 0.7rem;
                         color: var(--gray);
                         white-space: nowrap;

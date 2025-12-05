@@ -30,7 +30,7 @@ const MessengerPage = () => {
         
     }, [currentChatId, client, connected, userLocale]);
 
-    const allowedTypes = ["LISTING_DISCUSSION", "PRIVATE_CHAT"];
+    const privateChatTypes = ["LISTING_DISCUSSION", "PRIVATE_CHAT"];
 
     return (
         <>
@@ -55,7 +55,7 @@ const MessengerPage = () => {
                             <p>{t(`messenger.placeholders.startChats`, { ns: 'common' })}</p>
                         </div>
                     ) : chats
-                            .filter(c => allowedTypes.includes(c.type))
+                            .filter(c => privateChatTypes.includes(c.type))
                             .slice()
                             .sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime))
                             .map(chat => (

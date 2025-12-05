@@ -1,21 +1,24 @@
 import { Avatar } from "@core/components";
-import { GroupedMessages, MessageType, useAuth, useChats } from "@core/lib";
+import { GroupedMessages, MessageType, privateChatTypes, useAuth, useChats } from "@core/lib";
 
 const MessagesGroup = ({group}: {group: GroupedMessages}) => {
 
     const { user } = useAuth();
-    const { allIntelocutors } = useChats();
+    const { allIntelocutors, currentChat } = useChats();
     const isOwn = (group.senderId == user?.id)
     const author = isOwn ? user : allIntelocutors.find((i) => i.user.id === group.senderId)?.user ?? null;
 
     return (
         <div className={`messages-group ${isOwn ? 'out' : 'in'}`}>
-            <Avatar user={author} size={30} className="message-avatar"/>
+            {!privateChatTypes.includes(String(currentChat?.type)) && !isOwn && (
+                <Avatar user={author} size={30} className="message-avatar"/>
+            )}
             <div className="messages">
                 {group.messages?.map((message) => (
                     <Message 
                         key={message.id}
-                        message={message} 
+                        message={message}
+                        authorName={author?.name}
                     />
                 ))}
             </div>
@@ -23,7 +26,7 @@ const MessagesGroup = ({group}: {group: GroupedMessages}) => {
     )
 }
 
-const Message = ({message}: {message: MessageType}) => {
+const Message = ({message, authorName}: {message: MessageType, authorName?: string}) => {
 
     const date = new Date(message.sentAt);
     const hours = String(date.getHours()).padStart(2, '0');
@@ -32,9 +35,10 @@ const Message = ({message}: {message: MessageType}) => {
 
     return (
         <div className="message">
+            <span id="authorName">{authorName}</span>
             <div className="message-content">
-                <p>{message.text}</p>
-                <span className="message-time">{formattedTime}</span>
+                <span id="messageText">{message.text}</span>
+                <span id="messageTime">{formattedTime}</span>
             </div>
         </div>
     );

@@ -3,7 +3,7 @@ import { useAuth, useNotification } from "@core/lib";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-const UserInfoSidebar = ( {listingId, author} ) => { 
+const UserInfoSidebar = ({listingId, author} ) => { 
 
     const { t } = useTranslation();
     const {notificate} = useNotification();
@@ -27,7 +27,7 @@ const UserInfoSidebar = ( {listingId, author} ) => {
                             <h3>{author.name}</h3>
                             <div className="seller-rating">
                                 <span>{t(`labels.rating`, { ns: 'common' })}: </span>
-                                <span>{author.rating ?? 0}</span>
+                                <span>{author.rating ?? 0} ★</span>
                             </div>
                             <div className="seller-actions">
                                 {isAuthenticated ? (

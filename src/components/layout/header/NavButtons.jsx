@@ -58,7 +58,7 @@ const NavButtons = () => {
             ) : (
                 <Link
                     to={`/login?redirect=${window.location.pathname}`}
-                    className="btn btn-outline-primary flex-row"
+                    className="btn btn-outline-primary login-btn"
                 >
                     <span>{t("login")}</span>
                 </Link>
