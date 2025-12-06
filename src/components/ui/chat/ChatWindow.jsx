@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import {
     useWebSocket,
-    useChats
+    useChats,
+    ChatType
 } from "@core/lib";
 import { Avatar } from "@core/components";
 import SendMessageArea from "./SendMessageArea.jsx";
@@ -13,7 +14,7 @@ const ChatWindow = ({title}) => {
 
     const { t } = useTranslation('common')
 
-    const { messages, chatListing, setChatListingVisible, interlocutor, currentChatId, changeChat, currentChat } = useChats();
+    const { messages, chatListing, setChatListingVisible, interlocutor, currentChatId, setCurrentChatId, currentChat } = useChats();
 
     const { error } = useWebSocket();
 
@@ -31,12 +32,19 @@ const ChatWindow = ({title}) => {
                 <div className="chat-info">
                     <button 
                         id="dialogsToggleBtn" 
-                        onClick={() => changeChat(null, {})} 
+                        onClick={() => setCurrentChatId(null)} 
                         className="mobile-dialogs-toggle"
                     >
                         <i className="fa-regular fa-arrow-left fa-2xl"></i>
                     </button>
-                    <Avatar user={interlocutor} size={40} link={false} />
+                    {currentChat?.type == ChatType.LISTING_DISCUSSION && chatListing ? (
+                        <div className="dialog-avatar">
+                            <img id='listingImg' src={chatListing.imagePath} />
+                            <Avatar user={interlocutor} size={40} className="user-avatar" link={false} />
+                        </div>
+                    ) : (
+                        <Avatar user={interlocutor} size={50} link={false} />
+                    )}
                     <h4 id="chatTitle">{title ?? interlocutor?.name}</h4>
                 </div>
                 <div className="mobile-chat-actions">
@@ -96,7 +104,7 @@ const ChatWindow = ({title}) => {
                 )}
 
                 {messages?.map((group) => (
-                    <MessagesGroup group={group} key={group.messages[0].id} />
+                    <MessagesGroup group={group} key={group.id} />
                 ))}
             </div>
 

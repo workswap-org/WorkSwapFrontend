@@ -362,12 +362,12 @@ $min-radius: 1px;
             transition: all 0.4s;
             gap: 1rem;
 
-            &:hover {
+            &:hover, &.active{
                 background-color: var(--background);
-            }
 
-            &.active {
-                background-color: var(--primary-light);
+                .user-avatar {
+                    border-color: var(--background);
+                }
             }
 
             .dialog-content {
@@ -428,5 +428,24 @@ $min-radius: 1px;
                 }
             }
         }
+    }
+}
+
+.dialog-avatar {
+    position: relative;
+    height: 50px;
+
+    img#listingImg {
+        width: 50px;
+        height: 50px;
+        aspect-ratio: 1;
+        border-radius: 8px;
+    }
+
+    .user-avatar {
+        position: absolute;
+        right: -17px;
+        bottom: -5px;
+        border: 6px solid var(--background-l1);
     }
 }

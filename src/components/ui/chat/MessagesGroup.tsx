@@ -10,7 +10,7 @@ const MessagesGroup = ({group}: {group: GroupedMessages}) => {
 
     return (
         <div className={`messages-group ${isOwn ? 'out' : 'in'}`}>
-            {!privateChatTypes.includes(String(currentChat?.type)) && !isOwn && (
+            {!(currentChat?.type && privateChatTypes.includes(currentChat?.type)) && !isOwn && (
                 <Avatar user={author} size={30} className="message-avatar"/>
             )}
             <div className="messages">
