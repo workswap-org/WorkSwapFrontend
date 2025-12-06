@@ -1,36 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { 
-    useWebSocket,
-    useChats,
-} from "@core/lib";
-import { PublicListingCard, ChatWindow } from "@/components";
-import DialogItem from "./DialogItem";
+import { privateChatTypes, useChats } from "@core/lib";
+import { PublicListingCard, ChatWindow, DialogItem} from "@/components";
 
 const MessengerPage = () => {
 
-    const { currentChatId, chatListing, chatListingVisible, chats } = useChats();
+    const { chatListing, chatListingVisible, chats } = useChats();
 
-    const { i18n, t } = useTranslation('common');
-    const userLocale = i18n.language || "fi";
-    
-    const { client, connected } = useWebSocket();
+    const { t } = useTranslation('common');
     const [pageLoading, setPageLoading] = useState(true);
-
-    useEffect(() => {
-        if (!currentChatId || !client || !client.active || !connected) return;
-
-        client.publish({
-            destination: `/app/chat.markAsRead/${currentChatId}`
-        });
-
-        const url = new URL(window.location);
-        url.searchParams.set("chatId", currentChatId);
-        window.history.pushState({}, '', url);
-        
-    }, [currentChatId, client, connected, userLocale]);
-
-    const privateChatTypes = ["LISTING_DISCUSSION", "PRIVATE_CHAT"];
 
     return (
         <>

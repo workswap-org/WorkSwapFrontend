@@ -46,7 +46,7 @@ const EventPage = () => {
     const [participantsCount, setParticipantsCount] = useState(0)
     const [participants, setParticipants] = useState(undefined)
     const [isParticipant, setParticipant] = useState(false);
-    const { setCurrentChatId } = useChats();
+    const { setCurrentChatId, currentChatId } = useChats();
 
     useEffect(() => {
         const params = {token};
@@ -55,7 +55,7 @@ const EventPage = () => {
             const event = await getEventPage(eventId, params)
 
             setEvent(event)
-            setParticipantsCount(event.participants.length);
+            setParticipantsCount(event.participantsCount);
             setParticipants(event.participants)
             setCurrentChatId(event.chat.id)
             setAuthor(event.author)
@@ -68,6 +68,10 @@ const EventPage = () => {
         checkEventParticipant(eventId).then(data => setParticipant(data))
 
     }, [eventId, setCurrentChatId, token]);
+
+    useEffect(() => {
+        if (!currentChatId && event?.chat?.id) setCurrentChatId(event.chat.id)
+    }, [currentChatId, event, setCurrentChatId])
 
     const toggleParticipation = async () => {
         setParticipant(!isParticipant); // мгновенный отклик

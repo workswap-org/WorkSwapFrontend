@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { ChatType, ShortUser, useChats, useChatSubscription } from "@core/lib";
+import { ChatData, ShortUser, useChats, useChatSubscription } from "@core/lib";
 import { Avatar } from "@core/components";
 import { useLocation } from "react-router-dom";
 
 interface DialogItemProps {
-    chat: ChatType,
-    changeChat: (chatId: number, interlocutor: ShortUser | null) => void,
+    chat: ChatData,
     pageLoading: boolean,
-    setPageLoading: React.Dispatch<React.SetStateAction<boolean | null>>
+    setPageLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const DialogItem = ({ chat, pageLoading, setPageLoading }: DialogItemProps) => {
