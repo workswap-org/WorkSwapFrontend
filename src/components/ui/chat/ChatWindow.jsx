@@ -1,14 +1,16 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import {
     useWebSocket,
     useChats,
-    ChatType
+    ChatType,
+    privateChatTypes
 } from "@core/lib";
 import { Avatar } from "@core/components";
 import SendMessageArea from "./SendMessageArea.jsx";
 import MessagesGroup from "./MessagesGroup.tsx";
+import { createPortal } from "react-dom";
 
 const ChatWindow = ({title}) => {
 
@@ -19,6 +21,12 @@ const ChatWindow = ({title}) => {
     const { error } = useWebSocket();
 
     const messagesContainer = useRef(null);
+    const isMobile = window.innerWidth <= 600;
+
+    const [modalRoot, setModalRoot] = useState(null);
+    useEffect(() => {
+        setModalRoot(document.getElementById("modal-root"));
+    }, []);
 
     useEffect(() => {
         if (messagesContainer.current) {
@@ -26,91 +34,102 @@ const ChatWindow = ({title}) => {
         }
     }, [messages]);
 
-    return (
-        <div id={currentChat?.type} className={`chat-window ${currentChatId ? "show" : ""}`}>
-            <div className="chat-header">
-                <div className="chat-info">
-                    <button 
-                        id="dialogsToggleBtn" 
-                        onClick={() => setCurrentChatId(null)} 
-                        className="mobile-dialogs-toggle"
-                    >
-                        <i className="fa-regular fa-arrow-left fa-2xl"></i>
-                    </button>
-                    {currentChat?.type == ChatType.LISTING_DISCUSSION && chatListing ? (
-                        <div className="dialog-avatar">
-                            <img id='listingImg' src={chatListing.imagePath} />
-                            <Avatar user={interlocutor} size={40} className="user-avatar" link={false} />
-                        </div>
-                    ) : (
-                        <Avatar user={interlocutor} size={50} link={false} />
-                    )}
-                    <h4 id="chatTitle">{title ?? interlocutor?.name}</h4>
-                </div>
-                <div className="mobile-chat-actions">
-                    {chatListing?.id && (
+    function renderChatWindow() {
+        return (
+            <div id={currentChat?.type} className={`chat-window ${currentChatId ? "show" : ""}`}>
+                <div className="chat-header">
+                    <div className="chat-info">
                         <button 
-                            className="btn btn-primary btn-sm" 
-                            onClick={() => setChatListingVisible(prev => !prev)}
+                            id="dialogsToggleBtn" 
+                            onClick={() => setCurrentChatId(null)} 
+                            className="mobile-dialogs-toggle"
                         >
-                            <i className="fa-regular fa-cards-blank fa-lg"></i>
+                            <i className="fa-regular fa-arrow-left fa-2xl"></i>
                         </button>
-                    )}
-                    <Link 
-                        to={`/profile/${interlocutor?.openId}`} 
-                        className="btn btn-outline-primary btn-sm"
-                    >
-                        <i className="fa-regular fa-user fa-lg"></i>
-                    </Link>
-                </div>
-                <div className="chat-actions">
-                    {chatListing?.id && (
-                        <button 
-                            className="btn btn-primary btn-sm" 
-                            onClick={() => setChatListingVisible(prev => !prev)}
-                        >{t(`messenger.listing`, { ns: 'buttons' })}</button>
-                    )}
-                    {interlocutor?.openId && (
+
+                        {privateChatTypes.includes(currentChat?.type) && (
+                            <>
+                                {currentChat?.type === ChatType.LISTING_DISCUSSION && chatListing ? (
+                                    <div className="dialog-avatar">
+                                        <img id="listingImg" src={chatListing.imagePath} />
+                                        <Avatar user={interlocutor} size={40} className="user-avatar" link={false} />
+                                    </div>
+                                ) : (
+                                    <Avatar user={interlocutor} size={50} link={false} />
+                                )}
+                            </>
+                        )}
+                        <h4 id="chatTitle">{title ?? interlocutor?.name}</h4>
+                    </div>
+                    <div className="mobile-chat-actions">
+                        {chatListing?.id && (
+                            <button 
+                                className="btn btn-primary btn-sm" 
+                                onClick={() => setChatListingVisible(prev => !prev)}
+                            >
+                                <i className="fa-regular fa-cards-blank fa-lg"></i>
+                            </button>
+                        )}
                         <Link 
                             to={`/profile/${interlocutor?.openId}`} 
                             className="btn btn-outline-primary btn-sm"
                         >
-                            {t(`messenger.profile`, { ns: 'buttons' })}
+                            <i className="fa-regular fa-user fa-lg"></i>
                         </Link>
-                    )}
-                    
-                </div>
-            </div>
-
-            <div 
-                className="messages-container" 
-                ref={messagesContainer}
-            >
-                {error && (
-                    <div className="web-socket-connection-status">
-                        <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
-                        <br/>
-                        <i className="fa-solid fa-spinner-third fa-spin"></i>
                     </div>
-                )}
+                    <div className="chat-actions">
+                        {chatListing?.id && (
+                            <button 
+                                className="btn btn-primary btn-sm" 
+                                onClick={() => setChatListingVisible(prev => !prev)}
+                            >{t(`messenger.listing`, { ns: 'buttons' })}</button>
+                        )}
+                        {interlocutor?.openId && (
+                            <Link 
+                                to={`/profile/${interlocutor?.openId}`} 
+                                className="btn btn-outline-primary btn-sm"
+                            >
+                                {t(`messenger.profile`, { ns: 'buttons' })}
+                            </Link>
+                        )}
+                        
+                    </div>
+                </div>
 
-                {/* <div className="chat-order">
-                    <span>Заказ #{order?.id} создан</span>
-                </div> */}
-                {/* <div className="message-date">Сегодня</div> */}
+                <div 
+                    className="messages-container" 
+                    ref={messagesContainer}
+                >
+                    {error && (
+                        <div className="web-socket-connection-status">
+                            <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
+                            <br/>
+                            <i className="fa-solid fa-spinner-third fa-spin"></i>
+                        </div>
+                    )}
 
-                {(messages?.length === 0 && !error) && (
-                    <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
-                )}
+                    {/* <div className="chat-order">
+                        <span>Заказ #{order?.id} создан</span>
+                    </div> */}
+                    {/* <div className="message-date">Сегодня</div> */}
 
-                {messages?.map((group) => (
-                    <MessagesGroup group={group} key={group.id} />
-                ))}
+                    {(messages?.length === 0 && !error) && (
+                        <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
+                    )}
+
+                    {messages?.map((group) => (
+                        <MessagesGroup group={group} key={group.id} />
+                    ))}
+                </div>
+
+                <SendMessageArea/>
             </div>
+        );
+    }
 
-            <SendMessageArea/>
-        </div>
-    );
+    if (!modalRoot) return null;
+
+    return isMobile ? createPortal(renderChatWindow(), modalRoot) : renderChatWindow()
 };
 
 export default ChatWindow;

@@ -221,5 +221,17 @@
     flex: 1;
     display: flex;
 
-    
+    .dialogs-list {
+        flex: 0 0 250px;
+
+        @include mobile {
+            flex: 1;
+        }
+    }
+
+    .chat-window {
+        top: 0;
+        padding: 0;
+        width: 100vw;
+    }
 }

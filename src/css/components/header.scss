@@ -28,6 +28,8 @@ header {
     padding: 0.4rem 2rem;
     width: 100%;
     translate: 0;
+    position: relative;
+    z-index: 100;
 
     .header-container {
         width: 100%;
@@ -165,7 +167,6 @@ header {
                         border-right: 1px solid var(--primary);
                         transition: all 0.2s;
                         gap: 0.5rem;
-                        height: 100%;
                         white-space: nowrap;
                         position: relative;
                         z-index: 2;

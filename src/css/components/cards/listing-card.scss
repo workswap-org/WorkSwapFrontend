@@ -1,7 +1,6 @@
 @use "@core/css/components/global-mixins" as *;
 
 .listing-card {
-    z-index: 1;
     background-color: var(--background-l1);
     border: 2px solid var(--border-color);
     border-radius: calc(var(--radius) * 1.5);

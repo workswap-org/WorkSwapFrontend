@@ -18,8 +18,8 @@ const CategoryButton = ({ active, onClick, children }) => (
 const CatalogCategories = ({
     categoriesMenu,
     setCategoriesMenu,
-    categoryId,
-    setCategoryId
+    filters,
+    updateFilter
 }) => {
     const [categories, setCategories] = useState([]);
     const [listingType, setListingType] = useState("product");
@@ -41,8 +41,8 @@ const CatalogCategories = ({
     ), [categories, listingType]);
 
     const selectedCategory = useMemo(
-        () => categories[listingType]?.find(cat => cat.id === categoryId) || null,
-        [categories, listingType, categoryId]
+        () => categories[listingType]?.find(cat => cat.id === filters.categoryId) || null,
+        [categories, listingType, filters]
     );
 
     const handleMouseLeave = () => {
@@ -77,11 +77,11 @@ const CatalogCategories = ({
                 {rootCategories.map((cat) =>
                 <CategoryButton
                     key={cat.id}
-                    active={categoryId === cat.id}
+                    active={filters.categoryId === cat.id}
                     onClick={() =>
-                    categoryId === cat.id
-                        ? setCategoryId(null)
-                        : setCategoryId(cat.id)
+                    filters.categoryId === cat.id
+                        ? updateFilter("categoryId", null)
+                        : updateFilter("categoryId", cat.id)
                     }
                 >
                     {t(`category.${listingType}.${cat.name}`)}
@@ -90,16 +90,16 @@ const CatalogCategories = ({
             </div>
             </div>
             <div className="subcategories-container">
-            {categoryId && children(categoryId).length > 0 && (
+            {filters.categoryId && children(filters.categoryId).length > 0 && (
                 <div className="categories-list">
-                {children(categoryId).map(child =>
+                {children(filters.categoryId).map(child =>
                     <button
                     key={child.id}
-                    className={`sub-category-item hover ${categoryId === child.id ? "active" : ""}`}
+                    className={`sub-category-item hover ${filters.categoryId === child.id ? "active" : ""}`}
                     onClick={() =>
-                        categoryId === child.id
-                        ? setCategoryId(null)
-                        : setCategoryId(child.id)
+                        filters.categoryId === child.id
+                        ? updateFilter("categoryId", null)
+                        : updateFilter("categoryId", child.id)
                     }
                     >
                     {t(`category.${listingType}.${child.name}`)}

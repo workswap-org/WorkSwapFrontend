@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getListingById } from "@core/lib";
+import { ChatType, getListingById, useChats } from "@core/lib";
 import { Link, useParams } from "react-router-dom";
 import ListingSettingsMenu from './menus/ListingSettingsMenu';
 import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
@@ -18,6 +18,18 @@ const ListingManagePage = () => {
     const { id } = useParams();
     
     const [listing, setListing] = useState(null);
+
+    const { unreadMessages, chats } = useChats();
+
+    const notifCount = useMemo(() => {
+        console.log(chats)
+        const matchingChats = chats.filter(chat => chat.targetId == id && chat.type == ChatType.LISTING_DISCUSSION);
+        console.log(matchingChats)
+        const matchingChatIds = new Set(matchingChats.map(chat => chat.id));
+        console.log(matchingChatIds)
+
+        return unreadMessages.filter(msg => matchingChatIds.has(msg.chatId)).length;
+    }, [chats, id, unreadMessages])
 
     useEffect(() => {
     
@@ -47,6 +59,7 @@ const ListingManagePage = () => {
                 <SidebarSectionLayout
                     pageName={'listingManage'}
                     sections={ListingMenu}
+                    notifications={{menu: ListingMenu.MESSAGES, count: notifCount}}
                 >
                     {(currentSection) => (
                         currentSection === ListingMenu.SETTINGS ? <ListingSettingsMenu listing={listing} /> :
@@ -56,8 +69,6 @@ const ListingManagePage = () => {
                     )}
                 </SidebarSectionLayout>
             )}
-
-            
         </>
     );
 };

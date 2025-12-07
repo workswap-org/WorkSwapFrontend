@@ -3,10 +3,8 @@ import { useTranslation } from 'react-i18next';
 import CatalogCategories from "./CatalogCategories";
 
 const CatalogHeader = ({
-    searchQuery,
-    setSearchQuery,
-    categoryId, 
-    setCategoryId
+    filters,
+    updateFilter,
 }) => {
 
     const { t } = useTranslation('categories')
@@ -28,16 +26,16 @@ const CatalogHeader = ({
                 <CatalogCategories 
                     categoriesMenu={categoriesMenu}
                     setCategoriesMenu={setCategoriesMenu}
-                    categoryId={categoryId}
-                    setCategoryId={setCategoryId}
+                    filters={filters}
+                    updateFilter={updateFilter}
                 />
 
                 <div className="listings-search">
                     <input 
                         type="text" 
                         className="search-input" 
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        value={filters.searchQuery ?? ""}
+                        onChange={(e) => updateFilter("searchQuery", e.target.value)}
                         name="searchQuery"
                         placeholder={t('placeholders.search', { ns: 'common' })}
                     />

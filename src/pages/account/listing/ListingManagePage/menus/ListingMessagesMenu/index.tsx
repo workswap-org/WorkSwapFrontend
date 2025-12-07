@@ -17,8 +17,7 @@ const ListingMessagesMenu = ({listing}: {listing: FullListingType}) => {
                         <p>{t(`messenger.placeholders.noDialogs`, { ns: 'common' })}</p>
                         <p>{t(`messenger.placeholders.startChats`, { ns: 'common' })}</p>
                     </div>
-                ) : chats
-                        .filter(c => c.type === ChatType.LISTING_DISCUSSION && c.targetId === listing.id)
+                ) : chats?.filter(c => c.type === ChatType.LISTING_DISCUSSION && c.targetId === listing.id)
                         .slice()
                         .sort((a, b) => new Date(b.lastMessageTime).getTime() - new Date(a.lastMessageTime).getTime())
                         .map(chat => (

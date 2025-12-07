@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { PublicListingCard } from "@/components";
 import { useNavigate } from "react-router-dom";
 
-const CatalogContent = ({ mainListingId, params}) => {
+const CatalogContent = ({ mainListingId, params, setTotalPages}) => {
 
     const { i18n } = useTranslation();
     const userLocale = i18n.language || "fi";
@@ -23,11 +23,13 @@ const CatalogContent = ({ mainListingId, params}) => {
 
         getSortedListings(params)
             .then(data => {
+                console.log(data)
                 if (requestId === lastRequestId.current) {
-                    setListings(data);
+                    setListings(data.listings);
+                    setTotalPages(data.totalPages);
                 }
             });
-    }, [params, userLocale]);
+    }, [params, setTotalPages, userLocale]);
     
     return (
         <div className="listings-grid">

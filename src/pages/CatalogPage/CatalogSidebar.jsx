@@ -8,25 +8,15 @@ const sorts = [
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@core/lib';
-import { useEffect } from 'react';
 
 const CatalogSidebar = ({
-    hasReviews,
-    setHasReviews,
-    activeSort,
-    setActiveSort,
+    filters,
+    updateFilter,
     sidebarOpened,
     toggleSidebar,
-    translationsFilter,
-    setTranslationsFilter,
 }) => {
 
-    useEffect(() => {
-        console.log(hasReviews);
-    }, [hasReviews])
-
     const { user } = useAuth()
-
     const { t } = useTranslation(['common', 'navigation'])
     
     return (
@@ -42,8 +32,8 @@ const CatalogSidebar = ({
                         {sorts.map(sort => (
                             <button
                                 key={sort.key}
-                                className={`list-group-item ${activeSort === sort.key ? "active" : ""}`}
-                                onClick={() => setActiveSort(sort.key)}
+                                className={`list-group-item ${filters.sortBy === sort.key ? "active" : ""}`}
+                                onClick={() => updateFilter("sortBy", sort.key)}
                             >
                                 {t(`sorts.${sort.key}`, { ns: 'common' })}
                             </button>
@@ -58,8 +48,8 @@ const CatalogSidebar = ({
                             type="checkbox"
                             id="filter2"
                             name="hasReviews"
-                            checked={hasReviews}
-                            onChange={(e) => setHasReviews(e.target.checked)}
+                            checked={filters.hasReviews}
+                            onChange={(e) => updateFilter("hasReviews", e.target.checked)}
                         />
                         <label htmlFor="filter2">
                             <span className="checkmark"></span>
@@ -75,8 +65,8 @@ const CatalogSidebar = ({
                             type="checkbox"
                             id="translationsCheckbox"
                             name="translationsCheckbox"
-                            checked={translationsFilter}
-                            onChange={(e) => setTranslationsFilter(e.target.checked)}
+                            checked={filters.translationsFilter}
+                            onChange={(e) => updateFilter("translationsFilter", e.target.checked)}
                         />
                         <label htmlFor="translationsCheckbox">
                             <span className="checkmark"></span>

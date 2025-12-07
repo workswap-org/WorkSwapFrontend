@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import NavButtons from "./NavButtons";
+import { useNotification } from "@core/lib";
 
 const Header = () => {
 
@@ -20,6 +21,8 @@ const Header = () => {
     function mobileMenuToggle() {
         setMobileVisible(!mobileVisible)
     }
+
+    const { unreadNotificationsCount } = useNotification();
     
     return (
         <header>
@@ -37,8 +40,17 @@ const Header = () => {
                         <div className="nav-link">
                             <ThemeChanger id={"themeChangerHeader"}/>
                         </div>
-                        <button onClick={mobileMenuToggle} className="navbar-toggler">
+                        <button 
+                            onClick={mobileMenuToggle} 
+                            className="navbar-toggler" 
+                            id="notificationAnchor"
+                        >
                             <div><i className="fa-solid fa-bars"></i></div>
+                            {unreadNotificationsCount > 0 && (
+                                <span id="unreadNotifications" className="unread-notifications-count">
+                                    {unreadNotificationsCount}
+                                </span>
+                            )}
                         </button>
                     </div>
                     <NavButtons />

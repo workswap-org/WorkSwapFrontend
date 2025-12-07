@@ -6,7 +6,6 @@
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     gap: 1.5rem;
     max-width: 100%;
-    z-index: 1;
 
     @include laptop {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

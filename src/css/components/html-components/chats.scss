@@ -21,8 +21,8 @@ $min-radius: 1px;
     @include mobile {
         position: fixed;
         top: var(--header-height);
-        left: 100%;
-        width: 100%;
+        right: -100%;
+        width: 100vw;
         height: calc(100vh - var(--header-height));
         background: var(--background-l1);
         border-radius: 0;
@@ -30,12 +30,12 @@ $min-radius: 1px;
         flex: none;
         z-index: 99;
         padding: 0 0.5rem;
-        transition: left 0.3s ease;
+        transition: right 0.3s ease;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         padding-bottom: 4rem;
 
         &.show {
-            left: 0;
+            right: 0;
         }
 
         &#EVENT_TOPIC {

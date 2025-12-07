@@ -23,6 +23,7 @@
 
         .listing-card {
             height: auto;
+            z-index: 1;
         }
 
         @include mobile {
