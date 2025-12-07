@@ -32,6 +32,7 @@
         transition: max-height 0.2s ease;
         max-height: calc(100vh - var(--header-height));
         overflow: visible;
+        max-width: 100%;
 
         .card {
             flex: 1;
@@ -44,7 +45,7 @@
             overflow: visible;
 
             &:has(.messenger-container) {
-                flex: 1 1 auto;
+                flex: 1;
                 min-height: 0;
                 overflow: hidden;
             }
