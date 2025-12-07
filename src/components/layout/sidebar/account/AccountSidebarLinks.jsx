@@ -1,7 +1,7 @@
 import { 
     useActivePage 
 } from "@core/lib";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 const AccountSidebarLinks = () => {
@@ -21,29 +21,29 @@ const AccountSidebarLinks = () => {
 
     return (
         <nav className="account-menu">
-            <Link
+            <NavLink
                 to='/catalog'
                 className={`account-menu-item`}
             >
                 <div><i className={`fa-regular fa-grid-2 fa-lg`}></i></div>
                 {t(`accountSidebar.links.catalog`, { ns: 'navigation' })}
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
                 to='/forum'
                 className={`account-menu-item`}
             >
                 <div><i className={`fa-regular fa-comments fa-lg`}></i></div>
                 {t(`accountSidebar.links.forum`, { ns: 'navigation' })}
-            </Link>
+            </NavLink>
             {links.map((link) => (
-                <Link
+                <NavLink
                     key={link.key}
                     to={`/account/${link.key}`}
                     className={`account-menu-item ${activePage === link.key ? "active" : ""}`}
                 >
                     <div><i className={`fa-regular ${link.icon} fa-lg`}></i></div>
                     {t(`accountSidebar.links.${link.key}`, { ns: 'navigation' })}
-                </Link>
+                </NavLink>
             ))}
         </nav>
     );

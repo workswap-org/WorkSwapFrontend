@@ -21,7 +21,7 @@ const SendMessageArea = () => {
 
     const sendMessage = () => {
 
-        if (!connected || !client) return;
+        if (!client || !connected) return;
 
         if (!currentChatId) {
             alert("Пожалуйста, выберите диалог для отправки сообщения");
