@@ -5,7 +5,8 @@ import {
     useWebSocket,
     useChats,
     ChatType,
-    privateChatTypes
+    privateChatTypes,
+    useActivePage
 } from "@core/lib";
 import { Avatar } from "@core/components";
 import SendMessageArea from "./SendMessageArea.jsx";
@@ -15,6 +16,8 @@ import { createPortal } from "react-dom";
 const ChatWindow = ({title}) => {
 
     const { t } = useTranslation('common')
+    const activePage = useActivePage();
+    console.log(activePage)
 
     const { messages, chatListing, setChatListingVisible, interlocutor, currentChatId, setCurrentChatId, currentChat } = useChats();
 
@@ -129,7 +132,7 @@ const ChatWindow = ({title}) => {
 
     if (!modalRoot) return null;
 
-    return isMobile ? createPortal(renderChatWindow(), modalRoot) : renderChatWindow()
+    return isMobile && activePage != "event" ? createPortal(renderChatWindow(), modalRoot) : renderChatWindow()
 };
 
 export default ChatWindow;

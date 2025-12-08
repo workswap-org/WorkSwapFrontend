@@ -22,11 +22,8 @@ const ListingManagePage = () => {
     const { unreadMessages, chats } = useChats();
 
     const notifCount = useMemo(() => {
-        console.log(chats)
         const matchingChats = chats.filter(chat => chat.targetId == id && chat.type == ChatType.LISTING_DISCUSSION);
-        console.log(matchingChats)
         const matchingChatIds = new Set(matchingChats.map(chat => chat.id));
-        console.log(matchingChatIds)
 
         return unreadMessages.filter(msg => matchingChatIds.has(msg.chatId)).length;
     }, [chats, id, unreadMessages])

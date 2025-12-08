@@ -14,10 +14,6 @@ $min-radius: 1px;
     position: relative;
     min-width: 0;
 
-    &#EVENT_TOPIC {
-        max-height: 600px;
-    }
-
     @include mobile {
         position: fixed;
         top: var(--header-height);
@@ -37,11 +33,18 @@ $min-radius: 1px;
         &.show {
             right: 0;
         }
-
-        &#EVENT_TOPIC {
-            position: static;
-        }
     }
+
+    
+    /* &#EVENT_TOPIC {
+        max-height: 600px;
+
+        @include mobile {
+            position: static;
+            height: 100%;
+            padding-bottom: 0;
+        }
+    } */
 
     .chat-header {
         display: flex;
