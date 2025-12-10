@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
-import { getListingTranslations, modifyListingTranslations, useNotification } from "@core/lib";
+import { useEffect, useState } from "react";
+import { getListingTranslations, IListingTranslation, modifyListingTranslations, supportedLanguages, useNotification } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 import ListingInfo from "./ListingInfo";
 import TranslationsStatus from "./TranslationsStatus";
 
-const ListingTranslations = ({ id }) => {
+const ListingTranslations = ({ id }: {id: number | null}) => {
 
     const { t } = useTranslation(['common', 'messages']);
 
@@ -13,9 +13,9 @@ const ListingTranslations = ({ id }) => {
     const [initialized, setInitialized] = useState(false);
 
     const [loading, setLoading] = useState(true);
-    const [translations, setTranslations] = useState({});
+    const [translations, setTranslations] = useState<IListingTranslation | null>(null);
     const [currentLang, setCurrentLang] = useState("undetected");
-    const [langs, setLangs] = useState([]);
+    const [langs, setLangs] = useState<string[]>([]);
 
     useEffect(() => {
         if (initialized) {
@@ -29,20 +29,14 @@ const ListingTranslations = ({ id }) => {
 
     useEffect(() => {
         getListingTranslations(id).then(data => {
-            console.log(data);
             setTranslations(data);
             const firstLang = Object.keys(data)[0];
             setLangs(Object.keys(data))
-            console.log(Object.keys(data));
             if (firstLang) setCurrentLang(firstLang)
             setLoading(false);
             setInitialized(true)
         })
     }, [id]);
-
-    useEffect(() => {
-        console.log(langs.length)
-    }, [langs.length]);
 
     return (
         <div className="translation-editor">
@@ -60,12 +54,22 @@ const ListingTranslations = ({ id }) => {
                 </div>
             )}
 
+            {currentLang == "undetected" && (
+                <div className="language-selector">
+                    {supportedLanguages
+                        .filter(l => !langs.includes(l))
+                        .map(l => (
+                            <button onClick={() => setCurrentLang(l)}>{t(`languages.${l}`, { ns: 'common' })}</button>
+                        ))
+                    }
+                </div>
+            )}
+
             {!loading && (
                 <ListingInfo
                     currentLang={currentLang}
                     translations={translations}
                     setTranslations={setTranslations}
-                    setCurrentLang={setCurrentLang}
                 />
             )}            
         </div>

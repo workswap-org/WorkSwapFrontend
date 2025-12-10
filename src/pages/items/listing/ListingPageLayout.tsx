@@ -145,7 +145,7 @@ const ListingPageLayout = ({
                         </div>
                     </div>
 
-                    <ReviewsSection listingId={listing.id} profileId={listing.authorId} />
+                    <ReviewsSection listingId={listing.id} profileId={listing.author.id} />
                 </main>
             </div>
         </div>

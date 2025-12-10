@@ -7,7 +7,7 @@ import {
 } from "@core/lib";
 import ListingEditActions from "./ListingEditActions";
 import ListingImagesUploader from "./ListingImagesUploader";
-import ListingTranslations from "./translations/ListingTranslations";
+import ListingTranslations from "./translations/ListingTranslations.tsx";
 import EventSettings from "./settings/EventSettings";
 import ProductSettings from "./settings/ProductSettings";
 import ServiceSettings from "./settings/ServiceSettings";

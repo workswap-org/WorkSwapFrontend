@@ -1,12 +1,18 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal } from '@core/components';
+import { IListingTranslation } from '@core/lib';
 
+interface ListingInfoProps {
+    currentLang: string
+    translations: IListingTranslation | null
+    setTranslations: Dispatch<SetStateAction<IListingTranslation | null>>
+}
 const ListingInfo = ({
     currentLang,
     translations,
     setTranslations
-}) => {
+}: ListingInfoProps) => {
 
     const { t } = useTranslation('common');
 
@@ -14,7 +20,7 @@ const ListingInfo = ({
     const [description, setDescription] = useState("");
 
     const handleAddLanguage = () => {
-        var key;
+        var key: string;
         if (currentLang) {
             key = currentLang;
         } else {
@@ -53,7 +59,7 @@ const ListingInfo = ({
                 {t(`labels.description`, { ns: 'common' })}{currentLang != 'undetected' && ` (${t("languages." + currentLang, { ns: 'common' })})`}:
                 <textarea
                     id="listingDescriptionTxt"
-                    rows="4"
+                    rows={4}
                     value={description}
                     maxLength={1900}
                     onChange={(e) => setDescription(e.target.value)}

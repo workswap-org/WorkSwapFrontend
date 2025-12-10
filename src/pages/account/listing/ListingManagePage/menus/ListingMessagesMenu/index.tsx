@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { ChatType, FullListingType, useChats } from "@core/lib";
+import { ChatType, IFullListing, useChats } from "@core/lib";
 import { useEffect, useState } from "react";
 import { ChatWindow, DialogItem } from "@/components";
 
-const ListingMessagesMenu = ({listing}: {listing: FullListingType}) => {
+const ListingMessagesMenu = ({listing}: {listing: IFullListing}) => {
 
     const { chats } = useChats();
     const { t } = useTranslation('common');

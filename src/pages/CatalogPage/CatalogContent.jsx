@@ -23,7 +23,6 @@ const CatalogContent = ({ mainListingId, params, setTotalPages}) => {
 
         getSortedListings(params)
             .then(data => {
-                console.log(data)
                 if (requestId === lastRequestId.current) {
                     setListings(data.listings);
                     setTotalPages(data.totalPages);

@@ -17,7 +17,6 @@ const ChatWindow = ({title}) => {
 
     const { t } = useTranslation('common')
     const activePage = useActivePage();
-    console.log(activePage)
 
     const { messages, chatListing, setChatListingVisible, interlocutor, currentChatId, setCurrentChatId, currentChat } = useChats();
 

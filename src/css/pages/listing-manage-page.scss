@@ -132,6 +132,24 @@
             }
         }
     }
+
+    .language-selector {
+        display: flex;
+        gap: 1rem;
+        
+        button {
+            padding: 0.5rem 1rem;
+            font-size: medium;
+            border: 1px solid var(--primary-light);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background 0.3s ease-in;
+
+            &:hover {
+                background-color: var(--primary-light);
+            }
+        }
+    }
 }
 
 
