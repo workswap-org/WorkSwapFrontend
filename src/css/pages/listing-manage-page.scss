@@ -102,11 +102,16 @@
 .translation-editor {
     @include flex-column;
     gap: 0.5rem;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
 
     .lang-cards {
-        display: inline-flex;
+        display: flex;
         gap: 0.5rem;
-        width: 100%;
+        width: fit-content;
+        overflow-x: auto;
+        min-width: 0;
 
         @include mobile {
             flex-direction: column;
@@ -119,6 +124,7 @@
             text-align: center;
             width: 100%;
             position: relative;
+            white-space: nowrap;
 
             &.active {
                 border-radius: var(--radius) var(--radius) 0 0;

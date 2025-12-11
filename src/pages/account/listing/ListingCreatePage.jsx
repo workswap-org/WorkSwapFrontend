@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { 
     useNotification,
     createListing,
-    listingTypes
+    listingPublicTypes
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
@@ -13,9 +13,9 @@ export default function ListingCreatePage() {
     const { notificate } = useNotification();
     const [listingType, setListingType] = useState(null);
     const { t } = useTranslation('categories');
-    const productTypes = listingTypes.filter(t => t.key.startsWith("PRODUCT"));
-    const serviceTypes = listingTypes.filter(t => t.key.startsWith("SERVICE"));
-    const miscTypes = listingTypes.filter(t => !t.key.startsWith("SERVICE") && !t.key.startsWith("PRODUCT"));
+    const productTypes = listingPublicTypes.filter(t => t.key.startsWith("PRODUCT"));
+    const serviceTypes = listingPublicTypes.filter(t => t.key.startsWith("SERVICE"));
+    const miscTypes = listingPublicTypes.filter(t => !t.key.startsWith("SERVICE") && !t.key.startsWith("PRODUCT"));
 
     return (
         <>

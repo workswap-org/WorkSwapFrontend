@@ -10,47 +10,42 @@ import {
 } from "@/components";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
-import ListingGallery from "../ListingGallery";
+import ListingGallery from "./ListingGallery";
 import { 
     getListingById,
     viewListing, 
     getUserById,
+    IListingPageRequest,
+    IShortUserProfile,
 } from '@core/lib';
 
 import NotFoundPage from "@core/pages/NotFoundPage";
-import ListingPageLayout from "../ListingPageLayout";
+import ListingPageLayout from "./ListingPageLayout";
 
 const ListingPage = () => {
 
     const { listigId } = useParams();
     const { t } = useTranslation(['categories', 'common', 'navigation']);
 
-    const [listing, setListing] = useState([]);
-    const [author, setAuthor] = useState([]);
-
+    const [listing, setListing] = useState<IListingPageRequest | null>(null);
+    const [author, setAuthor] = useState<IShortUserProfile | null>(null);
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
         getListingById(listigId)
-            .then(data => {
-                setListing(data)
+            .then(listing => {
+                setListing(listing)
+                setAuthor(listing.author)
             })
-            .catch(() => setListing(null))
+            .catch(() => setError(true))
 
         viewListing(listigId).then(() => {});
     }, [listigId]);
 
-    useEffect(() => {
-        if (listing?.authorId) getUserById(listing.authorId).then(data => setAuthor(data));
-    }, [listing])
-
-    /* const params = {
-        categoryId: listing?.categoryId,
-    } */
-
-    if (!listing) return <NotFoundPage/>;
+    if (error) return <NotFoundPage/>;
 
     return (
-        <ListingPageLayout 
+        <ListingPageLayout
             listing={listing} 
             author={author}
             details={(
@@ -62,7 +57,7 @@ const ListingPage = () => {
                     <div className="detail-item">
                         <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
                         <span className="detail-value">
-                            {listing.location || ""}
+                            {listing?.location || ""}
                         </span>
                     </div>
                     <div className="detail-item">
@@ -70,7 +65,7 @@ const ListingPage = () => {
                         <ListingRating listing={listing}/>
                     </div>
                 </>
-            )}
+            )}   
         />
     );
 };

@@ -13,7 +13,7 @@ import {
 } from "@/components";
 import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
-import ListingGallery from "../ListingGallery";
+import ListingGallery from "./ListingGallery";
 import { 
     getEventPage,
     useAuth,
@@ -22,44 +22,49 @@ import {
     checkEventParticipant,
     removeEventParticipant,
     addEventParticipant,
-    useChats
+    useChats,
+    IEventPageRequest,
+    IShortUserProfile,
+    IShortUser
 } from '@core/lib';
 
 import NotFoundPage from "@core/pages/NotFoundPage";
-import ListingPageLayout from "../ListingPageLayout";
+import ListingPageLayout from "./ListingPageLayout";
 
 const EventPage = () => {
 
     const { eventId } = useParams();
     const { search } = useLocation();
     const query = new URLSearchParams(search);
-    const token = query.get("token");
+    const token: string | null = query.get("token");
     const { t } = useTranslation(['categories', 'common', 'navigation']);
 
     const {user} = useAuth();
 
-    const [loading, setLoading] = useState(true);
-    const [event, setEvent] = useState([]);
-    const [author, setAuthor] = useState({});
+    const [event, setEvent] = useState<IEventPageRequest | null>(null);
+    const [author, setAuthor] = useState<IShortUserProfile | null>(null);
     const isOwner = !!(user?.openId == author?.openId);
-    const [subscribed, setSubscribed] = useState(false);
-    const [participantsCount, setParticipantsCount] = useState(0)
-    const [participants, setParticipants] = useState(undefined)
-    const [isParticipant, setParticipant] = useState(false);
-    const { setCurrentChatId, currentChatId } = useChats();
+    const [subscribed, setSubscribed] = useState<boolean>(false);
+    const [participantsCount, setParticipantsCount] = useState<number>(0)
+    const [participants, setParticipants] = useState<IShortUser[] | null>(null)
+    const [isParticipant, setParticipant] = useState<boolean>(false);
+    const { currentChatId, setCurrentChatId } = useChats();
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
         const params = {token};
+        setCurrentChatId(null)
 
-        async function loadEventPage(params) {
+        if (token) params.token = token;
+
+        async function loadEventPage(params: {token: string | null}) {
             const event = await getEventPage(eventId, params)
-
+            if (!event) setError(true);
             setEvent(event)
             setParticipantsCount(event.participantsCount);
             setParticipants(event.participants)
             setCurrentChatId(event.chat.id)
             setAuthor(event.author)
-            setLoading(true);
         }
 
         loadEventPage(params);
@@ -76,14 +81,14 @@ const EventPage = () => {
     const toggleParticipation = async () => {
         setParticipant(!isParticipant); // мгновенный отклик
         if (isParticipant) {
-            removeEventParticipant(eventId, event?.type)
+            removeEventParticipant(eventId)
                 .then(() => setParticipantsCount(prev => prev - 1))
                 .catch(() => {
                     setParticipant(true);
                     setParticipantsCount(prev => prev);
                 })
         } else {
-            addEventParticipant(eventId, event?.type)
+            addEventParticipant(eventId)
                 .then(() => setParticipantsCount(prev => prev + 1))
                 .catch(() => {
                     setParticipant(false);
@@ -92,8 +97,8 @@ const EventPage = () => {
         }
     }
 
-    if (!event && !loading) return <NotFoundPage/>;
-
+    if (error) return <NotFoundPage/>;
+    
     return (
         <ListingPageLayout
             listing={event}
@@ -121,18 +126,18 @@ const EventPage = () => {
                     <div className="detail-item">
                         <span className="detail-label">{t(`labels.event.date`, { ns: 'common' })}:</span>
                         <span className="detail-value">
-                            <FormattedDate isoDate={event.eventDate || ""} format="DMHM"/>
+                            <FormattedDate isoDate={event?.eventDate || ""} format="DMHM"/>
                         </span>
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">{t(`labels.location`, { ns: 'common' })}:</span>
                         <span className="detail-value">
-                            {event.location || ""}
+                            {event?.location || ""}
                         </span>
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
-                        <ListingRating listing={event}/>
+                        <ListingRating rating={event?.rating}/>
                     </div>
                 </>
             )}
@@ -164,7 +169,7 @@ const EventPage = () => {
                     <div className="listing-details fade-down">
                         <div className="detail-item">
                             <span className="detail-label">{t(`labels.event.participants`, { ns: 'common' })}:</span>
-                            <span className="detail-value">{participantsCount}{event.maxParticipants ? " / " + event.maxParticipants : ""}</span>
+                            <span className="detail-value">{participantsCount}{event?.maxParticipants ? " / " + event.maxParticipants : ""}</span>
                         </div>
                         <div 
                             className="btn btn-primary"
@@ -182,7 +187,7 @@ const EventPage = () => {
             extraPageElements={
                 <div className="listing-info fade-down">
                     <div className="listing-chat">
-                        <ChatWindow title={event.localizedTitle} />
+                        <ChatWindow title={event?.localizedTitle} />
                     </div>
                 </div>
             }

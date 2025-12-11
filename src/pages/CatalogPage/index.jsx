@@ -2,7 +2,7 @@ import CatalogSidebar from "./CatalogSidebar";
 import CatalogHeader from "./CatalogHeader";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useMemo, useState } from "react";
-import { listingTypes } from "@core/lib"
+import { listingPublicTypes } from "@core/lib"
 import { useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
@@ -117,7 +117,7 @@ const CatalogPage = () => {
                 />
                 <main className="catalog-main">
                     <div className="listing-types-list">
-                        {listingTypes.map((type) => (
+                        {listingPublicTypes.map((type) => (
                             <button
                                 key={type.key}
                                 type="button"

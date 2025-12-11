@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getListingTranslations, IListingTranslation, modifyListingTranslations, supportedLanguages, useNotification } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 import ListingInfo from "./ListingInfo";
@@ -16,6 +16,9 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
     const [translations, setTranslations] = useState<IListingTranslation | null>(null);
     const [currentLang, setCurrentLang] = useState("undetected");
     const [langs, setLangs] = useState<string[]>([]);
+    const unusedLanguages = useMemo<string[]>(() => {
+        return supportedLanguages.filter(l => !langs.includes(l)) ?? supportedLanguages
+    }, [langs])
 
     useEffect(() => {
         if (initialized) {
@@ -43,22 +46,29 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
             {langs.length > 0 && (
                 <div className="lang-cards">
                     {langs.map((lang) => (
-                        <div key={lang} className={`lang-card hover ${currentLang == lang ? "active" : ""}`} onClick={() => setCurrentLang(lang)}>
+                        <div 
+                            key={lang} 
+                            className={`lang-card hover ${currentLang == lang ? "active" : ""}`} 
+                            onClick={() => setCurrentLang(lang)}
+                        >
                             <span>{t(`languages.${lang}`, { ns: 'common' })}</span>
                             <TranslationsStatus lang={lang} translations={translations}/>
                         </div>
                     ))}
-                    <div className={`lang-card hover ${currentLang == "undetected" ? "active" : ""}`} onClick={() => setCurrentLang("undetected")}>
-                        <span>+ Добавить язык</span>
-                    </div>
+                    {unusedLanguages.length > 0 && (
+                        <div 
+                            className={`lang-card hover ${currentLang == "undetected" ? "active" : ""}`} 
+                            onClick={() => setCurrentLang("undetected")}
+                        >
+                            <span>+ Добавить язык</span>
+                        </div>
+                    )}
                 </div>
             )}
 
             {currentLang == "undetected" && (
                 <div className="language-selector">
-                    {supportedLanguages
-                        .filter(l => !langs.includes(l))
-                        .map(l => (
+                    {unusedLanguages.map(l => (
                             <button onClick={() => setCurrentLang(l)}>{t(`languages.${l}`, { ns: 'common' })}</button>
                         ))
                     }

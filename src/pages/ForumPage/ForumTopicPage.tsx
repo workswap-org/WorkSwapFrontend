@@ -12,7 +12,7 @@ import {
     deleteForumTopic,
     deleteForumComment,
     deleteForumPost,
-    ShortUser
+    IShortUser
 } from '@core/lib'
 
 import { formatDistanceToNow } from 'date-fns'
@@ -32,7 +32,7 @@ const ForumTopicPage = () => {
 
     const createPost = async() => {
         setSending(true);
-        const author: ShortUser = {
+        const author: IShortUser = {
             name: user?.name ?? "",
             avatarUrl: user?.avatarUrl ?? "",
             openId: user?.openId ?? ""
@@ -160,7 +160,7 @@ const ForumTopicPost = ({
     const { user } = useAuth();
 
     const createComment = async(postOpenId: string) => {
-        const author: ShortUser = {
+        const author: IShortUser = {
             name: user?.name ?? "",
             avatarUrl: user?.avatarUrl ?? "",
             openId: user?.openId ?? ""

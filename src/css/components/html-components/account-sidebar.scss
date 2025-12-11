@@ -60,11 +60,18 @@
         &:hover {
             background-color: rgba(99, 102, 241, 0.1);
             color: var(--primary);
+            i {
+                color: var(--primary);
+            }
         }
 
         &.active {
             background-color: var(--primary);
-            color: var(--background-l1);
+            color: var(--inverse-text-color);
+
+            i {
+                color: var(--inverse-text-color);
+            }
         }
     }
 }

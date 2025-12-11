@@ -20,9 +20,9 @@ $radius: var(--radius);
 	}
 
 	.catalog-header-content {
-		width: fit-content;
 		display: inline-flex;
 		justify-content: center;
+		width: 100%;
 		gap: 1rem;
 		position: relative;
 		height: 3rem;
@@ -39,6 +39,7 @@ $radius: var(--radius);
 			gap: 0.5rem;
 			height: 100%;
 			width: fit-content;
+			white-space: nowrap;
 		}
 
 		.categories-menu {
@@ -97,7 +98,7 @@ $radius: var(--radius);
 					padding: 0.7rem 5rem;
 					font-size: medium;
 					font-weight: bold;
-					border-bottom: 2px solid var(--gray);
+					border-bottom: 2px solid var(--text-color-l1);
 					position: relative;
 
 					@include mobile {
@@ -207,6 +208,8 @@ $radius: var(--radius);
 			height: 100%;
 			display: flex;
 			flex-direction: row;
+			width: 100%;
+			max-width: 500px;
 
 			@include mobile {
 				width: 100%;
@@ -220,12 +223,12 @@ $radius: var(--radius);
 				border-style: solid;
 				border-width: 3px;
 				width: 100%;
-				min-width: 300px;
 				padding: 0.7rem 0.6rem;
 				outline: none;
 				box-shadow: none;
 
 				@include laptop {
+					width: auto;
 					min-width: auto;
 					padding: 0.6rem 0.6rem;
 				}
@@ -248,7 +251,7 @@ $radius: var(--radius);
 .catalog-layout {
 	display: flex;
 	height: 100%;
-	gap: 4rem;
+	gap: 3rem;
 	padding-left: 1.5rem;
 	width: 100%;
 	min-height: 0;
@@ -263,13 +266,13 @@ $radius: var(--radius);
 
 	.catalog-main {
 		padding-top: 1rem;
-		padding-right: 1rem;
+		padding-right: 3rem;
 		flex: 1;
 		min-width: 0;
 		height: 100%;
 		min-height: 0;
 		overflow-y: auto;
-		overflow-x: hidden;
+		/* overflow-x: hidden; */
 		scrollbar-color: var(--border-color) #00000000;
 
 		@include laptop {
@@ -387,7 +390,7 @@ $radius: var(--radius);
 		flex: 0 0 $sidebar-width;
 		position: static;
 		top: calc(#{$header-height} + 5rem);
-		padding: 1.5rem 0;
+		padding: 1rem 0;
 		gap: 1.5rem;
 
 		@include laptop {
@@ -437,7 +440,6 @@ $radius: var(--radius);
 
 		.sorting-sidebar {
 			width: $sidebar-width;
-			top: calc(#{$header-height} + 60px);
 			align-self: flex-start;
 			background: var(--background-l1);
 			border-radius: $radius;

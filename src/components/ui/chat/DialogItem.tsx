@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { ICatalogListing, ChatData, ChatType, MessageType, ShortUser, useChats, useChatSubscription } from "@core/lib";
+import { IShortListing , IChat, ChatType, MessageType, IShortUser, useChats, useChatSubscription } from "@core/lib";
 import { Avatar } from "@core/components";
 import { useLocation } from "react-router-dom";
 import { setDefaultNamespace } from "i18next";
 
 interface DialogItemProps {
-    chat: ChatData,
+    chat: IChat,
     pageLoading: boolean,
     setPageLoading: React.Dispatch<React.SetStateAction<boolean>>
 }

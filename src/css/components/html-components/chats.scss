@@ -234,7 +234,7 @@ $min-radius: 1px;
 
                     #messageTime {
                         font-size: 0.7rem;
-                        color: var(--gray);
+                        color: var(--text-color-l1);
                         white-space: nowrap;
                         margin: 0;
                     }
@@ -256,7 +256,7 @@ $min-radius: 1px;
         .message-date {
             text-align: center;
             font-size: 0.75rem;
-            color: var(--gray);
+            color: var(--text-color-l1);
             margin: 1rem 0;
             position: relative;
 
@@ -348,7 +348,7 @@ $min-radius: 1px;
     .no-dialogs {
         text-align: center;
         padding: 2rem;
-        color: var(--gray);
+        color: var(--text-color-l1);
 
         p {
             margin: 0.5rem 0;
@@ -394,7 +394,7 @@ $min-radius: 1px;
 
                     .dialog-time {
                         font-size: 0.75rem;
-                        color: var(--gray);
+                        color: var(--text-color-l1);
                         flex-shrink: 0;
                         margin-left: 0.5rem;
                     }
@@ -408,7 +408,7 @@ $min-radius: 1px;
 
                     .dialog-preview {
                         font-size: 0.85rem;
-                        color: var(--gray);
+                        color: var(--text-color-l1);
                         margin: 0;
                         white-space: nowrap;
                         overflow: hidden;
@@ -452,5 +452,7 @@ $min-radius: 1px;
         right: -17px;
         bottom: -5px;
         border: 6px solid var(--background-l1);
+        transition: border 0.4s;
+        background-color: var(--background-l1);
     }
 }

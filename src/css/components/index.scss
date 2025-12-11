@@ -1,9 +1,10 @@
 @use './cards/listing-draft-card';
 @use './cards/listing-small-card';
 @use './cards/listing-card';
+@use './cards/public-listing-card';
 @use './cards/resume-card';
 @use './html-components';
-@use './base';
+@use './layout';
 @use './buttons';
 @use './header';
 @use './listings-management';

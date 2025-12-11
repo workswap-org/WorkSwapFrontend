@@ -4,6 +4,7 @@ import {
 } from "@core/components";
 import {
     checkFavorite,
+    listingTypesWithRating,
     toggleFavorite,
     useAuth
 } from "@core/lib";
@@ -37,27 +38,17 @@ const PublicListingCard = ({listing}) => {
     }
 
     return (
-        <article onClick={() => navigator()} className="listing-card hover-animation-card">
-            <img 
-                src={listing.imagePath || `/images/default-listing.svg`}
-                alt="Изображение объявления"
-                onError={(e) => { e.currentTarget.src = `/images/default-listing.svg`; }}
-            />
+        <article onClick={() => navigator()} className="public-listing-card">
 
-            {isNew && (
-                <div className="listing-status red">{t(`catalog.newListing`, { ns: 'tooltips' })}</div>
-            )}
-            <div className="listing-card_body">
-                <h3 className="listing-card_title">{listing.localizedTitle}</h3>
-                {/* <p className="text">{listing.localizedDescription}</p> */}
-                <div className="listing-card_footer">
-                    <div className="flex-column">
-                        {/* компонент для отображение цены (с типом) */}
-                        <PriceTypes listing={listing} />
-                        <ListingRating listing={listing} />
-                    </div>
-                    <span className="listing-card_location">{listing.location}</span>
-                </div>
+            <div 
+                className="image-wrapper"
+                style={{ "--bg-image": `url(${listing.imagePath || "/images/default-listing.svg"})` }}
+            >
+                <img
+                    src={listing.imagePath || "/images/default-listing.svg"}
+                    alt="Изображение объявления"
+                    onError={(e) => { e.currentTarget.src = "/images/default-listing.svg"; }}
+                />
                 {user && (
                     <div className="listing-card_actions">
                         <i 
@@ -71,6 +62,23 @@ const PublicListingCard = ({listing}) => {
                         ></i>
                     </div>
                 )}
+            </div>
+
+            {isNew && (
+                <div className="listing-status red">{t(`catalog.newListing`, { ns: 'tooltips' })}</div>
+            )}
+            <div className="listing-card_body">
+                <h3 className="listing-card_title">{listing.localizedTitle}</h3>
+                {/* <p className="text">{listing.localizedDescription}</p> */}
+
+                <PriceTypes listing={listing} />
+                {listingTypesWithRating.includes(listing.type) && listing.rating > 0 && (
+                    <ListingRating rating={listing.rating} />
+                )}
+                <span className="listing-card_location"><i class="fa-regular fa-location-dot"></i> {listing.location}</span>
+                <div className="listing-card_footer">
+                    
+                </div>
             </div>
         </article>
     );

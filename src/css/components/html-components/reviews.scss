@@ -131,7 +131,7 @@ section.reviews {
                         display: flex;
                         gap: 1rem;
                         font-size: 0.9rem;
-                        color: var(--gray);
+                        color: var(--text-color-l1);
 
                         .review-rating {
                             color: var(--rating-star);
@@ -148,7 +148,7 @@ section.reviews {
                     right: 0.5rem;
                     position: absolute;
                     font-size: 0.9rem;
-                    color: var(--gray);
+                    color: var(--text-color-l1);
                 }
             }
 
