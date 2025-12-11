@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
-import { Avatar } from "@core/components";
+import { Avatar, RatingStars } from "@core/components";
 import { 
     useAuth,
     connectUserTelegram,
@@ -15,11 +15,11 @@ const AccountSidebar = () => {
     const { t } = useTranslation(['buttons', 'navigation'])
     const { user } = useAuth();
     const [telegramConnected, setTelegramConnected] = useState(true)
-    const {notificate} = useNotification();
+    const { notificate } = useNotification();
 
     async function connectTelegram() {
         try {
-            const linkUrl = await connectUserTelegram();
+            const linkUrl: string = await connectUserTelegram();
 
             if (linkUrl) {
                 setTelegramConnected(true);
@@ -42,7 +42,7 @@ const AccountSidebar = () => {
     }, []);
 
     return(
-        <aside className="account-sidebar" th:fragment="sidebar">
+        <aside className="account-sidebar">
             <div className="profile-card">
                 <Avatar 
                     user={user}
@@ -51,17 +51,7 @@ const AccountSidebar = () => {
                 />
                 <h4 className="profile-card-name">{user?.name}</h4>
                 <p className="profile-card-rating">
-                    {Array.from({ length: 5 }, (_, i) => {
-                        const starValue = i + 1;
-
-                        if (user?.rating >= starValue) {
-                            return <i className="fa-solid fa-star" key={starValue} ></i>;
-                        } else if (user?.rating >= starValue - 0.5) {
-                            return <i className="fa-solid fa-star-half-stroke" key={starValue} ></i>;
-                        } else {
-                            return <i className="fa-regular fa-star" key={starValue} ></i>;
-                        }
-                    })}
+                    <RatingStars rating={user?.rating ?? 0} />
                     (<span>{user?.rating}</span>)
                 </p>
                 {/* <a href="/account/settings" className="btn btn-outline-primary btn-sm">{t(`accountSidebar.links.editProfile`, { ns: 'navigation' })}</a> */}

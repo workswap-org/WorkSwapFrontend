@@ -1,20 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
-    ListingRating,
+    RatingStars,
     PriceTypes
 } from "@core/components";
-import {
-    UserInfoSidebar,
-    ReviewsSection
-} from "@/components";
-import CatalogContent from "@/pages/CatalogPage/CatalogContent";
 import { useTranslation } from 'react-i18next';
-import ListingGallery from "./ListingGallery";
 import { 
     getListingById,
     viewListing, 
-    getUserById,
     IListingPageRequest,
     IShortUserProfile,
 } from '@core/lib';
@@ -62,7 +55,7 @@ const ListingPage = () => {
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
-                        <ListingRating listing={listing}/>
+                        <RatingStars rating={listing?.rating ?? 0}/>
                     </div>
                 </>
             )}   

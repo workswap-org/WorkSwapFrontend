@@ -11,15 +11,15 @@ import {
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { createPortal } from "react-dom";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
-const MobileMenu = ({mobileVisible}) => {
+const MobileMenu = ({mobileVisible}: {mobileVisible: boolean}) => {
 
-    const [mobileMenuEm, setMobileMenuEm] = useState(null);
+    const [mobileMenuEm, setMobileMenuEm] = useState<HTMLElement | null>(null);
     
-        useEffect(() => {
-            setMobileMenuEm(document.getElementById("mobile-menu"));
-        }, []);
+    useEffect(() => {
+        setMobileMenuEm(document.getElementById("mobile-menu"));
+    }, []);
 
     const { t } = useTranslation('navigation')
 

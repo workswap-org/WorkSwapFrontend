@@ -1,9 +1,9 @@
 import { Avatar } from "@core/components";
-import { useAuth, useNotification } from "@core/lib";
+import { IShortUserProfile, IUserProfile, useAuth, useNotification } from "@core/lib";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-const UserInfoSidebar = ({listingId, author} ) => { 
+const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author: IShortUserProfile | null}) => { 
 
     const { t } = useTranslation();
     const {notificate} = useNotification();
@@ -64,7 +64,7 @@ const UserInfoSidebar = ({listingId, author} ) => {
                             <div 
                                 className="contact-item hover"
                                 onClick={() => {
-                                    navigator.clipboard.writeText(author.phone)
+                                    navigator.clipboard.writeText(author.phone ?? "")
                                         .then(() => notificate(t(`notification.success.copyPhone`, { ns: 'messages' }), "success"))
                                         .catch(() => notificate("Ошибка", "error"));
                                 }}
@@ -78,7 +78,7 @@ const UserInfoSidebar = ({listingId, author} ) => {
                             <div 
                                 className="contact-item hover"
                                 onClick={() => {
-                                    navigator.clipboard.writeText(author.email)
+                                    navigator.clipboard.writeText(author.email ?? "")
                                         .then(() => notificate(t(`notification.success.copyEmail`, { ns: 'messages' }), "success"))
                                         .catch(() => notificate("Ошибка", "error"));
                                 }}
@@ -92,13 +92,6 @@ const UserInfoSidebar = ({listingId, author} ) => {
                             <span>Нет контактов</span>
                         )}
                     </div>
-                </div>
-            )}
-
-            {(!listingId && author.bio) && (
-                <div className="contact-card">
-                    <h3>{t(`labels.description`, { ns: 'common' })}</h3>
-                    <p className="listing-description">{author.bio}</p>
                 </div>
             )}
         </aside>

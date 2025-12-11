@@ -48,7 +48,7 @@ const ListingPageLayout = ({
             <nav className="breadcrumbs">
                 <div>
                     <Link to="/catalog">
-                        {t(`breadcrumps.catalog`, { ns: 'navigation' })}
+                        {t(`catalog`, { ns: 'navigation' })}
                     </Link>
                     <span className="divider">/</span>
                 </div>
@@ -140,7 +140,7 @@ const ListingPageLayout = ({
                         </div>
                     </div>
                     {/* Боковая панель с контактами */}
-                    <UserInfoSidebar listingId={listing?.id} author={author} />
+                    <UserInfoSidebar listingId={listing?.id ?? null} author={author} />
                     {extraSidebarElements}
                 </div>
             </div>

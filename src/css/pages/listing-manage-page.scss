@@ -122,8 +122,8 @@
             border-radius: var(--radius);
             padding: 0.5rem 2rem;
             text-align: center;
-            width: 100%;
             position: relative;
+            width: fit-content;
             white-space: nowrap;
 
             &.active {
@@ -161,20 +161,25 @@
 
 .translation-status {
     height: 1.5rem;
-    right: 1rem;
+    right: 0.5rem;
     bottom: 0.5rem;
     position: absolute;
     font-size: 1.1rem;
+    z-index: 10;
 
     .progress-container {
         height: 100%;
         position: relative;
-        display: inline-flex;
+        display: flex;
         justify-content: center;
         align-items: center;
+        width: 20px;
+        height: 20px;
+        translate: 0 1px;
     }
 
     * {
+        z-index: 79;
         position: absolute;
     }
 

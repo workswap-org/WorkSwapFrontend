@@ -1,19 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams, Link, useLocation} from "react-router-dom";
+import { useParams, useLocation} from "react-router-dom";
 import {
-    ListingRating,
+    RatingStars,
     PriceTypes,
     FormattedDate,
     Avatar
 } from "@core/components";
-import {
-    UserInfoSidebar,
-    ReviewsSection,
-    ChatWindow
-} from "@/components";
-import CatalogContent from "@/pages/CatalogPage/CatalogContent";
+import { ChatWindow } from "@/components";
 import { useTranslation } from 'react-i18next';
-import ListingGallery from "./ListingGallery";
 import { 
     getEventPage,
     useAuth,
@@ -137,7 +131,7 @@ const EventPage = () => {
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">{t(`labels.rating`, { ns: 'common' })}:</span>
-                        <ListingRating rating={event?.rating}/>
+                        <RatingStars rating={event?.rating ?? 0}/>
                     </div>
                 </>
             )}

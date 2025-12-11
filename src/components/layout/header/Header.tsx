@@ -12,7 +12,7 @@ const Header = () => {
 
     const location = useLocation();
 
-    const [mobileVisible, setMobileVisible] = useState(false);
+    const [mobileVisible, setMobileVisible] = useState<boolean>(false);
 
     useEffect(() => {
         setMobileVisible(false);

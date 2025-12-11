@@ -26,14 +26,14 @@ const AccountSidebarLinks = () => {
                 className={`account-menu-item`}
             >
                 <div><i className={`fa-regular fa-grid-2 fa-lg`}></i></div>
-                {t(`accountSidebar.links.catalog`, { ns: 'navigation' })}
+                {t(`catalog`, { ns: 'navigation' })}
             </NavLink>
             <NavLink
                 to='/forum'
                 className={`account-menu-item`}
             >
                 <div><i className={`fa-regular fa-comments fa-lg`}></i></div>
-                {t(`accountSidebar.links.forum`, { ns: 'navigation' })}
+                {t(`forum`, { ns: 'navigation' })}
             </NavLink>
             {links.map((link) => (
                 <NavLink

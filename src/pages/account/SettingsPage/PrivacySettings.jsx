@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const PrivacySettings = ({ user, updateUser }) => {
 
     const { t } = useTranslation(['tooltips', 'common'])
 
-    const [phoneVisible, setPhoneVisible] = useState(user.phoneVisible || false);
-    const [emailVisible, setEmailVisible] = useState(user.emailVisible || false);
+    const phoneVisible = useMemo(() => {return user.phoneVisible || false}, [user.phoneVisible]);
+    const emailVisible = useMemo(() => {return user.emailVisible || false}, [user.emailVisible]);
 
     return (
         <div className="form-section">
@@ -18,10 +18,7 @@ const PrivacySettings = ({ user, updateUser }) => {
                         <input
                             type="checkbox"
                             checked={phoneVisible}
-                            onChange={(e) => {
-                                setPhoneVisible(e.target.checked);
-                                updateUser({ phoneVisible: e.target.checked });
-                            }}
+                            onChange={(e) => updateUser({ phoneVisible: e.target.checked })}
                         />
                         <span className="slider"></span>
                     </label>
@@ -35,10 +32,7 @@ const PrivacySettings = ({ user, updateUser }) => {
                         <input
                             type="checkbox"
                             checked={emailVisible}
-                            onChange={(e) => {
-                                setEmailVisible(e.target.checked);
-                                updateUser({ emailVisible: e.target.checked });
-                            }}
+                            onChange={(e) => updateUser({ emailVisible: e.target.checked })}
                         />
                         <span className="slider"></span>
                     </label>

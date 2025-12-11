@@ -1,6 +1,6 @@
 import { 
     PriceTypes,
-    ListingRating
+    RatingStars
 } from "@core/components";
 import {
     checkFavorite,
@@ -73,7 +73,7 @@ const PublicListingCard = ({listing}) => {
 
                 <PriceTypes listing={listing} />
                 {listingTypesWithRating.includes(listing.type) && listing.rating > 0 && (
-                    <ListingRating rating={listing.rating} />
+                    <RatingStars rating={listing.rating} />
                 )}
                 <span className="listing-card_location"><i class="fa-regular fa-location-dot"></i> {listing.location}</span>
                 <div className="listing-card_footer">

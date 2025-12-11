@@ -22,16 +22,16 @@ const NavButtons = () => {
                 </div>
 
                 <NavLink to="/forum" className="nav-link">
-                    Форум
+                    {t(`forum`, { ns: 'navigation' })}
                 </NavLink>
 
                 <NavLink to="/catalog" className="nav-link">
-                    Каталог
+                    {t(`catalog`, { ns: 'navigation' })}
                 </NavLink>
 
                 {isAdmin && (
                     <a href="https://dash.workswap.org" className="nav-link" target="_blank" rel="noreferrer">
-                        Админка
+                        {t(`admin`, { ns: 'navigation' })}
                     </a>
                 )}
             </div>

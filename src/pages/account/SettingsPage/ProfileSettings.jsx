@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { useNotification, uploadAvatar } from "@core/lib";
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const ProfileSettings = ({ user, updateUser }) => {
 
-    const [name, setName] = useState(user.name || "");
-    const [email, setEmail] = useState(user.email || "");
-    const [phone, setPhone] = useState(user.phone || "");
-    const [bio, setBio] = useState(user.bio || "");
-    const [avatarType, setAvatarType] = useState(user.avatarType || "uploaded");
+    const name = useMemo(() => {return user.name || ""}, [user.name]);
+    const email = useMemo(() => {return user.email || ""}, [user.email]);
+    const phone = useMemo(() => {return user.phone || ""}, [user.phone]);
+    const bio = useMemo(() => {return user.bio || ""}, [user.bio]);
+    const avatarType = useMemo(() => {return user.avatarType || "uploaded"}, [user.avatarType]);
 
     // Подсчёт символов
     const maxNameLen = 30;
@@ -23,27 +23,6 @@ const ProfileSettings = ({ user, updateUser }) => {
     useEffect(() => {
         if(user) setUploadedAvatar(user?.uploadedAvatar)
     }, [user])
-
-    const nameChange = useCallback((name) => {
-        setName(name);
-        updateUser({ name });
-    }, [updateUser]);
-
-    const phoneChange = useCallback((phone) => {
-        setPhone(validatePhone(phone));
-        updateUser({ phone });
-    }, [updateUser]);
-
-    const bioChange = useCallback((bio) => {
-        setBio(bio);
-        updateUser({ bio });
-    }, [updateUser]);
-
-    const avatarTypeChange = useCallback((avatarType, avatarUrl) => {
-        setAvatarType(avatarType);
-        if (avatarType) updateUser({ avatarType });
-        if (avatarUrl) updateUser({ avatarUrl });
-    }, [updateUser]);
 
     // Валидация телефона
     function validatePhone(value) {
@@ -99,7 +78,7 @@ const ProfileSettings = ({ user, updateUser }) => {
                             <input
                                 type="text"
                                 value={name ?? ""}
-                                onChange={(e) => nameChange(e.target.value)}
+                                onChange={(e) => updateUser({ name: e.target.value })}
                                 maxLength={maxNameLen}
                                 required
                             />
@@ -124,7 +103,7 @@ const ProfileSettings = ({ user, updateUser }) => {
                             <input
                                 type="tel"
                                 value={phone ?? ""}
-                                onChange={(e) => phoneChange(e.target.value)}
+                                onChange={(e) => updateUser(validatePhone({ phone: e.target.value }))}
                                 maxLength={maxPhoneLen}
                             />
                             <span className="char-counter">{phone?.length} / {maxPhoneLen}</span>
@@ -139,7 +118,9 @@ const ProfileSettings = ({ user, updateUser }) => {
                 <div className="avatar-options">
                     <div
                         className={`avatar-option ${avatarType === "uploaded" ? "selected" : ""}`}
-                        onClick={() => avatarTypeChange("uploaded", uploadedAvatar)}
+                        onClick={() => {
+                            updateUser({ avatarType: "uploaded" });
+                        }}
                     >
                         <img 
                             className="avatar-preview avatar"
@@ -162,7 +143,9 @@ const ProfileSettings = ({ user, updateUser }) => {
                     </div>
                     <div
                         className={`avatar-option ${avatarType === "google" ? "selected" : ""}`}
-                        onClick={() => avatarTypeChange("google", user.googleAvatar)}
+                        onClick={() => {
+                            updateUser({ avatarType: "google" });
+                        }}
                     >
                         <img 
                             className="avatar-preview avatar"
@@ -172,7 +155,9 @@ const ProfileSettings = ({ user, updateUser }) => {
                     </div>
                     <div
                         className={`avatar-option ${avatarType === "default" ? "selected" : ""}`}
-                        onClick={() => avatarTypeChange("default", "/images/avatar-placeholder.png")}
+                        onClick={() => {
+                            updateUser({ avatarType: "default" });
+                        }}
                     >
                         <img className="avatar-preview avatar" src="/images/avatar-placeholder.png" alt="Default" />
                         <span>{t(`settings.avatarTypes.default`, { ns: 'common' })}</span>
@@ -189,7 +174,7 @@ const ProfileSettings = ({ user, updateUser }) => {
                         <textarea 
                             className='bio'
                             value={bio ?? ""}
-                            onChange={(e) => bioChange(e.target.value)}
+                            onChange={(e) => updateUser({ bio: e.target.value})}
                             maxLength={maxBioLen}
                             rows={4}
                         />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { getUserProfile, IUserProfile } from "@core/lib";
+import { getUserProfile, IShortListing, IShortUserProfile, IUserProfile } from "@core/lib";
 import {
     PublicListingCard,
     UserInfoSidebar,
@@ -14,11 +14,17 @@ const ProfilePage = () => {
     const { t } = useTranslation(['common']);
 
     const { userOpenId } = useParams();
-    const [user, setUser] = useState<IUserProfile | null>(null);
+    const [listings, setListings] = useState<IShortListing[] | null>(null);
+    const [user, setUser] = useState<IShortUserProfile | null>(null);
     const [error, setError] = useState<boolean>(false);
 
     useEffect(()=> {
-        getUserProfile(userOpenId).then(data => setUser(data)).catch(() => setError(true));
+        getUserProfile(userOpenId)
+            .then(data => {
+                setUser(data.user)
+                setListings(data.listings)
+            })
+            .catch(() => setError(true));
     }, [userOpenId]);
 
     if (error) return <NotFoundPage/>;
@@ -30,7 +36,7 @@ const ProfilePage = () => {
             <div className="listing-main-content">
                 <div className="listing-content">
                     <div className="listings-grid">
-                        {user?.listings?.slice()
+                        {listings?.slice()
                             .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
                             .map((listing) => (
                                 <PublicListingCard 
@@ -42,7 +48,17 @@ const ProfilePage = () => {
                     </div>
                 </div>
 
-                <UserInfoSidebar listingId='' author={user}/>
+                <div className="listing-sidebar">
+
+                    <UserInfoSidebar listingId={null} author={user}/>
+
+                    {(user?.bio) && (
+                        <div className="contact-card">
+                            <h3>{t(`labels.description`, { ns: 'common' })}</h3>
+                            <p className="listing-description">{user.bio}</p>
+                        </div>
+                    )}
+                </div>
             </div>
 
             <ReviewsSection listingId='' profileId={user?.id} />
