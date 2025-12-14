@@ -33,6 +33,7 @@ const ForumTopicPage = () => {
     const createPost = async() => {
         setSending(true);
         const author: IShortUser = {
+            id: user?.id ?? 0,
             name: user?.name ?? "",
             avatarUrl: user?.avatarUrl ?? "",
             openId: user?.openId ?? ""
@@ -161,6 +162,7 @@ const ForumTopicPost = ({
 
     const createComment = async(postOpenId: string) => {
         const author: IShortUser = {
+            id: user?.id ?? 0,
             name: user?.name ?? "",
             avatarUrl: user?.avatarUrl ?? "",
             openId: user?.openId ?? ""

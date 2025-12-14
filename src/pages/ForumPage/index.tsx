@@ -1,36 +1,13 @@
 import { useEffect, useState } from 'react';
-import { createForumTopic, ForumTag, getForumTags, getRecentTopics, ShortForumTopic } from '@core/lib';
-import { Link, useNavigate } from 'react-router-dom';
-import { TextareaRT1 } from '@core/components';
+import { ForumTag, getForumTags, getRecentTopics, ShortForumTopic } from '@core/lib';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import ForumTopicCreateModal from './ForumTopicCreateModal';
 
 export const ForumPage = () => {
-
-    const { t } = useTranslation('forumtags')
-
-    const [theme, setTheme] = useState("");
-    const navigate = useNavigate();
-    const [newThemeTag, setNewThemeTag] = useState<ForumTag | null>(null);
+    
     const [tags, setTags] = useState<ForumTag[] | []>([]);
-    const [sending, setSending] = useState(false);
     const [forumTopics, setForumTopics] = useState<ShortForumTopic[] | []>([]);
-
-    const createTopic = async () => {
-        setSending(true);
-        const newTopic = {
-            createdAt: "",
-            openId: "",
-            theme: theme,
-            tagName: newThemeTag?.name ?? "",
-            postsCount: 0
-        }
-        const topicOpenId: string = await createForumTopic(newTopic);
-        setSending(false);
-        if (topicOpenId) {
-            setTheme('');
-            navigate(`/forum/topic/${topicOpenId}`);
-        }
-    } 
 
     useEffect(() => {
         async function loadRecentTopics(count: number, translationsFilter: boolean) {
@@ -50,34 +27,14 @@ export const ForumPage = () => {
         <div className="forum-page">
             <h1>Форум</h1>
             <div className="forum-topic-list">
-                <h3>Создать тему</h3>
-                <div className='forum-topic-form'>
-                    <TextareaRT1 
-                        value={theme} 
-                        setValue={setTheme} 
-                        className="forum-comment" 
-                        placeholder='Введите тему...'
-                    />
-                    <button onClick={createTopic} id="sendBtn" className="hover" disabled={sending}>
-                        <i className="fa-solid fa-paper-plane-top fa-lg"></i>
-                    </button>
-                </div>
-                <div className='tags-list'>
-                    {tags.map(tag => (
-                        <div 
-                            className={`forum-tag ${tag.id == newThemeTag?.id ? "selected" : ""}`} 
-                            onClick={() => setNewThemeTag(prev => prev?.id == tag.id ? null : tag)}
-                        >
-                            {t(tag.name)}
-                        </div>
-                    ))}
-                </div>
+                <ForumTopicCreateModal tags={tags}/>
+                
                 <h3>Последние темы</h3>
                 {forumTopics
                     .slice()
                     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                     .map((topic: ShortForumTopic) => (
-                        <ForumTopicCard topic={topic} />
+                        <ForumTopicCard key={topic.openId} topic={topic} />
                     ))
                 }
             </div>

@@ -75,7 +75,7 @@ const PublicListingCard = ({listing}) => {
                 {listingTypesWithRating.includes(listing.type) && listing.rating > 0 && (
                     <RatingStars rating={listing.rating} />
                 )}
-                <span className="listing-card_location"><i class="fa-regular fa-location-dot"></i> {listing.location}</span>
+                <span className="listing-card_location"><i className="fa-regular fa-location-dot"></i> {listing.location}</span>
                 <div className="listing-card_footer">
                     
                 </div>
