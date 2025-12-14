@@ -14,6 +14,8 @@ const ListingEditActions = ({
     const { notificate } = useNotification();
     const navigate = useNavigate();
 
+    console.log(listing)
+
     return (
         <>
             <button 
