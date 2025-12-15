@@ -84,10 +84,14 @@ header {
             }
 
             .mobile-nav-buttons {
-                @include flex-row;
+                display: none;
+
+                @include tablet {
+                    @include flex-row;
+                }
                 
                 .navbar-toggler {
-                    display: none;
+                    display: flex;
                     background: none;
                     border: none;
                     align-items: center;
@@ -95,10 +99,6 @@ header {
 
                     i {
                         font-size: 2rem;
-                    }
-
-                    @include tablet {
-                        display: flex;
                     }
                 }
             }

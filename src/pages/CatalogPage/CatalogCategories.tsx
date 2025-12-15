@@ -1,49 +1,45 @@
-import { useCallback, useEffect, useState, useRef, useMemo } from "react";
-import { getAllCategories } from "@core/lib";
+import { useCallback, useEffect, useState, useRef, useMemo, Dispatch, SetStateAction, ReactNode } from "react";
+import { CatalogFilters, getAllCategories, ICategory, ListingType, ListingTypeValue } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const CategoryButton = ({ active, onClick, children }) => (
-    <button
-        type="button"
-        className={`category-item hover ${active ? "active" : ""}`}
-        onClick={onClick}
-    >
-        {children}
-        <div className={`indicator ${active ? "active" : ""}`}>
-        <i className="fa-solid fa-angle-right"></i>
-        </div>
-    </button>
-);
+interface CatalogCategoriesProps {
+    categoriesMenu: boolean;
+    setCategoriesMenu: Dispatch<SetStateAction<boolean>>;
+    filters: CatalogFilters;
+    updateFilter: (key: string, value: string | boolean | number | null) => void;
+}
 
 const CatalogCategories = ({
     categoriesMenu,
     setCategoriesMenu,
     filters,
     updateFilter
-}) => {
-    const [categories, setCategories] = useState([]);
-    const [listingType, setListingType] = useState("product");
+}: CatalogCategoriesProps) => {
+    const [categories, setCategories] = useState<Record<string, ICategory[]> | null>(null);
+    const [listingType, setListingType] = useState<ListingTypeValue>(ListingType.PRODUCT);
     const { t } = useTranslation(['categories', 'tooltips']);
 
-    const timeoutRef = useRef();
+    const timeoutRef = useRef<number>(0);
 
     useEffect(() => {
         getAllCategories()
             .then(data => setCategories(data))
     }, []);
 
-    const rootCategories = useMemo(() => (
-        categories[listingType]?.filter(cat => cat.parentId == null) || []
-    ), [categories, listingType]);
+    const rootCategories = useMemo(() => {
+        if (!categories) return [];
+        return categories[listingType]?.filter(cat => cat.parentId == null) || []
+    }, [categories, listingType]);
 
-    const children = useCallback((parentId) => (
-        categories[listingType]?.filter(cat => cat.parentId === parentId) || []
-    ), [categories, listingType]);
+    const children = useCallback((parentId: number) => {
+        if (!categories) return [];
+        return categories[listingType]?.filter(cat => cat.parentId === parentId) || []
+    }, [categories, listingType]);
 
-    const selectedCategory = useMemo(
-        () => categories[listingType]?.find(cat => cat.id === filters.categoryId) || null,
-        [categories, listingType, filters]
-    );
+    const selectedCategory = useMemo<ICategory | null>(() => {
+        if (!categories) return null;
+        return categories[listingType]?.find(cat => cat.id === filters.categoryId) || null
+    }, [categories, listingType, filters]);
 
     const handleMouseLeave = () => {
         timeoutRef.current = setTimeout(() => setCategoriesMenu(false), 500);
@@ -57,7 +53,7 @@ const CatalogCategories = ({
         onMouseLeave={handleMouseLeave}
         >
         <div className="category-types">
-            {["service", "product"].map(type =>
+            {[ListingType.SERVICE, ListingType.PRODUCT].map(type =>
             <button
                 key={type}
                 className="hover"
@@ -118,5 +114,18 @@ const CatalogCategories = ({
         </div>
     );
 };
+
+const CategoryButton = ({ active, onClick, children }: {active: boolean, onClick: () => void, children: ReactNode}) => (
+    <button
+        type="button"
+        className={`category-item hover ${active ? "active" : ""}`}
+        onClick={onClick}
+    >
+        {children}
+        <div className={`indicator ${active ? "active" : ""}`}>
+        <i className="fa-solid fa-angle-right"></i>
+        </div>
+    </button>
+);
 
 export default CatalogCategories;

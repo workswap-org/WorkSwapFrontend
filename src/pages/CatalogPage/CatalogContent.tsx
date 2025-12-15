@@ -1,12 +1,18 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
 import { 
-    getSortedListings, 
+    CatalogFilters,
+    getSortedListings,
+    IShortListing, 
 } from "@core/lib";
 import { useTranslation } from "react-i18next";
 import { PublicListingCard } from "@/components";
 import { useNavigate } from "react-router-dom";
 
-const CatalogContent = ({ mainListingId, params, setTotalPages}) => {
+interface CatalogContentProps {
+    params: CatalogFilters;
+    setTotalPages: Dispatch<SetStateAction<number>>
+}
+const CatalogContent = ({ params, setTotalPages}: CatalogContentProps) => {
 
     const { i18n } = useTranslation();
     const userLocale = i18n.language || "fi";
@@ -14,9 +20,9 @@ const CatalogContent = ({ mainListingId, params, setTotalPages}) => {
     const { t } = useTranslation(['common', 'navigation'])
     const navigate = useNavigate();
 
-    const [listings, setListings] = useState([]);
+    const [listings, setListings] = useState<IShortListing[] | null>(null);
 
-    const lastRequestId = useRef(0);
+    const lastRequestId = useRef<number>(0);
 
     useEffect(() => {
         const requestId = ++lastRequestId.current;
@@ -33,11 +39,10 @@ const CatalogContent = ({ mainListingId, params, setTotalPages}) => {
     return (
         <div className="catalog-content">
             <div className="listings-grid">
-                {listings.map((listing) => (
+                {listings?.map((listing) => (
                         <PublicListingCard 
                             key={listing.id}
                             listing={listing}
-                            isMainListing={listing.id == mainListingId ? true : false}
                         />
                     ))
                 }

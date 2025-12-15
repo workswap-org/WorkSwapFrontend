@@ -7,14 +7,20 @@ const sorts = [
 
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useAuth } from '@core/lib';
+import { CatalogFilters, useAuth } from '@core/lib';
 
+interface CatalogSidebarProps {
+    filters: CatalogFilters;
+    updateFilter: (key: string, value: string | boolean | null) => void;
+    sidebarOpened: boolean;
+    toggleSidebar: () => void
+}
 const CatalogSidebar = ({
     filters,
     updateFilter,
     sidebarOpened,
     toggleSidebar,
-}) => {
+}: CatalogSidebarProps) => {
 
     const { user } = useAuth()
     const { t } = useTranslation(['common', 'navigation'])

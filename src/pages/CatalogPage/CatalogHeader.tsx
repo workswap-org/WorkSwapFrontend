@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import CatalogCategories from "./CatalogCategories";
+import { CatalogFilters } from "@core/lib";
 
 const CatalogHeader = ({
     filters,
     updateFilter,
+}: {
+    filters: CatalogFilters;
+    updateFilter: (key: string, value: string | boolean | number | null) => void;
 }) => {
 
     const { t } = useTranslation('categories')
 
-    const [categoriesMenu, setCategoriesMenu] = useState(false);
+    const [categoriesMenu, setCategoriesMenu] = useState<boolean>(false);
 
     return (
         <div className="catalog-header">

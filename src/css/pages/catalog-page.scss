@@ -225,6 +225,8 @@ $radius: var(--radius);
 				padding: 0.7rem 0.6rem;
 				outline: none;
 				box-shadow: none;
+				font-size: 1rem;
+				font-weight: 500;
 
 				@include tablet {
 					width: auto;
@@ -319,10 +321,6 @@ $radius: var(--radius);
 					background-color: var(--primary-light);
 				}
 			}
-		}
-
-		.catalog-content {
-			
 		}
 	}
 

@@ -1,7 +1,7 @@
 import CatalogSidebar from "./CatalogSidebar";
 import CatalogHeader from "./CatalogHeader";
 import CatalogContent from "./CatalogContent";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { listingPublicTypes } from "@core/lib"
 import { useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
@@ -43,7 +43,6 @@ const CatalogPage = () => {
     }, [filters])
 
     const [totalPages, setTotalPages] = useState(1);
-
     const [sidebarOpened, setSidebarOpened] = useState(false)
 
     function toggleSidebar() {
@@ -64,6 +63,15 @@ const CatalogPage = () => {
         initParams();
     }, [cleanFilters])
 
+    const contentRef = useRef(null);
+
+    useEffect(() => {
+        contentRef?.current?.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    }, [contentRef, filters.page])
+
     return(
         <>
             <CatalogHeader 
@@ -79,7 +87,7 @@ const CatalogPage = () => {
                     sidebarOpened={sidebarOpened}
                     toggleSidebar={toggleSidebar}
                 />
-                <main className="catalog-main">
+                <main className="catalog-main" ref={contentRef}>
                     <div className="listing-types-list">
                         {listingPublicTypes.map((type) => (
                             <button

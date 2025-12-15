@@ -4,6 +4,7 @@ import {
 } from "@core/components";
 import {
     checkFavorite,
+    IShortListing,
     listingTypesWithRating,
     toggleFavorite,
     useAuth
@@ -12,22 +13,20 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
-const PublicListingCard = ({listing}) => {
+const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
     const navigate = useNavigate();
     const [isFavorite, setFavorite] = useState(false);
     const { t } = useTranslation(['common', 'tooltips'])
     const { user } = useAuth();
 
-    const isNew = (new Date() - new Date(listing.publishedAt)) < 3 * 24 * 60 * 60 * 1000;
+    const isNew = (new Date().getTime() - new Date(listing.publishedAt).getTime()) < 3 * 24 * 60 * 60 * 1000;
 
     useEffect(() => {
         if (!listing.id || !user) return;
 
         checkFavorite(listing.id).then(data => setFavorite(data));
     }, [listing.id, user]);
-
-    if (listing.testMode || listing.temporary) return null;
 
     const navigator = () => {
         if (listing.type == "EVENT") {
@@ -42,7 +41,9 @@ const PublicListingCard = ({listing}) => {
 
             <div 
                 className="image-wrapper"
-                style={{ "--bg-image": `url(${listing.imagePath || "/images/default-listing.svg"})` }}
+                style={{ 
+                    "--bg-image": `url(${listing.imagePath || "/images/default-listing.svg"})` 
+                } as React.CSSProperties}
             >
                 <img
                     src={listing.imagePath || "/images/default-listing.svg"}
