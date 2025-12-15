@@ -1,7 +1,7 @@
 {
     "category": {
         "all-categories": "Kaikki kategoriat",
-"product": {
+        "PRODUCT": {
             "home-and-living": "Koti ja asuminen",
             "furniture": "Huonekalut",
             "textiles-and-interior": "Tekstiilit ja sisustus",
@@ -95,7 +95,7 @@
             "land-plots": "Tontit",
             "garages-and-parking": "Autotallit ja pysäköinti"
         },
-        "service": {
+        "SERVICE": {
             "accounting-and-taxes": "Kirjanpito ja verot",
             "apartment-and-house-cleaning": "Asuntojen ja talojen siivous",
             "appliance-repair": "Kodinkoneiden korjaus",

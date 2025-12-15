@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getCategoriesByType } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const CategorySelector = ({ listing, categoryId, onChange } ) => {
+const CategorySelector = ({ listing, onChange } ) => {
 
     const { t } = useTranslation(['common', 'categories']);
 
@@ -14,8 +14,8 @@ const CategorySelector = ({ listing, categoryId, onChange } ) => {
         getCategoriesByType(listing.type)
             .then(data => {
                 setCategories(data)
-                if (categoryId) {
-                    const path = findPathToCategory(data, categoryId);
+                if (listing.categoryId) {
+                    const path = findPathToCategory(data, listing.categoryId);
                     setSelectedPath(path);
                 }
             })
@@ -31,7 +31,7 @@ const CategorySelector = ({ listing, categoryId, onChange } ) => {
                 return [category.id];
             }
         }
-    }, [categoryId, listing.type])
+    }, [listing.categoryId, listing.type])
 
     const getChildren = (parentId) =>
         categories.filter((c) => c.parentId === parentId);
@@ -48,7 +48,7 @@ const CategorySelector = ({ listing, categoryId, onChange } ) => {
     const renderSelectors = () => {
         const selectors = [];
         let parentId = null;
-        const listingType = listing.type.toLowerCase()
+        const listingType = listing.type
 
         for (let level = 0; ; level++) {
             const children = getChildren(parentId);

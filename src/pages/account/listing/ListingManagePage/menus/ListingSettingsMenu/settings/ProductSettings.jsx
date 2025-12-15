@@ -22,7 +22,7 @@ const ProductSettings = ({
         <>
             <h2 className="two-columns-grid">{t(`labels.settings.product`, { ns: 'common' })}</h2>
             <ListingSetting title={t(`labels.category`, { ns: 'common' })}>
-                <CategorySelector listing={listing} categoryId={listing.categoryId} onChange={categoryChange} />
+                <CategorySelector listing={listing} onChange={categoryChange} />
             </ListingSetting>
         </>
     );

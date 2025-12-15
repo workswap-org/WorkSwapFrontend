@@ -1,7 +1,7 @@
 {
     "category": {
         "all-categories": "All categories",
-        "product": {
+        "PRODUCT": {
             "home-and-living": "Home and Living",
             "furniture": "Furniture",
             "textiles-and-interior": "Textiles and Interior",
@@ -95,7 +95,7 @@
             "land-plots": "Land Plots",
             "garages-and-parking": "Garages and Parking"
         },
-        "service": {
+        "SERVICE": {
             "accounting-and-taxes": "Accounting and Taxes",
             "apartment-and-house-cleaning": "Apartment and House Cleaning",
             "appliance-repair": "Appliance Repair",

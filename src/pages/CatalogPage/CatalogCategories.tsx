@@ -28,6 +28,7 @@ const CatalogCategories = ({
 
     const rootCategories = useMemo(() => {
         if (!categories) return [];
+        console.log(categories)
         return categories[listingType]?.filter(cat => cat.parentId == null) || []
     }, [categories, listingType]);
 
@@ -61,7 +62,7 @@ const CatalogCategories = ({
                 onClick={() => setListingType(type)}
             >
                 {t(`listingType.${type.toUpperCase()}`)}
-                <div className={`indicator ${listingType === type ? "active" : ""}`}>
+                <div className={`indicator ${listingType == type ? "active" : ""}`}>
                 <i className="fa-solid fa-angle-down"></i>
                 </div>
             </button>

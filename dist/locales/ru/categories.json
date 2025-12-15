@@ -1,7 +1,7 @@
 {
     "category": {
         "all-categories": "Все категории",
-        "product": {
+        "PRODUCT": {
             "home-and-living": "Дом и быт",
             "furniture": "Мебель",
             "textiles-and-interior": "Текстиль и интерьер",
@@ -95,7 +95,7 @@
             "land-plots": "Земельные участки",
             "garages-and-parking": "Гаражи и парковки"
         },
-        "service": {
+        "SERVICE": {
             "accounting-and-taxes": "Бухгалтерия и налоги",
             "apartment-and-house-cleaning": "Уборка квартир и домов",
             "appliance-repair": "Ремонт бытовой техники",
