@@ -36,7 +36,7 @@ const Header = () => {
                         </div>
                         {/* <img src="/images/maskot/base.png"/> */}
                     </Link>
-                    <div className="flex-row media-only-flex">
+                    <div className="mobile-nav-buttons">
                         <div className="nav-link">
                             <ThemeChanger id={"themeChangerHeader"}/>
                         </div>

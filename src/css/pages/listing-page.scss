@@ -15,7 +15,7 @@
         display: none;
     }
 
-    @include tablet-lg {
+    @include tablet {
         gap: 1rem;
         padding: 1rem;
     }
@@ -54,7 +54,7 @@
         gap: 2rem;
         margin-bottom: 2rem;
 
-        @include tablet-lg {
+        @include tablet {
             flex-direction: column;
             gap: 1rem;
         }
@@ -75,7 +75,7 @@
                 background: var(--background-l1);
                 box-shadow: 0 2px 8px var(--shadow-color);
 
-                @include tablet-lg {
+                @include tablet {
                     flex: 1;
                     width: 100%;
                 }
@@ -84,7 +84,7 @@
                     height: 450px;
                     overflow: hidden;
 
-                    @include tablet-lg {
+                    @include tablet {
                         height: 300px;
                     }
 
@@ -100,7 +100,7 @@
                             max-height: 450px;
                             object-fit: fill;
 
-                            @include tablet-lg {
+                            @include tablet {
                                 max-width: 100%;
                                 max-height: 300px;
                                 object-fit: fill;
@@ -280,7 +280,7 @@
             height: fit-content;
             position: sticky;
 
-            @include tablet-lg {
+            @include tablet {
                 width: 100%;
                 gap: 1rem;
             }

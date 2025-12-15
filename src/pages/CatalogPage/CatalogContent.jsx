@@ -31,21 +31,23 @@ const CatalogContent = ({ mainListingId, params, setTotalPages}) => {
     }, [params, setTotalPages, userLocale]);
     
     return (
-        <div className="listings-grid">
-            {listings.map((listing) => (
-                    <PublicListingCard 
-                        key={listing.id}
-                        listing={listing}
-                        isMainListing={listing.id == mainListingId ? true : false}
-                    />
-                ))
-            }
+        <div className="catalog-content">
+            <div className="listings-grid">
+                {listings.map((listing) => (
+                        <PublicListingCard 
+                            key={listing.id}
+                            listing={listing}
+                            isMainListing={listing.id == mainListingId ? true : false}
+                        />
+                    ))
+                }
 
-            <article onClick={() => navigate("/account/listing/create")} className="listing-card hover-animation-card">
-                <div className="center">
-                    <h3>{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</h3>
-                </div>
-            </article>
+                <article onClick={() => navigate("/account/listing/create")} className="public-listing-card hover-animation-card">
+                    <div className="center">
+                        <h3>{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</h3>
+                    </div>
+                </article>
+            </div>
         </div>
     );
 };

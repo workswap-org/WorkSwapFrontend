@@ -3,17 +3,27 @@
 /* Сетка избранных */
 .listings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     max-width: 100%;
 
+    @include laptop-lg {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+    }
+
     @include laptop {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+
+    @include tablet {
+        grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
     }
 
     @include mobile {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
 }
@@ -47,13 +57,13 @@
     justify-content: center;
     height: 100%;
     width: 100%;
-}
 
-.no-listings img{
-    max-width: 50%;
-}
+    img {
+        max-width: 50%;
+    }
 
-.no-listings p {
-    margin-bottom: 1rem;
-    color: var(--text-color);
+    p {
+        margin-bottom: 1rem;
+        color: var(--text-color);
+    }
 }

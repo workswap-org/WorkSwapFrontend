@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { listingPublicTypes } from "@core/lib"
 import { useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { Pagination } from "@/components";
 
 const CatalogPage = () => {
 
@@ -63,43 +64,6 @@ const CatalogPage = () => {
         initParams();
     }, [cleanFilters])
 
-    function getPageNumbers(page, totalPages) {
-        const maxButtons = 5;
-
-        if (totalPages <= maxButtons) {
-            return Array.from({ length: totalPages }, (_, i) => i); // 0-based
-        }
-
-        const pages = [];
-
-        // первая
-        pages.push(0);
-
-        let start = Math.max(page - 1, 1);
-        let end = Math.min(page + 1, totalPages - 2);
-
-        // если рядом с началом
-        if (page <= 2) {
-            start = 1;
-            end = 3;
-        }
-
-        // если рядом с концом
-        if (page >= totalPages - 3) {
-            start = totalPages - 4;
-            end = totalPages - 2;
-        }
-
-        for (let i = start; i <= end; i++) {
-            pages.push(i);
-        }
-
-        // последняя
-        pages.push(totalPages - 1);
-
-        return pages;
-    }
-
     return(
         <>
             <CatalogHeader 
@@ -151,26 +115,11 @@ const CatalogPage = () => {
                         </label>
                     </div>
                     <CatalogContent params={cleanFilters} setTotalPages={setTotalPages}/>
-                    <div className="pagination">
-                        <button disabled={filters.page === 0} onClick={() => updateFilter("page", filters.page - 1)}>
-                            Назад
-                        </button>
-
-                        {getPageNumbers(filters.page, totalPages).map(p => (
-                            <button
-                                key={p}
-                                id="pageNumber"
-                                className={p === filters.page ? "active" : ""}
-                                onClick={() => updateFilter("page", p)}
-                            >
-                                {p + 1}
-                            </button>
-                        ))}
-
-                        <button disabled={filters.page + 1 >= totalPages} onClick={() => updateFilter("page", filters.page + 1)}>
-                            Вперёд
-                        </button>
-                    </div>
+                    <Pagination
+                        page={filters.page} 
+                        totalPages={totalPages} 
+                        selectPage={(page) => updateFilter("page", page)}
+                    />
                 </main>
             </div>
         </>

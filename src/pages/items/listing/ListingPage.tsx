@@ -6,10 +6,10 @@ import {
 } from "@core/components";
 import { useTranslation } from 'react-i18next';
 import { 
-    getListingById,
     viewListing, 
     IListingPageRequest,
     IShortUserProfile,
+    getListingPageById,
 } from '@core/lib';
 
 import NotFoundPage from "@core/pages/NotFoundPage";
@@ -25,7 +25,7 @@ const ListingPage = () => {
     const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
-        getListingById(listigId)
+        getListingPageById(listigId)
             .then(listing => {
                 setListing(listing)
                 setAuthor(listing.author)

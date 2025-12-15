@@ -1,11 +1,8 @@
-@use './cards/listing-draft-card';
-@use './cards/listing-small-card';
-@use './cards/listing-card';
-@use './cards/public-listing-card';
-@use './cards/resume-card';
+@use './cards';
 @use './html-components';
 @use './layout';
 @use './buttons';
 @use './header';
 @use './listings-management';
 @use './data-fields';
+@use './pagination';

@@ -2,12 +2,11 @@
 
 
 .account-layout {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
     flex: 1;
     display: flex;
     gap: 2rem;
-    max-width: 1200px;
+    max-width: calc(1200px + 2rem);
+    padding: 2rem 1rem 1rem 1rem;
     height: calc(100vh - var(--header-height));
     width: 100%;
     overflow-y: auto;
@@ -18,7 +17,7 @@
         display: none;
     }
 
-    @include tablet-lg {
+    @include tablet {
         flex-direction: column;
         padding: 0 0.3rem;
     }
@@ -51,13 +50,8 @@
                 overflow: hidden;
             }
 
-            @include tablet-lg {
-                padding: 0.5rem;
-                min-height: 100%;
-                height: fit-content;
-            }
-
             @include mobile {
+                padding: 0.5rem;
                 overflow-x: hidden;
                 box-shadow: 0;
                 border-radius: 0;
@@ -79,11 +73,8 @@
                     font-size: 1.4rem;
                 }
 
-                @include tablet-lg {
-                    flex-direction: column;
-                }
-
                 @include mobile {
+                    flex-direction: column;
                     padding-bottom: 0.5rem;
                     margin-bottom: 0.8rem;
                 }
@@ -95,6 +86,23 @@
 
                 & > .flex-row {
                     gap: 0.5rem;
+                }
+            }
+
+            .listings-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+                max-width: 100%;
+
+                @include tablet {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 1rem;
+                }
+
+                @include mobile {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1rem;
                 }
             }
         }

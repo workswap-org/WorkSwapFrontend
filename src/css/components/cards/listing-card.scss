@@ -19,10 +19,6 @@
     min-height: 330px;
     max-height: 400px;
 
-    &:has(.center) {
-        border: 4px dashed var(--border-color);
-    }
-
     img {
         height: 200px;
         width: 100%;

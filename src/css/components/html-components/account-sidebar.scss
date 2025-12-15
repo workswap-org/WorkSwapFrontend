@@ -8,7 +8,7 @@
     @include flex-column;
     gap: 1.5rem;
 
-    @include tablet-lg {
+    @include tablet {
         position: static;
         width: 100%;
         display: none;

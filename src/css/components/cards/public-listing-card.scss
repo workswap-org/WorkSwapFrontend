@@ -10,14 +10,11 @@
     width: 100%;
     height: fit-content;
 
-    min-width: 250px;
-    max-width: 350px;
-
-    min-height: 330px;
-    max-height: 400px;
-
     &:has(.center) {
         border: 4px dashed var(--border-color);
+        border-radius: 1rem;
+        height: 100%;
+        min-height: 288px;
     }
 
     .image-wrapper {
@@ -74,18 +71,6 @@
         }
     }
 
-    @include laptop {
-        max-width: 300px;
-        min-width: 150px;
-        min-height: 300px;
-    }
-
-    @include mobile {
-        max-width: 320px;
-        min-width: 150px;
-        min-height: 275px;
-    }
-
     .listing-status {
         position: absolute;
         top: 0.5rem;
@@ -118,7 +103,7 @@
         padding: 3px;
         position: relative;
 
-        @include laptop {
+        @include laptop-lg {
             padding: 0.5rem;
         }
 
@@ -140,7 +125,7 @@
             -webkit-box-orient: vertical;
             transition: color 0.2s ease-in;
 
-            @include laptop {
+            @include laptop-lg {
                 margin-bottom: 0.3rem;
                 font-size: 1rem;
             }
