@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChatType, getListingById, useChats } from "@core/lib";
 import { Link, useParams } from "react-router-dom";
-import ListingSettingsMenu from './menus/ListingSettingsMenu';
+import ListingSettingsMenu from './menus/ListingSettingsMenu/index.tsx';
 import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
 import ListingMessagesMenu from './menus/ListingMessagesMenu';
 import { SidebarSectionLayout } from '@core/components';
@@ -32,7 +32,6 @@ const ListingManagePage = () => {
     
         async function loadListing() {
             const data = await getListingById(id);
-            console.log(data);
             setListing(data);
         }
 

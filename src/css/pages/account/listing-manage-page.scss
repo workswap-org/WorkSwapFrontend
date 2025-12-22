@@ -56,8 +56,10 @@
         flex-direction: column;
         aspect-ratio: 1 / 1;
         width: 150px;
+        height: 150px;
 
         .card {
+            height: 100%;
             padding: 0;
         }
 

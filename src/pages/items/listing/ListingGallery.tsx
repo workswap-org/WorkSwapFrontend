@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { IImage } from '@core/lib';
+import { IListingImage } from '@core/lib';
 
-const ListingGallery = ({ images }: {images: IImage[]}) => {
+const ListingGallery = ({ images }: {images: IListingImage[]}) => {
 
     const [mainImageIndex, setMainImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);

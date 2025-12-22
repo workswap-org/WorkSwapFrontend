@@ -2,21 +2,22 @@ import { useState, useCallback } from "react";
 import { useTranslation } from 'react-i18next';
 import { LocationSelector } from "@/components";
 import { 
+    IFullListing,
     modifyListing, 
     useNotification
 } from "@core/lib";
-import ListingEditActions from "./ListingEditActions";
-import ListingImagesUploader from "./ListingImagesUploader";
+import ListingEditActions from "./ListingEditActions.jsx";
+import ListingImagesUploader from "./ListingImagesUploader.js";
 import ListingTranslations from "./translations/ListingTranslations.tsx";
-import EventSettings from "./settings/EventSettings";
-import ProductSettings from "./settings/ProductSettings";
-import ServiceSettings from "./settings/ServiceSettings";
-import PriceEdit from "./PriceEdit";
-import ListingSetting from "./ListingSetting";
+import EventSettings from "./settings/EventSettings.tsx";
+import ProductSettings from "./settings/ProductSettings.tsx";
+import ServiceSettings from "./settings/ServiceSettings.tsx";
+import PriceEdit from "./PriceEdit.jsx";
+import ListingSetting from "./ListingSetting.jsx";
 
 const disabledTypesForPrice = ["PRODUCT_SWAP", "PRODUCT_GIVEAWAY", "PRODUCT_WANTED_FREE"];
 
-const ListingSettingsMenu = ({listing}) => {
+const ListingSettingsMenu = ({listing}: {listing: IFullListing}) => {
     
     const { t } = useTranslation('common');
 
@@ -24,14 +25,14 @@ const ListingSettingsMenu = ({listing}) => {
 
     const [isActive, setActive] = useState(listing?.active);
     
-    const updateListing = useCallback(async (updates) => {
+    const updateListing = useCallback(async (updates: Record<string, any>) => {
         if (!listing.id || updates === undefined) return;
         modifyListing(listing.id, updates)
             .catch(() => notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error"))
     }, [listing, notificate, t]);
 
     // locationChange (у тебя уже был)
-    const locationChange = useCallback((lastId, path) => {
+    const locationChange = useCallback((lastId: number, path: number[]) => {
         console.log("[L] Последний выбранный:", lastId);
         console.log("[L] Путь:", path);
         updateListing({ location: lastId });
@@ -42,7 +43,7 @@ const ListingSettingsMenu = ({listing}) => {
             <h2>{t(`labels.settings.main`, { ns: 'common' })}</h2>
             <ListingSetting title={t(`labels.translations`, { ns: 'common' })}>
                 <div className="form-group">
-                    <ListingTranslations id={listing.id} updateListing={updateListing} />
+                    <ListingTranslations id={listing.id} />
                 </div>
             </ListingSetting>
 

@@ -1,8 +1,9 @@
+import { IListingTranslation } from "@core/lib";
 import { useEffect, useState } from "react";
 
 interface TranslationsStatusProps {
     lang: string;
-    translations: Record<string, {title: string, description: string}>;
+    translations: IListingTranslation | null;
 }
 const TranslationsStatus = ({lang, translations}: TranslationsStatusProps) => {
 

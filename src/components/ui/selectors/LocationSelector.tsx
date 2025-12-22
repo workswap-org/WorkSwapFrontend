@@ -41,7 +41,7 @@ const LocationSelector = ({ locationId, onChange }: {locationId: number, onChang
     }, [locationId]);
 
     // нормализуем сравнение
-    const getChildren = (countryId: number) =>
+    const getChildren = (countryId: number | null) =>
         locations?.filter((c) => c.countryId === countryId) ?? [];
 
     const handleSelect = (level: number, value: number) => {
@@ -58,7 +58,6 @@ const LocationSelector = ({ locationId, onChange }: {locationId: number, onChang
         let countryId = null;
 
         for (let level = 0; ; level++) {
-            if (!countryId) break;
             const children = getChildren(countryId);
             if (children.length === 0) break;
 

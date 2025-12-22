@@ -10,10 +10,13 @@ const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChang
     const [selectedPath, setSelectedPath] = useState<number[]>([]);
 
     useEffect(() => {
+
+        console.log(listing.type)
         if(!listing.type) return;
         getCategoriesByType(listing.type)
             .then(data => {
                 setCategories(data)
+                console.log(data)
                 if (listing.categoryId) {
                     const path = findPathToCategory(data, listing.categoryId);
                     setSelectedPath(path);
@@ -24,6 +27,7 @@ const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChang
             categories: ICategory[],
             categoryId: number
         ): number[] {
+            console.log(categoryId)
             const category = categories.find(c => c.id === categoryId);
             if (!category) return [];
 
@@ -38,7 +42,7 @@ const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChang
         }
     }, [listing.categoryId, listing.type])
 
-    const getChildren = (parentId: number) =>
+    const getChildren = (parentId: number | null) =>
         categories?.filter((c) => c.parentId === parentId) ?? [];
 
     const handleSelect = (level: number, value: number) => {
@@ -56,7 +60,6 @@ const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChang
         const listingType = listing.type
 
         for (let level = 0; ; level++) {
-            if (!parentId) break;
             const children: ICategory[] = getChildren(parentId);
             if (children.length === 0) break;
 

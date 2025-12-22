@@ -3,19 +3,26 @@ import {
     useNotification, 
     deleteListingImage,
     uploadListingImage,
-    getListingImages
+    getListingImages,
+    IFullListing,
+    IListingImage
 } from "@core/lib";
 
-const ListingImagesUploader = ({ updateListing, listing }) => {
+const ListingImagesUploader = ({
+    updateListing,
+    listing
+}: {
+    updateListing: (updates: Record<string, any>) => void
+    listing: IFullListing
+}) => {
 
     const {notificate} = useNotification();
 
-    const [imageList, setImageList] = useState([]);
-    const [mainImage, setMainImage] = useState([]);
-    const [images, setImages] = useState([]);
+    const [mainImage, setMainImage] = useState<string>('');
+    const [images, setImages] = useState<IListingImage[] | null>(null);
 
     useEffect(() => {
-        setImageList(images);
+        setImages(images);
         setMainImage(listing.imagePath);
     }, [images, listing])
 
@@ -25,38 +32,43 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
     }, [listing.id]);
 
     // Добавляем новое изображение
-    const addListingImageUrl = (newImage) => {
-        setImageList(prev => [...prev, newImage]);
+    const addListingImageUrl = (newImage: IListingImage) => {
+        setImages(prev => {
+            if (!prev) return prev;
+            return [...prev, newImage]
+        });
     };
 
-    const setMainImageToListing = (mainImageUrl) => {
+    const setMainImageToListing = (mainImageUrl: string) => {
         setMainImage(mainImageUrl)
         updateListing({ mainImage: mainImageUrl })
     };
 
     // Удаляем изображение
-    const deleteListingImageUrl = (img) => {
-        setImageList(prev => prev.filter(item => item.path !== img.path));
+    const deleteListingImageUrl = (img: IListingImage) => {
+        setImages(prev => prev?.filter(item => item.path !== img.path) ?? null);
         if (mainImage === img.path) setMainImage(""); // если основное изображение удалено
     };
 
     // Загрузка нового изображения
-    const uploadImage = async (file) => {
+    const uploadImage = async (file: File) => {
 
         const formData = new FormData();
         formData.append("image", file);
 
-        uploadListingImage(listing.id, formData)
-            .then(data => {
-                notificate("Успешно", "success")
-                const newImage = { id: data.id, path: data.path }
-                addListingImageUrl(newImage);
-                if (!mainImage) setMainImage(data.path);
-            })
-            .catch(() => notificate("Ошибка загрузки изображения", "error"))
+        const data = await uploadListingImage(listing.id, formData)
+
+        if (data.path) {
+            notificate("Успешно", "success")
+            const newImage: IListingImage = { id: data.id, listingId: listing.id, path: data.path }
+            addListingImageUrl(newImage);
+            if (!mainImage) setMainImage(data.path);
+        } else {
+            notificate("Ошибка загрузки изображения", "error")
+        }
     };
 
-    const handleImageUpload = async (e) => {
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (!files) return;
         for (let file of files) {
@@ -67,12 +79,15 @@ const ListingImagesUploader = ({ updateListing, listing }) => {
     return (
         <>
             <div className="image-gallery-grid">
-                {imageList.map((img) => (
+                {images?.map((img) => (
                     <div key={img.id} className="image-item">
                         <div className="card">
                             <img
-                                src={img.path}
-                                onError={(e) => e.target.src = `/images/default-listing.svg`}
+                                src={img.path ?? "/images/default-listing.svg"}
+                                onError={(e) => {
+                                    const img = e.target as HTMLImageElement;
+                                    img.src = '/images/default-listing.svg';
+                                }}
                                 className="card-img-top"
                             />
                             <div className="overlay-actions bottom right">

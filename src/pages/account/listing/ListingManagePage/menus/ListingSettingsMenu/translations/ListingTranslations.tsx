@@ -47,7 +47,7 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
                 <div className="lang-cards">
                     {langs.map((lang) => (
                         <div 
-                            key={lang} 
+                            key={lang}
                             className={`lang-card hover ${currentLang == lang ? "active" : ""}`} 
                             onClick={() => setCurrentLang(lang)}
                         >
@@ -69,7 +69,7 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
             {currentLang == "undetected" && (
                 <div className="language-selector">
                     {unusedLanguages.map(l => (
-                            <button onClick={() => setCurrentLang(l)}>{t(`languages.${l}`, { ns: 'common' })}</button>
+                            <button key={l} onClick={() => setCurrentLang(l)}>{t(`languages.${l}`, { ns: 'common' })}</button>
                         ))
                     }
                 </div>

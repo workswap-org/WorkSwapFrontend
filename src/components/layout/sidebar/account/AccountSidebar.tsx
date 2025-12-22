@@ -50,10 +50,10 @@ const AccountSidebar = () => {
                     className='profile-card-avatar'
                 />
                 <h4 className="profile-card-name">{user?.name}</h4>
-                <p className="profile-card-rating">
+                <div className="profile-card-rating">
                     <RatingStars rating={user?.rating ?? 0} />
                     (<span>{user?.rating}</span>)
-                </p>
+                </div>
                 {/* <a href="/account/settings" className="btn btn-outline-primary btn-sm">{t(`accountSidebar.links.editProfile`, { ns: 'navigation' })}</a> */}
             </div>
 

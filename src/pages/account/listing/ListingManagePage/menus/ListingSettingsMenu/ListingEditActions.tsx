@@ -1,20 +1,17 @@
 import { 
     useNotification,
     publishListing,
-    deleteListing
+    deleteListing,
+    IFullListing
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from "react-router-dom";
 
-const ListingEditActions = ({
-    listing,
-}) => {
+const ListingEditActions = ({listing}: {listing: IFullListing}) => {
 
     const { t } = useTranslation('common');
     const { notificate } = useNotification();
     const navigate = useNavigate();
-
-    console.log(listing)
 
     return (
         <>

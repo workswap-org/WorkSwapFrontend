@@ -35,7 +35,7 @@ const ForumTagSelector = ({
         }
     }, [currentTag, tags])
 
-    const getChildren = (parentId: number) =>
+    const getChildren = (parentId: number | null) =>
         tags.filter((c) => c.parentId === parentId) ?? [];
 
     const handleSelect = (level: number, categoryId: number) => {
@@ -52,7 +52,6 @@ const ForumTagSelector = ({
         let parentId = null;
 
         for (let level = 0; ; level++) {
-            if (!parentId) break;
             const children = getChildren(parentId);
             if (children.length === 0) break;
 
