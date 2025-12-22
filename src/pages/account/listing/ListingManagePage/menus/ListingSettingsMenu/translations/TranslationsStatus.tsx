@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 
-const TranslationsStatus = ({lang, translations}) => {
+interface TranslationsStatusProps {
+    lang: string;
+    translations: Record<string, {title: string, description: string}>;
+}
+const TranslationsStatus = ({lang, translations}: TranslationsStatusProps) => {
 
-    const [progress, setProgress] = useState(0);
+    const [progress, setProgress] = useState<number>(0);
 
     useEffect(() => {
         const t = translations?.[lang];
@@ -16,6 +20,7 @@ const TranslationsStatus = ({lang, translations}) => {
             }
         }
     }, [lang, translations]);
+
     return (
         <div className="translation-status">
             <div className="progress-container">

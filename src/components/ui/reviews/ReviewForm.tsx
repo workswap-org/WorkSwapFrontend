@@ -1,23 +1,32 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { 
     createReview,
+    IReview,
     useAuth,
     useNotification
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const ReviewForm = ({setReviews, listingId, profileId}) => {
+interface ReviewFormProps {
+    setReviews: Dispatch<SetStateAction<IReview[] | null>>;
+    listingId: number | null;
+    profileId: number;
+}
+
+const ReviewForm = ({setReviews, listingId, profileId}: ReviewFormProps) => {
 
     const { t } = useTranslation('messages');
 
     const {user, isAuthenticated} = useAuth();
     const { notificate } = useNotification();
 
-    const [text, setText] = useState('');
-    const [rating, setRating] = useState(0);   // выбранная оценка
-    const [hover, setHover] = useState(0);     // звезда под курсором
+    const [text, setText] = useState<string>('');
+    const [rating, setRating] = useState<number>(0);   // выбранная оценка
+    const [hover, setHover] = useState<number>(0);     // звезда под курсором
 
     const createR = async () => {
+
+        if (!user) return; 
 
         if (text.length === 0) {
             notificate(t(`notification.misc.nullReviewText`, { ns: 'messages' }), "error");
@@ -29,12 +38,14 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
             return;
         }
 
-        const newReview = {
-            listingId,
-            profileId,
+        const newReview: IReview = {
+            id: 0,
             text,
             rating,
-            authorId: user.id
+            authorId: user.id,
+            listingId,
+            profileId,
+            createdAt: new Date().toISOString()
         };
         
         const res = await createReview(newReview);
@@ -42,7 +53,10 @@ const ReviewForm = ({setReviews, listingId, profileId}) => {
         if (res.ok) {
             notificate(t(`notification.success.reviewCreate`, { ns: 'messages' }), "success");
             newReview.id = Date.now();
-            setReviews(prev => [newReview, ...prev]);
+            setReviews(prev => {
+                if (!prev) return prev;
+                return [newReview, ...prev]
+            });
             setText('');
             setRating(0);
         }

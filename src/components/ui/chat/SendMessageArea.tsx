@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import { 
     useWebSocket,
     useAuth,
-    useChats
+    useChats,
+    IChatMessage
 } from "@core/lib";
 import { TextareaRT1 } from "@core/components";
 
@@ -21,7 +22,7 @@ const SendMessageArea = () => {
 
     const sendMessage = () => {
 
-        if (!client || !connected) return;
+        if (!client || !connected || !user) return;
 
         if (!currentChatId) {
             alert("Пожалуйста, выберите диалог для отправки сообщения");
@@ -31,13 +32,13 @@ const SendMessageArea = () => {
         const trimmed = message.trim();
         if (!trimmed) return;
 
-        const newMsg = {
-            chatId: currentChatId,
-            own: true,
-            sentAt: new Date(),
+        const newMsg: IChatMessage = {
+            id: Date.now(),
             text: trimmed,
-            id: `temp-${Date.now()}`,
-            senderId: user.id
+            senderId: user.id,
+            chatId: currentChatId,
+            sentAt: new Date().toISOString(),
+            read: false
         }
 
         pushMessages(newMsg)
@@ -56,7 +57,7 @@ const SendMessageArea = () => {
         setMessage(""); // очищаем поле ввода
     };
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             sendMessage();

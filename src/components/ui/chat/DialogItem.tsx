@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { IShortListing , IChat, ChatType, MessageType, IShortUser, useChats, useChatSubscription } from "@core/lib";
+import { IShortListing , IChat, ChatType, IChatMessage, IShortUser, useChats, useChatSubscription } from "@core/lib";
 import { Avatar } from "@core/components";
 import { useLocation } from "react-router-dom";
 import { setDefaultNamespace } from "i18next";

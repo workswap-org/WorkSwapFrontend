@@ -6,7 +6,9 @@ import {
     useNotification,
     modifyEvent,
     getEventSettings,
-    getListingAccessToken
+    getListingAccessToken,
+    IFullListing,
+    IEventSettings
 } from "@core/lib";
 import ListingSetting from "../ListingSetting";
 
@@ -28,25 +30,29 @@ const eventStatuses = [
 const EventSettings = ({
     updateListing,
     listing
+}: {
+    updateListing: (updates: Record<string, any>) => void
+    listing: IFullListing
 }) => {
+
 
     const { t } = useTranslation('common');
     const {notificate} = useNotification();
 
-    const [event, setEvent] = useState([])
+    const [event, setEvent] = useState<IEventSettings | null>(null)
 
-    const [eventDate, setEventDate] = useState(0)
+    const [eventDate, setEventDate] = useState<string | null>(null)
     const [recurrence, setRecurrence] = useState('DAILY')
     const [isRecurring, setRecurring] = useState(false);
-    const [maxParticipants, setMaxParticipants] = useState(undefined);
-    const [minParticipants, setMinParticipants] = useState(0);
+    const [maxParticipants, setMaxParticipants] = useState<number>(0);
+    const [minParticipants, setMinParticipants] = useState<number>(0);
     const [eventStatus, setEventStatus] = useState('RECRUITING');
-    const [registrationCloseTime, setRegistrationCloseTime] = useState(0);
+    const [registrationCloseTime, setRegistrationCloseTime] = useState<string | null>(null)
     const [isPublic, setPublic] = useState(true);
 
     const [accessToken, setAccessToken] = useState("");
 
-    const updateEvent = useCallback(async (updates) => {
+    const updateEvent = useCallback(async (updates: Record<string, any>) => {
             if (!listing.id || updates === undefined) return;
             try {
                 modifyEvent(listing.id, updates);
@@ -63,6 +69,7 @@ const EventSettings = ({
 
     useEffect(() => {
 
+        if (!event) return;
         console.log(event);
     
         setEventDate(event.eventDate);
@@ -83,7 +90,7 @@ const EventSettings = ({
                 <div className="form-group">
                     <input 
                         type="datetime-local"
-                        value={eventDate}
+                        value={eventDate ?? ""}
                         id="event-date" 
                         name="eventDate"
                         onChange={(e) => {
@@ -98,7 +105,7 @@ const EventSettings = ({
                 <div className="form-group">
                     <input 
                         type="datetime-local"
-                        value={registrationCloseTime}
+                        value={registrationCloseTime ?? ""}
                         id="event-date" 
                         name="eventDate"
                         onChange={(e) => {
@@ -146,9 +153,9 @@ const EventSettings = ({
                             id="minParticipants"
                             className="form-control first"
                             type="number"
-                            value={minParticipants ?? ""}
+                            value={minParticipants ?? 0}
                             onChange={(e) => {
-                                setMinParticipants(e.target.value);
+                                setMinParticipants(Number(e.target.value));
                                 updateEvent({ minParticipants: e.target.value });
                             }}
                             step="1"
@@ -157,9 +164,9 @@ const EventSettings = ({
                             id="maxParticipants"
                             className="form-control second"
                             type="number"
-                            value={maxParticipants ?? ""}
+                            value={maxParticipants ?? 0}
                             onChange={(e) => {
-                                setMaxParticipants(e.target.value);
+                                setMaxParticipants(Number(e.target.value));
                                 updateEvent({ maxParticipants: e.target.value });
                             }}
                             step="1"

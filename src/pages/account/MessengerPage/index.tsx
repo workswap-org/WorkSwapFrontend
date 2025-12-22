@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { privateChatTypes, useChats } from "@core/lib";
+import { privateChatTypes, useChats, IChat } from "@core/lib";
 import { PublicListingCard, ChatWindow, DialogItem} from "@/components";
 
 const MessengerPage = () => {
@@ -8,7 +8,7 @@ const MessengerPage = () => {
     const { chatListing, chatListingVisible, chats } = useChats();
 
     const { t } = useTranslation('common');
-    const [pageLoading, setPageLoading] = useState(true);
+    const [pageLoading, setPageLoading] = useState<boolean>(true);
 
     return (
         <>
@@ -32,11 +32,10 @@ const MessengerPage = () => {
                             <p>{t(`messenger.placeholders.noDialogs`, { ns: 'common' })}</p>
                             <p>{t(`messenger.placeholders.startChats`, { ns: 'common' })}</p>
                         </div>
-                    ) : chats
-                            .filter(c => privateChatTypes.includes(c.type))
+                    ) : chats?.filter((c: IChat) => privateChatTypes.includes(c.type))
                             .slice()
-                            .sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime))
-                            .map(chat => (
+                            .sort((a: IChat, b: IChat) => new Date(b.lastMessageTime).getTime() - new Date(a.lastMessageTime).getTime())
+                            .map((chat: IChat) => (
                                 <DialogItem
                                     key={chat.id}
                                     chat={chat}

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { getUserById } from "@core/lib";
+import { getUserById, IReview, IShortUser } from "@core/lib";
 import { Avatar, FormattedDate } from "@core/components";
 
-const ReviewItem = ({review}) => {
+const ReviewItem = ({review}: {review: IReview}) => {
 
-    const [author, setAuthor] = useState([])
+    const [author, setAuthor] = useState<IShortUser | null>(null)
 
     useEffect(() => {
         async function loadAuthorInfo() {

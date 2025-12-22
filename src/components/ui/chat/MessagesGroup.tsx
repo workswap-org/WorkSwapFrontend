@@ -1,5 +1,5 @@
 import { Avatar } from "@core/components";
-import { GroupedMessages, MessageType, privateChatTypes, useAuth, useChats } from "@core/lib";
+import { GroupedMessages, IChatMessage, privateChatTypes, useAuth, useChats } from "@core/lib";
 
 const MessagesGroup = ({group}: {group: GroupedMessages}) => {
 
@@ -26,7 +26,7 @@ const MessagesGroup = ({group}: {group: GroupedMessages}) => {
     )
 }
 
-const Message = ({message, authorName}: {message: MessageType, authorName?: string}) => {
+const Message = ({message, authorName}: {message: IChatMessage, authorName?: string}) => {
 
     const date = new Date(message.sentAt);
     const hours = String(date.getHours()).padStart(2, '0');

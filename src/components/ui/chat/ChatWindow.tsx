@@ -9,11 +9,11 @@ import {
     useActivePage
 } from "@core/lib";
 import { Avatar } from "@core/components";
-import SendMessageArea from "./SendMessageArea.jsx";
+import SendMessageArea from "./SendMessageArea.js";
 import MessagesGroup from "./MessagesGroup.tsx";
 import { createPortal } from "react-dom";
 
-const ChatWindow = ({title}) => {
+const ChatWindow = ({title}: {title?: string}) => {
 
     const { t } = useTranslation('common')
     const activePage = useActivePage();
@@ -22,10 +22,10 @@ const ChatWindow = ({title}) => {
 
     const { error } = useWebSocket();
 
-    const messagesContainer = useRef(null);
+    const messagesContainer = useRef<HTMLDivElement  | null>(null);
     const isMobile = window.innerWidth <= 600;
 
-    const [modalRoot, setModalRoot] = useState(null);
+    const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
     useEffect(() => {
         setModalRoot(document.getElementById("modal-root"));
     }, []);
@@ -49,7 +49,8 @@ const ChatWindow = ({title}) => {
                             <i className="fa-regular fa-arrow-left fa-2xl"></i>
                         </button>
 
-                        {privateChatTypes.includes(currentChat?.type) && (
+                        {currentChat?.type !== undefined &&
+                            privateChatTypes.includes(currentChat.type) && (
                             <>
                                 {currentChat?.type === ChatType.LISTING_DISCUSSION && chatListing ? (
                                     <div className="dialog-avatar">

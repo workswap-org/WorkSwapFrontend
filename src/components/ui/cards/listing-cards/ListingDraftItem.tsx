@@ -1,8 +1,9 @@
 
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { IFullListing } from "@core/lib";
 
-const ListingDraftItem = ( { listing } ) => {
+const ListingDraftItem = ({ listing }: {listing: IFullListing}) => {
 
     const { t } = useTranslation('common')
 

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { getLocations } from "@core/lib";
+import { getLocations, ILocation } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const LocationSelector = ({ locationId, onChange }) => {
+const LocationSelector = ({ locationId, onChange }: {locationId: number, onChange: (value: number, newPath: number[]) => void}) => {
     
     const { t } = useTranslation('common');
 
-    const [locations, setLocations] = useState([]);
-    const [selectedPath, setSelectedPath] = useState([]);
+    const [locations, setLocations] = useState<ILocation[] | null>(null);
+    const [selectedPath, setSelectedPath] = useState<number[]>([]);
 
     useEffect(() => {
         async function loadLocations() {
@@ -23,7 +23,7 @@ const LocationSelector = ({ locationId, onChange }) => {
             }
         }
 
-        function findPathToLocation(locations, locationId) {
+        function findPathToLocation(locations: ILocation[], locationId: number): number[] {
             const loc = locations.find(l => l.id === locationId);
             if (!loc) return [];
 
@@ -41,10 +41,10 @@ const LocationSelector = ({ locationId, onChange }) => {
     }, [locationId]);
 
     // нормализуем сравнение
-    const getChildren = (countryId) =>
-        locations.filter((c) => c.countryId === countryId);
+    const getChildren = (countryId: number) =>
+        locations?.filter((c) => c.countryId === countryId) ?? [];
 
-    const handleSelect = (level, value) => {
+    const handleSelect = (level: number, value: number) => {
         const newPath = [...selectedPath.slice(0, level), value];
         setSelectedPath(newPath);
 
@@ -58,6 +58,7 @@ const LocationSelector = ({ locationId, onChange }) => {
         let countryId = null;
 
         for (let level = 0; ; level++) {
+            if (!countryId) break;
             const children = getChildren(countryId);
             if (children.length === 0) break;
 

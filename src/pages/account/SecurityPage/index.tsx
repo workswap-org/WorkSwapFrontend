@@ -17,7 +17,7 @@ const SecurityPage = () => {
     async function deleteAccount() {
         const res = await deleteCurrentUser();
         if (res.ok) {
-            notificate(`Account ${user.email} successfully deleted`, 'success')
+            notificate(`Account ${user?.email} successfully deleted`, 'success')
             navigate('/logout', { replace: true });
         }
     }

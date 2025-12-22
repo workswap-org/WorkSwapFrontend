@@ -1,10 +1,10 @@
 import { PriceTypes } from "@core/components";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import { ChatType, useChats } from "@core/lib";
+import { ChatType, IFullListing, useChats } from "@core/lib";
 import { useMemo } from "react";
 
-const PrivateListingCard  = ({listing}) => {
+const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
 
     const { t } = useTranslation(['common', 'buttons'])
 
@@ -13,10 +13,10 @@ const PrivateListingCard  = ({listing}) => {
     const { unreadMessages, chats } = useChats();
 
     const notifCount = useMemo(() => {
-        const matchingChats = chats.filter(chat => chat.targetId == listing.id && chat.type == ChatType.LISTING_DISCUSSION);
-        const matchingChatIds = new Set(matchingChats.map(chat => chat.id));
+        const matchingChats = chats?.filter(chat => chat.targetId == listing.id && chat.type == ChatType.LISTING_DISCUSSION) ?? [];
+        const matchingChatIds = new Set(matchingChats?.map(chat => chat.id));
 
-        return unreadMessages.filter(msg => matchingChatIds.has(msg.chatId)).length;
+        return unreadMessages?.filter(msg => matchingChatIds.has(msg.chatId)).length || 0;
     }, [chats, listing.id, unreadMessages])
 
     if (listing.temporary) return null;

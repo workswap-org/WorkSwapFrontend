@@ -1,26 +1,28 @@
+import { ForumTag } from "@core/lib";
 import { useEffect, useState } from "react";
-import { getCategoriesByType } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
-const CategorySelector = ({ listing, onChange } ) => {
+const ForumTagSelector = ({
+    tags, 
+    currentTag, 
+    onChange
+}: {
+    tags: ForumTag[], 
+    currentTag: ForumTag, 
+    onChange: (tag: ForumTag | null) => void
+}) => {
 
-    const { t } = useTranslation(['common', 'categories']);
+    const { t } = useTranslation(['common', 'forumtags']);
 
-    const [categories, setCategories] = useState([]);
-    const [selectedPath, setSelectedPath] = useState([]);
+    const [selectedPath, setSelectedPath] = useState<number[]>([]);
 
     useEffect(() => {
-        if(!listing.type) return;
-        getCategoriesByType(listing.type)
-            .then(data => {
-                setCategories(data)
-                if (listing.categoryId) {
-                    const path = findPathToCategory(data, listing.categoryId);
-                    setSelectedPath(path);
-                }
-            })
-
-        function findPathToCategory(categories, categoryId) {
+        if (currentTag?.id) {
+            const path = findPathToCategory(tags, currentTag.id);
+            setSelectedPath(path);
+        }
+        
+        function findPathToCategory(categories: ForumTag[], categoryId: number): number[] {
             const category = categories.find(c => c.id === categoryId);
             if (!category) return [];
 
@@ -31,26 +33,26 @@ const CategorySelector = ({ listing, onChange } ) => {
                 return [category.id];
             }
         }
-    }, [listing.categoryId, listing.type])
+    }, [currentTag, tags])
 
-    const getChildren = (parentId) =>
-        categories.filter((c) => c.parentId === parentId);
+    const getChildren = (parentId: number) =>
+        tags.filter((c) => c.parentId === parentId) ?? [];
 
-    const handleSelect = (level, value) => {
-        const newPath = [...selectedPath.slice(0, level), value];
+    const handleSelect = (level: number, categoryId: number) => {
+        const newPath = [...selectedPath.slice(0, level), categoryId];
         setSelectedPath(newPath);
 
         if (onChange) {
-            onChange(value, newPath); // пробрасываем выбранный id и путь
+            onChange(tags.find(c => c.id === categoryId) ?? null); // пробрасываем выбранный id и путь
         }
     };
     
     const renderSelectors = () => {
         const selectors = [];
         let parentId = null;
-        const listingType = listing.type
 
         for (let level = 0; ; level++) {
+            if (!parentId) break;
             const children = getChildren(parentId);
             if (children.length === 0) break;
 
@@ -67,7 +69,7 @@ const CategorySelector = ({ listing, onChange } ) => {
                     </option>
                     {children.map((c) => (
                         <option key={c.id} value={c.id}>
-                            {t(`category.${listingType}.${c.name}`, { ns: 'categories' })}
+                            {t(c.name, { ns: 'forumtags' })}
                         </option>
                     ))}
                 </select>
@@ -87,4 +89,4 @@ const CategorySelector = ({ listing, onChange } ) => {
     );
 };
 
-export default CategorySelector;
+export default ForumTagSelector;

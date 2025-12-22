@@ -9,7 +9,7 @@ const ContactModal = () => {
     const location = useLocation();
     const {notificate} = useNotification();
 
-    const [isOpen, setOpen] = useState(false)
+    const [isOpen, setOpen] = useState<boolean>(false)
 
     const { t } = useTranslation('navigation')
     

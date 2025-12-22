@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMyListings } from "@core/lib";
+import { getMyListings, IFullListing } from "@core/lib";
 import { 
     PrivateListingCard,
     ListingDraftItem
@@ -13,13 +13,13 @@ const MyListingsPage = () => {
     const { t } = useTranslation('common')
     const navigate = useNavigate();
 
-    const [listings, setListings] = useState([]);
-    const [activeListings, setActiveListings] = useState([]);
-    const [drafts, setDrafts] = useState([]);
-    const [loading, setLoading] = useState(true)
+    const [listings, setListings] = useState<IFullListing[] | null>(null);
+    const [activeListings, setActiveListings] = useState<IFullListing[] | null>(null);
+    const [drafts, setDrafts] = useState<IFullListing[] | null>(null);
+    const [loading, setLoading] = useState<boolean>(true)
     
     useEffect(() => {
-        getMyListings().then(data => {
+        getMyListings().then((data: IFullListing[]) => {
             setLoading(false);
             setListings(data);
             setActiveListings(data.filter(listing => !listing.temporary));
@@ -41,7 +41,7 @@ const MyListingsPage = () => {
 
             {!loading && (
                 <>
-                    {listings.length == 0 && !loading ? (
+                    {listings?.length == 0 && !loading ? (
                         <div className="listings-grid">
                             <article onClick={() => navigate("/account/listing/create")} className="listing-card hover-animation-card">
                                 <div className="center">
@@ -53,9 +53,8 @@ const MyListingsPage = () => {
                         <>
                             <h3>Активные объявления</h3>
                             <div className="listings-grid">
-                                {activeListings
-                                    .slice()
-                                    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+                                {activeListings?.slice()
+                                    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
                                     .map((listing) => (
                                         <PrivateListingCard 
                                             key={listing.id}
@@ -67,7 +66,7 @@ const MyListingsPage = () => {
                             <br/>
                             <h3>Черновики</h3>
                             <div className="drafts-listings-grid">
-                                {drafts.map((listing) => (
+                                {drafts?.map((listing) => (
                                     <ListingDraftItem 
                                         key={listing.id} 
                                         listing={listing}

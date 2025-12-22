@@ -1,16 +1,20 @@
 import ReviewForm from "./ReviewForm";
 import ReviewsList from "./ReviewsList";
 import { useEffect, useState } from "react";
-import { getReviewslist } from "@core/lib";
+import { getReviewslist, IReview } from "@core/lib";
 
-const ReviewsSection = ( {listingId, profileId} ) => {
+interface ReviewsSectionProps {
+    listingId: number | null;
+    profileId: number;
+}
 
-    const [reviews, setReviews] = useState([]);
+const ReviewsSection = ({listingId, profileId}: ReviewsSectionProps) => {
+
+    const [reviews, setReviews] = useState<IReview[] | null>(null);
+    if (!profileId) return;
 
     useEffect(() => {
-        if (!profileId && !listingId) return;
-        const params = {};
-        if (profileId) params.profileId = profileId;
+        const params: {profileId: number, listingId: number | null} = {profileId: profileId, listingId: null};
         if (listingId) params.listingId = listingId;
 
         async function loadReviews() {
@@ -24,7 +28,7 @@ const ReviewsSection = ( {listingId, profileId} ) => {
     return (
         <>
             <ReviewForm setReviews={setReviews} listingId={listingId} profileId={profileId} />
-            {reviews.length > 0 && (
+            {reviews && reviews.length > 0 && (
                 <ReviewsList reviews={reviews} />
             )}
         </>

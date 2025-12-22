@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getFavoritesListings } from "@core/lib";
+import { getFavoritesListings, IShortListing } from "@core/lib";
 import { PublicListingCard } from "@/components";
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +7,7 @@ const FavoritesPage = () => {
 
     const { t } = useTranslation('common')
 
-    const [listings, setListings] = useState([]);
+    const [listings, setListings] = useState<IShortListing[] | null>([]);
     
     useEffect(() => {
         getFavoritesListings().then(data => setListings(data))
@@ -20,9 +20,8 @@ const FavoritesPage = () => {
             </div>
 
             <div className="listings-grid">
-                {listings
-                    .slice()
-                    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+                {listings?.slice()
+                    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
                     .map((listing) => (
                         <PublicListingCard 
                             key={listing.id}
