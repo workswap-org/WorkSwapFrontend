@@ -59,5 +59,12 @@
 
     "security": {
         "deleteAccount": "Poista tili"
+    },
+
+    "forum": {
+        "readTopic": "Lue",
+        "createTopic": "Luo aihe",
+        "expand": "Näytä kokonaan…",
+        "collapse": "Piilota"
     }
 }

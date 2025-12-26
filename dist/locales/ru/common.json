@@ -203,5 +203,9 @@
             "ANALYTICS": "Аналитика",
             "MESSAGES": "Отклики"
         }
+    },
+    "forum": {
+        "popularTopics": "Популярные темы",
+        "lastActivity": "Последняя активность"
     }
 }
