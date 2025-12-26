@@ -59,5 +59,12 @@
 
     "security": {
         "deleteAccount": "Delete account"
+    },
+
+    "forum": {
+        "readTopic": "Read",
+        "createTopic": "Create topic",
+        "expand": "Show more…",
+        "collapse": "Show less"
     }
 }

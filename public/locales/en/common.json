@@ -194,5 +194,9 @@
             "ANALYTICS": "Analytics",
             "MESSAGES": "Messages"
         }
+    },
+    "forum": {
+        "popularTopics": "Popular topics",
+        "lastActivity": "Latest activity"
     }
 }

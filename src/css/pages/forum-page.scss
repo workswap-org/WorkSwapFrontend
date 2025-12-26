@@ -1,6 +1,6 @@
 @use "@core/css/components/global-mixins" as *;
 
-$sidebar-wight: 300px;
+$sidebar-width: 350px;
 $sidebar-page: 1200px;
 
 .forum-layout {
@@ -12,6 +12,7 @@ $sidebar-page: 1200px;
     gap: 1rem;
     width: 100%;
     flex: 1;
+    font-family: Arial, Helvetica, sans-serif;
 
     @include mobile {
         padding-top: 1rem;
@@ -25,7 +26,7 @@ $sidebar-page: 1200px;
         flex: 1;
         @include card;
         padding: 1.5rem;
-        max-width: calc($sidebar-page - $sidebar-wight - 1rem);
+        max-width: calc($sidebar-page - $sidebar-width - 1rem);
 
         @include mobile {
             min-height: 100%;
@@ -38,9 +39,9 @@ $sidebar-page: 1200px;
             h3 { margin-left: .5rem; }
         }
 
-        .forum-topic-list {
-            @include flex-column;
-            gap: 0.7rem;
+        .forum-header {
+            display: flex;
+            justify-content: space-between;
 
             button#forumTopicCreate {
                 margin-left: auto;
@@ -64,22 +65,24 @@ $sidebar-page: 1200px;
                     aspect-ratio: 1;
                     right: 0.2rem;
                     top: 0.2rem;
+                    width: 42px;
+                    margin-bottom: auto;
                 }
             }
+        }
 
-            .tags-list {
-                display: flex;
-                gap: 0.5rem;
-                flex-wrap: wrap;
-            }
+        .forum-topic-list {
+            @include flex-column;
+            gap: 0.7rem;
 
             .forum-topic-card {
                 position: relative;
                 @include card;
-                padding: 0.5rem 1.5rem;
+                padding: 1rem;
+                border-radius: 1.5rem;
                 background-color: var(--background-l2);
-                @include flex-row;
-                gap: 1rem;
+                @include flex-column;
+                gap: .5rem;
                 justify-content: space-between;
 
                 transition: background-color 0.2s ease-in-out;
@@ -91,62 +94,78 @@ $sidebar-page: 1200px;
                     padding: .5rem;
                 }
 
-                .read-btn {
+                .forum-topic-card-header {
                     display: flex;
-                    gap: 0.7rem;
-                    padding: 0.3rem 0.5rem;
-                    height: fit-content;
-                    border-radius: var(--radius);
-                    background-color: #2eac399c;
-                    font-weight: 600;
-                    cursor: pointer;
+                    justify-content: space-between;
 
-                    i {
-                        margin-left: 3px;
-                    }
+                    .read-btn {
+                        display: flex;
+                        gap: 0.7rem;
+                        padding: 0.3rem 0.5rem;
+                        height: fit-content;
+                        border-radius: var(--radius);
+                        background-color: #2eac399c;
+                        font-weight: 600;
+                        cursor: pointer;
 
-                    &:hover {
-                        background-color: #3bc7479c;
-                    }
+                        i {
+                            margin-left: 3px;
+                        }
 
-                    @include mobile {
-                        width: fit-content;
-                    }
-                }
+                        &:hover {
+                            background-color: #3bc7479c;
+                        }
 
-                button.collapse-theme {
-                    position: absolute;
-                    bottom: 2px;
-                    white-space: nowrap;
-                    font-weight: 700;
-                    color: var(--primary);
-                    cursor: pointer;
-                    right: 150px;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-
-                    @include mobile {
-                        width: fit-content;
-                        margin-left: auto;
-                        margin-right: 1rem;
-                        position: static;
+                        @include mobile {
+                            width: fit-content;
+                        }
                     }
                 }
 
-                .forum-topic-card-meta {
-                    @include flex-column;
-                    gap: 0.3rem;
-                    overflow: hidden;
+                .forum-topic-card-content {
+                    display: flex;
+                    justify-content: space-between;
 
-                    #topicTheme {
+                    .tags-list {
+                        display: flex;
+                        gap: 0.5rem;
+                        flex-wrap: wrap;
+                    }
+
+                    button.collapse-theme {
+                        position: absolute;
+                        bottom: 2px;
                         white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
+                        font-weight: 700;
+                        color: var(--primary);
+                        cursor: pointer;
+                        right: 150px;
 
-                        &.open {
-                            white-space: normal;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+
+                        @include mobile {
+                            width: fit-content;
+                            margin-left: auto;
+                            margin-right: 1rem;
+                            position: static;
+                        }
+                    }
+
+                    .forum-topic-card-meta {
+                        @include flex-column;
+                        gap: 0.3rem;
+                        overflow: hidden;
+
+                        #topicTheme {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+
+                            &.open {
+                                white-space: normal;
+                            }
                         }
                     }
                 }
@@ -334,12 +353,39 @@ $sidebar-page: 1200px;
     }
 
     .forum-sidebar {
-        width: $sidebar-wight;
-        min-width: $sidebar-wight;
+        width: $sidebar-width;
+        min-width: $sidebar-width;
         @include card;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem;
 
         @include mobile {
             display: none;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .activity-item {
+            background-color: var(--background-l2);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+
+            &:hover {
+                background-color: var(--background-l3);
+            }
+
+            #title {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     }
 }

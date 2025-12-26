@@ -6,6 +6,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     max-width: 100%;
+    overflow: visible;
 
     @include laptop-lg {
         grid-template-columns: repeat(5, 1fr);

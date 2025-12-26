@@ -8,7 +8,7 @@ const ForumTagSelector = ({
     onChange
 }: {
     tags: ForumTag[], 
-    currentTag: ForumTag, 
+    currentTag: ForumTag | null, 
     onChange: (tag: ForumTag | null) => void
 }) => {
 

@@ -109,12 +109,11 @@ const ForumTopicPage = () => {
                         <Avatar user={topic.author} size={50} />
                         <div className="forum-topic-theme-content">
                             <span id="authorName">{topic.author.name}</span>
-                            {topic.theme}
+                            <h3 id="title">{topic.title}</h3>
+                            <span id="content">{topic.content}</span>
                             <div className="absolute-actions">
                                 <FormattedDate date={topic.createdAt} />
-                                <ActionMenu 
-                                    actions={actions}
-                                />
+                                <ActionMenu actions={actions} />
                             </div>
                             {topic.tagName && (
                                 <div className="forum-tag">{t(topic.tagName)}</div>
