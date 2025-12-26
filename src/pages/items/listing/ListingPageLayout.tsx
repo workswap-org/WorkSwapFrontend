@@ -63,7 +63,7 @@ const ListingPageLayout = ({
                 {categories?.map((cat) => (
                     <div key={cat.id}>
                         <Link to={`/catalog?type=${listing?.publicType}&category=${cat.id}`}>
-                            {listing?.type ? t(`category.${listing?.type.toLowerCase()}.${cat.name}`, { ns: 'categories' }) : ""}
+                            {listing?.type ? t(`category.${listing?.type}.${cat.name}`, { ns: 'categories' }) : ""}
                         </Link>
                         <span className="divider">/</span>
                     </div>
@@ -145,7 +145,7 @@ const ListingPageLayout = ({
                 </div>
             </div>
 
-            <ReviewsSection listingId={listing?.id} profileId={listing?.author.id} />
+            <ReviewsSection listingId={listing?.id ?? null} profileId={listing?.author.id ?? null} />
         </main>
     );
 }

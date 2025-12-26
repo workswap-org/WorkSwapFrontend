@@ -25,7 +25,7 @@
     },
     "include": [
         "src"
-, "src/pages/ForumPage/index.tsx"    ],
+, "src/pages/ForumPage/index.tsx", "../../lib"    ],
     "exclude": [
         "node_modules",
         "**/node_modules/*",

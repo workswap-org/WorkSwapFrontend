@@ -5,15 +5,15 @@ import { getReviewslist, IReview } from "@core/lib";
 
 interface ReviewsSectionProps {
     listingId: number | null;
-    profileId: number;
+    profileId: number | null;
 }
 
 const ReviewsSection = ({listingId, profileId}: ReviewsSectionProps) => {
 
     const [reviews, setReviews] = useState<IReview[] | null>(null);
-    if (!profileId) return;
 
     useEffect(() => {
+        if (!profileId) return;
         const params: {profileId: number, listingId: number | null} = {profileId: profileId, listingId: null};
         if (listingId) params.listingId = listingId;
 
@@ -24,6 +24,8 @@ const ReviewsSection = ({listingId, profileId}: ReviewsSectionProps) => {
 
         loadReviews();
     }, [listingId, profileId])
+
+    if (!profileId) return;
 
     return (
         <>
