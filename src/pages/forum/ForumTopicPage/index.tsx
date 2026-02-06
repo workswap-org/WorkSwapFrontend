@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { 
     useAuth,
-    getForumTopic,
-    createForumPost, 
+    forumService, 
     IForumPost,
-    deleteForumTopic,
     IShortUser,
     IForumTopic
 } from '@core/lib'
@@ -41,7 +39,7 @@ const ForumTopicPage = () => {
             author: author,
             comments: []
         };
-        const data = await createForumPost(newPost);
+        const data = await forumService.createPost(newPost);
         if (data) {
             setNewPostTxt('');
 
@@ -65,7 +63,7 @@ const ForumTopicPage = () => {
     useEffect(() => {
 
         async function loadTopicTheme(topicOpenId: string) {
-            const data: IForumTopic = await getForumTopic(topicOpenId);
+            const data: IForumTopic = await forumService.getTopic(topicOpenId);
             setTopic(data);
         }
 
@@ -86,7 +84,7 @@ const ForumTopicPage = () => {
             func: async () => {
                 const confirmed = window.confirm("Вы уверены в том хотите удалить это обсуждение? Это действие необратимо!");
                 if (confirmed && topic?.openId) {
-                    const res = await deleteForumTopic(topic?.openId);
+                    const res = await forumService.deleteTopic(topic?.openId);
                     if (res.ok) {
                         navigate("/forum");
                     }

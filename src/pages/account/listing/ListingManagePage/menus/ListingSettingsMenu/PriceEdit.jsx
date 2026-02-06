@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-
-import {
-    getSupportedPriceTypes,
-} from "@core/lib";
+import { settingService } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const PriceEdit = ({ listing, updateListing }) => {
@@ -17,7 +14,7 @@ const PriceEdit = ({ listing, updateListing }) => {
     useEffect(() => {
     
         async function loadPriceTypes() {
-            const data = await getSupportedPriceTypes();
+            const data = await settingService.getSupportedPriceTypes();
             setPriceTypes(data);
         }
 

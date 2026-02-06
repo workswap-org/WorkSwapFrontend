@@ -1,16 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-    RatingStars,
-    PriceTypes
-} from "@core/components";
+import { RatingStars, PriceTypes } from "@core/components";
 import { useTranslation } from 'react-i18next';
-import { 
-    viewListing, 
-    IListingPageRequest,
-    IShortUserProfile,
-    getListingPageById,
-} from '@core/lib';
+import { listingService, IListingPageRequest, IShortUserProfile } from '@core/lib';
 
 import NotFoundPage from "@core/pages/NotFoundPage";
 import ListingPageLayout from "./ListingPageLayout";
@@ -18,6 +10,7 @@ import ListingPageLayout from "./ListingPageLayout";
 const ListingPage = () => {
 
     const { listigId } = useParams();
+    const listigIdNumber = Number(listigId);
     const { t } = useTranslation(['categories', 'common', 'navigation']);
 
     const [listing, setListing] = useState<IListingPageRequest | null>(null);
@@ -25,19 +18,19 @@ const ListingPage = () => {
     const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
-        getListingPageById(listigId)
+        listingService.getPageById(listigIdNumber)
             .then(listing => {
                 setListing(listing)
                 setAuthor(listing.author)
             })
             .catch(() => setError(true))
 
-        viewListing(listigId).then(() => {});
+        listingService.addView(listigIdNumber).then(() => {});
     }, [listigId]);
 
     if (error) return <NotFoundPage/>;
 
-    return (
+    return listing && (
         <ListingPageLayout
             listing={listing} 
             author={author}

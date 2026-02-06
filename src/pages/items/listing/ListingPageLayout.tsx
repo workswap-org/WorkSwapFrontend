@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import ListingGallery from "./ListingGallery";
 import { ReviewsSection, UserInfoSidebar } from "@/components";
 import { 
-    addFavoriteListing, checkFavorite, 
-    getPathToCategory, ICategory, 
+    listingService, 
+    categoryService, ICategory, 
     IEventPageRequest, IListingPageRequest, 
-    IShortUserProfile, removeFavoriteListing,
+    IShortUserProfile,
     useAuth, useNotification 
 } from "@core/lib";
 
@@ -41,24 +41,25 @@ const ListingPageLayout = ({
     useEffect(() => {
         if (!listing?.id || !isAuthenticated) return;
         
-        checkFavorite(listing.id).then(data => setFavorite(data));
+        listingService.checkFavorite(listing.id).then(setFavorite);
     }, [listing?.id, isAuthenticated]);
 
     useEffect(() => {
-        if (listing?.categoryId && listing.type) getPathToCategory(listing.categoryId, listing.type).then(data => setCategories(data));
+        if (listing?.categoryId && listing.type) categoryService.getPathToCategory(listing.categoryId, listing.type).then(setCategories);
     }, [listing])
 
     const toggleFavorite = async () => {
+        if (!listing?.id) return;
         setFavorite(!isFavorite); // мгновенный отклик
         if (isFavorite) {
-            removeFavoriteListing(listing?.id)
+            listingService.removeFavorite(listing?.id)
                 .then(() => setLikesCount(prev => prev - 1))
                 .catch(() => {
                     setFavorite(true);
                     setLikesCount(prev => prev);
                 })
         } else {
-            addFavoriteListing(listing?.id)
+            listingService.addFavorite(listing?.id)
                 .then(() => setLikesCount(prev => prev + 1))
                 .catch(() => {
                     setFavorite(false);

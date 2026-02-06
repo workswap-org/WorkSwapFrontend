@@ -3,10 +3,9 @@ import {
     RatingStars
 } from "@core/components";
 import {
-    addFavoriteListing,
+    listingService,
     IShortListing,
     listingTypesWithRating,
-    removeFavoriteListing,
     useAuth
 } from "@core/lib";
 import { useNavigate } from "react-router-dom";
@@ -34,14 +33,14 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
     const toggleFavorite = async () => {
         setFavorite(!isFavorite); // мгновенный отклик
         if (isFavorite) {
-            removeFavoriteListing(listing.id)
+            listingService.removeFavorite(listing.id)
                 .then(() => setLikesCount(prev => prev - 1))
                 .catch(() => {
                     setFavorite(true);
                     setLikesCount(prev => prev);
                 })
         } else {
-            addFavoriteListing(listing.id)
+            listingService.addFavorite(listing.id)
                 .then(() => setLikesCount(prev => prev + 1))
                 .catch(() => {
                     setFavorite(false);

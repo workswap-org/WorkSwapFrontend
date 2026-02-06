@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { 
     useNotification,
-    createListing,
+    listingService,
     listingPublicTypes
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
@@ -73,7 +73,7 @@ export default function ListingCreatePage() {
                 </div>
                 <button 
                     className="btn btn-success"
-                    onClick={() => createListing(listingType)
+                    onClick={() => listingService.create(listingType)
                         .then(data => {
                             notificate(t(`notification.success.createDraft`, { ns: 'messages' }), "success");
                             navigate(`/account/listing/edit/${data}`, { replace: true });

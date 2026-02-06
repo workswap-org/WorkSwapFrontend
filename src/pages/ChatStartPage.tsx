@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth, getListingDiscussion, getPrivateChat, useChatsLoad, useChats } from "@core/lib";
+import { useAuth, chatService, useChatsLoad, useChats } from "@core/lib";
 
 const ChatStartPage = () => {
 
@@ -8,8 +8,8 @@ const ChatStartPage = () => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
 
-    const interlocutorId = params.get("interlocutorId") || undefined;
-    const listingId = params.get("listingId") || undefined;
+    const interlocutorId = Number(params.get("interlocutorId")) || null;
+    const listingId = Number(params.get("listingId")) || null;
 
     const [chatId, setChatId] = useState(0);
     const navigate = useNavigate();
@@ -23,7 +23,8 @@ const ChatStartPage = () => {
         if (listingId) {
 
             async function loadListingChat() {
-                const data = await getListingDiscussion(listingId);
+                if (!listingId) return;
+                const data = await chatService.getListingDiscussion(listingId);
                 console.log(data);
                 reloadChats();
                 setChatId(Number(data));
@@ -33,7 +34,8 @@ const ChatStartPage = () => {
         } else if (interlocutorId) {
 
             async function loadPrivateChat() {
-                const data = await getPrivateChat(interlocutorId);
+                if (!interlocutorId) return;
+                const data = await chatService.getPrivateChat(interlocutorId);
                 console.log(data);
                 reloadChats();
                 setChatId(Number(data));

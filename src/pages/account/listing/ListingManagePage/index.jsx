@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChatType, getListingById, useChats } from "@core/lib";
+import { ChatType, listingService, useChats } from "@core/lib";
 import { Link, useParams } from "react-router-dom";
 import ListingSettingsMenu from './menus/ListingSettingsMenu/index.tsx';
 import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
@@ -31,7 +31,7 @@ const ListingManagePage = () => {
     useEffect(() => {
     
         async function loadListing() {
-            const data = await getListingById(id);
+            const data = await listingService.getById(id);
             setListing(data);
         }
 

@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { 
-    modifyUserSettings,
-    getUserSettings,
+import {
+    userService,
     useNotification
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
@@ -25,7 +24,7 @@ const SettingsPage = () => {
 
     useEffect(() => {
         async function loadSettings() {
-            const data = await getUserSettings();
+            const data = await userService.getUserSettings();
             setUser(data);
         }
 
@@ -34,7 +33,7 @@ const SettingsPage = () => {
 
     const updateUser = useCallback(async (updates) => {
         setUser(prev => ({ ...prev, ...updates }));
-        modifyUserSettings(updates).catch(() => notificate("Ошибка обновления пользователя", "error"))
+        userService.modifyUserSettings(updates).catch(() => notificate("Ошибка обновления пользователя", "error"))
     }, [notificate]);
 
     return (

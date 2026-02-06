@@ -1,12 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { 
-    useTranslation
-} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { 
     useNotification,
-    modifyEvent,
-    getEventSettings,
-    getListingAccessToken,
+    eventService,
+    listingService,
     IFullListing,
     IEventSettings
 } from "@core/lib";
@@ -55,7 +52,7 @@ const EventSettings = ({
     const updateEvent = useCallback(async (updates: Record<string, any>) => {
             if (!listing.id || updates === undefined) return;
             try {
-                modifyEvent(listing.id, updates);
+                eventService.modifyEvent(listing.id, updates);
             } catch (err) {
                 notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error");
                 throw err;
@@ -63,8 +60,8 @@ const EventSettings = ({
         }, [listing.id, notificate, t]);
 
     useEffect(() => {
-        getEventSettings(listing.id).then(data => setEvent(data));
-        getListingAccessToken(listing.id).then(data => setAccessToken(data))
+        eventService.getEventSettings(listing.id).then(setEvent);
+        /* listingService.getListingAccessToken(listing.id).then(setAccessToken) */
     }, [listing.id]);
 
     useEffect(() => {

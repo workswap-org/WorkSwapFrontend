@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { 
-    createReview,
+    reviewsService,
     IReview,
     useAuth,
     useNotification
@@ -48,7 +48,7 @@ const ReviewForm = ({setReviews, listingId, profileId}: ReviewFormProps) => {
             createdAt: new Date().toISOString()
         };
         
-        const res = await createReview(newReview);
+        const res = await reviewsService.createReview(newReview);
 
         if (res.ok) {
             notificate(t(`notification.success.reviewCreate`, { ns: 'messages' }), "success");

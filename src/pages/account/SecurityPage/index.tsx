@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import { 
-    deleteCurrentUser, 
+    userService, 
     useAuth, 
     useNotification 
 } from "@core/lib";
@@ -15,7 +15,7 @@ const SecurityPage = () => {
     const { t } = useTranslation(['common', 'errors'])
 
     async function deleteAccount() {
-        const res = await deleteCurrentUser();
+        const res = await userService.deleteCurrentUser();
         if (res.ok) {
             notificate(`Account ${user?.email} successfully deleted`, 'success')
             navigate('/logout', { replace: true });

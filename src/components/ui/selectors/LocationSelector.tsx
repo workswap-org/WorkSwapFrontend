@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getLocations, ILocation } from "@core/lib";
+import { locationsService, ILocation } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const LocationSelector = ({ locationId, onChange }: {locationId: number, onChange: (value: number, newPath: number[]) => void}) => {
@@ -11,7 +11,7 @@ const LocationSelector = ({ locationId, onChange }: {locationId: number, onChang
 
     useEffect(() => {
         async function loadLocations() {
-            const data = await getLocations();
+            const data = await locationsService.getLocations();
 
             const locs = data || [];
             setLocations(locs);

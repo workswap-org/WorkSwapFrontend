@@ -1,5 +1,5 @@
 import { ActionMenu, Avatar, FormattedDateToNow } from "@core/components";
-import { deleteForumComment, IForumComment, IForumTopic, useAuth } from "@core/lib";
+import { forumService, IForumComment, IForumTopic, useAuth } from "@core/lib";
 
 const ForumComment = ({
     comment, setTopic
@@ -23,7 +23,7 @@ const ForumComment = ({
                 const confirmed = window.confirm("Вы уверены в том хотите удалить этот комментарий? Это действие необратимо!");
                 if (confirmed) {
                     const commentId = comment.id
-                    const res = await deleteForumComment(commentId);
+                    const res = await forumService.deleteComment(commentId);
                     if (res.ok) {
                         setTopic(prev => {
                             if (!prev?.posts) return prev;

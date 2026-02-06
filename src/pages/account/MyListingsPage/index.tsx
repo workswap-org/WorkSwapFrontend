@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMyListings, IFullListing } from "@core/lib";
+import { listingService, IFullListing } from "@core/lib";
 import { 
     PrivateListingCard,
     ListingDraftItem
@@ -19,7 +19,7 @@ const MyListingsPage = () => {
     const [loading, setLoading] = useState<boolean>(true)
     
     useEffect(() => {
-        getMyListings().then((data: IFullListing[]) => {
+        listingService.getMyListings().then((data: IFullListing[]) => {
             setLoading(false);
             setListings(data);
             setActiveListings(data.filter(listing => !listing.temporary));

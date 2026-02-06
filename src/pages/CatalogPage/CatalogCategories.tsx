@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useRef, useMemo, ReactNode } from "react";
-import { CatalogFilters, getAllCategories, ICategory, ListingType, ListingTypeValue } from "@core/lib";
+import { CatalogFilters, categoryService, ICategory, ListingType, ListingTypeValue } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 interface CatalogCategoriesProps {
@@ -16,7 +16,7 @@ const CatalogCategories = ({ filters, updateFilter }: CatalogCategoriesProps) =>
     const timeoutRef = useRef<number>(0);
 
     useEffect(() => {
-        getAllCategories().then(data => setCategories(data))
+        categoryService.getAllCategories().then(setCategories)
     }, []);
 
     const rootCategories = useMemo(() => {

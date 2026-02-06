@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { getListingTranslations, IListingTranslation, modifyListingTranslations, supportedLanguages, useNotification } from "@core/lib";
+import { listingService, IListingTranslation, supportedLanguages, useNotification } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 import ListingInfo from "./ListingInfo";
 import TranslationsStatus from "./TranslationsStatus";
@@ -21,8 +21,8 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
     }, [langs])
 
     useEffect(() => {
-        if (initialized) {
-            modifyListingTranslations(id, translations)
+        if (initialized && id && translations) {
+            listingService.modifyTranslations(id, translations)
                 .then(data => {
                     setLangs(data)
                 })
@@ -31,7 +31,8 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
     }, [translations, initialized, id, notificate, t]);
 
     useEffect(() => {
-        getListingTranslations(id).then(data => {
+        if (!id) return
+        listingService.getTranslations(id).then(data => {
             setTranslations(data);
             const firstLang = Object.keys(data)[0];
             setLangs(Object.keys(data))

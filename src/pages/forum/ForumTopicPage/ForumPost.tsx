@@ -1,5 +1,5 @@
 import { ActionMenu, Avatar, FormattedDateToNow, TextareaRT1 } from "@core/components";
-import { IForumComment, IForumPost, IForumTopic, IShortUser, useAuth, createForumComment, deleteForumPost } from "@core/lib";
+import { IForumComment, IForumPost, IForumTopic, IShortUser, useAuth, forumService } from "@core/lib";
 import { useState } from "react";
 import ForumComment from "./ForumComment";
 
@@ -29,7 +29,7 @@ const ForumPost = ({
             author: author
         }
         setSending(true);
-        const data = await createForumComment(newComment);
+        const data = await forumService.createComment(newComment);
         if (data) {
             setNewCommentTxt('');
             const savedComment: IForumComment = {
@@ -68,7 +68,7 @@ const ForumPost = ({
                 const confirmed = window.confirm("Вы уверены в том хотите удалить этот ответ? Это действие необратимо!");
                 if (confirmed) {
                     const postOpenId = post.openId
-                    const res = await deleteForumPost(postOpenId);
+                    const res = await forumService.deletePost(postOpenId);
                     if (res.ok) {
                         setTopic(prev => {
                             if (!prev?.posts) return prev;

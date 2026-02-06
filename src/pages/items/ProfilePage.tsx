@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { getUserProfile, IShortListing, IShortUserProfile, IUserProfile } from "@core/lib";
+import { userService, IShortListing, IShortUserProfile } from "@core/lib";
 import {
     PublicListingCard,
     UserInfoSidebar,
@@ -19,7 +19,8 @@ const ProfilePage = () => {
     const [error, setError] = useState<boolean>(false);
 
     useEffect(()=> {
-        getUserProfile(userOpenId)
+        if (!userOpenId) return;
+        userService.getUserProfile(userOpenId)
             .then(data => {
                 setUser(data.user)
                 setListings(data.listings)
@@ -61,7 +62,7 @@ const ProfilePage = () => {
                 </div>
             </div>
 
-            <ReviewsSection listingId='' profileId={user?.id} />
+            <ReviewsSection listingId={null} profileId={user?.id || null} />
         </main>
     );
 };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserById, IReview, IShortUser } from "@core/lib";
+import { userService, IReview, IShortUser } from "@core/lib";
 import { Avatar, FormattedDate } from "@core/components";
 
 const ReviewItem = ({review}: {review: IReview}) => {
@@ -8,7 +8,7 @@ const ReviewItem = ({review}: {review: IReview}) => {
 
     useEffect(() => {
         async function loadAuthorInfo() {
-            const user = await getUserById(review.authorId);
+            const user = await userService.getById(review.authorId);
             setAuthor(user)
         }
         

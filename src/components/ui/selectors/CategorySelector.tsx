@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCategoriesByType, ICategory, IFullListing } from "@core/lib";
+import { categoryService, ICategory, IFullListing } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChange: (value: number, newPath: number[]) => void} ) => {
@@ -13,7 +13,7 @@ const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChang
 
         console.log(listing.type)
         if(!listing.type) return;
-        getCategoriesByType(listing.type)
+        categoryService.getCategoriesByType(listing.type)
             .then(data => {
                 setCategories(data)
                 console.log(data)

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { LocationSelector } from "@/components";
 import { 
     IFullListing,
-    modifyListing, 
+    listingService, 
     useNotification
 } from "@core/lib";
 import ListingEditActions from "./ListingEditActions.jsx";
@@ -27,7 +27,7 @@ const ListingSettingsMenu = ({listing}: {listing: IFullListing}) => {
     
     const updateListing = useCallback(async (updates: Record<string, any>) => {
         if (!listing.id || updates === undefined) return;
-        modifyListing(listing.id, updates)
+        listingService.modify(listing.id, updates)
             .catch(() => notificate(t(`notification.error.listingUpdate`, { ns: 'messages' }), "error"))
     }, [listing, notificate, t]);
 

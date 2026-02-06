@@ -3,9 +3,8 @@ import AccountSidebarLinks from "./AccountSidebarLinks";
 import { Avatar, RatingStars } from "@core/components";
 import { 
     useAuth,
-    connectUserTelegram,
-    useNotification,
-    checkTelegramConnected
+    userService,
+    useNotification
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 import { ContactModal } from "@/components";
@@ -19,7 +18,7 @@ const AccountSidebar = () => {
 
     async function connectTelegram() {
         try {
-            const linkUrl: string = await connectUserTelegram();
+            const linkUrl: string = await userService.connectUserTelegram();
 
             if (linkUrl) {
                 setTelegramConnected(true);
@@ -34,7 +33,7 @@ const AccountSidebar = () => {
 
     useEffect(() => {
         async function checkTelegram() {
-            const data = await checkTelegramConnected();
+            const data = await userService.checkTelegramConnected();
             setTelegramConnected(data);
         }
 

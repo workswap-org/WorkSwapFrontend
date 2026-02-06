@@ -1,6 +1,6 @@
 import ForumTagSelector from "@/components/ui/selectors/ForumTagSelector";
 import { Modal, TextareaRT1 } from "@core/components";
-import { createForumTopic, ForumTag } from "@core/lib";
+import { forumService, ForumTag } from "@core/lib";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
             posts: [],
             postsCount: 0
         }
-        const topicOpenId: string = await createForumTopic(newTopic);
+        const topicOpenId: string = await forumService.createTopic(newTopic);
         setSending(false);
         if (topicOpenId) {
             setTitle('');

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { 
     useNotification, 
-    deleteListingImage,
-    uploadListingImage,
-    getListingImages,
+    listingService,
+    cloudService,
     IFullListing,
     IListingImage
 } from "@core/lib";
@@ -28,7 +27,7 @@ const ListingImagesUploader = ({
 
     useEffect(() => {
         if (!listing.id) return;
-        getListingImages(listing.id).then(data => setImages(data))
+        listingService.getImages(listing.id).then(setImages)
     }, [listing.id]);
 
     // Добавляем новое изображение
@@ -56,7 +55,7 @@ const ListingImagesUploader = ({
         const formData = new FormData();
         formData.append("image", file);
 
-        const data = await uploadListingImage(listing.id, formData)
+        const data = await cloudService.uploadListingImage(listing.id, formData)
 
         if (data.path) {
             notificate("Успешно", "success")
@@ -103,7 +102,7 @@ const ListingImagesUploader = ({
                                 <button
                                     type="button"
                                     className="btn btn-sm btn-danger"
-                                    onClick={() => deleteListingImage(listing.id, img)
+                                    onClick={() => cloudService.deleteListingImage(listing.id, img)
                                         .then(message => {
                                             notificate(message)
                                             deleteListingImageUrl(img)

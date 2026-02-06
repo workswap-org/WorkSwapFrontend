@@ -1,7 +1,6 @@
 import { 
     useNotification,
-    publishListing,
-    deleteListing,
+    listingService,
     IFullListing
 } from "@core/lib";
 import { useTranslation } from 'react-i18next';
@@ -19,7 +18,7 @@ const ListingEditActions = ({listing}: {listing: IFullListing}) => {
                 onClick={() => {
                     const confirmed = window.confirm(t(`confirms.deleteListing`, { ns: 'messages' }));
                     if (confirmed) {
-                        deleteListing(listing.id)
+                        listingService.delete(listing.id)
                             .then(() => notificate(t(`notification.success.listingDelete`, { ns: 'messages' }), "success"))
                             .catch(() => notificate(t(`notification.error.listingDelete`, { ns: 'messages' }), "error"));
                         navigate(`/account/my-listings`);
@@ -41,7 +40,7 @@ const ListingEditActions = ({listing}: {listing: IFullListing}) => {
 
             {listing.temporary && (
                 <button 
-                    onClick={() => publishListing(listing.id)
+                    onClick={() => listingService.publish(listing.id)
                         .then(() => {
                             notificate(t(`notification.success.publish`, { ns: 'messages' }), "success");
                             navigate(`/account/my-listings`)

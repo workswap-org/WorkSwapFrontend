@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
 import { 
     CatalogFilters,
-    getSortedListings,
+    listingService,
     IShortListing, 
 } from "@core/lib";
 import { useTranslation } from "react-i18next";
@@ -32,7 +32,7 @@ const CatalogContent = ({ filters, setTotalPages}: CatalogContentProps) => {
         /* console.log("Вызов каталога " + requestId + ": ", filters) */
 
         setLoading(true);
-        getSortedListings(filters)
+        listingService.getCatalog(filters)
             .then(data => {
                 if (requestId === lastRequestId.current) {
                     setListings(data.listings);

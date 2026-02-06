@@ -52,8 +52,7 @@ import {
 } from "@core/pages";
 
 import {
-    PrivateRoute,
-    AuthGuard
+    PrivateRoute
 } from "@core/routes";
 
 const AppRouter = () => {
@@ -72,8 +71,8 @@ const AppRouter = () => {
                     <Route path="terms" element={<TermsPage />} />
                     <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
 
-                    {/* Один общий Layout */}
-                    <Route element={<AuthGuard />}>
+                    {/* Один общий Layout ТУТ НАДО ДОБАВИТЬ ПРОВЕРКУ НА ВЕРИФИКАЦИЮ */}
+                    <Route>
                             {/* публичные страницы */}
                         <Route path="catalog" element={<CatalogPage />} />
                         <Route path="event/:eventId" element={<EventPage />} />

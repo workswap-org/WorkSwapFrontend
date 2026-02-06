@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ForumTag, getForumTags, getRecentTopics, IForumTopic } from '@core/lib';
+import { ForumTag, forumService, IForumTopic } from '@core/lib';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ForumTopicCreateModal from './ForumTopicCreateModal';
@@ -14,11 +14,11 @@ export const ForumPage = () => {
 
     useEffect(() => {
         async function loadRecentTopics(count: number, translationsFilter: boolean) {
-            const data = await getRecentTopics(count, translationsFilter);
+            const data = await forumService.getRecentTopics(count, translationsFilter);
             setForumTopics(data);
         }
         async function loadTags() {
-            const data = await getForumTags();
+            const data = await forumService.getTags();
             setTags(data);
         }
 

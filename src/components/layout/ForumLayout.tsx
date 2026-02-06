@@ -1,5 +1,5 @@
 import { UserMeta } from "@core/components";
-import { getForumActivity, IForumActivityItem } from "@core/lib";
+import { forumService, IForumActivityItem } from "@core/lib";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
@@ -11,7 +11,7 @@ const ForumLayout = () => {
 
     useEffect(() => {
         async function loadActivity() {
-            const data = await getForumActivity();
+            const data = await forumService.getActivity();
             setActivityItems(data);
         }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getFavoritesListings, IShortListing } from "@core/lib";
+import { listingService, IShortListing } from "@core/lib";
 import { PublicListingCard } from "@/components";
 import { useTranslation } from 'react-i18next';
 
@@ -10,7 +10,7 @@ const FavoritesPage = () => {
     const [listings, setListings] = useState<IShortListing[] | null>([]);
     
     useEffect(() => {
-        getFavoritesListings().then(data => setListings(data))
+        listingService.getFavorites().then(setListings)
     }, [])
 
     return (

@@ -9,13 +9,9 @@ import {
 import { ChatWindow } from "@/components";
 import { useTranslation } from 'react-i18next';
 import { 
-    getEventPage,
+    eventService,
     useAuth,
-    checkSubscribtion,
-    toggleSubscription,
-    checkEventParticipant,
-    removeEventParticipant,
-    addEventParticipant,
+    subscriptionService,
     useChats,
     IEventPageRequest,
     IShortUserProfile,
@@ -28,6 +24,7 @@ import ListingPageLayout from "./ListingPageLayout";
 const EventPage = () => {
 
     const { eventId } = useParams();
+    const eventIdNumber = Number(eventId);
     const { search } = useLocation();
     const query = new URLSearchParams(search);
     const token: string | null = query.get("token");
@@ -46,13 +43,11 @@ const EventPage = () => {
     const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
-        const params = {token};
         setCurrentChatId(null)
 
-        if (token) params.token = token;
-
-        async function loadEventPage(params: {token: string | null}) {
-            const event = await getEventPage(eventId, params)
+        async function loadEventPage() {
+            if (!eventIdNumber) return
+            const event = await eventService.getEventPage(eventIdNumber, token)
             if (!event) setError(true);
             setEvent(event)
             setParticipantsCount(event.participantsCount);
@@ -61,12 +56,12 @@ const EventPage = () => {
             setAuthor(event.author)
         }
 
-        loadEventPage(params);
+        loadEventPage();
 
-        checkSubscribtion(eventId, 'EVENT').then(data => setSubscribed(data))
-        checkEventParticipant(eventId).then(data => setParticipant(data))
+        subscriptionService.check(eventIdNumber, 'EVENT').then(setSubscribed)
+        eventService.checkEventParticipant(eventIdNumber).then(setParticipant)
 
-    }, [eventId, setCurrentChatId, token]);
+    }, [eventIdNumber, setCurrentChatId, token]);
 
     useEffect(() => {
         if (!currentChatId && event?.chat?.id) setCurrentChatId(event.chat.id)
@@ -75,14 +70,14 @@ const EventPage = () => {
     const toggleParticipation = async () => {
         setParticipant(!isParticipant); // мгновенный отклик
         if (isParticipant) {
-            removeEventParticipant(eventId)
+            eventService.removeEventParticipant(eventIdNumber)
                 .then(() => setParticipantsCount(prev => prev - 1))
                 .catch(() => {
                     setParticipant(true);
                     setParticipantsCount(prev => prev);
                 })
         } else {
-            addEventParticipant(eventId)
+            eventService.addEventParticipant(eventIdNumber)
                 .then(() => setParticipantsCount(prev => prev + 1))
                 .catch(() => {
                     setParticipant(false);
@@ -93,7 +88,7 @@ const EventPage = () => {
 
     if (error) return <NotFoundPage/>;
     
-    return (
+    return event && (
         <ListingPageLayout
             listing={event}
             author={author}
@@ -101,7 +96,7 @@ const EventPage = () => {
                 <div 
                     className="listing-action-item hover"
                     onClick={() => 
-                        toggleSubscription(eventId, setSubscribed, subscribed, 'EVENT')
+                        subscriptionService.toggle(eventId, setSubscribed, subscribed, 'EVENT', null)
                     }
                 >
                     {subscribed ? (
