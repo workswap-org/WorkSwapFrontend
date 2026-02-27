@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useNotification, uploadAvatar } from "@core/lib";
+import { cloudService, useNotification } from "@core/lib";
 import { useEffect, useMemo, useState } from 'react';
 
 const ProfileSettings = ({ user, updateUser }) => {
@@ -42,7 +42,7 @@ const ProfileSettings = ({ user, updateUser }) => {
             const formData = new FormData();
             formData.append("image", file);
 
-            const imageUrl = await uploadAvatar(formData);
+            const imageUrl = await cloudService.uploadAvatar(formData);
 
             if (imageUrl) {
                 setUploadedAvatar(imageUrl)

@@ -18,8 +18,18 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "./src"),
-            "@core": path.resolve(__dirname, "../core/src")
-        },
+            "@core": path.resolve(__dirname, "../core/src"),
+            "@core/": path.resolve(__dirname, "../core/src/"),
+        }
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                includePaths: [
+                    path.resolve(__dirname, "../core/src")
+                ]
+            }
+        }
     },
     server: {
         host: '0.0.0.0',
