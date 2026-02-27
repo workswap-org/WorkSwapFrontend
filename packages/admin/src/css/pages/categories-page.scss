@@ -1,0 +1,19 @@
+@use "@core/css/components/global-mixins" as *;
+
+.categories-page {
+    @include flex-column;
+
+    .tables {
+        @include flex-row;
+        gap: 0.5rem;
+    }
+
+    .categories-list {
+        width: 100%;
+        
+        ul { 
+            list-style: disc; 
+            padding-left: 2em; 
+        }
+    }
+}

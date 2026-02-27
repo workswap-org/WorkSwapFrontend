@@ -1,0 +1,17 @@
+@use './components';
+@use './pages/login-page';
+@use './variables';
+
+.avatar {
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+
+    &.interactive {
+        cursor: pointer;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color);
+}

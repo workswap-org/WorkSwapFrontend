@@ -1,0 +1,33 @@
+@use "@core/css/components/global-mixins" as *;
+
+.tooltip-wrapper {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.tooltip-box {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    translate: -50% calc(-100% - 1rem);
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    white-space: pre-line;
+    width: max-content;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+    pointer-events: none;
+    z-index: 100;
+
+    @include mobile {
+        position: fixed;
+        bottom: 0;
+        top: initial;
+        width: 90vw;
+        font-size: 16px;
+    }
+}

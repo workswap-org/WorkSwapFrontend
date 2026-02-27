@@ -1,0 +1,36 @@
+import { useNavigate } from "react-router-dom";
+import { IShortUser, IShortUserProfile, IUser } from "../../lib";
+
+interface AvatarProps {
+    user: IShortUser | IUser | IShortUserProfile | null;
+    size: number | null;
+    className?: string;
+    link?: boolean;
+}
+
+const Avatar = ({ user, size = 40, className = "", link = true}: AvatarProps) => {
+    const navigate = useNavigate();
+
+    const interactive = !!(link && user?.openId)
+
+    const handleClick = () => {
+        if (interactive) navigate(`/profile/${user?.openId}`);
+    };
+
+    return (
+        <img
+            className={`${className} avatar ${interactive ? "interactive" : ""}`}
+            src={user?.avatarUrl || "/images/avatar-placeholder.png"}
+            alt="Аватар"
+            style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                borderRadius: "50%",
+            }}
+            onClick={handleClick}
+            onError={(e) => { e.currentTarget.src = "/images/avatar-placeholder.png"; }}
+        />
+    );
+};
+
+export default Avatar;
