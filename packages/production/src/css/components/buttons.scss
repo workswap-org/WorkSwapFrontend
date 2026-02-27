@@ -31,12 +31,18 @@
 @mixin btn-filled($bg-color, $hover-bg, $text-color: var(--permanent-light), $border-color: null) {
     background-color: $bg-color;
     color: $text-color;
-    border: if($border-color != null, 1px solid $border-color, 0);
+    @if $border-color != null {
+        border: 1px solid $border-color;
+    } @else {
+        border: 0;
+    }
 
     &:hover,
     &.selected {
         background-color: $hover-bg;
-        border-color: if($border-color != null, $hover-bg, null);
+        @if $border-color != null {
+            border-color: $hover-bg;
+        }
     }
 }
 

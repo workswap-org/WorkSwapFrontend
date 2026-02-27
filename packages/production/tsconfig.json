@@ -11,7 +11,7 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"],
-            "@core/*": ["../frontend-core/src/*"]
+            "@core/*": ["../core/src/*"]
         },
 
         "allowImportingTsExtensions": true,
