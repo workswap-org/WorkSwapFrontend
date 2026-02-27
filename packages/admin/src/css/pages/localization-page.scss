@@ -1,0 +1,26 @@
+.localization-groups-container {
+    overflow: auto;
+    flex: 1;
+}
+
+.localization-groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 1.5rem;
+}
+
+.table-head {
+    position: relative;
+
+    &:hover .overlay-actions {
+        display: block;
+    }
+}
+
+.localization-item {
+    position: relative;
+
+    &:hover .overlay-actions {
+        display: block;
+    }
+}
