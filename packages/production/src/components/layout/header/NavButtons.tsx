@@ -58,7 +58,7 @@ const NavButtons = () => {
                 </div>
             ) : (
                 <a
-                    href={`${AUTH_BASE}/auth?redirect=${window.location.pathname}`}
+                    href={`${AUTH_BASE}/auth?redirect=${window.location}`}
                     className="btn btn-outline-primary login-btn"
                 >
                     <span>{t("login")}</span>

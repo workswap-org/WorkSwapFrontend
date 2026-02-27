@@ -1,8 +1,5 @@
 import { useAuth, useNotification } from "@core/lib";
-import {
-    AccountSidebarLinks, 
-    ContactModal
-} from "@/components";
+import { AccountSidebarLinks, ContactModal } from "@/components";
 import {
     Avatar, NotificationMobileButton, LanguageSwitcher
 } from "@core/components";
@@ -11,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 import { useSwipeable } from 'react-swipeable';
+import { AUTH_BASE } from "@core/config";
 
 const MobileMenu = () => {
 
@@ -95,10 +93,13 @@ const MobileMenu = () => {
                             <span>{t(`accountSidebar.logout`, { ns: 'navigation' })}</span> 
                         </Link>
                     ) : (
-                        <Link className="navbar-btn" to={`/login?redirect=${window.location.pathname}`}>
+                        <a
+                            href={`${AUTH_BASE}/auth?redirect=${window.location}`}
+                            className="navbar-btn"
+                        >
                             <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>
                             <span>{t(`accountSidebar.login`, { ns: 'navigation' })}</span> 
-                        </Link>
+                        </a>
                     )}
 
                     <div className="account-manager">
