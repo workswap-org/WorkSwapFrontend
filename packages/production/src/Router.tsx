@@ -39,7 +39,7 @@ import {
     ListingCreatePage,
 
     ChatStartPage
-} from "@/pages";
+} from "@/pages_react";
 
 /* Страницы логина */
 import {

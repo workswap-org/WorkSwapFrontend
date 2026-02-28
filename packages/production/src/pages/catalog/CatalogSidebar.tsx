@@ -7,8 +7,7 @@ const sorts = [
 
 import { useTranslation } from 'react-i18next';
 import { useSwipeable } from 'react-swipeable';
-import { Link } from 'react-router-dom';
-import { CatalogFilters, useAuth } from '@core/lib';
+import { CatalogFilters, userService } from '@core/lib';
 
 interface CatalogSidebarProps {
     filters: CatalogFilters;
@@ -23,7 +22,7 @@ const CatalogSidebar = ({
     toggleSidebar,
 }: CatalogSidebarProps) => {
 
-    const { user } = useAuth()
+    const { user } = userService.useCurrentUser();
     const { t } = useTranslation(['common', 'navigation'])
 
     const handlers = useSwipeable({
@@ -105,9 +104,9 @@ const CatalogSidebar = ({
                         <div className="list-group">
                             {/* <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link> */}
                             {/* <Link to="/account/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link> */}
-                            <Link to="/account/listing/create" className="list-group-item">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</Link>
-                            <Link to="/account/my-listings" className="list-group-item">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</Link>
-                            <Link to="/account/messenger" className="list-group-item">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</Link>
+                            <a href="/account/listing/create" className="list-group-item">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</a>
+                            <a href="/account/my-listings" className="list-group-item">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</a>
+                            <a href="/account/messenger" className="list-group-item">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</a>
                         </div>
                     </section>
                 </div>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import CatalogCategories from "./CatalogCategories";
 import { CatalogFilters } from "@core/lib";

@@ -6,7 +6,6 @@ import {
 } from "@core/lib";
 import { useTranslation } from "react-i18next";
 import { PublicListingCard } from "@/components";
-import { useNavigate } from "react-router-dom";
 import { DelayedList } from "@core/components";
 
 interface CatalogContentProps {
@@ -19,7 +18,6 @@ const CatalogContent = ({ filters, setTotalPages}: CatalogContentProps) => {
     const userLocale = i18n.language || "fi";
 
     const { t } = useTranslation(['common', 'navigation'])
-    const navigate = useNavigate();
 
     const [listings, setListings] = useState<IShortListing[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -54,7 +52,7 @@ const CatalogContent = ({ filters, setTotalPages}: CatalogContentProps) => {
                                 listing={listing}
                             />
                         )) ?? []),
-                        <article key={0} onClick={() => navigate("/account/listing/create")} className="public-listing-card">
+                        <article key={0} onClick={() => window.location.href = "/account/listing/create"} className="public-listing-card">
                             <div className="image-wrapper new">
                                 <i className="fa-solid fa-plus fa-2xl"></i>
                             </div>

@@ -1,7 +1,9 @@
+"use client";
+
 import { AuthProvider } from "./AuthProvider.tsx";
 import { WebSocketProvider } from "./WebSocketProvider.tsx";
 import { NotificationProvider } from "./NotificationProvider.tsx";
-import { ActivePageProvider } from "./ActivePageProvider.jsx";
+import { ActivePageProvider } from "./ActivePageProvider";
 import { MessengerProvider } from "./MessengerProvider.tsx";
 import { ReactNode } from "react";
 

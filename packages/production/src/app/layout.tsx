@@ -1,12 +1,13 @@
-// app/layout.tsx
-import "./globals.css";
+import { AppProviders } from "@core/lib/providers/AppProviders";
+import "@/css/main.scss";
 import Script from "next/script";
+import { ReactNode } from "react";
 
 export const metadata = {
     title: "WorkSwap",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
             <head>
@@ -37,7 +38,6 @@ export default function RootLayout({ children }) {
 
                 {children}
 
-                {/* Порталы как в старом React */}
                 <div id="modal-root"></div>
                 <div id="mobile-menu"></div>
             </body>

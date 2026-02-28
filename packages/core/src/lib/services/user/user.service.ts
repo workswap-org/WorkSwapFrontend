@@ -1,6 +1,6 @@
-import { apiFetchJson, apiFetch, apiFetchText } from './apiClient';
+import { apiFetchJson, apiFetch, apiFetchText } from '../apiClient';
 
-export const userService = {
+export const userApi = {
     getCurrent: () => apiFetchJson(`/user`),
     getById: (userId: number) => apiFetchJson(`/user/${userId}`),
     getUserProfile: (userOpenId: string) => apiFetchJson(`/user/${userOpenId}/profile`),

@@ -1,27 +1,29 @@
+"use client";
+
 import CatalogSidebar from "./CatalogSidebar";
 import CatalogHeader from "./CatalogHeader";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CatalogFilters, listingPublicTypes } from "@core/lib"
-import { useLocation } from "react-router-dom";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useTranslation } from 'react-i18next';
 import { Pagination } from "@/components";
 
 const CatalogPage = () => {
 
-    const { search } = useLocation();
-    const params = new URLSearchParams(search);
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
     const { t } = useTranslation('categories')
 
     const [filters, setFilters] = useState<CatalogFilters>({
-        categoryId: Number(params.get("categoryId")) || undefined,
-        searchQuery: params.get("searchQuery") || undefined,
-        hasReviews: params.get("hasReviews") === "on",
-        translationsFilter: params.get("translationsFilter") === "on",
-        sortBy: params.get("sortBy") || "date",
-        type: params.get("type") || undefined,
-        page: Number(params.get("page")) || 0
+        categoryId: Number(searchParams.get("categoryId")) || undefined,
+        searchQuery: searchParams.get("searchQuery") || undefined,
+        hasReviews: searchParams.get("hasReviews") === "on",
+        translationsFilter: searchParams.get("translationsFilter") === "on",
+        sortBy: searchParams.get("sortBy") || "date",
+        type: searchParams.get("type") || undefined,
+        page: Number(searchParams.get("page")) || 0
     });
 
     console.log(filters);
@@ -52,21 +54,20 @@ const CatalogPage = () => {
     }
 
     useEffect(() => {
-        function initParams() {
-            const paramsObj: Record<string, string> = {};
-            Object.entries(cleanFilters).forEach(([key, value]) => {
-                if (value !== undefined && value !== null) {
-                    paramsObj[key] = String(value);
-                }
-            });
+        const paramsString = new URLSearchParams(
+            Object.entries(cleanFilters).reduce((acc, [k, v]) => {
+                if (v !== undefined && v !== null) acc[k] = String(v);
+                return acc;
+            }, {} as Record<string,string>)
+        ).toString();
 
-            const newUrlParams = new URLSearchParams(paramsObj);
-            const newUrl = window.location.pathname + "?" + newUrlParams.toString();
-            window.history.replaceState({}, "", newUrl);
+        const currentPath = window.location.pathname + window.location.search;
+        const newPath = `/catalog?${paramsString}`;
+
+        if (currentPath !== newPath) {
+            router.replace(newPath, { scroll: false });
         }
-
-        initParams();
-    }, [cleanFilters]);
+    }, [cleanFilters, router]);
 
     const contentRef = useRef<HTMLDivElement>(null);
 

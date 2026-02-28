@@ -6,7 +6,7 @@ import {
     listingService, 
     useNotification
 } from "@core/lib";
-import ListingEditActions from "./ListingEditActions.jsx";
+import ListingEditActions from "./ListingEditActions.js";
 import ListingImagesUploader from "./ListingImagesUploader.js";
 import ListingTranslations from "./translations/ListingTranslations.tsx";
 import EventSettings from "./settings/EventSettings.tsx";

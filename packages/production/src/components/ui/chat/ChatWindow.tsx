@@ -11,7 +11,7 @@ import {
     useAuth
 } from "@core/lib";
 import { Avatar } from "@core/components";
-import SendMessageArea from "./SendMessageArea.js";
+import SendMessageArea from "./SendMessageArea";
 import MessagesGroup from "./MessagesGroup.tsx";
 import { createPortal } from "react-dom";
 

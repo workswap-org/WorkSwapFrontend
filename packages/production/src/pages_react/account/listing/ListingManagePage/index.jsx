@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { ChatType, listingService, useChats } from "@core/lib";
 import { Link, useParams } from "react-router-dom";
 import ListingSettingsMenu from './menus/ListingSettingsMenu/index.tsx';
-import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
-import ListingMessagesMenu from './menus/ListingMessagesMenu';
+import ListingAnalyticMenu from './menus/ListingAnalyticMenu/index.tsx';
+import ListingMessagesMenu from './menus/ListingMessagesMenu/index.tsx';
 import { SidebarSectionLayout } from '@core/components';
 
 export const ListingMenu = Object.freeze({

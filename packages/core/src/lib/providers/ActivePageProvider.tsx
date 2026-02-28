@@ -1,14 +1,11 @@
 import { ReactNode, useMemo } from 'react';
 import { ActivePageContext } from "../contexts/ActivePageContext";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 
 export const ActivePageProvider = ({ children }: {children: ReactNode}) => {
 
-    const location = useLocation();
-
-    const activePage = useMemo<string>(() => {
-        return getSectionFromPath(location.pathname) ?? "none"
-    }, [location.pathname]);
+    const pathname = usePathname(); // заменяем useLocation
+    const activePage = useMemo(() => getSectionFromPath(pathname) ?? "none", [pathname]);
 
     function getSectionFromPath(pathname: string): string | undefined {
         const mapping: Record<string, string> = {
