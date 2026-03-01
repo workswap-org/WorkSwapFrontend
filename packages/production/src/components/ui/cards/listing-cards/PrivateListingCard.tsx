@@ -1,3 +1,5 @@
+"use client"
+
 import { PriceTypes } from "@core/components";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';

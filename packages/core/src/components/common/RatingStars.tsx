@@ -1,3 +1,5 @@
+"use client";
+
 function RatingStars({ rating }: {rating: number}) {
     // Берём рейтинг или 0, если listing/rating нет
     const countedRating = Math.max(0, Math.min(5, Number(rating ?? 0)));

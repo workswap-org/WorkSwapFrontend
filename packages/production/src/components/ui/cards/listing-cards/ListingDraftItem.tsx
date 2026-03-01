@@ -1,16 +1,15 @@
+"use client";
 
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { IFullListing } from "@core/lib";
+import { redirect } from 'next/navigation';
 
 const ListingDraftItem = ({ listing }: {listing: IFullListing}) => {
 
     const { t } = useTranslation('common')
 
-    const navigate = useNavigate();
-
     return (
-        <article className="draft-listing-card" onClick={() => navigate(`/account/listing/edit/${listing.id}`)}>
+        <article className="draft-listing-card" onClick={() => redirect(`/account/listing/edit/${listing.id}`)}>
             <img 
                 src={listing.imagePath || `/images/default-listing.svg`}
                 onError={(e) => { e.currentTarget.src = `/images/default-listing.svg`; }}

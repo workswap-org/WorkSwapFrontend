@@ -1,3 +1,5 @@
+"use client"
+
 import { ForumTag } from "@core/lib";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';

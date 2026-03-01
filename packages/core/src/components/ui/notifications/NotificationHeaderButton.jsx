@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import NotificationsContainer from "./NotificationsContainer";
 import { useNotification  } from "@core/lib";

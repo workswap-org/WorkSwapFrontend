@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import { userService, IReview, IShortUser } from "@core/lib";
 import { Avatar, FormattedDate } from "@core/components";

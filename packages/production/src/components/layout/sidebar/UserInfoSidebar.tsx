@@ -1,5 +1,7 @@
+"use client"
+
 import { Avatar } from "@core/components";
-import { IShortUserProfile, IUserProfile, useAuth, useNotification } from "@core/lib";
+import { IShortUserProfile, useAuth, useNotification } from "@core/lib";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 

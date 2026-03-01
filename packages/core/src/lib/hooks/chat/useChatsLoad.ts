@@ -1,3 +1,5 @@
+"use client"
+
 import { useCallback, useEffect, useState } from "react";
 import { useWebSocket, useChats, useAuth, IChatDetails, IChat } from "@core/lib";
 import { useTranslation } from "react-i18next";

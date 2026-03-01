@@ -1,2 +1,2 @@
-export {default as PrivacyPolicyPage} from '../../pages/privacy-policy';
-export {default as TermsPage} from '../../pages/terms';
+export {default as PrivacyPolicyPage} from '../../app/[locale]/privacy-policy';
+export {default as TermsPage} from '../../app/[locale]/terms';

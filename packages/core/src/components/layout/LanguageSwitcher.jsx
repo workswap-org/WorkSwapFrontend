@@ -1,13 +1,14 @@
+"use client"
+
 import { useTranslation } from "react-i18next";
 import i18n from '@/lib/i18n';
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import { languagesList } from '@core/lib';
 
 const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
     const currentLang = i18n.language || "fi";
-    const location = useLocation();
 
     const [isOpen, setOpen] = useState(false);
 
@@ -17,7 +18,7 @@ const LanguageSwitcher = () => {
 
     useEffect(() => {
         setOpen(false);
-    }, [location]);
+    }, [usePathname]);
 
     const changeLanguage = (lng) => {
         if (lng !== currentLang) {

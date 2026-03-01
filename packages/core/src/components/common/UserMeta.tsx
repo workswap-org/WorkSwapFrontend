@@ -1,3 +1,5 @@
+"use client";
+
 import { IShortUser, IUser } from "@core/lib"
 import Avatar from "./Avatar";
 

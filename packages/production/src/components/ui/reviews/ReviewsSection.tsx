@@ -1,3 +1,5 @@
+"use client"
+
 import ReviewForm from "./ReviewForm";
 import ReviewsList from "./ReviewsList";
 import { useEffect, useState } from "react";

@@ -5,13 +5,14 @@ import CatalogHeader from "./CatalogHeader";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CatalogFilters, listingPublicTypes } from "@core/lib"
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useTranslation } from 'react-i18next';
 import { Pagination } from "@/components";
 
 const CatalogPage = () => {
 
     const searchParams = useSearchParams();
+    const pathname = usePathname();
     const router = useRouter();
 
     const { t } = useTranslation('categories')
@@ -54,20 +55,29 @@ const CatalogPage = () => {
     }
 
     useEffect(() => {
-        const paramsString = new URLSearchParams(
-            Object.entries(cleanFilters).reduce((acc, [k, v]) => {
-                if (v !== undefined && v !== null) acc[k] = String(v);
-                return acc;
-            }, {} as Record<string,string>)
-        ).toString();
+        // Создаём объект из текущих query
+        const currentQuery: Record<string, string> = {};
+        searchParams.forEach((value, key) => {
+            currentQuery[key] = value;
+        });
 
-        const currentPath = window.location.pathname + window.location.search;
-        const newPath = `/catalog?${paramsString}`;
-
-        if (currentPath !== newPath) {
-            router.replace(newPath, { scroll: false });
+        // Создаём новый объект query из cleanFilters
+        const newQuery: Record<string, string> = {};
+        for (const [k, v] of Object.entries(cleanFilters)) {
+            if (v !== undefined && v !== null) {
+                newQuery[k] = String(v);
+            }
         }
-    }, [cleanFilters, router]);
+
+        // Проверяем, есть ли реальные изменения
+        const hasChanges = Object.keys(newQuery).length !== Object.keys(currentQuery).length ||
+            Object.entries(newQuery).some(([k, v]) => currentQuery[k] !== v);
+
+        if (hasChanges) {
+            const paramsString = new URLSearchParams(newQuery).toString();
+            router.replace(`${pathname}?${paramsString}`, { scroll: false });
+        }
+    }, [cleanFilters, router, pathname, searchParams]);
 
     const contentRef = useRef<HTMLDivElement>(null);
 

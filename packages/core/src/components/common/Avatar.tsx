@@ -1,4 +1,6 @@
-import { useNavigate } from "react-router-dom";
+"use client";
+
+import { redirect } from "next/navigation";
 import { IShortUser, IShortUserProfile, IUser } from "../../lib";
 
 interface AvatarProps {
@@ -9,12 +11,11 @@ interface AvatarProps {
 }
 
 const Avatar = ({ user, size = 40, className = "", link = true}: AvatarProps) => {
-    const navigate = useNavigate();
 
     const interactive = !!(link && user?.openId)
 
     const handleClick = () => {
-        if (interactive) navigate(`/profile/${user?.openId}`);
+        if (interactive) redirect(`/profile/${user?.openId}`);
     };
 
     return (

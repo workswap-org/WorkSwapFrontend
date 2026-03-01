@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import NotificationItem from "./NotificationItem.tsx";
 import { apiFetch, notificationService, useChats, useNotification } from "@core/lib";

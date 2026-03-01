@@ -5,13 +5,12 @@ import {
     ListingDraftItem
 } from "@/components";
 import { Tooltip } from "@core/components";
-import { useNavigate } from "react-router-dom";
+import { redirect } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 
 const MyListingsPage = () => {
 
     const { t } = useTranslation('common')
-    const navigate = useNavigate();
 
     const [listings, setListings] = useState<IFullListing[] | null>(null);
     const [activeListings, setActiveListings] = useState<IFullListing[] | null>(null);
@@ -33,7 +32,7 @@ const MyListingsPage = () => {
                 <h2>{t(`titles.myListings`, { ns: 'common' })}</h2>
                 <button
                     className="btn btn-primary"
-                    onClick={() => navigate("/account/listing/create")}
+                    onClick={() => redirect("/account/listing/create")}
                 >
                     {t(`listing.addNew`, { ns: 'buttons' })}
                 </button>
@@ -43,7 +42,7 @@ const MyListingsPage = () => {
                 <>
                     {listings?.length == 0 && !loading ? (
                         <div className="listings-grid">
-                            <article onClick={() => navigate("/account/listing/create")} className="listing-card hover-animation-card">
+                            <article onClick={() => redirect("/account/listing/create")} className="listing-card hover-animation-card">
                                 <div className="center">
                                     <h3>{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</h3>
                                 </div>
@@ -74,7 +73,7 @@ const MyListingsPage = () => {
                                 ))}
                                 <Tooltip text={t(`listing.addNew`, { ns: 'buttons' })}>
                                     <article 
-                                        onClick={() => navigate("/account/listing/create")} 
+                                        onClick={() => redirect("/account/listing/create")} 
                                         className="draft-listing-card new"
                                     >
                                         <i className="fa-solid fa-plus fa-xl"></i>

@@ -1,3 +1,5 @@
+"use client"
+
 import { UserMeta } from "@core/components";
 import { forumService, IForumActivityItem } from "@core/lib";
 import { useEffect, useState } from "react";

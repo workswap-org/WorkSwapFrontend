@@ -1,24 +1,27 @@
-import { useAuth, useNotification } from "@core/lib";
+"use client"
+
+import { useNotification, userService } from "@core/lib";
 import { AccountSidebarLinks, ContactModal } from "@/components";
 import {
-    Avatar, NotificationMobileButton, LanguageSwitcher
+    Avatar, LanguageSwitcher
 } from "@core/components";
-import { Link, useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import { useTranslation } from 'react-i18next';
 import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 import { useSwipeable } from 'react-swipeable';
 import { AUTH_BASE } from "@core/config";
+import Link from "next/link";
 
 const MobileMenu = () => {
 
     const { t } = useTranslation('navigation')
-    const { user, isAuthenticated } = useAuth();
+    const { user, isAuthenticated } = userService.useCurrentUser();
     const [mobileMenuEm, setMobileMenuEm] = useState<HTMLElement | null>(null);
     const [isOpen, setOpen] = useState<boolean>(false);
+    const [url, setUrl] = useState<string | null>(null);
 
     const EDGE_SIZE = 120;
-    const location = useLocation();
     const handlers = useSwipeable({
         onSwipedLeft: (eventData) => {
             const startX = eventData.initial[0];
@@ -45,6 +48,7 @@ const MobileMenu = () => {
 
     useEffect(() => {
         setMobileMenuEm(document.getElementById("mobile-menu"));
+        setUrl(window.location.href);
 
         const cleanup = handlers.ref(document.body);
         return cleanup;
@@ -52,7 +56,7 @@ const MobileMenu = () => {
 
     useEffect(() => {
         setOpen(false);
-    }, [location]);
+    }, [usePathname]);
 
     const { unreadNotificationsCount } = useNotification();
 
@@ -88,13 +92,13 @@ const MobileMenu = () => {
                     </div>
 
                     {user?.name ? (
-                        <Link className="navbar-btn" to='/logout'>
+                        <Link className="navbar-btn" href='/logout'>
                             <div><i className="fa-regular fa-left-from-bracket fa-lg"></i></div>
                             <span>{t(`accountSidebar.logout`, { ns: 'navigation' })}</span> 
                         </Link>
                     ) : (
                         <a
-                            href={`${AUTH_BASE}/auth?redirect=${window.location}`}
+                            href={`${AUTH_BASE}/auth` + url ? `?redirect=${encodeURIComponent(url || "")}` : ""}
                             className="navbar-btn"
                         >
                             <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>
@@ -106,8 +110,8 @@ const MobileMenu = () => {
                         <AccountSidebarLinks />
                     </div>
 
-                    <NotificationMobileButton/>
-
+                    {/* <NotificationMobileButton/>
+ */}
                     <ContactModal/>
                 </div>,
                 mobileMenuEm

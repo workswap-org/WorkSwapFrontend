@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import { locationsService, ILocation } from "@core/lib";
 import { useTranslation } from 'react-i18next';

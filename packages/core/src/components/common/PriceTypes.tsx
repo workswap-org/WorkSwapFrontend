@@ -1,3 +1,5 @@
+"use client";
+
 import { IEventPageRequest, IFullListing, IListingPageRequest, IShortListing } from '@core/lib';
 import { useTranslation } from 'react-i18next';
 

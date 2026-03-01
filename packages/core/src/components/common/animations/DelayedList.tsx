@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect, ReactElement } from 'react';
 
 interface DelayedListProps {

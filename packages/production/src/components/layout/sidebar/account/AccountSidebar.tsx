@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
 import { Avatar, RatingStars } from "@core/components";

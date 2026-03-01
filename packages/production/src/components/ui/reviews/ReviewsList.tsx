@@ -1,3 +1,5 @@
+"use client"
+
 import { IReview } from "@core/lib";
 import ReviewItem from "./ReviewItem";
 import { useTranslation } from 'react-i18next';

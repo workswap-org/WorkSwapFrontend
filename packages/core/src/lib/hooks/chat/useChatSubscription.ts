@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useRef } from "react";
 import { useWebSocket, useChats, useAuth } from "@core/lib";
 import { IMessage } from '@stomp/stompjs';

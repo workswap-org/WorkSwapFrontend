@@ -1,12 +1,14 @@
+"use client"
+
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { Modal } from "@core/components";
 import { useNotification } from "@core/lib";
 import { useTranslation } from 'react-i18next';
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const ContactModal = () => {
 
-    const location = useLocation();
     const {notificate} = useNotification();
 
     const [isOpen, setOpen] = useState<boolean>(false)
@@ -19,7 +21,7 @@ const ContactModal = () => {
 
     useEffect(() => {
         setOpen(false);
-    }, [location]);
+    }, [usePathname]);
 
     return (
         <>
@@ -34,7 +36,7 @@ const ContactModal = () => {
                 title={t(`menu.contactToSupport`, { ns: 'buttons' })}
             >
                 <Link
-                    to={`/account/chat-start?sellerId=1`} 
+                    href={`/account/chat-start?sellerId=1`} 
                     className="btn btn-primary"
                 >
                     {t(`listing.contactToAuthor`, { ns: 'buttons' })}

@@ -1,3 +1,5 @@
+"use client"
+
 import { Modal } from "@core/components";
 import { useTranslation } from "react-i18next";
 import { languagesList } from '@core/lib';

@@ -37,6 +37,11 @@ export async function apiFetch(url: string, options: IApiRequest = {}, extraPara
 
         const separator = url.includes("?") ? "&" : "?";
 
+        console.log(API_BASE)
+        console.log(url)
+        console.log(separator)
+        console.log(queryString)
+
         return fetch(`${API_BASE}${url}${separator}${queryString}`, {
             ...options,
             headers,

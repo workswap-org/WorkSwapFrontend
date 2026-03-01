@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useMemo, useState } from "react";
 import { IShortListing , IChat, ChatType, IChatMessage, useChats, IShortUser, useAuth } from "@core/lib";
 import { Avatar } from "@core/components";

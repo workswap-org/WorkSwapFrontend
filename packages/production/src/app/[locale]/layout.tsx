@@ -2,14 +2,32 @@ import { AppProviders } from "@core/lib/providers/AppProviders";
 import "@/css/main.scss";
 import Script from "next/script";
 import { ReactNode } from "react";
+import { Header } from "@/components";
 
 export const metadata = {
     title: "WorkSwap",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export function generateStaticParams() {
+    return [
+        { locale: 'en' },
+        { locale: 'ru' },
+        { locale: 'fi' }
+    ];
+}
+
+export default async function RootLayout({ 
+    children, 
+    params 
+}: { 
+    children: ReactNode; 
+    params: Promise<{ locale: string }>;
+}) {
+
+    const { locale } = await params;
+
     return (
-        <html lang="en">
+        <html lang={locale}>
             <head>
                 <link
                     rel="stylesheet"
@@ -36,10 +54,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     `}
                 </Script>
 
-                {children}
+                <AppProviders>
+                <div id="root">
+                    <Header />
+                    {children}
+
+                    {/* <LanguageSelectModal /> */}
+                </div>
 
                 <div id="modal-root"></div>
                 <div id="mobile-menu"></div>
+                </AppProviders>
             </body>
         </html>
     );

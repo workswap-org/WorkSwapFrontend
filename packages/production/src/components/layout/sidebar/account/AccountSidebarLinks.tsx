@@ -1,8 +1,10 @@
+"use client"
+
 import { 
     useActivePage 
 } from "@core/lib";
-import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { NavItem } from "@core/components";
 
 const AccountSidebarLinks = () => {
     const activePage = useActivePage();
@@ -21,29 +23,29 @@ const AccountSidebarLinks = () => {
 
     return (
         <nav className="account-menu">
-            <NavLink
-                to='/catalog'
+            <NavItem
+                href='/catalog'
                 className={`account-menu-item`}
             >
                 <div><i className={`fa-regular fa-grid-2 fa-lg`}></i></div>
                 {t(`catalog`, { ns: 'navigation' })}
-            </NavLink>
-            <NavLink
-                to='/forum'
+            </NavItem>
+            <NavItem
+                href='/forum'
                 className={`account-menu-item`}
             >
                 <div><i className={`fa-regular fa-comments fa-lg`}></i></div>
                 {t(`forum`, { ns: 'navigation' })}
-            </NavLink>
+            </NavItem>
             {links.map((link) => (
-                <NavLink
+                <NavItem
                     key={link.key}
-                    to={`/account/${link.key}`}
+                    href={`/account/${link.key}`}
                     className={`account-menu-item ${activePage === link.key ? "active" : ""}`}
                 >
                     <div><i className={`fa-regular ${link.icon} fa-lg`}></i></div>
                     {t(`accountSidebar.links.${link.key}`, { ns: 'navigation' })}
-                </NavLink>
+                </NavItem>
             ))}
         </nav>
     );
