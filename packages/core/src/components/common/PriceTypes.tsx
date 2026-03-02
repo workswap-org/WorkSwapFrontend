@@ -1,7 +1,7 @@
 "use client";
 
-import { IEventPageRequest, IFullListing, IListingPageRequest, IShortListing } from '@core/lib';
-import { useTranslation } from 'react-i18next';
+import { useI18n } from '@core/lib/contexts/I18nContext';
+import { IEventPageRequest, IFullListing, IListingPageRequest, IShortListing } from '@core/lib/types/models/listing';
 
 interface Props {
     listing: IFullListing | IShortListing | IListingPageRequest | IEventPageRequest;
@@ -10,11 +10,11 @@ interface Props {
 
 const PriceTypes = ({ listing, className = "" }: Props) => {
 
-    const { t } = useTranslation('common')
+    const { dict } = useI18n()
 
     if (!listing) return <span className={`price ${className}`} >Цена не указана</span>;
 
-    const priceTypePlaceholder = t(`priceTypes.${listing.priceType ? listing.priceType : 'FIXED'}`, { ns: 'common' })
+    const priceTypePlaceholder = dict.common.priceTypes[listing.priceType ? listing.priceType : 'FIXED']
 
     switch (listing.priceType) {
         case "NEGOTIABLE":

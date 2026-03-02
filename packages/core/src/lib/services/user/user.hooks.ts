@@ -1,8 +1,8 @@
 "use client"
 
-import { IShortUser, IUser } from "@core/lib/types";
 import { useEffect, useMemo, useState } from "react";
 import { userApi } from "./user.service";
+import { IShortUser, IUser } from "@core/lib/types/models/user";
 
 export function useCurrentUser() {
     const [user, setUser] = useState<IUser | null>(null);

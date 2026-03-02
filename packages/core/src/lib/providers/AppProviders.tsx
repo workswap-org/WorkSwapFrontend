@@ -1,10 +1,10 @@
 "use client";
 
-import { AuthProvider } from "./AuthProvider.tsx";
-import { WebSocketProvider } from "./WebSocketProvider.tsx";
-import { NotificationProvider } from "./NotificationProvider.tsx";
+import { AuthProvider } from "./AuthProvider";
+import { WebSocketProvider } from "./WebSocketProvider";
+import { NotificationProvider } from "./NotificationProvider";
 import { ActivePageProvider } from "./ActivePageProvider";
-import { MessengerProvider } from "./MessengerProvider.tsx";
+import { MessengerProvider } from "./MessengerProvider";
 import { ReactNode } from "react";
 
 export const AppProviders = ({ children }: {children: ReactNode}) => {

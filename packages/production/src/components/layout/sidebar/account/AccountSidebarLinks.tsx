@@ -1,10 +1,8 @@
 "use client"
 
-import { 
-    useActivePage 
-} from "@core/lib";
+import NavItem from '@core/components/common/NavItem';
+import { useActivePage } from '@core/lib/contexts/ActivePageContext';
 import { useTranslation } from 'react-i18next';
-import { NavItem } from "@core/components";
 
 const AccountSidebarLinks = () => {
     const activePage = useActivePage();

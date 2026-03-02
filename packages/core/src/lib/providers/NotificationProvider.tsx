@@ -2,13 +2,11 @@
 
 import { useState, useRef, useCallback, useMemo, ReactNode, createRef } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { 
-    NotificationContext,
-    useChats,
-    useNotificationSubscription 
-} from "@core/lib";
-import { PopupNotification } from "@core/components";
 import { useTranslation } from 'react-i18next';
+import { useNotificationSubscription } from "@core/lib/hooks/notification/useNotificationSubscription";
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { NotificationContext } from "@core/lib/contexts/NotificationContext";
+import PopupNotification from "@core/components/ui/notifications/PopupNotification";
 
 export const NotificationProvider = ({ children }: {children?: ReactNode}) => {
     const { loading, notifications, setNotifications, unreadCount } = useNotificationSubscription();

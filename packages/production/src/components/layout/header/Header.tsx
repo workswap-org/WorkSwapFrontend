@@ -1,9 +1,10 @@
 "use client"
 
-import { ThemeChanger} from "@core/components";
 import { useTranslation } from 'react-i18next';
 import MobileMenu from "./MobileMenu";
 import NavButtons from "./NavButtons";
+import ThemeChanger from "@core/components/layout/ThemeChanger"
+import Link from 'next/link';
 
 const Header = () => {
 
@@ -13,14 +14,14 @@ const Header = () => {
         <div className="header">
             <div className="header-container">
                 <nav className="navbar">
-                    <a href="/catalog" className="navbar-brand">
+                    <Link href="/catalog" className="navbar-brand">
                         <div className="brand">WorkSwap</div>
                         <div className="all-listings">
                             <i className="fa-regular fa-cards-blank"></i>
                             <div>{t(`all-listings`, { ns: 'common' })}</div>
                         </div>
                         {/* <img src="/images/maskot/base.png"/> */}
-                    </a>
+                    </Link>
                     <div className="mobile-nav-buttons">
                         <div className="nav-link">
                             <ThemeChanger id={"themeChangerHeader"}/>

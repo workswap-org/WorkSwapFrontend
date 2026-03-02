@@ -3,19 +3,16 @@
 import { useRef, useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import {
-    useWebSocket,
-    useChats,
-    ChatType,
-    privateChatTypes,
-    useActivePage,
-    IShortUser,
-    useAuth
-} from "@core/lib";
-import { Avatar } from "@core/components";
 import SendMessageArea from "./SendMessageArea";
-import MessagesGroup from "./MessagesGroup.tsx";
+import MessagesGroup from "./MessagesGroup";
 import { createPortal } from "react-dom";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useActivePage } from "@core/lib/contexts/ActivePageContext";
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
+import { IShortUser } from "@core/lib/types/models/user";
+import { ChatType, privateChatTypes } from "@core/lib/constants/chatTypes"
+import Avatar from "@core/components/common/Avatar";
 
 const ChatWindow = ({title}: {title?: string}) => {
 

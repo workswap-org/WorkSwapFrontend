@@ -1,8 +1,8 @@
 "use client";
 
 import { useTranslation } from 'react-i18next';
-import { IFullListing } from "@core/lib";
 import { redirect } from 'next/navigation';
+import { IFullListing } from '@core/lib/types/models/listing';
 
 const ListingDraftItem = ({ listing }: {listing: IFullListing}) => {
 

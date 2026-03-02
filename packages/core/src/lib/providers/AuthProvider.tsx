@@ -1,6 +1,5 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import { userService, IShortUser, IUser } from "../../lib";
+import { userService } from "../services/user";
 
 export const AuthProvider = ({ children }: { children?: React.ReactNode }) => {
 

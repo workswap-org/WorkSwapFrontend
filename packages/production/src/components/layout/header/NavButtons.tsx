@@ -1,23 +1,21 @@
 "use client"
 
-import { 
-    ThemeChanger, 
-    Avatar,
-    LanguageSwitcher, 
-    NavItem
-} from "@core/components";
-import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { userService } from "@core/lib";
 import { AUTH_BASE } from "@core/config";
 import { useEffect, useState } from "react";
+import { userService } from "@core/lib/services/user";
+import ThemeChanger from "@core/components/layout/ThemeChanger";
+import NavItem from "@core/components/common/NavItem"
+import Avatar from "@core/components/common/Avatar";
+import LanguageSwitcher from "@core/components/layout/LanguageSwitcher";
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import NotificationHeaderButton from '@core/components/ui/notifications/NotificationHeaderButton';
 
 const NavButtons = () => {
 
-    const { t } = useTranslation(['buttons', 'navigation'])
-
     const { user, isAuthenticated, isAdmin } = userService.useCurrentUser();
     const [url, setUrl] = useState<string | null>(null);
+    const { dict } = useI18n();
 
     useEffect(() => {
         setUrl(window.location.href);
@@ -31,16 +29,16 @@ const NavButtons = () => {
                 </div>
 
                 <NavItem href="/forum" className="nav-link">
-                    {t(`forum`, { ns: 'navigation' })}
+                    {dict.navigation.forum}
                 </NavItem>
 
                 <NavItem href="/catalog" className="nav-link">
-                    {t(`catalog`, { ns: 'navigation' })}
+                    {dict.navigation.catalog}
                 </NavItem>
 
                 {isAdmin && (
                     <a href="https://dash.workswap.org" className="nav-link" target="_blank" rel="noreferrer">
-                        {t(`admin`, { ns: 'navigation' })}
+                        {dict.navigation.admin}
                     </a>
                 )}
             </div>
@@ -48,7 +46,7 @@ const NavButtons = () => {
             {isAuthenticated ? (
                 <div className="account-link-container">
                     <Link href="/account" className="account-link">
-                        <Avatar 
+                        <Avatar
                             user={user}
                             size={32}
                             className=''
@@ -56,7 +54,7 @@ const NavButtons = () => {
                         />
                         <span className="ellipsis">{user?.name || "Пользователь"}</span>
                     </Link>
-                    {/* <NotificationHeaderButton /> */}
+                    <NotificationHeaderButton />
                     <Link
                         className="logout-btn"
                         href='/logout'
@@ -69,7 +67,7 @@ const NavButtons = () => {
                     href={`${AUTH_BASE}/auth` + url ? `?redirect=${encodeURIComponent(url || "")}` : ""}
                     className="btn btn-outline-primary login-btn"
                 >
-                    <span>{t("login")}</span>
+                    <span>{dict.buttons.login}</span>
                 </a>
             )}
 

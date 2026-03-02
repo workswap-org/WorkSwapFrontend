@@ -4,8 +4,11 @@ import CatalogSidebar from "./CatalogSidebar";
 import CatalogHeader from "./CatalogHeader";
 import CatalogContent from "./CatalogContent";
 import { useEffect, useRef, useState } from "react";
-import { listingPublicTypes, CatalogFiltersProvider, useCatalogFilters, useI18n } from "@core/lib"
-import { Pagination } from "@/components";
+import { CatalogFiltersProvider } from "@core/lib/providers/local/CatalogFiltersProvider"
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
+import { listingPublicTypes } from "@core/lib/constants/listingTypes"
+import Pagination from "@/components/ui/Pagination";
 
 export default function CatalogPageWrapper() {
 
@@ -37,9 +40,7 @@ function CatalogPage() {
     return(
         <CatalogFiltersProvider>
             <CatalogHeader />
-            {/* Основной контент */}
             <div className="catalog-layout">
-                {/* Сайдбар сортировки */}
                 <CatalogSidebar
                     sidebarOpened={sidebarOpened}
                     toggleSidebar={toggleSidebar}

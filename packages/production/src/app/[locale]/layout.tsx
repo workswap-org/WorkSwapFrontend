@@ -2,9 +2,10 @@ import { AppProviders } from "@core/lib/providers/AppProviders";
 import "@/css/main.scss";
 import { headers } from "next/headers";
 import { ReactNode } from "react";
-import { Header } from "@/components";
 import { getDictionary } from "@/lib/i18n";
-import { I18nProvider, parseLocale } from "@core/lib";
+import { parseLocale } from '@core/lib/constants/languages'
+import { I18nProvider } from "@core/lib/contexts/I18nContext";
+import Header from "@/components/layout/header/Header";
 
 export const metadata = {
     title: "WorkSwap",
@@ -43,8 +44,6 @@ export default async function RootLayout({
                 <link rel="icon" href="/favicon.png" />
             </head>
             <body>
-                {/* Theme initializer before hydration */}
-
                 <AppProviders>
                     <I18nProvider locale={parsed} dict={dict}>
                         <div id="root">

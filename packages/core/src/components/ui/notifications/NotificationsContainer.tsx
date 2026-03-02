@@ -1,25 +1,34 @@
 "use client"
 
+import { redirect } from 'next/navigation';
 import { useEffect, useState } from "react";
 import NotificationItem from "./NotificationItem.tsx";
-import { apiFetch, notificationService, useChats, useNotification } from "@core/lib";
 import { createPortal } from "react-dom";
-import { useNavigate } from "react-router-dom";
+import { useNotification } from "@core/lib/contexts/NotificationContext.tsx";
+import { useChats } from "@core/lib/contexts/MessengerContext.tsx";
+import { notificationService } from "@core/lib/services/notificationService.ts";
 
-const NotificationsContainer = ({ isOpen, onClose }) => {
+interface NotificationsContainerProps {
+    isOpen: boolean;
+    onClose: () => void
+}
+
+const NotificationsContainer = ({ isOpen, onClose }: NotificationsContainerProps) => {
 
     const { loading, notifications, setNotifications } = useNotification();
 
-    const [modalRoot, setModalRoot] = useState(null);
-    const navigate = useNavigate();
-    const [messengerNotification, setMessengerNotification] = useState(null);
+    const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+    const [messengerNotification, setMessengerNotification] = useState<INotification | null>(null);
     const { unreadMessages } = useChats();
     const isMobile = window.innerWidth <= 600;
 
-    const markAsRead = async (notification) => {
+    const markAsRead = async (notification: INotification) => {
         await notificationService.markAsRead(notification.id);
-        setNotifications((prev) => prev.map((n) => (n.id === notification.id ? { ...n, read: true } : n)))
-        navigate(notification.link)
+        setNotifications((prev) => {
+            if (!prev) return prev;
+            return prev.map((n) => (n.id === notification.id ? { ...n, read: true } : n))
+        })
+        redirect(notification.link)
     }
 
     useEffect(() => {
@@ -27,14 +36,16 @@ const NotificationsContainer = ({ isOpen, onClose }) => {
     }, []);
 
     useEffect(() => {
-        if (!unreadMessages || unreadMessages == []) setMessengerNotification(null);
+        if (!unreadMessages || unreadMessages.length == 0) setMessengerNotification(null);
         setMessengerNotification({
+            id: 0,
             title: "Новые сообщения: " + (unreadMessages?.length ?? 0),
             content: unreadMessages ? unreadMessages[0]?.text : "Нажми чтобы посмотреть",
-            createdAt: new Date().getTime(),
+            createdAt: new Date().toISOString(),
             type: 'CHAT',
             read: false,
             link: "/account/messenger",
+            recipientId: 0,
             importance: "INFO"
         })
     }, [unreadMessages])
@@ -49,14 +60,14 @@ const NotificationsContainer = ({ isOpen, onClose }) => {
             </div>
             <div className="notifications-list">
                 {loading && <p className="empty">Загрузка...</p>}
-                {!loading && notifications.length === 0 && <p className="empty">Нет уведомлений</p>}
-                {!loading && messengerNotification && unreadMessages?.length > 0 &&
+                {!loading && notifications?.length === 0 && <p className="empty">Нет уведомлений</p>}
+                {!loading && messengerNotification && unreadMessages?.length && unreadMessages?.length > 0 &&
                     <NotificationItem
                         notification={messengerNotification}
-                        onRead={(n) => navigate(n.link)}
+                        onRead={(n) => redirect(n.link)}
                     />
                 }
-                {!loading && notifications.map(n => (
+                {!loading && notifications?.map(n => (
                     <NotificationItem key={n.id} notification={n} onRead={(notification) => markAsRead(notification)} />
                 ))}
             </div>

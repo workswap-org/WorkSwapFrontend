@@ -1,4 +1,9 @@
+import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
 import { useCallback, useEffect, useState, useRef, useMemo, ReactNode } from "react";
+import { ICategory } from "@core/lib/types/models/category"
+import { ListingType, ListingTypeValue } from "@core/lib/constants/listingTypes";
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import { categoryService } from "@core/lib/services/categoriesService"
 
 const CatalogCategories = () => {
     

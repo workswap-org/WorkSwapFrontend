@@ -2,18 +2,18 @@
 
 import { useEffect, useState } from "react";
 import NotificationsContainer from "./NotificationsContainer";
-import { useNotification  } from "@core/lib";
-import { useLocation } from "react-router-dom";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { usePathname } from "next/navigation";
 
 const NotificationHeaderButton = () => {
 
     const { unreadNotificationsCount } = useNotification();
-    const location = useLocation();
+    const pathname = usePathname();
     const [isOpen, setOpen] = useState(false);
 
     useEffect(() => {
         setOpen(false);
-    }, [location]);
+    }, [pathname]);
 
     return (
         <>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ICatalogFilters } from "@core/lib"
+import { ICatalogFilters } from "@core/lib/types/catalog";
 import { createContext, Dispatch, SetStateAction, useContext } from "react"
 
 type CatalogFiltersContextType = {

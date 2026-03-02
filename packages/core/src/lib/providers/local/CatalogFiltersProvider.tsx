@@ -1,8 +1,9 @@
 "use client"
 
-import { CatalogFiltersContext, ICatalogFilters } from "@core/lib"
 import { ReactNode, useEffect, useMemo, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { ICatalogFilters } from "@core/lib/types/catalog";
+import { CatalogFiltersContext } from "@core/lib/contexts/local/CatalogFiltersContext";
 
 export function CatalogFiltersProvider({ children }: { children: ReactNode }) {
     const searchParams = useSearchParams();

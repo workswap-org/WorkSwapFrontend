@@ -1,11 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { Modal } from "@core/components";
-import { useNotification } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
+import Modal from "@core/components/ui/Modal"
 
 const ContactModal = () => {
 

@@ -2,21 +2,20 @@
 
 import { useEffect, useState } from "react";
 import NotificationsContainer from "./NotificationsContainer";
-import { useNotification } from "@core/lib";
-import { useTranslation } from 'react-i18next';
-import { useLocation } from "react-router-dom";
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { usePathname } from "next/navigation";
 
 const NotificationMobileButton = () => {
-
-    const { t } = useTranslation('common');
-
+ 
+    const { dict } = useI18n();
     const { unreadNotificationsCount } = useNotification();
-    const location = useLocation();
+    const pathname = usePathname();
     const [isOpen, setOpen] = useState(false);
 
     useEffect(() => {
         setOpen(false);
-    }, [location]);
+    }, [pathname]);
 
     return (
         <>
@@ -26,7 +25,7 @@ const NotificationMobileButton = () => {
                 id="notificationAnchor"
             >
                 <div><i className="fa-regular fa-bell fa-lg"></i></div>
-                <span>{t(`menu.notifications`, { ns: 'buttons' })}</span>
+                <span>{dict.buttons.menu.notifications}</span>
                 {unreadNotificationsCount > 0 && (
                     <span id="unreadNotifications" className="unread-notifications-count">
                         {unreadNotificationsCount}

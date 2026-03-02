@@ -1,6 +1,6 @@
 import CatalogCategories from "./CatalogCategories";
-import { useCatalogFilters, useI18n } from "@core/lib";
-
+import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext"
+import { useI18n } from "@core/lib/contexts/I18nContext"
 const CatalogHeader = () => {
 
     const { filters, updateFilter } = useCatalogFilters();

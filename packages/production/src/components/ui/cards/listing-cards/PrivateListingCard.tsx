@@ -1,17 +1,17 @@
 "use client"
 
-import { PriceTypes } from "@core/components";
-import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
-import { ChatType, IFullListing, useChats } from "@core/lib";
+import { redirect } from 'next/navigation';
 import { useMemo } from "react";
+import PriceTypes from '@core/components/common/PriceTypes';
+import Link from 'next/link';
+import { useChats } from '@core/lib/contexts/MessengerContext';
+import { IFullListing } from '@core/lib/types/models/listing';
+import { ChatType } from '@core/lib/constants/chatTypes';
+import { useI18n } from '@core/lib/contexts/I18nContext';
 
 const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
 
-    const { t } = useTranslation(['common', 'buttons'])
-
-    const navigate = useNavigate();
-
+    const { dict } = useI18n()
     const { unreadMessages, chats } = useChats();
 
     const notifCount = useMemo(() => {
@@ -25,9 +25,9 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
 
     const navigator = () => {
         if (listing.type == "EVENT") {
-            navigate(`/event/${listing.id}`)
+            redirect(`/event/${listing.id}`)
         } else {
-            navigate(`/listing/${listing.id}`)
+            redirect(`/listing/${listing.id}`)
         }
     }
 
@@ -45,19 +45,19 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
                     <div>
                         <PriceTypes listing={listing} />
                         <div className="listing-card_views">
-                            <span>{t(`labels.views`, { ns: 'common' })}: </span>
+                            <span>{dict.common.labels.views}: </span>
                             <span>{listing.views}</span>
                         </div>
                     </div>
                 </div>
                 <Link
                     className="btn btn-primary"
-                    to={`/account/listing/edit/${listing.id}`}
+                    href={`/account/listing/edit/${listing.id}`}
                     onClick={(e) => e.stopPropagation()}
                     id="notificationAnchor"
                 >
                     <div><i className="fa-solid fa-gear fa-lg"></i></div>
-                    {t('listing.manage', { ns: 'buttons' } )}
+                    {dict.buttons.listing.manage}
                     {notifCount > 0 &&
                         <span id="unreadNotifications" className="unread-notifications-count">
                             {notifCount}

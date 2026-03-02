@@ -5,8 +5,10 @@ const sorts = [
     { key: "popularity"},
 ];
 
+import { useAuth } from '@core/lib/contexts/AuthContext';
+import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useCatalogFilters } from '@core/lib/contexts/local/CatalogFiltersContext';
 import { useSwipeable } from 'react-swipeable';
-import { useAuth, useCatalogFilters, useI18n } from '@core/lib';
 
 interface CatalogSidebarProps {
     sidebarOpened: boolean;

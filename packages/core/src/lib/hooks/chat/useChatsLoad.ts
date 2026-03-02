@@ -1,9 +1,12 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react";
-import { useWebSocket, useChats, useAuth, IChatDetails, IChat } from "@core/lib";
 import { useTranslation } from "react-i18next";
 import { IMessage } from '@stomp/stompjs';
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { IChat, IChatDetails } from "@core/lib/types/messenger";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
 
 export function useChatsLoad() {
 

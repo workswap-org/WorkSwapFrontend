@@ -1,12 +1,10 @@
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
 import { useEffect, useState, useRef } from "react";
-import { 
-    listingService,
-    IShortListing,
-    useCatalogFilters,
-    useI18n, 
-} from "@core/lib";
-import { PublicListingCard } from "@/components";
-import { DelayedList } from "@core/components";
+import { IShortListing } from '@core/lib/types/models/listing'
+import { listingService } from '@core/lib/services/listingService'
+import { DelayedList } from '@core/components/common/animations/DelayedList'
+import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
 
 const CatalogContent = () => {
 
@@ -40,7 +38,7 @@ const CatalogContent = () => {
                 {!loading && 
                     <DelayedList items={[
                         ...(listings?.map((listing) => (
-                            <PublicListingCard 
+                            <PublicListingCard
                                 key={listing.id}
                                 listing={listing}
                             />

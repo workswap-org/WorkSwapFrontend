@@ -1,21 +1,23 @@
 "use client"
 
-import { useNotification, userService } from "@core/lib";
-import { AccountSidebarLinks, ContactModal } from "@/components";
-import {
-    Avatar, LanguageSwitcher
-} from "@core/components";
 import { usePathname } from "next/navigation";
-import { useTranslation } from 'react-i18next';
+import NotificationMobileButton from '@core/components/ui/notifications/NotificationMobileButton';
 import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 import { useSwipeable } from 'react-swipeable';
 import { AUTH_BASE } from "@core/config";
 import Link from "next/link";
+import { userService } from "@core/lib/services/user"
+import { useNotification } from "@core/lib/contexts/NotificationContext"
+import LanguageSwitcher from '@core/components/layout/LanguageSwitcher';
+import Avatar from "@core/components/common/Avatar"
+import AccountSidebarLinks from "../sidebar/account/AccountSidebarLinks";
+import ContactModal from "@/components/ui/modal/ContactModal";
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const MobileMenu = () => {
 
-    const { t } = useTranslation('navigation')
+    const { dict } = useI18n();
     const { user, isAuthenticated } = userService.useCurrentUser();
     const [mobileMenuEm, setMobileMenuEm] = useState<HTMLElement | null>(null);
     const [isOpen, setOpen] = useState<boolean>(false);
@@ -94,7 +96,7 @@ const MobileMenu = () => {
                     {user?.name ? (
                         <Link className="navbar-btn" href='/logout'>
                             <div><i className="fa-regular fa-left-from-bracket fa-lg"></i></div>
-                            <span>{t(`accountSidebar.logout`, { ns: 'navigation' })}</span> 
+                            <span>{dict.navigation.accountSidebar.logout}</span> 
                         </Link>
                     ) : (
                         <a
@@ -102,7 +104,7 @@ const MobileMenu = () => {
                             className="navbar-btn"
                         >
                             <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>
-                            <span>{t(`accountSidebar.login`, { ns: 'navigation' })}</span> 
+                            <span>{dict.navigation.accountSidebar.login}</span> 
                         </a>
                     )}
 
@@ -110,8 +112,8 @@ const MobileMenu = () => {
                         <AccountSidebarLinks />
                     </div>
 
-                    {/* <NotificationMobileButton/>
- */}
+                    <NotificationMobileButton/>
+
                     <ContactModal/>
                 </div>,
                 mobileMenuEm

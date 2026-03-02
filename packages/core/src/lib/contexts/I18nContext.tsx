@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, ReactNode } from "react";
-import { Locale } from "@core/lib";
+import { Locale } from "../constants/languages";
 
 export type Dict = Record<string, any>; // уточни по структуре словаря
 

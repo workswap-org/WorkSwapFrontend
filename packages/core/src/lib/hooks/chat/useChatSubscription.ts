@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useRef } from "react";
-import { useWebSocket, useChats, useAuth } from "@core/lib";
 import { IMessage } from '@stomp/stompjs';
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
+import { useAuth } from "@core/lib/contexts/AuthContext";
 
 export function useChatSubscription() {
 
