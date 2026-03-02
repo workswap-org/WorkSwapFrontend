@@ -1,6 +1,7 @@
+"use client"
+
 // apiClient.js
 import { API_BASE, AUTH_BASE } from "@core/config";
-import i18n from '@/lib/i18n';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
 let isRefreshing: boolean = false;
@@ -26,7 +27,7 @@ export async function apiFetch(url: string, options: IApiRequest = {}, extraPara
 
     const makeRequest = async () => {
 
-        const baseParams = { locale: `${i18n.language}`, ...extraParams };
+        const baseParams = { locale: `en`, ...extraParams };
         const queryString = new URLSearchParams(baseParams).toString();
 
         const headers = {
@@ -36,11 +37,6 @@ export async function apiFetch(url: string, options: IApiRequest = {}, extraPara
         };
 
         const separator = url.includes("?") ? "&" : "?";
-
-        console.log(API_BASE)
-        console.log(url)
-        console.log(separator)
-        console.log(queryString)
 
         return fetch(`${API_BASE}${url}${separator}${queryString}`, {
             ...options,

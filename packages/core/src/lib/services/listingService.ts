@@ -1,5 +1,5 @@
-import { CatalogFilters, IListingTranslation } from '../types';
-import { apiFetchJson, apiFetch, apiFetchText } from './apiClient';
+import { ICatalogFilters, IListingTranslation } from '../types';
+import { apiFetchJson, apiFetch, apiFetchText } from './utils/apiClient';
 
 export const listingService = {
     getListingAccessToken: (listingId: number) => apiFetchJson(`/listing/${listingId}/token`, {method: "GET"}),
@@ -9,7 +9,7 @@ export const listingService = {
 
     getImages: (listingId: number) => apiFetchJson(`/listing/${listingId}/images`),
     getTranslations: (listingId: number) => apiFetchJson(`/listing/${listingId}/translations`),
-    getCatalog: (params: CatalogFilters) => 
+    getCatalog: (params: ICatalogFilters) => 
         apiFetchJson(`/listing/catalog`, {
             method: "POST",
             headers: {

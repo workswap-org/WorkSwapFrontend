@@ -1,25 +1,16 @@
-import { useTranslation } from 'react-i18next';
 import CatalogCategories from "./CatalogCategories";
-import { CatalogFilters } from "@core/lib";
+import { useCatalogFilters, useI18n } from "@core/lib";
 
-const CatalogHeader = ({
-    filters,
-    updateFilter,
-}: {
-    filters: CatalogFilters;
-    updateFilter: (key: string, value: string | boolean | number | null) => void;
-}) => {
+const CatalogHeader = () => {
 
-    const { t } = useTranslation('categories')
+    const { filters, updateFilter } = useCatalogFilters();
+    const { dict } = useI18n();
 
     return (
         <div className="catalog-header">
             <div className="catalog-header-content">
 
-                <CatalogCategories
-                    filters={filters}
-                    updateFilter={updateFilter}
-                />
+                <CatalogCategories />
 
                 <div className="listings-search">
                     <input 
@@ -28,7 +19,7 @@ const CatalogHeader = ({
                         value={filters.searchQuery ?? ""}
                         onChange={(e) => updateFilter("searchQuery", e.target.value)}
                         name="searchQuery"
-                        placeholder={t('placeholders.search', { ns: 'common' })}
+                        placeholder={dict.common.placeholders.search}
                     />
                     <input type="hidden" name="category"/>
                     <input type="hidden" name="sortBy"/>

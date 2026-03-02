@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from "react";
 import { useAuth } from "@core/lib";
-import { apiFetchJson } from "@core/lib";
 import { useNavigate } from "react-router-dom";
 import { AUTH_BASE } from "@core/config";
 

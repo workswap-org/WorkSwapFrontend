@@ -1,3 +1,5 @@
+"use client";
+
 import { useStompClient } from "@core/lib";
 import { WebSocketContext } from "../contexts/WebSocketContext";
 import { ReactNode } from "react";

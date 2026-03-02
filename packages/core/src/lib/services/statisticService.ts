@@ -1,4 +1,4 @@
-import { apiFetchJson } from './apiClient';
+import { apiFetchJson } from './utils/apiClient';
 
 export const statisticService = {
     getOnline: () => apiFetchJson('/stats/online'),

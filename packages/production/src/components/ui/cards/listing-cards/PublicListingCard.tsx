@@ -10,13 +10,12 @@ import {
     listingTypesWithRating,
     useAuth
 } from "@core/lib";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { redirect } from "next/navigation";
 import { useTranslation } from 'react-i18next';
 
 const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
-    const navigate = useNavigate();
     const [isFavorite, setFavorite] = useState<boolean>(listing.liked || false);
     const [likesCount, setLikesCount] = useState<number>(listing.likes || 0);
     const { t } = useTranslation(['common', 'tooltips'])
@@ -26,9 +25,9 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
     const navigator = () => {
         if (listing.type == "EVENT") {
-            navigate(`/event/${listing.id}`)
+            redirect(`/event/${listing.id}`)
         } else {
-            navigate(`/listing/${listing.id}`)
+            redirect(`/listing/${listing.id}`)
         }
     }
 

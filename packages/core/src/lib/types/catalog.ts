@@ -1,4 +1,4 @@
-export interface CatalogFilters {
+export interface ICatalogFilters {
     categoryId?: number;
     searchQuery?: string;
     hasReviews?: boolean;

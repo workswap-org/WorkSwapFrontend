@@ -1,6 +1,9 @@
 // Контексты
 export * from './contexts';
 
+// провайдеры
+export * from './providers';
+
 // Хуки
 export * from './hooks/index.ts';
 

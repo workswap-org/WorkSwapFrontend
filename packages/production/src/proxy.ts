@@ -20,7 +20,14 @@ export function proxy(request: NextRequest) {
         return NextResponse.redirect(new URL('/en', request.url));
     }
 
-    return;
+    // Читаем тему из cookie
+    const theme = request.cookies.get('theme')?.value || 'light';
+
+    // Добавляем заголовок для RootLayout
+    const response = NextResponse.next();
+    response.headers.set('x-theme', theme);
+
+    return response;
 }
 
 export const config = {

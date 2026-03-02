@@ -1,4 +1,4 @@
-import { apiFetchJson, apiFetch, apiFetchText } from '../apiClient';
+import { apiFetchJson, apiFetch, apiFetchText } from '../utils/apiClient';
 
 export const userApi = {
     getCurrent: () => apiFetchJson(`/user`),

@@ -1,4 +1,4 @@
-import { apiFetchJson, apiFetch } from './apiClient';
+import { apiFetchJson, apiFetch } from './utils/apiClient';
 
 export const eventService = {
     getEventPage: (eventId: number, token: string | null) => apiFetchJson(`/event/${eventId}`, {}, {token}),

@@ -1,4 +1,4 @@
-import { apiFetchJson, apiFetch } from './apiClient';
+import { apiFetchJson, apiFetch } from './utils/apiClient';
 
 export const subscriptionService = {
     check: (targetId: number, type: string) => apiFetchJson(`/api/subscribe/${targetId}`, { method: 'GET' }, {type}),

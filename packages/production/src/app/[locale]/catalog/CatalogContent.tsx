@@ -1,23 +1,18 @@
-import { useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
+import { useEffect, useState, useRef } from "react";
 import { 
-    CatalogFilters,
     listingService,
-    IShortListing, 
+    IShortListing,
+    useCatalogFilters,
+    useI18n, 
 } from "@core/lib";
-import { useTranslation } from "react-i18next";
 import { PublicListingCard } from "@/components";
 import { DelayedList } from "@core/components";
 
-interface CatalogContentProps {
-    filters: CatalogFilters;
-    setTotalPages: Dispatch<SetStateAction<number>>
-}
-const CatalogContent = ({ filters, setTotalPages}: CatalogContentProps) => {
+const CatalogContent = () => {
 
-    const { i18n } = useTranslation();
-    const userLocale = i18n.language || "fi";
+    const { filters, setTotalPages } = useCatalogFilters();
 
-    const { t } = useTranslation(['common', 'navigation'])
+    const { dict } = useI18n();
 
     const [listings, setListings] = useState<IShortListing[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -26,8 +21,6 @@ const CatalogContent = ({ filters, setTotalPages}: CatalogContentProps) => {
 
     useEffect(() => {
         const requestId = ++lastRequestId.current;
-
-        /* console.log("Вызов каталога " + requestId + ": ", filters) */
 
         setLoading(true);
         listingService.getCatalog(filters)
@@ -39,8 +32,8 @@ const CatalogContent = ({ filters, setTotalPages}: CatalogContentProps) => {
                 console.log(data.listings.length)
             })
             .finally(() => setLoading(false));
-    }, [filters, setTotalPages, userLocale]);
-    
+    }, [filters, setTotalPages]);
+
     return (
         <div className="catalog-content">
             <div className="listings-grid">
@@ -57,7 +50,7 @@ const CatalogContent = ({ filters, setTotalPages}: CatalogContentProps) => {
                                 <i className="fa-solid fa-plus fa-2xl"></i>
                             </div>
                             <div className="listing-card_body">
-                                <h3 className="listing-card_title">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</h3>
+                                <h3 className="listing-card_title">{dict.navigation.catalogSidebar.links.createListing}</h3>
                             </div>
                         </article>
                     ]}/>

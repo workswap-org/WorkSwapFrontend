@@ -5,25 +5,22 @@ const sorts = [
     { key: "popularity"},
 ];
 
-import { useTranslation } from 'react-i18next';
 import { useSwipeable } from 'react-swipeable';
-import { CatalogFilters, userService } from '@core/lib';
+import { useAuth, useCatalogFilters, useI18n } from '@core/lib';
 
 interface CatalogSidebarProps {
-    filters: CatalogFilters;
-    updateFilter: (key: string, value: string | boolean | null) => void;
     sidebarOpened: boolean;
     toggleSidebar: () => void
 }
 const CatalogSidebar = ({
-    filters,
-    updateFilter,
     sidebarOpened,
     toggleSidebar,
 }: CatalogSidebarProps) => {
 
-    const { user } = userService.useCurrentUser();
-    const { t } = useTranslation(['common', 'navigation'])
+    const { dict } = useI18n();
+
+    const { filters, updateFilter } = useCatalogFilters();
+    const { user } = useAuth();
 
     const handlers = useSwipeable({
         onSwipedRight: () => {
@@ -49,7 +46,7 @@ const CatalogSidebar = ({
 
             <div className="sorting-sidebar">
                 <section>
-                    <h5>{t(`catalog.sidebar.sort`, { ns: 'common' })}</h5>
+                    <h5>{dict.common.catalog.sidebar.sort}</h5>
                     <div className="list-group">
                         {sorts.map(sort => (
                             <button
@@ -57,14 +54,14 @@ const CatalogSidebar = ({
                                 className={`list-group-item ${filters.sortBy === sort.key ? "active" : ""}`}
                                 onClick={() => updateFilter("sortBy", sort.key)}
                             >
-                                {t(`sorts.${sort.key}`, { ns: 'common' })}
+                                {dict.common.sorts[sort.key]}
                             </button>
                         ))}
                     </div>
                 </section>
                 
                 <section>
-                    <h5>{t(`catalog.sidebar.filters`, { ns: 'common' })}</h5>
+                    <h5>{dict.common.catalog.sidebar.filters}</h5>
                     <div className="checkbox hover">
                         <input
                             type="checkbox"
@@ -75,7 +72,7 @@ const CatalogSidebar = ({
                         />
                         <label htmlFor="filter2">
                             <span className="checkmark"></span>
-                            <span>{t(`catalog.sidebar.hasReviews`, { ns: 'common' })}</span>
+                            <span>{dict.common.catalog.sidebar.hasReviews}</span>
                         </label>
                     </div>
 
@@ -92,7 +89,7 @@ const CatalogSidebar = ({
                         />
                         <label htmlFor="translationsCheckbox">
                             <span className="checkmark"></span>
-                            <span>{t(`catalog.sidebar.translationsFilter`, { ns: 'common' })}</span>
+                            <span>{dict.common.catalog.sidebar.translationsFilter}</span>
                         </label>
                     </div>
                 </section>
@@ -100,13 +97,13 @@ const CatalogSidebar = ({
             {user && (
                 <div className="sorting-sidebar sidebar-links">
                     <section>
-                        <h5>{t(`catalog.sidebar.usefulLinks`, { ns: 'common' })}</h5>
+                        <h5>{dict.common.catalog.sidebar.usefulLinks}</h5>
                         <div className="list-group">
                             {/* <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link> */}
                             {/* <Link to="/account/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link> */}
-                            <a href="/account/listing/create" className="list-group-item">{t('catalogSidebar.links.createListing', { ns: 'navigation' })}</a>
-                            <a href="/account/my-listings" className="list-group-item">{t('catalogSidebar.links.myListings', { ns: 'navigation' })}</a>
-                            <a href="/account/messenger" className="list-group-item">{t('catalogSidebar.links.messenger', { ns: 'navigation' })}</a>
+                            <a href="/account/listing/create" className="list-group-item">{dict.navigation.catalogSidebar.links.createListing}</a>
+                            <a href="/account/my-listings" className="list-group-item">{dict.navigation.catalogSidebar.links.myListings}</a>
+                            <a href="/account/messenger" className="list-group-item">{dict.navigation.catalogSidebar.links.messenger}</a>
                         </div>
                     </section>
                 </div>

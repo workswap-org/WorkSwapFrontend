@@ -1,8 +1,10 @@
 import { AppProviders } from "@core/lib/providers/AppProviders";
 import "@/css/main.scss";
-import Script from "next/script";
+import { headers } from "next/headers";
 import { ReactNode } from "react";
 import { Header } from "@/components";
+import { getDictionary } from "@/lib/i18n";
+import { I18nProvider, parseLocale } from "@core/lib";
 
 export const metadata = {
     title: "WorkSwap",
@@ -25,9 +27,14 @@ export default async function RootLayout({
 }) {
 
     const { locale } = await params;
+    const parsed = parseLocale(locale)
+    const dict = await getDictionary(parsed);
+
+    const loadedHeaders = await headers()
+    const theme = loadedHeaders.get("x-theme") || "light";
 
     return (
-        <html lang={locale}>
+        <html lang={locale} data-theme={theme}>
             <head>
                 <link
                     rel="stylesheet"
@@ -37,33 +44,19 @@ export default async function RootLayout({
             </head>
             <body>
                 {/* Theme initializer before hydration */}
-                <Script id="theme-init" strategy="beforeInteractive">
-                    {`
-                        (function() {
-                            const savedTheme = localStorage.getItem('theme');
-                            let theme = 'light';
-                            
-                            if (savedTheme) {
-                                theme = savedTheme;
-                            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                                theme = 'dark';
-                            }
-
-                            document.documentElement.setAttribute('data-theme', theme);
-                        })();
-                    `}
-                </Script>
 
                 <AppProviders>
-                <div id="root">
-                    <Header />
-                    {children}
+                    <I18nProvider locale={parsed} dict={dict}>
+                        <div id="root">
+                            <Header />
+                            {children}
 
-                    {/* <LanguageSelectModal /> */}
-                </div>
+                            {/* <LanguageSelectModal /> */}
+                        </div>
 
-                <div id="modal-root"></div>
-                <div id="mobile-menu"></div>
+                        <div id="modal-root"></div>
+                        <div id="mobile-menu"></div>
+                    </I18nProvider>
                 </AppProviders>
             </body>
         </html>

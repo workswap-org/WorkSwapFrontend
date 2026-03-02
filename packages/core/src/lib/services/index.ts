@@ -1,4 +1,4 @@
-export * from './apiClient';
+export * from './utils/apiClient';
 export * from './listingService';
 export * from './notificationService';
 export * from './user';
@@ -16,4 +16,4 @@ export * from './subscriptionService';
 export * from './eventService';
 export * from './forumService';
 export * from './utilsService';
-export * from './htmlViewService';
+export * from './utils';

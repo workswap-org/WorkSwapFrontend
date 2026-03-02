@@ -1,17 +1,13 @@
 import { useCallback, useEffect, useState, useRef, useMemo, ReactNode } from "react";
-import { CatalogFilters, categoryService, ICategory, ListingType, ListingTypeValue } from "@core/lib";
-import { useTranslation } from 'react-i18next';
 
-interface CatalogCategoriesProps {
-    filters: CatalogFilters;
-    updateFilter: (key: string, value: string | boolean | number | null) => void;
-}
-
-const CatalogCategories = ({ filters, updateFilter }: CatalogCategoriesProps) => {
+const CatalogCategories = () => {
+    
+    const { filters, updateFilter } = useCatalogFilters();
+    
     const [categoriesMenu, setCategoriesMenu] = useState<boolean>(false);
     const [categories, setCategories] = useState<Record<string, ICategory[]> | null>(null);
     const [listingType, setListingType] = useState<ListingTypeValue>(ListingType.PRODUCT);
-    const { t } = useTranslation(['categories', 'tooltips']);
+    const { dict } = useI18n();
 
     const timeoutRef = useRef<number>(0);
 
@@ -35,7 +31,7 @@ const CatalogCategories = ({ filters, updateFilter }: CatalogCategoriesProps) =>
     }, [categories, listingType, filters]);
 
     const handleMouseLeave = () => {
-        timeoutRef.current = setTimeout(() => setCategoriesMenu(false), 500);
+        timeoutRef.current = window.setTimeout(() => setCategoriesMenu(false), 500);
     };
     const handleMouseEnter = () => clearTimeout(timeoutRef.current);
 
@@ -46,7 +42,7 @@ const CatalogCategories = ({ filters, updateFilter }: CatalogCategoriesProps) =>
                 onClick={() => setCategoriesMenu(prev => !prev)}
             >
                 <div><i className="fa-solid fa-list fa-lg perm-light"></i></div>
-                <span className="normal-only">{t('category.all-categories')}</span>
+                <span className="normal-only">{dict.categories.category['all-categories']}</span>
             </button>
             <div
                 className={`categories-menu ${categoriesMenu ? "active" : ""}`}
@@ -61,7 +57,7 @@ const CatalogCategories = ({ filters, updateFilter }: CatalogCategoriesProps) =>
                             value={type}
                             onClick={() => setListingType(type)}
                         >
-                            {t(`listingType.${type.toUpperCase()}`)}
+                            {dict.categories.listingType[type.toUpperCase()]}
                             <div className={`indicator ${listingType == type ? "active" : ""}`}>
                                 <i className="fa-solid fa-angle-down"></i>
                             </div>
@@ -81,7 +77,7 @@ const CatalogCategories = ({ filters, updateFilter }: CatalogCategoriesProps) =>
                                         : updateFilter("categoryId", cat.id)
                                     }
                                 >
-                                    {t(`category.${listingType}.${cat.name}`)}
+                                    {dict.categories.category[listingType][cat.name]}
                                 </CategoryButton>
                             )}
                         </div>
@@ -99,7 +95,7 @@ const CatalogCategories = ({ filters, updateFilter }: CatalogCategoriesProps) =>
                                             : updateFilter("categoryId", child.id)
                                         }
                                     >
-                                        {t(`category.${listingType}.${child.name}`)}
+                                        {dict.categories.category[listingType][child.name]}
                                     </button>
                                 )}
                             </div>
@@ -108,8 +104,8 @@ const CatalogCategories = ({ filters, updateFilter }: CatalogCategoriesProps) =>
                 </div>
                 {selectedCategory && (
                     <span className="selected-category-label">
-                        <span>{t(`catalog.selectedCategory`, { ns: 'tooltips' })}: </span>
-                        <span className="selected-category">{t(`category.${listingType}.${selectedCategory.name}`)}</span>
+                        <span>{dict.tooltips.catalog.selectedCategory}: </span>
+                        <span className="selected-category">{dict.categories.category[listingType][selectedCategory.name]}</span>
                     </span>
                 )}
             </div>
