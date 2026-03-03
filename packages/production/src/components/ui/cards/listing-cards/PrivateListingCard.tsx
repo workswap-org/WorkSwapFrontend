@@ -52,7 +52,7 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
                 </div>
                 <Link
                     className="btn btn-primary"
-                    href={`/account/listing/edit/${listing.id}`}
+                    href={`/account/listing/${listing.id}/manage`}
                     onClick={(e) => e.stopPropagation()}
                     id="notificationAnchor"
                 >

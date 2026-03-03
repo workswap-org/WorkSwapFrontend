@@ -1,3 +1,4 @@
+import { DEFAULT_LOCALE, supportedLanguages } from '@core/lib/constants/languages';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
@@ -6,7 +7,6 @@ const PUBLIC_FILE = /\.(.*)$/;
 export function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // Пропускаем статику и api
     if (
         pathname.startsWith('/_next') ||
         pathname.startsWith('/api') ||
@@ -15,15 +15,39 @@ export function proxy(request: NextRequest) {
         return;
     }
 
-    // Если это корень — редиректим на /en
-    if (pathname === '/') {
-        return NextResponse.redirect(new URL('/en', request.url));
+    // Разбиваем путь
+    const segments = pathname.split('/');
+    const firstSegment = segments[1];
+
+    // Если корень — редирект на дефолтную локаль
+    if (!firstSegment) {
+        const cookieLocale = request.cookies.get("locale")?.value;
+
+        const locale =
+            cookieLocale && supportedLanguages.includes(cookieLocale)
+                ? cookieLocale
+                : DEFAULT_LOCALE;
+
+        return NextResponse.redirect(
+            new URL(`/${locale}`, request.url)
+        );
     }
 
-    // Читаем тему из cookie
+    // Если локаль не поддерживается — редиректим на дефолтную
+    if (!supportedLanguages.includes(firstSegment)) {
+        const cookieLocale = request.cookies.get("locale")?.value;
+
+        const locale =
+            cookieLocale && supportedLanguages.includes(cookieLocale)
+                ? cookieLocale
+                : DEFAULT_LOCALE;
+
+        return NextResponse.redirect(
+            new URL(`/${locale}${pathname}`, request.url)
+        );
+    }
     const theme = request.cookies.get('theme')?.value || 'light';
 
-    // Добавляем заголовок для RootLayout
     const response = NextResponse.next();
     response.headers.set('x-theme', theme);
 

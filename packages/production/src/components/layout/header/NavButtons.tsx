@@ -64,7 +64,7 @@ const NavButtons = () => {
                 </div>
             ) : (
                 <a
-                    href={`${AUTH_BASE}/auth` + url ? `?redirect=${encodeURIComponent(url || "")}` : ""}
+                    href={`${AUTH_BASE}/auth${url ? `?redirect=${encodeURIComponent(url || "")}` : ""}`}
                     className="btn btn-outline-primary login-btn"
                 >
                     <span>{dict.buttons.login}</span>

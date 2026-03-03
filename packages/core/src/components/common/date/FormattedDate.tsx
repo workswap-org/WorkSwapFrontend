@@ -48,3 +48,5 @@ export const FormattedDate = ({ isoDate, format = "DMYHM"}: Props) => {
 
     return <span>{formatted}</span>;
 };
+
+export default FormattedDate

@@ -1,7 +1,6 @@
 "use client"
 
 import { useRef, useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import SendMessageArea from "./SendMessageArea";
 import MessagesGroup from "./MessagesGroup";
@@ -13,6 +12,7 @@ import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
 import { IShortUser } from "@core/lib/types/models/user";
 import { ChatType, privateChatTypes } from "@core/lib/constants/chatTypes"
 import Avatar from "@core/components/common/Avatar";
+import Link from "next/link";
 
 const ChatWindow = ({title}: {title?: string}) => {
 
@@ -78,8 +78,8 @@ const ChatWindow = ({title}: {title?: string}) => {
                                 <i className="fa-regular fa-cards-blank fa-lg"></i>
                             </button>
                         )}
-                        <Link 
-                            to={`/profile/${chatInterlocutor?.openId}`} 
+                        <Link
+                            href={`/profile/${chatInterlocutor?.openId}`} 
                             className="btn btn-outline-primary btn-sm"
                         >
                             <i className="fa-regular fa-user fa-lg"></i>
@@ -94,7 +94,7 @@ const ChatWindow = ({title}: {title?: string}) => {
                         )}
                         {chatInterlocutor?.openId && (
                             <Link 
-                                to={`/profile/${chatInterlocutor?.openId}`} 
+                                href={`/profile/${chatInterlocutor?.openId}`} 
                                 className="btn btn-outline-primary btn-sm"
                             >
                                 {t(`messenger.profile`, { ns: 'buttons' })}

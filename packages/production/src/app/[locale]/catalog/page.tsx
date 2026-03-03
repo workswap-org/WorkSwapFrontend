@@ -32,13 +32,13 @@ function CatalogPage() {
     const contentRef = useRef<HTMLDivElement>(null);
 
     const { filters, updateFilter, totalPages } = useCatalogFilters();
-
+    
     useEffect(() => {
         contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
     }, [filters.page]);
 
     return(
-        <CatalogFiltersProvider>
+        <>
             <CatalogHeader />
             <div className="catalog-layout">
                 <CatalogSidebar
@@ -88,6 +88,6 @@ function CatalogPage() {
                     />
                 </main>
             </div>
-        </CatalogFiltersProvider>
+        </>
     );
 };

@@ -5,6 +5,8 @@ export const Languages = Object.freeze({
     // IT: { code: "it", label: "Italiano" }
 });
 
+export const DEFAULT_LOCALE = 'en'
+
 // Также можно создать массив для перебора
 export const languagesList = Object.values(Languages);
 export const supportedLanguages = Object.values(Languages).map(lang => lang.code);

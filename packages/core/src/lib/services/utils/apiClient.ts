@@ -60,7 +60,7 @@ export async function apiFetch(url: string, options: IApiRequest = {}, extraPara
     }
 
     if (!res.ok) {
-        throw new Error(`Ошибка запроса: ${res.status}`);
+        throw new Error(`Ошибка запроса: ${res.status} ${url}`);
     }
 
     return res;

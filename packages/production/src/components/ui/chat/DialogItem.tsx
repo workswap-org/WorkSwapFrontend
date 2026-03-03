@@ -1,8 +1,13 @@
 "use client"
 
+import Avatar from "@core/components/common/Avatar";
+import { ChatType } from "@core/lib/constants/chatTypes";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { IChat, IChatMessage } from "@core/lib/types/messenger";
+import { IShortListing } from "@core/lib/types/models/listing";
+import { IShortUser } from "@core/lib/types/models/user";
 import { useEffect, useMemo, useState } from "react";
-import { IShortListing , IChat, ChatType, IChatMessage, useChats, IShortUser, useAuth } from "@core/lib";
-import { Avatar } from "@core/components";
 import { useLocation } from "react-router-dom";
 
 interface DialogItemProps {

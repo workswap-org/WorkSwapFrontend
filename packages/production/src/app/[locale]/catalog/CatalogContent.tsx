@@ -28,6 +28,7 @@ const CatalogContent = () => {
                     setTotalPages(data.totalPages);
                 }
                 console.log(data.listings.length)
+                console.log(data.totalPages)
             })
             .finally(() => setLoading(false));
     }, [filters, setTotalPages]);

@@ -1,12 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { locationsService, ILocation } from "@core/lib";
-import { useTranslation } from 'react-i18next';
+import { ILocation } from '@core/lib/types/models/location'
+import { locationsService } from '@core/lib/services/locationsService'
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const LocationSelector = ({ locationId, onChange }: {locationId: number, onChange: (value: number, newPath: number[]) => void}) => {
     
-    const { t } = useTranslation('common');
+    const { dict } = useI18n();
 
     const [locations, setLocations] = useState<ILocation[] | null>(null);
     const [selectedPath, setSelectedPath] = useState<number[]>([]);
@@ -72,7 +73,7 @@ const LocationSelector = ({ locationId, onChange }: {locationId: number, onChang
                     onChange={(e) => handleSelect(level, Number(e.target.value))}
                 >
                     <option value="" disabled>
-                        {t(`placeholders.location`, { ns: 'common' })}
+                        {dict.common.placeholders.location}
                     </option>
                     {children.map((l) => (
                         <option key={l.id} value={l.id}>

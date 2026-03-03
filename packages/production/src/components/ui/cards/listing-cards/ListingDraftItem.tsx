@@ -1,12 +1,12 @@
 "use client";
 
-import { useTranslation } from 'react-i18next';
 import { redirect } from 'next/navigation';
 import { IFullListing } from '@core/lib/types/models/listing';
+import { useI18n } from '@core/lib/contexts/I18nContext';
 
 const ListingDraftItem = ({ listing }: {listing: IFullListing}) => {
 
-    const { t } = useTranslation('common')
+    const { dict } = useI18n()
 
     return (
         <article className="draft-listing-card" onClick={() => redirect(`/account/listing/edit/${listing.id}`)}>
@@ -18,7 +18,7 @@ const ListingDraftItem = ({ listing }: {listing: IFullListing}) => {
                 {listing.localizedTitle ? (
                     <span>{listing.localizedTitle}</span>
                 ) : (
-                    <span>{t(`fallbacks.noTitle`, { ns: 'common' })}</span>
+                    <span>{dict.common.fallbacks.noTitle}</span>
                 )}
             </div>
         </article>

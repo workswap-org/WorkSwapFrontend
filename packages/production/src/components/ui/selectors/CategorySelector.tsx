@@ -1,12 +1,15 @@
 "use client"
 
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import { categoryService } from "@core/lib/services/categoriesService";
+import { ICategory } from "@core/lib/types/models/category";
+import { IFullListing } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";
-import { categoryService, ICategory, IFullListing } from "@core/lib";
 import { useTranslation } from 'react-i18next';
 
 const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChange: (value: number, newPath: number[]) => void} ) => {
 
-    const { t } = useTranslation(['common', 'categories']);
+    const { dict } = useI18n();
 
     const [categories, setCategories] = useState<ICategory[] | null>(null);
     const [selectedPath, setSelectedPath] = useState<number[]>([]);
@@ -74,11 +77,11 @@ const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChang
                     onChange={(e) => handleSelect(level, Number(e.target.value))}
                 >
                     <option value="" disabled>
-                        {t(`placeholders.category`, { ns: 'common' })}
+                        {dict.common.placeholders.category}
                     </option>
                     {children.map((c) => (
                         <option key={c.id} value={c.id}>
-                            {t(`category.${listingType}.${c.name}`, { ns: 'categories' })}
+                            {dict.categories.category[listingType][c.name]}
                         </option>
                     ))}
                 </select>

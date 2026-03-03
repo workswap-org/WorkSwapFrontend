@@ -1,4 +1,4 @@
-import { autoGrow } from "../../../lib";
+import { autoGrow } from "@core/lib/services/utils/htmlViewService";
 
 const TextareaRT1 = ({
     value,

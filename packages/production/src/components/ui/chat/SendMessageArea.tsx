@@ -1,14 +1,12 @@
 "use client"
 
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
+import { IChatMessage } from "@core/lib/types/messenger";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { 
-    useWebSocket,
-    useAuth,
-    useChats,
-    IChatMessage
-} from "@core/lib";
-import { TextareaRT1 } from "@core/components";
+import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1"
 
 const SendMessageArea = () => {
     const { user } = useAuth();
