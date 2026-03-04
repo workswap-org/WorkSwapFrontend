@@ -5,7 +5,13 @@ import { ILocation } from '@core/lib/types/models/location'
 import { locationsService } from '@core/lib/services/locationsService'
 import { useI18n } from "@core/lib/contexts/I18nContext";
 
-const LocationSelector = ({ locationId, onChange }: {locationId: number, onChange: (value: number, newPath: number[]) => void}) => {
+const LocationSelector = ({ 
+    locationId, 
+    onChange 
+}: {
+    locationId: number | null, 
+    onChange: (value: number, newPath: number[]) => void}
+) => {
     
     const { dict } = useI18n();
 

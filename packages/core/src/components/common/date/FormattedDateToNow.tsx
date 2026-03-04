@@ -3,7 +3,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ru } from 'date-fns/locale'
 
-export const FormattedDateToNow = ({date}: {date: string}) => {
+const FormattedDateToNow = ({date}: {date: string}) => {
     return (
         <div id='date'>
             {formatDistanceToNow(
@@ -16,3 +16,5 @@ export const FormattedDateToNow = ({date}: {date: string}) => {
         </div>
     )
 }
+
+export default FormattedDateToNow

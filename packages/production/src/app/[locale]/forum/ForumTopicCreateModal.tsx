@@ -1,16 +1,17 @@
 import ForumTagSelector from "@/components/ui/selectors/ForumTagSelector";
-import { Modal, TextareaRT1 } from "@core/components";
-import { forumService, ForumTag } from "@core/lib";
+import Modal from "@core/components/ui/Modal";
+import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1";
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import { forumService } from "@core/lib/services/forumService";
+import { ForumTag } from "@core/lib/types/forum";
+import { redirect } from "next/navigation";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
 const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
-    const { t } = useTranslation(['buttons', 'navigation'])
+    const { dict } = useI18n()
     
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const navigate = useNavigate();
     const [tag, setTag] = useState<ForumTag | null>(null);
     const [sending, setSending] = useState(false);
     const [isOpen, setOpen] = useState<boolean>(false)
@@ -32,7 +33,7 @@ const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
         setSending(false);
         if (topicOpenId) {
             setTitle('');
-            navigate(`/forum/topic/${topicOpenId}`);
+            redirect(`/forum/topic/${topicOpenId}`);
         }
     } 
     
@@ -43,7 +44,7 @@ const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
                 id="forumTopicCreate" 
                 onClick={() => setOpen(true)}
             >
-                <i className="fa-solid fa-pen"/>{t(`forum.createTopic`, { ns: 'buttons' })}
+                <i className="fa-solid fa-pen"/>{dict.buttons.forum.createTopic}
             </button>
             <Modal isOpen={isOpen} onClose={() => setOpen(false)} title="Создать тему">
                 <div className='forum-topic-form'>

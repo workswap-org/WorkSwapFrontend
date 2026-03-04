@@ -1,14 +1,15 @@
 "use client"
 
-import { UserMeta } from "@core/components";
-import { forumService, IForumActivityItem } from "@core/lib";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Link, Outlet } from "react-router-dom";
+import UserMeta from "@core/components/common/UserMeta";
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import { forumService } from "@core/lib/services/forumService";
+import { IForumActivityItem } from "@core/lib/types/forum";
+import Link from "next/link";
+import { ReactNode, useEffect, useState } from "react";;
 
-const ForumLayout = () => {
+const ForumLayout = ({children}: {children: ReactNode}) => {
 
-    const { t } = useTranslation(['common', 'navigation'])
+    const { dict } = useI18n()
     const [activityItems, setActivityItems] = useState<IForumActivityItem[] | null>(null);
 
     useEffect(() => {
@@ -21,16 +22,16 @@ const ForumLayout = () => {
     }, [])
     return (
         <div className="forum-layout">
-            <Outlet />
+            {children}
 
             <aside className="forum-sidebar">
-                <h2>{t(`forum.lastActivity`, { ns: 'common' })}</h2>
+                <h2>{dict.common.forum.lastActivity}</h2>
                 {activityItems?.slice()
                     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                     .map(item => (
                         <Link 
                             key={item.title} 
-                            to={item.link} 
+                            href={item.link} 
                             className="activity-item"
                         >
                             <UserMeta user={item.author} height={35} />

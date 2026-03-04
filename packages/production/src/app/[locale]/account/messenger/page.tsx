@@ -1,3 +1,5 @@
+"use client"
+
 import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
 import ChatWindow from "@/components/ui/chat/ChatWindow";
 import DialogItem from "@/components/ui/chat/DialogItem";

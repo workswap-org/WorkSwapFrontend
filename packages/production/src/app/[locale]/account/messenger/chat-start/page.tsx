@@ -1,18 +1,19 @@
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { redirect, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth, chatService, useChatsLoad, useChats } from "@core/lib";
+import { useChatsLoad } from "@core/lib/hooks/chat/useChatsLoad"
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { chatService } from "@core/lib/services/chatService"
 
 const ChatStartPage = () => {
 
     const { user } = useAuth();
-    const { search } = useLocation();
-    const params = new URLSearchParams(search);
+    const searchParams = useSearchParams();
 
-    const interlocutorId = Number(params.get("interlocutorId")) || null;
-    const listingId = Number(params.get("listingId")) || null;
+    const interlocutorId = Number(searchParams.get("interlocutorId")) || null;
+    const listingId = Number(searchParams.get("listingId")) || null;
 
     const [chatId, setChatId] = useState(0);
-    const navigate = useNavigate();
     const { reloadChats } = useChatsLoad();
     const { setCurrentChatId } = useChats();
 
@@ -49,14 +50,11 @@ const ChatStartPage = () => {
     useEffect(() => {
         if(chatId) {
             setCurrentChatId(chatId);
-            navigate(`/account/messenger?chatId=${chatId}`, { replace: true})
+            redirect(`/account/messenger?chatId=${chatId}`)
         }
-    }, [chatId, navigate, setCurrentChatId]);
+    }, [chatId, setCurrentChatId]);
 
-    return (
-        <>
-        </>
-    );
+    return null;
 };
 
 export default ChatStartPage;

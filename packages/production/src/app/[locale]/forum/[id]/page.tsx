@@ -1,27 +1,28 @@
-import { ActionMenu, Avatar, FormattedDateToNow, TextareaRT1 } from "@core/components";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { 
-    useAuth,
-    forumService, 
-    IForumPost,
-    IShortUser,
-    IForumTopic
-} from '@core/lib'
+"use client"
 
-import { useTranslation } from "react-i18next";
+import Avatar from "@core/components/common/Avatar";
+import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import { IForumPost, IForumTopic } from "@core/lib/types/forum";
+import { IShortUser } from "@core/lib/types/models/user";
+import { redirect, useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import ForumPost from "./ForumPost";
+import { forumService } from "@core/lib/services/forumService"
+import ActionMenu from "@core/components/ui/ActionMenu"
+import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow"
 
 const ForumTopicPage = () => {
 
-    const { t } = useTranslation('forumtags')
+    const { dict } = useI18n()
 
     const { user } = useAuth();
-    const [topic, setTopic] = useState<IForumTopic | null>(null);
-    const { topicOpenId } = useParams();
+    const [topic, setTopic] = useState<IForumTopic| null>(null);
+    const { id } = useParams();
+    const topicOpenId = String(id)
     const [newPostTxt, setNewPostTxt] = useState('');
     const [sending, setSending] = useState(false);
-    const navigate = useNavigate();
 
     const createPost = async() => {
         setSending(true);
@@ -86,7 +87,7 @@ const ForumTopicPage = () => {
                 if (confirmed && topic?.openId) {
                     const res = await forumService.deleteTopic(topic?.openId);
                     if (res.ok) {
-                        navigate("/forum");
+                        redirect("/forum");
                     }
                 }
             },
@@ -109,7 +110,7 @@ const ForumTopicPage = () => {
                                 <ActionMenu actions={actions} />
                             </div>
                             {topic.tagName && (
-                                <div className="forum-tag">{t(topic.tagName)}</div>
+                                <div className="forum-tag">{dict.forumtags.topic.tagName}</div>
                             )}
                         </div>
                     </div>

@@ -1,18 +1,23 @@
+import { useI18n } from '@core/lib/contexts/I18nContext';
+import { IFullUser } from '@core/lib/types/models/user';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 
-const PrivacySettings = ({ user, updateUser }) => {
+interface SettingsProps {
+    user: IFullUser;
+    updateUser: (updates: Partial<IFullUser>) => void;
+}
+const PrivacySettings = ({ user, updateUser }: SettingsProps) => {
 
-    const { t } = useTranslation(['tooltips', 'common'])
+    const { dict } = useI18n()
 
     const phoneVisible = useMemo(() => {return user.phoneVisible || false}, [user.phoneVisible]);
     const emailVisible = useMemo(() => {return user.emailVisible || false}, [user.emailVisible]);
 
     return (
         <div className="form-section">
-            <h3>{t(`settings.labels.privacy`, { ns: 'common' })}</h3>
+            <h3>{dict.common.settings.labels.privacy}</h3>
             <div className="form-group">
-                <label>{t(`settings.privacy`, { ns: 'tooltips' })}</label>
+                <label>{dict.tooltips.settings.privacy}</label>
                 <div className="status-toggle">
                     <label className="switch">
                         <input
@@ -22,7 +27,7 @@ const PrivacySettings = ({ user, updateUser }) => {
                         />
                         <span className="slider"></span>
                     </label>
-                    <span>{t(`settings.phoneVisibility`, { ns: 'tooltips' })}</span>
+                    <span>{dict.tooltips.settings.phoneVisibility}</span>
                 </div>
             </div>
 
@@ -36,7 +41,7 @@ const PrivacySettings = ({ user, updateUser }) => {
                         />
                         <span className="slider"></span>
                     </label>
-                    <span>{t(`settings.emailVisibility`, { ns: 'tooltips' })}</span>
+                    <span>{dict.tooltips.settings.emailVisibility}</span>
                 </div>
             </div>
         </div>

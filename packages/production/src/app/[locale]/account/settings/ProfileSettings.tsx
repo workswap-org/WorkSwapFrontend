@@ -1,8 +1,14 @@
-import { useTranslation } from 'react-i18next';
-import { cloudService, useNotification } from "@core/lib";
+import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useNotification } from '@core/lib/contexts/NotificationContext';
+import { cloudService } from '@core/lib/services/cloudService';
+import { IFullUser } from '@core/lib/types/models/user';
 import { useEffect, useMemo, useState } from 'react';
 
-const ProfileSettings = ({ user, updateUser }) => {
+interface SettingsProps {
+    user: IFullUser;
+    updateUser: (updates: Partial<IFullUser>) => void;
+}
+const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
 
     const name = useMemo(() => {return user.name || ""}, [user.name]);
     const email = useMemo(() => {return user.email || ""}, [user.email]);
@@ -15,17 +21,17 @@ const ProfileSettings = ({ user, updateUser }) => {
     const maxPhoneLen = 16;
     const maxBioLen = 1900;
 
-    const { t } = useTranslation(['tooltips', 'common'])
+    const { dict } = useI18n()
     const {notificate} = useNotification();
 
-    const [uploadedAvatar, setUploadedAvatar] = useState(undefined);
+    const [uploadedAvatar, setUploadedAvatar] = useState<string | null>(null);
 
     useEffect(() => {
         if(user) setUploadedAvatar(user?.uploadedAvatar)
     }, [user])
 
     // Валидация телефона
-    function validatePhone(value) {
+    function validatePhone(value: string) {
         let val = value;
         if (val.indexOf("+") > 0) val = val.replace(/\+/g, "");
         val = val.replace(/[^0-9+]/g, "");
@@ -37,7 +43,7 @@ const ProfileSettings = ({ user, updateUser }) => {
         return val;
     }
 
-    const uploadtoCloud = async (file) => {
+    const uploadtoCloud = async (file: File) => {
         try {
             const formData = new FormData();
             formData.append("image", file);
@@ -70,10 +76,10 @@ const ProfileSettings = ({ user, updateUser }) => {
         <>
             {/* Имя, Email, Телефон */}
             <div className="form-section">
-                <h3>{t(`settings.labels.baseInfo`, { ns: 'common' })}</h3>
+                <h3>{dict.common.settings.labels.baseInfo}</h3>
                 <div>
                     <div className="form-group">
-                        <label>{t(`labels.name`, { ns: 'common' })}</label>
+                        <label>{dict.common.labels.name}</label>
                         <div className="input-wrapper">
                             <input
                                 type="text"
@@ -98,12 +104,12 @@ const ProfileSettings = ({ user, updateUser }) => {
                     </div>
 
                     <div className="form-group">
-                        <label>{t(`labels.phone`, { ns: 'common' })}</label>
+                        <label>{dict.common.labels.phone}</label>
                         <div className="input-wrapper">
                             <input
                                 type="tel"
                                 value={phone ?? ""}
-                                onChange={(e) => updateUser(validatePhone({ phone: e.target.value }))}
+                                onChange={(e) => updateUser({phone: validatePhone(e.target.value)})}
                                 maxLength={maxPhoneLen}
                             />
                             <span className="char-counter">{phone?.length} / {maxPhoneLen}</span>
@@ -114,7 +120,7 @@ const ProfileSettings = ({ user, updateUser }) => {
 
             {/* Аватар */}
             <div className="form-section">
-                <h3>{t(`settings.labels.avatar`, { ns: 'common' })}</h3>
+                <h3>{dict.common.settings.labels.avatar}</h3>
                 <div className="avatar-options">
                     <div
                         className={`avatar-option ${avatarType === "uploaded" ? "selected" : ""}`}
@@ -129,7 +135,7 @@ const ProfileSettings = ({ user, updateUser }) => {
                                 e.target.src = "/images/upload-foto.png"; // путь к запасной картинке
                             }}
                             alt="Моя" />
-                        <span>{t(`settings.avatarTypes.uploaded`, { ns: 'common' })}</span>
+                        <span>{dict.common.settings.avatarTypes.uploaded}</span>
                         <input
                             className='d-none'
                             type="file"
@@ -151,7 +157,7 @@ const ProfileSettings = ({ user, updateUser }) => {
                             className="avatar-preview avatar"
                             src={user.googleAvatar} 
                             alt="Google" />
-                        <span>{t(`settings.avatarTypes.google`, { ns: 'common' })}</span>
+                        <span>{dict.common.settings.avatarTypes.google}</span>
                     </div>
                     <div
                         className={`avatar-option ${avatarType === "default" ? "selected" : ""}`}
@@ -160,16 +166,16 @@ const ProfileSettings = ({ user, updateUser }) => {
                         }}
                     >
                         <img className="avatar-preview avatar" src="/images/avatar-placeholder.png" alt="Default" />
-                        <span>{t(`settings.avatarTypes.default`, { ns: 'common' })}</span>
+                        <span>{dict.common.settings.avatarTypes.default}</span>
                     </div>
                 </div>
             </div>
 
             {/* Bio */}
             <div className="form-section">
-                <h3>{t(`settings.labels.bio`, { ns: 'common' })}</h3>
+                <h3>{dict.common.settings.labels.bio}</h3>
                 <div className="form-group">
-                    <p>{t(`settings.bio`, { ns: 'tooltips' })}</p>
+                    <p>{dict.tooltips.settings.bio}</p>
                     <div className="input-wrapper">
                         <textarea 
                             className='bio'

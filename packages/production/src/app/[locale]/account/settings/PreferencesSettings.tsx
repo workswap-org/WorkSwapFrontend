@@ -1,20 +1,22 @@
-import { useTranslation } from 'react-i18next';
-import { LocationSelector } from "@/components";
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
+import { IFullUser } from '@core/lib/types/models/user';
+import { useI18n } from '@core/lib/contexts/I18nContext';
+import LocationSelector from '@/components/ui/selectors/LocationSelector';
 
-const PreferencesSettings = ({ user, updateUser }) => {
-    const { t } = useTranslation(['tooltips', 'common'])
+interface PreferencesSettingsProps {
+    user: IFullUser;
+    updateUser: (updates: Partial<IFullUser>) => void;
+}
+const PreferencesSettings = ({ user, updateUser }: PreferencesSettingsProps) => {
+
+    const { dict } = useI18n();
 
     const languages = useMemo(() => {
         return user.languages || [];
     }, [user.languages]);
 
-    const locationChange = useCallback((lastId) => {
-        updateUser({ locationId: lastId });
-    }, [updateUser]);
-
     // Языки (переключение кнопок)
-    const toggleLanguage = (lang) => {
+    const toggleLanguage = (lang: string) => {
         updateUser({ languages: languages.includes(lang) ? languages.filter((l) => l !== lang) : [...languages, lang] })
     };
 
@@ -22,8 +24,8 @@ const PreferencesSettings = ({ user, updateUser }) => {
         <>
             {/* Языки */}
             <div className="form-section">
-                <h3>{t(`settings.labels.myLanguages`, { ns: 'common' })}</h3>
-                <p>{t(`settings.myLanguages`, { ns: 'tooltips' })}</p>
+                <h3>{dict.common.settings.labels.myLanguages}</h3>
+                <p>{dict.tooltips.settings.myLanguages}</p>
                 <div className="form-group flex-row">
                     {["ru", "fi", "en", "it"].map((lang) => (
                         <button
@@ -32,7 +34,7 @@ const PreferencesSettings = ({ user, updateUser }) => {
                             className={`lang-select-btn ${languages.includes(lang) ? "active" : ""}`}
                             onClick={() => toggleLanguage(lang)}
                         >
-                            {t(`languages.${lang}`, { ns: 'common' })}
+                            {dict.common.languages[lang]}
                         </button>
                     ))}
                 </div>
@@ -40,9 +42,9 @@ const PreferencesSettings = ({ user, updateUser }) => {
 
             {/* Местоположение */}
             <div className="form-section">
-                <h3>{t(`settings.labels.myLocation`, { ns: 'common' })}</h3>
-                <p>{t(`settings.myLocation`, { ns: 'tooltips' })}</p>
-                <LocationSelector locationId={user.locationId} onChange={locationChange} />
+                <h3>{dict.common.settings.labels.myLocation}</h3>
+                <p>{dict.tooltips.settings.myLocation}</p>
+                <LocationSelector locationId={user.locationId} onChange={(locationId) => updateUser({ locationId: locationId })} />
             </div>
         </>
     );

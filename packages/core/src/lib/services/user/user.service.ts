@@ -1,18 +1,17 @@
 import { apiFetchJson, apiFetch, apiFetchText } from '../utils/apiClient';
 
-export const userApi = {
-    getCurrent: () => apiFetchJson(`/user`),
-    getById: (userId: number) => apiFetchJson(`/user/${userId}`),
-    getUserProfile: (userOpenId: string) => apiFetchJson(`/user/${userOpenId}/profile`),
-    connectUserTelegram: () => apiFetchText('/user/telegram', {method: 'POST'}),
-    checkTelegramConnected: () => apiFetchJson('/user/telegram'),
-    deleteCurrentUser: () => apiFetch('/user', { method: 'DELETE'}),
-    getUserSettings: () => apiFetchJson(`/user/settings`),
-    getRecentUsers: (count: number) => apiFetchJson(`/user/recent`, {}, {count}),
+export const getCurrent = () => apiFetchJson(`/user`);
+export const getById = (userId: number) => apiFetchJson(`/user/${userId}`);
+export const getUserProfile = (userOpenId: string) => apiFetchJson(`/user/${userOpenId}/profile`);
+export const connectUserTelegram = () => apiFetchText('/user/telegram', {method: 'POST'});
+export const checkTelegramConnected = () => apiFetchJson('/user/telegram');
+export const deleteCurrentUser = () => apiFetch('/user', { method: 'DELETE'});
+export const getUserSettings = () => apiFetchJson(`/user/settings`);
+export const getRecentUsers = (count: number) => apiFetchJson(`/user/recent`, {}, {count});
 
-    getFullUserInfo: (userOpenId: string) => apiFetchJson(`/user/${userOpenId}/full-info`),
+export const getFullUserInfo = (userOpenId: string) => apiFetchJson(`/user/${userOpenId}/full-info`);
 
-    modifyUserSettings: (updates: Record<string, any>) => 
+export const modifyUserSettings = (updates: Record<string, any>) => 
         apiFetch(`/user/modify`, {
             method: "PATCH",
             headers: {
@@ -20,4 +19,3 @@ export const userApi = {
             },
             body: JSON.stringify(updates),
         })
-}

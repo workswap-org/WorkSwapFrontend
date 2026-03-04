@@ -1,12 +1,19 @@
-import { ActionMenu, Avatar, FormattedDateToNow, TextareaRT1 } from "@core/components";
-import { IForumComment, IForumPost, IForumTopic, IShortUser, useAuth, forumService } from "@core/lib";
 import { useState } from "react";
 import ForumComment from "./ForumComment";
+import { IForumComment, IForumPost, IForumTopic } from "@core/lib/types/forum";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { IShortUser } from "@core/lib/types/models/user";
+import { forumService } from "@core/lib/services/forumService";
+import Avatar from "@core/components/common/Avatar";
+import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow";
+import ActionMenu from "@core/components/ui/ActionMenu";
+import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1";
+import { access } from "node:fs";
 
 const ForumPost = ({
         post, setTopic
     }: {
-        post: IForumPost, 
+        post: IForumPost,
         setTopic: React.Dispatch<React.SetStateAction<IForumTopic | null>>
     }) => {
 
@@ -55,14 +62,14 @@ const ForumPost = ({
         setSending(false);
     }
 
-    const actions = [];
-    if (user?.openId == post.author.openId) {
-        actions.push({
+    const actions = [
+        {
             title: "Изменить",
             func: () => null,
-            icon: "pen"
-        })
-        actions.push({
+            icon: "pen",
+            access: user?.openId == post.author.openId
+        },
+        {
             title: "Удалить",
             func: async () => {
                 const confirmed = window.confirm("Вы уверены в том хотите удалить этот ответ? Это действие необратимо!");
@@ -81,9 +88,10 @@ const ForumPost = ({
                     }
                 }
             },
-            icon: "trash"
-        })
-    };
+            icon: "trash",
+            access: user?.openId == post.author.openId
+        }
+    ];
 
     return (
         <article className="forum-post-card">

@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react";
-import { userApi } from "./user.service";
 import { IShortUser, IUser } from "@core/lib/types/models/user";
+import { userService } from ".";
 
 export function useCurrentUser() {
     const [user, setUser] = useState<IUser | null>(null);
@@ -20,7 +20,7 @@ export function useCurrentUser() {
     useEffect(() => {
         let cancelled = false;
 
-        userApi.getCurrent().then(data => {
+        userService.getCurrent().then(data => {
             if (!cancelled) {
                 setUser(data);
                 setLoading(false);
