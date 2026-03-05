@@ -1,28 +1,23 @@
 // PrivateRoute.jsx
-import { Outlet, useLocation, Navigate } from "react-router-dom";
-import { useAuth } from "@core/lib";
+
 import EmptyPage from "@core/pages/EmptyPage";
-import { useEffect, useState } from "react";
+import { ReactNode } from "react";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { AUTH_BASE } from "@core/config";
+import { redirect } from "next/navigation";
 
-const PrivateRoute = () => {
+const PrivateRoute = ({children}: {children: ReactNode}) => {
     const { loading, isAuthenticated } = useAuth();
-    const location = useLocation();
-
-    const [from, setFrom] = useState('');
-
-    useEffect(() => {
-        setFrom(`${location.pathname}`)
-    }, [location.pathname])
 
     if (!isAuthenticated && !loading) {
-        return <Navigate to={`/login?redirect=${encodeURIComponent(from)}`} replace />;
+        return redirect(`${AUTH_BASE}/auth?redirect=${encodeURIComponent(window.location.origin + window.location.href)}`);
     }
 
     if (loading) {
         return <EmptyPage />;
     }
 
-    return <Outlet />;
+    return children;
 };
 
 export default PrivateRoute;

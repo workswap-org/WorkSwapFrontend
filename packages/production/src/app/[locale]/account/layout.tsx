@@ -1,20 +1,23 @@
 
 import { ReactNode } from "react";
 import AccountSidebar from "./AccountSidebar";
+import { PrivateRoute } from "@core/routes";
 
 const AccountLayout = ({children}: {children: ReactNode}) => {
 
     return (
-        <div className="account-layout">
+        <PrivateRoute>
+            <div className="account-layout">
 
-            <AccountSidebar/>
+                <AccountSidebar/>
 
-            <main className="account-main">
-                <div className="card">
-                    {children}
-                </div>
-            </main>
-        </div>
+                <main className="account-main">
+                    <div className="card">
+                        {children}
+                    </div>
+                </main>
+            </div>
+        </PrivateRoute>
     );
 };
 

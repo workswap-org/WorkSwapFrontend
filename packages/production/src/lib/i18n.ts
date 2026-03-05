@@ -1,4 +1,4 @@
-import { Locale } from '@core/lib'
+import { Locale } from '@core/lib/constants/languages'
 
 const dictionaries = {
     en: () => import('./dictionaries/en').then(m => m.default),

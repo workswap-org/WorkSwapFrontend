@@ -50,7 +50,6 @@ const MobileMenu = () => {
 
     useEffect(() => {
         setMobileMenuEm(document.getElementById("mobile-menu"));
-        setUrl(window.location.href);
 
         const cleanup = handlers.ref(document.body);
         return cleanup;
@@ -100,7 +99,7 @@ const MobileMenu = () => {
                         </Link>
                     ) : (
                         <a
-                            href={`${AUTH_BASE}/auth` + url ? `?redirect=${encodeURIComponent(url || "")}` : ""}
+                            href={`${AUTH_BASE}/auth?redirect=${encodeURIComponent(window.location.origin + window.location.href)}`}
                             className="navbar-btn"
                         >
                             <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>

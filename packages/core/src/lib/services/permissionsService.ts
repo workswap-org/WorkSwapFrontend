@@ -1,4 +1,5 @@
-import { IPermission, IPermissionUpdate } from '../types';
+
+import { IPermission, IPermissionUpdate } from '../types/models/user';
 import { apiFetchJson, apiFetch } from './utils/apiClient';
 
 export const permissionsService = {

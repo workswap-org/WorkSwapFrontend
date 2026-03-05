@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { apiFetchJson, apiFetch } from './utils/apiClient';
 
 export const subscriptionService = {
@@ -5,7 +6,7 @@ export const subscriptionService = {
     create: (targetId: number, type: string) => apiFetch(`/api/subscribe/${targetId}`, { method: 'POST' }, {type}),
     delete: (targetId: number, type: string) => apiFetch(`/api/subscribe/${targetId}`, { method: 'DELETE' }, {type}),
 
-    toggle: async (id, setSubscribed, subscribed, type, e) => {
+    toggle: async (id: number, setSubscribed: Dispatch<SetStateAction<boolean>>, subscribed: boolean, type: string, e: any) => {
         if (e) e.stopPropagation();
         setSubscribed(!subscribed); // мгновенный отклик
         try {

@@ -1,4 +1,4 @@
-import { IListingImage } from '../types';
+import { IListingImage } from '../types/models/listing';
 import { apiFetchJson, apiFetchText } from './utils/apiClient';
 
 export const cloudService = {

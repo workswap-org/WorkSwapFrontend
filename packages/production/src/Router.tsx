@@ -1,4 +1,4 @@
-import { 
+/* import { 
     Routes, 
     Route,
     Navigate
@@ -10,23 +10,20 @@ import {
     ForumLayout
 } from "@/components";
 
-/* Страницы */
 import {
     CatalogPage,
     
     ForumPage,
     ForumTopicPage,
 
-    /* Страницы items */
     ListingPage,
     ProfilePage,
     EventPage,
 
-    /* Страницы информации */
     TermsPage,
     PrivacyPolicyPage,
 
-    /* Страницы аккаунта */
+
     AccountPage,
     MyListingsPage,
     FavoritesPage,
@@ -34,14 +31,12 @@ import {
     SettingsPage,
     SecurityPage,
 
-    /* Страницы управления объявлениями */
     ListingManagePage,
     ListingCreatePage,
 
     ChatStartPage
 } from "@/pages_react";
 
-/* Страницы логина */
 import {
     LoginPage,
     RegisterPage,
@@ -71,9 +66,8 @@ const AppRouter = () => {
                     <Route path="terms" element={<TermsPage />} />
                     <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
 
-                    {/* Один общий Layout ТУТ НАДО ДОБАВИТЬ ПРОВЕРКУ НА ВЕРИФИКАЦИЮ */}
                     <Route>
-                            {/* публичные страницы */}
+
                         <Route path="catalog" element={<CatalogPage />} />
                         <Route path="event/:eventId" element={<EventPage />} />
                         <Route path="listing/:listigId" element={<ListingPage />} />
@@ -84,12 +78,10 @@ const AppRouter = () => {
                             <Route path="topic/:topicOpenId" element={<ForumTopicPage />} />
                         </Route>
 
-                        {/* приватные страницы */}
                         <Route path="account" element={<PrivateRoute />}>
                             <Route element={<AccountLayout />}>
                             
                                 <Route index element={<Navigate to="/account/my-listings" replace />} />
-                                {/* <Route path="account" element={<AccountPage />} /> */}
                                 <Route path="account" element={<Navigate to="/account/my-listings" replace />} />
 
                                 <Route path="my-listings" element={<MyListingsPage />} />
@@ -110,4 +102,4 @@ const AppRouter = () => {
     );
 };
 
-export default AppRouter;
+export default AppRouter; */

@@ -1,7 +1,7 @@
 "use client";
 
+import { IShortUser, IShortUserProfile, IUser } from "@core/lib/types/models/user";
 import { redirect } from "next/navigation";
-import { IShortUser, IShortUserProfile, IUser } from "../../lib";
 
 interface AvatarProps {
     user: IShortUser | IUser | IShortUserProfile | null;

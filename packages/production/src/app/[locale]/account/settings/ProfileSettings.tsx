@@ -62,7 +62,8 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
         }
     };
 
-    const handleImageUpload = async (e) => {
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) return;
         const file = e.target.files[0];
         if (!file) {
             console.log("бебебе");
@@ -132,7 +133,7 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
                             className="avatar-preview avatar"
                             src={uploadedAvatar || "/images/upload-foto.png"} 
                             onError={(e) => {
-                                e.target.src = "/images/upload-foto.png"; // путь к запасной картинке
+                                e.currentTarget.src = "/images/upload-foto.png"; // путь к запасной картинке
                             }}
                             alt="Моя" />
                         <span>{dict.common.settings.avatarTypes.uploaded}</span>
@@ -155,7 +156,7 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
                     >
                         <img 
                             className="avatar-preview avatar"
-                            src={user.googleAvatar} 
+                            src={user.googleAvatar || ""} 
                             alt="Google" />
                         <span>{dict.common.settings.avatarTypes.google}</span>
                     </div>

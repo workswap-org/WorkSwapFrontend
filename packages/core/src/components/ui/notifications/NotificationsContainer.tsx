@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { useNotification } from "@core/lib/contexts/NotificationContext.tsx";
 import { useChats } from "@core/lib/contexts/MessengerContext.tsx";
 import { notificationService } from "@core/lib/services/notificationService.ts";
+import { INotification } from '@core/lib/types/notification.ts';
 
 interface NotificationsContainerProps {
     isOpen: boolean;

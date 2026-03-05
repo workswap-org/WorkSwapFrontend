@@ -47,7 +47,7 @@ export function useStompClient(): UseStompClientResult {
         const stompClient = new Client({
 
             webSocketFactory: () =>
-                new WebSocket(`${API_BASE.replace(/^http/, "ws")}/ws`),
+                new WebSocket(`${API_BASE?.replace(/^http/, "ws")}/ws`),
             reconnectDelay: 0,
             heartbeatIncoming: 10000,
             heartbeatOutgoing: 10000,

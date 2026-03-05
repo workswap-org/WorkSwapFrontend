@@ -1,5 +1,6 @@
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { apiFetch } from "@core/lib/services/utils/apiClient";
 import { useCallback, useEffect, useState } from "react";
-import { apiFetch, useAuth } from "@core/lib";
 import { useNavigate } from "react-router-dom"
 
 const VerifyAccountPage = () => {
@@ -8,13 +9,13 @@ const VerifyAccountPage = () => {
     
     const params = new URLSearchParams(window.location.search);
     const redirect = params.get("redirect") || `/`;
-    const { loadUser, user } = useAuth();
+    const { user } = useAuth();
     const [code, setCode] = useState<string>('');
     const [message, setMessage] = useState<{ message: string, success: boolean } | null>(null)
     const [isCodeSent, setCodeSent] = useState(false);
 
     useEffect(() => {
-        if (user?.status == "PENDING") return;
+        if (user?.roles.includes("TEMP_USER")) return;
         navigate(`/login/success?redirect=${encodeURIComponent(redirect)}`)
     }, [user]);
 
@@ -34,10 +35,6 @@ const VerifyAccountPage = () => {
     const verifyAccount = useCallback(async () => {
     
         const res = await apiFetch(`/api/auth/verify?code=${code}`, { method: 'POST' });
-
-        if (res.ok) {
-            loadUser();
-        }
     }, [code]);
 
     return (

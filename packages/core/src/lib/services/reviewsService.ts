@@ -1,4 +1,4 @@
-import { IReview } from '../types';
+import { IReview } from '../types/models/review';
 import { apiFetch, apiFetchJson } from './utils/apiClient';
 
 export const reviewsService = {

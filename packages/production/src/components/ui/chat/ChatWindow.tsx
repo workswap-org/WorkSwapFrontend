@@ -22,8 +22,6 @@ const ChatWindow = ({title}: {title?: string}) => {
 
     const { messages, setChatListingVisible, currentChatId, setCurrentChatId, currentChat } = useChats();
 
-    const { error } = useWebSocket();
-
     const chatInterlocutor = useMemo<IShortUser | null>(
         () => currentChat?.interlocutors?.find(i => i.id != user?.id) ?? null, [currentChat]);
 
@@ -108,20 +106,20 @@ const ChatWindow = ({title}: {title?: string}) => {
                     className="messages-container" 
                     ref={messagesContainer}
                 >
-                    {error && (
+                    {/* {error && (
                         <div className="web-socket-connection-status">
                             <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
                             <br/>
                             <i className="fa-solid fa-spinner-third fa-spin"></i>
                         </div>
-                    )}
+                    )} */}
 
                     {/* <div className="chat-order">
                         <span>Заказ #{order?.id} создан</span>
                     </div> */}
                     {/* <div className="message-date">Сегодня</div> */}
 
-                    {(messages?.length === 0 && !error) && (
+                    {(messages?.length === 0) && (
                         <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
                     )}
 

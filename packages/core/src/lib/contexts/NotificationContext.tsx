@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, Dispatch, SetStateAction, useContext } from "react";
+import { INotification } from "../types/notification";
 
 interface NotificationContextProps {
     notificate: (message: string, type?: string) => void;

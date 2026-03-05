@@ -33,7 +33,7 @@ const SettingsPage = () => {
     }, [])
 
     const updateUser = useCallback(async (updates: Partial<IFullUser>) => {
-        setUser(prev => ({ ...prev, ...updates }));
+        setUser(prev => prev ? ({ ...prev, ...updates }) : prev);
         userService.modifyUserSettings(updates).catch(() => notificate("Ошибка обновления пользователя", "error"))
     }, [notificate]);
 

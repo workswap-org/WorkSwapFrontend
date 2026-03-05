@@ -1,10 +1,10 @@
-interface IPopupNotification {
+export interface IPopupNotification {
     id: number;
     message: string;
     type: string;
 }
 
-interface INotification {
+export interface INotification {
     id: number;
     recipientId: number;
     read: boolean;

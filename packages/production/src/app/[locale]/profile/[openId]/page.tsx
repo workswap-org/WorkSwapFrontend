@@ -10,10 +10,11 @@ import { userService } from '@core/lib/services/user';
 import PublicListingCard from '@/components/ui/cards/listing-cards/PublicListingCard';
 import UserInfoSidebar from '@/components/layout/sidebar/UserInfoSidebar';
 import ReviewsSection from '@/components/ui/reviews/ReviewsSection';
+import { useI18n } from '@core/lib/contexts/I18nContext';
 
 const ProfilePage = () => {
 
-    const { t } = useTranslation(['common']);
+    const { dict } = useI18n();
 
     const { openId } = useParams();
     const [listings, setListings] = useState<IShortListing[] | null>(null);
@@ -22,7 +23,7 @@ const ProfilePage = () => {
 
     useEffect(()=> {
         if (!openId) return;
-        userService.getUserProfile(openId)
+        userService.getUserProfile(String(openId))
             .then(data => {
                 setUser(data.user)
                 setListings(data.listings)
@@ -35,7 +36,7 @@ const ProfilePage = () => {
     return (
         <main className="listing-main">
 
-            <h2>{t(`profile.listings`, { ns: 'common' })}</h2>
+            <h2>{dict.common.profile.listings}</h2>
             <div className="listing-main-content">
                 <div className="listing-content">
                     <div className="listings-grid">
@@ -57,7 +58,7 @@ const ProfilePage = () => {
 
                     {(user?.bio) && (
                         <div className="contact-card">
-                            <h3>{t(`labels.description`, { ns: 'common' })}</h3>
+                            <h3>{dict.common.labels.description}</h3>
                             <p className="listing-description">{user.bio}</p>
                         </div>
                     )}

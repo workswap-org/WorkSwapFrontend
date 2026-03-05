@@ -1,3 +1,5 @@
+import { INotification } from "@core/lib/types/notification"
+
 interface NotificationItemProps {
     notification: INotification;
     onRead: (n: INotification) => void;

@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useMemo, useState } from "react";
 
 interface ListingSettingProps {
     title: string;
@@ -8,7 +8,10 @@ const ListingSetting = ({ title, children}: ListingSettingProps) => {
 
     const [active, setActive] = useState<boolean>(false);
 
-    const validChildren = React.Children.toArray(children).filter(c => c !== null && c !== false);
+    const validChildren = useMemo(
+        () => React.Children.toArray(children).filter(Boolean),
+        [children]
+    );
 
     if (validChildren.length === 0) return null;
 

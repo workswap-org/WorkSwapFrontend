@@ -21,7 +21,7 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
     const navigator = () => {
         if (listing.type == "EVENT") {
-            redirect(`/event/${listing.id}`)
+            redirect(`/listing/${listing.id}/event`)
         } else {
             redirect(`/listing/${listing.id}`)
         }

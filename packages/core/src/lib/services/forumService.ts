@@ -1,4 +1,5 @@
-import { IForumComment, IForumPost, IForumTopic } from '../types';
+
+import { IForumComment, IForumPost, IForumTopic } from '../types/forum';
 import { apiFetch, apiFetchJson, apiFetchText } from './utils/apiClient';
 
 export const forumService = {

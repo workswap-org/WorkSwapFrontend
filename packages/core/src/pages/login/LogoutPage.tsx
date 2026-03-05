@@ -1,13 +1,7 @@
 import { useCallback, useEffect } from "react";
-import { useAuth } from "@core/lib";
-import { useNavigate } from "react-router-dom";
 import { AUTH_BASE } from "@core/config";
 
 const LogoutPage = () => {
-
-    const navigate = useNavigate();
-
-    const { loadUser } = useAuth();
 
     const logout = useCallback(async () => {
         try {
@@ -15,10 +9,9 @@ const LogoutPage = () => {
         } catch (e) {
             console.error("Logout failed", e);
         } finally {
-            navigate("/");
-            loadUser();
+            redirect("/");
         }
-    }, [navigate, loadUser]);
+    }, []);
 
     useEffect(() => {
         logout()
@@ -30,3 +23,7 @@ const LogoutPage = () => {
 };
 
 export default LogoutPage;
+
+function redirect(arg0: string) {
+    throw new Error("Function not implemented.");
+}

@@ -7,6 +7,7 @@ import { useNotificationSubscription } from "@core/lib/hooks/notification/useNot
 import { useChats } from "@core/lib/contexts/MessengerContext";
 import { NotificationContext } from "@core/lib/contexts/NotificationContext";
 import PopupNotification from "@core/components/ui/notifications/PopupNotification";
+import { IPopupNotification } from "../types/notification";
 
 export const NotificationProvider = ({ children }: {children?: ReactNode}) => {
     const { loading, notifications, setNotifications, unreadCount } = useNotificationSubscription();

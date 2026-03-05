@@ -1,6 +1,7 @@
 "use client"
 
 import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
+import { INotification } from "@core/lib/types/notification";
 import { useEffect, useState } from "react";
 
 interface UseNotificationSubscriptionReturn {

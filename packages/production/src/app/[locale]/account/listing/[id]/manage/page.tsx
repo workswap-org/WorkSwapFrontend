@@ -12,11 +12,23 @@ import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
 import ListingMessagesMenu from './menus/ListingMessagesMenu';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 
-export const ListingMenu = Object.freeze({
-    SETTINGS: { first: true, name: "SETTINGS", icon: "gear" },
-    ANALYTICS: { first: false, name: "ANALYTICS", icon: "chart-mixed" },
-    MESSAGES: { first: false, name: "MESSAGES", icon: "message-lines" }
-});
+const ListingMenu = {
+    SETTINGS: {
+        first: true,
+        name: "Settings",
+        icon: "settings"
+    },
+    ANALYTICS: {
+        first: false,
+        name: "Analytics",
+        icon: "chart"
+    },
+    MESSAGES: {
+        first: false,
+        name: "Messages",
+        icon: "message"
+    }
+} as const;
 
 const ListingManagePage = () => {
 
