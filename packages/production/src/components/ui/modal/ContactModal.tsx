@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { useTranslation } from 'react-i18next';
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useNotification } from "@core/lib/contexts/NotificationContext";

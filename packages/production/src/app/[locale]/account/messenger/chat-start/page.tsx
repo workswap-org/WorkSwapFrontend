@@ -1,3 +1,5 @@
+"use client"
+
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { redirect, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";

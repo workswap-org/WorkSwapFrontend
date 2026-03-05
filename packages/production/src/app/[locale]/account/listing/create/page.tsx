@@ -1,18 +1,18 @@
+"use client"
+
+import { listingPublicTypes, ListingPublicTypeValue } from "@core/lib/constants/listingTypes";
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { listingService } from "@core/lib/services/listingService";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { 
-    useNotification,
-    listingService,
-    listingPublicTypes
-} from "@core/lib";
-import { useTranslation } from 'react-i18next';
 
 export default function ListingCreatePage() {
 
-    const navigate = useNavigate();
     const { notificate } = useNotification();
-    const [listingType, setListingType] = useState(null);
-    const { t } = useTranslation('categories');
+    const [listingType, setListingType] = useState<ListingPublicTypeValue | null>(null);
+    const { dict } = useI18n();
     const productTypes = listingPublicTypes.filter(t => t.key.startsWith("PRODUCT"));
     const serviceTypes = listingPublicTypes.filter(t => t.key.startsWith("SERVICE"));
     const miscTypes = listingPublicTypes.filter(t => !t.key.startsWith("SERVICE") && !t.key.startsWith("PRODUCT"));
@@ -22,66 +22,66 @@ export default function ListingCreatePage() {
             <div className="account-header">
                 <div className='flex-row'>
                     <div className='mobile-actions media-only-flex'>
-                        <Link to='/account/my-listings' className='back-link-arrow'>
+                        <Link href='/account/my-listings' className='back-link-arrow'>
                             <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
                         </Link>
                     </div>
-                    <h2>{t(`titles.listingCreate`, { ns: 'common' })}</h2>
+                    <h2>{dict.common.titles.listingCreate}</h2>
                 </div>
             </div>
             <div className="listing-create-container">
-                <h3>{t(`listingCreate.selectType`, { ns: 'common' })}</h3>
+                <h3>{dict.common.listingCreate.selectType}</h3>
 
                 <div className="listing-create-type-selector">
                     <div className="section">
-                        <h2>{t(`listingType.SERVICE`, { ns: 'categories' })}</h2>
+                        <h2>{dict.categories.listingType.SERVICE}</h2>
                         {serviceTypes.map((type) => (
                             <button 
                                 key={type.key}
                                 className={`btn btn-${listingType == type.key ? "" : "outline-"}primary`}
                                 onClick={() => setListingType(type.key)}
                             >
-                                {t(`listingType.create.${type.key}`, { ns: 'categories' })}
+                                {dict.categories.listingType.create[type.key]}
                             </button>
                         ))}
                     </div>
                     <div className="section">
-                        <h2>{t(`listingType.PRODUCT`, { ns: 'categories' })}</h2>
+                        <h2>{dict.categories.listingType.PRODUCT}</h2>
                         {productTypes.map((type) => (
                             <button 
                                 key={type.key}
                                 className={`btn btn-${listingType == type.key ? "" : "outline-"}primary`}
                                 onClick={() => setListingType(type.key)}
                             >
-                                {t(`listingType.create.${type.key}`, { ns: 'categories' })}
+                                {dict.categories.listingType.create[type.key]}
                             </button>
                         ))}
                     </div>
                     
                     <div className="section">
-                        <h2>{t(`listingType.misc`, { ns: 'categories' })}</h2>
+                        <h2>{dict.categories.listingType.misc}</h2>
                         {miscTypes.map((type) => (
                             <button 
                                 key={type.key}
                                 className={`btn btn-${listingType == type.key ? "" : "outline-"}primary`}
                                 onClick={() => setListingType(type.key)}
                             >
-                                {t(`listingType.create.${type.key}`, { ns: 'categories' })}
+                                {dict.categories.listingType.create[type.key]}
                             </button>
                         ))}
                     </div>
                 </div>
                 <button 
                     className="btn btn-success"
-                    onClick={() => listingService.create(listingType)
+                    onClick={() => listingService.create(String(listingType))
                         .then(data => {
-                            notificate(t(`notification.success.createDraft`, { ns: 'messages' }), "success");
-                            navigate(`/account/listing/edit/${data}`, { replace: true });
+                            notificate(dict.messages.notification.success.createDraft, "success");
+                            redirect(`/account/listing/edit/${data}`);
                         })
-                        .catch(() => notificate(t(`notification.misc.error.listingCreate`, { ns: 'messages' }), "error"))}
+                        .catch(() => notificate(dict.messages.notification.misc.error.listingCreate, "error"))}
                     disabled={!listingType}
                 >
-                    {t(`listing.createListing`, { ns: 'buttons' })}
+                    {dict.buttons.listing.createListing}
                 </button>
             </div>
         </>

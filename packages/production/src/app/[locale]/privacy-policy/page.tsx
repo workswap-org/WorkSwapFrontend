@@ -1,21 +1,22 @@
+"use client"
+
+import { useI18n } from "@core/lib/contexts/I18nContext";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 const PrivacyPolicyPage = () => {
 
-    const { i18n } = useTranslation();
-    const userLocale = i18n.language || "fi";
+    const { locale } = useI18n();
 
     const [privacyPolicy, setPrivacyPolicy] = useState("");
 
     useEffect(() => {
         async function loadPrivacyPolicy() {
-            const data = await fetch(`https://cloud.workswap.org/info/privacy-policy_${userLocale}.txt`)
+            const data = await fetch(`https://cloud.workswap.org/info/privacy-policy_${locale}.txt`)
             setPrivacyPolicy(await data.text());
         }
 
         loadPrivacyPolicy();
-    }, [userLocale])
+    }, [locale])
 
     return (
         <div className="terms-page">

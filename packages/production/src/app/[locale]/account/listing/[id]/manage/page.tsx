@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useChats } from '@core/lib/contexts/MessengerContext';
 import { ChatType } from '@core/lib/constants/chatTypes';
 import { listingService } from '@core/lib/services/listingService';

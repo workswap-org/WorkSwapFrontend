@@ -1,11 +1,15 @@
 import { AppProviders } from "@core/lib/providers/AppProviders";
-import "@/css/main.scss";
 import { headers } from "next/headers";
 import { ReactNode } from "react";
 import { getDictionary } from "@/lib/i18n";
 import { parseLocale } from '@core/lib/constants/languages'
 import { I18nProvider } from "@core/lib/contexts/I18nContext";
 import Header from "@/components/layout/header/Header";
+import { useChatSubscription } from "@core/lib/hooks/chat/useChatSubscription"
+import { useChatsLoad } from "@core/lib/hooks/chat/useChatsLoad"
+
+import "@/css/main.scss";
+import "@/css/components/layout.scss";
 
 export const metadata = {
     title: "WorkSwap",
@@ -30,6 +34,9 @@ export default async function RootLayout({
     const { locale } = await params;
     const parsed = parseLocale(locale)
     const dict = await getDictionary(parsed);
+
+    /* useChatSubscription();
+    useChatsLoad(); */
 
     const loadedHeaders = await headers()
     const theme = loadedHeaders.get("x-theme") || "light";

@@ -3,11 +3,12 @@
 import { useState, useEffect, ReactElement } from 'react';
 
 interface DelayedListProps {
+    className?: string;
     items: ReactElement[];
 }
 
 
-export function DelayedList({ items }: DelayedListProps) {
+export function DelayedList({ className, items }: DelayedListProps) {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -32,7 +33,7 @@ export function DelayedList({ items }: DelayedListProps) {
     return (
         <>
             {items.slice(0, count).map((item, index) => (
-                <div key={item.key ?? index}>
+                <div key={item.key ?? index} className={className ?? ""}>
                     {item}
                 </div>
             ))}

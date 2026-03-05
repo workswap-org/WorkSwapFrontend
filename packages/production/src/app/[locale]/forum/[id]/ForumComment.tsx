@@ -1,5 +1,9 @@
-import { ActionMenu, Avatar, FormattedDateToNow } from "@core/components";
-import { forumService, IForumComment, IForumTopic, useAuth } from "@core/lib";
+import Avatar from "@core/components/common/Avatar";
+import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow";
+import ActionMenu from "@core/components/ui/ActionMenu";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { forumService } from "@core/lib/services/forumService";
+import { IForumComment, IForumTopic } from "@core/lib/types/forum";
 
 const ForumComment = ({
     comment, setTopic
@@ -10,14 +14,14 @@ const ForumComment = ({
 
     const { user } = useAuth();
 
-    const actions = [];
-    if (user?.openId == comment?.author.openId) {
-        actions.push({
+    const actions = [
+        {
             title: "Изменить",
             func: () => null,
-            icon: "pen"
-        })
-        actions.push({
+            icon: "pen",
+            access: user?.openId == comment?.author.openId
+        },
+        {
             title: "Удалить",
             func: async () => {
                 const confirmed = window.confirm("Вы уверены в том хотите удалить этот комментарий? Это действие необратимо!");
@@ -39,9 +43,10 @@ const ForumComment = ({
                     }
                 }
             },
-            icon: "trash"
-        })
-    }
+            icon: "trash",
+            access: user?.openId == comment?.author.openId
+        }
+    ];
 
     return comment && (
         <article className="forum-comment-card">

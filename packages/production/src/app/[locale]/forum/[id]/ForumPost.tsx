@@ -8,7 +8,6 @@ import Avatar from "@core/components/common/Avatar";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow";
 import ActionMenu from "@core/components/ui/ActionMenu";
 import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1";
-import { access } from "node:fs";
 
 const ForumPost = ({
         post, setTopic
