@@ -1,15 +1,20 @@
+"use client"
+
 import { useEffect, useRef, useState } from "react"
 
 export interface IKebabAction {
     title: string,
     func: () => void,
-    icon?: string
+    icon?: string,
+    access?: boolean
 };
 
 const ActionMenu = ({actions}: {actions: IKebabAction[]}) => {
 
     const [isOpen, setOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+
+    const filtered = actions.filter(a => a.access ?? true)
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -24,11 +29,13 @@ const ActionMenu = ({actions}: {actions: IKebabAction[]}) => {
         };
     }, []);
 
-    return actions.length > 0 && (
+    return filtered.length > 0 && (
         <div className="kebab-menu" ref={menuRef}>
-            <button className="hover" onClick={() => setOpen(prev => !prev)}><i className="fa-solid fa-ellipsis-vertical fa-lg"></i></button>
+            <button className="hover" onClick={() => setOpen(prev => !prev)}>
+                <i className="fa-solid fa-ellipsis-vertical fa-lg"></i>
+            </button>
             <div className={`menu ${isOpen ? "active" : ""}`}>
-                {actions.map((action) => (
+                {filtered.map((action) => (
                     <button 
                         key={action.title} 
                         onClick={() => {

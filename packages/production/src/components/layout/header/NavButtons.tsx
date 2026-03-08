@@ -1,19 +1,25 @@
-import { 
-    ThemeChanger, 
-    Avatar, 
-    NotificationHeaderButton,
-    LanguageSwitcher 
-} from "@core/components";
-import { useTranslation } from "react-i18next";
-import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "@core/lib";
+"use client"
+
+import Link from "next/link";
 import { AUTH_BASE } from "@core/config";
+import { useEffect, useState } from "react";
+import { userService } from "@core/lib/services/user";
+import ThemeChanger from "@core/components/layout/ThemeChanger";
+import NavItem from "@core/components/common/NavItem"
+import Avatar from "@core/components/common/Avatar";
+import LanguageSwitcher from "@core/components/layout/LanguageSwitcher";
+import { useI18n } from "@core/lib/contexts/I18nContext";
+import NotificationHeaderButton from '@core/components/ui/notifications/NotificationHeaderButton';
 
 const NavButtons = () => {
 
-    const { t } = useTranslation(['buttons', 'navigation'])
+    const { user, isAuthenticated, isAdmin } = userService.useCurrentUser();
+    const [url, setUrl] = useState<string | null>(null);
+    const { dict } = useI18n();
 
-    const { user, isAuthenticated, isAdmin } = useAuth();
+    useEffect(() => {
+        setUrl(window.location.href);
+    }, []);
 
     return (
         <div className="nav-buttons">
@@ -22,25 +28,25 @@ const NavButtons = () => {
                     <ThemeChanger id={"themeChangerMobile"}/>
                 </div>
 
-                <NavLink to="/forum" className="nav-link">
-                    {t(`forum`, { ns: 'navigation' })}
-                </NavLink>
+                <NavItem href="/forum" className="nav-link">
+                    {dict.navigation.forum}
+                </NavItem>
 
-                <NavLink to="/catalog" className="nav-link">
-                    {t(`catalog`, { ns: 'navigation' })}
-                </NavLink>
+                <NavItem href="/catalog" className="nav-link">
+                    {dict.navigation.catalog}
+                </NavItem>
 
                 {isAdmin && (
                     <a href="https://dash.workswap.org" className="nav-link" target="_blank" rel="noreferrer">
-                        {t(`admin`, { ns: 'navigation' })}
+                        {dict.navigation.admin}
                     </a>
                 )}
             </div>
 
             {isAuthenticated ? (
                 <div className="account-link-container">
-                    <Link to="/account" className="account-link">
-                        <Avatar 
+                    <Link href="/account" className="account-link">
+                        <Avatar
                             user={user}
                             size={32}
                             className=''
@@ -51,17 +57,17 @@ const NavButtons = () => {
                     <NotificationHeaderButton />
                     <Link
                         className="logout-btn"
-                        to='/logout'
+                        href='/logout'
                     >
                         <i className="fa fa-arrow-left-from-bracket fa-lg" aria-hidden="true"></i>
                     </Link>
                 </div>
             ) : (
                 <a
-                    href={`${AUTH_BASE}/auth?redirect=${window.location}`}
+                    href={`${AUTH_BASE}/auth${url ? `?redirect=${encodeURIComponent(url || "")}` : ""}`}
                     className="btn btn-outline-primary login-btn"
                 >
-                    <span>{t("login")}</span>
+                    <span>{dict.buttons.login}</span>
                 </a>
             )}
 

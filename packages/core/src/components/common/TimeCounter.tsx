@@ -1,3 +1,5 @@
+"use client";
+
 const TimeCounter = ({ duration }: {duration: number}) => {
     if (duration == null) {
         return null;

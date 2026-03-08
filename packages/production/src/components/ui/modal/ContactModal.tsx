@@ -1,50 +1,51 @@
+"use client"
+
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Modal } from "@core/components";
-import { useNotification } from "@core/lib";
-import { useTranslation } from 'react-i18next';
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
+import Modal from "@core/components/ui/Modal"
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const ContactModal = () => {
 
-    const location = useLocation();
     const {notificate} = useNotification();
 
     const [isOpen, setOpen] = useState<boolean>(false)
 
-    const { t } = useTranslation('navigation')
-    
+    const { dict } = useI18n()
     function toggleModal() {
         setOpen(!isOpen);
     }
 
     useEffect(() => {
         setOpen(false);
-    }, [location]);
+    }, [usePathname]);
 
     return (
         <>
             <div className="navbar-btn hover" onClick={() => toggleModal()}>
                 <div className="icon-defender"><i className="fa-regular fa-lightbulb-on fa-lg"></i></div>
-                {t(`menu.helpBeBetter`, { ns: 'buttons' })}
+                {dict.buttons.menu.helpBeBetter}
             </div>
 
             <Modal
                 isOpen={isOpen}
                 onClose={toggleModal}
-                title={t(`menu.contactToSupport`, { ns: 'buttons' })}
+                title={dict.buttons.menu.contactToSupport}
             >
                 <Link
-                    to={`/account/chat-start?sellerId=1`} 
+                    href={`/account/chat-start?sellerId=1`} 
                     className="btn btn-primary"
                 >
-                    {t(`listing.contactToAuthor`, { ns: 'buttons' })}
+                    {dict.buttons.listing.contactToAuthor}
                 </Link>
                 
                 <div 
                     className="navbar-btn"
                     onClick={() => {
                         navigator.clipboard.writeText("workswap.org@gmail.com")
-                            .then(() => notificate(t(`notification.success.copyEmail`, { ns: 'messages' }), "success"))
+                            .then(() => notificate(dict.messages.notification.success.copyEmail, "success"))
                             .catch(() => notificate("Ошибка", "error"));
                     }}
                 >
@@ -56,7 +57,7 @@ const ContactModal = () => {
                     className="navbar-btn"
                     onClick={() => {
                         navigator.clipboard.writeText('@workswap_official')
-                            .then(() => notificate(t(`notification.success.copyTelegramTag`, { ns: 'messages' }), "success"))
+                            .then(() => notificate(dict.messages.notification.success.copyTelegramTag, "success"))
                             .catch(() => notificate("Ошибка", "error"));
                     }} 
                 >

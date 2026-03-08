@@ -1,13 +1,13 @@
+"use client"
+
 import { createContext, useContext } from "react";
-import { IShortUser, IUser } from "../types";
+import { IShortUser, IUser } from "../types/models/user";
 
 interface AuthContextType {
     isAuthenticated: boolean;
     user: IUser | null;
     shortUser: IShortUser | null;
-    setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
     loading: boolean;
-    loadUser: () => Promise<boolean>;
     isAdmin: boolean;
 }
 

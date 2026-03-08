@@ -1,5 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { IShortUser, IShortUserProfile, IUser } from "../../lib";
+"use client";
+
+import { IShortUser, IShortUserProfile, IUser } from "@core/lib/types/models/user";
+import { redirect } from "next/navigation";
 
 interface AvatarProps {
     user: IShortUser | IUser | IShortUserProfile | null;
@@ -9,12 +11,11 @@ interface AvatarProps {
 }
 
 const Avatar = ({ user, size = 40, className = "", link = true}: AvatarProps) => {
-    const navigate = useNavigate();
 
     const interactive = !!(link && user?.openId)
 
     const handleClick = () => {
-        if (interactive) navigate(`/profile/${user?.openId}`);
+        if (interactive) redirect(`/profile/${user?.openId}`);
     };
 
     return (

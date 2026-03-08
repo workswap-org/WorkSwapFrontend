@@ -1,0 +1,21 @@
+import { apiFetchJson, apiFetch, apiFetchText } from '../utils/apiClient';
+
+export const getCurrent = () => apiFetchJson(`/user`);
+export const getById = (userId: number) => apiFetchJson(`/user/${userId}`);
+export const getUserProfile = (userOpenId: string) => apiFetchJson(`/user/${userOpenId}/profile`);
+export const connectUserTelegram = () => apiFetchText('/user/telegram', {method: 'POST'});
+export const checkTelegramConnected = () => apiFetchJson('/user/telegram');
+export const deleteCurrentUser = () => apiFetch('/user', { method: 'DELETE'});
+export const getUserSettings = () => apiFetchJson(`/user/settings`);
+export const getRecentUsers = (count: number) => apiFetchJson(`/user/recent`, {}, {count});
+
+export const getFullUserInfo = (userOpenId: string) => apiFetchJson(`/user/${userOpenId}/full-info`);
+
+export const modifyUserSettings = (updates: Record<string, any>) => 
+        apiFetch(`/user/modify`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updates),
+        })

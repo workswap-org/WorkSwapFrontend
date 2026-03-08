@@ -1,6 +1,9 @@
-import { ForumTag } from "@core/lib";
+"use client"
+
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
+import { ForumTag } from '@core/lib/types/forum'
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const ForumTagSelector = ({
     tags, 
@@ -12,7 +15,7 @@ const ForumTagSelector = ({
     onChange: (tag: ForumTag | null) => void
 }) => {
 
-    const { t } = useTranslation(['common', 'forumtags']);
+    const { dict } = useI18n();
 
     const [selectedPath, setSelectedPath] = useState<number[]>([]);
 
@@ -64,11 +67,11 @@ const ForumTagSelector = ({
                     onChange={(e) => handleSelect(level, Number(e.target.value))}
                 >
                     <option value="" disabled>
-                        {t(`placeholders.category`, { ns: 'common' })}
+                        {dict.common.placeholders.category}
                     </option>
                     {children.map((c) => (
                         <option key={c.id} value={c.id}>
-                            {t(c.name, { ns: 'forumtags' })}
+                            {dict.forumtags[c.name]}
                         </option>
                     ))}
                 </select>

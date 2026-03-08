@@ -1,4 +1,5 @@
-import { IShortUser } from "./models";
+import { IShortUser } from "./models/user";
+
 
 export interface IForumTopic {
     openId: string;

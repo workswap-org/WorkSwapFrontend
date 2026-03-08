@@ -1,8 +1,10 @@
-import { ThemeChanger} from "@core/components";
+"use client"
+
 import { useTranslation } from 'react-i18next';
-import { Link } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 import NavButtons from "./NavButtons";
+import ThemeChanger from "@core/components/layout/ThemeChanger"
+import Link from 'next/link';
 
 const Header = () => {
 
@@ -12,7 +14,7 @@ const Header = () => {
         <div className="header">
             <div className="header-container">
                 <nav className="navbar">
-                    <Link className="navbar-brand" to="/catalog">
+                    <Link href="/catalog" className="navbar-brand">
                         <div className="brand">WorkSwap</div>
                         <div className="all-listings">
                             <i className="fa-regular fa-cards-blank"></i>

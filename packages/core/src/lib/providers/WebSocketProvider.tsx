@@ -1,6 +1,8 @@
-import { useStompClient } from "@core/lib";
-import { WebSocketContext } from "../contexts/WebSocketContext";
+"use client";
+
+import { WebSocketContext } from "@core/lib/contexts/WebSocketContext";
 import { ReactNode } from "react";
+import { useStompClient } from "@core/lib/hooks/useStompClient";
 
 interface WebSocketProviderProps {
     children: ReactNode;

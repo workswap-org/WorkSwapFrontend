@@ -1,19 +1,18 @@
+"use client"
+
 import { useRef, useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import {
-    useWebSocket,
-    useChats,
-    ChatType,
-    privateChatTypes,
-    useActivePage,
-    IShortUser,
-    useAuth
-} from "@core/lib";
-import { Avatar } from "@core/components";
-import SendMessageArea from "./SendMessageArea.js";
-import MessagesGroup from "./MessagesGroup.tsx";
+import SendMessageArea from "./SendMessageArea";
+import MessagesGroup from "./MessagesGroup";
 import { createPortal } from "react-dom";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useActivePage } from "@core/lib/contexts/ActivePageContext";
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
+import { IShortUser } from "@core/lib/types/models/user";
+import { ChatType, privateChatTypes } from "@core/lib/constants/chatTypes"
+import Avatar from "@core/components/common/Avatar";
+import Link from "next/link";
 
 const ChatWindow = ({title}: {title?: string}) => {
 
@@ -22,8 +21,6 @@ const ChatWindow = ({title}: {title?: string}) => {
     const activePage = useActivePage();
 
     const { messages, setChatListingVisible, currentChatId, setCurrentChatId, currentChat } = useChats();
-
-    const { error } = useWebSocket();
 
     const chatInterlocutor = useMemo<IShortUser | null>(
         () => currentChat?.interlocutors?.find(i => i.id != user?.id) ?? null, [currentChat]);
@@ -79,8 +76,8 @@ const ChatWindow = ({title}: {title?: string}) => {
                                 <i className="fa-regular fa-cards-blank fa-lg"></i>
                             </button>
                         )}
-                        <Link 
-                            to={`/profile/${chatInterlocutor?.openId}`} 
+                        <Link
+                            href={`/profile/${chatInterlocutor?.openId}`} 
                             className="btn btn-outline-primary btn-sm"
                         >
                             <i className="fa-regular fa-user fa-lg"></i>
@@ -95,7 +92,7 @@ const ChatWindow = ({title}: {title?: string}) => {
                         )}
                         {chatInterlocutor?.openId && (
                             <Link 
-                                to={`/profile/${chatInterlocutor?.openId}`} 
+                                href={`/profile/${chatInterlocutor?.openId}`} 
                                 className="btn btn-outline-primary btn-sm"
                             >
                                 {t(`messenger.profile`, { ns: 'buttons' })}
@@ -109,20 +106,20 @@ const ChatWindow = ({title}: {title?: string}) => {
                     className="messages-container" 
                     ref={messagesContainer}
                 >
-                    {error && (
+                    {/* {error && (
                         <div className="web-socket-connection-status">
                             <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
                             <br/>
                             <i className="fa-solid fa-spinner-third fa-spin"></i>
                         </div>
-                    )}
+                    )} */}
 
                     {/* <div className="chat-order">
                         <span>Заказ #{order?.id} создан</span>
                     </div> */}
                     {/* <div className="message-date">Сегодня</div> */}
 
-                    {(messages?.length === 0 && !error) && (
+                    {(messages?.length === 0) && (
                         <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
                     )}
 

@@ -1,11 +1,16 @@
-import { Avatar } from "@core/components";
-import { IShortUserProfile, IUserProfile, useAuth, useNotification } from "@core/lib";
-import { Link } from "react-router-dom";
+"use client"
+
 import { useTranslation } from 'react-i18next';
+import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { IShortUserProfile } from "@core/lib/types/models/user";
+import Avatar from "@core/components/common/Avatar";
+import Link from 'next/link';
+import { useI18n } from '@core/lib/contexts/I18nContext';
 
 const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author: IShortUserProfile | null}) => { 
 
-    const { t } = useTranslation();
+    const { dict } = useI18n();
     const {notificate} = useNotification();
     const {user, isAuthenticated} = useAuth();
 
@@ -26,7 +31,7 @@ const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author:
                         <div className="seller-meta">
                             <h3>{author.name}</h3>
                             <div className="seller-rating">
-                                <span>{t(`labels.rating`, { ns: 'common' })}: </span>
+                                <span>{dict.common.labels.rating}: </span>
                                 <span>{author.rating ?? 0} ★</span>
                             </div>
                             <div className="seller-actions">
@@ -34,19 +39,19 @@ const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author:
                                     <>  
                                         {!isOwner && (
                                             <Link 
-                                                to={`/account/chat-start?listingId=${listingId}&interlocutorId=${author.id}`} 
+                                                href={`/account/chat-start?listingId=${listingId}&interlocutorId=${author.id}`} 
                                                 className="btn btn-primary"
                                             >
-                                                {t(`listing.contactToAuthor`, { ns: 'buttons' })}
+                                                {dict.buttons.listing.contactToAuthor}
                                             </Link>
                                         )}
                                     </>
                                 ) : (
-                                    <Link 
-                                        to={`/login?redirect=${window.location.pathname}`}
+                                    <Link
+                                        href={`/login?redirect=${window.location.pathname}`}
                                         className="btn btn-primary"
                                     >
-                                        {t(`loginToWrite`, { ns: 'buttons' })}
+                                        {dict.buttons.loginToWrite}
                                     </Link>
                                 )}
                             </div>
@@ -57,7 +62,7 @@ const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author:
 
             {author.name && (
                 <div className="contact-card fade-down">
-                    <h3>{t(`labels.contacts`, { ns: 'common' })}</h3>
+                    <h3>{dict.common.labels.contacts}</h3>
                     <div className="contact-methods">
 
                         {author.phone && (
@@ -65,7 +70,7 @@ const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author:
                                 className="contact-item hover"
                                 onClick={() => {
                                     navigator.clipboard.writeText(author.phone ?? "")
-                                        .then(() => notificate(t(`notification.success.copyPhone`, { ns: 'messages' }), "success"))
+                                        .then(() => notificate(dict.messages.notification.success.copyPhone, "success"))
                                         .catch(() => notificate("Ошибка", "error"));
                                 }}
                             >
@@ -79,7 +84,7 @@ const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author:
                                 className="contact-item hover"
                                 onClick={() => {
                                     navigator.clipboard.writeText(author.email ?? "")
-                                        .then(() => notificate(t(`notification.success.copyEmail`, { ns: 'messages' }), "success"))
+                                        .then(() => notificate(dict.messages.notification.success.copyEmail, "success"))
                                         .catch(() => notificate("Ошибка", "error"));
                                 }}
                             >

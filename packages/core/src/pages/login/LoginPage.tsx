@@ -1,12 +1,12 @@
 import { API_BASE } from "@core/config";
-import { apiFetchJson, useAuth } from "@core/lib"
+
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { apiFetchJson } from "@core/lib/services/utils/apiClient";
 
 const LoginPage = () => {
-
-    const { loadUser } = useAuth();
 
     const { t } = useTranslation(['common', 'buttons'])
 
@@ -100,11 +100,9 @@ const LoginPage = () => {
         const handleMessage = (event: MessageEvent) => {
             console.log(event)
             if (event.data?.type === 'oauthSuccess') {
-                loadUser();
                 setMessage({success: false, message: "login_success"});
                 navigate((event.data.isNewUser ? "/register/oauth" : "/login/success") + `?redirect=${encodeURIComponent(redirect)}` || '/');
             } else if (event.data?.type === 'oauthFailure') {
-                loadUser();
                 setMessage({success: false, message: "login_error"});
             }
         };

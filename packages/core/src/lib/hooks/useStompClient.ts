@@ -1,7 +1,10 @@
+"use client"
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Client, Frame } from "@stomp/stompjs";
 import { API_BASE } from "@core/config";
-import { useAuth, refreshToken } from "@core/lib";
+import { useAuth } from "../contexts/AuthContext";
+import { refreshToken } from "../services/utils/apiClient";
 
 interface UseStompClientResult {
     client: Client | null;
@@ -38,11 +41,13 @@ export function useStompClient(): UseStompClientResult {
 
     const connect = useCallback(async () => {
         if (!user) return;
+        if (!API_BASE) return;
         if (clientRef.current?.active) return;
 
         const stompClient = new Client({
+
             webSocketFactory: () =>
-                new WebSocket(`${API_BASE.replace(/^http/, "ws")}/ws`),
+                new WebSocket(`${API_BASE?.replace(/^http/, "ws")}/ws`),
             reconnectDelay: 0,
             heartbeatIncoming: 10000,
             heartbeatOutgoing: 10000,

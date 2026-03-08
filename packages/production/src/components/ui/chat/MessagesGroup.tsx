@@ -1,5 +1,8 @@
-import { Avatar } from "@core/components";
-import { GroupedMessages, IChatMessage, privateChatTypes, useAuth, useChats } from "@core/lib";
+import Avatar from "@core/components/common/Avatar";
+import { privateChatTypes } from "@core/lib/constants/chatTypes";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { GroupedMessages, IChatMessage } from "@core/lib/types/messenger";
 
 const MessagesGroup = ({group}: {group: GroupedMessages}) => {
 

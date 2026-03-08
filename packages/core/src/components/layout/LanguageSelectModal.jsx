@@ -1,7 +1,9 @@
+"use client"
+
 import { Modal } from "@core/components";
 import { useTranslation } from "react-i18next";
-import { languagesList } from '@core/lib';
 import { useEffect, useState } from "react";
+import { languagesList } from "@core/lib/constants/languages";
 
 const LanguageSelectModal = () => {
     const [isOpen, setOpen] = useState(false)

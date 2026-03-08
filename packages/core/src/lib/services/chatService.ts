@@ -1,4 +1,4 @@
-import { apiFetchJson, apiFetchText } from './apiClient';
+import { apiFetchJson, apiFetchText } from './utils/apiClient';
 
 export const chatService = {
     getInterlocutorInfo: (id: number) => apiFetchJson(`/chat/${id}/getInterlocutorInfo`),

@@ -1,32 +1,29 @@
-import { 
-    PriceTypes,
-    RatingStars
-} from "@core/components";
-import {
-    listingService,
-    IShortListing,
-    listingTypesWithRating,
-    useAuth
-} from "@core/lib";
-import { useNavigate } from "react-router-dom";
+"use client"
+
 import { useState } from "react";
-import { useTranslation } from 'react-i18next';
+import { redirect } from "next/navigation";
+import { IShortListing } from "@core/lib/types/models/listing";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { listingService } from "@core/lib/services/listingService";
+import PriceTypes from "@core/components/common/PriceTypes"
+import { listingTypesWithRating } from "@core/lib/constants/listingTypes";
+import RatingStars from "@core/components/common/RatingStars"
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
-    const navigate = useNavigate();
     const [isFavorite, setFavorite] = useState<boolean>(listing.liked || false);
     const [likesCount, setLikesCount] = useState<number>(listing.likes || 0);
-    const { t } = useTranslation(['common', 'tooltips'])
+    const { dict } = useI18n()
     const { user } = useAuth();
 
     const isNew = (new Date().getTime() - new Date(listing.publishedAt).getTime()) < 3 * 24 * 60 * 60 * 1000;
 
     const navigator = () => {
         if (listing.type == "EVENT") {
-            navigate(`/event/${listing.id}`)
+            redirect(`/listing/${listing.id}/event`)
         } else {
-            navigate(`/listing/${listing.id}`)
+            redirect(`/listing/${listing.id}`)
         }
     }
 
@@ -78,7 +75,7 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
             </div>
 
             {isNew && (
-                <div className="listing-status red">{t(`catalog.newListing`, { ns: 'tooltips' })}</div>
+                <div className="listing-status red">{dict.tooltips.catalog.newListing}</div>
             )}
             <div className="listing-card_body">
                 <h3 className="listing-card_title">{listing.localizedTitle}</h3>

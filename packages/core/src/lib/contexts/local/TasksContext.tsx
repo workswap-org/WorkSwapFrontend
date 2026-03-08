@@ -1,5 +1,7 @@
+"use client"
+
+import { ITask, ITaskCreate } from "@core/lib/types/models/task";
 import { createContext, useContext } from "react";
-import { ITask, ITaskCreate } from "@core/lib";
 
 interface TasksContextValue {
     selectedTask: ITask | null;

@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { 
-    apiFetchJson,
-    useAuth
-} from "@core/lib";
 import { useTranslation, Trans } from "react-i18next";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { apiFetchJson } from "@core/lib/services/utils/apiClient";
 
 const RegisterPage = () => {
 
     const { t } = useTranslation(['common', 'buttons', 'errors']);
 
-    const {loadUser} = useAuth();
     const params = new URLSearchParams(window.location.search);
     const redirect = params.get("redirect") || `/`;
     const error = params.get("error") || "";
@@ -22,10 +19,6 @@ const RegisterPage = () => {
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
     const [message, setMessage] = useState<{message: string, success: boolean} | null>(null);
-
-    useEffect(() => {
-        loadUser();
-    }, [loadUser]);
 
     const register = async (name: string, email: string, password: string) => {
 
@@ -49,7 +42,6 @@ const RegisterPage = () => {
         }
 
         if (res.success == true) {
-            loadUser();
             navigate(`/login/success?redirect=${encodeURIComponent(redirect)}`)
         }
     };

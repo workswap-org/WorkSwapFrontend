@@ -1,5 +1,5 @@
-import { IListingImage } from '../types';
-import { apiFetchJson, apiFetchText } from './apiClient';
+import { IListingImage } from '../types/models/listing';
+import { apiFetchJson, apiFetchText } from './utils/apiClient';
 
 export const cloudService = {
     uploadListingImage: (listingId: number, formData: FormData) => 

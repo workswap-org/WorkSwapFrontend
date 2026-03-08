@@ -1,5 +1,6 @@
-import { IPermission, IPermissionUpdate } from '../types';
-import { apiFetchJson, apiFetch } from './apiClient';
+
+import { IPermission, IPermissionUpdate } from '../types/models/user';
+import { apiFetchJson, apiFetch } from './utils/apiClient';
 
 export const permissionsService = {
     getAllRoles: () => apiFetchJson('/permission/roles'),

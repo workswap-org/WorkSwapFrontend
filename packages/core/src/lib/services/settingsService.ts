@@ -1,4 +1,4 @@
-import { apiFetchJson } from './apiClient';
+import { apiFetchJson } from './utils/apiClient';
 
 export const settingService = {
     getSupportedLanguages: () => apiFetchJson("/settings/languages"),

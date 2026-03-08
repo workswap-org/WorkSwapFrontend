@@ -1,5 +1,8 @@
+"use client"
+
 import { createContext, useContext } from "react";
-import { IShortListing , IChat, GroupedMessages, IChatMessage, Order, IShortUser, IChatDetails } from "../types";
+import { GroupedMessages, IChat, IChatDetails, IChatMessage } from "../types/messenger";
+import { Order } from "../types/models/order";
 
 interface MessengerContextType {
     setAllMessages: React.Dispatch<React.SetStateAction<IChatMessage[] | null>>, 

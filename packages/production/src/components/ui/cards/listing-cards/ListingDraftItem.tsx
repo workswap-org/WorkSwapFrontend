@@ -1,16 +1,15 @@
+"use client";
 
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
-import { IFullListing } from "@core/lib";
+import { redirect } from 'next/navigation';
+import { IFullListing } from '@core/lib/types/models/listing';
+import { useI18n } from '@core/lib/contexts/I18nContext';
 
 const ListingDraftItem = ({ listing }: {listing: IFullListing}) => {
 
-    const { t } = useTranslation('common')
-
-    const navigate = useNavigate();
+    const { dict } = useI18n()
 
     return (
-        <article className="draft-listing-card" onClick={() => navigate(`/account/listing/edit/${listing.id}`)}>
+        <article className="draft-listing-card" onClick={() => redirect(`/account/listing/edit/${listing.id}`)}>
             <img 
                 src={listing.imagePath || `/images/default-listing.svg`}
                 onError={(e) => { e.currentTarget.src = `/images/default-listing.svg`; }}
@@ -19,7 +18,7 @@ const ListingDraftItem = ({ listing }: {listing: IFullListing}) => {
                 {listing.localizedTitle ? (
                     <span>{listing.localizedTitle}</span>
                 ) : (
-                    <span>{t(`fallbacks.noTitle`, { ns: 'common' })}</span>
+                    <span>{dict.common.fallbacks.noTitle}</span>
                 )}
             </div>
         </article>

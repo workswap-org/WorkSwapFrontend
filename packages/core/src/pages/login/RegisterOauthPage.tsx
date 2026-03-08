@@ -1,42 +1,32 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { 
-    apiFetchJson,
-    useAuth,
-    useNotification
-} from "@core/lib";
-import {
-    Avatar
-} from "@core/components";
+import Avatar from "@core/components/common/Avatar";
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { apiFetchJson } from "@core/lib/services/utils/apiClient";
+import { useState } from "react";
 import { useTranslation, Trans } from "react-i18next";
+import Link from "next/link";
 
 const RegisterOauthPage = () => {
 
     const { t } = useTranslation(['common', 'buttons'])
 
-    const {loadUser, user} = useAuth();
-    const location = useLocation();
-    const navigate = useNavigate();
+    const {user} = useAuth();
     const {notificate} = useNotification();
 
     const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
    /*  const [studyAccepted, setStudyAccepted] = useState<boolean>(false); */
-
-    useEffect(() => {
-        loadUser();
-    }, [loadUser]);
 
     async function register() {
         const res = await apiFetchJson('/api/auth/google/register', { method: 'PATCH' });
         
         if (res.success) {
             console.log("перезагружаем пользователя")
-            const res2 = await loadUser();
+            const res2 = true;
             if(res2) {
                 notificate(res.message, "success")
                 const from = new URLSearchParams(location.search).get("redirect") || "/";
                 console.log("Перенаправляем")
-                navigate(from, { replace: true }) 
+                redirect(from, { replace: true }) 
             }
         } else {
             notificate(res.message, "error")
@@ -46,7 +36,7 @@ const RegisterOauthPage = () => {
     return (
         <div className="login-body">
 
-            <Link to='/' className="to-main hover">
+            <Link href='/' className="to-main hover">
                 <i className="fa fa-angle-left fa-lg" aria-hidden="true"></i>
                 <span>{t(`returnToCatalog`, { ns: 'buttons' })}</span>
             </Link>
@@ -111,3 +101,7 @@ const RegisterOauthPage = () => {
 };
 
 export default RegisterOauthPage;
+
+function redirect(from: string, arg1: { replace: boolean; }) {
+    throw new Error("Function not implemented.");
+}

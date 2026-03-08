@@ -1,3 +1,5 @@
+"use client"
+
 import { useTranslation } from "react-i18next";
 
 interface Props {
@@ -46,3 +48,5 @@ export const FormattedDate = ({ isoDate, format = "DMYHM"}: Props) => {
 
     return <span>{formatted}</span>;
 };
+
+export default FormattedDate

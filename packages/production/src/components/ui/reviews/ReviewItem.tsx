@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
-import { userService, IReview, IShortUser } from "@core/lib";
-import { Avatar, FormattedDate } from "@core/components";
+"use client"
 
+import Avatar from "@core/components/common/Avatar";
+import FormattedDate from "@core/components/common/date/FormattedDate";
+import { userService } from "@core/lib/services/user";
+import { IReview } from "@core/lib/types/models/review";
+import { IShortUser } from "@core/lib/types/models/user";
+import { useEffect, useState } from "react";
 const ReviewItem = ({review}: {review: IReview}) => {
 
     const [author, setAuthor] = useState<IShortUser | null>(null)

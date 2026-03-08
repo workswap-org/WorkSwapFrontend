@@ -1,5 +1,6 @@
-import { IForumComment, IForumPost, IForumTopic } from '../types';
-import { apiFetch, apiFetchJson, apiFetchText } from './apiClient';
+
+import { IForumComment, IForumPost, IForumTopic } from '../types/forum';
+import { apiFetch, apiFetchJson, apiFetchText } from './utils/apiClient';
 
 export const forumService = {
     getTopic: (topicOpenId: string) => apiFetchJson(`/forum/topic`, {method: "GET"}, {topicOpenId}),

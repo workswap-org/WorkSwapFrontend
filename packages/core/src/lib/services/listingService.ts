@@ -1,5 +1,6 @@
-import { CatalogFilters, IListingTranslation } from '../types';
-import { apiFetchJson, apiFetch, apiFetchText } from './apiClient';
+import { ICatalogFilters } from '../types/catalog';
+import { IListingTranslation } from '../types/models/listing';
+import { apiFetchJson, apiFetch, apiFetchText } from './utils/apiClient';
 
 export const listingService = {
     getListingAccessToken: (listingId: number) => apiFetchJson(`/listing/${listingId}/token`, {method: "GET"}),
@@ -9,7 +10,7 @@ export const listingService = {
 
     getImages: (listingId: number) => apiFetchJson(`/listing/${listingId}/images`),
     getTranslations: (listingId: number) => apiFetchJson(`/listing/${listingId}/translations`),
-    getCatalog: (params: CatalogFilters) => 
+    getCatalog: (params: ICatalogFilters) => 
         apiFetchJson(`/listing/catalog`, {
             method: "POST",
             headers: {
@@ -24,7 +25,6 @@ export const listingService = {
     getByUserId: (userId: number) => apiFetchJson(`/listing/by-user`, {}, {userId}),
     getRecentListings: (count: number) => apiFetchJson(`/listing/recent`, {}, {count}),
 
-    addView: (listingId: number) => apiFetch(`/listing/${listingId}/view`, { method: 'POST' }),
     delete: (listingId: number) => apiFetch(`/listing/${listingId}`, {method: 'DELETE'}),
     create: (type: string) => apiFetchText(`/listing`, {method: "POST"}, {type}),
     publish: (listingId: number) => apiFetch(`/listing/${listingId}/publish`, {method: 'PATCH'}),

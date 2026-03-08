@@ -1,4 +1,4 @@
-import { apiFetchJson, apiFetch } from './apiClient';
+import { apiFetchJson, apiFetch } from './utils/apiClient';
 
 export const notificationService = {
     getNotificationsForUser: () => apiFetchJson(`/notification/for-user`),

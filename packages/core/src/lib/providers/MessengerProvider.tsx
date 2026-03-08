@@ -1,9 +1,12 @@
+"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { MessengerContext } from "../contexts/MessengerContext";
 import { useTranslation } from "react-i18next";
-import { useAuth, useWebSocket } from '../../lib';
-import { IChat, GroupedMessages, IChatMessage, Order, IChatDetails } from "../types";
+import { useAuth } from "../contexts/AuthContext";
+import { Order } from "../types/models/order";
+import { GroupedMessages, IChat, IChatDetails, IChatMessage } from "../types/messenger";
+import { useWebSocket } from "../contexts/WebSocketContext";
 
 export const MessengerProvider = ({ children }: { children?: React.ReactNode }) => {
 
