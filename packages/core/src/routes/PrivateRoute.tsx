@@ -1,4 +1,4 @@
-// PrivateRoute.jsx
+"use client"
 
 import EmptyPage from "@core/pages/EmptyPage";
 import { ReactNode } from "react";

@@ -33,7 +33,7 @@ export function DelayedList({ className, items }: DelayedListProps) {
     return (
         <>
             {items.slice(0, count).map((item, index) => (
-                <div key={item.key ?? index} className={className ?? ""}>
+                <div key={item.key ?? index}>
                     {item}
                 </div>
             ))}
