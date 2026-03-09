@@ -16,12 +16,12 @@ const ListingMenu = {
     SETTINGS: {
         first: true,
         name: "Settings",
-        icon: "settings"
+        icon: "gear"
     },
     ANALYTICS: {
         first: false,
         name: "Analytics",
-        icon: "chart"
+        icon: "chart-mixed"
     },
     MESSAGES: {
         first: false,
@@ -74,7 +74,7 @@ const ListingManagePage = () => {
 
             {listing && (
                 <SidebarSectionLayout
-                    pageName={'listingManage'}
+                    pageName="listingManage"
                     sections={ListingMenu}
                     notifications={{menu: ListingMenu.MESSAGES, count: notifCount}}
                 >

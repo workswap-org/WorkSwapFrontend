@@ -6,12 +6,12 @@
     border-radius: 1.5rem;
     overflow: hidden;
 
-    .header {
+    &-header {
         padding: 1rem;
         cursor: pointer;
     }
 
-    .body {
+    &-body {
         display: grid;
         grid-template-rows: 0fr; /* свернуто */
         transition: grid-template-rows 0.3s ease;
