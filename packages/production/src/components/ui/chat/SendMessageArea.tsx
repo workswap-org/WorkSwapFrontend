@@ -5,8 +5,8 @@ import { useChats } from "@core/lib/contexts/MessengerContext";
 import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
 import { IChatMessage } from "@core/lib/types/messenger";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1"
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const SendMessageArea = () => {
     const { user } = useAuth();
@@ -14,7 +14,7 @@ const SendMessageArea = () => {
     const { currentChatId, pushMessages } = useChats();
 
     const { client, connected } = useWebSocket();
-    const { t } = useTranslation();
+    const { dict } = useI18n();
     const [message, setMessage] = useState("");
 
     // Проверка, можно ли писать сообщение
@@ -72,7 +72,7 @@ const SendMessageArea = () => {
                 onKeyDown={handleKeyDown}
                 disabled={isDisabled}
                 className="" 
-                placeholder={isDisabled ? "" : t(`placeholders.typeMessage`, { ns: 'common' })}
+                placeholder={isDisabled ? "" : dict.common.placeholders.typeMessage}
             />
             <button
                 className="send-btn"

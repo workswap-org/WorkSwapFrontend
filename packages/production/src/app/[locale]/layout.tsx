@@ -5,8 +5,6 @@ import { getDictionary } from "@/lib/i18n";
 import { parseLocale } from '@core/lib/constants/languages'
 import { I18nProvider } from "@core/lib/contexts/I18nContext";
 import Header from "@/components/layout/header/Header";
-import { useChatSubscription } from "@core/lib/hooks/chat/useChatSubscription"
-import { useChatsLoad } from "@core/lib/hooks/chat/useChatsLoad"
 
 import "@/css/main.scss";
 import "@/css/components/layout.scss";
@@ -35,9 +33,6 @@ export default async function RootLayout({
     const parsed = parseLocale(locale)
     const dict = await getDictionary(parsed);
 
-    /* useChatSubscription();
-    useChatsLoad(); */
-
     const loadedHeaders = await headers()
     const theme = loadedHeaders.get("x-theme") || "light";
 
@@ -51,19 +46,19 @@ export default async function RootLayout({
                 <link rel="icon" href="/favicon.png" />
             </head>
             <body>
-                <AppProviders>
-                    <I18nProvider locale={parsed} dict={dict}>
-                        <div id="root">
-                            <Header />
-                            {children}
+                <I18nProvider locale={parsed} dict={dict}>
+                    <AppProviders>
+                    <div id="root">
+                        <Header />
+                        {children}
 
-                            {/* <LanguageSelectModal /> */}
-                        </div>
+                        {/* <LanguageSelectModal /> */}
+                    </div>
 
-                        <div id="modal-root"></div>
-                        <div id="mobile-menu"></div>
-                    </I18nProvider>
-                </AppProviders>
+                    <div id="modal-root"></div>
+                    <div id="mobile-menu"></div>
+                    </AppProviders>
+                </I18nProvider>
             </body>
         </html>
     );

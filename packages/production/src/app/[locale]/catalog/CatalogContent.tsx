@@ -36,25 +36,20 @@ const CatalogContent = () => {
     return (
         <div className="catalog-content">
             <div className="listings-grid">
-                {!loading && 
-                    <DelayedList 
-                        items={[
-                            ...(listings?.map((listing) => (
-                                <PublicListingCard
-                                    key={listing.id}
-                                    listing={listing}
-                                />
-                            )) ?? []),
-                        <article key={0} onClick={() => window.location.href = "/account/listing/create"} className="public-listing-card">
-                            <div className="image-wrapper new">
-                                <i className="fa-solid fa-plus fa-2xl"></i>
-                            </div>
-                            <div className="listing-card_body">
-                                <h3 className="listing-card_title">{dict.navigation.catalogSidebar.links.createListing}</h3>
-                            </div>
-                        </article>
-                    ]}/>
-                }
+                {!loading && listings?.map((listing) => (
+                    <PublicListingCard
+                        key={listing.id}
+                        listing={listing}
+                    />
+                ))}
+                <article key={0} onClick={() => window.location.href = "/account/listing/create"} className="public-listing-card">
+                    <div className="image-wrapper new">
+                        <i className="fa-solid fa-plus fa-2xl"></i>
+                    </div>
+                    <div className="listing-card_body">
+                        <h3 className="listing-card_title">{dict.navigation.catalogSidebar.links.createListing}</h3>
+                    </div>
+                </article>
             </div>
         </div>
     );
