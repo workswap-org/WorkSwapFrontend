@@ -11,6 +11,8 @@ import ListingSettingsMenu from './menus/ListingSettingsMenu';
 import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
 import ListingMessagesMenu from './menus/ListingMessagesMenu';
 import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useChatSubscription } from '@core/lib/hooks/chat/useChatSubscription';
+import { useChatsLoad } from '@core/lib/hooks/chat/useChatsLoad';
 
 const ListingMenu = {
     SETTINGS: {
@@ -31,6 +33,9 @@ const ListingMenu = {
 } as const;
 
 const ListingManagePage = () => {
+
+    useChatSubscription();
+    useChatsLoad();
 
     const { dict } = useI18n();
     const { id } = useParams();
