@@ -9,7 +9,7 @@ import PriceEdit from "./PriceEdit";
 import ListingSetting from "./ListingSetting";
 import { IFullListing } from "@core/lib/types/models/listing";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { listingService } from "@core/lib/services/listingService";
+import { listingService } from "@core/lib/services/listing";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import LocationSelector from "@/components/ui/selectors/LocationSelector";
 

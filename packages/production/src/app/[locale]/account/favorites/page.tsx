@@ -2,7 +2,7 @@
 
 import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import { listingService } from "@core/lib/services/listingService";
+import { listingService } from "@core/lib/services/listing";
 import { IShortListing } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";
 

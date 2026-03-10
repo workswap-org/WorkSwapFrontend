@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { redirect } from 'next/navigation';
 import { IFullListing } from "@core/lib/types/models/listing";
-import { listingService } from "@core/lib/services/listingService";
+import { listingService } from "@core/lib/services/listing";
 import PrivateListingCard from "@/components/ui/cards/listing-cards/PrivateListingCard";
 import ListingDraftItem from "@/components/ui/cards/listing-cards/ListingDraftItem";
 import Tooltip from "@core/components/common/Tooltip"

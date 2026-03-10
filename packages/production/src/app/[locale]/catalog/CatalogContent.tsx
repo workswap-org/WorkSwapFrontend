@@ -2,7 +2,7 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
 import { useEffect, useState, useRef } from "react";
 import { IShortListing } from '@core/lib/types/models/listing'
-import { listingService } from '@core/lib/services/listingService'
+import { listingService } from '@core/lib/services/listing'
 import { DelayedList } from '@core/components/common/animations/DelayedList'
 import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
 

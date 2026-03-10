@@ -22,6 +22,8 @@ export interface IFullListing {
     imagePath: string;
     testmode: boolean;
     temporary: boolean;
+    likes: number
+    liked: boolean;
 }
 
 export interface IShortListing  {
@@ -79,6 +81,8 @@ export interface IEventPageRequest {
     participants: IShortUser[] | null;
     participantsCount: number | null
     chat: IChat | null
+    likes: number
+    liked: boolean;
 }
 
 export interface IListingPageRequest {
@@ -97,6 +101,8 @@ export interface IListingPageRequest {
     publicType: string | null;
     author: IShortUserProfile;
     images: IListingImage[] | null;
+    likes: number
+    liked: boolean;
 }
 
 export interface IEventSettings {

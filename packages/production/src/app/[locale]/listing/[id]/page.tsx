@@ -5,7 +5,7 @@ import NotFoundPage from "@core/pages/NotFoundPage";
 import { useParams } from "next/navigation";
 import { IListingPageRequest } from "@core/lib/types/models/listing";
 import { IShortUserProfile } from "@core/lib/types/models/user";
-import { listingService } from "@core/lib/services/listingService";
+import { listingService } from "@core/lib/services/listing";
 import ListingPageLayout from "./ListingPageLayout";
 import PriceTypes from "@core/components/common/PriceTypes";
 import RatingStars from "@core/components/common/RatingStars";
