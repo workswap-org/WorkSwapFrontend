@@ -17,18 +17,20 @@ interface ListingPageLayoutProps {
     extraSidebarElements?: React.ReactNode,
     listingActions?: React.ReactNode,
     extraPageElements?: React.ReactNode,
-    listing: IEventPageRequest | IListingPageRequest | null,
+    listingPage: IListingPageRequest
     author: IShortUserProfile | null
 }
 
 const ListingPageLayout = ({
-    listing, 
+    listingPage, 
     author, 
     details, 
     extraSidebarElements,
     listingActions,
     extraPageElements
 }: ListingPageLayoutProps) => {
+
+    const { listing } = listingPage;
 
     const {user} = useAuth();
     const isOwner = !!(user?.openId == author?.openId);
@@ -41,7 +43,7 @@ const ListingPageLayout = ({
     const { dict } = useI18n();
 
     useEffect(() => {
-        if (listing?.categoryId && listing.type) categoryService.getPathToCategory(listing.categoryId, listing.type).then(setCategories);
+        if (listing.categoryId && listing.type) categoryService.getPathToCategory(listing.categoryId, listing.type).then(setCategories);
     }, [listing])
 
     return (
@@ -85,7 +87,7 @@ const ListingPageLayout = ({
 
             <div className="listing-main-content">
                 <div className="listing-content">
-                    <ListingGallery images={listing?.images ?? []}/>
+                    <ListingGallery images={listingPage?.images ?? []}/>
                     
                     {listing?.localizedDescription && (
                         <div className="listing-info fade-down">
@@ -145,7 +147,7 @@ const ListingPageLayout = ({
                 </div>
             </div>
 
-            <ReviewsSection listingId={listing?.id ?? null} profileId={listing?.author.id ?? null} />
+            <ReviewsSection listingId={listing?.id ?? null} profileId={listingPage?.author.id ?? null} />
         </main>
     );
 }

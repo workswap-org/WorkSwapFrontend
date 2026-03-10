@@ -17,7 +17,7 @@ const ListingPage = () => {
     const listigId = Number(id);
     const { dict } = useI18n();
 
-    const [listing, setListing] = useState<IListingPageRequest | null>(null);
+    const [listingPage, setListing] = useState<IListingPageRequest | null>(null);
     const [author, setAuthor] = useState<IShortUserProfile | null>(null);
     const [error, setError] = useState<boolean>(false);
 
@@ -32,25 +32,25 @@ const ListingPage = () => {
 
     if (error) return <NotFoundPage/>;
 
-    return listing && (
+    return listingPage && (
         <ListingPageLayout
-            listing={listing} 
+            listingPage={listingPage} 
             author={author}
             details={(
                 <>
                     <div className="detail-item">
                         <span className="detail-label">{dict.common.labels.price}:</span>
-                        <h1><PriceTypes listing={listing} className={"listing"} /></h1>
+                        <h1><PriceTypes listing={listingPage.listing} className={"listing"} /></h1>
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">{dict.common.labels.location}:</span>
                         <span className="detail-value">
-                            {listing?.location || ""}
+                            {listingPage.listing?.location || ""}
                         </span>
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">{dict.common.labels.rating}:</span>
-                        <RatingStars rating={listing?.rating ?? 0}/>
+                        <RatingStars rating={listingPage.listing?.rating ?? 0}/>
                     </div>
                 </>
             )}   
