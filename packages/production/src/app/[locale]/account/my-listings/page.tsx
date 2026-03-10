@@ -8,6 +8,7 @@ import PrivateListingCard from "@/components/ui/cards/listing-cards/PrivateListi
 import ListingDraftItem from "@/components/ui/cards/listing-cards/ListingDraftItem";
 import Tooltip from "@core/components/common/Tooltip"
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import Loader from "@core/components/common/Loader"
 
 const MyListingsPage = () => {
 
@@ -25,7 +26,7 @@ const MyListingsPage = () => {
             setActiveListings(data.filter(listing => !listing.temporary));
             setDrafts(data.filter(listing => listing.temporary));
         })
-    }, [])
+    }, []);
 
     return (
         <>
@@ -39,9 +40,9 @@ const MyListingsPage = () => {
                 </button>
             </div>
 
-            {!loading && (
+            <Loader loadingActive={loading}>
                 <>
-                    {listings?.length == 0 && !loading ? (
+                    {listings?.length == 0 ? (
                         <div className="listings-grid">
                             <article onClick={() => redirect("/account/listing/create")} className="listing-card hover-animation-card">
                                 <div className="center">
@@ -84,8 +85,7 @@ const MyListingsPage = () => {
                         </>
                     )}
                 </>
-            )}
-            
+            </Loader>
         </>
     );
 };
