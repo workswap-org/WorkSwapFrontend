@@ -23,7 +23,7 @@ export function useStompClient(): UseStompClientResult {
     const [error, setError] = useState(false);
     const [reconnectAttempts, setReconnectAttempts] = useState(0);
 
-    const maxReconnects = 3;
+    const maxReconnects = 500;
 
     const cleanupClient = useCallback(() => {
         if (!clientRef.current) return;

@@ -9,6 +9,7 @@ import PriceTypes from "@core/components/common/PriceTypes"
 import { listingTypesWithRating } from "@core/lib/constants/listingTypes";
 import RatingStars from "@core/components/common/RatingStars"
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import { HeartIcon } from "../../Icon";
 
 const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
@@ -52,24 +53,22 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
             <div 
                 className="image-wrapper"
                 style={{ 
-                    "--bg-image": `url(${listing.imagePath || "/images/default-listing.svg"})` 
+                    "--bg-image": `url(${listing.imagePath || "/images/placeholders/default-listing.svg"})` 
                 } as React.CSSProperties}
             >
                 <img
-                    src={listing.imagePath || "/images/default-listing.svg"}
+                    src={listing.imagePath || "/images/placeholders/default-listing.svg"}
                     alt="Изображение объявления"
-                    onError={(e) => { e.currentTarget.src = "/images/default-listing.svg"; }}
+                    onError={(e) => { e.currentTarget.src = "/images/placeholders/default-listing.svg"; }}
                 />
                 {user && (
                     <div className="listing-card_actions">
                         <span id="likesCount">{likesCount}</span>
-                        <i 
-                            className={`${isFavorite ? 'fa-solid active' : 'fa-regular'} fa-heart like`} 
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                toggleFavorite()
-                            }}
-                        ></i>
+                        <HeartIcon 
+                            filled={isFavorite}
+                            className={"like"}
+                            onClick={toggleFavorite}
+                        />
                     </div>
                 )}
             </div>
@@ -77,6 +76,7 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
             {isNew && (
                 <div className="listing-status red">{dict.tooltips.catalog.newListing}</div>
             )}
+            
             <div className="listing-card_body">
                 <h3 className="listing-card_title">{listing.localizedTitle}</h3>
                 {/* <p className="text">{listing.localizedDescription}</p> */}

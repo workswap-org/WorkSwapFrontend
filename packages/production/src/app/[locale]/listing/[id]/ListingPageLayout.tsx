@@ -12,6 +12,7 @@ import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar";
 import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import { HeartIcon } from "@/components/ui/Icon";
 
 interface ListingPageLayoutProps {
     details: React.ReactNode,
@@ -141,7 +142,10 @@ const ListingPageLayout = ({
                                                 toggleFavorite()
                                             }}
                                         >
-                                            <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart like`}></i>
+                                            <HeartIcon
+                                                filled={isFavorite}
+                                                className={"like"}
+                                            />
                                         </div>
                                     ) : (
                                         <Link

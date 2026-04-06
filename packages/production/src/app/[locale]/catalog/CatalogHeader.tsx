@@ -21,6 +21,7 @@ const CatalogHeader = () => {
                         name="searchQuery"
                         placeholder={dict.common.placeholders.search}
                     />
+                    
                     <input type="hidden" name="category"/>
                     <input type="hidden" name="sortBy"/>
                     <button className="btn btn-search" type="button">

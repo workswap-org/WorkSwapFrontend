@@ -79,7 +79,7 @@ const SendMessageArea = () => {
                 onClick={sendMessage}
                 disabled={isDisabled}
             >
-                <img src="/images/send-btn.png" alt="Отправить" />
+                <img src="/images/icons/send-btn.png" alt="Отправить" />
             </button>
         </div>
     );

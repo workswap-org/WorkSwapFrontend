@@ -21,13 +21,7 @@ export function generateStaticParams() {
     ];
 }
 
-export default async function RootLayout({ 
-    children, 
-    params 
-}: { 
-    children: ReactNode; 
-    params: Promise<{ locale: string }>;
-}) {
+export default async function RootLayout({ children, params}: { children: ReactNode; params: Promise<{ locale: string }>;}) {
 
     const { locale } = await params;
     const parsed = parseLocale(locale)
