@@ -29,7 +29,6 @@ const ListingGallery = ({ images }: {images: IListingImage[]}) => {
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
-        console.log(isModalOpen)
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };

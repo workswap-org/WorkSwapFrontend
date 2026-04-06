@@ -17,8 +17,8 @@ const ChatWindow = ({title}: {title?: string}) => {
 
     const { dict } = useI18n();
     const { user } = useAuth();
-    const activePage = useActivePage();
 
+    const activePage = useActivePage();
     const { messages, setChatListingVisible, currentChatId, setCurrentChatId, currentChat } = useChats();
 
     const chatInterlocutor = useMemo<IShortUser | null>(
@@ -28,6 +28,7 @@ const ChatWindow = ({title}: {title?: string}) => {
     const isMobile = window.innerWidth <= 600;
 
     const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+
     useEffect(() => {
         setModalRoot(document.getElementById("modal-root"));
     }, []);
@@ -112,11 +113,6 @@ const ChatWindow = ({title}: {title?: string}) => {
                             <i className="fa-solid fa-spinner-third fa-spin"></i>
                         </div>
                     )} */}
-
-                    {/* <div className="chat-order">
-                        <span>Заказ #{order?.id} создан</span>
-                    </div> */}
-                    {/* <div className="message-date">Сегодня</div> */}
 
                     {(messages?.length === 0) && (
                         <p>{dict.common.fallbacks.noMessages}</p>

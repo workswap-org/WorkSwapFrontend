@@ -34,9 +34,8 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
     return (
         <article className="listing-card hover-animation-card" onClick={() => navigator()}>
             <img 
-                src={listing.imagePath || `/images/placeholders/default-listing.svg`}
-                onError={(e) => { e.currentTarget.src = `/images/placeholders/default-listing.svg`; }}
-                /* alt="Изображение объявления" */
+                src={listing.imagePath || `/images/default-listing.svg`}
+                onError={(e) => { e.currentTarget.src = `/images/default-listing.svg`; }}
             />
 
             <div className="listing-card_body">

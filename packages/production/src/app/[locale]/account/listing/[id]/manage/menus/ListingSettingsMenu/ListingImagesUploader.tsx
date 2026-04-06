@@ -1,5 +1,5 @@
 import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { listingService } from "@core/lib/services/listingService";
+import { listingService } from "@core/lib/services/listing";
 import { cloudService } from "@core/lib/services/cloudService";
 import { IFullListing, IListingImage } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";

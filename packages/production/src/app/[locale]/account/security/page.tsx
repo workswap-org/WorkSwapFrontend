@@ -25,8 +25,6 @@ const SecurityPage = () => {
                 <h2>{dict.common.titles.security}</h2>
             </div>
 
-            {/* <h3><Trans i18nKey="ui.pageInDev" ns="errors" /></h3> */}
-
             <button 
                 onClick={() => {
                     const confirmed = window.confirm(dict.messages.confirms.deleteAccount);
