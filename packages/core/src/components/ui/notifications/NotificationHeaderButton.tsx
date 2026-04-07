@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import NotificationsContainer from "./NotificationsContainer";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { usePathname } from "next/navigation";
+import BellIcon from "@core/components/common/icons/BellIcon";
 
 const NotificationHeaderButton = () => {
 
@@ -22,7 +23,7 @@ const NotificationHeaderButton = () => {
                 className="account-link"
                 onClick={() => setOpen(!isOpen)}
             >
-                <i className="fa fa-bell fa-xl" aria-hidden="true"></i>
+                <BellIcon />
                 {unreadNotificationsCount > 0 && (
                     <div id="unreadNotifications" className="unread-notifications-count">
                         {unreadNotificationsCount}

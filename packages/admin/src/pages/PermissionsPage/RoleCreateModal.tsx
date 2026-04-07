@@ -1,4 +1,5 @@
 import { Modal } from "@core/components";
+import PlusIcon from "@core/components/common/icons/PlusIcon";
 import { permissionsService, IRole } from "@core/lib";
 import { useState } from "react";
 
@@ -22,7 +23,7 @@ const RoleCreateModal = ({addRole}: {addRole: (role: IRole) => void}) => {
     return (
         <>
             <button onClick={() => setOpen(true)} className="btn btn-primary">
-                <i className="fa-solid fa-plus"></i> Роль
+                <PlusIcon /> Роль
             </button>
             <Modal isOpen={isOpen} onClose={() => setOpen(false)} title="Создать роль">
                 <div className="form-group">

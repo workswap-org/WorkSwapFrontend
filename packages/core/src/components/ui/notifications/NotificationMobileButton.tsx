@@ -5,6 +5,7 @@ import NotificationsContainer from "./NotificationsContainer";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { usePathname } from "next/navigation";
+import BellIcon from "@core/components/common/icons/BellIcon";
 
 const NotificationMobileButton = () => {
  
@@ -24,7 +25,7 @@ const NotificationMobileButton = () => {
                 onClick={() => setOpen(!isOpen)}
                 id="notificationAnchor"
             >
-                <div><i className="fa-regular fa-bell fa-lg"></i></div>
+                <BellIcon />
                 <span>{dict.buttons.menu.notifications}</span>
                 {unreadNotificationsCount > 0 && (
                     <span id="unreadNotifications" className="unread-notifications-count">

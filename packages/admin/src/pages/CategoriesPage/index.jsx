@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CategoryTree from "./CategoryTree";
 import { getAllCategories } from "@core/lib";
 import CategoryTable from "./CategoryTable";
+import PlusIcon from "@core/components/common/icons/PlusIcon"
 
 const CategoriesPage = () => {
     const [categories, setCategories] = useState([]);
@@ -38,7 +39,7 @@ const CategoriesPage = () => {
                                 onClick={onAddCategory}
                                 className="btn btn-primary btn-overlay"
                             >
-                                <i className="fa-solid fa-plus"></i> Категория
+                                <PlusIcon /> Категория
                             </button>
                         </div>
                     </div>

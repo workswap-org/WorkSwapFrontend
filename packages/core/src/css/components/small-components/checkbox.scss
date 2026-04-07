@@ -89,17 +89,17 @@
         &:checked + .slider:before {
             transform: translateX(26px);
 
-            .fa-moon { 
+            #moonIcon { 
                 display: none; 
             }
         }
 
-        &:checked + .slider .fa-sun { 
+        &:checked + .slider #sunIcon { 
             visibility: hidden;
             transition: .1s;
         }
 
-        &:not(:checked) + .slider .fa-moon { 
+        &:not(:checked) + .slider #moonIcon { 
             visibility: hidden;
             transition: .1s;
         }
@@ -130,6 +130,10 @@
             background-color: white;
             transition: .2s;
             border-radius: 50%;
+        }
+
+        #sunIcon { 
+            color: white; 
         }
     }
 }

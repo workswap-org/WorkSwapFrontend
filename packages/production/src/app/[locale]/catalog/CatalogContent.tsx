@@ -3,7 +3,7 @@ import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContex
 import { useEffect, useState, useRef } from "react";
 import { IShortListing } from '@core/lib/types/models/listing'
 import { listingService } from '@core/lib/services/listing'
-import { DelayedList } from '@core/components/common/animations/DelayedList'
+import PlusIcon from "@core/components/common/icons/PlusIcon";
 import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
 
 const CatalogContent = () => {
@@ -44,7 +44,7 @@ const CatalogContent = () => {
                 ))}
                 <article key={0} onClick={() => window.location.href = "/account/listing/create"} className="public-listing-card">
                     <div className="image-wrapper new">
-                        <i className="fa-solid fa-plus fa-2xl"></i>
+                        <PlusIcon size={35} />
                     </div>
                     <div className="listing-card_body">
                         <h3 className="listing-card_title">{dict.navigation.catalogSidebar.links.createListing}</h3>

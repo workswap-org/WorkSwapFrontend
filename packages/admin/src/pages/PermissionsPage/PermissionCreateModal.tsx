@@ -1,6 +1,7 @@
 import { Modal } from "@core/components";
 import { permissionsService, IPermission } from "@core/lib";
 import { useState } from "react";
+import PlusIcon from "@core/components/common/icons/PlusIcon"
 
 const PermissionCreateModal = ({addPermission}: {addPermission: (permisson: IPermission) => void}) => {
 
@@ -20,7 +21,7 @@ const PermissionCreateModal = ({addPermission}: {addPermission: (permisson: IPer
     return (
         <>
             <button onClick={() => setOpen(true)} className="btn btn-primary">
-                <i className="fa-solid fa-plus"></i> Разрешение
+                <PlusIcon /> Разрешение
             </button>
 
             <Modal isOpen={isOpen} onClose={() => setOpen(false)} title="Создать Разрешение">

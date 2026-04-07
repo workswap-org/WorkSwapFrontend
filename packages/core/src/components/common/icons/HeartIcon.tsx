@@ -1,4 +1,4 @@
-export const HeartIcon = ({
+const HeartIcon = ({
     filled, 
     onClick,
     className
@@ -29,3 +29,5 @@ export const HeartIcon = ({
         </svg>
     )
 }
+
+export default HeartIcon;

@@ -10,6 +10,7 @@ import Avatar from "@core/components/common/Avatar";
 import LanguageSwitcher from "@core/components/layout/LanguageSwitcher";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import NotificationHeaderButton from '@core/components/ui/notifications/NotificationHeaderButton';
+import SignOutIcon from "@core/components/common/icons/SignOutIcon"
 
 const NavButtons = () => {
 
@@ -59,7 +60,7 @@ const NavButtons = () => {
                         className="logout-btn"
                         href='/logout'
                     >
-                        <i className="fa fa-arrow-left-from-bracket fa-lg" aria-hidden="true"></i>
+                        <SignOutIcon />
                     </Link>
                 </div>
             ) : (

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import SunIcon from "../common/icons/SunIcon";
+import MoonIcon from "../common/icons/MoonIcon";
 
 const ThemeChanger = ({ id }: { id: string }) => {
     useEffect(() => {
@@ -42,8 +44,8 @@ const ThemeChanger = ({ id }: { id: string }) => {
         <label className="switch" htmlFor={id}>
             <input type="checkbox" className="theme-toggle" id={id} />
             <span className="slider">
-                <div><i className="fa-solid fa-moon"></i></div>
-                <div><i className="fa-solid fa-sun" style={{ color: "white" }}></i></div>
+                <MoonIcon />
+                <SunIcon />
             </span>
         </label>
     );

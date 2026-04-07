@@ -11,7 +11,7 @@ import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar";
 import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import { HeartIcon } from "@/components/ui/Icon";
+import HeartIcon from "@core/components/common/icons/HeartIcon"
 
 interface ListingPageLayoutProps {
     details: React.ReactNode,

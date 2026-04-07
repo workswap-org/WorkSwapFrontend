@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useActivePage } from "@core/lib";
 import { Avatar } from "@core/components";
+import SignOutIcon from "@core/components/common/icons/SignOutIcon"
 
 const pageTitles = {
     dashboard: "Панель управления",
@@ -34,11 +35,7 @@ const Header = ({ user, toggleSidebar }) => {
                     className="logout-btn"
                     to="/logout"
                 >
-                    <i
-                        className="fa fa-sign-out fa-lg"
-                        aria-hidden="true"
-                        style={{ transform: "rotate(180deg)" }}
-                    ></i>
+                    <SignOutIcon />
                 </Link>
             </div>
 

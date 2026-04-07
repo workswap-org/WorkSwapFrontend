@@ -9,6 +9,7 @@ import ListingDraftItem from "@/components/ui/cards/listing-cards/ListingDraftIt
 import Tooltip from "@core/components/common/Tooltip"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import Loader from "@core/components/common/Loader"
+import PlusIcon from "@core/components/common/icons/PlusIcon";
 
 const MyListingsPage = () => {
 
@@ -78,7 +79,7 @@ const MyListingsPage = () => {
                                         onClick={() => redirect("/account/listing/create")} 
                                         className="draft-listing-card new"
                                     >
-                                        <i className="fa-solid fa-plus fa-xl"></i>
+                                        <PlusIcon size={34} />
                                     </article>
                                 </Tooltip>
                             </div>
