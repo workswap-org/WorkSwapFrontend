@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import ListingGallery from "./ListingGallery";
 import { IEventPageRequest, IListingPageRequest } from "@core/lib/types/models/listing";
 import { IShortUserProfile } from "@core/lib/types/models/user";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { ICategory } from "@core/lib/types/models/category";
-import { listingService } from "@core/lib/services/listingService";
+import { listingService } from "@core/lib/services/listing";
 import { categoryService } from "@core/lib/services/categoriesService";
 import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar";
 import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import { HeartIcon } from "@/components/ui/Icon";
 
 interface ListingPageLayoutProps {
     details: React.ReactNode,
     extraSidebarElements?: React.ReactNode,
     listingActions?: React.ReactNode,
     extraPageElements?: React.ReactNode,
-    listing: IEventPageRequest | IListingPageRequest | null,
+    listingPage: IListingPageRequest
     author: IShortUserProfile | null
 }
 
 const ListingPageLayout = ({
-    listing, 
+    listingPage, 
     author, 
     details, 
     extraSidebarElements,
@@ -31,44 +31,21 @@ const ListingPageLayout = ({
     extraPageElements
 }: ListingPageLayoutProps) => {
 
-    const {user, isAuthenticated} = useAuth();
+    const { listing } = listingPage;
+
+    const {user} = useAuth();
     const isOwner = !!(user?.openId == author?.openId);
-    const [isFavorite, setFavorite] = useState(false);
-    const [likesCount, setLikesCount] = useState<number>(0);
+
+    const { isFavorite, toggleFavorite } = listingService.useFavorite(listing);
+    
     const { notificate } = useNotification();
 
     const [categories, setCategories] = useState<ICategory[] | null>(null);
     const { dict } = useI18n();
 
     useEffect(() => {
-        if (!listing?.id || !isAuthenticated) return;
-        
-        listingService.checkFavorite(listing.id).then(setFavorite);
-    }, [listing?.id, isAuthenticated]);
-
-    useEffect(() => {
-        if (listing?.categoryId && listing.type) categoryService.getPathToCategory(listing.categoryId, listing.type).then(setCategories);
+        if (listing.categoryId && listing.type) categoryService.getPathToCategory(listing.categoryId, listing.type).then(setCategories);
     }, [listing])
-
-    const toggleFavorite = async () => {
-        if (!listing?.id) return;
-        setFavorite(!isFavorite); // мгновенный отклик
-        if (isFavorite) {
-            listingService.removeFavorite(listing?.id)
-                .then(() => setLikesCount(prev => prev - 1))
-                .catch(() => {
-                    setFavorite(true);
-                    setLikesCount(prev => prev);
-                })
-        } else {
-            listingService.addFavorite(listing?.id)
-                .then(() => setLikesCount(prev => prev + 1))
-                .catch(() => {
-                    setFavorite(false);
-                    setLikesCount(prev => prev);
-                })
-        }
-    }
 
     return (
         <main className="listing-main">
@@ -111,7 +88,7 @@ const ListingPageLayout = ({
 
             <div className="listing-main-content">
                 <div className="listing-content">
-                    <ListingGallery images={listing?.images ?? []}/>
+                    <ListingGallery images={listingPage?.images ?? []}/>
                     
                     {listing?.localizedDescription && (
                         <div className="listing-info fade-down">
@@ -141,7 +118,10 @@ const ListingPageLayout = ({
                                                 toggleFavorite()
                                             }}
                                         >
-                                            <i className={`${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart like`}></i>
+                                            <HeartIcon
+                                                filled={isFavorite}
+                                                className={"like"}
+                                            />
                                         </div>
                                     ) : (
                                         <Link
@@ -171,7 +151,7 @@ const ListingPageLayout = ({
                 </div>
             </div>
 
-            <ReviewsSection listingId={listing?.id ?? null} profileId={listing?.author.id ?? null} />
+            <ReviewsSection listingId={listing?.id ?? null} profileId={listingPage?.author.id ?? null} />
         </main>
     );
 }

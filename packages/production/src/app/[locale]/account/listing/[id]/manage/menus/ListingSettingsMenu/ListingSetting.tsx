@@ -17,10 +17,10 @@ const ListingSetting = ({ title, children}: ListingSettingProps) => {
 
     return (
         <div className="listing-setting">
-            <div className="header" onClick={() => setActive(!active)}>
+            <div className="listing-setting-header" onClick={() => setActive(!active)}>
                 <h3>{title}</h3>
             </div>
-            <div className={`body ${active ? "active" : ""}`}>
+            <div className={`listing-setting-body ${active ? "active" : ""}`}>
                 <div>
                     {children} 
                 </div>

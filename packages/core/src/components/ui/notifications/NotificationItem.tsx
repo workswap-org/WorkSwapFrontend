@@ -6,9 +6,10 @@ interface NotificationItemProps {
 }
 
 const NotificationItem = ({ notification, onRead }: NotificationItemProps) => {
+
     return (
         <div
-            className={`notification-item ${notification.importance?.toLowerCase() || "info"} ${!notification.read ? "unread" : ""}`}
+            className={`notification-item ${notification.importance?.toLowerCase() || "info"} ${!notification.isRead ? "unread" : ""}`}
             onClick={() => onRead(notification)}
         >
             <div className="notification-text">

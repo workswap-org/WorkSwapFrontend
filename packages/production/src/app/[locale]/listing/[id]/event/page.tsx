@@ -27,7 +27,7 @@ const EventPage = () => {
 
     const {user} = useAuth();
 
-    const [event, setEvent] = useState<IEventPageRequest | null>(null);
+    const [listingPage, setListingPage] = useState<IEventPageRequest | null>(null);
     const [author, setAuthor] = useState<IShortUserProfile | null>(null);
     const isOwner = !!(user?.openId == author?.openId);
     const [subscribed, setSubscribed] = useState<boolean>(false);
@@ -42,13 +42,13 @@ const EventPage = () => {
 
         async function loadEventPage() {
             if (!eventId) return
-            const event = await eventService.getEventPage(eventId, token)
-            if (!event) setError(true);
-            setEvent(event)
-            setParticipantsCount(event.participantsCount);
-            setParticipants(event.participants)
-            setCurrentChatId(event.chat.id)
-            setAuthor(event.author)
+            const listing: IEventPageRequest = await eventService.getEventPage(eventId, token)
+            if (!listing) setError(true);
+            setListingPage(listing)
+            setParticipantsCount(listing.participantsCount || 0);
+            setParticipants(listing.participants)
+            setCurrentChatId(listing.chat?.id || null)
+            setAuthor(listing.author)
         }
 
         loadEventPage();
@@ -59,8 +59,8 @@ const EventPage = () => {
     }, [eventId, setCurrentChatId, token]);
 
     useEffect(() => {
-        if (!currentChatId && event?.chat?.id) setCurrentChatId(event.chat.id)
-    }, [currentChatId, event, setCurrentChatId])
+        if (!currentChatId && listingPage?.chat?.id) setCurrentChatId(listingPage.chat.id)
+    }, [currentChatId, listingPage, setCurrentChatId])
 
     const toggleParticipation = async () => {
         setParticipant(!isParticipant); // мгновенный отклик
@@ -83,9 +83,9 @@ const EventPage = () => {
 
     if (error) return <NotFoundPage/>;
     
-    return event && (
+    return listingPage && (
         <ListingPageLayout
-            listing={event}
+            listingPage={listingPage}
             author={author}
             listingActions={!isOwner && (
                 <div 
@@ -105,23 +105,23 @@ const EventPage = () => {
                 <>
                     <div className="detail-item">
                         <span className="detail-label">{dict.common.labels.event.price}:</span>
-                        <PriceTypes listing={event} />
+                        <PriceTypes listing={listingPage} />
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">{dict.common.labels.event.date}:</span>
                         <span className="detail-value">
-                            <FormattedDate isoDate={event?.eventDate || ""} format="DMHM"/>
+                            <FormattedDate isoDate={listingPage?.event.eventDate || ""} format="DMHM"/>
                         </span>
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">{dict.common.labels.location}:</span>
                         <span className="detail-value">
-                            {event?.location || ""}
+                            {listingPage?.listing.location || ""}
                         </span>
                     </div>
                     <div className="detail-item">
                         <span className="detail-label">{dict.common.labels.rating}:</span>
-                        <RatingStars rating={event?.rating ?? 0}/>
+                        <RatingStars rating={listingPage?.listing.rating ?? 0}/>
                     </div>
                 </>
             )}
@@ -153,7 +153,7 @@ const EventPage = () => {
                     <div className="listing-details fade-down">
                         <div className="detail-item">
                             <span className="detail-label">{dict.common.labels.event.participants}:</span>
-                            <span className="detail-value">{participantsCount}{event?.maxParticipants ? " / " + event.maxParticipants : ""}</span>
+                            <span className="detail-value">{participantsCount}{listingPage.event?.maxParticipants ? " / " + listingPage.event.maxParticipants : ""}</span>
                         </div>
                         <div 
                             className="btn btn-primary"
@@ -171,7 +171,7 @@ const EventPage = () => {
             extraPageElements={
                 <div className="listing-info fade-down">
                     <div className="listing-chat">
-                        <ChatWindow title={event?.localizedTitle} />
+                        <ChatWindow title={listingPage.listing.localizedTitle} />
                     </div>
                 </div>
             }

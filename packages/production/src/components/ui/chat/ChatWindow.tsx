@@ -1,25 +1,24 @@
 "use client"
 
 import { useRef, useEffect, useState, useMemo } from "react";
-import { useTranslation } from 'react-i18next';
 import SendMessageArea from "./SendMessageArea";
 import MessagesGroup from "./MessagesGroup";
 import { createPortal } from "react-dom";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useActivePage } from "@core/lib/contexts/ActivePageContext";
 import { useChats } from "@core/lib/contexts/MessengerContext";
-import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
 import { IShortUser } from "@core/lib/types/models/user";
 import { ChatType, privateChatTypes } from "@core/lib/constants/chatTypes"
 import Avatar from "@core/components/common/Avatar";
 import Link from "next/link";
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const ChatWindow = ({title}: {title?: string}) => {
 
-    const { t } = useTranslation('common')
+    const { dict } = useI18n();
     const { user } = useAuth();
-    const activePage = useActivePage();
 
+    const activePage = useActivePage();
     const { messages, setChatListingVisible, currentChatId, setCurrentChatId, currentChat } = useChats();
 
     const chatInterlocutor = useMemo<IShortUser | null>(
@@ -29,6 +28,7 @@ const ChatWindow = ({title}: {title?: string}) => {
     const isMobile = window.innerWidth <= 600;
 
     const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+
     useEffect(() => {
         setModalRoot(document.getElementById("modal-root"));
     }, []);
@@ -88,14 +88,14 @@ const ChatWindow = ({title}: {title?: string}) => {
                             <button 
                                 className="btn btn-primary btn-sm" 
                                 onClick={() => setChatListingVisible(prev => !prev)}
-                            >{t(`messenger.listing`, { ns: 'buttons' })}</button>
+                            >{dict.buttons.messenger.listing}</button>
                         )}
                         {chatInterlocutor?.openId && (
                             <Link 
                                 href={`/profile/${chatInterlocutor?.openId}`} 
                                 className="btn btn-outline-primary btn-sm"
                             >
-                                {t(`messenger.profile`, { ns: 'buttons' })}
+                                {dict.buttons.messenger.profile}
                             </Link>
                         )}
                         
@@ -114,13 +114,8 @@ const ChatWindow = ({title}: {title?: string}) => {
                         </div>
                     )} */}
 
-                    {/* <div className="chat-order">
-                        <span>Заказ #{order?.id} создан</span>
-                    </div> */}
-                    {/* <div className="message-date">Сегодня</div> */}
-
                     {(messages?.length === 0) && (
-                        <p>{t(`fallbacks.noMessages`, { ns: 'common' })}</p>
+                        <p>{dict.common.fallbacks.noMessages}</p>
                     )}
 
                     {messages?.map((group) => (

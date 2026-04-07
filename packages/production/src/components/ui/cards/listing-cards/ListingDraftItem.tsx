@@ -11,8 +11,8 @@ const ListingDraftItem = ({ listing }: {listing: IFullListing}) => {
     return (
         <article className="draft-listing-card" onClick={() => redirect(`/account/listing/edit/${listing.id}`)}>
             <img 
-                src={listing.imagePath || `/images/default-listing.svg`}
-                onError={(e) => { e.currentTarget.src = `/images/default-listing.svg`; }}
+                src={listing.imagePath || `/images/placeholders/default-listing.svg`}
+                onError={(e) => { e.currentTarget.src = `/images/placeholders/default-listing.svg`; }}
             />
             <div className="body">
                 {listing.localizedTitle ? (

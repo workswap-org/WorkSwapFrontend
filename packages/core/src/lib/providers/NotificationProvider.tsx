@@ -2,12 +2,12 @@
 
 import { useState, useRef, useCallback, useMemo, ReactNode, createRef } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { useTranslation } from 'react-i18next';
 import { useNotificationSubscription } from "@core/lib/hooks/notification/useNotificationSubscription";
 import { useChats } from "@core/lib/contexts/MessengerContext";
 import { NotificationContext } from "@core/lib/contexts/NotificationContext";
 import PopupNotification from "@core/components/ui/notifications/PopupNotification";
 import { IPopupNotification } from "../types/notification";
+import { useI18n } from "../contexts/I18nContext";
 
 export const NotificationProvider = ({ children }: {children?: ReactNode}) => {
     const { loading, notifications, setNotifications, unreadCount } = useNotificationSubscription();
@@ -15,7 +15,7 @@ export const NotificationProvider = ({ children }: {children?: ReactNode}) => {
     const [popupNotifications, setPopupNotifications] = useState<IPopupNotification[]>([]);
     const { unreadMessages } = useChats();
     const nodeRefs = useRef<Record<number, React.RefObject<HTMLDivElement | null>>>({});
-    const { t } = useTranslation('messages')
+    const { dict } = useI18n();
 
     const unreadNotificationsCount = useMemo(() => {
         return unreadCount + (unreadMessages?.length ?? 0)
@@ -39,7 +39,7 @@ export const NotificationProvider = ({ children }: {children?: ReactNode}) => {
         const id = Date.now();
         const notification = { 
             id,
-            message: t(`notification.${res.status}.${res.message}`, { ns: 'messages' }),
+            message: dict.messages.notification[res.status][res.message],
             type: res.status || ""
         };
         setPopupNotifications((prev) => [...prev, notification]);
@@ -47,7 +47,7 @@ export const NotificationProvider = ({ children }: {children?: ReactNode}) => {
         setTimeout(() => {
             deletePopupNotification(id);
         }, 30000);
-    }, [deletePopupNotification, t]);
+    }, [deletePopupNotification]);
 
     return (
         <NotificationContext.Provider value={{

@@ -29,7 +29,6 @@ const ListingGallery = ({ images }: {images: IListingImage[]}) => {
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
-        console.log(isModalOpen)
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
@@ -44,8 +43,8 @@ const ListingGallery = ({ images }: {images: IListingImage[]}) => {
                             <i className="fa-solid fa-circle-left fa-xl"></i>
                         </button>
                         <img
-                            src={images[mainImageIndex]?.path ?? `/images/default-listing.svg`}
-                            onError={(e) => e.currentTarget.src = `/images/default-listing.svg`}
+                            src={images[mainImageIndex]?.path ?? `/images/placeholders/default-listing.svg`}
+                            onError={(e) => e.currentTarget.src = `/images/placeholders/default-listing.svg`}
                             alt="Основное изображение"
                             className="clickable-image main-image-view"
                             id="mainImageView"
@@ -64,7 +63,7 @@ const ListingGallery = ({ images }: {images: IListingImage[]}) => {
                                 <img
                                     key={image.id}
                                     src={image.path}
-                                    onError={(e) => e.currentTarget.src = `/images/default-listing.svg`}
+                                    onError={(e) => e.currentTarget.src = `/images/placeholders/default-listing.svg`}
                                     alt="Дополнительное изображение"
                                     className="clickable-image"
                                     onClick={() => setMainImageIndex(index)}

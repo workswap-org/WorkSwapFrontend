@@ -6,12 +6,17 @@ import DialogItem from "@/components/ui/chat/DialogItem";
 import { privateChatTypes } from "@core/lib/constants/chatTypes";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { useChats } from "@core/lib/contexts/MessengerContext";
+import { useChatsLoad } from "@core/lib/hooks/chat/useChatsLoad";
+import { useChatSubscription } from "@core/lib/hooks/chat/useChatSubscription";
 import { IChat } from "@core/lib/types/messenger";
 import { useState } from "react";
 
 const MessengerPage = () => {
 
     const { chatListingVisible, chats, currentChat } = useChats();
+
+    useChatSubscription();
+    useChatsLoad();
 
     const { dict } = useI18n();
     const [pageLoading, setPageLoading] = useState<boolean>(true);

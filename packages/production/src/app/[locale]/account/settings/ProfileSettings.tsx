@@ -166,7 +166,7 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
                             updateUser({ avatarType: "default" });
                         }}
                     >
-                        <img className="avatar-preview avatar" src="/images/avatar-placeholder.png" alt="Default" />
+                        <img className="avatar-preview avatar" src="/images/placeholders/avatar-placeholder.png" alt="Default" />
                         <span>{dict.common.settings.avatarTypes.default}</span>
                     </div>
                 </div>

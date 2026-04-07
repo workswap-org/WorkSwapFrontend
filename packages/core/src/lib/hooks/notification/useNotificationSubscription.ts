@@ -21,7 +21,7 @@ export function useNotificationSubscription(): UseNotificationSubscriptionReturn
     useEffect(() => {
         if (!notifications) return;
 
-        const newUnreadCount = notifications.filter(n => !n.read).length;
+        const newUnreadCount = notifications.filter(n => !n.isRead).length;
 
         if (unreadCount > newUnreadCount) {
             setTimeout(() => {
@@ -42,7 +42,7 @@ export function useNotificationSubscription(): UseNotificationSubscriptionReturn
 
                 if (Array.isArray(data)) {
                     setNotifications(data);
-                    setUnreadCount(data.filter(n => !n.read).length);
+                    setUnreadCount(data.filter(n => !n.isRead).length);
                 } else {
                     setNotifications(prev => prev ? [...prev, data] : [data]);
                 }

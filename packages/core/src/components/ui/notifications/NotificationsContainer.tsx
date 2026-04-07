@@ -8,6 +8,8 @@ import { useNotification } from "@core/lib/contexts/NotificationContext.tsx";
 import { useChats } from "@core/lib/contexts/MessengerContext.tsx";
 import { notificationService } from "@core/lib/services/notificationService.ts";
 import { INotification } from '@core/lib/types/notification.ts';
+import { useWebSocket } from '@core/lib/contexts/WebSocketContext.tsx';
+import { useRouter } from 'next/navigation';
 
 interface NotificationsContainerProps {
     isOpen: boolean;
@@ -22,6 +24,8 @@ const NotificationsContainer = ({ isOpen, onClose }: NotificationsContainerProps
     const [messengerNotification, setMessengerNotification] = useState<INotification | null>(null);
     const { unreadMessages } = useChats();
     const isMobile = window.innerWidth <= 600;
+    const router = useRouter();
+    const { client, connected } = useWebSocket();
 
     const markAsRead = async (notification: INotification) => {
         await notificationService.markAsRead(notification.id);
@@ -29,7 +33,14 @@ const NotificationsContainer = ({ isOpen, onClose }: NotificationsContainerProps
             if (!prev) return prev;
             return prev.map((n) => (n.id === notification.id ? { ...n, read: true } : n))
         })
-        redirect(notification.link)
+        if (connected && client) {
+            console.log("отмечаем прочитанным уведомление", notification.id)
+            client.publish({
+                destination: `/app/notifications.readNotification/${notification.id}/`,
+                body: ""
+            });
+        }
+        router.push(notification.link);
     }
 
     useEffect(() => {
@@ -44,7 +55,7 @@ const NotificationsContainer = ({ isOpen, onClose }: NotificationsContainerProps
             content: unreadMessages ? unreadMessages[0]?.text : "Нажми чтобы посмотреть",
             createdAt: new Date().toISOString(),
             type: 'CHAT',
-            read: false,
+            isRead: false,
             link: "/account/messenger",
             recipientId: 0,
             importance: "INFO"
@@ -62,7 +73,7 @@ const NotificationsContainer = ({ isOpen, onClose }: NotificationsContainerProps
             <div className="notifications-list">
                 {loading && <p className="empty">Загрузка...</p>}
                 {!loading && notifications?.length === 0 && <p className="empty">Нет уведомлений</p>}
-                {!loading && messengerNotification && unreadMessages?.length && unreadMessages?.length > 0 &&
+                {!loading && messengerNotification && !!unreadMessages?.length && unreadMessages?.length > 0 &&
                     <NotificationItem
                         notification={messengerNotification}
                         onRead={(n) => redirect(n.link)}

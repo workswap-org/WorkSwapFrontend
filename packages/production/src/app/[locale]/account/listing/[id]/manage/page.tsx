@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useChats } from '@core/lib/contexts/MessengerContext';
 import { ChatType } from '@core/lib/constants/chatTypes';
-import { listingService } from '@core/lib/services/listingService';
+import { listingService } from '@core/lib/services/listing';
 import SidebarSectionLayout from '@core/components/layout/SidebarSectionLayout'
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -11,17 +11,19 @@ import ListingSettingsMenu from './menus/ListingSettingsMenu';
 import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
 import ListingMessagesMenu from './menus/ListingMessagesMenu';
 import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useChatSubscription } from '@core/lib/hooks/chat/useChatSubscription';
+import { useChatsLoad } from '@core/lib/hooks/chat/useChatsLoad';
 
 const ListingMenu = {
     SETTINGS: {
         first: true,
         name: "Settings",
-        icon: "settings"
+        icon: "gear"
     },
     ANALYTICS: {
         first: false,
         name: "Analytics",
-        icon: "chart"
+        icon: "chart-mixed"
     },
     MESSAGES: {
         first: false,
@@ -31,6 +33,9 @@ const ListingMenu = {
 } as const;
 
 const ListingManagePage = () => {
+
+    useChatSubscription();
+    useChatsLoad();
 
     const { dict } = useI18n();
     const { id } = useParams();
@@ -74,7 +79,7 @@ const ListingManagePage = () => {
 
             {listing && (
                 <SidebarSectionLayout
-                    pageName={'listingManage'}
+                    pageName="listingManage"
                     sections={ListingMenu}
                     notifications={{menu: ListingMenu.MESSAGES, count: notifCount}}
                 >

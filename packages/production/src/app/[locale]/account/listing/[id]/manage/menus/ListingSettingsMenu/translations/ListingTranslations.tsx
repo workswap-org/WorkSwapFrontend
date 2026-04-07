@@ -4,7 +4,7 @@ import TranslationsStatus from "./TranslationsStatus";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { IListingTranslation } from "@core/lib/types/models/listing";
 import { supportedLanguages } from "@core/lib/constants/languages";
-import { listingService } from "@core/lib/services/listingService";
+import { listingService } from "@core/lib/services/listing";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const ListingTranslations = ({ id }: {id: number | null}) => {

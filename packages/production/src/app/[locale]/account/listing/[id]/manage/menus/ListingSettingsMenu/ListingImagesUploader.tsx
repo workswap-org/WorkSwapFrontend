@@ -1,5 +1,5 @@
 import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { listingService } from "@core/lib/services/listingService";
+import { listingService } from "@core/lib/services/listing";
 import { cloudService } from "@core/lib/services/cloudService";
 import { IFullListing, IListingImage } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";
@@ -78,10 +78,10 @@ const ListingImagesUploader = ({
                 <div key={img.id} className="image-item">
                     <div className="card">
                         <img
-                            src={img.path ?? "/images/default-listing.svg"}
+                            src={img.path ?? "/images/placeholders/default-listing.svg"}
                             onError={(e) => {
                                 const img = e.target as HTMLImageElement;
-                                img.src = '/images/default-listing.svg';
+                                img.src = '/images/placeholders/default-listing.svg';
                             }}
                             className="card-img-top"
                         />

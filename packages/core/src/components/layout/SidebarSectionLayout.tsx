@@ -31,6 +31,7 @@ const SidebarSectionLayout = ({
     const initialMenu = findSection(section) || (isMobile ? null : findFirst());
 
     const [currentSection, setCurrentSection] = useState(initialMenu);
+    console.log("sections: ", sections)
 
     useEffect(() => {
         console.log(currentSection);
@@ -47,7 +48,7 @@ const SidebarSectionLayout = ({
     return (
         <div className="sidebar-section-page">
             <div className="sidebar-sections">
-                {Object.values(sections).map((section) => (
+                {Object.entries(sections).map(([key, section]) => (
                     <button
                         key={section.name}
                         className={`section-btn hover ${section.name === currentSection?.name ? "active" : ""}`}
@@ -55,7 +56,7 @@ const SidebarSectionLayout = ({
                         id={notifications?.menu.name === section.name ? "notificationAnchor" : "none"}
                     >
                         <div><i className={`fa-regular fa-${section.icon}`}></i></div>
-                        {dict.common[pageName].sections[section.name]}
+                        {dict.common[pageName].sections[key]}
                         {notifications?.menu.name === section.name && notifications.count > 0 &&
                             <span id="unreadNotifications" className="unread-notifications-count">
                                 {notifications.count}

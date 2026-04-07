@@ -7,8 +7,8 @@ import { useChats } from "@core/lib/contexts/MessengerContext";
 import { IChat, IChatMessage } from "@core/lib/types/messenger";
 import { IShortListing } from "@core/lib/types/models/listing";
 import { IShortUser } from "@core/lib/types/models/user";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
 
 interface DialogItemProps {
     chat: IChat,
@@ -20,9 +20,8 @@ const DialogItem = ({ chat, pageLoading, setPageLoading }: DialogItemProps) => {
     
     const {user} = useAuth();
     
-    const { search } = useLocation();
-    const params = new URLSearchParams(search);
-    const startChatId = Number(params.get("chatId")) || null;
+    const searchParams = useSearchParams();
+    const startChatId = Number(searchParams.get("chatId")) || null;
     const isMobile = window.innerWidth <= 600;
 
     const { currentChatId, setCurrentChatId, unreadMessages } = useChats();

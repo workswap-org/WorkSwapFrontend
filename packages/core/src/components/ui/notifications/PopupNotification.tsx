@@ -1,4 +1,11 @@
-const PopupNotification = ({ onClose, notification }) => {
+import { IPopupNotification } from "@core/lib/types/notification";
+
+interface PopupNotificationProps {
+    onClose: () => void;
+    notification: IPopupNotification
+}
+
+const PopupNotification = ({ onClose, notification }: PopupNotificationProps) => {
     if (!notification) return null;
 
     return (

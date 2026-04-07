@@ -7,7 +7,7 @@ export interface IPopupNotification {
 export interface INotification {
     id: number;
     recipientId: number;
-    read: boolean;
+    isRead: boolean;
     title: string;
     content: string;
     link: string;
