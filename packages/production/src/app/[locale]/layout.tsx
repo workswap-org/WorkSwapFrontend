@@ -4,10 +4,11 @@ import { ReactNode } from "react";
 import { getDictionary } from "@/lib/i18n";
 import { parseLocale } from '@core/lib/constants/languages'
 import { I18nProvider } from "@core/lib/contexts/I18nContext";
-import Header from "@/components/layout/header/Header";
+import Header from "@/components/layout/header/Header/Header";
 
 import "@/css/main.scss";
-import "@/css/components/layout.scss";
+import "@/css/globals.scss";
+import styles from "./RootLayout.module.scss";
 
 export const metadata = {
     title: "WorkSwap",
@@ -42,15 +43,15 @@ export default async function RootLayout({ children, params}: { children: ReactN
             <body>
                 <I18nProvider locale={parsed} dict={dict}>
                     <AppProviders>
-                    <div id="root">
-                        <Header />
-                        {children}
+                        <div className={styles.root}>
+                            <Header />
+                            {children}
 
-                        {/* <LanguageSelectModal /> */}
-                    </div>
+                            {/* <LanguageSelectModal /> */}
+                        </div>
 
-                    <div id="modal-root"></div>
-                    <div id="mobile-menu"></div>
+                        <div id="modal-root"></div>
+                        <div id="mobile-menu"></div>
                     </AppProviders>
                 </I18nProvider>
             </body>

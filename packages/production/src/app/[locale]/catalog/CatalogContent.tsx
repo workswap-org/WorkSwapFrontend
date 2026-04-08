@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { IShortListing } from '@core/lib/types/models/listing'
 import { listingService } from '@core/lib/services/listing'
 import PlusIcon from "@core/components/common/icons/PlusIcon";
-import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
+import PublicListingCard from "@/components/ui/cards/PublicListingCard/PublicListingCard";
 
 const CatalogContent = () => {
 

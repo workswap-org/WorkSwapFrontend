@@ -9,8 +9,9 @@ import NavItem from "@core/components/common/NavItem"
 import Avatar from "@core/components/common/Avatar";
 import LanguageSwitcher from "@core/components/layout/LanguageSwitcher";
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import NotificationHeaderButton from '@core/components/ui/notifications/NotificationHeaderButton';
+import NotificationHeaderButton from '@/components/layout/header/NotificationHeaderButton';
 import SignOutIcon from "@core/components/common/icons/SignOutIcon"
+import styles from "./NavButtons.module.scss"
 
 const NavButtons = () => {
 
@@ -23,30 +24,30 @@ const NavButtons = () => {
     }, []);
 
     return (
-        <div className="nav-buttons">
+        <div className={styles.navButtons}>
             <div className="flex-row">
-                <div className="nav-link normal-only">
+                <div className={`${styles.navLink} normal-only`}>
                     <ThemeChanger id={"themeChangerMobile"}/>
                 </div>
 
-                <NavItem href="/forum" className="nav-link">
+                <NavItem href="/forum" className={styles.navLink}>
                     {dict.navigation.forum}
                 </NavItem>
 
-                <NavItem href="/catalog" className="nav-link">
+                <NavItem href="/catalog" className={styles.navLink}>
                     {dict.navigation.catalog}
                 </NavItem>
 
                 {isAdmin && (
-                    <a href="https://dash.workswap.org" className="nav-link" target="_blank" rel="noreferrer">
+                    <a href="https://dash.workswap.org" className={styles.navLink} target="_blank" rel="noreferrer">
                         {dict.navigation.admin}
                     </a>
                 )}
             </div>
 
             {isAuthenticated ? (
-                <div className="account-link-container">
-                    <Link href="/account" className="account-link">
+                <div className={styles.accountLinkContainer}>
+                    <Link href="/account" className={styles.accountLink}>
                         <Avatar
                             user={user}
                             size={32}
@@ -57,7 +58,7 @@ const NavButtons = () => {
                     </Link>
                     <NotificationHeaderButton />
                     <Link
-                        className="logout-btn"
+                        className={styles.logoutBtn}
                         href='/logout'
                     >
                         <SignOutIcon />
@@ -66,7 +67,7 @@ const NavButtons = () => {
             ) : (
                 <a
                     href={`${AUTH_BASE}/auth${url ? `?redirect=${encodeURIComponent(url || "")}` : ""}`}
-                    className="btn btn-outline-primary login-btn"
+                    className={`btn btn-outline-primary ${styles.loginBtn}`}
                 >
                     <span>{dict.buttons.login}</span>
                 </a>

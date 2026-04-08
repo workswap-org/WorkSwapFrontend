@@ -1,6 +1,6 @@
 "use client"
 
-import PublicListingCard from "@/components/ui/cards/listing-cards/PublicListingCard";
+import PublicListingCard from "@/components/ui/cards/PublicListingCard/PublicListingCard";
 import ChatWindow from "@/components/ui/chat/ChatWindow";
 import DialogItem from "@/components/ui/chat/DialogItem";
 import { privateChatTypes } from "@core/lib/constants/chatTypes";

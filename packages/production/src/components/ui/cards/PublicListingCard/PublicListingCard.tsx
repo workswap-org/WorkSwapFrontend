@@ -9,6 +9,7 @@ import { listingTypesWithRating } from "@core/lib/constants/listingTypes";
 import RatingStars from "@core/components/common/RatingStars"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import HeartIcon from "@core/components/common/icons/HeartIcon"
+import styles from "./PublicListingCard.module.scss"
 
 const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
@@ -27,10 +28,10 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
     }
 
     return (
-        <article onClick={() => navigator()} className="public-listing-card fade-down">
+        <article onClick={() => navigator()} className={`${styles.card} fade-down`}>
 
             <div 
-                className="image-wrapper"
+                className={styles.imageWrapper}
                 style={{ 
                     "--bg-image": `url(${listing.imagePath || "/images/placeholders/default-listing.svg"})` 
                 } as React.CSSProperties}
@@ -41,7 +42,7 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
                     onError={(e) => { e.currentTarget.src = "/images/placeholders/default-listing.svg"; }}
                 />
                 {isAuthenticated && (
-                    <div className="listing-card_actions">
+                    <div className={styles.actions}>
                         <span id="likesCount">{likesCount}</span>
                         <HeartIcon 
                             filled={isFavorite}
@@ -53,21 +54,18 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
             </div>
 
             {isNew && (
-                <div className="listing-status red">{dict.tooltips.catalog.newListing}</div>
+                <div className={`${styles.listingStatus} red`}>{dict.tooltips.catalog.newListing}</div>
             )}
             
-            <div className="listing-card_body">
-                <h3 className="listing-card_title">{listing.localizedTitle}</h3>
+            <div className={styles.body}>
+                <h3 className={styles.title}>{listing.localizedTitle}</h3>
                 {/* <p className="text">{listing.localizedDescription}</p> */}
 
                 <PriceTypes listing={listing} />
                 {listingTypesWithRating.includes(listing.type) && listing.rating > 0 && (
                     <RatingStars rating={listing.rating} />
                 )}
-                <span className="listing-card_location"><i className="fa-regular fa-location-dot"></i> {listing.location}</span>
-                <div className="listing-card_footer">
-                    
-                </div>
+                <span className={styles.location}><i className="fa-regular fa-location-dot"></i> {listing.location}</span>
             </div>
         </article>
     );

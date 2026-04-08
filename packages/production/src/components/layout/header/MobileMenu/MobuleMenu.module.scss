@@ -1,0 +1,50 @@
+@use "@core/css/components/global-mixins" as *;
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: var(--header-height);
+    visibility: hidden;
+    background-color: var(--background-l2);
+    transform: translateX(100%);
+    transition: all 0.5s ease;
+    z-index: 100;
+
+    @include tablet {
+        height: 100%;
+        align-items: center;
+        @include flex-column;
+        padding: 0.4rem 1rem;
+        gap: 0.5rem;
+        overflow-y: auto;
+
+        & > .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    }
+
+    &.show {
+        @include tablet {
+            transform: translateX(0);
+            visibility: visible;
+        }
+    }
+}
+
+.user-info-menu {
+    height: 152px;
+    align-items: center;
+    @include flex-column;
+    gap: 0.5rem;
+}
+
+.account-manager {
+    display: none;
+
+    @include tablet {
+        display: block;
+        min-width: 100%;
+    }
+}

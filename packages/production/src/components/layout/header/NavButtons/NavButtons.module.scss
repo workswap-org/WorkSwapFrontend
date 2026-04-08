@@ -1,0 +1,122 @@
+@use "@core/css/components/global-mixins" as *;
+
+.navButtons{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.5rem;
+
+    @include tablet {
+        display: none;
+    }
+}
+
+.navLink {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    display: block;
+    background: transparent;
+    border: none;
+    height: fit-content;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+
+    &:hover {
+        color: var(--primary);
+    }
+
+    &.active {
+        border-bottom: 3px solid var(--primary);
+    }
+}
+
+.accountLinkContainer {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid var(--primary);
+    border-radius: var(--radius);
+    height: 100%;
+    width: fit-content;
+}
+
+.accountLink {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    align-items: center;
+    overflow: hidden;
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    background-color: var(--background-l1);
+    border-radius: var(--radius) 0 0 var(--radius);
+    border-right: 1px solid var(--primary);
+    transition: all 0.2s;
+    gap: 0.5rem;
+    white-space: nowrap;
+    position: relative;
+    z-index: 2;
+
+    &:has(#bellIcon) {
+        padding: 0.5rem;
+    }
+
+    svg {
+        color: var(--text-color)
+    }
+
+    &:hover {
+        background-color: rgba(99, 102, 241, 0.1);
+        color: var(--primary);
+        z-index: 2;
+    }
+
+    @include tablet {
+        width: max-content;
+    }
+
+    &#notificationBtn {
+        display: block;
+        flex: 1;
+        padding: 1rem;
+        border-radius: 0;
+    }
+}
+
+.loginBtn {
+    height: 50px;
+    align-content: center;
+    font-size: 1.1rem;
+}
+
+.logoutBtn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    background-color: transparent;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.4s ease;
+    height: 3rem;
+    width: 3rem;
+    padding: 0;
+    text-decoration: none;
+    z-index: 1;
+    border-width: 0;
+
+    svg {
+        color: var(--text-color);
+        width: 28px;
+    }
+
+    &:hover {
+        background-color: var(--primary);
+        color: var(--background-l1);
+        transform: translateX(0);
+    }
+}
