@@ -3,7 +3,7 @@ import { IFullListing } from "@core/lib/types/models/listing";
 import { useChats } from "@core/lib/contexts/MessengerContext";
 import { ChatType } from "@core/lib/constants/chatTypes";
 import DialogItem from "@/components/ui/chat/DialogItem";
-import ChatWindow from "@/components/ui/chat/ChatWindow";
+import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const ListingMessagesMenu = ({listing}: {listing: IFullListing}) => {

@@ -1,7 +1,7 @@
 "use client"
 
 import PublicListingCard from "@/components/ui/cards/PublicListingCard/PublicListingCard";
-import ChatWindow from "@/components/ui/chat/ChatWindow";
+import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
 import DialogItem from "@/components/ui/chat/DialogItem";
 import { privateChatTypes } from "@core/lib/constants/chatTypes";
 import { useI18n } from "@core/lib/contexts/I18nContext";
@@ -11,6 +11,7 @@ import { useChatSubscription } from "@core/lib/hooks/chat/useChatSubscription";
 import { IChat } from "@core/lib/types/messenger";
 import { useState } from "react";
 import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
+import styles from "./MessengerPage.module.scss"
 
 const MessengerPage = () => {
 
@@ -28,11 +29,11 @@ const MessengerPage = () => {
                 <h2>{dict.common.titles.messenger}</h2>
             </div>
 
-            <div className="messenger-container">
+            <div className={styles.container}>
                 {currentChat?.listing && (
                     <div 
                         id="listingCardContainer" 
-                        className={`listing-card-container appearance-left-animation ${chatListingVisible ? "visible" : ''}`}
+                        className={`${styles.listingCardContainer} appearance-left-animation ${chatListingVisible ? "visible" : ''}`}
                     >
                         <PublicListingCard listing={currentChat?.listing} />
                     </div>

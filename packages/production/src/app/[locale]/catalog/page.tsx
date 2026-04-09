@@ -8,7 +8,7 @@ import { CatalogFiltersProvider } from "@core/lib/providers/local/CatalogFilters
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
 import { listingPublicTypes } from "@core/lib/constants/listingTypes"
-import Pagination from "@/components/ui/Pagination";
+import Pagination from "@/components/ui/Pagination/Pagination";
 
 export default function CatalogPageWrapper() {
 

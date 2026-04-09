@@ -8,6 +8,8 @@ import { useChats } from '@core/lib/contexts/MessengerContext';
 import { IFullListing } from '@core/lib/types/models/listing';
 import { ChatType } from '@core/lib/constants/chatTypes';
 import { useI18n } from '@core/lib/contexts/I18nContext';
+import styles from "./PrivateListingCard.module.scss"
+import GearIcon from "@core/components/common/icons/GearIcon"
 
 const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
 
@@ -32,21 +34,19 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
     }
 
     return (
-        <article className="listing-card hover-animation-card" onClick={() => navigator()}>
+        <article className={`${styles.card} hover-animation-card`} onClick={() => navigator()}>
             <img 
                 src={listing.imagePath || `/images/default-listing.svg`}
                 onError={(e) => { e.currentTarget.src = `/images/default-listing.svg`; }}
             />
 
-            <div className="listing-card_body">
-                <h3 className="listing-card_title">{listing.localizedTitle}</h3>
-                <div className="listing-card_footer">
-                    <div>
-                        <PriceTypes listing={listing} />
-                        <div className="listing-card_views">
-                            <span>{dict.common.labels.views}: </span>
-                            <span>{listing.views}</span>
-                        </div>
+            <div className={styles.body}>
+                <h3 className={styles.title}>{listing.localizedTitle}</h3>
+                <div className={styles.footer}>
+                    <PriceTypes listing={listing} />
+                    <div className={styles.views}>
+                        <span>{dict.common.labels.views}: </span>
+                        <span>{listing.views}</span>
                     </div>
                 </div>
                 <Link
@@ -55,7 +55,7 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
                     onClick={(e) => e.stopPropagation()}
                     id="notificationAnchor"
                 >
-                    <div><i className="fa-solid fa-gear fa-lg"></i></div>
+                    <GearIcon />
                     {dict.buttons.listing.manage}
                     {notifCount > 0 &&
                         <span id="unreadNotifications" className="unread-notifications-count">

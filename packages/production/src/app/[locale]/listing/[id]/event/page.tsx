@@ -15,7 +15,7 @@ import PriceTypes from "@core/components/common/PriceTypes";
 import RatingStars from "@core/components/common/RatingStars";
 import FormattedDate from "@core/components/common/date/FormattedDate"
 import Avatar from "@core/components/common/Avatar";
-import ChatWindow from "@/components/ui/chat/ChatWindow";
+import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
 
 const EventPage = () => {
 

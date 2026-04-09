@@ -1,8 +1,8 @@
 "use client"
 
 import { useRef, useEffect, useState, useMemo } from "react";
-import SendMessageArea from "./SendMessageArea";
-import MessagesGroup from "./MessagesGroup";
+import SendMessageArea from "../SendMessageArea/SendMessageArea";
+import MessagesGroup from "../MessagesGroup/MessagesGroup";
 import { createPortal } from "react-dom";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useActivePage } from "@core/lib/contexts/ActivePageContext";
@@ -12,6 +12,7 @@ import { ChatType, privateChatTypes } from "@core/lib/constants/chatTypes"
 import Avatar from "@core/components/common/Avatar";
 import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import styles from "./ChatWindow.module.scss"
 
 const ChatWindow = ({title}: {title?: string}) => {
 
@@ -41,7 +42,7 @@ const ChatWindow = ({title}: {title?: string}) => {
 
     function renderChatWindow() {
         return (
-            <div id={currentChat?.type} className={`chat-window ${currentChatId ? "show" : ""}`}>
+            <div id={currentChat?.type} className={`${styles.chatWindow} ${currentChatId ? "show" : ""}`}>
                 <div className="chat-header">
                     <div className="chat-info">
                         <button 

@@ -7,6 +7,7 @@ import { IChatMessage } from "@core/lib/types/messenger";
 import { useState } from "react";
 import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1"
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import styles from "./SendMessageArea.module.scss"
 
 const SendMessageArea = () => {
     const { user } = useAuth();
@@ -65,7 +66,7 @@ const SendMessageArea = () => {
     };
 
     return (
-        <div className="message-input-container">
+        <div className={styles.messageInputContainer}>
             <TextareaRT1
                 value={message} 
                 setValue={setMessage} 

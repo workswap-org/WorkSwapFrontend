@@ -1,6 +1,6 @@
 @use "@core/css/components/global-mixins" as *;
 
-.messenger-container {
+.container {
     display: flex;
     flex: 1 1 auto;
     gap: 1rem;
@@ -8,6 +8,8 @@
     overflow: hidden;
     position: relative;
     min-height: 0;
+    
+    max-height: calc(100vh - 15rem);
 
     @include mobile {
         flex-direction: column;
@@ -15,21 +17,16 @@
         max-height: none;
         gap: 0;
     }
+}
 
-    .listing-card-container {
+.listingCardContainer {
+    position: absolute;
+    z-index: 100;
+    height: 100%;
+
+    @include mobile {
         position: absolute;
         z-index: 100;
-        height: 100%;
-
-        .listing-card {
-            height: auto;
-            z-index: 1;
-        }
-
-        @include mobile {
-            position: absolute;
-            z-index: 100;
-            background: transparent;
-        }
+        background: transparent;
     }
 }

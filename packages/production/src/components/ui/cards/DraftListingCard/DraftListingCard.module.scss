@@ -1,6 +1,6 @@
 @use "@core/css/components/global-mixins" as *;
 
-.draft-listing-card {
+.card {
     @include flex-column;
 
     border: 3px solid var(--border-color);
@@ -30,8 +30,8 @@
         display: block;
         border-bottom: 3px solid var(--border-color);
     }
+}
 
-    .body {
-        padding: 0.5rem;
-    }
+.body {
+    padding: 0.5rem;
 }

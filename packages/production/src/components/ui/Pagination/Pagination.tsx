@@ -1,3 +1,5 @@
+import styles from "./Pagination.module.scss"
+
 interface PaginationProps {
     page: number;
     totalPages: number;
@@ -44,7 +46,7 @@ const Pagination = ({page, totalPages, selectPage}: PaginationProps) => {
     }
 
     return (
-        <div className="pagination">
+        <div className={styles.pagination}>
             <button disabled={page === 0} onClick={() => selectPage(page - 1)}>
                 Назад
             </button>
@@ -53,7 +55,7 @@ const Pagination = ({page, totalPages, selectPage}: PaginationProps) => {
                 <button
                     key={p}
                     id="pageNumber"
-                    className={p === page ? "active" : ""}
+                    className={p === page ? styles.active : ""}
                     onClick={() => selectPage(p)}
                 >
                     {p + 1}

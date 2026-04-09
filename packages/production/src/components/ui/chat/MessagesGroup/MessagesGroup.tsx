@@ -3,6 +3,7 @@ import { privateChatTypes } from "@core/lib/constants/chatTypes";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useChats } from "@core/lib/contexts/MessengerContext";
 import { GroupedMessages, IChatMessage } from "@core/lib/types/messenger";
+import styles from "./MessagesGroup.module.scss"
 
 const MessagesGroup = ({group}: {group: GroupedMessages}) => {
 
@@ -12,11 +13,11 @@ const MessagesGroup = ({group}: {group: GroupedMessages}) => {
     const author = isOwn ? user : currentChat?.interlocutors?.find((i) => i.id === group.senderId) ?? null;
 
     return (
-        <div className={`messages-group ${isOwn ? 'out' : 'in'}`}>
+        <div className={`${styles.messagesGroup} ${isOwn ? styles.out : styles.in}`}>
             {!(currentChat?.type && privateChatTypes.includes(currentChat?.type)) && !isOwn && (
-                <Avatar user={author} size={30} className="message-avatar"/>
+                <Avatar user={author} size={30} className={styles.avatar}/>
             )}
-            <div className="messages">
+            <div className={styles.messages}>
                 {group.messages?.map((message) => (
                     <Message 
                         key={message.id}
@@ -37,9 +38,9 @@ const Message = ({message, authorName}: {message: IChatMessage, authorName?: str
     const formattedTime = `${hours}:${minutes}`;
 
     return (
-        <div className="message">
+        <div className={styles.message}>
             <span id="authorName">{authorName}</span>
-            <div className="message-content">
+            <div className={styles.content}>
                 <span id="messageText">{message.text}</span>
                 <span id="messageTime">{formattedTime}</span>
             </div>

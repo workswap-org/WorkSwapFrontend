@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 import { redirect } from 'next/navigation';
 import { IFullListing } from "@core/lib/types/models/listing";
 import { listingService } from "@core/lib/services/listing";
-import PrivateListingCard from "@/components/ui/cards/listing-cards/PrivateListingCard";
-import ListingDraftItem from "@/components/ui/cards/listing-cards/ListingDraftItem";
+import PrivateListingCard from "@/components/ui/cards/PrivateListingCard/PrivateListingCard";
+import ListingDraftItem from "@/components/ui/cards/DraftListingCard/DraftListingCard";
 import Tooltip from "@core/components/common/Tooltip"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import Loader from "@core/components/common/Loader"
 import PlusIcon from "@core/components/common/icons/PlusIcon";
 import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
+
+import draftStyles from "@/components/ui/cards/DraftListingCard/DraftListingCard.module.scss"
+import privateStyles from "@/components/ui/cards/PrivateListingCard/PrivateListingCard.module.scss"
 
 const MyListingsPage = () => {
 
@@ -46,10 +49,11 @@ const MyListingsPage = () => {
                 <>
                     {listings?.length == 0 ? (
                         <div className="listings-grid">
-                            <article onClick={() => redirect("/account/listing/create")} className="listing-card hover-animation-card">
-                                <div className="center">
-                                    <h3>{dict.navigation.catalogSidebar.links.createListing}</h3>
-                                </div>
+                            <article 
+                                onClick={() => redirect("/account/listing/create")} 
+                                className={`${privateStyles.card} ${privateStyles.center} hover-animation-card`}
+                            >
+                                <h3>{dict.navigation.catalogSidebar.links.createListing}</h3>
                             </article>
                         </div>
                     ) : (
@@ -78,7 +82,7 @@ const MyListingsPage = () => {
                                 <Tooltip text={dict.buttons.listing.addNew}>
                                     <article 
                                         onClick={() => redirect("/account/listing/create")} 
-                                        className="draft-listing-card new"
+                                        className={`${draftStyles.card} ${draftStyles.new}`}
                                     >
                                         <PlusIcon size={34} />
                                     </article>

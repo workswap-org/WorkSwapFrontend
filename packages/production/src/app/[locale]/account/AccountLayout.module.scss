@@ -47,7 +47,7 @@
     max-width: 100%;
     overflow: visible;
 
-    &:has(.messenger-container) {
+    &.noShrink {
         flex: 1;
         min-height: 0;
         overflow: hidden;

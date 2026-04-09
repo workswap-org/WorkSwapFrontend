@@ -1,0 +1,286 @@
+@use "@core/css/components/global-mixins" as *;
+
+$big-radius: 16px;
+$small-radius: 6px;
+$min-radius: 1px;
+
+.chatWindow {
+    flex: 1;
+    @include flex-column;
+    background-color: var(--background);
+    border-radius: var(--radius);
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    min-height: 0;
+
+    @include mobile {
+        position: fixed;
+        top: var(--header-height);
+        right: -100%;
+        width: 100vw;
+        height: calc(100vh - var(--header-height));
+        background: var(--background-l1);
+        border-radius: 0;
+        max-height: none;
+        flex: none;
+        z-index: 99;
+        padding: 0 0.5rem;
+        transition: right 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        padding-bottom: 4rem;
+
+        &.show {
+            right: 0;
+        }
+    }
+
+    
+    /* &#EVENT_TOPIC {
+        max-height: 600px;
+
+        @include mobile {
+            position: static;
+            height: 100%;
+            padding-bottom: 0;
+        }
+    } */
+
+    img#listingImg {
+        width: 50px;
+        height: 50px;
+        aspect-ratio: 1;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+}
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.7rem;
+    background-color: var(--background-l1);
+    border-bottom: 1px solid var(--border-color);
+    gap: 0.5rem;
+
+    @include mobile {
+        padding: 0.5rem;
+    }
+
+.chat-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+    width: 50px;
+    flex: 1;
+
+    h4 {
+        font-size: 1rem;
+        margin: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    @include mobile {
+        align-items: center;
+
+        img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+.mobileDialogsToggle {
+    display: none;
+    background-color: transparent;
+    border-width: 0;
+    color: var(--text-color);
+
+    @include mobile {
+        display: block;
+        margin: 0;
+    }
+}
+
+.userStatus {
+    font-size: 0.75rem;
+    color: var(--success-dark);
+    margin: 0;
+}
+
+.mobileActions {
+    display: none;
+    gap: 0.5rem;
+
+    @include mobile {
+        display: flex;
+    }
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+
+    @include mobile {
+        display: none;
+    }
+}
+
+.messagesContainer {
+    @include flex-column;
+    position: relative;
+    flex: 1;
+    padding: 0.5rem;
+    gap: 0.7rem;
+    overflow-y: auto;
+    background-color: var(--background-l1);
+    scrollbar-width: thin;
+
+    @include mobile {
+        background-color: var(--background);
+        padding-bottom: 0.5rem;
+        max-height: 100%;
+    }
+
+    .webSocketConnectionStatus {
+        position: absolute;
+        background-color: var(--danger);
+        padding: 0.3rem 0.7rem;
+        border-radius: var(--radius);
+        z-index: 100;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        left: 0;
+    }
+
+    .chatOrder {
+        background-color: var(--background-l2);
+        padding: 0.7rem;
+        @include flex-column;
+        align-items: center;
+
+        * {
+            width: fit-content;
+        }
+    }
+}
+
+.dialogs-list {
+flex: 0 0 300px;
+border-right: 1px solid var(--border-color);
+overflow-y: auto;
+scrollbar-width: thin;
+
+@include mobile {
+    flex: 1;
+    height: 100%;
+    border-right: 0;
+}
+
+.no-dialogs {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-color-l1);
+
+    p {
+        margin: 0.5rem 0;
+    }
+}
+
+.dialog-item-box {
+    border-bottom: 1px solid var(--border-color);
+
+    .dialog-item {
+        display: flex;
+        padding: 0.7rem 0.7rem;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: all 0.4s;
+        gap: 1rem;
+
+        &:hover, &.active{
+            background-color: var(--background);
+
+            .user-avatar {
+                border-color: var(--background);
+            }
+        }
+
+        .dialog-content {
+            flex: 1;
+            min-width: 0;
+
+            .dialog-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.25rem;
+
+                h4 {
+                    font-size: 1rem;
+                    margin: 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .dialog-time {
+                    font-size: 0.75rem;
+                    color: var(--text-color-l1);
+                    flex-shrink: 0;
+                    margin-left: 0.5rem;
+                }
+            }
+
+            .dialog-meta {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+
+                .dialog-preview {
+                    font-size: 0.85rem;
+                    color: var(--text-color-l1);
+                    margin: 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .unread-count {
+                    background-color: var(--primary);
+                    padding: 2px 6px;
+                    border-radius: 0.75em;
+                    color: #fff;
+                    font-size: 0.8rem;
+                    line-height: 1;
+                    min-width: 1.5em;
+                    height: 1.5em;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+.dialogAvatar {
+    position: relative;
+    height: 50px;
+}
+
+.userAvatar {
+    position: absolute;
+    right: -17px;
+    bottom: -5px;
+    border: 6px solid var(--background-l1);
+    transition: border 0.4s;
+    background-color: var(--background-l1);
+}
