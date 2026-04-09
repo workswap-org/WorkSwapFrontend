@@ -1,7 +1,7 @@
 "use client"
 
 import Avatar from "@core/components/common/Avatar";
-import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1";
+import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { IForumPost, IForumTopic } from "@core/lib/types/forum";
@@ -10,7 +10,7 @@ import { redirect, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ForumPost from "./ForumPost";
 import { forumService } from "@core/lib/services/forumService"
-import ActionMenu from "@core/components/ui/ActionMenu"
+import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow"
 
 const ForumTopicPage = () => {

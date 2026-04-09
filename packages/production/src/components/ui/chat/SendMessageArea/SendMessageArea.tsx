@@ -5,7 +5,7 @@ import { useChats } from "@core/lib/contexts/MessengerContext";
 import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
 import { IChatMessage } from "@core/lib/types/messenger";
 import { useState } from "react";
-import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1"
+import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./SendMessageArea.module.scss"
 

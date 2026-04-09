@@ -6,6 +6,8 @@ import { userService } from "@core/lib/services/user";
 import { IReview } from "@core/lib/types/models/review";
 import { IShortUser } from "@core/lib/types/models/user";
 import { useEffect, useState } from "react";
+import styles from "./ReviewItem.module.scss"
+
 const ReviewItem = ({review}: {review: IReview}) => {
 
     const [author, setAuthor] = useState<IShortUser | null>(null)
@@ -22,13 +24,13 @@ const ReviewItem = ({review}: {review: IReview}) => {
     if (!author) return null;
     
     return (
-        <article className="review-card">
-            <div className="review-card-header">
+        <article className={styles.review}>
+            <div className={styles.header}>
                 <Avatar user={author} size={50} />
-                <div className="reviewer-info">
+                <div className={styles.reviewer}>
                     <h4>{author.name}</h4>
-                    <div className="review-meta">
-                        <span className="review-rating">
+                    <div className={styles.meta}>
+                        <span className={styles.rating}>
                             {[1, 2, 3, 4, 5].map(i => (
                                 <i
                                     key={i}
@@ -45,7 +47,7 @@ const ReviewItem = ({review}: {review: IReview}) => {
                         </span>
                     </div>
                 </div>
-                <span className="date">
+                <span className={styles.date}>
                     <FormattedDate isoDate={review.createdAt} format="DMYHM" />
                 </span>
                 
@@ -58,9 +60,7 @@ const ReviewItem = ({review}: {review: IReview}) => {
                     </Link>
                 )} */}
             </div>
-            <div className="review-card-content">
-                <span>{review.text}</span>
-            </div>
+            <span className={styles.content}>{review.text}</span>
         </article>
     );
 };

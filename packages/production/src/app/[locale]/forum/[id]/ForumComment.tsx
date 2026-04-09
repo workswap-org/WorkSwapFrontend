@@ -1,6 +1,6 @@
 import Avatar from "@core/components/common/Avatar";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow";
-import ActionMenu from "@core/components/ui/ActionMenu";
+import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { forumService } from "@core/lib/services/forumService";
 import { IForumComment, IForumTopic } from "@core/lib/types/forum";

@@ -6,6 +6,7 @@ import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { Dispatch, SetStateAction, useState } from "react";
 import { IReview } from "@core/lib/types/models/review"
 import { reviewsService } from "@core/lib/services/reviewsService"
+import styles from "./ReviewForm.module.scss"
 
 interface ReviewFormProps {
     setReviews: Dispatch<SetStateAction<IReview[] | null>>;
@@ -65,12 +66,12 @@ const ReviewForm = ({setReviews, listingId, profileId}: ReviewFormProps) => {
     return (
         <>
             {(isAuthenticated && profileId && profileId != user?.id) && (
-                <section className="review-form">
+                <section className={styles.form}>
                     <h3>{dict.common.reviews.item.label}</h3>
-                    <div className="form-row">
-                        <div className="rating-group">
-                            <label htmlFor="rating-stars">{dict.common.reviews.item.rating}</label>
-                            <div className="listing-rating" id="rating-stars">
+                    <div className={styles.formRow}>
+                        <div className={styles.ratingGroup}>
+                            <label htmlFor="ratingStars">{dict.common.reviews.item.rating}</label>
+                            <div className={styles.rating} id="ratingStars">
                                 {[1, 2, 3, 4, 5].map((star) => (
                                     <i
                                         key={star}
@@ -89,7 +90,7 @@ const ReviewForm = ({setReviews, listingId, profileId}: ReviewFormProps) => {
                                 ))}
                             </div>
                         </div>
-                        <div className="text-group">
+                        <div className={styles.textGroup}>
                             <label htmlFor="text">{dict.common.reviews.item.text}</label>
                             <textarea 
                                 id="text" 
@@ -101,8 +102,7 @@ const ReviewForm = ({setReviews, listingId, profileId}: ReviewFormProps) => {
                         </div>
                     </div>
                     <button 
-                        onClick={createR} 
-                        id="submit-review" 
+                        onClick={createR}
                         className="btn btn-primary"
                     >
                         {dict.buttons.review.create}

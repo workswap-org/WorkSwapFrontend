@@ -1,8 +1,8 @@
 "use client"
 
 import { IReview } from "@core/lib/types/models/review";
-import ReviewForm from "./ReviewForm";
-import ReviewsList from "./ReviewsList";
+import ReviewForm from "./ReviewForm/ReviewForm";
+import ReviewsList from "./ReviewsList/ReviewsList";
 import { useEffect, useState } from "react";
 import { reviewsService } from "@core/lib/services/reviewsService";
 

@@ -1,4 +1,5 @@
 import { autoGrow } from "@core/lib/services/utils/htmlViewService";
+import styles from "./TextareaRT1.module.scss";
 
 const TextareaRT1 = ({
     value,
@@ -18,7 +19,7 @@ const TextareaRT1 = ({
 
     return (
         <textarea 
-            className={`rt1 ${className ? className : ""}`}
+            className={`${styles.rt1} ${className ? className : ""}`}
             value={value}
             onChange={(e) => {
                 setValue(e.target.value)
