@@ -168,6 +168,8 @@
     color: var(--text-color-l1);
     font-size: 0.8rem;
     font-weight: 600;
+    display: flex;
+    align-items: center;
 }
 
 .price {

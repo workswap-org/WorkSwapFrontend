@@ -3,6 +3,7 @@ import { useI18n } from '@core/lib/contexts/I18nContext';
 import { useNotification } from '@core/lib/contexts/NotificationContext';
 import { userService } from '@core/lib/services/user';
 import { redirect } from 'next/navigation';
+import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 
 const SecurityPage = () => {
 
@@ -21,7 +22,7 @@ const SecurityPage = () => {
 
     return (
         <>
-            <div className="account-header">
+            <div className={accountStyles.accountHeader}>
                 <h2>{dict.common.titles.security}</h2>
             </div>
 

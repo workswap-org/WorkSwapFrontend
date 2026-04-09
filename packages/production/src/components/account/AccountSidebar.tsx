@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
 import ContactModal from "@/components/ui/modal/ContactModal";
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import styles from "./AccountSidebar.module.scss";
 
 const AccountSidebar = () => {
 
@@ -42,15 +43,15 @@ const AccountSidebar = () => {
     }, []);
 
     return(
-        <aside className="account-sidebar">
-            <div className="profile-card">
+        <aside className={styles.accountSidebar}>
+            <div className={styles.profileCard}>
                 <Avatar
                     user={user}
                     size={100}
-                    className='profile-card-avatar'
+                    className={styles.avatar}
                 />
-                <h4 className="profile-card-name">{user?.name}</h4>
-                <div className="profile-card-rating">
+                <h4 className={styles.name}>{user?.name}</h4>
+                <div className={styles.rating}>
                     <RatingStars rating={user?.rating ?? 0} />
                     (<span>{user?.rating}</span>)
                 </div>

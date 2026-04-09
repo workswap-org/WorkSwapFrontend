@@ -11,7 +11,7 @@ import { userService } from "@core/lib/services/user"
 import { useNotification } from "@core/lib/contexts/NotificationContext"
 import LanguageSwitcher from '@core/components/layout/LanguageSwitcher';
 import Avatar from "@core/components/common/Avatar"
-import AccountSidebarLinks from "../../../../app/[locale]/account/AccountSidebarLinks";
+import AccountSidebarLinks from "../../../account/AccountSidebarLinks";
 import ContactModal from "@/components/ui/modal/ContactModal";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 

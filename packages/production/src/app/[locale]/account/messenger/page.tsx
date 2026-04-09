@@ -10,6 +10,7 @@ import { useChatsLoad } from "@core/lib/hooks/chat/useChatsLoad";
 import { useChatSubscription } from "@core/lib/hooks/chat/useChatSubscription";
 import { IChat } from "@core/lib/types/messenger";
 import { useState } from "react";
+import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 
 const MessengerPage = () => {
 
@@ -23,7 +24,7 @@ const MessengerPage = () => {
 
     return (
         <>
-            <div className="account-header flex-row">
+            <div className={`${accountStyles.accountHeader} flex-row`}>
                 <h2>{dict.common.titles.messenger}</h2>
             </div>
 

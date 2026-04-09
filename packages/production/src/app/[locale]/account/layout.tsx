@@ -1,18 +1,19 @@
 
 import { ReactNode } from "react";
-import AccountSidebar from "./AccountSidebar";
+import AccountSidebar from "../../../components/account/AccountSidebar";
 import { PrivateRoute } from "@core/routes";
+import styles from "./AccountLayout.module.scss"
 
 const AccountLayout = ({children}: {children: ReactNode}) => {
 
     return (
         <PrivateRoute>
-            <div className="account-layout">
+            <div className={styles.accountLayout}>
 
                 <AccountSidebar/>
 
-                <main className="account-main">
-                    <div className="card">
+                <main className={styles.accountMain}>
+                    <div className={`${styles.card} card`}>
                         {children}
                     </div>
                 </main>

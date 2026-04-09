@@ -9,6 +9,7 @@ import { userService } from "@core/lib/services/user";
 import SidebarSectionLayout from "@core/components/layout/SidebarSectionLayout";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { IFullUser } from "@core/lib/types/models/user";
+import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 
 const SettingsSections = Object.freeze({
     PROFILE: { first: true, name: "profile", icon: "user" },
@@ -39,7 +40,7 @@ const SettingsPage = () => {
 
     return (
         <>
-            <div className="account-header">
+            <div className={accountStyles.accountHeader}>
                 <h2>{dict.common.titles.settings}</h2>
             </div>
             {user && (

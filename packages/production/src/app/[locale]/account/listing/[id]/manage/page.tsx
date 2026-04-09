@@ -13,6 +13,7 @@ import ListingMessagesMenu from './menus/ListingMessagesMenu';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import { useChatSubscription } from '@core/lib/hooks/chat/useChatSubscription';
 import { useChatsLoad } from '@core/lib/hooks/chat/useChatsLoad';
+import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 
 const ListingMenu = {
     SETTINGS: {
@@ -66,15 +67,13 @@ const ListingManagePage = () => {
 
     return (
         <>
-            <div className="account-header">
-                <div className='flex-row'>
-                    <div className='mobile-actions media-only-flex'>
-                        <Link href='/account/my-listings' className='back-link-arrow'>
-                            <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
-                        </Link>
-                    </div>
-                    <h2>{dict.common.titles.listingManage}</h2>
+            <div className={`${accountStyles.accountHeader} flex-row`}>
+                <div className='mobile-actions media-only-flex'>
+                    <Link href='/account/my-listings' className='back-link-arrow'>
+                        <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
+                    </Link>
                 </div>
+                <h2>{dict.common.titles.listingManage}</h2>
             </div>
 
             {listing && (

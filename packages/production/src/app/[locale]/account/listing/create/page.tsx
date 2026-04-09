@@ -7,6 +7,7 @@ import { listingService } from "@core/lib/services/listing";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 
 export default function ListingCreatePage() {
 
@@ -19,15 +20,13 @@ export default function ListingCreatePage() {
 
     return (
         <>
-            <div className="account-header">
-                <div className='flex-row'>
-                    <div className='mobile-actions media-only-flex'>
-                        <Link href='/account/my-listings' className='back-link-arrow'>
-                            <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
-                        </Link>
-                    </div>
-                    <h2>{dict.common.titles.listingCreate}</h2>
+            <div className={`${accountStyles.accountHeader} flex-row`}>
+                <div className='mobile-actions media-only-flex'>
+                    <Link href='/account/my-listings' className='back-link-arrow'>
+                        <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
+                    </Link>
                 </div>
+                <h2>{dict.common.titles.listingCreate}</h2>
             </div>
             <div className="listing-create-container">
                 <h3>{dict.common.listingCreate.selectType}</h3>

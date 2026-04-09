@@ -10,6 +10,7 @@ import Tooltip from "@core/components/common/Tooltip"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import Loader from "@core/components/common/Loader"
 import PlusIcon from "@core/components/common/icons/PlusIcon";
+import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 
 const MyListingsPage = () => {
 
@@ -31,7 +32,7 @@ const MyListingsPage = () => {
 
     return (
         <>
-            <div className="account-header">
+            <div className={accountStyles.accountHeader}>
                 <h2>{dict.common.titles.myListings}</h2>
                 <button
                     className="btn btn-primary"

@@ -5,6 +5,7 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 import { listingService } from "@core/lib/services/listing";
 import { IShortListing } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";
+import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 
 const FavoritesPage = () => {
 
@@ -18,7 +19,7 @@ const FavoritesPage = () => {
 
     return (
         <>
-            <div className="account-header">
+            <div className={accountStyles.accountHeader}>
                 <h2>{dict.common.titles.favorites}</h2>
             </div>
 

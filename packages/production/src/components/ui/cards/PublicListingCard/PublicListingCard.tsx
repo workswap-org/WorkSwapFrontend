@@ -10,6 +10,7 @@ import RatingStars from "@core/components/common/RatingStars"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import HeartIcon from "@core/components/common/icons/HeartIcon"
 import styles from "./PublicListingCard.module.scss"
+import LocationIcon from "@core/components/common/icons/LocationIcon"
 
 const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
@@ -65,7 +66,9 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
                 {listingTypesWithRating.includes(listing.type) && listing.rating > 0 && (
                     <RatingStars rating={listing.rating} />
                 )}
-                <span className={styles.location}><i className="fa-regular fa-location-dot"></i> {listing.location}</span>
+                <span className={styles.location}>
+                    <LocationIcon /> {listing.location}
+                </span>
             </div>
         </article>
     );
