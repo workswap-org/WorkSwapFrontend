@@ -5,6 +5,8 @@ import { IShortListing } from '@core/lib/types/models/listing'
 import { listingService } from '@core/lib/services/listing'
 import PlusIcon from "@core/components/common/icons/PlusIcon";
 import PublicListingCard from "@/components/ui/cards/PublicListingCard/PublicListingCard";
+import cardStyles from "@/components/ui/cards/PublicListingCard/PublicListingCard.module.scss"
+import styles from "./CatalogContent.module.scss"
 
 const CatalogContent = () => {
 
@@ -34,7 +36,7 @@ const CatalogContent = () => {
     }, [filters, setTotalPages]);
 
     return (
-        <div className="catalog-content">
+        <div className={styles.content}>
             <div className="listings-grid">
                 {!loading && listings?.map((listing) => (
                     <PublicListingCard
@@ -42,12 +44,14 @@ const CatalogContent = () => {
                         listing={listing}
                     />
                 ))}
-                <article key={0} onClick={() => window.location.href = "/account/listing/create"} className="public-listing-card">
-                    <div className="image-wrapper new">
+                <article key={0} onClick={() => window.location.href = "/account/listing/create"} className={cardStyles.card}>
+                    <div className={`${cardStyles.imageWrapper} new`}>
                         <PlusIcon size={35} />
                     </div>
-                    <div className="listing-card_body">
-                        <h3 className="listing-card_title">{dict.navigation.catalogSidebar.links.createListing}</h3>
+                    <div className={cardStyles.body}>
+                        <h3 className={cardStyles.title}>
+                            {dict.navigation.catalogSidebar.links.createListing}
+                        </h3>
                     </div>
                 </article>
             </div>

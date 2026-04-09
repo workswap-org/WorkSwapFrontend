@@ -1,14 +1,15 @@
 "use client";
 
-import CatalogSidebar from "./CatalogSidebar";
-import CatalogHeader from "./CatalogHeader";
-import CatalogContent from "./CatalogContent";
+import CatalogSidebar from "../../../components/ui/catalog/CatalogSidebar/CatalogSidebar";
+import CatalogHeader from "../../../components/ui/catalog/CatalogHeader/CatalogHeader";
+import CatalogContent from "../../../components/ui/catalog/CatalogContent/CatalogContent";
 import { useEffect, useRef, useState } from "react";
 import { CatalogFiltersProvider } from "@core/lib/providers/local/CatalogFiltersProvider"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
 import { listingPublicTypes } from "@core/lib/constants/listingTypes"
 import Pagination from "@/components/ui/Pagination/Pagination";
+import styles from "./CatalogPage.module.scss"
 
 export default function CatalogPageWrapper() {
 
@@ -40,18 +41,18 @@ function CatalogPage() {
     return(
         <>
             <CatalogHeader />
-            <div className="catalog-layout">
+            <div className={styles.layout}>
                 <CatalogSidebar
                     sidebarOpened={sidebarOpened}
                     toggleSidebar={toggleSidebar}
                 />
-                <main className="catalog-main" ref={contentRef}>
-                    <div className="listing-types-list">
+                <main className={styles.main} ref={contentRef}>
+                    <div className={styles.typesList}>
                         {listingPublicTypes.map((type) => (
                             <button
                                 key={type.key}
                                 type="button"
-                                className={`listing-type-item hover ${filters.type === type.key ? "active" : ""}`}
+                                className={`${styles.type} hover ${filters.type === type.key ? styles.active : ""}`}
                                 onClick={() => {
                                     if (type.key === filters.type) {
                                         updateFilter("type", null);
@@ -65,7 +66,7 @@ function CatalogPage() {
                         ))}
                     </div>
                     <div 
-                        className="checkbox hover media-only-block"
+                        className={`checkbox hover media-only-block`}
                         id="translationsFilter"
                     >
                         <input

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
+import styles from "./ListingCreatePage.module.scss"
 
 export default function ListingCreatePage() {
 
@@ -28,11 +29,11 @@ export default function ListingCreatePage() {
                 </div>
                 <h2>{dict.common.titles.listingCreate}</h2>
             </div>
-            <div className="listing-create-container">
+            <div className={styles.container}>
                 <h3>{dict.common.listingCreate.selectType}</h3>
 
-                <div className="listing-create-type-selector">
-                    <div className="section">
+                <div className={styles.typeSelector}>
+                    <div className={styles.section}>
                         <h2>{dict.categories.listingType.SERVICE}</h2>
                         {serviceTypes.map((type) => (
                             <button 
@@ -44,7 +45,7 @@ export default function ListingCreatePage() {
                             </button>
                         ))}
                     </div>
-                    <div className="section">
+                    <div className={styles.section}>
                         <h2>{dict.categories.listingType.PRODUCT}</h2>
                         {productTypes.map((type) => (
                             <button 
@@ -57,7 +58,7 @@ export default function ListingCreatePage() {
                         ))}
                     </div>
                     
-                    <div className="section">
+                    <div className={styles.section}>
                         <h2>{dict.categories.listingType.misc}</h2>
                         {miscTypes.map((type) => (
                             <button 

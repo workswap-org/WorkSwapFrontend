@@ -39,10 +39,10 @@ const Message = ({message, authorName}: {message: IChatMessage, authorName?: str
 
     return (
         <div className={styles.message}>
-            <span id="authorName">{authorName}</span>
+            <span className={styles.authorName}>{authorName}</span>
             <div className={styles.content}>
-                <span id="messageText">{message.text}</span>
-                <span id="messageTime">{formattedTime}</span>
+                <span className={styles.messageText}>{message.text}</span>
+                <span className={styles.messageTime}>{formattedTime}</span>
             </div>
         </div>
     );

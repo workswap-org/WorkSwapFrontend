@@ -2,7 +2,7 @@
 
 import PublicListingCard from "@/components/ui/cards/PublicListingCard/PublicListingCard";
 import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
-import DialogItem from "@/components/ui/chat/DialogItem";
+import DialogItem from "@/components/ui/chat/DialogItem/DialogItem";
 import { privateChatTypes } from "@core/lib/constants/chatTypes";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { useChats } from "@core/lib/contexts/MessengerContext";
@@ -39,9 +39,9 @@ const MessengerPage = () => {
                     </div>
                 )}
 
-                <div className="dialogs-list">
+                <div className={styles.dialogsList}>
                     {chats?.length === 0 ? (
-                        <div className="no-dialogs" id="no-dialogs">
+                        <div className={styles.noDialogs}>
                             <p>{dict.common.messenger.placeholders.noDialogs}</p>
                             <p>{dict.common.messenger.placeholders.startChats}</p>
                         </div>

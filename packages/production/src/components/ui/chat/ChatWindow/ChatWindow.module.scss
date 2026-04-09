@@ -1,9 +1,5 @@
 @use "@core/css/components/global-mixins" as *;
 
-$big-radius: 16px;
-$small-radius: 6px;
-$min-radius: 1px;
-
 .chatWindow {
     flex: 1;
     @include flex-column;
@@ -45,16 +41,9 @@ $min-radius: 1px;
             padding-bottom: 0;
         }
     } */
-
-    img#listingImg {
-        width: 50px;
-        height: 50px;
-        aspect-ratio: 1;
-        border-radius: 8px;
-        object-fit: cover;
-    }
 }
-.chat-header {
+
+.chatHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -66,8 +55,9 @@ $min-radius: 1px;
     @include mobile {
         padding: 0.5rem;
     }
+}
 
-.chat-info {
+.chatInfo {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -168,119 +158,4 @@ $min-radius: 1px;
             width: fit-content;
         }
     }
-}
-
-.dialogs-list {
-flex: 0 0 300px;
-border-right: 1px solid var(--border-color);
-overflow-y: auto;
-scrollbar-width: thin;
-
-@include mobile {
-    flex: 1;
-    height: 100%;
-    border-right: 0;
-}
-
-.no-dialogs {
-    text-align: center;
-    padding: 2rem;
-    color: var(--text-color-l1);
-
-    p {
-        margin: 0.5rem 0;
-    }
-}
-
-.dialog-item-box {
-    border-bottom: 1px solid var(--border-color);
-
-    .dialog-item {
-        display: flex;
-        padding: 0.7rem 0.7rem;
-        border-radius: var(--radius);
-        cursor: pointer;
-        transition: all 0.4s;
-        gap: 1rem;
-
-        &:hover, &.active{
-            background-color: var(--background);
-
-            .user-avatar {
-                border-color: var(--background);
-            }
-        }
-
-        .dialog-content {
-            flex: 1;
-            min-width: 0;
-
-            .dialog-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 0.25rem;
-
-                h4 {
-                    font-size: 1rem;
-                    margin: 0;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-
-                .dialog-time {
-                    font-size: 0.75rem;
-                    color: var(--text-color-l1);
-                    flex-shrink: 0;
-                    margin-left: 0.5rem;
-                }
-            }
-
-            .dialog-meta {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                position: relative;
-
-                .dialog-preview {
-                    font-size: 0.85rem;
-                    color: var(--text-color-l1);
-                    margin: 0;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-
-                .unread-count {
-                    background-color: var(--primary);
-                    padding: 2px 6px;
-                    border-radius: 0.75em;
-                    color: #fff;
-                    font-size: 0.8rem;
-                    line-height: 1;
-                    min-width: 1.5em;
-                    height: 1.5em;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    text-align: center;
-                }
-            }
-        }
-    }
-}
-
-.dialogAvatar {
-    position: relative;
-    height: 50px;
-}
-
-.userAvatar {
-    position: absolute;
-    right: -17px;
-    bottom: -5px;
-    border: 6px solid var(--background-l1);
-    transition: border 0.4s;
-    background-color: var(--background-l1);
 }

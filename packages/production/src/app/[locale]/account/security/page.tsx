@@ -1,3 +1,5 @@
+"use client"
+
 import { useAuth } from '@core/lib/contexts/AuthContext';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import { useNotification } from '@core/lib/contexts/NotificationContext';

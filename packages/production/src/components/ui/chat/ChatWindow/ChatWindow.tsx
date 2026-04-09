@@ -13,6 +13,7 @@ import Avatar from "@core/components/common/Avatar";
 import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./ChatWindow.module.scss"
+import sharedStyles from "../ChatShared.module.scss"
 
 const ChatWindow = ({title}: {title?: string}) => {
 
@@ -43,12 +44,12 @@ const ChatWindow = ({title}: {title?: string}) => {
     function renderChatWindow() {
         return (
             <div id={currentChat?.type} className={`${styles.chatWindow} ${currentChatId ? "show" : ""}`}>
-                <div className="chat-header">
-                    <div className="chat-info">
+                <div className={styles.chatHeader}>
+                    <div className={styles.chatInfo}>
                         <button 
                             id="dialogsToggleBtn" 
                             onClick={() => setCurrentChatId(null)} 
-                            className="mobile-dialogs-toggle"
+                            className={styles.mobileDialogsToggle}
                         >
                             <i className="fa-regular fa-arrow-left fa-2xl"></i>
                         </button>
@@ -57,9 +58,9 @@ const ChatWindow = ({title}: {title?: string}) => {
                             privateChatTypes.includes(currentChat.type) && (
                             <>
                                 {currentChat?.type === ChatType.LISTING_DISCUSSION && currentChat.listing ? (
-                                    <div className="dialog-avatar">
-                                        <img id="listingImg" src={currentChat?.listing?.imagePath} />
-                                        <Avatar user={chatInterlocutor} size={40} className="user-avatar" link={false} />
+                                    <div className={sharedStyles.dialogAvatar}>
+                                        <img className={sharedStyles.listingImg} src={currentChat?.listing?.imagePath} />
+                                        <Avatar user={chatInterlocutor} size={40} className={sharedStyles.userAvatar} link={false} />
                                     </div>
                                 ) : (
                                     <Avatar user={chatInterlocutor} size={50} link={false} />
@@ -68,7 +69,7 @@ const ChatWindow = ({title}: {title?: string}) => {
                         )}
                         <h4 id="chatTitle">{title ?? chatInterlocutor?.name}</h4>
                     </div>
-                    <div className="mobile-chat-actions">
+                    <div className={styles.mobileActions}>
                         {chatInterlocutor?.id && (
                             <button 
                                 className="btn btn-primary btn-sm" 
@@ -84,7 +85,7 @@ const ChatWindow = ({title}: {title?: string}) => {
                             <i className="fa-regular fa-user fa-lg"></i>
                         </Link>
                     </div>
-                    <div className="chat-actions">
+                    <div className={styles.actions}>
                         {currentChat?.listing?.id && (
                             <button 
                                 className="btn btn-primary btn-sm" 
@@ -104,7 +105,7 @@ const ChatWindow = ({title}: {title?: string}) => {
                 </div>
 
                 <div 
-                    className="messages-container" 
+                    className={styles.messagesContainer} 
                     ref={messagesContainer}
                 >
                     {/* {error && (

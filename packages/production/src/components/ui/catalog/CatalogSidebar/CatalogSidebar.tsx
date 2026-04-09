@@ -9,6 +9,7 @@ import { useAuth } from '@core/lib/contexts/AuthContext';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import { useCatalogFilters } from '@core/lib/contexts/local/CatalogFiltersContext';
 import { useSwipeable } from 'react-swipeable';
+import styles from "./CatalogSidebar.module.scss"
 
 interface CatalogSidebarProps {
     sidebarOpened: boolean;
@@ -40,20 +41,20 @@ const CatalogSidebar = ({
         <aside 
             {...handlers}
             data-mb-swipe-ignore
-            className={`catalog-sidebar ${sidebarOpened ? 'active' : ''}`}
+            className={`${styles.sidebar} ${sidebarOpened ? styles.active : ''}`}
         >
-            <button onClick={() => toggleSidebar()} className="btn btn-filter-sidebar" type="button">
+            <button onClick={() => toggleSidebar()} className={`btn ${styles.btnFilter}`} type="button">
                 <i className="fa-solid fa-filter"></i>
             </button>
 
-            <div className="sorting-sidebar">
+            <div className={styles.sortingSidebar}>
                 <section>
                     <h5>{dict.common.catalog.sidebar.sort}</h5>
-                    <div className="list-group">
+                    <div className={styles.listGroup}>
                         {sorts.map(sort => (
                             <button
                                 key={sort.key}
-                                className={`list-group-item ${filters.sortBy === sort.key ? "active" : ""}`}
+                                className={`${styles.listGroupItem} ${filters.sortBy === sort.key ? styles.active : ""}`}
                                 onClick={() => updateFilter("sortBy", sort.key)}
                             >
                                 {dict.common.sorts[sort.key]}
@@ -97,15 +98,15 @@ const CatalogSidebar = ({
                 </section>
             </div>
             {user && (
-                <div className="sorting-sidebar sidebar-links">
+                <div className={`${styles.sortingSidebar} ${styles.links}`}>
                     <section>
                         <h5>{dict.common.catalog.sidebar.usefulLinks}</h5>
-                        <div className="list-group">
+                        <div className={styles.listGroup}>
                             {/* <Link to="/info" className="catalog-sidebar-btn">{t('catalogSidebar.links.about', { ns: 'navigation' })}</Link> */}
                             {/* <Link to="/account/account" className="catalog-sidebar-btn">{t('catalogSidebar.links.account', { ns: 'navigation' })}</Link> */}
-                            <a href="/account/listing/create" className="list-group-item">{dict.navigation.catalogSidebar.links.createListing}</a>
-                            <a href="/account/my-listings" className="list-group-item">{dict.navigation.catalogSidebar.links.myListings}</a>
-                            <a href="/account/messenger" className="list-group-item">{dict.navigation.catalogSidebar.links.messenger}</a>
+                            <a href="/account/listing/create" className={styles.listGroupItem}>{dict.navigation.catalogSidebar.links.createListing}</a>
+                            <a href="/account/my-listings" className={styles.listGroupItem}>{dict.navigation.catalogSidebar.links.myListings}</a>
+                            <a href="/account/messenger" className={styles.listGroupItem}>{dict.navigation.catalogSidebar.links.messenger}</a>
                         </div>
                     </section>
                 </div>

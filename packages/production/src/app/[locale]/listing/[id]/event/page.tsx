@@ -10,12 +10,15 @@ import { IShortUser, IShortUserProfile } from "@core/lib/types/models/user";
 import { useChats } from "@core/lib/contexts/MessengerContext";
 import { eventService } from "@core/lib/services/eventService";
 import { subscriptionService } from "@core/lib/services/subscriptionService";
-import ListingPageLayout from "../ListingPageLayout";
+import ListingPageLayout from "../../../../../components/ui/listing/ListingPageLayout/ListingPageLayout";
 import PriceTypes from "@core/components/common/PriceTypes";
 import RatingStars from "@core/components/common/RatingStars";
 import FormattedDate from "@core/components/common/date/FormattedDate"
 import Avatar from "@core/components/common/Avatar";
 import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
+import layoutStyles from "@/components/ui/listing/ListingPageLayout/ListingPageLayout.module.scss"
+import listingPageStyles from "../ListingPage.module.scss"
+import styles from "./EventPage.module.scss"
 
 const EventPage = () => {
 
@@ -89,7 +92,7 @@ const EventPage = () => {
             author={author}
             listingActions={!isOwner && (
                 <div 
-                    className="listing-action-item hover"
+                    className={`${layoutStyles.action} hover`}
                     onClick={() => 
                         subscriptionService.toggle(eventId, setSubscribed, subscribed, 'EVENT', null)
                     }
@@ -103,24 +106,24 @@ const EventPage = () => {
             )}
             details={(
                 <>
-                    <div className="detail-item">
-                        <span className="detail-label">{dict.common.labels.event.price}:</span>
+                    <div className={listingPageStyles.detail}>
+                        <span className={listingPageStyles.label}>{dict.common.labels.event.price}:</span>
                         <PriceTypes listing={listingPage} />
                     </div>
-                    <div className="detail-item">
-                        <span className="detail-label">{dict.common.labels.event.date}:</span>
-                        <span className="detail-value">
+                    <div className={listingPageStyles.detail}>
+                        <span className={listingPageStyles.label}>{dict.common.labels.event.date}:</span>
+                        <span className={listingPageStyles.value}>
                             <FormattedDate isoDate={listingPage?.event.eventDate || ""} format="DMHM"/>
                         </span>
                     </div>
-                    <div className="detail-item">
-                        <span className="detail-label">{dict.common.labels.location}:</span>
-                        <span className="detail-value">
+                    <div className={listingPageStyles.detail}>
+                        <span className={listingPageStyles.label}>{dict.common.labels.location}:</span>
+                        <span className={listingPageStyles.value}>
                             {listingPage?.listing.location || ""}
                         </span>
                     </div>
-                    <div className="detail-item">
-                        <span className="detail-label">{dict.common.labels.rating}:</span>
+                    <div className={listingPageStyles.detail}>
+                        <span className={listingPageStyles.label}>{dict.common.labels.rating}:</span>
                         <RatingStars rating={listingPage?.listing.rating ?? 0}/>
                     </div>
                 </>
@@ -128,13 +131,13 @@ const EventPage = () => {
             extraSidebarElements={(
                 <>
                     {participants && (
-                        <div className="listing-details fade-down">
+                        <div className={`${layoutStyles.details} fade-down`}>
                             <h3>{dict.common.labels.event.participants}</h3>
-                            <div className="event-participants">
+                            <div className={styles.participants}>
                                 {participants.map((participant) => (
                                     <div 
                                         key={participant.name}
-                                        className="event-participant"
+                                        className={styles.participant}
                                     >
                                         <Avatar 
                                             user={participant}
@@ -150,10 +153,10 @@ const EventPage = () => {
                     )}
                     
 
-                    <div className="listing-details fade-down">
-                        <div className="detail-item">
-                            <span className="detail-label">{dict.common.labels.event.participants}:</span>
-                            <span className="detail-value">{participantsCount}{listingPage.event?.maxParticipants ? " / " + listingPage.event.maxParticipants : ""}</span>
+                    <div className={`${layoutStyles.details} fade-down`}>
+                        <div className={listingPageStyles.detail}>
+                            <span className={listingPageStyles.label}>{dict.common.labels.event.participants}:</span>
+                            <span className={listingPageStyles.value}>{participantsCount}{listingPage.event?.maxParticipants ? " / " + listingPage.event.maxParticipants : ""}</span>
                         </div>
                         <div 
                             className="btn btn-primary"
@@ -169,8 +172,8 @@ const EventPage = () => {
                 </>
             )}
             extraPageElements={
-                <div className="listing-info fade-down">
-                    <div className="listing-chat">
+                <div className={`${layoutStyles.info} fade-down`}>
+                    <div className={styles.chat}>
                         <ChatWindow title={listingPage.listing.localizedTitle} />
                     </div>
                 </div>

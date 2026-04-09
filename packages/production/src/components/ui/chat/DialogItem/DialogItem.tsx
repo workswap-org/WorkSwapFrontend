@@ -9,6 +9,8 @@ import { IShortListing } from "@core/lib/types/models/listing";
 import { IShortUser } from "@core/lib/types/models/user";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import styles from "./DialogItem.module.scss"
+import sharedStyles from "../ChatShared.module.scss"
 
 interface DialogItemProps {
     chat: IChat,
@@ -76,24 +78,24 @@ const DialogItem = ({ chat, pageLoading, setPageLoading }: DialogItemProps) => {
     }, [chat.lastMessageTime, chat.lastMessageText, lastMessage?.sentAt]);
 
     return (
-        <div className="dialog-item-box">
-            <div className={`dialog-item ${chat.id === currentChatId ? "active" : ""}`} onClick={() => setCurrentChatId(chat.id)}>
+        <div className={styles.box}>
+            <div className={`${styles.dialog} ${chat.id === currentChatId ? styles.active : ""}`} onClick={() => setCurrentChatId(chat.id)}>
                 {chat.type == ChatType.LISTING_DISCUSSION && listing ? (
-                    <div className="dialog-avatar">
-                        <img id='listingImg' src={listing.imagePath} />
-                        <Avatar user={interlocutor} size={40}className="user-avatar" link={false} />
+                    <div className={sharedStyles.dialogAvatar}>
+                        <img className={sharedStyles.listingImg} src={listing.imagePath} />
+                        <Avatar user={interlocutor} size={40} className={sharedStyles.userAvatar} link={false} />
                     </div>
                 ) : (
                     <Avatar user={interlocutor} size={50} link={false} />
                 )}
-                <div className="dialog-content">
-                    <div className="dialog-header">
+                <div className={styles.content}>
+                    <div className={styles.header}>
                         <h4>{interlocutor?.name}</h4>
-                        <span className="dialog-time">{formattedDate}</span>
+                        <span className={styles.time}>{formattedDate}</span>
                     </div>
-                    <div className="dialog-meta">
-                        <p className="dialog-preview">{preview}</p>
-                        {unreadForChat.length > 0 && <span className="unread-count">{unreadForChat.length}</span>}
+                    <div className={styles.meta}>
+                        <p className={styles.preview}>{preview}</p>
+                        {unreadForChat.length > 0 && <span className={styles.unreadCount}>{unreadForChat.length}</span>}
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import { ICategory } from "@core/lib/types/models/category"
 import { ListingType, ListingTypeValue } from "@core/lib/constants/listingTypes";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { categoryService } from "@core/lib/services/categoriesService"
+import styles from "./CatalogCategories.module.scss"
 
 const CatalogCategories = () => {
     
@@ -43,18 +44,18 @@ const CatalogCategories = () => {
     return (
         <>
             <button 
-                className="btn btn-primary categories-btn" 
+                className={`btn btn-primary ${styles.categoriesBtn}`} 
                 onClick={() => setCategoriesMenu(prev => !prev)}
             >
                 <div><i className="fa-solid fa-list fa-lg perm-light"></i></div>
                 <span className="normal-only">{dict.categories.category['all-categories']}</span>
             </button>
             <div
-                className={`categories-menu ${categoriesMenu ? "active" : ""}`}
+                className={`${styles.menu} ${categoriesMenu ? styles.active : ""}`}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             >
-                <div className="category-types">
+                <div className={styles.types}>
                     {[ListingType.SERVICE, ListingType.PRODUCT].map(type =>
                         <button
                             key={type}
@@ -63,15 +64,15 @@ const CatalogCategories = () => {
                             onClick={() => setListingType(type)}
                         >
                             {dict.categories.listingType[type.toUpperCase()]}
-                            <div className={`indicator ${listingType == type ? "active" : ""}`}>
+                            <div className={`${styles.indicator} ${listingType == type ? styles.active : ""}`}>
                                 <i className="fa-solid fa-angle-down"></i>
                             </div>
                         </button>
                     )}
                 </div>
-                <div className="categories-container">
-                    <div className="categories-sidebar-container">
-                        <div className="categories-list">
+                <div className={styles.container}>
+                    <div className={styles.sidebarContainer}>
+                        <div className={styles.categoriesList}>
                             {rootCategories.map((cat) =>
                                 <CategoryButton
                                     key={cat.id}
@@ -87,13 +88,12 @@ const CatalogCategories = () => {
                             )}
                         </div>
                     </div>
-                    <div className="subcategories-container">
+                    <div className={styles.subcategories}>
                         {filters.categoryId && children(filters.categoryId).length > 0 && (
-                            <div className="categories-list">
+                            <div className={styles.categoriesList}>
                                 {children(filters.categoryId).map(child =>
-                                    <button
-                                        key={child.id}
-                                        className={`sub-category-item hover ${filters.categoryId === child.id ? "active" : ""}`}
+                                    <SubCategoryButton
+                                        active={filters.categoryId === child.id}
                                         onClick={() =>
                                             filters.categoryId === child.id
                                             ? updateFilter("categoryId", null)
@@ -101,16 +101,16 @@ const CatalogCategories = () => {
                                         }
                                     >
                                         {dict.categories.category[listingType][child.name]}
-                                    </button>
+                                    </SubCategoryButton>
                                 )}
                             </div>
                         )}
                     </div>
                 </div>
                 {selectedCategory && (
-                    <span className="selected-category-label">
+                    <span className={styles.selectedCategoryLabel}>
                         <span>{dict.tooltips.catalog.selectedCategory}: </span>
-                        <span className="selected-category">{dict.categories.category[listingType][selectedCategory.name]}</span>
+                        <span className={styles.selectedCategory}>{dict.categories.category[listingType][selectedCategory.name]}</span>
                     </span>
                 )}
             </div>
@@ -121,13 +121,23 @@ const CatalogCategories = () => {
 const CategoryButton = ({ active, onClick, children }: {active: boolean, onClick: () => void, children: ReactNode}) => (
     <button
         type="button"
-        className={`category-item hover ${active ? "active" : ""}`}
+        className={`${styles.category} hover ${active ? styles.active : ""}`}
         onClick={onClick}
     >
         {children}
-        <div className={`indicator ${active ? "active" : ""}`}>
-        <i className="fa-solid fa-angle-right"></i>
+        <div className={`${styles.indicator} ${active ? styles.active : ""}`}>
+            <i className="fa-solid fa-angle-right"></i>
         </div>
+    </button>
+);
+
+const SubCategoryButton = ({ active, onClick, children }: {active: boolean, onClick: () => void, children: ReactNode}) => (
+    <button
+        type="button"
+        className={`${styles.subCategory} hover ${active ? styles.active : ""}`}
+        onClick={onClick}
+    >
+        {children}
     </button>
 );
 

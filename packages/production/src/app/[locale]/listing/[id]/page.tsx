@@ -6,10 +6,11 @@ import { useParams } from "next/navigation";
 import { IListingPageRequest } from "@core/lib/types/models/listing";
 import { IShortUserProfile } from "@core/lib/types/models/user";
 import { listingService } from "@core/lib/services/listing";
-import ListingPageLayout from "./ListingPageLayout";
+import ListingPageLayout from "../../../../components/ui/listing/ListingPageLayout/ListingPageLayout";
 import PriceTypes from "@core/components/common/PriceTypes";
 import RatingStars from "@core/components/common/RatingStars";
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import styles from "./ListingPage.module.scss"
 
 const ListingPage = () => {
 
@@ -38,18 +39,18 @@ const ListingPage = () => {
             author={author}
             details={(
                 <>
-                    <div className="detail-item">
-                        <span className="detail-label">{dict.common.labels.price}:</span>
+                    <div className={styles.detail}>
+                        <span className={styles.label}>{dict.common.labels.price}:</span>
                         <h1><PriceTypes listing={listingPage.listing} className={"listing"} /></h1>
                     </div>
-                    <div className="detail-item">
-                        <span className="detail-label">{dict.common.labels.location}:</span>
-                        <span className="detail-value">
+                    <div className={styles.detail}>
+                        <span className={styles.label}>{dict.common.labels.location}:</span>
+                        <span className={styles.value}>
                             {listingPage.listing?.location || ""}
                         </span>
                     </div>
-                    <div className="detail-item">
-                        <span className="detail-label">{dict.common.labels.rating}:</span>
+                    <div className={styles.detail}>
+                        <span className={styles.label}>{dict.common.labels.rating}:</span>
                         <RatingStars rating={listingPage.listing?.rating ?? 0}/>
                     </div>
                 </>

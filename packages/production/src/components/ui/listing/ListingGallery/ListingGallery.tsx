@@ -1,5 +1,6 @@
 import { IListingImage } from "@core/lib/types/models/listing";
 import { useCallback, useEffect, useState } from "react";
+import styles from "./ListingGallery.module.scss"
 
 const ListingGallery = ({ images }: {images: IListingImage[]}) => {
 
@@ -36,36 +37,36 @@ const ListingGallery = ({ images }: {images: IListingImage[]}) => {
 
     return (
         <>
-            <div className="listing-gallery fade-down">
-                <div className="main-image">
-                    <div className="image-container">
-                        <button className="nav-arrow prev-arrow" onClick={handlePrevImage}>
+            <div className={`${styles.gallery} fade-down`}>
+                <div className={styles.mainImage}>
+                    <div className={styles.imageContainer}>
+                        <button className={`${styles.navArrow} ${styles.prev}`} onClick={handlePrevImage}>
                             <i className="fa-solid fa-circle-left fa-xl"></i>
                         </button>
                         <img
                             src={images[mainImageIndex]?.path ?? `/images/placeholders/default-listing.svg`}
                             onError={(e) => e.currentTarget.src = `/images/placeholders/default-listing.svg`}
                             alt="Основное изображение"
-                            className="clickable-image main-image-view"
+                            className={`${styles.clickableImage} ${styles.mainImageView}`}
                             id="mainImageView"
                             onClick={() => openModal(mainImageIndex)}
                         />
-                        <button className="nav-arrow next-arrow" onClick={handleNextImage}>
+                        <button className={`${styles.navArrow} ${styles.next}`} onClick={handleNextImage}>
                             <i className="fa-solid fa-circle-right fa-xl"></i>
                         </button>
                     </div>
                 </div>
 
                 {images?.length > 1 && (
-                    <div className="thumbnails">
+                    <div className={styles.thumbnails}>
                         {images.map((image, index) => (
-                            <div className="thumbnail" key={index} data-index={index}>
+                            <div className={styles.thumbnail} key={index} data-index={index}>
                                 <img
                                     key={image.id}
                                     src={image.path}
                                     onError={(e) => e.currentTarget.src = `/images/placeholders/default-listing.svg`}
                                     alt="Дополнительное изображение"
-                                    className="clickable-image"
+                                    className={styles.clickableImage}
                                     onClick={() => setMainImageIndex(index)}
                                 />
                             </div>
@@ -76,18 +77,18 @@ const ListingGallery = ({ images }: {images: IListingImage[]}) => {
 
             {/* Модальное окно (fullscreen) */}
             {isModalOpen && (
-                <div className="fullscreen-modal">
-                    <span className="close" id="close-modal" onClick={closeModal}>
+                <div className={styles.fullscreenModal}>
+                    <span className={styles.close} id="close-modal" onClick={closeModal}>
                         &times;
                     </span>
-                    <button className="modal-arrow modal-prev" onClick={handlePrevImage}>
+                    <button className={`${styles.modalArrow} ${styles.prev}`} onClick={handlePrevImage}>
                         &#10094;
                     </button>
                     <img
                         src={images[mainImageIndex].path}
                         alt="Fullscreen"
                     />
-                    <button className="modal-arrow modal-next" onClick={handleNextImage}>
+                    <button className={`${styles.modalArrow} ${styles.next}`} onClick={handleNextImage}>
                         &#10095;
                     </button>
                 </div>

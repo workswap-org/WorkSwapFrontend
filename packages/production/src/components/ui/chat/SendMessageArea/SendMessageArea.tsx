@@ -76,7 +76,7 @@ const SendMessageArea = () => {
                 placeholder={isDisabled ? "" : dict.common.placeholders.typeMessage}
             />
             <button
-                className="send-btn"
+                className={styles.sendBtn}
                 onClick={sendMessage}
                 disabled={isDisabled}
             >

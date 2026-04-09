@@ -1,0 +1,10 @@
+@use "@core/css/components/global-mixins" as *;
+
+.content {
+    overflow: visible;
+    padding: 0 1rem;
+
+    @include mobile {
+        padding: 0;
+    }
+}

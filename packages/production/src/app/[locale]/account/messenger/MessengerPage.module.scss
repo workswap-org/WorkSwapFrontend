@@ -30,3 +30,26 @@
         background: transparent;
     }
 }
+
+.dialogsList {
+    flex: 0 0 300px;
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    scrollbar-width: thin;
+
+    @include mobile {
+        flex: 1;
+        height: 100%;
+        border-right: 0;
+    }
+}
+
+.noDialogs {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-color-l1);
+
+    p {
+        margin: 0.5rem 0;
+    }
+}

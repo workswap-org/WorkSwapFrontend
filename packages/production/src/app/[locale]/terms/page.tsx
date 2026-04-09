@@ -2,6 +2,7 @@
 
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { useEffect, useState } from "react";
+import styles from "./TermsPage.module.scss"
 
 export default function TermsPage() {
 
@@ -19,7 +20,7 @@ export default function TermsPage() {
     }, [locale])
 
     return (
-        <div className="terms-page">
+        <div className={styles.termsPage}>
             {terms}
         </div>
     );

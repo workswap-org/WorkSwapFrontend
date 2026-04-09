@@ -1,21 +1,23 @@
-import CatalogCategories from "./CatalogCategories";
+import CatalogCategories from "../CatalogCategories/CatalogCategories";
 import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext"
 import { useI18n } from "@core/lib/contexts/I18nContext"
+import styles from "./CatalogHeader.module.scss"
+
 const CatalogHeader = () => {
 
     const { filters, updateFilter } = useCatalogFilters();
     const { dict } = useI18n();
 
     return (
-        <div className="catalog-header">
-            <div className="catalog-header-content">
+        <div className={styles.header}>
+            <div className={styles.content}>
 
                 <CatalogCategories />
 
-                <div className="listings-search">
+                <div className={styles.search}>
                     <input 
                         type="text" 
-                        className="search-input" 
+                        className={styles.searchInput} 
                         value={filters.searchQuery ?? ""}
                         onChange={(e) => updateFilter("searchQuery", e.target.value)}
                         name="searchQuery"
@@ -24,7 +26,7 @@ const CatalogHeader = () => {
                     
                     <input type="hidden" name="category"/>
                     <input type="hidden" name="sortBy"/>
-                    <button className="btn btn-search" type="button">
+                    <button className={`btn ${styles.btnSearch}`} type="button">
                         <i className="fa fa-search"></i>
                     </button>
                 </div>

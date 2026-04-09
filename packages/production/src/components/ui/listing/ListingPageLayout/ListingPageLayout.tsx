@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ListingGallery from "./ListingGallery";
-import { IEventPageRequest, IListingPageRequest } from "@core/lib/types/models/listing";
+import ListingGallery from "../ListingGallery/ListingGallery";
+import { IListingPageRequest } from "@core/lib/types/models/listing";
 import { IShortUserProfile } from "@core/lib/types/models/user";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
@@ -12,6 +12,7 @@ import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import HeartIcon from "@core/components/common/icons/HeartIcon"
+import styles from "./ListingPageLayout.module.scss"
 
 interface ListingPageLayoutProps {
     details: React.ReactNode,
@@ -44,11 +45,11 @@ const ListingPageLayout = ({
     const { dict } = useI18n();
 
     useEffect(() => {
-        if (listing.categoryId && listing.type) categoryService.getPathToCategory(listing.categoryId, listing.type).then(setCategories);
+        if (listing?.categoryId && listing?.type) categoryService.getPathToCategory(listing.categoryId, listing.type).then(setCategories);
     }, [listing])
 
     return (
-        <main className="listing-main">
+        <main className={styles.main}>
             {/* Хлебные крошки */}
             <nav className="breadcrumbs">
                 <div>
@@ -76,24 +77,24 @@ const ListingPageLayout = ({
                 <span>{listing?.localizedTitle}</span>
             </nav>
 
-            <div className="listing-header">
+            <div className={styles.header}>
                 <h1>{listing?.localizedTitle}</h1>
-                <div className="listing-meta">
+                <div className={styles.meta}>
                     <span>{listing?.publishedAt ? new Date(listing?.publishedAt).toLocaleDateString("ru-RU") : ""}</span>
-                    <span className="listing-views">
+                    <span className={styles.views}>
                         {dict.common.labels.views}: <span>{listing?.views}</span>
                     </span>
                 </div>
             </div>
 
-            <div className="listing-main-content">
-                <div className="listing-content">
+            <div className={styles.mainContent}>
+                <div className={styles.content}>
                     <ListingGallery images={listingPage?.images ?? []}/>
                     
                     {listing?.localizedDescription && (
-                        <div className="listing-info fade-down">
+                        <div className={`${styles.info} fade-down`}>
                             <h2>{dict.common.labels.description}</h2>
-                            <p className="listing-description">
+                            <p className={styles.description}>
                                 {listing.localizedDescription || "Нет описания"}
                             </p>
                         </div>
@@ -102,17 +103,17 @@ const ListingPageLayout = ({
                     {extraPageElements}
                 </div>
                 
-                <div className="listing-sidebar">
-                    <div className="listing-details fade-down">
+                <div className={styles.sidebar}>
+                    <div className={`${styles.details} fade-down`}>
                         {details}
 
-                        <div className="listing-actions">
+                        <div className={styles.actions}>
                             {listingActions}
                             {listing && (
                                 <>
                                     {!isOwner ? (
                                         <div 
-                                            className="listing-action-item"
+                                            className={styles.action}
                                             onClick={(e) => {
                                                 e.stopPropagation()
                                                 toggleFavorite()
@@ -126,7 +127,7 @@ const ListingPageLayout = ({
                                     ) : (
                                         <Link
                                             href={`/account/listing/edit/${listing.id}`}
-                                            className="listing-action-item hover"
+                                            className={`${styles.action} hover`}
                                         >
                                             <i className="fa-solid fa-pen"></i>
                                         </Link>
@@ -134,7 +135,7 @@ const ListingPageLayout = ({
                                 </>
                             )}
                             <div 
-                                className="listing-action-item hover"
+                                className={`${styles.action} hover`}
                                 onClick={() => {
                                     navigator.clipboard.writeText(window.location.href)
                                         .then(() => notificate(dict.messages.notification.success.copyListingLink, "success"))
