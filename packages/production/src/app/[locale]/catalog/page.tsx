@@ -1,8 +1,5 @@
 "use client";
 
-import CatalogSidebar from "../../../components/ui/catalog/CatalogSidebar/CatalogSidebar";
-import CatalogHeader from "../../../components/ui/catalog/CatalogHeader/CatalogHeader";
-import CatalogContent from "../../../components/ui/catalog/CatalogContent/CatalogContent";
 import { useEffect, useRef, useState } from "react";
 import { CatalogFiltersProvider } from "@core/lib/providers/local/CatalogFiltersProvider"
 import { useI18n } from "@core/lib/contexts/I18nContext";
@@ -10,6 +7,9 @@ import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContex
 import { listingPublicTypes } from "@core/lib/constants/listingTypes"
 import Pagination from "@/components/ui/Pagination/Pagination";
 import styles from "./CatalogPage.module.scss"
+import CatalogHeader from "@/components/pages/catalog/CatalogHeader/CatalogHeader";
+import CatalogSidebar from "@/components/pages/catalog/CatalogSidebar/CatalogSidebar";
+import CatalogContent from "@/components/pages/catalog/CatalogContent/CatalogContent";
 
 export default function CatalogPageWrapper() {
 

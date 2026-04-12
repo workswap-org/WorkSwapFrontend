@@ -72,5 +72,10 @@ $radius: var(--radius);
         color: var(--background-l1);
         width: auto;
         margin-bottom: 0;
+
+        svg {
+            color: var(--text-color);
+            width: 20px;
+        }
     }
 }

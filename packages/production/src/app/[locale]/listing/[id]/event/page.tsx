@@ -10,7 +10,7 @@ import { IShortUser, IShortUserProfile } from "@core/lib/types/models/user";
 import { useChats } from "@core/lib/contexts/MessengerContext";
 import { eventService } from "@core/lib/services/eventService";
 import { subscriptionService } from "@core/lib/services/subscriptionService";
-import ListingPageLayout from "../../../../../components/ui/listing/ListingPageLayout/ListingPageLayout";
+import ListingPageLayout from "../../../../../components/pages/listing/ListingPageLayout/ListingPageLayout";
 import PriceTypes from "@core/components/common/PriceTypes";
 import RatingStars from "@core/components/common/RatingStars";
 import FormattedDate from "@core/components/common/date/FormattedDate"

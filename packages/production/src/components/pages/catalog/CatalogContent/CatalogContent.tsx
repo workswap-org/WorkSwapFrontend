@@ -45,7 +45,7 @@ const CatalogContent = () => {
                     />
                 ))}
                 <article key={0} onClick={() => window.location.href = "/account/listing/create"} className={cardStyles.card}>
-                    <div className={`${cardStyles.imageWrapper} new`}>
+                    <div className={`${cardStyles.imageWrapper} ${cardStyles.new}`}>
                         <PlusIcon size={35} />
                     </div>
                     <div className={cardStyles.body}>

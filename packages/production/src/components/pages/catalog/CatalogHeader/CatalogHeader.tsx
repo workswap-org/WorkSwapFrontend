@@ -1,6 +1,7 @@
 import CatalogCategories from "../CatalogCategories/CatalogCategories";
 import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext"
 import { useI18n } from "@core/lib/contexts/I18nContext"
+import SearchIcon from "@core/components/common/icons/SearchIcon"
 import styles from "./CatalogHeader.module.scss"
 
 const CatalogHeader = () => {
@@ -27,7 +28,7 @@ const CatalogHeader = () => {
                     <input type="hidden" name="category"/>
                     <input type="hidden" name="sortBy"/>
                     <button className={`btn ${styles.btnSearch}`} type="button">
-                        <i className="fa fa-search"></i>
+                        <SearchIcon />
                     </button>
                 </div>
             </div>

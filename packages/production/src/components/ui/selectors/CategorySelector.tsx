@@ -5,7 +5,6 @@ import { categoryService } from "@core/lib/services/categoriesService";
 import { ICategory } from "@core/lib/types/models/category";
 import { IFullListing } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";
-import { useTranslation } from 'react-i18next';
 
 const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChange: (value: number, newPath: number[]) => void} ) => {
 

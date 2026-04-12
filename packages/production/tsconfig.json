@@ -5,16 +5,12 @@
     "noEmit": true,
     "target": "ES2024",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@core/*": [
-        "../core/src/*"
-      ]
+      "@/*": ["src/*"],
+      "@core/*": ["../core/src/*"]
     },
     "allowImportingTsExtensions": true,
     "strict": true,

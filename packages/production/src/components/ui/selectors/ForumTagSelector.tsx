@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { useTranslation } from 'react-i18next';
 import { ForumTag } from '@core/lib/types/forum'
 import { useI18n } from "@core/lib/contexts/I18nContext";
 

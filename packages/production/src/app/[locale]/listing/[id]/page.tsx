@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { IListingPageRequest } from "@core/lib/types/models/listing";
 import { IShortUserProfile } from "@core/lib/types/models/user";
 import { listingService } from "@core/lib/services/listing";
-import ListingPageLayout from "../../../../components/ui/listing/ListingPageLayout/ListingPageLayout";
+import ListingPageLayout from "../../../../components/pages/listing/ListingPageLayout/ListingPageLayout";
 import PriceTypes from "@core/components/common/PriceTypes";
 import RatingStars from "@core/components/common/RatingStars";
 import { useI18n } from "@core/lib/contexts/I18nContext";
