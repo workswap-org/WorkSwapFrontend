@@ -2,15 +2,15 @@
 
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from "react";
-import NotificationItem from "../NotificationItem/NotificationItem.tsx";
+import NotificationItem from "../NotificationItem/NotificationItem";
 import { createPortal } from "react-dom";
-import { useNotification } from "@core/lib/contexts/NotificationContext.tsx";
-import { useChats } from "@core/lib/contexts/MessengerContext.tsx";
-import { notificationService } from "@core/lib/services/notificationService.ts";
-import { INotification } from '@core/lib/types/notification.ts';
-import { useWebSocket } from '@core/lib/contexts/WebSocketContext.tsx';
+import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { notificationService } from "@core/lib/services/notificationService";
+import { INotification } from '@core/lib/types/notification';
+import { useWebSocket } from '@core/lib/contexts/WebSocketContext';
 import { useRouter } from 'next/navigation';
-import styles from "./NotificationsConteiner.module.scss"
+import styles from "./NotificationsContainer.module.scss";
 
 interface NotificationsContainerProps {
     isOpen: boolean;

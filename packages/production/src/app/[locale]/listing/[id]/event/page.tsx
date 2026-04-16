@@ -12,9 +12,9 @@ import { eventService } from "@core/lib/services/eventService";
 import { subscriptionService } from "@core/lib/services/subscriptionService";
 import ListingPageLayout from "../../../../../components/pages/listing/ListingPageLayout/ListingPageLayout";
 import PriceTypes from "@core/components/common/PriceTypes";
-import RatingStars from "@core/components/common/RatingStars";
+import RatingStars from "@core/components/common/RatingStars/RatingStars";
 import FormattedDate from "@core/components/common/date/FormattedDate"
-import Avatar from "@core/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar/Avatar";
 import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
 import layoutStyles from "@/components/ui/listing/ListingPageLayout/ListingPageLayout.module.scss"
 import listingPageStyles from "../ListingPage.module.scss"

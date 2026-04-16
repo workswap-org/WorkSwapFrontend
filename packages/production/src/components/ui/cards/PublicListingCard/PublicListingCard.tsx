@@ -6,7 +6,7 @@ import { useAuth } from "@core/lib/contexts/AuthContext";
 import { listingService } from "@core/lib/services/listing";
 import PriceTypes from "@core/components/common/PriceTypes"
 import { listingTypesWithRating } from "@core/lib/constants/listingTypes";
-import RatingStars from "@core/components/common/RatingStars"
+import RatingStars from "@core/components/common/RatingStars/RatingStars"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import HeartIcon from "@core/components/common/icons/HeartIcon"
 import styles from "./PublicListingCard.module.scss"

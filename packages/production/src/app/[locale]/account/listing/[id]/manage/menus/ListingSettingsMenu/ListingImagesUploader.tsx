@@ -3,6 +3,8 @@ import { listingService } from "@core/lib/services/listing";
 import { cloudService } from "@core/lib/services/cloudService";
 import { IFullListing, IListingImage } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";
+import StarIcon from "@core/components/common/icons/StarIcon"
+import DeleteIcon from "@core/components/common/icons/DeleteIcon"
 
 const ListingImagesUploader = ({
     updateListing,
@@ -92,7 +94,7 @@ const ListingImagesUploader = ({
                                     className="btn btn-sm btn-gold"
                                     onClick={() => setMainImageToListing(img.path)}
                                 >
-                                    <i className="fa-solid fa-star"></i>
+                                    <StarIcon filled/>
                                 </button>
                             )}
                             <button
@@ -106,7 +108,7 @@ const ListingImagesUploader = ({
                                     .catch(() => notificate("Ошибка удаления изображения с сервера", "error"))
                                 }
                             >
-                                <i className="fa-solid fa-trash"></i>
+                                <DeleteIcon />
                             </button>
                         </div>
                     </div>

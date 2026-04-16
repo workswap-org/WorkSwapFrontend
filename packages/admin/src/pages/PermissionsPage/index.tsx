@@ -4,10 +4,10 @@ import {
     IRole,
     IPermission
 } from "@core/lib";
-import RolesList from "./RolesList.tsx";
-import PermissionsList from "./PermissionsList.tsx";
-import RoleCreateModal from "./RoleCreateModal.tsx";
-import PermissionCreateModal from "./PermissionCreateModal.tsx";
+import RolesList from "./RolesList";
+import PermissionsList from "./PermissionsList";
+import RoleCreateModal from "./RoleCreateModal";
+import PermissionCreateModal from "./PermissionCreateModal";
 import { SidebarSectionLayout } from "@core/components/index.js";
 
 const PermissionsPage = () => {

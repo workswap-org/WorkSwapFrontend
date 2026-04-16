@@ -22,9 +22,7 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": [
-        "src/**/*"
-, "../production/src/components/layout/header/NotificationHeaderButton.tsx"    ],
+    "include": ["src/**/*"],
     "exclude": [
         "node_modules",
         "**/node_modules/*",

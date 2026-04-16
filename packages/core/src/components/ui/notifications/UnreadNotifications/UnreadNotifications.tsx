@@ -1,4 +1,4 @@
-import styles from "./UnreadNotifications.module.scss"
+import styles from "./UnreadNotifications.module.scss";
 
 const UnreadNotifications = ({count}: {count: number}) => {
     return (

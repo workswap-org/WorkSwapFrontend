@@ -8,7 +8,7 @@ import { IShortUserProfile } from "@core/lib/types/models/user";
 import { listingService } from "@core/lib/services/listing";
 import ListingPageLayout from "../../../../components/pages/listing/ListingPageLayout/ListingPageLayout";
 import PriceTypes from "@core/components/common/PriceTypes";
-import RatingStars from "@core/components/common/RatingStars";
+import RatingStars from "@core/components/common/RatingStars/RatingStars";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./ListingPage.module.scss"
 

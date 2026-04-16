@@ -56,7 +56,7 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
                     onClick={(e) => e.stopPropagation()}
                     id="notificationAnchor"
                 >
-                    <GearIcon />
+                    <GearIcon size={20}/>
                     {dict.buttons.listing.manage}
                     {notifCount > 0 &&
                         <UnreadNotifications count={notifCount}/>

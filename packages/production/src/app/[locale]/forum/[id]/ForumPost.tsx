@@ -4,7 +4,7 @@ import { IForumComment, IForumPost, IForumTopic } from "@core/lib/types/forum";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { IShortUser } from "@core/lib/types/models/user";
 import { forumService } from "@core/lib/services/forumService";
-import Avatar from "@core/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar/Avatar";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow";
 import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
 import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";

@@ -1,11 +1,4 @@
-:global(#notificationAnchor) {
-    position: relative;
-
-    &.navbar-toggler > .unread-notifications-count {
-        position: absolute;
-        right: -8px;
-    }
-}
+@use "@core/css/components/global-mixins" as *;
 
 .unreadCount {
     position: absolute;

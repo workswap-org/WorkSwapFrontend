@@ -1,6 +1,6 @@
 "use client"
 
-import Avatar from "@core/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar/Avatar";
 import { ChatType } from "@core/lib/constants/chatTypes";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useChats } from "@core/lib/contexts/MessengerContext";

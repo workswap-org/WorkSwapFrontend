@@ -1,12 +1,13 @@
 "use client"
 
-import Avatar from "@core/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar/Avatar";
 import FormattedDate from "@core/components/common/date/FormattedDate";
 import { userService } from "@core/lib/services/user";
 import { IReview } from "@core/lib/types/models/review";
 import { IShortUser } from "@core/lib/types/models/user";
 import { useEffect, useState } from "react";
 import styles from "./ReviewItem.module.scss"
+import StarIcon from "@core/components/common/icons/StarIcon";
 
 const ReviewItem = ({review}: {review: IReview}) => {
 
@@ -32,17 +33,13 @@ const ReviewItem = ({review}: {review: IReview}) => {
                     <div className={styles.meta}>
                         <span className={styles.rating}>
                             {[1, 2, 3, 4, 5].map(i => (
-                                <i
-                                    key={i}
-                                    className={
-                                        "fa " +
-                                        (review.rating >= i
-                                            ? "fa-star"
-                                            : review.rating >= i - 0.5
-                                            ? "fa-star-half-o"
-                                            : "fa-star-o")
-                                    }
-                                />
+                                review.rating >= i ? (
+                                    <StarIcon key={i} filled />
+                                ) : review.rating >= i - 0.5 ? (
+                                    <StarIcon key={i} half />
+                                ) : (
+                                    <StarIcon key={i} />
+                                )
                             ))}
                         </span>
                     </div>

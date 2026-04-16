@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { userService } from "@core/lib/services/user";
 import ThemeChanger from "@core/components/layout/ThemeChanger";
 import NavItem from "@core/components/common/NavItem"
-import Avatar from "@core/components/common/Avatar";
-import LanguageSwitcher from "@core/components/layout/LanguageSwitcher";
+import Avatar from "@core/components/common/Avatar/Avatar";
+import LanguageSwitcher from "@core/components/layout/LanguageSwitcher/LanguageSwitcher";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import NotificationHeaderButton from '@/components/layout/header/NotificationHeaderButton';
 import SignOutIcon from "@core/components/common/icons/SignOutIcon"

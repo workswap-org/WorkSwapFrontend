@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { IShortUserProfile } from "@core/lib/types/models/user";
-import Avatar from "@core/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar/Avatar";
 import Link from 'next/link';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 

@@ -1,4 +1,6 @@
 import { ReactNode } from "react";
+import styles from "./Loader.module.scss";
+import LoadingSpinner from "../icons/LoadingSpinner";
 
 const Loader = ({
     loadingActive,
@@ -9,9 +11,9 @@ const Loader = ({
 }) => {
 
     return loadingActive ? (
-        <div className="loader-wrapper">
+        <div className={styles.wrapper}>
             <div className="loader">
-                <i className="fa-solid fa-spinner-third fa-spin fa-4x"></i>
+                <LoadingSpinner/>
             </div>
         </div>
     ) : children;

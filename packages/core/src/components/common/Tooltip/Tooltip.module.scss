@@ -1,12 +1,12 @@
 @use "@core/css/components/global-mixins" as *;
 
-.tooltip-wrapper {
+.wrapper {
     position: relative;
     cursor: pointer;
     display: inline-block;
 }
 
-.tooltip-box {
+.box {
     position: absolute;
     top: 0;
     left: 50%;

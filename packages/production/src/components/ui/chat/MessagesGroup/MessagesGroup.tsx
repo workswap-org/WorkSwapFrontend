@@ -1,4 +1,4 @@
-import Avatar from "@core/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar/Avatar";
 import { privateChatTypes } from "@core/lib/constants/chatTypes";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useChats } from "@core/lib/contexts/MessengerContext";

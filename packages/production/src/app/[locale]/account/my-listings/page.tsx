@@ -6,9 +6,9 @@ import { IFullListing } from "@core/lib/types/models/listing";
 import { listingService } from "@core/lib/services/listing";
 import PrivateListingCard from "@/components/ui/cards/PrivateListingCard/PrivateListingCard";
 import ListingDraftItem from "@/components/ui/cards/DraftListingCard/DraftListingCard";
-import Tooltip from "@core/components/common/Tooltip"
+import Tooltip from "@core/components/common/Tooltip/Tooltip"
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import Loader from "@core/components/common/Loader"
+import Loader from "@core/components/common/Loader/Loader"
 import PlusIcon from "@core/components/common/icons/PlusIcon";
 import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 

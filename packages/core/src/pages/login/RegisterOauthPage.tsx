@@ -1,4 +1,4 @@
-import Avatar from "@core/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar/Avatar";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { apiFetchJson } from "@core/lib/services/utils/apiClient";

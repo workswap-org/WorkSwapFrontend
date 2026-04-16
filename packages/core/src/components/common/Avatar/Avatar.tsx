@@ -2,6 +2,7 @@
 
 import { IShortUser, IShortUserProfile, IUser } from "@core/lib/types/models/user";
 import { redirect } from "next/navigation";
+import styles from "./Avatar.module.scss";
 
 interface AvatarProps {
     user: IShortUser | IUser | IShortUserProfile | null;
@@ -20,7 +21,7 @@ const Avatar = ({ user, size = 40, className = "", link = true}: AvatarProps) =>
 
     return (
         <img
-            className={`${className} avatar ${interactive ? "interactive" : ""}`}
+            className={`${className} ${styles.avatar} ${interactive ? styles.interactive : ""}`}
             src={user?.avatarUrl || "/images/placeholders/avatar-placeholder.png"}
             alt="Аватар"
             style={{

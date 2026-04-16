@@ -1,11 +1,13 @@
 const HeartIcon = ({
     filled, 
     onClick,
-    className
+    className,
+    size
 }: {
-    filled: boolean, 
+    filled?: boolean, 
     onClick?: () => void,
-    className: string
+    className?: string,
+    size: number
 }) => {
     return (
         <svg 
@@ -17,6 +19,7 @@ const HeartIcon = ({
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 640 640"
             fill="currentColor"
+            width={size}
         >
             <path 
                 d={filled ? 

@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { IReview } from "@core/lib/types/models/review"
 import { reviewsService } from "@core/lib/services/reviewsService"
 import styles from "./ReviewForm.module.scss"
+import StarIcon from "@core/components/common/icons/StarIcon";
 
 interface ReviewFormProps {
     setReviews: Dispatch<SetStateAction<IReview[] | null>>;
@@ -72,22 +73,33 @@ const ReviewForm = ({setReviews, listingId, profileId}: ReviewFormProps) => {
                         <div className={styles.ratingGroup}>
                             <label htmlFor="ratingStars">{dict.common.reviews.item.rating}</label>
                             <div className={styles.rating} id="ratingStars">
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                    <i
-                                        key={star}
-                                        className={
-                                            "fa-solid fa-star star " +
-                                            (hover >= star 
-                                                ? "hovered" 
-                                                : rating >= star 
-                                                ? "selected" 
-                                                : "")
-                                        }
-                                        onClick={() => setRating(star)}
-                                        onMouseEnter={() => setHover(star)}
-                                        onMouseLeave={() => setHover(0)}
-                                    ></i>
-                                ))}
+                                {[1, 2, 3, 4, 5].map((star) => {
+                                    const isFilled = rating >= star;
+                                    const isHalf = !isFilled && rating >= star - 0.5;
+
+                                    return (
+                                        <button
+                                            key={star}
+                                            onClick={() => setRating(star)}
+                                            onMouseEnter={() => setHover(star)}
+                                            onMouseLeave={() => setHover(0)}
+                                        >
+                                            <StarIcon
+                                                filled={isFilled}
+                                                half={isHalf}
+                                                className={`
+                                                    ${styles.star}
+                                                    ${hover >= star
+                                                        ? styles.hovered
+                                                        : isFilled
+                                                        ? styles.selected
+                                                        : ""
+                                                    }
+                                                `}
+                                            />
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
                         <div className={styles.textGroup}>

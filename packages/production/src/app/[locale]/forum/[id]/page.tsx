@@ -1,6 +1,6 @@
 "use client"
 
-import Avatar from "@core/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar/Avatar";
 import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useI18n } from "@core/lib/contexts/I18nContext";

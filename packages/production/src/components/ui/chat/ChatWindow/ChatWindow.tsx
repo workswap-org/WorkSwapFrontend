@@ -9,7 +9,7 @@ import { useActivePage } from "@core/lib/contexts/ActivePageContext";
 import { useChats } from "@core/lib/contexts/MessengerContext";
 import { IShortUser } from "@core/lib/types/models/user";
 import { ChatType, privateChatTypes } from "@core/lib/constants/chatTypes"
-import Avatar from "@core/components/common/Avatar";
+import Avatar from "@core/components/common/Avatar/Avatar";
 import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./ChatWindow.module.scss"

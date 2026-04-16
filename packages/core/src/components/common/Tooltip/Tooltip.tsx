@@ -1,6 +1,7 @@
 "use client"
 
 import { ReactNode, useRef, useState } from "react";
+import styles from "./Tooltip.module.scss";
 
 interface Props {
     text: string;
@@ -28,12 +29,12 @@ const Tooltip = ({ text, delay = 500, children }: Props) => {
     
     return (
         <div 
-            className="tooltip-wrapper"
+            className={styles.wrapper}
             onMouseEnter={showTip}
             onMouseLeave={hideTip}
         >
             {children}
-            {visible && <div className="tooltip-box">{text}</div>}
+            {visible && <div className={styles.box}>{text}</div>}
         </div>
     );
 };

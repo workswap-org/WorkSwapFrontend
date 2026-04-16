@@ -1,7 +1,7 @@
 "use client"
 
-import Avatar from "@core/components/common/Avatar";
-import RatingStars from "@core/components/common/RatingStars";
+import Avatar from "@core/components/common/Avatar/Avatar";
+import RatingStars from "@core/components/common/RatingStars/RatingStars";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { userService } from "@core/lib/services/user";
@@ -53,7 +53,7 @@ const AccountSidebar = () => {
                 <h4 className={styles.name}>{user?.name}</h4>
                 <div className={styles.rating}>
                     <RatingStars rating={user?.rating ?? 0} />
-                    (<span>{user?.rating}</span>)
+                    <span>({user?.rating})</span>
                 </div>
                 {/* <a href="/account/settings" className="btn btn-outline-primary btn-sm">{t(`accountSidebar.links.editProfile`, { ns: 'navigation' })}</a> */}
             </div>
