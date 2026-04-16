@@ -122,6 +122,7 @@ const ListingPageLayout = ({
                                             <HeartIcon
                                                 filled={isFavorite}
                                                 className={"like"}
+                                                size={24}
                                             />
                                         </div>
                                     ) : (

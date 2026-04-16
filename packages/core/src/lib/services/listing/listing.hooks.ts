@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { listingService } from "../listing";
 import { useAuth } from "@core/lib/contexts/AuthContext";
-import { IEventPageRequest, IFullListing, IListingPageRequest, IShortListing } from "@core/lib/types/models/listing";
+import { IShortListing } from "@core/lib/types/models/listing";
 
-export function useFavorite(listing: IEventPageRequest | IListingPageRequest | IFullListing | IShortListing | null) {
+export function useFavorite(listing: IShortListing | null) {
 
     const { isAuthenticated } = useAuth();
 

@@ -16,7 +16,7 @@ import RatingStars from "@core/components/common/RatingStars/RatingStars";
 import FormattedDate from "@core/components/common/date/FormattedDate"
 import Avatar from "@core/components/common/Avatar/Avatar";
 import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
-import layoutStyles from "@/components/ui/listing/ListingPageLayout/ListingPageLayout.module.scss"
+import layoutStyles from "@/components/pages/listing/ListingPageLayout/ListingPageLayout.module.scss"
 import listingPageStyles from "../ListingPage.module.scss"
 import styles from "./EventPage.module.scss"
 
@@ -108,7 +108,7 @@ const EventPage = () => {
                 <>
                     <div className={listingPageStyles.detail}>
                         <span className={listingPageStyles.label}>{dict.common.labels.event.price}:</span>
-                        <PriceTypes listing={listingPage} />
+                        <PriceTypes listing={listingPage.listing} />
                     </div>
                     <div className={listingPageStyles.detail}>
                         <span className={listingPageStyles.label}>{dict.common.labels.event.date}:</span>

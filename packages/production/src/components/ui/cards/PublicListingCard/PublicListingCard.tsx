@@ -47,6 +47,7 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
                         <span id="likesCount">{likesCount}</span>
                         <HeartIcon 
                             filled={isFavorite}
+                            size={24}
                             className={"like"}
                             onClick={toggleFavorite}
                         />

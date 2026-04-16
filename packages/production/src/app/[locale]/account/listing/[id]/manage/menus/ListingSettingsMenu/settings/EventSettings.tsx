@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import ListingSetting from "../ListingSetting";
-import { IEventSettings, IFullListing } from "@core/lib/types/models/listing";
+import { IEventData, IFullListing } from "@core/lib/types/models/listing";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { eventService } from "@core/lib/services/eventService"
 import { useI18n } from "@core/lib/contexts/I18nContext";
@@ -31,7 +31,7 @@ const EventSettings = ({
     const { dict } = useI18n();
     const {notificate} = useNotification();
 
-    const [event, setEvent] = useState<IEventSettings | null>(null)
+    const [event, setEvent] = useState<IEventData | null>(null)
 
     const [eventDate, setEventDate] = useState<string | null>(null)
     const [recurrence, setRecurrence] = useState('DAILY')
@@ -71,7 +71,7 @@ const EventSettings = ({
         setMaxParticipants(event.maxParticipants);
         setMinParticipants(event.minParticipants);
         setEventStatus(event.eventStatus);
-        setPublic(event.public);
+        setPublic(event.isPublic);
 
     }, [event]);
 

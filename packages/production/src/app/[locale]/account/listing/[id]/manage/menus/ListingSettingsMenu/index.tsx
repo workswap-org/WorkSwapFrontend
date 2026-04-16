@@ -76,7 +76,7 @@ const ListingSettingsMenu = ({listing}: {listing: IFullListing}) => {
                 </div>
             </ListingSetting>
 
-            {listing && !disabledTypesForPrice.includes(listing.publicType) &&
+            {listing && !disabledTypesForPrice.includes(listing.publicType ?? "") &&
                 <ListingSetting title={dict.common.labels.price}>
                     <PriceEdit listing={listing} updateListing={updateListing}/>
                 </ListingSetting>

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useChats } from '@core/lib/contexts/MessengerContext';
 import { ChatType } from '@core/lib/constants/chatTypes';
 import { listingService } from '@core/lib/services/listing';
-import SidebarSectionLayout from '@core/components/layout/SidebarSectionLayout'
+import SidebarSectionLayout from '@core/components/layout/SidebarSectionLayout/SidebarSectionLayout'
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import ListingSettingsMenu from './menus/ListingSettingsMenu';

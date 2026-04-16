@@ -6,7 +6,7 @@ import ProfileSettings from "./ProfileSettings";
 import PreferencesSettings from "./PreferencesSettings";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { userService } from "@core/lib/services/user";
-import SidebarSectionLayout from "@core/components/layout/SidebarSectionLayout";
+import SidebarSectionLayout from "@core/components/layout/SidebarSectionLayout/SidebarSectionLayout";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { IFullUser } from "@core/lib/types/models/user";
 import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"

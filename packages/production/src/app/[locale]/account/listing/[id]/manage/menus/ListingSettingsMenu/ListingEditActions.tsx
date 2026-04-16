@@ -16,7 +16,7 @@ const ListingEditActions = ({listing}: {listing: IFullListing}) => {
                 onClick={() => {
                     const confirmed = window.confirm(dict.messages.confirms.deleteListing);
                     if (confirmed) {
-                        listingService.delete(listing.id)
+                        listingService.deleteListing(listing.id)
                             .then(() => notificate(dict.messages.notification.success.listingDelete, "success"))
                             .catch(() => notificate(dict.messages.notification.error.listingDelete, "error"));
                         redirect(`/account/my-listings`);
