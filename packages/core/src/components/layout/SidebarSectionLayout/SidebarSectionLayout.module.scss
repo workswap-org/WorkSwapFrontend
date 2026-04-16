@@ -1,0 +1,57 @@
+@use "@core/css/components/global-mixins" as *;
+
+.page {
+    @include flex-row;
+    gap: 1rem;
+    height: 100%;
+
+    @include mobile {
+        width: 200%;
+        transition: translate 0.3s ease-out;
+
+        &:has(.section-container.active) {
+            translate: -50%;
+        }
+    }
+}
+
+.sidebar {
+    @include flex-column;
+    gap: 0.5rem;
+    padding-right: 1rem;
+    border-right: 1px solid var(--border-color);
+
+    @include mobile {
+        width: 100%;
+        border: none;
+        padding-right: 0;
+    }
+}
+
+.section {
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 8px;
+    display: flex;
+    gap: 0.5rem;
+    text-align: left;
+
+    &.active {
+        background-color: rgba(0, 0, 0, 0.281);
+    }
+}
+
+.container {
+    @include flex-column;
+    gap: 1rem;
+    width: 100%;
+
+    @include mobile {
+        height: fit-content;
+    }
+}
+
+.mobileActions {
+    justify-content: space-between;
+}

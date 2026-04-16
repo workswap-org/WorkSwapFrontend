@@ -88,18 +88,6 @@
     @include tablet {
         @include flex-row;
     }
-    
-    .navbar-toggler {
-        display: flex;
-        background: none;
-        border: none;
-        align-items: center;
-        padding-left: 1rem;
-
-        i {
-            font-size: 2rem;
-        }
-    }
 }
 
 /* .navbar-collapse {
@@ -125,19 +113,3 @@
         margin-bottom: 0;
     }
 } */
-
-.navbar-btn {
-    padding: 0.75rem 1.5rem;
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    text-align: left;
-    width: 100%;
-    font-weight: 500;
-    font-size: 1.1rem;
-    background-color: transparent;
-    border-width: 0;
-    color: var(--text-color);
-    cursor: pointer;
-    border-radius: var(--radius);
-}

@@ -1,11 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import NotificationsContainer from "@core/components/ui/notifications/NotificationsContainer";
+import NotificationsContainer from "@core/components/ui/notifications/NotificationsConteiner/NotificationsContainer";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { usePathname } from "next/navigation";
 import BellIcon from "@core/components/common/icons/BellIcon";
 import styles from "./NavButtons/NavButtons.module.scss"
+import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
 
 const NotificationHeaderButton = () => {
 
@@ -26,9 +27,7 @@ const NotificationHeaderButton = () => {
             >
                 <BellIcon />
                 {unreadNotificationsCount > 0 && (
-                    <div id="unreadNotifications" className="unread-notifications-count">
-                        {unreadNotificationsCount}
-                    </div>
+                    <UnreadNotifications count={unreadNotificationsCount}/>
                 )}
             </button>
             <NotificationsContainer isOpen={isOpen} onClose={() => setOpen(false)} />

@@ -2,6 +2,8 @@
 
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { ReactNode, useEffect, useState } from "react";
+import styles from "./SidebarSectionLayout.module.scss";
+import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
  
 export interface SidebarSection {
     first: boolean;
@@ -46,27 +48,25 @@ const SidebarSectionLayout = ({
     }
 
     return (
-        <div className="sidebar-section-page">
-            <div className="sidebar-sections">
+        <div className={styles.sidebar}>
+            <div className={styles.sidebar}>
                 {Object.entries(sections).map(([key, section]) => (
                     <button
                         key={section.name}
-                        className={`section-btn hover ${section.name === currentSection?.name ? "active" : ""}`}
+                        className={`${styles.section} hover ${section.name === currentSection?.name ? "active" : ""}`}
                         onClick={() => setCurrentSection(section)}
                         id={notifications?.menu.name === section.name ? "notificationAnchor" : "none"}
                     >
                         <div><i className={`fa-regular fa-${section.icon}`}></i></div>
                         {dict.common[pageName].sections[key]}
                         {notifications?.menu.name === section.name && notifications.count > 0 &&
-                            <span id="unreadNotifications" className="unread-notifications-count">
-                                {notifications.count}
-                            </span>
+                            <UnreadNotifications count={notifications.count}/>
                         }
                     </button>
                 ))}
             </div>
-            <div className={`section-container ${currentSection ? "active" : ""}`} >
-                <div className='mobile-actions media-only-flex'>
+            <div className={`${styles.container} ${currentSection ? styles.active : ""}`} >
+                <div className={`${styles.mobileActions} media-only-flex`}>
                     <button onClick={() => setCurrentSection(null)}>
                         <i className={`fa-regular fa-arrow-left fa-lg`}></i>
                     </button>

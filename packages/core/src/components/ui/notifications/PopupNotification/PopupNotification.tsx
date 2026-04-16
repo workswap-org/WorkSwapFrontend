@@ -1,4 +1,5 @@
 import { IPopupNotification } from "@core/lib/types/notification";
+import styles from "./PopupNotification.module.scss"
 
 interface PopupNotificationProps {
     onClose: () => void;
@@ -9,9 +10,9 @@ const PopupNotification = ({ onClose, notification }: PopupNotificationProps) =>
     if (!notification) return null;
 
     return (
-        <div className={`popup-notification ${notification.type}`}>
+        <div className={`${styles.notification} ${styles[notification.type]}`}>
             {notification.message}
-            <button className="close" onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
+            <button className={styles.close} onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
         </div>
     );
 };

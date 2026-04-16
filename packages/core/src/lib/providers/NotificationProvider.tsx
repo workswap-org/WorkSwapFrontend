@@ -1,20 +1,18 @@
 "use client";
 
-import { useState, useRef, useCallback, useMemo, ReactNode, createRef } from "react";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { useState, useCallback, useMemo, ReactNode } from "react";
 import { useNotificationSubscription } from "@core/lib/hooks/notification/useNotificationSubscription";
 import { useChats } from "@core/lib/contexts/MessengerContext";
 import { NotificationContext } from "@core/lib/contexts/NotificationContext";
-import PopupNotification from "@core/components/ui/notifications/PopupNotification";
 import { IPopupNotification } from "../types/notification";
 import { useI18n } from "../contexts/I18nContext";
+import PopupNotificationList from "@core/components/ui/notifications/PopupNotificationList/PopupNotificationList";
 
 export const NotificationProvider = ({ children }: {children?: ReactNode}) => {
     const { loading, notifications, setNotifications, unreadCount } = useNotificationSubscription();
 
     const [popupNotifications, setPopupNotifications] = useState<IPopupNotification[]>([]);
     const { unreadMessages } = useChats();
-    const nodeRefs = useRef<Record<number, React.RefObject<HTMLDivElement | null>>>({});
     const { dict } = useI18n();
 
     const unreadNotificationsCount = useMemo(() => {
@@ -56,35 +54,14 @@ export const NotificationProvider = ({ children }: {children?: ReactNode}) => {
                 notifications, 
                 loading, 
                 setNotifications, 
-                unreadNotificationsCount
+                unreadNotificationsCount,
+                deletePopupNotification,
+                popupNotifications
             }}
         >
             {children}
-            <div className="popup-notification-list">
-                <TransitionGroup component={null}>
-                    {popupNotifications?.map((n) => {
-                        if (!nodeRefs.current[n.id]) {
-                            nodeRefs.current[n.id] = createRef<HTMLDivElement>();
-                        }
-
-                        return (
-                            <CSSTransition
-                                key={n.id}
-                                nodeRef={nodeRefs.current[n.id]}
-                                timeout={300}
-                                classNames="popup-notification-animate"
-                            >
-                                <div ref={nodeRefs.current[n.id]}>
-                                    <PopupNotification
-                                        onClose={() => deletePopupNotification(n.id)}
-                                        notification={n}
-                                    />
-                                </div>
-                            </CSSTransition>
-                        );
-                    })}
-                </TransitionGroup>
-            </div>
+            
+            <PopupNotificationList />
         </NotificationContext.Provider>
     );
 };

@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { languagesList } from "@core/lib/constants/languages";
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import styles from "./LanguageSwitcher.module.scss"
 
-
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({mobile}: {mobile?: boolean}) => {
     const { locale } = useI18n();
     const pathname = usePathname();
     const router = useRouter();
@@ -35,21 +35,21 @@ const LanguageSwitcher = () => {
     };
 
     return (
-        <div className="language-toggle">
+        <div className={`${styles.toggler} ${mobile ? styles.mobile : ""}`}>
             <div
-                className={`lang-button ${isOpen ? "active" : ""}`}
+                className={`${styles.button} ${isOpen ? styles.active : ""}`}
                 onClick={toggleLangMenu}
             >
                 {locale.toUpperCase()}
             </div>
 
-            <div className={`lang-dropdown ${isOpen ? "active" : ""}`}>
+            <div className={`${styles.dropdown} ${isOpen ? styles.active : ""}`}>
                 {languagesList.map(({ code, label }) => (
                     <button
                         key={code}
                         type="button"
-                        className={`lang-dropdown-item ${
-                            locale === code ? "active" : ""
+                        className={`${styles.langItem} ${
+                            locale === code ? styles.active : ""
                         }`}
                         onClick={() => changeLanguage(code)}
                     >

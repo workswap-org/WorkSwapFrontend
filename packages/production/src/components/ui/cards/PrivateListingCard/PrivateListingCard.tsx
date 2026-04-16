@@ -10,6 +10,7 @@ import { ChatType } from '@core/lib/constants/chatTypes';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import styles from "./PrivateListingCard.module.scss"
 import GearIcon from "@core/components/common/icons/GearIcon"
+import UnreadNotifications from '@core/components/ui/notifications/UnreadNotifications/UnreadNotifications';
 
 const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
 
@@ -58,9 +59,7 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
                     <GearIcon />
                     {dict.buttons.listing.manage}
                     {notifCount > 0 &&
-                        <span id="unreadNotifications" className="unread-notifications-count">
-                            {notifCount}
-                        </span>
+                        <UnreadNotifications count={notifCount}/>
                     }
                 </Link>
             </div>

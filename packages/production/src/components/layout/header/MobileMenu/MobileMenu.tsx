@@ -9,11 +9,14 @@ import { AUTH_BASE } from "@core/config";
 import Link from "next/link";
 import { userService } from "@core/lib/services/user"
 import { useNotification } from "@core/lib/contexts/NotificationContext"
-import LanguageSwitcher from '@core/components/layout/LanguageSwitcher';
+import LanguageSwitcher from '@core/components/layout/LanguageSwitcher/LanguageSwitcher';
 import Avatar from "@core/components/common/Avatar"
 import AccountSidebarLinks from "../../../account/AccountSidebarLinks";
 import ContactModal from "@/components/ui/modal/ContactModal";
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import styles from "./MobuleMenu.module.scss"
+import SignOutIcon from "@core/components/common/icons/SignOutIcon";
+import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
 
 const MobileMenu = () => {
 
@@ -65,27 +68,24 @@ const MobileMenu = () => {
         <>
             <button 
                 onClick={() => setOpen(p => !p)} 
-                className="navbar-toggler" 
+                className={styles.navbarToggler} 
                 id="notificationAnchor"
             >
                 <div><i className="fa-solid fa-bars"></i></div>
                 {unreadNotificationsCount > 0 && (
-                    <span id="unreadNotifications" className="unread-notifications-count">
-                        {unreadNotificationsCount}
-                    </span>
+                    <UnreadNotifications count={unreadNotificationsCount}/>
                 )}
             </button>
             {mobileMenuEm && createPortal(
-                <div className={`mobile-menu ${isOpen ? "show" : ""}`}>
+                <div className={`${styles.mobileMenu} ${isOpen ? styles.show : ""}`}>
 
-                    <LanguageSwitcher/>
+                    <LanguageSwitcher mobile />
 
-                    <div className="user-info-menu">
+                    <div className={styles.userInfo}>
                         {isAuthenticated && (
                             <Avatar
                                 user={user}
                                 size={100}
-                                className='profile-avatar'
                             />
                         )}
 
@@ -93,21 +93,21 @@ const MobileMenu = () => {
                     </div>
 
                     {user?.name ? (
-                        <Link className="navbar-btn" href='/logout'>
-                            <div><i className="fa-regular fa-left-from-bracket fa-lg"></i></div>
+                        <Link className={styles.navbarBtn} href='/logout'>
+                            <div><SignOutIcon /></div>
                             <span>{dict.navigation.accountSidebar.logout}</span> 
                         </Link>
                     ) : (
                         <a
                             href={`${AUTH_BASE}/auth?redirect=${encodeURIComponent(window.location.origin + window.location.href)}`}
-                            className="navbar-btn"
+                            className={styles.navbarBtn}
                         >
                             <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>
                             <span>{dict.navigation.accountSidebar.login}</span> 
                         </a>
                     )}
 
-                    <div className="account-manager">
+                    <div className={styles.accountManager}>
                         <AccountSidebarLinks />
                     </div>
 

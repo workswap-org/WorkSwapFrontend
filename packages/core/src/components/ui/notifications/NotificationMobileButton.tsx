@@ -1,11 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import NotificationsContainer from "./NotificationsContainer";
+import NotificationsContainer from "./NotificationsConteiner/NotificationsContainer";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { usePathname } from "next/navigation";
 import BellIcon from "@core/components/common/icons/BellIcon";
+import UnreadNotifications from "./UnreadNotifications/UnreadNotifications";
 
 const NotificationMobileButton = () => {
  
@@ -28,9 +29,7 @@ const NotificationMobileButton = () => {
                 <BellIcon />
                 <span>{dict.buttons.menu.notifications}</span>
                 {unreadNotificationsCount > 0 && (
-                    <span id="unreadNotifications" className="unread-notifications-count">
-                        {unreadNotificationsCount}
-                    </span>
+                    <UnreadNotifications count={unreadNotificationsCount}/>
                 )}
             </button>
             <NotificationsContainer isOpen={isOpen} onClose={() => setOpen(false)} />
