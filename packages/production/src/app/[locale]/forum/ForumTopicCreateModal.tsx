@@ -1,5 +1,5 @@
 import ForumTagSelector from "@/components/ui/selectors/ForumTagSelector";
-import Modal from "@core/components/ui/Modal";
+import Modal from "@core/components/ui/Modal/Modal";
 import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { forumService } from "@core/lib/services/forumService";

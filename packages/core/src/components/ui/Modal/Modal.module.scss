@@ -1,6 +1,6 @@
 @use "@core/css/components/global-mixins" as *;
 
-dialog.modal {
+.modal {
     transition: all 0.2s ease;
     border: 2px solid var(--border-color);
     background: var(--background-l1);
@@ -13,16 +13,6 @@ dialog.modal {
     @include flex-column;
     gap: 1rem;
 
-    &#translationModal {
-        width: 500px;
-        height: 400px;
-
-        @include mobile {
-            width: 90vw;
-            height: 60vh;
-        }
-    }
-
     &::backdrop {
         background-color: rgba(56, 56, 56, 0.548);
     }
@@ -34,17 +24,17 @@ dialog.modal {
     .navbar-btn {
         padding-left: 1rem;
     }
+}
 
-    .close-modal {
-        position: absolute;
-        right: 1rem;
-        top: 1rem;
-        cursor: pointer;
-        width: 1.7rem;
-        height: 1.7rem;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

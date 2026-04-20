@@ -111,7 +111,7 @@ const MobileMenu = () => {
                         <AccountSidebarLinks />
                     </div>
 
-                    <NotificationMobileButton/>
+                    <NotificationMobileButton className={styles.navbarBtn} />
 
                     <ContactModal/>
                 </div>,

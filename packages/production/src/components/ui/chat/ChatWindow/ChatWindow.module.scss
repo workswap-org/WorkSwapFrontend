@@ -88,6 +88,8 @@
     background-color: transparent;
     border-width: 0;
     color: var(--text-color);
+    height: 100%;
+    width: 30px;
 
     @include mobile {
         display: block;
@@ -107,6 +109,15 @@
 
     @include mobile {
         display: flex;
+    }
+
+    .action {
+        width: fit-content;
+
+        svg {
+            height: 100%;
+            width: 26px;
+        }
     }
 }
 

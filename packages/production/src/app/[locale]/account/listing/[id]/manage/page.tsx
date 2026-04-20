@@ -14,6 +14,7 @@ import { useI18n } from '@core/lib/contexts/I18nContext';
 import { useChatSubscription } from '@core/lib/hooks/chat/useChatSubscription';
 import { useChatsLoad } from '@core/lib/hooks/chat/useChatsLoad';
 import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
+import LeftArrowIcon from '@core/components/common/icons/LeftArrowIcon';
 
 const ListingMenu = {
     SETTINGS: {
@@ -69,8 +70,8 @@ const ListingManagePage = () => {
         <>
             <div className={`${accountStyles.accountHeader} flex-row`}>
                 <div className='mobile-actions media-only-flex'>
-                    <Link href='/account/my-listings' className='back-link-arrow'>
-                        <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
+                    <Link href='/account/my-listings' className={accountStyles.backBtn}>
+                        <LeftArrowIcon />
                     </Link>
                 </div>
                 <h2>{dict.common.titles.listingManage}</h2>

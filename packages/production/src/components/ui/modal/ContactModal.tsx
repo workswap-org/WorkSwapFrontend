@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
-import Modal from "@core/components/ui/Modal"
+import Modal from "@core/components/ui/Modal/Modal"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 
 const ContactModal = () => {

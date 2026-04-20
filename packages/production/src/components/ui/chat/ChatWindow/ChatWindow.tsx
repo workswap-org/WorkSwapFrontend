@@ -14,6 +14,9 @@ import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./ChatWindow.module.scss"
 import sharedStyles from "../ChatShared.module.scss"
+import LeftArrowIcon from "@core/components/common/icons/LeftArrowIcon";
+import CardsIcon from "@core/components/common/icons/CardsIcon";
+import UserIcon from "@core/components/common/icons/UserIcon";
 
 const ChatWindow = ({title}: {title?: string}) => {
 
@@ -43,7 +46,7 @@ const ChatWindow = ({title}: {title?: string}) => {
 
     function renderChatWindow() {
         return (
-            <div id={currentChat?.type} className={`${styles.chatWindow} ${currentChatId ? "show" : ""}`}>
+            <div id={currentChat?.type} className={`${styles.chatWindow} ${currentChatId ? styles.show : ""}`}>
                 <div className={styles.chatHeader}>
                     <div className={styles.chatInfo}>
                         <button 
@@ -51,7 +54,7 @@ const ChatWindow = ({title}: {title?: string}) => {
                             onClick={() => setCurrentChatId(null)} 
                             className={styles.mobileDialogsToggle}
                         >
-                            <i className="fa-regular fa-arrow-left fa-2xl"></i>
+                            <LeftArrowIcon />
                         </button>
 
                         {currentChat?.type !== undefined &&
@@ -72,17 +75,17 @@ const ChatWindow = ({title}: {title?: string}) => {
                     <div className={styles.mobileActions}>
                         {chatInterlocutor?.id && (
                             <button 
-                                className="btn btn-primary btn-sm" 
+                                className={`${styles.action} btn btn-primary btn-sm`}
                                 onClick={() => setChatListingVisible(prev => !prev)}
                             >
-                                <i className="fa-regular fa-cards-blank fa-lg"></i>
+                                <CardsIcon />
                             </button>
                         )}
                         <Link
                             href={`/profile/${chatInterlocutor?.openId}`} 
-                            className="btn btn-outline-primary btn-sm"
+                            className={`${styles.action} btn btn-outline-primary btn-sm`}
                         >
-                            <i className="fa-regular fa-user fa-lg"></i>
+                            <UserIcon />
                         </Link>
                     </div>
                     <div className={styles.actions}>

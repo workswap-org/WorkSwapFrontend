@@ -1,6 +1,7 @@
 "use client"
 
 import { ReactNode, useEffect, useRef } from 'react';
+import styles from "./Modal.module.scss";
 
 interface ModalProps {
     isOpen: boolean;
@@ -33,8 +34,8 @@ const Modal = ({ isOpen, onClose, title, id = 'normalModal', children }: ModalPr
     }, [isOpen, onClose]);
 
     return (
-        <dialog ref={dialogRef} className="modal fade-down" onClick={(e) => e.stopPropagation()} id={id}>
-            <span className="close-modal hover" onClick={onClose}><i className="fa-solid fa-xmark"></i></span>
+        <dialog ref={dialogRef} className={`${styles.modal} fade-down`} onClick={(e) => e.stopPropagation()} id={id}>
+            <span className={`${styles.close} hover`} onClick={onClose}><i className="fa-solid fa-xmark"></i></span>
             {title && <h2>{title}</h2>}
             {children}
         </dialog>

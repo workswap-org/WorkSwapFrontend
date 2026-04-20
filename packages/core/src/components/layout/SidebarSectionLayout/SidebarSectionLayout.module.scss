@@ -9,7 +9,7 @@
         width: 200%;
         transition: translate 0.3s ease-out;
 
-        &:has(.section-container.active) {
+        &:has(.container.active) {
             translate: -50%;
         }
     }
@@ -54,4 +54,8 @@
 
 .mobileActions {
     justify-content: space-between;
+
+    .backBtn {
+        width: 24px
+    }
 }
