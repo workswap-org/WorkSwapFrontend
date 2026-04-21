@@ -1,0 +1,33 @@
+@use "@core/css/components/global-mixins" as *;
+
+$sidebar-width: 350px;
+$sidebar-page: 1200px;
+
+.layout {
+    height: 100%;
+    flex: 1;
+    @include card;
+    padding: 1.5rem;
+    max-width: calc($sidebar-page - $sidebar-width - 1rem);
+
+    @include mobile {
+        min-height: 100%;
+        height: fit-content;
+        max-width: 100%;
+        padding: .5rem;
+
+        h1 { margin-left: 1rem; }
+
+        h3 { margin-left: .5rem; }
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.topicList {
+    @include flex-column;
+    gap: 0.7rem;
+}

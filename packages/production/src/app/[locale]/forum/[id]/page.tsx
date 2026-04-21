@@ -8,7 +8,7 @@ import { IForumPost, IForumTopic } from "@core/lib/types/forum";
 import { IShortUser } from "@core/lib/types/models/user";
 import { redirect, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import ForumPost from "./ForumPost";
+import ForumPost from "../../../../components/pages/forum/ForumPost/ForumPost";
 import { forumService } from "@core/lib/services/forumService"
 import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow"

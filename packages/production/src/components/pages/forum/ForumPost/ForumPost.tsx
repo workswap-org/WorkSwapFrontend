@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ForumComment from "./ForumComment";
+import ForumComment from "../ForumComment/ForumComment";
 import { IForumComment, IForumPost, IForumTopic } from "@core/lib/types/forum";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { IShortUser } from "@core/lib/types/models/user";

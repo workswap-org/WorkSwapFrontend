@@ -5,7 +5,8 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 import { forumService } from "@core/lib/services/forumService";
 import { IForumActivityItem } from "@core/lib/types/forum";
 import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";;
+import { ReactNode, useEffect, useState } from "react";
+import styles from "./ForumLayout.module.scss"
 
 const ForumLayout = ({children}: {children: ReactNode}) => {
 
@@ -21,10 +22,10 @@ const ForumLayout = ({children}: {children: ReactNode}) => {
         loadActivity()
     }, [])
     return (
-        <div className="forum-layout">
+        <div className={styles.layout}>
             {children}
 
-            <aside className="forum-sidebar">
+            <aside className={styles.sidebar}>
                 <h2>{dict.common.forum.lastActivity}</h2>
                 {activityItems?.slice()
                     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -32,10 +33,10 @@ const ForumLayout = ({children}: {children: ReactNode}) => {
                         <Link 
                             key={item.title} 
                             href={item.link} 
-                            className="activity-item"
+                            className={styles.activity}
                         >
                             <UserMeta user={item.author} height={35} />
-                            <span id="title">{item.title}</span>
+                            <span className={styles.title}>{item.title}</span>
                         </Link>
                     ))
                 }

@@ -35,7 +35,7 @@ const Modal = ({ isOpen, onClose, title, id = 'normalModal', children }: ModalPr
 
     return (
         <dialog ref={dialogRef} className={`${styles.modal} fade-down`} onClick={(e) => e.stopPropagation()} id={id}>
-            <span className={`${styles.close} hover`} onClick={onClose}><i className="fa-solid fa-xmark"></i></span>
+            <span className={`${styles.close} hover`} onClick={onClose}>✖</span>
             {title && <h2>{title}</h2>}
             {children}
         </dialog>

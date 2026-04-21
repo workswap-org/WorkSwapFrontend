@@ -6,6 +6,8 @@ import { forumService } from "@core/lib/services/forumService";
 import { ForumTag } from "@core/lib/types/forum";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import PaperPlaneIcon from "@core/components/common/icons/PaperPlaneIcon"
+import styles from "./ForumTopicCreateModal.module.scss"
 
 const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
     const { dict } = useI18n()
@@ -40,14 +42,13 @@ const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
     return (
         <>
             <button 
-                className="btn btn-primary" 
-                id="forumTopicCreate" 
+                className={`${styles.createBtn} btn btn-primary`} 
                 onClick={() => setOpen(true)}
             >
                 <i className="fa-solid fa-pen"/>{dict.buttons.forum.createTopic}
             </button>
             <Modal isOpen={isOpen} onClose={() => setOpen(false)} title="Создать тему">
-                <div className='forum-topic-form'>
+                <div className={styles.form}>
                     <input 
                         value={title} 
                         onChange={(e) => setTitle(e.target.value)}
@@ -56,15 +57,15 @@ const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
                     <TextareaRT1
                         value={content} 
                         setValue={setContent}
-                        className="forum-comment" 
+                        className={styles.contentInput}
                         placeholder='Контент топика'
                     />
-                    <button onClick={createTopic} id="sendBtn" className="hover" disabled={sending}>
-                        <i className="fa-solid fa-paper-plane-top fa-lg"></i>
+                    <button onClick={createTopic} className={`${styles.sendBtn} hover`} disabled={sending}>
+                        <PaperPlaneIcon />
                     </button>
                 </div>
                 {tags && (
-                    <div className='tags-list'>
+                    <div className={styles.tags}>
                         <ForumTagSelector tags={tags} currentTag={tag} onChange={setTag}/>
                     </div>
                 )}
