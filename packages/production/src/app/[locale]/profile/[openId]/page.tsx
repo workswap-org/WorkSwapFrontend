@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import NotFoundPage from "@core/pages/NotFoundPage";
 import { useParams } from 'next/navigation';
 import { IShortListing } from '@core/lib/types/models/listing';

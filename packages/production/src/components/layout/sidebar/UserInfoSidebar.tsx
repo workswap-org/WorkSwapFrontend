@@ -1,6 +1,5 @@
 "use client"
 
-import { useTranslation } from 'react-i18next';
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { IShortUserProfile } from "@core/lib/types/models/user";

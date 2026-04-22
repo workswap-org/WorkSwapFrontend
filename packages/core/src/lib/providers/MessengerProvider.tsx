@@ -2,11 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { MessengerContext } from "../contexts/MessengerContext";
-import { useTranslation } from "react-i18next";
 import { useAuth } from "../contexts/AuthContext";
 import { Order } from "../types/models/order";
 import { GroupedMessages, IChat, IChatDetails, IChatMessage } from "../types/messenger";
 import { useWebSocket } from "../contexts/WebSocketContext";
+import { useI18n } from "../contexts/I18nContext";
 
 export const MessengerProvider = ({ children }: { children?: React.ReactNode }) => {
 
@@ -17,8 +17,8 @@ export const MessengerProvider = ({ children }: { children?: React.ReactNode }) 
     const [order, setOrder] = useState<Order | null>(null);
     const [chats, setChats] = useState<IChat[] | null>(null);
     const [allMessages, setAllMessages] = useState<IChatMessage[] | null>(null);
-    const { i18n } = useTranslation();
-    const userLocale = i18n.language || "fi";
+    const { locale } = useI18n();
+    const userLocale = locale || "fi";
     const { client, connected } = useWebSocket();
 
     const currentChat = useMemo<IChat | null>(

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from 'react-i18next';
 import {settingService} from "@core/lib/services/settingsService"
 import { IFullListing } from "@core/lib/types/models/listing";
 import { useI18n } from "@core/lib/contexts/I18nContext";

@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslation } from "react-i18next";
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 interface Props {
     isoDate: string;
@@ -8,8 +8,7 @@ interface Props {
 }
 
 export const FormattedDate = ({ isoDate, format = "DMYHM"}: Props) => {
-    const { i18n } = useTranslation();
-    const locale = i18n.language || "fi";
+    const { locale } = useI18n();
     if (!isoDate) return null;
 
     const date = new Date(isoDate);

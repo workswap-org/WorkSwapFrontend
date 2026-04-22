@@ -1,12 +1,12 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { IMessage } from '@stomp/stompjs';
 import { useChats } from "@core/lib/contexts/MessengerContext";
 import { IChat, IChatDetails } from "@core/lib/types/messenger";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useWebSocket } from "@core/lib/contexts/WebSocketContext";
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 export function useChatsLoad() {
 
@@ -15,8 +15,7 @@ export function useChatsLoad() {
     const [detalized, setDetalized] = useState<boolean>(false);
     const { isAuthenticated } = useAuth();
     const { client, connected } = useWebSocket();
-    const { i18n } = useTranslation();
-    const locale = i18n.language || "fi";
+    const { locale } = useI18n();
 
     const reloadChats = useCallback(() => {
         console.log("Перезагружаем чаты")
