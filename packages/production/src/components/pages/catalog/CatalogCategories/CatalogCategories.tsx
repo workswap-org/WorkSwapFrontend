@@ -5,6 +5,7 @@ import { ListingType, ListingTypeValue } from "@core/lib/constants/listingTypes"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { categoryService } from "@core/lib/services/categoriesService"
 import styles from "./CatalogCategories.module.scss"
+import ListIcon from "@core/components/common/icons/ListIcon"
 
 const CatalogCategories = () => {
     
@@ -47,7 +48,7 @@ const CatalogCategories = () => {
                 className={`btn btn-primary ${styles.categoriesBtn}`} 
                 onClick={() => setCategoriesMenu(prev => !prev)}
             >
-                <div><i className="fa-solid fa-list fa-lg perm-light"></i></div>
+                <ListIcon />
                 <span className="normal-only">{dict.categories.category['all-categories']}</span>
             </button>
             <div

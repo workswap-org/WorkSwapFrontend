@@ -34,10 +34,6 @@ export default async function RootLayout({ children, params}: { children: ReactN
     return (
         <html lang={locale} data-theme={theme}>
             <head>
-                <link
-                    rel="stylesheet"
-                    href="https://site-assets.fontawesome.com/releases/v7.0.0/css/all.css"
-                />
                 <link rel="icon" href="/favicon.png" />
             </head>
             <body>

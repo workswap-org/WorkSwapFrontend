@@ -22,7 +22,7 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "src/pages/login/LoginPage.tsx"],
     "exclude": [
         "node_modules",
         "**/node_modules/*",

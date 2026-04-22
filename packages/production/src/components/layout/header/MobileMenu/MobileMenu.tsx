@@ -17,6 +17,7 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./MobuleMenu.module.scss"
 import SignOutIcon from "@core/components/common/icons/SignOutIcon";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
+import BurgerIcon from "@core/components/common/icons/BurgerIcon"
 
 const MobileMenu = () => {
 
@@ -71,7 +72,7 @@ const MobileMenu = () => {
                 className={styles.navbarToggler} 
                 id="notificationAnchor"
             >
-                <div><i className="fa-solid fa-bars"></i></div>
+                <BurgerIcon />
                 {unreadNotificationsCount > 0 && (
                     <UnreadNotifications count={unreadNotificationsCount}/>
                 )}

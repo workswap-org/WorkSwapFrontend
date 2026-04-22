@@ -10,6 +10,7 @@ import { useI18n } from '@core/lib/contexts/I18nContext';
 import { useCatalogFilters } from '@core/lib/contexts/local/CatalogFiltersContext';
 import { useSwipeable } from 'react-swipeable';
 import styles from "./CatalogSidebar.module.scss"
+import FilterIcon from "@core/components/common/icons/FilterIcon"
 
 interface CatalogSidebarProps {
     sidebarOpened: boolean;
@@ -44,7 +45,7 @@ const CatalogSidebar = ({
             className={`${styles.sidebar} ${sidebarOpened ? styles.active : ''}`}
         >
             <button onClick={() => toggleSidebar()} className={`btn ${styles.btnFilter}`} type="button">
-                <i className="fa-solid fa-filter"></i>
+                <FilterIcon />
             </button>
 
             <div className={styles.sortingSidebar}>
