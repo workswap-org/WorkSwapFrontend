@@ -3,6 +3,7 @@
 // apiClient.js
 import { API_BASE, AUTH_BASE } from "@core/config";
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import Cookies from "js-cookie";
 
 let isRefreshing: boolean = false;
 let refreshPromise: Promise<Response> | null = null;
@@ -25,9 +26,12 @@ export async function apiFetchText(url: string, options: IApiRequest = {}, extra
 
 export async function apiFetch(url: string, options: IApiRequest = {}, extraParams = {}) {
 
+    const locale = Cookies.get("locale");
+    console.log("locale: ", locale)
+
     const makeRequest = async () => {
 
-        const baseParams = { locale: `en`, ...extraParams };
+        const baseParams = { locale: locale || `en`, ...extraParams };
         const queryString = new URLSearchParams(baseParams).toString();
 
         const headers = {

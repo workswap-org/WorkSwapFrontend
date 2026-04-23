@@ -13,7 +13,6 @@ import CommentIcon from '@core/components/common/icons/CommentIcon';
 import GridIcon from '@core/components/common/icons/GridIcon';
 
 const AccountSidebarLinks = () => {
-    const activePage = useActivePage();
 
     const { dict } = useI18n();
 
@@ -47,7 +46,8 @@ const AccountSidebarLinks = () => {
                 <NavItem
                     key={link.key}
                     href={`/account/${link.key}`}
-                    className={`${styles.accountMenuItem} ${activePage === link.key ? styles.active : ""}`}
+                    className={styles.accountMenuItem}
+                    activeClassName={styles.active}
                 >
                     {link.icon}
                     {dict.navigation.accountSidebar.links[link.key]}

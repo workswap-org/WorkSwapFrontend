@@ -1,7 +1,7 @@
 "use client"
 
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import { categoryService } from "@core/lib/services/categoriesService";
+import { categoryService } from "@core/lib/services/category";
 import { ICategory } from "@core/lib/types/models/category";
 import { IFullListing } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";

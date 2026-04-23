@@ -6,7 +6,7 @@ import { useAuth } from "@core/lib/contexts/AuthContext";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { ICategory } from "@core/lib/types/models/category";
 import { listingService } from "@core/lib/services/listing";
-import { categoryService } from "@core/lib/services/categoriesService";
+import { categoryService } from "@core/lib/services/category";
 import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar";
 import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import Link from "next/link";
@@ -34,7 +34,7 @@ const ListingPageLayout = ({
 
     const { listing } = listingPage;
 
-    const {user} = useAuth();
+    const { user } = useAuth();
     const isOwner = !!(user?.openId == author?.openId);
 
     const { isFavorite, toggleFavorite } = listingService.useFavorite(listing);

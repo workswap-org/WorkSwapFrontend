@@ -3,19 +3,13 @@
 import PublicListingCard from "@/components/ui/cards/PublicListingCard/PublicListingCard";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { listingService } from "@core/lib/services/listing";
-import { IShortListing } from "@core/lib/types/models/listing";
-import { useEffect, useState } from "react";
 import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 
 const FavoritesPage = () => {
 
     const { dict } = useI18n()
 
-    const [listings, setListings] = useState<IShortListing[] | null>([]);
-    
-    useEffect(() => {
-        listingService.getFavorites().then(setListings)
-    }, [])
+    const listings = listingService.useMyFavorites();
 
     return (
         <>

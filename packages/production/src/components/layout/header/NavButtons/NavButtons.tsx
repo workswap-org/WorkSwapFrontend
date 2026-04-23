@@ -30,11 +30,11 @@ const NavButtons = () => {
                     <ThemeChanger id={"themeChangerMobile"}/>
                 </div>
 
-                <NavItem href="/forum" className={styles.navLink}>
+                <NavItem href="/forum" className={styles.navLink} activeClassName={styles.active}>
                     {dict.navigation.forum}
                 </NavItem>
 
-                <NavItem href="/catalog" className={styles.navLink}>
+                <NavItem href="/catalog" className={styles.navLink} activeClassName={styles.active}>
                     {dict.navigation.catalog}
                 </NavItem>
 
