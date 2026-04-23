@@ -1,7 +1,13 @@
 import { CatalogFiltersProvider } from "@core/lib/providers/local/CatalogFiltersProvider"
 import CatalogPage from "./CatalogPage"
 
-export default async function CatalogPageWrapper({ searchParams }: { searchParams: Record<string, string | string[] | undefined>}) {
+type SearchParams = Record<string, string | string[] | undefined>;
+
+export default async function CatalogPageWrapper({
+    searchParams
+}: {
+    searchParams: Promise<SearchParams>;
+}) {
     const params = await searchParams;
 
     return (
