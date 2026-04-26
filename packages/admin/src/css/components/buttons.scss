@@ -49,10 +49,6 @@
         }
     }
 
-    &.login-button {
-        @include flex-row;
-    }
-
     &.btn-sm {
         padding: 0.35rem 0.75rem;
         font-size: 0.85rem;

@@ -13,6 +13,7 @@ import PlusIcon from "@core/components/common/icons/PlusIcon";
 import draftStyles from "@/components/ui/cards/DraftListingCard/DraftListingCard.module.scss"
 import privateStyles from "@/components/ui/cards/PrivateListingCard/PrivateListingCard.module.scss"
 import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
+import styles from "./MyListingsPage.module.scss"
 
 const MyListingsPage = () => {
 
@@ -70,7 +71,7 @@ const MyListingsPage = () => {
                         </div>
                         <br/>
                         <h3>Черновики</h3>
-                        <div className="drafts-listings-grid">
+                        <div className={styles.draftsGrid}>
                             {drafts?.map((listing) => (
                                 <ListingDraftItem
                                     key={listing.id} 

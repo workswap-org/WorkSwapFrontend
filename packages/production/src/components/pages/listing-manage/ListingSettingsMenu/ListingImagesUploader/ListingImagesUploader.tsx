@@ -5,6 +5,8 @@ import { IFullListing, IListingImage } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";
 import StarIcon from "@core/components/common/icons/StarIcon"
 import DeleteIcon from "@core/components/common/icons/DeleteIcon"
+import styles from "./ListingImagesUploader.module.scss"
+import PlusIcon from "@core/components/common/icons/PlusIcon";
 
 const ListingImagesUploader = ({
     updateListing,
@@ -75,46 +77,43 @@ const ListingImagesUploader = ({
     };
 
     return (
-        <div className="image-gallery-grid">
+        <div className={styles.imageGallery}>
             {images?.map((img) => (
-                <div key={img.id} className="image-item">
-                    <div className="card">
-                        <img
-                            src={img.path ?? "/images/placeholders/default-listing.svg"}
-                            onError={(e) => {
-                                const img = e.target as HTMLImageElement;
-                                img.src = '/images/placeholders/default-listing.svg';
-                            }}
-                            className="card-img-top"
-                        />
-                        <div className="overlay-actions bottom right">
-                            {(img.path != mainImage) && (
-                                <button
-                                    type="button"
-                                    className="btn btn-sm btn-gold"
-                                    onClick={() => setMainImageToListing(img.path)}
-                                >
-                                    <StarIcon filled/>
-                                </button>
-                            )}
+                <div key={img.id} className={styles.image}>
+                    <img
+                        src={img.path ?? "/images/placeholders/default-listing.svg"}
+                        onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = '/images/placeholders/default-listing.svg';
+                        }}
+                    />
+                    <div className={`overlay-actions bottom right`}>
+                        {(img.path != mainImage) && (
                             <button
                                 type="button"
-                                className="btn btn-sm btn-danger"
-                                onClick={() => cloudService.deleteListingImage(listing.id, img)
-                                    .then(message => {
-                                        notificate(message)
-                                        deleteListingImageUrl(img)
-                                    })
-                                    .catch(() => notificate("Ошибка удаления изображения с сервера", "error"))
-                                }
+                                className="btn btn-sm btn-gold"
+                                onClick={() => setMainImageToListing(img.path)}
                             >
-                                <DeleteIcon />
+                                <StarIcon filled/>
                             </button>
-                        </div>
+                        )}
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-danger"
+                            onClick={() => cloudService.deleteListingImage(listing.id, img)
+                                .then(message => {
+                                    notificate(message)
+                                    deleteListingImageUrl(img)
+                                })
+                                .catch(() => notificate("Ошибка удаления изображения с сервера", "error"))
+                            }
+                        >
+                            <DeleteIcon />
+                        </button>
                     </div>
                 </div>
             ))}
-            <div className="updload-image">
+            <div className={styles.updloadImage}>
                 <input
                     type="file"
                     id="uploadImage"
@@ -123,7 +122,7 @@ const ListingImagesUploader = ({
                     onChange={handleImageUpload}
                 />
                 <label htmlFor="uploadImage">
-                    <i className="fa-regular fa-image-circle-plus fa-3x border-color"></i>
+                    <PlusIcon />
                 </label>
             </div>
         </div>

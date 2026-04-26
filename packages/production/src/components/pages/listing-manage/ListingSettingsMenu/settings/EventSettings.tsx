@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import ListingSetting from "../ListingSetting";
+import ListingSetting from "../ListingSetting/ListingSetting";
 import { IEventData, IFullListing } from "@core/lib/types/models/listing";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { eventService } from "@core/lib/services/eventService"

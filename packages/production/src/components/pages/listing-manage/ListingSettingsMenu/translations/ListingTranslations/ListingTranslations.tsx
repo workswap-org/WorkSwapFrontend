@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import ListingInfo from "./ListingInfo";
-import TranslationsStatus from "./TranslationsStatus";
+import ListingInfo from "../ListingInfo";
+import TranslationsStatus from "../TranslationsStatus/TranslationsStatus";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { IListingTranslation } from "@core/lib/types/models/listing";
 import { supportedLanguages } from "@core/lib/constants/languages";
 import { listingService } from "@core/lib/services/listing";
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import styles from "./ListingTranslations.module.scss"
 
 const ListingTranslations = ({ id }: {id: number | null}) => {
 
@@ -46,13 +47,13 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
     }, [id]);
 
     return (
-        <div className="translation-editor">
+        <div className={styles.translationEditor}>
             {langs.length > 0 && (
-                <div className="lang-cards">
+                <div className={styles.langCards}>
                     {langs.map((lang) => (
                         <div 
                             key={lang}
-                            className={`lang-card hover ${currentLang == lang ? "active" : ""}`} 
+                            className={`${styles.lang} hover ${currentLang == lang ? styles.active : ""}`} 
                             onClick={() => setCurrentLang(lang)}
                         >
                             <span>{dict.common.languages[lang]}</span>
@@ -61,7 +62,7 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
                     ))}
                     {unusedLanguages.length > 0 && (
                         <div 
-                            className={`lang-card hover ${currentLang == "undetected" ? "active" : ""}`} 
+                            className={`${styles.lang} hover ${currentLang == "undetected" ? styles.active : ""}`} 
                             onClick={() => setCurrentLang("undetected")}
                         >
                             <span>+ Добавить язык</span>
@@ -71,7 +72,7 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
             )}
 
             {currentLang == "undetected" && (
-                <div className="language-selector">
+                <div className={styles.languageSelector}>
                     {unusedLanguages.map(l => (
                             <button key={l} onClick={() => setCurrentLang(l)}>{dict.common.languages[l]}</button>
                         ))

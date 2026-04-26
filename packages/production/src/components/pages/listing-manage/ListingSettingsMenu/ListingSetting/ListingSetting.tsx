@@ -1,4 +1,5 @@
 import React, { ReactNode, useMemo, useState } from "react";
+import styles from "./ListingSetting.module.scss"
 
 interface ListingSettingProps {
     title: string;
@@ -16,13 +17,13 @@ const ListingSetting = ({ title, children}: ListingSettingProps) => {
     if (validChildren.length === 0) return null;
 
     return (
-        <div className="listing-setting">
-            <div className="listing-setting-header" onClick={() => setActive(!active)}>
+        <div className={styles.setting}>
+            <div className={styles.header} onClick={() => setActive(!active)}>
                 <h3>{title}</h3>
             </div>
-            <div className={`listing-setting-body ${active ? "active" : ""}`}>
+            <div className={`${styles.body} ${active ? styles.active : ""}`}>
                 <div>
-                    {children} 
+                    {children}
                 </div>
             </div>
         </div>

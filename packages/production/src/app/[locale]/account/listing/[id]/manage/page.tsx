@@ -6,9 +6,9 @@ import { ChatType } from '@core/lib/constants/chatTypes';
 import { listingService } from '@core/lib/services/listing';
 import SidebarSectionLayout from '@core/components/layout/SidebarSectionLayout/SidebarSectionLayout'
 import { useParams } from 'next/navigation';
-import ListingSettingsMenu from './menus/ListingSettingsMenu';
-import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
-import ListingMessagesMenu from './menus/ListingMessagesMenu';
+import ListingSettingsMenu from '../../../../../../components/pages/listing-manage/ListingSettingsMenu/ListingSettingsMenu';
+import ListingAnalyticMenu from '../../../../../../components/pages/listing-manage/ListingAnalyticMenu';
+import ListingMessagesMenu from '../../../../../../components/pages/listing-manage/ListingMessagesMenu/ListingMessagesMenu';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import { useChatSubscription } from '@core/lib/hooks/chat/useChatSubscription';
 import { useChatsLoad } from '@core/lib/hooks/chat/useChatsLoad';

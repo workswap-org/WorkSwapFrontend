@@ -1,10 +1,10 @@
 import { useCallback, } from "react";
-import ListingSetting from "../ListingSetting";
+import ListingSetting from "../ListingSetting/ListingSetting";
 import { IFullListing } from "@core/lib/types/models/listing";
 import CategorySelector from "@/components/ui/selectors/CategorySelector";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 
-const ServiceSettings = ({
+const ProductSettings = ({
     updateListing,
     listing
 }: {
@@ -14,6 +14,7 @@ const ServiceSettings = ({
 
     const { dict } = useI18n();
 
+    // categoryChange
     const categoryChange = useCallback((lastId: number, path: number[]) => {
         console.log("[C] Последний выбранный:", lastId);
         console.log("[C] Путь:", path);
@@ -22,7 +23,7 @@ const ServiceSettings = ({
 
     return (
         <>
-            <h2 className="two-columns-grid">{dict.common.labels.settings.service}</h2>
+            <h2 className="two-columns-grid">{dict.common.labels.settings.product}</h2>
             <ListingSetting title={dict.common.labels.category}>
                 <CategorySelector listing={listing} onChange={categoryChange} />
             </ListingSetting>
@@ -30,4 +31,4 @@ const ServiceSettings = ({
     );
 };
 
-export default ServiceSettings;
+export default ProductSettings;

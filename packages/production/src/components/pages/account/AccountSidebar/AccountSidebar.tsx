@@ -63,7 +63,9 @@ const AccountSidebar = () => {
             <ContactModal/>
 
             {!telegramConnected && (
-                <button onClick={() => connectTelegram()} className="telegram-button">{dict.buttons.special.connectTelegram}</button>
+                <button onClick={() => connectTelegram()} className={styles.telegramBtn}>
+                    {dict.buttons.special.connectTelegram}
+                </button>
             )}
         </aside>
     );

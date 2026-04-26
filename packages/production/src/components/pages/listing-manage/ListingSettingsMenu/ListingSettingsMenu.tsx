@@ -1,12 +1,12 @@
 import { useState, useCallback } from "react";
 import ListingEditActions from "./ListingEditActions";
-import ListingImagesUploader from "./ListingImagesUploader";
-import ListingTranslations from "./translations/ListingTranslations";
+import ListingImagesUploader from "./ListingImagesUploader/ListingImagesUploader";
+import ListingTranslations from "./translations/ListingTranslations/ListingTranslations";
 import EventSettings from "./settings/EventSettings";
 import ProductSettings from "./settings/ProductSettings";
 import ServiceSettings from "./settings/ServiceSettings";
 import PriceEdit from "./PriceEdit";
-import ListingSetting from "./ListingSetting";
+import ListingSetting from "./ListingSetting/ListingSetting";
 import { IFullListing } from "@core/lib/types/models/listing";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { listingService } from "@core/lib/services/listing";
