@@ -7,7 +7,7 @@ import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { userService } from "@core/lib/services/user";
 import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
-import ContactModal from "@/components/ui/modal/ContactModal";
+import ContactModal from "@/components/ui/ContactModal/ContactModal";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./AccountSidebar.module.scss";
 

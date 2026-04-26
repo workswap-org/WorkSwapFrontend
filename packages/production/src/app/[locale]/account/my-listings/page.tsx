@@ -10,10 +10,9 @@ import Tooltip from "@core/components/common/Tooltip/Tooltip"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import Loader from "@core/components/common/Loader/Loader"
 import PlusIcon from "@core/components/common/icons/PlusIcon";
-import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
-
 import draftStyles from "@/components/ui/cards/DraftListingCard/DraftListingCard.module.scss"
 import privateStyles from "@/components/ui/cards/PrivateListingCard/PrivateListingCard.module.scss"
+import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
 
 const MyListingsPage = () => {
 
@@ -35,7 +34,7 @@ const MyListingsPage = () => {
 
     return (
         <>
-            <div className={accountStyles.accountHeader}>
+            <AccountHeader>
                 <h2>{dict.common.titles.myListings}</h2>
                 <button
                     className="btn btn-primary"
@@ -43,54 +42,52 @@ const MyListingsPage = () => {
                 >
                     {dict.buttons.listing.addNew}
                 </button>
-            </div>
+            </AccountHeader>
 
             <Loader loadingActive={loading}>
-                <>
-                    {listings?.length == 0 ? (
+                {listings?.length == 0 ? (
+                    <div className="listings-grid">
+                        <article 
+                            onClick={() => redirect("/account/listing/create")} 
+                            className={`${privateStyles.card} ${privateStyles.center} hover-animation-card`}
+                        >
+                            <h3>{dict.navigation.catalogSidebar.links.createListing}</h3>
+                        </article>
+                    </div>
+                ) : (
+                    <>
+                        <h3>Активные объявления</h3>
                         <div className="listings-grid">
-                            <article 
-                                onClick={() => redirect("/account/listing/create")} 
-                                className={`${privateStyles.card} ${privateStyles.center} hover-animation-card`}
-                            >
-                                <h3>{dict.navigation.catalogSidebar.links.createListing}</h3>
-                            </article>
-                        </div>
-                    ) : (
-                        <>
-                            <h3>Активные объявления</h3>
-                            <div className="listings-grid">
-                                {activeListings?.slice()
-                                    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-                                    .map((listing) => (
-                                        <PrivateListingCard
-                                            key={listing.id}
-                                            listing={listing}
-                                        /> 
-                                    ))
-                                }
-                            </div>
-                            <br/>
-                            <h3>Черновики</h3>
-                            <div className="drafts-listings-grid">
-                                {drafts?.map((listing) => (
-                                    <ListingDraftItem
-                                        key={listing.id} 
+                            {activeListings?.slice()
+                                .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+                                .map((listing) => (
+                                    <PrivateListingCard
+                                        key={listing.id}
                                         listing={listing}
-                                    />
-                                ))}
-                                <Tooltip text={dict.buttons.listing.addNew}>
-                                    <article 
-                                        onClick={() => redirect("/account/listing/create")} 
-                                        className={`${draftStyles.card} ${draftStyles.new}`}
-                                    >
-                                        <PlusIcon size={34} />
-                                    </article>
-                                </Tooltip>
-                            </div>
-                        </>
-                    )}
-                </>
+                                    /> 
+                                ))
+                            }
+                        </div>
+                        <br/>
+                        <h3>Черновики</h3>
+                        <div className="drafts-listings-grid">
+                            {drafts?.map((listing) => (
+                                <ListingDraftItem
+                                    key={listing.id} 
+                                    listing={listing}
+                                />
+                            ))}
+                            <Tooltip text={dict.buttons.listing.addNew}>
+                                <article 
+                                    onClick={() => redirect("/account/listing/create")} 
+                                    className={`${draftStyles.card} ${draftStyles.new}`}
+                                >
+                                    <PlusIcon size={34} />
+                                </article>
+                            </Tooltip>
+                        </div>
+                    </>
+                )}
             </Loader>
         </>
     );

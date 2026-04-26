@@ -1,6 +1,7 @@
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import { IFullUser } from '@core/lib/types/models/user';
 import { useMemo } from 'react';
+import SettingSection from '../SettingSection/SettingSection';
 
 interface SettingsProps {
     user: IFullUser;
@@ -14,8 +15,9 @@ const PrivacySettings = ({ user, updateUser }: SettingsProps) => {
     const emailVisible = useMemo(() => {return user.emailVisible || false}, [user.emailVisible]);
 
     return (
-        <div className="form-section">
-            <h3>{dict.common.settings.labels.privacy}</h3>
+        <SettingSection
+            title={dict.common.settings.labels.privacy}
+        >
             <div className="form-group">
                 <label>{dict.tooltips.settings.privacy}</label>
                 <div className="status-toggle">
@@ -44,7 +46,7 @@ const PrivacySettings = ({ user, updateUser }: SettingsProps) => {
                     <span>{dict.tooltips.settings.emailVisibility}</span>
                 </div>
             </div>
-        </div>
+        </SettingSection>
     );
 };
 

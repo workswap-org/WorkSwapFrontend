@@ -7,7 +7,7 @@ import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { ICategory } from "@core/lib/types/models/category";
 import { listingService } from "@core/lib/services/listing";
 import { categoryService } from "@core/lib/services/category";
-import UserInfoSidebar from "@/components/layout/sidebar/UserInfoSidebar";
+import UserInfoSidebar from "@/components/pages/listing/UserInfoSidebar/UserInfoSidebar";
 import ReviewsSection from "@/components/ui/reviews/ReviewsSection";
 import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";

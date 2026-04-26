@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { IFullUser } from '@core/lib/types/models/user';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import LocationSelector from '@/components/ui/selectors/LocationSelector';
+import SettingSection from '../SettingSection/SettingSection';
+import styles from "./PreferencesSettings.module.scss"
 
 interface PreferencesSettingsProps {
     user: IFullUser;
@@ -23,29 +25,31 @@ const PreferencesSettings = ({ user, updateUser }: PreferencesSettingsProps) => 
     return (
         <>
             {/* Языки */}
-            <div className="form-section">
-                <h3>{dict.common.settings.labels.myLanguages}</h3>
-                <p>{dict.tooltips.settings.myLanguages}</p>
+            <SettingSection
+                title={dict.common.settings.labels.myLanguages}
+                subtitle={dict.tooltips.settings.myLanguages}
+            >
                 <div className="form-group flex-row">
                     {["ru", "fi", "en", "it"].map((lang) => (
                         <button
                             key={lang}
                             type="button"
-                            className={`lang-select-btn ${languages.includes(lang) ? "active" : ""}`}
+                            className={`${styles.langSelectBtn} ${languages.includes(lang) ? "active" : ""}`}
                             onClick={() => toggleLanguage(lang)}
                         >
                             {dict.common.languages[lang]}
                         </button>
                     ))}
                 </div>
-            </div>
+            </SettingSection>
 
             {/* Местоположение */}
-            <div className="form-section">
-                <h3>{dict.common.settings.labels.myLocation}</h3>
-                <p>{dict.tooltips.settings.myLocation}</p>
+            <SettingSection
+                title={dict.common.settings.labels.myLocation}
+                subtitle={dict.tooltips.settings.myLocation}
+            >
                 <LocationSelector locationId={user.locationId} onChange={(locationId) => updateUser({ locationId: locationId })} />
-            </div>
+            </SettingSection>
         </>
     );
 };

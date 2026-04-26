@@ -5,16 +5,16 @@ import { ChatType } from "@core/lib/constants/chatTypes";
 import DialogItem from "@/components/ui/chat/DialogItem/DialogItem";
 import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import styles from "./ListingMessagesMenu.module.scss"
 
 const ListingMessagesMenu = ({listing}: {listing: IFullListing}) => {
 
     const { chats } = useChats();
     const { dict } = useI18n();
-    const [pageLoading, setPageLoading] = useState<boolean>(true);
 
     return (
-        <div className="listing-messages-menu">
-            <div className="dialogs-list">
+        <div className={styles.layout}>
+            <div className={styles.dialogs}>
                 {chats?.length === 0 ? (
                     <div className="no-dialogs" id="no-dialogs">
                         <p>{dict.common.messenger.placeholders.noDialogs}</p>
@@ -27,14 +27,12 @@ const ListingMessagesMenu = ({listing}: {listing: IFullListing}) => {
                             <DialogItem
                                 key={chat.id}
                                 chat={chat}
-                                setPageLoading={setPageLoading}
-                                pageLoading={pageLoading}
                             />
                         ))
                 }
             </div>
             
-            <ChatWindow/>
+            <ChatWindow className={styles.chatWindow}/>
         </div>
     );
 }

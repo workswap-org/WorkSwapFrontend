@@ -27,7 +27,7 @@ export async function apiFetchText(url: string, options: IApiRequest = {}, extra
 export async function apiFetch(url: string, options: IApiRequest = {}, extraParams = {}) {
 
     const locale = Cookies.get("locale");
-    console.log("locale: ", locale)
+    // console.log("locale: ", locale)
 
     const makeRequest = async () => {
 

@@ -1,7 +1,7 @@
 "use client"
 
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import styles from "./SidebarSectionLayout.module.scss";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
 import LeftArrowIcon from "@core/components/common/icons/LeftArrowIcon";
@@ -36,10 +36,6 @@ const SidebarSectionLayout = ({
     const [currentSection, setCurrentSection] = useState(initialMenu);
     console.log("sections: ", sections)
 
-    useEffect(() => {
-        console.log(currentSection);
-    }, [currentSection])
-
     function findSection(name: string) {
         return Object.values(sections).find(s => s.name === name) || null;
     }
@@ -59,7 +55,7 @@ const SidebarSectionLayout = ({
                         id={notifications?.menu.name === section.name ? "notificationAnchor" : "none"}
                     >
                         <div><i className={`fa-regular fa-${section.icon}`}></i></div>
-                        {dict.common[pageName].sections[key]}
+                        {dict.common[pageName].sections[key] ?? `${pageName} ${key}`}
                         {notifications?.menu.name === section.name && notifications.count > 0 &&
                             <UnreadNotifications count={notifications.count}/>
                         }

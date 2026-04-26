@@ -4,8 +4,12 @@ import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { IShortUserProfile } from "@core/lib/types/models/user";
 import Avatar from "@core/components/common/Avatar/Avatar";
-import Link from 'next/link';
+import PhoneIcon from '@core/components/common/icons/contacts/PhoneIcon';
 import { useI18n } from '@core/lib/contexts/I18nContext';
+import ChatLinkMessage from "@/components/ui/chat/ChatLinkMessage/ChatLinkMessage";
+import styles from "./UserInfoSidebar.module.scss"
+import { AUTH_BASE } from "@core/config";
+import EnvelopeIcon from "@core/components/common/icons/contacts/EnvelopeIcon";
 
 const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author: IShortUserProfile | null}) => { 
 
@@ -18,40 +22,37 @@ const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author:
     const isOwner = !!(user?.openId == author.openId);
 
     return (
-        <aside className="user-info-sidebar">
+        <aside className={styles.sidebar}>
             {author.name && (
-                <div className="seller-card fade-down">
-                    <div className="seller-info">
+                <div className={`${styles.sellerCard} fade-down`}>
+                    <div className={styles.sellerInfo}>
                         <Avatar
                             user={author}
                             size={100}
-                            className='seller-avatar'
+                            className={styles.avatar}
                         />
-                        <div className="seller-meta">
+                        <div className={styles.meta}>
                             <h3>{author.name}</h3>
-                            <div className="seller-rating">
+                            <div className={styles.rating}>
                                 <span>{dict.common.labels.rating}: </span>
                                 <span>{author.rating ?? 0} ★</span>
                             </div>
-                            <div className="seller-actions">
+                            <div className={styles.actions}>
                                 {isAuthenticated ? (
                                     <>  
                                         {!isOwner && (
-                                            <Link 
-                                                href={`/account/chat-start?listingId=${listingId}&interlocutorId=${author.id}`} 
-                                                className="btn btn-primary"
-                                            >
+                                            <ChatLinkMessage listingId={listingId} interlocutorId={author.id}>
                                                 {dict.buttons.listing.contactToAuthor}
-                                            </Link>
+                                            </ChatLinkMessage>
                                         )}
                                     </>
                                 ) : (
-                                    <Link
-                                        href={`/login?redirect=${window.location.pathname}`}
+                                    <a
+                                        href={`${AUTH_BASE}/auth?redirect=${encodeURIComponent(window.location.origin + window.location.href)}`}
                                         className="btn btn-primary"
                                     >
                                         {dict.buttons.loginToWrite}
-                                    </Link>
+                                    </a>
                                 )}
                             </div>
                         </div>
@@ -60,35 +61,35 @@ const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author:
             )}
 
             {author.name && (
-                <div className="contact-card fade-down">
+                <div className={`${styles.contactCard} fade-down`}>
                     <h3>{dict.common.labels.contacts}</h3>
-                    <div className="contact-methods">
+                    <div className={styles.methods}>
 
                         {author.phone && (
                             <div 
-                                className="contact-item hover"
+                                className={`${styles.contact} hover`}
                                 onClick={() => {
                                     navigator.clipboard.writeText(author.phone ?? "")
                                         .then(() => notificate(dict.messages.notification.success.copyPhone, "success"))
                                         .catch(() => notificate("Ошибка", "error"));
                                 }}
                             >
-                                <div><i className="fa-regular fa-phone fa-lg"></i></div>
-                                <span className="contact-value">{author.phone}</span>
+                                <PhoneIcon />
+                                <span className={styles.value}>{author.phone}</span>
                             </div>
                         )}
 
                         {author.email && (
                             <div 
-                                className="contact-item hover"
+                                className={`${styles.contact} hover`}
                                 onClick={() => {
                                     navigator.clipboard.writeText(author.email ?? "")
                                         .then(() => notificate(dict.messages.notification.success.copyEmail, "success"))
                                         .catch(() => notificate("Ошибка", "error"));
                                 }}
                             >
-                                <div><i className="fa-regular fa-envelope fa-lg"></i></div>
-                                <span className="contact-value ellipsis">{author.email}</span>
+                                <EnvelopeIcon />
+                                <span className={`${styles.value} ellipsis`}>{author.email}</span>
                             </div>
                         )}
 

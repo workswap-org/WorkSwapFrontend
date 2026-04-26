@@ -8,10 +8,12 @@ import { IForumPost, IForumTopic } from "@core/lib/types/forum";
 import { IShortUser } from "@core/lib/types/models/user";
 import { redirect, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import ForumPost from "../../../../components/pages/forum/ForumPost/ForumPost";
+import ForumPost from "../../../../../components/pages/forum/ForumPost/ForumPost";
 import { forumService } from "@core/lib/services/forumService"
 import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow"
+import styles from "./ForumTopicPage.module.scss";
+import PaperPlaneIcon from "@core/components/common/icons/PaperPlaneIcon";
 
 const ForumTopicPage = () => {
 
@@ -95,50 +97,45 @@ const ForumTopicPage = () => {
         })
     }
 
-    return (
-        <div className="forum-page">
-            {topic && (
-                <>
-                    <div className="forum-topic-theme">
-                        <Avatar user={topic.author} size={50} />
-                        <div className="forum-topic-theme-content">
-                            <span id="authorName">{topic.author.name}</span>
-                            <h3 id="title">{topic.title}</h3>
-                            <span id="content">{topic.content}</span>
-                            <div className="absolute-actions">
-                                <FormattedDateToNow date={topic.createdAt} />
-                                <ActionMenu actions={actions} />
-                            </div>
-                            {topic.tagName && (
-                                <div className="forum-tag">{dict.forumtags.topic.tagName}</div>
-                            )}
+    return topic && (
+            <>
+                <div className={styles.topic}>
+                    <Avatar user={topic.author} size={50} />
+                    <div className={styles.topicContent}>
+                        <span className={styles.authorName}>{topic.author.name}</span>
+                        <h3 id="title">{topic.title}</h3>
+                        <span id="content">{topic.content}</span>
+                        <div className={styles.actions}>
+                            <FormattedDateToNow date={topic.createdAt} />
+                            <ActionMenu actions={actions} />
                         </div>
+                        {topic.tagName && (
+                            <div className={styles.forumTag}>{dict.forumtags.topic.tagName}</div>
+                        )}
                     </div>
-                    <div className="forum-post-list">
-                        <div className='forum-post-form'>
-                            <Avatar user={user} size={40} />
-                            <TextareaRT1 value={newPostTxt} setValue={setNewPostTxt} placeholder='Напишите ответ...' />
-                            {newPostTxt.length > 0 && (
-                                <button 
-                                    onClick={createPost} 
-                                    disabled={sending}
-                                    id="sendBtn" 
-                                    className="hover"
-                                >
-                                    <i className="fa-solid fa-paper-plane-top fa-lg"></i>
-                                </button>
-                            )}
-                        </div>
-                        {topic.posts?.slice()
-                            .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-                            .map((post) => (
-                            <ForumPost key={post.openId} post={post} setTopic={setTopic} />
-                        ))}
+                </div>
+                <div className={styles.postList}>
+                    <div className={styles.postForm}>
+                        <Avatar user={user} size={40} />
+                        <TextareaRT1 value={newPostTxt} setValue={setNewPostTxt} placeholder='Напишите ответ...' />
+                        {newPostTxt.length > 0 && (
+                            <button 
+                                onClick={createPost} 
+                                disabled={sending}
+                                className={`${styles.sendBtn} hover`}
+                            >
+                                <PaperPlaneIcon />
+                            </button>
+                        )}
                     </div>
-                </>
-            )}
-        </div>
-    );
+                    {topic.posts?.slice()
+                        .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+                        .map((post) => (
+                        <ForumPost key={post.openId} post={post} setTopic={setTopic} />
+                    ))}
+                </div>
+            </>
+        );
 }
 
 export default ForumTopicPage;

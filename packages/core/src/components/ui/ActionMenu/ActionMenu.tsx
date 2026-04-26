@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import styles from "./ActionMenu.module.scss";
+import EllipsisVerticalIcon from "@core/components/common/icons/EllipsisVerticalIcon";
 
 export interface IKebabAction {
     title: string,
@@ -32,8 +33,8 @@ const ActionMenu = ({actions}: {actions: IKebabAction[]}) => {
 
     return filtered.length > 0 && (
         <div className={styles.menu} ref={menuRef}>
-            <button className="hover" onClick={() => setOpen(prev => !prev)}>
-                <i className="fa-solid fa-ellipsis-vertical fa-lg"></i>
+            <button className={`${styles.button} hover`} onClick={() => setOpen(prev => !prev)}>
+                <EllipsisVerticalIcon />
             </button>
             <div className={`${styles.list} ${isOpen ? "active" : ""}`}>
                 {filtered.map((action) => (

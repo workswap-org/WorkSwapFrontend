@@ -3,6 +3,8 @@ import { useNotification } from '@core/lib/contexts/NotificationContext';
 import { cloudService } from '@core/lib/services/cloudService';
 import { IFullUser } from '@core/lib/types/models/user';
 import { useEffect, useMemo, useState } from 'react';
+import SettingSection from '../SettingSection/SettingSection';
+import styles from "./ProfileSettings.module.scss"
 
 interface SettingsProps {
     user: IFullUser;
@@ -66,7 +68,7 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
         if (!e.target.files) return;
         const file = e.target.files[0];
         if (!file) {
-            console.log("бебебе");
+            console.log("[handleImageUpload] Файл не выбран, но чёта пытается грузить");
             return;
         }
         await uploadtoCloud(file);
@@ -76,61 +78,57 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
     return (
         <>
             {/* Имя, Email, Телефон */}
-            <div className="form-section">
-                <h3>{dict.common.settings.labels.baseInfo}</h3>
-                <div>
-                    <div className="form-group">
-                        <label>{dict.common.labels.name}</label>
-                        <div className="input-wrapper">
-                            <input
-                                type="text"
-                                value={name ?? ""}
-                                onChange={(e) => updateUser({ name: e.target.value })}
-                                maxLength={maxNameLen}
-                                required
-                            />
-                            <span className="char-counter">{name?.length} / {maxNameLen}</span>
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                        <label>Email</label>
+            <SettingSection title={dict.common.settings.labels.baseInfo}>
+                <div className="form-group">
+                    <label>{dict.common.labels.name}</label>
+                    <div className="input-wrapper">
                         <input
-                            type="email"
-                            value={email ?? ""}
-                            /* onChange={(e) => emailChange(e.target.value)} */
-                            /* required */
-                            readOnly
+                            type="text"
+                            value={name ?? ""}
+                            onChange={(e) => updateUser({ name: e.target.value })}
+                            maxLength={maxNameLen}
+                            required
                         />
-                    </div>
-
-                    <div className="form-group">
-                        <label>{dict.common.labels.phone}</label>
-                        <div className="input-wrapper">
-                            <input
-                                type="tel"
-                                value={phone ?? ""}
-                                onChange={(e) => updateUser({phone: validatePhone(e.target.value)})}
-                                maxLength={maxPhoneLen}
-                            />
-                            <span className="char-counter">{phone?.length} / {maxPhoneLen}</span>
-                        </div>
+                        <span className="char-counter">{name?.length} / {maxNameLen}</span>
                     </div>
                 </div>
-            </div>
 
+                <div className="form-group">
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        value={email ?? ""}
+                        /* onChange={(e) => emailChange(e.target.value)} */
+                        /* required */
+                        readOnly
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>{dict.common.labels.phone}</label>
+                    <div className="input-wrapper">
+                        <input
+                            type="tel"
+                            value={phone ?? ""}
+                            onChange={(e) => updateUser({phone: validatePhone(e.target.value)})}
+                            maxLength={maxPhoneLen}
+                        />
+                        <span className="char-counter">{phone?.length} / {maxPhoneLen}</span>
+                    </div>
+                </div>
+            </SettingSection>
+        
             {/* Аватар */}
-            <div className="form-section">
-                <h3>{dict.common.settings.labels.avatar}</h3>
-                <div className="avatar-options">
+            <SettingSection title={dict.common.settings.labels.avatar}>
+                <div className={styles.avatarOptions}>
                     <div
-                        className={`avatar-option ${avatarType === "uploaded" ? "selected" : ""}`}
+                        className={`${styles.avatarOption} ${avatarType === "uploaded" ? styles.selected : ""}`}
                         onClick={() => {
                             updateUser({ avatarType: "uploaded" });
                         }}
                     >
                         <img 
-                            className="avatar-preview avatar"
+                            className={`${styles.avatarPreview} avatar`}
                             src={uploadedAvatar || "/images/upload-foto.png"} 
                             onError={(e) => {
                                 e.currentTarget.src = "/images/upload-foto.png"; // путь к запасной картинке
@@ -144,42 +142,45 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
                             accept="image/*"
                             onChange={handleImageUpload}
                         />
-                        <label htmlFor="uploadImage" className='upload-avatar'>
+                        <label htmlFor="uploadImage" className={styles.uploadAvatar}>
                             <div><i className="fa-solid fa-upload"></i></div>
                         </label>
                     </div>
                     <div
-                        className={`avatar-option ${avatarType === "google" ? "selected" : ""}`}
+                        className={`${styles.avatarOption} ${avatarType === "google" ? styles.selected : ""}`}
                         onClick={() => {
                             updateUser({ avatarType: "google" });
                         }}
                     >
                         <img 
-                            className="avatar-preview avatar"
+                            className={`${styles.avatarPreview} avatar`}
                             src={user.googleAvatar || ""} 
                             alt="Google" />
                         <span>{dict.common.settings.avatarTypes.google}</span>
                     </div>
                     <div
-                        className={`avatar-option ${avatarType === "default" ? "selected" : ""}`}
+                        className={`${styles.avatarOption} ${avatarType === "default" ? styles.selected : ""}`}
                         onClick={() => {
                             updateUser({ avatarType: "default" });
                         }}
                     >
-                        <img className="avatar-preview avatar" src="/images/placeholders/avatar-placeholder.png" alt="Default" />
+                        <img 
+                            className={`${styles.avatarPreview} avatar`} 
+                            src="/images/placeholders/avatar-placeholder.png" 
+                            alt="Default"
+                        />
                         <span>{dict.common.settings.avatarTypes.default}</span>
                     </div>
                 </div>
-            </div>
+            </SettingSection>
 
             {/* Bio */}
-            <div className="form-section">
-                <h3>{dict.common.settings.labels.bio}</h3>
+            <SettingSection title={dict.common.settings.labels.bio}>
                 <div className="form-group">
                     <p>{dict.tooltips.settings.bio}</p>
                     <div className="input-wrapper">
                         <textarea 
-                            className='bio'
+                            className={styles.bio}
                             value={bio ?? ""}
                             onChange={(e) => updateUser({ bio: e.target.value})}
                             maxLength={maxBioLen}
@@ -188,7 +189,7 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
                         <span className="char-counter">{bio?.length} / {maxBioLen}</span>
                     </div>
                 </div>
-            </div>
+            </SettingSection>
         </>
     );
 };

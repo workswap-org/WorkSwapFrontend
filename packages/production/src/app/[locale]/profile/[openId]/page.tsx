@@ -7,7 +7,7 @@ import { IShortListing } from '@core/lib/types/models/listing';
 import { IShortUserProfile } from '@core/lib/types/models/user';
 import { userService } from '@core/lib/services/user';
 import PublicListingCard from '@/components/ui/cards/PublicListingCard/PublicListingCard';
-import UserInfoSidebar from '@/components/layout/sidebar/UserInfoSidebar';
+import UserInfoSidebar from '@/components/pages/listing/UserInfoSidebar/UserInfoSidebar';
 import ReviewsSection from '@/components/ui/reviews/ReviewsSection';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 

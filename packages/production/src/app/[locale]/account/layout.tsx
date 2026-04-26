@@ -1,6 +1,6 @@
 
 import { ReactNode } from "react";
-import AccountSidebar from "@/components/pages/account/AccountSidebar";
+import AccountSidebar from "@/components/pages/account/AccountSidebar/AccountSidebar";
 import { PrivateRoute } from "@core/routes";
 import styles from "./AccountLayout.module.scss"
 

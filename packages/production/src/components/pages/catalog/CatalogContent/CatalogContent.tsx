@@ -29,8 +29,8 @@ const CatalogContent = () => {
                     setListings(data.listings);
                     setTotalPages(data.totalPages);
                 }
-                console.log(data.listings.length)
-                console.log(data.totalPages)
+                console.log("Загружено объявлений в каталог", data.listings.length)
+                console.log("Всего страниц в каталоге: ", data.totalPages)
             })
             .finally(() => setLoading(false));
     }, [filters, setTotalPages]);

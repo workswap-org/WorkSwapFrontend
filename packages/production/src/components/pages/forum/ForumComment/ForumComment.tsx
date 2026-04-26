@@ -4,6 +4,7 @@ import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { forumService } from "@core/lib/services/forumService";
 import { IForumComment, IForumTopic } from "@core/lib/types/forum";
+import styles from "./ForumComment.module.scss"
 
 const ForumComment = ({
     comment, setTopic
@@ -49,12 +50,12 @@ const ForumComment = ({
     ];
 
     return comment && (
-        <article className="forum-comment-card">
+        <article className={styles.card}>
             <Avatar user={comment.author} size={40} />
-            <div className="forum-comment-content">
-                <span id='authorName'>{comment.author.name}</span>
+            <div className={styles.content}>
+                <span className={styles.authorName}>{comment.author.name}</span>
                 <span id='content'>{comment.content}</span>
-                <div className="absolute-actions">
+                <div className={styles.actions}>
                     <FormattedDateToNow date={comment.createdAt} />
                     <ActionMenu actions={actions}/>
                 </div>

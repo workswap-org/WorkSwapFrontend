@@ -6,6 +6,11 @@ import Link from "next/link";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import Modal from "@core/components/ui/Modal/Modal"
 import { useI18n } from "@core/lib/contexts/I18nContext";
+import styles from "./ContactModal.module.scss"
+import LightbulbIcon from '@core/components/common/icons/LightbulbIcon'
+import EnvelopeIcon from '@core/components/common/icons/contacts/EnvelopeIcon'
+import TelegramIcon from '@core/components/common/icons/contacts/TelegramIcon'
+import ChatLinkMessage from "../chat/ChatLinkMessage/ChatLinkMessage";
 
 const ContactModal = () => {
 
@@ -24,8 +29,8 @@ const ContactModal = () => {
 
     return (
         <>
-            <div className="navbar-btn hover" onClick={() => toggleModal()}>
-                <div className="icon-defender"><i className="fa-regular fa-lightbulb-on fa-lg"></i></div>
+            <div className={`${styles.openModal} hover`} onClick={() => toggleModal()}>
+                <LightbulbIcon />
                 {dict.buttons.menu.helpBeBetter}
             </div>
 
@@ -34,34 +39,31 @@ const ContactModal = () => {
                 onClose={toggleModal}
                 title={dict.buttons.menu.contactToSupport}
             >
-                <Link
-                    href={`/account/chat-start?sellerId=1`} 
-                    className="btn btn-primary"
-                >
+                <ChatLinkMessage listingId={null} interlocutorId={1}>
                     {dict.buttons.listing.contactToAuthor}
-                </Link>
+                </ChatLinkMessage>
                 
                 <div 
-                    className="navbar-btn"
+                    className={`${styles.contactBtn} hover`}
                     onClick={() => {
                         navigator.clipboard.writeText("workswap.org@gmail.com")
                             .then(() => notificate(dict.messages.notification.success.copyEmail, "success"))
                             .catch(() => notificate("Ошибка", "error"));
                     }}
                 >
-                    <div><i className="fa-regular fa-envelope fa-lg"></i></div>
+                    <EnvelopeIcon />
                     workswap.org@gmail.com
                 </div>
 
                 <div 
-                    className="navbar-btn"
+                    className={`${styles.contactBtn} hover`}
                     onClick={() => {
                         navigator.clipboard.writeText('@workswap_official')
                             .then(() => notificate(dict.messages.notification.success.copyTelegramTag, "success"))
                             .catch(() => notificate("Ошибка", "error"));
                     }} 
                 >
-                    <div><i className="fa-brands fa-telegram fa-lg"></i></div>
+                    <TelegramIcon />
                     @workswap_official
                 </div>
             </Modal>

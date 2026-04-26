@@ -8,6 +8,8 @@ import Avatar from "@core/components/common/Avatar/Avatar";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow";
 import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
 import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
+import styles from "./ForumPost.module.scss"
+import PaperPlaneIcon from "@core/components/common/icons/PaperPlaneIcon";
 
 const ForumPost = ({
         post, setTopic
@@ -93,35 +95,34 @@ const ForumPost = ({
     ];
 
     return (
-        <article className="forum-post-card">
-            <section className="forum-post">
+        <article className={styles.card}>
+            <section className={styles.post}>
                 <Avatar user={post.author} size={40} />
-                <div className="forum-post-content">
-                    <span id="authorName">{post.author.name}</span>
+                <div className={styles.content}>
+                    <span className={styles.authorName}>{post.author.name}</span>
                     <span id='content'>{post.content}</span>
-                    <div className="absolute-actions">
+                    <div className={styles.actions}>
                         <FormattedDateToNow date={post.createdAt}/>
                         <ActionMenu actions={actions}/>
                     </div>
                 </div>
             </section>
             
-            <section className="forum-comment-list">
-                <div className="forum-comment-form">
+            <section className={styles.commentList}>
+                <div className={styles.commentForm}>
                     <TextareaRT1
                         value={newCommentTxt} 
                         setValue={setNewCommentTxt} 
-                        className="forum-comment" 
+                        className={styles.forumComment} 
                         placeholder='Введите комментарий...'
                     />
                     {newCommentTxt.length > 0 && (
                         <button 
                             onClick={() => createComment(post.openId)}
                             disabled={sending} 
-                            id="sendBtn" 
-                            className="hover"
+                            className={`${styles.sendBtn} hover`}
                         >
-                            <i className="fa-solid fa-paper-plane-top fa-lg"></i>
+                            <PaperPlaneIcon />
                         </button>
                     )}
                 </div>

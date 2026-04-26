@@ -22,6 +22,25 @@ $sidebar-page: 1200px;
     }
 }
 
+.page {
+    height: 100%;
+    flex: 1;
+    @include card;
+    padding: 1.5rem;
+    max-width: calc($sidebar-page - $sidebar-width - 1rem);
+
+    @include mobile {
+        min-height: 100%;
+        height: fit-content;
+        max-width: 100%;
+        padding: .5rem;
+
+        h1 { margin-left: 1rem; }
+
+        h3 { margin-left: .5rem; }
+    }
+}
+
 .sidebar {
     width: $sidebar-width;
     min-width: $sidebar-width;

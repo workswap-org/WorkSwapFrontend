@@ -18,7 +18,7 @@ import LeftArrowIcon from "@core/components/common/icons/LeftArrowIcon";
 import CardsIcon from "@core/components/common/icons/CardsIcon";
 import UserIcon from "@core/components/common/icons/UserIcon";
 
-const ChatWindow = ({title}: {title?: string}) => {
+const ChatWindow = ({title, className}: {title?: string, className?: string}) => {
 
     const { dict } = useI18n();
     const { user } = useAuth();
@@ -46,7 +46,7 @@ const ChatWindow = ({title}: {title?: string}) => {
 
     function renderChatWindow() {
         return (
-            <div id={currentChat?.type} className={`${styles.chatWindow} ${currentChatId ? styles.show : ""}`}>
+            <div id={currentChat?.type} className={`${className ?? ""} ${styles.chatWindow} ${currentChatId ? styles.show : ""}`}>
                 <div className={styles.chatHeader}>
                     <div className={styles.chatInfo}>
                         <button 

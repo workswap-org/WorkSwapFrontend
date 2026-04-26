@@ -20,7 +20,7 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
     const isNew = (new Date().getTime() - new Date(listing.publishedAt).getTime()) < 3 * 24 * 60 * 60 * 1000;
     const { isFavorite, toggleFavorite, likesCount } = listingService.useFavorite(listing);
 
-    console.log(listing.id, "Объявление: ", listing.localizedTitle)
+    // console.log(listing.id, "Объявление: ", listing.localizedTitle)
 
     const navigator = () => {
         if (listing.type == "EVENT") {

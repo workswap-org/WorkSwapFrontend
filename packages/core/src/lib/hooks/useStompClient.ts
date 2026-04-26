@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Client, Frame } from "@stomp/stompjs";
+import { Client } from "@stomp/stompjs";
 import { API_BASE } from "@core/config";
 import { useAuth } from "../contexts/AuthContext";
 import { refreshToken } from "../services/utils/apiClient";
@@ -18,12 +18,15 @@ export function useStompClient(): UseStompClientResult {
     const clientRef = useRef<Client | null>(null);
     const reconnectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const [client, setClient] = useState<Client | null>(null);
     const [connected, setConnected] = useState(false);
     const [error, setError] = useState(false);
-    const [reconnectAttempts, setReconnectAttempts] = useState(0);
+
+    const reconnectAttemptsRef = useRef(0);
+    const connectingRef = useRef(false);
 
     const maxReconnects = 500;
+
+    const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const cleanupClient = useCallback(() => {
         if (!clientRef.current) return;
@@ -35,14 +38,15 @@ export function useStompClient(): UseStompClientResult {
         }
 
         clientRef.current = null;
-        setClient(null);
         setConnected(false);
     }, []);
 
     const connect = useCallback(async () => {
-        if (!user) return;
-        if (!API_BASE) return;
+        if (!user || !API_BASE) return;
         if (clientRef.current?.active) return;
+        if (connectingRef.current) return;
+
+        connectingRef.current = true;
 
         const stompClient = new Client({
 
@@ -55,40 +59,41 @@ export function useStompClient(): UseStompClientResult {
 
         stompClient.onConnect = () => {
             clientRef.current = stompClient;
-            setClient(stompClient);
             setConnected(true);
             setError(false);
-            setReconnectAttempts(0);
+
+            reconnectAttemptsRef.current = 0;
+            connectingRef.current = false;
         };
 
         stompClient.onDisconnect = () => {
+            connectingRef.current = false;
             setConnected(false);
         };
 
-        stompClient.onStompError = async (frame: Frame) => {
-            const message = frame?.headers?.message || "Unknown STOMP error";
-            console.error("❌ Broker error:", message);
+        stompClient.onStompError = async (frame) => {
+            const message = frame?.headers?.message;
 
             if (!message.includes("invalidToken")) {
                 setError(true);
                 return;
             }
 
-            const tokenRefreshed = await refreshToken();
-            if (!tokenRefreshed?.ok) {
+            const ok = await refreshToken();
+            if (!ok?.ok) {
                 setError(true);
                 return;
             }
 
             cleanupClient();
-            connect();
+            scheduleReconnect();
         };
 
-        stompClient.onWebSocketClose = async (evt: CloseEvent) => {
+        stompClient.onWebSocketClose = async (evt) => {
             setConnected(false);
 
-            if (evt.code === 1000 || reconnectAttempts >= maxReconnects) {
-                setError(reconnectAttempts >= maxReconnects);
+            if (evt.code === 1000 || reconnectAttemptsRef.current >= maxReconnects) {
+                setError(true);
                 return;
             }
 
@@ -98,17 +103,23 @@ export function useStompClient(): UseStompClientResult {
                 return;
             }
 
-            const delay = 2000 * (reconnectAttempts + 1);
-
-            reconnectTimer.current = setTimeout(() => {
-                setReconnectAttempts(prev => prev + 1);
-                cleanupClient();
-                connect();
-            }, delay);
+            scheduleReconnect();
         };
 
         stompClient.activate();
-    }, [user, reconnectAttempts, cleanupClient]);
+    }, [user, cleanupClient]);
+
+    const scheduleReconnect = useCallback(() => {
+        if (reconnectTimerRef.current) return;
+
+        const delay = 2000 * (reconnectAttemptsRef.current + 1);
+
+        reconnectTimerRef.current = setTimeout(() => {
+            reconnectTimerRef.current = null;
+            reconnectAttemptsRef.current += 1;
+            connect();
+        }, delay);
+    }, [connect]);
 
     useEffect(() => {
         if (!user) return;
@@ -124,7 +135,7 @@ export function useStompClient(): UseStompClientResult {
     }, [user, connect, cleanupClient]);
 
     return {
-        client,
+        client: clientRef.current,
         connected,
         error,
     };

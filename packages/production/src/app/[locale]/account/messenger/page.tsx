@@ -9,9 +9,8 @@ import { useChats } from "@core/lib/contexts/MessengerContext";
 import { useChatsLoad } from "@core/lib/hooks/chat/useChatsLoad";
 import { useChatSubscription } from "@core/lib/hooks/chat/useChatSubscription";
 import { IChat } from "@core/lib/types/messenger";
-import { useState } from "react";
-import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
 import styles from "./MessengerPage.module.scss"
+import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
 
 const MessengerPage = () => {
 
@@ -21,13 +20,10 @@ const MessengerPage = () => {
     useChatsLoad();
 
     const { dict } = useI18n();
-    const [pageLoading, setPageLoading] = useState<boolean>(true);
 
     return (
         <>
-            <div className={`${accountStyles.accountHeader} flex-row`}>
-                <h2>{dict.common.titles.messenger}</h2>
-            </div>
+            <AccountHeader title={dict.common.titles.messenger} />
 
             <div className={styles.container}>
                 {currentChat?.listing && (
@@ -52,8 +48,6 @@ const MessengerPage = () => {
                                 <DialogItem
                                     key={chat.id}
                                     chat={chat}
-                                    setPageLoading={setPageLoading}
-                                    pageLoading={pageLoading}
                                 />
                             ))
                     }

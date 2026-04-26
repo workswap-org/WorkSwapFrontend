@@ -1,15 +1,15 @@
 "use client"
 
-import { Modal } from "@core/components";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { languagesList } from "@core/lib/constants/languages";
+import Modal from "../ui/Modal/Modal";
 
 const LanguageSelectModal = () => {
     const [isOpen, setOpen] = useState(false)
     const { i18n } = useTranslation();
     // Empty component placeholder
-    const changeLanguage = (lng) => {
+    const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
         localStorage.setItem("i18nextLng", lng);
         setOpen(false);
@@ -23,8 +23,9 @@ const LanguageSelectModal = () => {
     return (
         <Modal
             isOpen={isOpen}
+            onClose={() => {}}
+            title="Select Language"
         >
-            <h2>Select Language</h2>
             {languagesList.map(({ code, label }) => (
                 <button
                     key={code}

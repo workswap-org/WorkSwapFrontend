@@ -23,7 +23,9 @@ const ForumLayout = ({children}: {children: ReactNode}) => {
     }, [])
     return (
         <div className={styles.layout}>
-            {children}
+            <main className={styles.page}>
+                {children}
+            </main>
 
             <aside className={styles.sidebar}>
                 <h2>{dict.common.forum.lastActivity}</h2>

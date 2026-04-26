@@ -3,6 +3,8 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 import { IForumTopic } from "@core/lib/types/forum";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import styles from "./ForumTopicCard.module.scss"
+import MessagesIcon from "@core/components/common/icons/MessagesIcon";
 
 const ForumTopicCard = ({topic}: {topic: IForumTopic}) => {
 
@@ -26,30 +28,32 @@ const ForumTopicCard = ({topic}: {topic: IForumTopic}) => {
     }, [topic.title]);
 
     return (
-        <div className="forum-topic-card">
-            <div className='forum-topic-card-header'>
+        <div className={styles.card}>
+            <div className={styles.cardHeader}>
                 <UserMeta user={topic.author} height={40} />
-                <Link href={`/forum/topic/${topic.openId}`} className="read-btn">
+                <Link href={`/forum/topic/${topic.openId}`} className={styles.readBtn}>
                     <span>{dict.buttons.forum.readTopic}</span>
-                    <div className='flex-row'>{topic.postsCount}<div><i className="fa-regular fa-messages"></i></div></div>
+                    <div className='flex-row'>
+                        {topic.postsCount}
+                        <MessagesIcon size={24} />
+                    </div>
                 </Link>
             </div>
-            <div className='forum-topic-card-content'>
-                <div className="forum-topic-card-meta">
+            <div className={styles.content}>
+                <div className={styles.meta}>
                     <span 
-                        ref={titleRef} 
-                        id="topicTheme" 
-                        className={isOpen ? "open" : ""}
+                        ref={titleRef}
+                        className={`${styles.topicTheme} ${isOpen ? styles.open : ""}`}
                     >
                         {topic.title}
                     </span>
                     {topic.tagName && (
-                        <div className="forum-tag">{dict.forumtags[topic.tagName]}</div>
+                        <div className={styles.forumTag}>{dict.forumtags[topic.tagName]}</div>
                     )}
                 </div>
                 {isTruncated && (
                     <button
-                        className="collapse-theme"
+                        className={styles.collapseTheme}
                         onClick={() => setOpen(prev => !prev)}
                     >
                         {isOpen

@@ -30,7 +30,7 @@ export default function ForumPage() {
     }, [])
 
     return (
-        <div className={styles.layout}>
+        <>
             <div className={styles.header}>
                 <h1>{dict.navigation.forum}</h1>
                 <ForumTopicCreateModal tags={tags}/>
@@ -44,6 +44,6 @@ export default function ForumPage() {
                     ))
                 }
             </div>
-        </div>
+        </>
     );
 }

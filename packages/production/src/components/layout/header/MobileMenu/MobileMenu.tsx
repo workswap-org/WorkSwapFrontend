@@ -11,8 +11,8 @@ import { userService } from "@core/lib/services/user"
 import { useNotification } from "@core/lib/contexts/NotificationContext"
 import LanguageSwitcher from '@core/components/layout/LanguageSwitcher/LanguageSwitcher';
 import Avatar from "@core/components/common/Avatar/Avatar"
-import AccountSidebarLinks from "@/components/pages/account/AccountSidebarLinks";
-import ContactModal from "@/components/ui/modal/ContactModal";
+import AccountSidebarLinks from "@/components/pages/account/AccountSidebar/AccountSidebarLinks";
+import ContactModal from "@/components/ui/ContactModal/ContactModal";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./MobuleMenu.module.scss"
 import SignOutIcon from "@core/components/common/icons/SignOutIcon";

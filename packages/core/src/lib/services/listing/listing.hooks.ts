@@ -32,16 +32,20 @@ export function useFavorite(listing: IShortListing | null) {
 
 export function useMyFavorites() {
     const [listings, setListings] = useState<IShortListing[] | null>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         async function loadFavorites() {
-            const data = await listingService.getFavorites();
-            console.log(data)
-            setListings(data);
+            try {
+                const data = await listingService.getFavorites();
+                setListings(data);
+            } finally {
+                setLoading(false)
+            }
         }
 
         loadFavorites()
     }, [])
 
-    return listings;
+    return { loading, listings};
 }
