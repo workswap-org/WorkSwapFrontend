@@ -4,9 +4,10 @@ import { useEffect, useState, useRef } from "react";
 import { IShortListing } from '@core/lib/types/models/listing'
 import { listingService } from '@core/lib/services/listing'
 import PlusIcon from "@core/components/common/icons/PlusIcon";
-import PublicListingCard from "@/components/ui/cards/PublicListingCard/PublicListingCard";
-import cardStyles from "@/components/ui/cards/PublicListingCard/PublicListingCard.module.scss"
+import PublicListingCard from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard";
+import cardStyles from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard.module.scss"
 import styles from "./CatalogContent.module.scss"
+import ListingsGrid from "@/components/ui/listings/ListingsGrid/ListingsGrid";
 
 const CatalogContent = () => {
 
@@ -37,7 +38,7 @@ const CatalogContent = () => {
 
     return (
         <div className={styles.content}>
-            <div className="listings-grid">
+            <ListingsGrid>
                 {!loading && listings?.map((listing) => (
                     <PublicListingCard
                         key={listing.id}
@@ -54,7 +55,7 @@ const CatalogContent = () => {
                         </h3>
                     </div>
                 </article>
-            </div>
+            </ListingsGrid>
         </div>
     );
 };

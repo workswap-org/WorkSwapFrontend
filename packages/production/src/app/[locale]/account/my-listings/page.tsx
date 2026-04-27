@@ -4,16 +4,17 @@ import { useEffect, useState } from "react";
 import { redirect } from 'next/navigation';
 import { IFullListing } from "@core/lib/types/models/listing";
 import { listingService } from "@core/lib/services/listing";
-import PrivateListingCard from "@/components/ui/cards/PrivateListingCard/PrivateListingCard";
-import ListingDraftItem from "@/components/ui/cards/DraftListingCard/DraftListingCard";
+import PrivateListingCard from "@/components/ui/listings/cards/PrivateListingCard/PrivateListingCard";
+import ListingDraftItem from "@/components/ui/listings/cards/DraftListingCard/DraftListingCard";
 import Tooltip from "@core/components/common/Tooltip/Tooltip"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import Loader from "@core/components/common/Loader/Loader"
 import PlusIcon from "@core/components/common/icons/PlusIcon";
-import draftStyles from "@/components/ui/cards/DraftListingCard/DraftListingCard.module.scss"
-import privateStyles from "@/components/ui/cards/PrivateListingCard/PrivateListingCard.module.scss"
+import draftStyles from "@/components/ui/listings/cards/DraftListingCard/DraftListingCard.module.scss"
+import privateStyles from "@/components/ui/listings/cards/PrivateListingCard/PrivateListingCard.module.scss"
 import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
 import styles from "./MyListingsPage.module.scss"
+import AccountListingsGrid from "@/components/pages/account/AccountListingsGrid/AccountListingsGrid";
 
 const MyListingsPage = () => {
 
@@ -47,18 +48,18 @@ const MyListingsPage = () => {
 
             <Loader loadingActive={loading}>
                 {listings?.length == 0 ? (
-                    <div className="listings-grid">
+                    <AccountListingsGrid>
                         <article 
                             onClick={() => redirect("/account/listing/create")} 
                             className={`${privateStyles.card} ${privateStyles.center} hover-animation-card`}
                         >
                             <h3>{dict.navigation.catalogSidebar.links.createListing}</h3>
                         </article>
-                    </div>
+                    </AccountListingsGrid>
                 ) : (
                     <>
                         <h3>Активные объявления</h3>
-                        <div className="listings-grid">
+                        <AccountListingsGrid>
                             {activeListings?.slice()
                                 .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
                                 .map((listing) => (
@@ -68,7 +69,7 @@ const MyListingsPage = () => {
                                     /> 
                                 ))
                             }
-                        </div>
+                        </AccountListingsGrid>
                         <br/>
                         <h3>Черновики</h3>
                         <div className={styles.draftsGrid}>

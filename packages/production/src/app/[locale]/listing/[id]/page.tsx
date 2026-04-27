@@ -11,6 +11,7 @@ import PriceTypes from "@core/components/common/PriceTypes";
 import RatingStars from "@core/components/common/RatingStars/RatingStars";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./ListingPage.module.scss"
+import ListingDetail from "@/components/pages/listing/ListingDetail/ListingDetail";
 
 const ListingPage = () => {
 
@@ -39,20 +40,17 @@ const ListingPage = () => {
             author={author}
             details={(
                 <>
-                    <div className={styles.detail}>
-                        <span className={styles.label}>{dict.common.labels.price}:</span>
+                    <ListingDetail title={dict.common.labels.price} customValue>
                         <h1><PriceTypes listing={listingPage.listing} className={"listing"} /></h1>
-                    </div>
-                    <div className={styles.detail}>
-                        <span className={styles.label}>{dict.common.labels.location}:</span>
-                        <span className={styles.value}>
-                            {listingPage.listing?.location || ""}
-                        </span>
-                    </div>
-                    <div className={styles.detail}>
-                        <span className={styles.label}>{dict.common.labels.rating}:</span>
+                    </ListingDetail>
+                    
+                    <ListingDetail title={dict.common.labels.location}>
+                        {listingPage.listing?.location || ""}
+                    </ListingDetail>
+                    
+                    <ListingDetail title={dict.common.labels.rating} customValue>
                         <RatingStars rating={listingPage.listing?.rating ?? 0}/>
-                    </div>
+                    </ListingDetail>
                 </>
             )}   
         />

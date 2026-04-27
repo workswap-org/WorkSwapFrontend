@@ -49,7 +49,7 @@
     align-items: center;
     overflow: hidden;
     color: var(--text-color);
-    padding: 0.5rem 1rem;
+    padding: 0 1rem;
     background-color: var(--background-l1);
     border-radius: var(--radius) 0 0 var(--radius);
     border-right: 1px solid var(--primary);
@@ -58,19 +58,25 @@
     white-space: nowrap;
     position: relative;
     z-index: 2;
-
-    &:has(#bellIcon) {
-        padding: 0.5rem;
-    }
+    height: 48px;
+    min-width: 48px;
 
     svg {
-        color: var(--text-color)
+        position: absolute;
+        color: var(--text-color);
+        left: 50%;
+        translate: -50%;
+        transition: width 0.1s ease-in;
     }
 
     &:hover {
         background-color: rgba(99, 102, 241, 0.1);
         color: var(--primary);
         z-index: 2;
+
+        svg {
+            width: 31px;
+        }
     }
 
     @include tablet {

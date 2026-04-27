@@ -62,15 +62,15 @@ export default function useMessengerState() {
     }, []);
 
     const pushDetails = useCallback((details: IChatDetails[]) => {
-        console.log("детализируем чаты")
+        // console.log("детализируем чаты")
         setChats(prev =>
             prev?.map(chat => {
                 const detailsForChat = details.find(d => d.chatId === chat.id);
-                console.log("detailsForChat", detailsForChat)
-                console.log("chat", chat)
+                // console.log("detailsForChat", detailsForChat)
+                // console.log("chat", chat)
                 if (!detailsForChat) return chat;
 
-                console.log("updatedchat", { ...chat, ...detailsForChat })
+                // console.log("updatedchat", { ...chat, ...detailsForChat })
                 return { ...chat, ...detailsForChat };
             }) ?? null
         );

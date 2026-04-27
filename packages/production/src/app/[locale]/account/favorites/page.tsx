@@ -1,10 +1,12 @@
 "use client"
 
-import PublicListingCard from "@/components/ui/cards/PublicListingCard/PublicListingCard";
+import PublicListingCard from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { listingService } from "@core/lib/services/listing";
 import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
 import Loader from "@core/components/common/Loader/Loader";
+import ListingsGrid from "@/components/ui/listings/ListingsGrid/ListingsGrid";
+import AccountListingsGrid from "@/components/pages/account/AccountListingsGrid/AccountListingsGrid";
 
 const FavoritesPage = () => {
 
@@ -17,7 +19,7 @@ const FavoritesPage = () => {
             <AccountHeader title={dict.common.titles.favorites} />
 
             <Loader loadingActive={loading}>
-                <div className="listings-grid">
+                <AccountListingsGrid>
                     {listings?.slice()
                         .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
                         .map((listing) => (
@@ -27,7 +29,7 @@ const FavoritesPage = () => {
                             />
                         ))
                     }
-                </div>
+                </AccountListingsGrid>
             </Loader>
         </>
     );

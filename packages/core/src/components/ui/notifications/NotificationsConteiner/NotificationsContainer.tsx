@@ -69,7 +69,7 @@ const NotificationsContainer = ({ isOpen, onClose }: NotificationsContainerProps
         <div className={`${styles.modal} ${isOpen ? styles.active : ""}`}>
             <div className={styles.header}>
                 <h3>Уведомления</h3>
-                <button className={styles.close} onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
+                <button className={styles.close} onClick={onClose}>✖</button>
             </div>
             <div className={styles.list}>
                 {loading && <p className={styles.empty}>Загрузка...</p>}

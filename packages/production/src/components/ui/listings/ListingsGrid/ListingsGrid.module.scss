@@ -1,7 +1,6 @@
 @use "@core/css/components/global-mixins" as *;
 
-/* Сетка избранных */
-.listings-grid {
+.grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
@@ -26,23 +25,5 @@
     @include mobile {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
-    }
-}
-
-/* Пустое избранное */
-.no-listings {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-
-    img {
-        max-width: 50%;
-    }
-
-    p {
-        margin-bottom: 1rem;
-        color: var(--text-color);
     }
 }

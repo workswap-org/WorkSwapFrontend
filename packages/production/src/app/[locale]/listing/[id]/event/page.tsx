@@ -16,9 +16,11 @@ import RatingStars from "@core/components/common/RatingStars/RatingStars";
 import FormattedDate from "@core/components/common/date/FormattedDate"
 import Avatar from "@core/components/common/Avatar/Avatar";
 import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
-import layoutStyles from "@/components/pages/listing/ListingPageLayout/ListingPageLayout.module.scss"
-import listingPageStyles from "../ListingPage.module.scss"
 import styles from "./EventPage.module.scss"
+import ListingDetail from "@/components/pages/listing/ListingDetail/ListingDetail";
+import SidebarCard from "@/components/pages/listing/SidebarCard/SidebarCard";
+import ListingPageElement from "@/components/pages/listing/ListingPageElement/ListingPageElement";
+import ListingAction from "@/components/pages/listing/ListingAction/ListingAction";
 
 const EventPage = () => {
 
@@ -91,47 +93,37 @@ const EventPage = () => {
             listingPage={listingPage}
             author={author}
             listingActions={!isOwner && (
-                <div 
-                    className={`${layoutStyles.action} hover`}
+                <ListingAction 
                     onClick={() => 
-                        subscriptionService.toggle(eventId, setSubscribed, subscribed, 'EVENT', null)
-                    }
-                >
-                    {subscribed ? (
-                        <span>Отписаться</span>
-                    ) : (
-                        <span>Подписаться</span>
-                    )}
-                </div>
+                        subscriptionService.toggle(
+                            eventId, setSubscribed, subscribed, 'EVENT', null
+                        )}>
+                    <span>{subscribed ? "Отписаться" : "Подписаться"}</span>
+                </ListingAction>
             )}
             details={(
                 <>
-                    <div className={listingPageStyles.detail}>
-                        <span className={listingPageStyles.label}>{dict.common.labels.event.price}:</span>
+                    <ListingDetail title={dict.common.labels.event.price} customValue>
                         <PriceTypes listing={listingPage.listing} />
-                    </div>
-                    <div className={listingPageStyles.detail}>
-                        <span className={listingPageStyles.label}>{dict.common.labels.event.date}:</span>
-                        <span className={listingPageStyles.value}>
-                            <FormattedDate isoDate={listingPage?.event.eventDate || ""} format="DMHM"/>
-                        </span>
-                    </div>
-                    <div className={listingPageStyles.detail}>
-                        <span className={listingPageStyles.label}>{dict.common.labels.location}:</span>
-                        <span className={listingPageStyles.value}>
-                            {listingPage?.listing.location || ""}
-                        </span>
-                    </div>
-                    <div className={listingPageStyles.detail}>
-                        <span className={listingPageStyles.label}>{dict.common.labels.rating}:</span>
+                    </ListingDetail>
+
+                    <ListingDetail title={dict.common.labels.event.date}>
+                        <FormattedDate isoDate={listingPage?.event.eventDate || ""} format="DMHM"/>
+                    </ListingDetail>
+
+                    <ListingDetail title={dict.common.labels.location}>
+                        {listingPage?.listing.location || ""}
+                    </ListingDetail>
+
+                    <ListingDetail title={dict.common.labels.rating} customValue>
                         <RatingStars rating={listingPage?.listing.rating ?? 0}/>
-                    </div>
+                    </ListingDetail>
                 </>
             )}
-            extraSidebarElements={(
+            extraSidebarNode={(
                 <>
                     {participants && (
-                        <div className={`${layoutStyles.details} fade-down`}>
+                        <SidebarCard>
                             <h3>{dict.common.labels.event.participants}</h3>
                             <div className={styles.participants}>
                                 {participants.map((participant) => (
@@ -141,7 +133,6 @@ const EventPage = () => {
                                     >
                                         <Avatar 
                                             user={participant}
-                                            className='seller-avatar'
                                             size={50}
                                             link={false}
                                         />
@@ -149,15 +140,13 @@ const EventPage = () => {
                                     </div>
                                 ))}
                             </div>
-                        </div>
+                        </SidebarCard>
                     )}
                     
-
-                    <div className={`${layoutStyles.details} fade-down`}>
-                        <div className={listingPageStyles.detail}>
-                            <span className={listingPageStyles.label}>{dict.common.labels.event.participants}:</span>
-                            <span className={listingPageStyles.value}>{participantsCount}{listingPage.event?.maxParticipants ? " / " + listingPage.event.maxParticipants : ""}</span>
-                        </div>
+                    <SidebarCard>
+                        <ListingDetail title={dict.common.labels.event.participants}>
+                            {participantsCount}{listingPage.event?.maxParticipants ? " / " + listingPage.event.maxParticipants : ""}
+                        </ListingDetail>
                         <div 
                             className="btn btn-primary"
                             onClick={toggleParticipation}
@@ -165,18 +154,18 @@ const EventPage = () => {
                             {!isParticipant ? (
                                 <span>{dict.buttons.event.participation.join}</span>
                             ) : (
-                                <span>{dict.buttonsevent.participation.leave}</span>
+                                <span>{dict.buttons.event.participation.leave}</span>
                             )}
                         </div>
-                    </div>
+                    </SidebarCard>
                 </>
             )}
-            extraPageElements={
-                <div className={`${layoutStyles.info} fade-down`}>
+            extraContent={
+                <ListingPageElement>
                     <div className={styles.chat}>
                         <ChatWindow title={listingPage.listing.localizedTitle} />
                     </div>
-                </div>
+                </ListingPageElement>
             }
         />
     );
