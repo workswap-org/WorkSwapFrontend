@@ -1,6 +1,6 @@
 "use client"
 
-import MobileMenu from "../MobileMenu/MobileMenu";
+import MobileMenu from "../../MobileMenu/MobileMenu";
 import NavButtons from "../NavButtons/NavButtons";
 import ThemeChanger from "@core/components/layout/ThemeChanger"
 import Link from 'next/link';

@@ -21,6 +21,7 @@ const ForumLayout = ({children}: {children: ReactNode}) => {
 
         loadActivity()
     }, [])
+    
     return (
         <div className={styles.layout}>
             <main className={styles.page}>

@@ -1,9 +1,13 @@
 @use "@core/css/components/global-mixins" as *;
 
 .page {
-    @include flex-row;
+    display: flex;
     gap: 1rem;
     height: 100%;
+
+    &.rowMode {
+        flex-direction: column;
+    }
 
     @include mobile {
         width: 200%;
@@ -16,10 +20,19 @@
 }
 
 .sidebar {
-    @include flex-column;
+    display: flex;
+    flex-direction: column;
     gap: 0.5rem;
     padding-right: 1rem;
     border-right: 1px solid var(--border-color);
+
+    &.rowMode {
+        flex-direction: row;
+        border-right: none;
+        padding-right: 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border-color);
+    }
 
     @include mobile {
         width: 100%;
@@ -43,7 +56,9 @@
 }
 
 .container {
-    @include flex-column;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     gap: 1rem;
     width: 100%;
 

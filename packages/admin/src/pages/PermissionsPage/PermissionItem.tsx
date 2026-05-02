@@ -6,8 +6,7 @@ import {
     IRole,
     IPermissionUpdate
 } from '@core/lib';
-import { ActionMenu } from '@core/components';
-import { IKebabAction } from '@core/components/ui/ActionMenu';
+import ActionMenu, { IKebabAction } from '@core/components/ui/ActionMenu/ActionMenu';
 
 interface PermissionItemProps {
     permission: IPermission | null;

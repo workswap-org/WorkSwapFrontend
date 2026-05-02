@@ -11,7 +11,7 @@ import { useChats } from "@core/lib/contexts/MessengerContext";
 import { eventService } from "@core/lib/services/eventService";
 import { subscriptionService } from "@core/lib/services/subscriptionService";
 import ListingPageLayout from "../../../../../components/pages/listing/ListingPageLayout/ListingPageLayout";
-import PriceTypes from "@core/components/common/PriceTypes";
+import PriceTypes from "@core/components/common/PriceTypes/PriceTypes";
 import RatingStars from "@core/components/common/RatingStars/RatingStars";
 import FormattedDate from "@core/components/common/date/FormattedDate"
 import Avatar from "@core/components/common/Avatar/Avatar";
@@ -162,9 +162,7 @@ const EventPage = () => {
             )}
             extraContent={
                 <ListingPageElement>
-                    <div className={styles.chat}>
-                        <ChatWindow title={listingPage.listing.localizedTitle} />
-                    </div>
+                    <ChatWindow title={listingPage.listing.localizedTitle} className={styles.chat} isMobileStatic/>
                 </ListingPageElement>
             }
         />

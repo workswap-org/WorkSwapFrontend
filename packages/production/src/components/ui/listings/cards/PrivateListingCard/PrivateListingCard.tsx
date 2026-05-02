@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { useMemo } from "react";
-import PriceTypes from '@core/components/common/PriceTypes';
+import PriceTypes from '@core/components/common/PriceTypes/PriceTypes';
 import Link from 'next/link';
 import { useChats } from '@core/lib/contexts/MessengerContext';
 import { IFullListing } from '@core/lib/types/models/listing';
@@ -44,7 +44,7 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
             <div className={styles.body}>
                 <h3 className={styles.title}>{listing.localizedTitle}</h3>
                 <div className={styles.footer}>
-                    <PriceTypes listing={listing} />
+                    <PriceTypes className={styles.price} listing={listing} />
                     <div className={styles.views}>
                         <span>{dict.common.labels.views}: </span>
                         <span>{listing.views}</span>

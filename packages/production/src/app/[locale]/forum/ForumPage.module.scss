@@ -1,14 +1,10 @@
-@use "@core/css/components/global-mixins" as *;
-
-$sidebar-width: 350px;
-$sidebar-page: 1200px;
-
 .header {
     display: flex;
     justify-content: space-between;
 }
 
 .topicList {
-    @include flex-column;
+    display: flex;
+    flex-direction: column;
     gap: 0.7rem;
 }

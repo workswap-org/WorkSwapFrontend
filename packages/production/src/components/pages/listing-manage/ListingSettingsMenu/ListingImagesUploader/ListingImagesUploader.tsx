@@ -1,12 +1,11 @@
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { listingService } from "@core/lib/services/listing";
-import { cloudService } from "@core/lib/services/cloudService";
 import { IFullListing, IListingImage } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";
-import StarIcon from "@core/components/common/icons/StarIcon"
-import DeleteIcon from "@core/components/common/icons/DeleteIcon"
 import styles from "./ListingImagesUploader.module.scss"
 import PlusIcon from "@core/components/common/icons/PlusIcon";
+import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
+import { IKebabAction } from '@core/components/ui/ActionMenu/ActionMenu';
 
 const ListingImagesUploader = ({
     updateListing,
@@ -39,13 +38,21 @@ const ListingImagesUploader = ({
         });
     };
 
-    const setMainImageToListing = (mainImageUrl: string) => {
+    const setListingMainImage = (mainImageUrl: string) => {
         setMainImage(mainImageUrl)
         updateListing({ mainImage: mainImageUrl })
     };
 
     // Удаляем изображение
-    const deleteListingImageUrl = (img: IListingImage) => {
+    const deleteImg = async (img: IListingImage) => {
+        try {
+            const res = await listingService.deleteListingImage(img.id)
+            if (res) notificate(res)
+        } catch {
+            notificate("Ошибка удаления изображения", "error")
+            throw new Error("Ошибка удаления изображения")
+        }
+                    
         setImages(prev => prev?.filter(item => item.path !== img.path) ?? null);
         if (mainImage === img.path) setMainImage(""); // если основное изображение удалено
     };
@@ -56,10 +63,10 @@ const ListingImagesUploader = ({
         const formData = new FormData();
         formData.append("image", file);
 
-        const data = await cloudService.uploadListingImage(listing.id, formData)
+        const data = await listingService.uploadListingImage(listing.id, formData)
 
         if (data.path) {
-            notificate("Успешно", "success")
+            notificate("Изображение загружено", "success")
             const newImage: IListingImage = { id: data.id, listingId: listing.id, path: data.path }
             addListingImageUrl(newImage);
             if (!mainImage) setMainImage(data.path);
@@ -79,39 +86,12 @@ const ListingImagesUploader = ({
     return (
         <div className={styles.imageGallery}>
             {images?.map((img) => (
-                <div key={img.id} className={styles.image}>
-                    <img
-                        src={img.path ?? "/images/placeholders/default-listing.svg"}
-                        onError={(e) => {
-                            const img = e.target as HTMLImageElement;
-                            img.src = '/images/placeholders/default-listing.svg';
-                        }}
-                    />
-                    <div className={`overlay-actions bottom right`}>
-                        {(img.path != mainImage) && (
-                            <button
-                                type="button"
-                                className="btn btn-sm btn-gold"
-                                onClick={() => setMainImageToListing(img.path)}
-                            >
-                                <StarIcon filled/>
-                            </button>
-                        )}
-                        <button
-                            type="button"
-                            className="btn btn-sm btn-danger"
-                            onClick={() => cloudService.deleteListingImage(listing.id, img)
-                                .then(message => {
-                                    notificate(message)
-                                    deleteListingImageUrl(img)
-                                })
-                                .catch(() => notificate("Ошибка удаления изображения с сервера", "error"))
-                            }
-                        >
-                            <DeleteIcon />
-                        </button>
-                    </div>
-                </div>
+                <Image
+                    key={img.id} image={img}
+                    setListingMainImage={setListingMainImage}
+                    deleteImg={deleteImg}
+                    isMain={img.path == mainImage}
+                />
             ))}
             <div className={styles.updloadImage}>
                 <input
@@ -128,5 +108,40 @@ const ListingImagesUploader = ({
         </div>
     );
 };
+
+function Image({
+    image, setListingMainImage, deleteImg, isMain
+}: {
+    image: IListingImage;
+    setListingMainImage: (mainImageUrl: string) => void;
+    deleteImg: (img: IListingImage) => void;
+    isMain: boolean;
+}) {
+
+    const actions: IKebabAction[] = [
+        {
+            title: "Сделать избранным",
+            func: () => setListingMainImage(image.path),
+            access: !isMain
+        },
+        {
+            title: "Удалить",
+            func: () => deleteImg(image)
+        }
+    ]
+
+    return (
+        <div className={styles.image}>
+            <img
+                src={image.path ?? "/images/placeholders/default-listing.svg"}
+                onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.src = '/images/placeholders/default-listing.svg';
+                }}
+            />
+            <ActionMenu className={styles.kebab} actions={actions}/>
+        </div>
+    )
+}
 
 export default ListingImagesUploader;

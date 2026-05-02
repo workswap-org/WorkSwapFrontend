@@ -2,6 +2,7 @@
 
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import { IShortListing } from '@core/lib/types/models/listing';
+import styles from "./PriceTypes.module.scss"
 
 interface Props {
     listing: IShortListing;
@@ -31,7 +32,7 @@ const PriceTypes = ({ listing, className = "" }: Props) => {
 
         default:
             return (
-                <span className={`price ${className}`} id="listingCardPrice">
+                <span className={`${styles.price} ${className}`}>
                     {listing.price || 0} {priceTypePlaceholder}
                 </span>
             );

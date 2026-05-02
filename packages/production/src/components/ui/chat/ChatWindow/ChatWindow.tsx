@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect, useState, useMemo } from "react";
+import { useRef, useEffect, useState, useMemo, useLayoutEffect } from "react";
 import SendMessageArea from "../SendMessageArea/SendMessageArea";
 import MessagesGroup from "../MessagesGroup/MessagesGroup";
 import { createPortal } from "react-dom";
@@ -18,124 +18,148 @@ import LeftArrowIcon from "@core/components/common/icons/LeftArrowIcon";
 import CardsIcon from "@core/components/common/icons/CardsIcon";
 import UserIcon from "@core/components/common/icons/UserIcon";
 
-const ChatWindow = ({title, className}: {title?: string, className?: string}) => {
+const ChatWindow = ({title, className, isMobileStatic}: {title?: string, className?: string, isMobileStatic?: boolean}) => {
 
     const { dict } = useI18n();
     const { user } = useAuth();
 
-    const activePage = useActivePage();
     const { messages, setChatListingVisible, currentChatId, setCurrentChatId, currentChat } = useChats();
 
     const chatInterlocutor = useMemo<IShortUser | null>(
         () => currentChat?.interlocutors?.find(i => i.id != user?.id) ?? null, [currentChat]);
 
     const messagesContainer = useRef<HTMLDivElement  | null>(null);
-    const isMobile = window.innerWidth <= 600;
-
+    const [isMobile, setIsMobile] = useState(false);
     const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
 
     useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth <= 600);
+
+        check();
+        window.addEventListener("resize", check);
+
         setModalRoot(document.getElementById("modal-root"));
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                setCurrentChatId(null);
+            }
+        });
+
+        return () => window.removeEventListener("resize", check);
     }, []);
 
-    useEffect(() => {
-        if (messagesContainer.current) {
-            messagesContainer.current.scrollTop = messagesContainer.current.scrollHeight;
-        }
+    useLayoutEffect(() => {
+        const el = messagesContainer.current;
+
+        if (!el) return;
+
+        el.scrollTop = el.scrollHeight;
     }, [messages]);
 
     function renderChatWindow() {
         return (
-            <div id={currentChat?.type} className={`${className ?? ""} ${styles.chatWindow} ${currentChatId ? styles.show : ""}`}>
-                <div className={styles.chatHeader}>
-                    <div className={styles.chatInfo}>
-                        <button 
-                            id="dialogsToggleBtn" 
-                            onClick={() => setCurrentChatId(null)} 
-                            className={styles.mobileDialogsToggle}
-                        >
-                            <LeftArrowIcon />
-                        </button>
+            <div 
+                id={currentChat?.type} 
+                className={`${className ?? ""} ${styles.chatWindow} ${currentChatId ? styles.show : ""}`}
+            >
+                {currentChatId ? (
+                    <>
+                        <div className={styles.chatHeader}>
+                            <div className={styles.chatInfo}>
+                                <button
+                                    onClick={() => setCurrentChatId(null)} 
+                                    className={styles.mobileDialogsToggle}
+                                >
+                                    <LeftArrowIcon />
+                                </button>
 
-                        {currentChat?.type !== undefined &&
-                            privateChatTypes.includes(currentChat.type) && (
-                            <>
-                                {currentChat?.type === ChatType.LISTING_DISCUSSION && currentChat.listing ? (
-                                    <div className={sharedStyles.dialogAvatar}>
-                                        <img className={sharedStyles.listingImg} src={currentChat?.listing?.imagePath} />
-                                        <Avatar user={chatInterlocutor} size={40} className={sharedStyles.userAvatar} link={false} />
-                                    </div>
-                                ) : (
-                                    <Avatar user={chatInterlocutor} size={50} link={false} />
+                                {currentChat?.type !== undefined &&
+                                    privateChatTypes.includes(currentChat.type) && (
+                                    <>
+                                        {currentChat?.type === ChatType.LISTING_DISCUSSION && currentChat.listing ? (
+                                            <div className={sharedStyles.dialogAvatar}>
+                                                <img className={sharedStyles.listingImg} src={currentChat?.listing?.imagePath} />
+                                                <Avatar user={chatInterlocutor} size={40} className={sharedStyles.userAvatar} link={false} />
+                                            </div>
+                                        ) : (
+                                            <Avatar user={chatInterlocutor} size={50} link={false} />
+                                        )}
+                                    </>
                                 )}
-                            </>
-                        )}
-                        <h4 id="chatTitle">{title ?? chatInterlocutor?.name}</h4>
-                    </div>
-                    <div className={styles.mobileActions}>
-                        {chatInterlocutor?.id && (
-                            <button 
-                                className={`${styles.action} btn btn-primary btn-sm`}
-                                onClick={() => setChatListingVisible(prev => !prev)}
-                            >
-                                <CardsIcon />
-                            </button>
-                        )}
-                        <Link
-                            href={`/profile/${chatInterlocutor?.openId}`} 
-                            className={`${styles.action} btn btn-outline-primary btn-sm`}
-                        >
-                            <UserIcon />
-                        </Link>
-                    </div>
-                    <div className={styles.actions}>
-                        {currentChat?.listing?.id && (
-                            <button 
-                                className="btn btn-primary btn-sm" 
-                                onClick={() => setChatListingVisible(prev => !prev)}
-                            >{dict.buttons.messenger.listing}</button>
-                        )}
-                        {chatInterlocutor?.openId && (
-                            <Link 
-                                href={`/profile/${chatInterlocutor?.openId}`} 
-                                className="btn btn-outline-primary btn-sm"
-                            >
-                                {dict.buttons.messenger.profile}
-                            </Link>
-                        )}
-                        
-                    </div>
-                </div>
-
-                <div 
-                    className={styles.messagesContainer} 
-                    ref={messagesContainer}
-                >
-                    {/* {error && (
-                        <div className="web-socket-connection-status">
-                            <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
-                            <br/>
-                            <i className="fa-solid fa-spinner-third fa-spin"></i>
+                                <h4 id="chatTitle">{title ?? chatInterlocutor?.name}</h4>
+                            </div>
+                            <div className={styles.mobileActions}>
+                                {chatInterlocutor?.id && (
+                                    <button 
+                                        className={`${styles.action} btn btn-primary btn-sm`}
+                                        onClick={() => setChatListingVisible(prev => !prev)}
+                                    >
+                                        <CardsIcon />
+                                    </button>
+                                )}
+                                <Link
+                                    href={`/profile/${chatInterlocutor?.openId}`} 
+                                    className={`${styles.action} btn btn-outline-primary btn-sm`}
+                                >
+                                    <UserIcon />
+                                </Link>
+                            </div>
+                            <div className={styles.actions}>
+                                {currentChat?.listing?.id && (
+                                    <button 
+                                        className="btn btn-primary btn-sm" 
+                                        onClick={() => setChatListingVisible(prev => !prev)}
+                                    >{dict.buttons.messenger.listing}</button>
+                                )}
+                                {chatInterlocutor?.openId && (
+                                    <Link 
+                                        href={`/profile/${chatInterlocutor?.openId}`} 
+                                        className="btn btn-outline-primary btn-sm"
+                                    >
+                                        {dict.buttons.messenger.profile}
+                                    </Link>
+                                )}
+                                
+                            </div>
                         </div>
-                    )} */}
 
-                    {(messages?.length === 0) && (
-                        <p>{dict.common.fallbacks.noMessages}</p>
-                    )}
+                        <div 
+                            className={styles.messagesContainer} 
+                            ref={messagesContainer}
+                        >
+                            {/* {error && (
+                                <div className="web-socket-connection-status">
+                                    <span>{t(`messenger.connectionLost`, { ns: 'errors' })}</span>
+                                    <br/>
+                                    <i className="fa-solid fa-spinner-third fa-spin"></i>
+                                </div>
+                            )} */}
 
-                    {messages?.map((group) => (
-                        <MessagesGroup group={group} key={group.id} />
-                    ))}
-                </div>
+                            {(messages?.length === 0) && (
+                                <p>{dict.common.fallbacks.noMessages}</p>
+                            )}
 
-                <SendMessageArea/>
+                            {messages?.map((group) => (
+                                <MessagesGroup group={group} key={group.id} />
+                            ))}
+                        </div>
+
+                        <SendMessageArea/>
+                    </>
+                ) : (
+                    <div className={styles.noSelectedChat}>
+                        <h2>Чат не выбран</h2>
+                        <span className={styles.subTitle}>Выберите чат из списка, чтобы начать общение</span>
+                    </div>
+                )}
             </div>
         );
     }
 
     if (!modalRoot) return null;
 
-    return isMobile && activePage != "event" ? createPortal(renderChatWindow(), modalRoot) : renderChatWindow()
+    return isMobile && isMobileStatic ? createPortal(renderChatWindow(), modalRoot) : renderChatWindow()
 };
 
 export default ChatWindow;

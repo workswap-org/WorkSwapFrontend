@@ -9,7 +9,7 @@ import LeftArrowIcon from "@core/components/common/icons/LeftArrowIcon";
 export interface SidebarSection {
     first: boolean;
     name: string;
-    icon: string;
+    icon: ReactNode;
 }
 
 interface SidebarSectionLayoutProps {
@@ -17,13 +17,15 @@ interface SidebarSectionLayoutProps {
     sections: Record<string, SidebarSection>;
     notifications?: { menu: SidebarSection; count: number };
     children: (currentSection: SidebarSection | null) => ReactNode;
+    rowMode?: boolean 
 }
 
 const SidebarSectionLayout = ({
     pageName,
     sections,
     notifications,
-    children
+    children,
+    rowMode,
 }: SidebarSectionLayoutProps) => {
 
     const { dict } = useI18n();
@@ -34,7 +36,7 @@ const SidebarSectionLayout = ({
     const initialMenu = findSection(section) || (isMobile ? null : findFirst());
 
     const [currentSection, setCurrentSection] = useState(initialMenu);
-    console.log("sections: ", sections)
+    // console.log("sections: ", sections)
 
     function findSection(name: string) {
         return Object.values(sections).find(s => s.name === name) || null;
@@ -45,16 +47,16 @@ const SidebarSectionLayout = ({
     }
 
     return (
-        <div className={styles.page}>
-            <div className={styles.sidebar}>
+        <div className={`${styles.page} ${rowMode ? styles.rowMode : ""}`}>
+            <div className={`${styles.sidebar} ${rowMode ? styles.rowMode : ""}`}>
                 {Object.entries(sections).map(([key, section]) => (
                     <button
                         key={section.name}
-                        className={`${styles.section} hover ${section.name === currentSection?.name ? "active" : ""}`}
+                        className={`${styles.section} hover ${section.name === currentSection?.name ? styles.active : ""}`}
                         onClick={() => setCurrentSection(section)}
                         id={notifications?.menu.name === section.name ? "notificationAnchor" : "none"}
                     >
-                        <div><i className={`fa-regular fa-${section.icon}`}></i></div>
+                        {section.icon}
                         {dict.common[pageName].sections[key] ?? `${pageName} ${key}`}
                         {notifications?.menu.name === section.name && notifications.count > 0 &&
                             <UnreadNotifications count={notifications.count}/>

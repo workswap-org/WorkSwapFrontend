@@ -18,14 +18,15 @@ import styles from "./MobuleMenu.module.scss"
 import SignOutIcon from "@core/components/common/icons/SignOutIcon";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
 import BurgerIcon from "@core/components/common/icons/BurgerIcon"
+import { useAuth } from "@core/lib/contexts/AuthContext";
 
 const MobileMenu = () => {
 
     const { dict } = useI18n();
-    const { user, isAuthenticated } = userService.useCurrentUser();
+    const { user, isAuthenticated, logout } = useAuth();
     const [mobileMenuEm, setMobileMenuEm] = useState<HTMLElement | null>(null);
+    const pathname = usePathname();
     const [isOpen, setOpen] = useState<boolean>(false);
-    const [url, setUrl] = useState<string | null>(null);
 
     const EDGE_SIZE = 120;
     const handlers = useSwipeable({
@@ -61,7 +62,7 @@ const MobileMenu = () => {
 
     useEffect(() => {
         setOpen(false);
-    }, [usePathname]);
+    }, [pathname]);
 
     const { unreadNotificationsCount } = useNotification();
 
@@ -94,10 +95,10 @@ const MobileMenu = () => {
                     </div>
 
                     {user?.name ? (
-                        <Link className={styles.navbarBtn} href='/logout'>
+                        <button className={styles.navbarBtn} onClick={logout}>
                             <div><SignOutIcon /></div>
                             <span>{dict.navigation.accountSidebar.logout}</span> 
-                        </Link>
+                        </button>
                     ) : (
                         <a
                             href={`${AUTH_BASE}/auth?redirect=${encodeURIComponent(window.location.origin + window.location.href)}`}

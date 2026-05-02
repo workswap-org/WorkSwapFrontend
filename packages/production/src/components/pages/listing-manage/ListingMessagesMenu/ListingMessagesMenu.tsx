@@ -1,38 +1,21 @@
-import { useState } from "react";
 import { IFullListing } from "@core/lib/types/models/listing";
-import { useChats } from "@core/lib/contexts/MessengerContext";
 import { ChatType } from "@core/lib/constants/chatTypes";
-import DialogItem from "@/components/ui/chat/DialogItem/DialogItem";
-import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
-import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./ListingMessagesMenu.module.scss"
+import ChatsPage from "@/components/ui/chat/ChatsPage/ChatsPage";
+import { useChats } from "@core/lib/contexts/MessengerContext";
+import { useEffect } from "react";
 
 const ListingMessagesMenu = ({listing}: {listing: IFullListing}) => {
 
-    const { chats } = useChats();
-    const { dict } = useI18n();
+    const { setCurrentChatId } = useChats();
+
+    useEffect(() => {
+        setCurrentChatId(null);
+    }, [])
 
     return (
         <div className={styles.layout}>
-            <div className={styles.dialogs}>
-                {chats?.length === 0 ? (
-                    <div className="no-dialogs" id="no-dialogs">
-                        <p>{dict.common.messenger.placeholders.noDialogs}</p>
-                        <p>{dict.common.messenger.placeholders.startChats}</p>
-                    </div>
-                ) : chats?.filter(c => c.type === ChatType.LISTING_DISCUSSION && c.targetId === listing.id)
-                        .slice()
-                        .sort((a, b) => new Date(b.lastMessageTime).getTime() - new Date(a.lastMessageTime).getTime())
-                        .map(chat => (
-                            <DialogItem
-                                key={chat.id}
-                                chat={chat}
-                            />
-                        ))
-                }
-            </div>
-            
-            <ChatWindow className={styles.chatWindow}/>
+            <ChatsPage type={ChatType.LISTING_DISCUSSION} targetId={listing.id} />
         </div>
     );
 }

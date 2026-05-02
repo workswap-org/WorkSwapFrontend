@@ -18,17 +18,17 @@ const ListingMenu = {
     SETTINGS: {
         first: true,
         name: "Settings",
-        icon: "gear"
+        icon: <></>
     },
     ANALYTICS: {
         first: false,
         name: "Analytics",
-        icon: "chart-mixed"
+        icon: <></>
     },
     MESSAGES: {
         first: false,
         name: "Messages",
-        icon: "message"
+        icon: <></>
     }
 } as const;
 
@@ -73,6 +73,7 @@ const ListingManagePage = () => {
                     pageName="listingManage"
                     sections={ListingMenu}
                     notifications={{menu: ListingMenu.MESSAGES, count: notifCount}}
+                    rowMode
                 >
                     {(currentSection) => (
                         currentSection === ListingMenu.SETTINGS ? <ListingSettingsMenu listing={listing} /> :

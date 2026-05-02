@@ -5,7 +5,6 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 import { listingService } from "@core/lib/services/listing";
 import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
 import Loader from "@core/components/common/Loader/Loader";
-import ListingsGrid from "@/components/ui/listings/ListingsGrid/ListingsGrid";
 import AccountListingsGrid from "@/components/pages/account/AccountListingsGrid/AccountListingsGrid";
 
 const FavoritesPage = () => {

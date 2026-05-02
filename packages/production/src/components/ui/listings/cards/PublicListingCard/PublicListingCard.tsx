@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { IShortListing } from "@core/lib/types/models/listing";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { listingService } from "@core/lib/services/listing";
-import PriceTypes from "@core/components/common/PriceTypes"
+import PriceTypes from "@core/components/common/PriceTypes/PriceTypes"
 import { listingTypesWithRating } from "@core/lib/constants/listingTypes";
 import RatingStars from "@core/components/common/RatingStars/RatingStars"
 import { useI18n } from "@core/lib/contexts/I18nContext";
@@ -65,7 +65,7 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
                 <h3 className={styles.title}>{listing.localizedTitle}</h3>
                 {/* <p className="text">{listing.localizedDescription}</p> */}
 
-                <PriceTypes listing={listing} />
+                <PriceTypes className={styles.price} listing={listing} />
                 {listingTypesWithRating.includes(listing.type) && listing.rating > 0 && (
                     <RatingStars rating={listing.rating} />
                 )}

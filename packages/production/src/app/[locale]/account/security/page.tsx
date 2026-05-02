@@ -10,7 +10,7 @@ import AccountHeader from '@/components/pages/account/AccountHeader/AccountHeade
 const SecurityPage = () => {
 
     const { notificate } = useNotification();
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
 
     const { dict } = useI18n();
 
@@ -18,7 +18,7 @@ const SecurityPage = () => {
         const res = await userService.deleteCurrentUser();
         if (res.ok) {
             notificate(`Account ${user?.email} successfully deleted`, 'success')
-            redirect('/logout');
+            logout();
         }
     }
 

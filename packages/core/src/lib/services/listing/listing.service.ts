@@ -49,3 +49,14 @@ export const modifyTranslations = (listingId: number, translations: IListingTran
 export const checkFavorite = (listingId: number) => apiFetchJson(`/listing/${listingId}/favorite`, {method: 'GET'});
 export const addFavorite = (listingId: number) => apiFetch(`/listing/${listingId}/favorite`, {method: 'POST'});
 export const removeFavorite = (listingId: number) => apiFetch(`/listing/${listingId}/favorite`, {method: 'DELETE'});
+
+export const uploadListingImage = (listingId: number, formData: FormData) => 
+        apiFetchJson(`/listing/${listingId}/image`, {
+            method: "POST",
+            body: formData
+        }, {
+            listingId
+        });
+
+export const deleteListingImage = (imageId: number) => 
+        apiFetchJson(`/listing/${imageId}/image`, { method: "DELETE" }, {});

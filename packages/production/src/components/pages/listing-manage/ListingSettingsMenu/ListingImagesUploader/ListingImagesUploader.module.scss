@@ -9,23 +9,30 @@
     background: var(--background-l1);
     border-radius: var(--radius);
     box-shadow: 0 2px 4px var(--shadow-color);
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     aspect-ratio: 1 / 1;
     width: 150px;
     height: 150px;
     padding: 0;
-    height: 100%;
-
-    &:hover .overlay-actions {
-        opacity: 1;
-    }
+    overflow: visible;
 
     img {
         height: 100%;
         object-fit: cover;
     }
+}
+
+.kebab {
+    z-index: 100;
+    background-color: var(--background-l1);
+    border-radius: 6px;
+    border: 2px solid var(--border-color);
+    overflow: visible;
+
+    top: 8px;
+    right: 8px;
+    padding: 0.2rem;
 }
 
 .updloadImage {
