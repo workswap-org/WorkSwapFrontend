@@ -1,15 +1,9 @@
 {
-  "name": "@workswap/frontend-core",
-  "version": "1.0.0",
-  "main": "src/index.js",
-  "type": "module",
-  "dependencies": {
-    "js-cookie": "^3.0.5",
-    "sass": "^1.99.0",
-    "sass-embedded": "^1.99.0"
-  },
-  "devDependencies": {
-    "@types/js-cookie": "^3.0.6",
-    "@types/sass": "^1.43.1"
-  }
+    "name": "@workswap/frontend-core",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "tsc -w"
+    }
 }

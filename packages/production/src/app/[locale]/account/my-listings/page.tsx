@@ -57,38 +57,41 @@ const MyListingsPage = () => {
                         </article>
                     </AccountListingsGrid>
                 ) : (
-                    <>
-                        <h3>Активные объявления</h3>
-                        <AccountListingsGrid>
-                            {activeListings?.slice()
-                                .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-                                .map((listing) => (
-                                    <PrivateListingCard
-                                        key={listing.id}
+                    <div className={styles.content}>
+                        <section>
+                            <h3 className={styles.gridLabel}>Активные объявления</h3>
+                            <AccountListingsGrid>
+                                {activeListings?.slice()
+                                    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+                                    .map((listing) => (
+                                        <PrivateListingCard
+                                            key={listing.id}
+                                            listing={listing}
+                                        /> 
+                                    ))
+                                }
+                            </AccountListingsGrid>
+                        </section>
+                        <section>
+                            <h3 className={styles.gridLabel}>Черновики</h3>
+                            <div className={styles.draftsGrid}>
+                                {drafts?.map((listing) => (
+                                    <ListingDraftItem
+                                        key={listing.id} 
                                         listing={listing}
-                                    /> 
-                                ))
-                            }
-                        </AccountListingsGrid>
-                        <br/>
-                        <h3>Черновики</h3>
-                        <div className={styles.draftsGrid}>
-                            {drafts?.map((listing) => (
-                                <ListingDraftItem
-                                    key={listing.id} 
-                                    listing={listing}
-                                />
-                            ))}
-                            <Tooltip text={dict.buttons.listing.addNew}>
-                                <article 
-                                    onClick={() => redirect("/account/listing/create")} 
-                                    className={`${draftStyles.card} ${draftStyles.new}`}
-                                >
-                                    <PlusIcon size={34} />
-                                </article>
-                            </Tooltip>
-                        </div>
-                    </>
+                                    />
+                                ))}
+                                <Tooltip text={dict.buttons.listing.addNew}>
+                                    <article 
+                                        onClick={() => redirect("/account/listing/create")} 
+                                        className={`${draftStyles.card} ${draftStyles.new}`}
+                                    >
+                                        <PlusIcon size={34} />
+                                    </article>
+                                </Tooltip>
+                            </div>
+                        </section>
+                    </div>
                 )}
             </Loader>
         </>

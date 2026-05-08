@@ -1,4 +1,4 @@
-import { 
+/* import { 
     Routes, 
     Route,
     Navigate
@@ -7,7 +7,7 @@ import {
 import Layout from "./components/layout/Layout";
 
 import CategoriesPage from "./pages/CategoriesPage";
-import DashboardPage from "./pages/DashboardPage";
+import DashboardPage from "./app/dashboard/page";
 import TasksPage from "./pages/TasksPage";
 import PermissionsPage from "./pages/PermissionsPage";
 import UsersPage from "./pages/users/UsersPage"
@@ -24,7 +24,7 @@ import {
     PrivateRoute,
     AuthGuard
 } from "@core/routes";
-import { UserControlPage } from "./pages";
+import { UserControlPage } from "./pages-react";
 
 const AppRouter = () => {
     return (
@@ -62,4 +62,4 @@ const AppRouter = () => {
     );
 };
 
-export default AppRouter;
+export default AppRouter; */

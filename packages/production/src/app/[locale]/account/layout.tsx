@@ -13,7 +13,7 @@ const AccountLayout = ({children}: {children: ReactNode}) => {
                 <AccountSidebar/>
 
                 <main className={styles.accountMain}>
-                    <div className={`${styles.card} card`}>
+                    <div className={`${styles.card}`}>
                         {children}
                     </div>
                 </main>

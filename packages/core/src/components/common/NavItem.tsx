@@ -9,9 +9,10 @@ interface NavItemProps {
     children: ReactNode;
     className?: string;
     activeClassName?: string;
+    onClick: () => void;
 }
 
-const NavItem = ({ href, children, className, activeClassName = "active" }: NavItemProps) => {
+const NavItem = ({ href, children, className, activeClassName = "active", onClick }: NavItemProps) => {
     const pathname = usePathname();
 
     // убираем первый сегмент (locale)
@@ -29,6 +30,7 @@ const NavItem = ({ href, children, className, activeClassName = "active" }: NavI
     return (
         <Link
             href={href}
+            onClick={onClick}
             className={`${isActive ? activeClassName : ""} ${className}`}
         >
             {children}
