@@ -13,6 +13,7 @@
 }
 
 .headerContainer {
+    height: 100%;
     width: 100%;
     max-width: 1050px;
     margin: 0 auto;
@@ -84,6 +85,8 @@
 
 .mobileNavButtons {
     display: none;
+    align-items: center;
+    height: 100%;
 
     @include tablet {
         @include flex-row;

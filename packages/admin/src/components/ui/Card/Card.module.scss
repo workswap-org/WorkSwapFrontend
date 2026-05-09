@@ -1,0 +1,26 @@
+@use "@core/css/components/global-mixins" as *;
+
+.card {
+    background: var(--background-l1);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    height: fit-content;
+    @include flex-column;
+}
+
+.header {
+    position: relative;
+}
+
+.body {
+    @include flex-column;
+    padding: 1rem;
+    flex: 1;
+    min-height: 0;
+    height: fit-content;
+    gap: 0.5rem;
+
+    @include mobile {
+        padding: 0.5rem;
+    }
+}

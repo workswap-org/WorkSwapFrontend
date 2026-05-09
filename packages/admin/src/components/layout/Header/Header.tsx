@@ -1,0 +1,37 @@
+import { pageTitles, useActivePage } from "@core/lib/contexts/ActivePageContext";
+import Avatar from "@core/components/common/Avatar/Avatar";
+import SignOutIcon from "@core/components/common/icons/SignOutIcon"
+import { useAuth } from "@core/lib/contexts/AuthContext";
+import styles from "./Header.module.scss";
+
+const Header = ({ toggleSidebar }: {toggleSidebar: () => void}) => {
+
+    const { user, logout } = useAuth();
+    const activePage = useActivePage();
+    
+    return (
+        <header className={styles.header}>
+            <h1>{activePage && pageTitles[activePage]}</h1>
+
+            <div className={styles.user}>
+                <span>{user?.name || "Администратор"}</span>
+                <Avatar 
+                    user={user}        // передаём объект пользователя
+                    size={40}          // размер аватара, например 40px
+                />
+                <button
+                    className={styles.logoutBtn}
+                    onClick={logout}
+                >
+                    <SignOutIcon />
+                </button>
+            </div>
+
+            <div className={styles.mobileMenuBtn} onClick={() => toggleSidebar()}>
+                <i className="fa-solid fa-bars fa-xl"></i>
+            </div>
+        </header>
+    );
+};
+
+export default Header;

@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
-import { useAuth } from "@core/lib/contexts/AuthContext";
 import { apiFetchJson } from "@core/lib/services/utils/apiClient";
 
 const RegisterPage = () => {

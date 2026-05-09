@@ -7,7 +7,7 @@ export const connectUserTelegram = () => apiFetchText('/user/telegram', {method:
 export const checkTelegramConnected = () => apiFetchJson('/user/telegram');
 export const deleteCurrentUser = () => apiFetch('/user', { method: 'DELETE'});
 export const getUserSettings = () => apiFetchJson(`/user/settings`);
-export const getRecentUsers = (count: number) => apiFetchJson(`/user/recent`, {}, {count});
+export const getRecentUsers = (amount: number) => apiFetchJson(`/user/recent`, {}, {amount});
 
 export const getFullUserInfo = (userOpenId: string) => apiFetchJson(`/user/${userOpenId}/full-info`);
 

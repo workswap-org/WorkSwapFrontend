@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import BellIcon from "@core/components/common/icons/BellIcon";
 import UnreadNotifications from "./UnreadNotifications/UnreadNotifications";
 
-const NotificationMobileButton = () => {
+const NotificationMobileButton = ({className}: {className: string}) => {
  
     const { dict } = useI18n();
     const { unreadNotificationsCount } = useNotification();
@@ -22,7 +22,7 @@ const NotificationMobileButton = () => {
     return (
         <>
             <button 
-                className="navbar-btn" 
+                className={className} 
                 onClick={() => setOpen(!isOpen)}
                 id="notificationAnchor"
             >

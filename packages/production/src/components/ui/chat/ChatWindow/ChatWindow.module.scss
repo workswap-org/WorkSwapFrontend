@@ -88,6 +88,8 @@
     background-color: transparent;
     border-width: 0;
     color: var(--text-color);
+    height: 100%;
+    width: 30px;
 
     @include mobile {
         display: block;
@@ -108,6 +110,15 @@
     @include mobile {
         display: flex;
     }
+
+    .action {
+        width: fit-content;
+
+        svg {
+            height: 100%;
+            width: 26px;
+        }
+    }
 }
 
 .actions {
@@ -121,7 +132,9 @@
 }
 
 .messagesContainer {
-    @include flex-column;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-end; */
     position: relative;
     flex: 1;
     padding: 0.5rem;
@@ -157,5 +170,21 @@
         * {
             width: fit-content;
         }
+    }
+}
+
+.noSelectedChat {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        font-size: 1.1rem;
+    }
+
+    .subTitle {
+        color: var(--text-color-l1);
+        font-size: 0.9rem;
     }
 }

@@ -13,58 +13,35 @@ import styles from "./DialogItem.module.scss"
 import sharedStyles from "../ChatShared.module.scss"
 
 interface DialogItemProps {
-    chat: IChat,
-    pageLoading: boolean,
-    setPageLoading: React.Dispatch<React.SetStateAction<boolean>>
+    chat: IChat
 }
 
-const DialogItem = ({ chat, pageLoading, setPageLoading }: DialogItemProps) => {
+const DialogItem = ({ chat }: DialogItemProps) => {
     
     const {user} = useAuth();
     
     const searchParams = useSearchParams();
     const startChatId = Number(searchParams.get("chatId")) || null;
-    const isMobile = window.innerWidth <= 600;
 
     const { currentChatId, setCurrentChatId, unreadMessages } = useChats();
     const [loading, setLoading] = useState(false);
 
-    const interlocutor = useMemo<IShortUser | null>(
-        () => chat?.interlocutors?.find(i => i.id != user?.id) ?? null, [chat]);
+    const interlocutor = chat?.interlocutors?.find(i => i.id != user?.id) ?? null;
 
-    const listing = useMemo<IShortListing | null>(() => chat?.listing ?? null, [chat]);
+    const listing = chat?.listing;
 
-    const unreadForChat = useMemo<IChatMessage[]>(
-        () => unreadMessages?.filter(m => m.chatId === chat.id) ?? [],
-        [unreadMessages, chat.id]
-    );
+    const unreadForChat = unreadMessages?.filter(m => m.chatId === chat.id) ?? []
 
-    const lastMessage = useMemo<IChatMessage | null>(
-        () =>
-            unreadForChat.length > 0
-                ? unreadForChat.reduce((latest, msg) =>
-                    new Date(msg.sentAt ?? 0).getTime() > new Date(latest.sentAt ?? 0).getTime() ? msg : latest
-                )
-                : null,
-        [unreadForChat]
-    );
+    const lastMessage = unreadForChat.length > 0
+        ? unreadForChat.reduce((latest, msg) =>
+            new Date(msg.sentAt ?? 0).getTime() > new Date(latest.sentAt ?? 0).getTime() ? msg : latest
+        ) : null
         
     useEffect(() => {
-
-        if(!loading && startChatId == chat.id && pageLoading) {
-            setPageLoading(false);
+        if(!loading && startChatId == chat.id) {
             setCurrentChatId(chat.id);
-            return;
-        } 
-
-        if(!loading && !startChatId && !currentChatId && pageLoading && !isMobile) {
-
-            setPageLoading(false);
-            setCurrentChatId(chat.id);
-            return;
         }
-
-    }, [setCurrentChatId, loading, chat, startChatId, interlocutor, currentChatId, pageLoading, setPageLoading, isMobile]);
+    }, [setCurrentChatId, loading, chat, startChatId]);
 
     const formattedDate = chat.lastMessageTime 
         ? new Date(chat.lastMessageTime).toLocaleDateString('ru-RU')

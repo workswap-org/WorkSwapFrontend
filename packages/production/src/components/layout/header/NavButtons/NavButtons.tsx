@@ -12,10 +12,11 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 import NotificationHeaderButton from '@/components/layout/header/NotificationHeaderButton';
 import SignOutIcon from "@core/components/common/icons/SignOutIcon"
 import styles from "./NavButtons.module.scss"
+import { useAuth } from "@core/lib/contexts/AuthContext";
 
 const NavButtons = () => {
 
-    const { user, isAuthenticated, isAdmin } = userService.useCurrentUser();
+    const { user, isAuthenticated, isAdmin, logout } = useAuth();
     const [url, setUrl] = useState<string | null>(null);
     const { dict } = useI18n();
 
@@ -30,11 +31,11 @@ const NavButtons = () => {
                     <ThemeChanger id={"themeChangerMobile"}/>
                 </div>
 
-                <NavItem href="/forum" className={styles.navLink}>
+                <NavItem href="/forum" className={styles.navLink} activeClassName={styles.active}>
                     {dict.navigation.forum}
                 </NavItem>
 
-                <NavItem href="/catalog" className={styles.navLink}>
+                <NavItem href="/catalog" className={styles.navLink} activeClassName={styles.active}>
                     {dict.navigation.catalog}
                 </NavItem>
 
@@ -57,12 +58,12 @@ const NavButtons = () => {
                         <span className="ellipsis">{user?.name || "Пользователь"}</span>
                     </Link>
                     <NotificationHeaderButton />
-                    <Link
+                    <button
                         className={styles.logoutBtn}
-                        href='/logout'
+                        onClick={logout}
                     >
                         <SignOutIcon />
-                    </Link>
+                    </button>
                 </div>
             ) : (
                 <a
