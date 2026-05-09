@@ -1,0 +1,86 @@
+@use "@core/css/components/global-mixins" as *;
+
+.card {
+    @include flex-column;
+    border-radius: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.post {
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+
+    @include mobile {
+        @include flex-column;
+        padding: 0.7rem;
+        gap: 5px;
+    }
+}
+
+.content {
+    @include flex-column;
+    gap: 0.5rem;
+
+    .actions {
+        top: 0;
+        right: 0;
+    }
+
+    .authorName {
+        font-size: larger;
+        font-weight: 500;
+
+        @include mobile {
+            position: absolute;
+            left: 60px;
+            top: calc(0.7rem + 5px);
+        }
+    }
+
+    .date {
+        font-size: 0.9rem;
+        color: var(--text-color-l1)
+    }
+}
+
+.commentList {
+    @include flex-column;
+    padding: 1rem;
+    gap: 1rem;
+
+    @include mobile {
+        padding: 0.7rem;
+    }
+}
+
+.commentForm {
+    position: relative;
+}
+
+.forumComment {
+    border: 0px;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 8px 1rem;
+    height: 38px;
+    min-height: 38px;
+    transition: border-color 0.2s ease-in;
+
+    &:focus {
+        outline: none;
+        border-bottom: 2px solid var(--primary);
+    }
+
+    .sendBtn {
+        cursor: pointer;
+        border-radius: 8px;
+        padding: 0.3rem;
+        aspect-ratio: 1;
+        position: absolute;
+        right: 0.2rem;
+        top: 0.2rem;
+    }
+}

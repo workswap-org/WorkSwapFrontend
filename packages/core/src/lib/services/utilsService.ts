@@ -13,8 +13,8 @@ export function formatSignedValue(value: number) {
     }
 
     if (value < 0) {
-        return `${value}`;
+        return `-${value}`;
     }
 
-    return "";
+    return "+0";
 }

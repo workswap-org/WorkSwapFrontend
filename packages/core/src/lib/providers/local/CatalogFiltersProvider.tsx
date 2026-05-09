@@ -5,20 +5,12 @@ import { usePathname, useSearchParams } from "next/navigation"
 import { ICatalogFilters } from "@core/lib/types/catalog";
 import { CatalogFiltersContext } from "@core/lib/contexts/local/CatalogFiltersContext";
 
-export function CatalogFiltersProvider({ children }: { children: ReactNode }) {
+export function CatalogFiltersProvider({ initialFilters, children }: { initialFilters: ICatalogFilters; children: ReactNode }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    const [totalPages, setTotalPages] = useState<number>(1);
-    const [filters, setFilters] = useState<ICatalogFilters>({
-        categoryId: Number(searchParams.get("categoryId")) || undefined,
-        searchQuery: searchParams.get("searchQuery") || undefined,
-        hasReviews: searchParams.get("hasReviews") === "on",
-        translationsFilter: searchParams.get("translationsFilter") === "on",
-        sortBy: searchParams.get("sortBy") || "date",
-        type: searchParams.get("type") || undefined,
-        page: Number(searchParams.get("page")) || 0
-    });
+    const [totalPages, setTotalPages] = useState<number | null>(null);
+    const [filters, setFilters] = useState<ICatalogFilters>(initialFilters);
 
     const cleanFilters = useMemo(() => {
         const clean: Partial<ICatalogFilters> = {};

@@ -1,32 +1,43 @@
 @use "@core/css/components/global-mixins" as *;
 
-.menu {
+.wrapper {
     position: absolute;
-    right: 0;
+    display: flex;
+    height: fit-content;
+}
+
+.menu {
+    position: relative;
+    flex: 1;
+    display: flex;
+    overflow: visible;
     
-    & > button {
-        padding: 0.2rem;
+    .button {
         border-radius: 1rem;
         aspect-ratio: 1;
         background-color: transparent;
         border: none;
+        height: fit-content;
+        display: flex;
+
+        .icon {
+            height: 20px;
+        }
     }
 }
     
 .list {
     position: absolute;
-    @include flex-column;
-    right: 0;
+    flex-direction: column;
+    right: -10px;
+    top: 1rem;
     padding: 0.5rem;
     background-color: var(--background-l1);
     border: 2px solid var(--border-color);
     border-radius: var(--radius);
-    display: none;
-    z-index: 2;
-
-    &.active {
-        display: flex;
-    }
+    display: flex;
+    z-index: 20;
+    width: fit-content;
 
     button {
         font-size: 1rem;

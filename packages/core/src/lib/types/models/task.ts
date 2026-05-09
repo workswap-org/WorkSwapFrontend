@@ -1,5 +1,5 @@
 import { TaskTypeValue } from "@core/lib/constants/taskTypes";
-import { IStatus } from "../common";
+import { IStatus } from "../common/status";
 import { IShortUser } from "./user";
 
 export interface ITask {
@@ -30,4 +30,12 @@ export interface ITaskCreate {
     description: string;
     type: TaskTypeValue;
     deadline: string;
+}
+
+export interface ITaskComment {
+    id: number,
+    taskId: number,
+    content: string,
+    createdAt: string,
+    author: IShortUser
 }

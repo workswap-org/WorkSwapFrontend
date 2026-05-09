@@ -1,14 +1,17 @@
+"use client"
+
+import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
 import styles from "./Pagination.module.scss"
 
-interface PaginationProps {
-    page: number;
-    totalPages: number;
-    selectPage: (page: number) => void
-}
+const Pagination = () => {
 
-const Pagination = ({page, totalPages, selectPage}: PaginationProps) => {
+    const { filters, updateFilter, totalPages } = useCatalogFilters();
+
+    const page = filters.page ?? 0;
 
     const getPageNumbers = () => {
+        if (!totalPages) return []
+
         const maxButtons = 5;
 
         if (totalPages <= maxButtons) {
@@ -45,24 +48,23 @@ const Pagination = ({page, totalPages, selectPage}: PaginationProps) => {
         return pages;
     }
 
-    return (
+    return totalPages && (
         <div className={styles.pagination}>
-            <button disabled={page === 0} onClick={() => selectPage(page - 1)}>
+            <button disabled={page === 0} onClick={() => updateFilter("page", page - 1)}>
                 Назад
             </button>
 
             {getPageNumbers().map(p => (
                 <button
                     key={p}
-                    id="pageNumber"
-                    className={p === page ? styles.active : ""}
-                    onClick={() => selectPage(p)}
+                    className={`${styles.pageNumber} ${p === page ? styles.active : ""}`}
+                    onClick={() => updateFilter("page", p)}
                 >
                     {p + 1}
                 </button>
             ))}
 
-            <button disabled={page + 1 >= totalPages} onClick={() => selectPage(page + 1)}>
+            <button disabled={page + 1 >= totalPages} onClick={() => updateFilter("page", page + 1)}>
                 Вперёд
             </button>
         </div>

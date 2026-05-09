@@ -1,7 +1,7 @@
 "use client"
 
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import { categoryService } from "@core/lib/services/categoriesService";
+import { categoryService } from "@core/lib/services/category";
 import { ICategory } from "@core/lib/types/models/category";
 import { IFullListing } from "@core/lib/types/models/listing";
 import { useEffect, useState } from "react";
@@ -15,12 +15,12 @@ const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChang
 
     useEffect(() => {
 
-        console.log(listing.type)
+        console.log("Тип объявления для загрузки категорий", listing.type)
         if(!listing.type) return;
         categoryService.getCategoriesByType(listing.type)
             .then(data => {
                 setCategories(data)
-                console.log(data)
+                console.log("Загруженные категории: ", data)
                 if (listing.categoryId) {
                     const path = findPathToCategory(data, listing.categoryId);
                     setSelectedPath(path);
@@ -31,7 +31,7 @@ const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChang
             categories: ICategory[],
             categoryId: number
         ): number[] {
-            console.log(categoryId)
+            console.log("[findPathToCategory] categoryId: ", categoryId)
             const category = categories.find(c => c.id === categoryId);
             if (!category) return [];
 

@@ -1,38 +1,30 @@
 import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
-import { useCallback, useEffect, useState, useRef, useMemo, ReactNode } from "react";
+import { useState, useRef, useMemo, ReactNode } from "react";
 import { ICategory } from "@core/lib/types/models/category"
-import { ListingType, ListingTypeValue } from "@core/lib/constants/listingTypes";
+import { ListingType } from "@core/lib/constants/listingTypes";
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import { categoryService } from "@core/lib/services/categoriesService"
 import styles from "./CatalogCategories.module.scss"
+import ListIcon from "@core/components/common/icons/ListIcon"
+import { categoryService } from "@core/lib/services/category"
 
 const CatalogCategories = () => {
     
     const { filters, updateFilter } = useCatalogFilters();
     
     const [categoriesMenu, setCategoriesMenu] = useState<boolean>(false);
-    const [categories, setCategories] = useState<Record<string, ICategory[]> | null>(null);
-    const [listingType, setListingType] = useState<ListingTypeValue>(ListingType.PRODUCT);
+    const [subcategories, setSubcategories] = useState<ICategory[] | null>(null);
+    const { categories, listingType, setListingType, rootCategories } = categoryService.useCategories();
     const { dict } = useI18n();
 
     const timeoutRef = useRef<number>(0);
 
-    useEffect(() => {
-        categoryService.getAllCategories().then(setCategories)
-    }, []);
-
-    const rootCategories = useMemo(() => {
-        if (!categories) return [];
-        return categories[listingType]?.filter(cat => cat.parentId == null) || []
-    }, [categories, listingType]);
-
-    const children = useCallback((parentId: number) => {
-        if (!categories) return [];
+    const children = (parentId: number | null) => {
+        if (!categories || !parentId) return [];
         return categories[listingType]?.filter(cat => cat.parentId === parentId) || []
-    }, [categories, listingType]);
+    };
 
     const selectedCategory = useMemo<ICategory | null>(() => {
-        if (!categories) return null;
+        if (!categories || !filters.categoryId) return null;
         return categories[listingType]?.find(cat => cat.id === filters.categoryId) || null
     }, [categories, listingType, filters]);
 
@@ -41,13 +33,29 @@ const CatalogCategories = () => {
     };
     const handleMouseEnter = () => clearTimeout(timeoutRef.current);
 
+    const selectCategory = (categoryId: number) => {
+        if (filters.categoryId === categoryId) {
+            updateFilter("categoryId", null);
+            setSubcategories(null)
+            return;
+        } else {
+            if (!categories) return;
+            const cat = categories[listingType]?.find(cat => cat.id === categoryId)
+
+            if (!cat) return;
+            const hasChildren = children(cat.id).length > 0
+            setSubcategories(hasChildren ? children(cat.id) : children(cat?.parentId))
+            updateFilter("categoryId", categoryId);
+        }
+    }
+
     return (
         <>
             <button 
                 className={`btn btn-primary ${styles.categoriesBtn}`} 
                 onClick={() => setCategoriesMenu(prev => !prev)}
             >
-                <div><i className="fa-solid fa-list fa-lg perm-light"></i></div>
+                <ListIcon />
                 <span className="normal-only">{dict.categories.category['all-categories']}</span>
             </button>
             <div
@@ -59,7 +67,7 @@ const CatalogCategories = () => {
                     {[ListingType.SERVICE, ListingType.PRODUCT].map(type =>
                         <button
                             key={type}
-                            className="hover"
+                            className={`${styles.listingTypeBtn} ${listingType == type ? styles.active : ""} hover`}
                             value={type}
                             onClick={() => setListingType(type)}
                         >
@@ -75,13 +83,9 @@ const CatalogCategories = () => {
                         <div className={styles.categoriesList}>
                             {rootCategories.map((cat) =>
                                 <CategoryButton
-                                    key={cat.id}
-                                    active={filters.categoryId === cat.id}
-                                    onClick={() =>
-                                    filters.categoryId === cat.id
-                                        ? updateFilter("categoryId", null)
-                                        : updateFilter("categoryId", cat.id)
-                                    }
+                                    key={`category-${cat.id}`}
+                                    active={filters.categoryId === cat.id || cat.id === selectedCategory?.parentId}
+                                    onClick={() => selectCategory(cat.id)}
                                 >
                                     {dict.categories.category[listingType][cat.name]}
                                 </CategoryButton>
@@ -89,21 +93,14 @@ const CatalogCategories = () => {
                         </div>
                     </div>
                     <div className={styles.subcategories}>
-                        {filters.categoryId && children(filters.categoryId).length > 0 && (
-                            <div className={styles.categoriesList}>
-                                {children(filters.categoryId).map(child =>
-                                    <SubCategoryButton
-                                        active={filters.categoryId === child.id}
-                                        onClick={() =>
-                                            filters.categoryId === child.id
-                                            ? updateFilter("categoryId", null)
-                                            : updateFilter("categoryId", child.id)
-                                        }
-                                    >
-                                        {dict.categories.category[listingType][child.name]}
-                                    </SubCategoryButton>
-                                )}
-                            </div>
+                        {subcategories?.map(child =>
+                            <SubCategoryButton
+                                active={filters.categoryId === child.id}
+                                key={`subCategory-${child.id}`}
+                                onClick={() => selectCategory(child.id)}
+                            >
+                                {dict.categories.category[listingType][child.name]}
+                            </SubCategoryButton>
                         )}
                     </div>
                 </div>

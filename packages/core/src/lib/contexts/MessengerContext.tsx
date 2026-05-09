@@ -14,11 +14,12 @@ interface MessengerContextType {
     setChatListingVisible: React.Dispatch<React.SetStateAction<boolean>>,
     order: Order | null,
     chats: IChat[] | null,
-    setChats: React.Dispatch<React.SetStateAction<IChat[] | null>>, 
-    createNewChat: (chatId: number) => void,
+    setChats: React.Dispatch<React.SetStateAction<IChat[] | null>>,
     pushMessages: (messages: IChatMessage[] | IChatMessage) => void,
     unreadMessages: IChatMessage[] | null,
-    pushDetails: (details: IChatDetails[]) => void
+    pushDetails: (details: IChatDetails[]) => void,
+    pushChats: (loadedChats: IChat[]) => void,
+    updateChat: (update: IChat) => void,
 }
 
 export const MessengerContext = createContext<MessengerContextType | null>(null);

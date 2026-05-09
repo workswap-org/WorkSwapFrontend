@@ -1,14 +1,15 @@
 "use client"
 
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import styles from "./SidebarSectionLayout.module.scss";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
+import ArrowIcon from "@core/components/common/icons/ArrowIcon";
  
 export interface SidebarSection {
     first: boolean;
     name: string;
-    icon: string;
+    icon: ReactNode;
 }
 
 interface SidebarSectionLayoutProps {
@@ -16,13 +17,15 @@ interface SidebarSectionLayoutProps {
     sections: Record<string, SidebarSection>;
     notifications?: { menu: SidebarSection; count: number };
     children: (currentSection: SidebarSection | null) => ReactNode;
+    rowMode?: boolean 
 }
 
 const SidebarSectionLayout = ({
     pageName,
     sections,
     notifications,
-    children
+    children,
+    rowMode,
 }: SidebarSectionLayoutProps) => {
 
     const { dict } = useI18n();
@@ -33,11 +36,7 @@ const SidebarSectionLayout = ({
     const initialMenu = findSection(section) || (isMobile ? null : findFirst());
 
     const [currentSection, setCurrentSection] = useState(initialMenu);
-    console.log("sections: ", sections)
-
-    useEffect(() => {
-        console.log(currentSection);
-    }, [currentSection])
+    // console.log("sections: ", sections)
 
     function findSection(name: string) {
         return Object.values(sections).find(s => s.name === name) || null;
@@ -48,17 +47,17 @@ const SidebarSectionLayout = ({
     }
 
     return (
-        <div className={styles.sidebar}>
-            <div className={styles.sidebar}>
+        <div className={`${styles.page} ${rowMode ? styles.rowMode : ""}`}>
+            <div className={`${styles.sidebar} ${rowMode ? styles.rowMode : ""}`}>
                 {Object.entries(sections).map(([key, section]) => (
                     <button
                         key={section.name}
-                        className={`${styles.section} hover ${section.name === currentSection?.name ? "active" : ""}`}
+                        className={`${styles.section} hover ${section.name === currentSection?.name ? styles.active : ""}`}
                         onClick={() => setCurrentSection(section)}
                         id={notifications?.menu.name === section.name ? "notificationAnchor" : "none"}
                     >
-                        <div><i className={`fa-regular fa-${section.icon}`}></i></div>
-                        {dict.common[pageName].sections[key]}
+                        {section.icon}
+                        {dict.common[pageName].sections[key] ?? `${pageName} ${key}`}
                         {notifications?.menu.name === section.name && notifications.count > 0 &&
                             <UnreadNotifications count={notifications.count}/>
                         }
@@ -67,8 +66,8 @@ const SidebarSectionLayout = ({
             </div>
             <div className={`${styles.container} ${currentSection ? styles.active : ""}`} >
                 <div className={`${styles.mobileActions} media-only-flex`}>
-                    <button onClick={() => setCurrentSection(null)}>
-                        <i className={`fa-regular fa-arrow-left fa-lg`}></i>
+                    <button onClick={() => setCurrentSection(null)} className={styles.backBtn}>
+                        <ArrowIcon left/>
                     </button>
                 </div>
                 

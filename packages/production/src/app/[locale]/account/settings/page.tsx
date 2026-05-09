@@ -1,15 +1,15 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react";
-import PrivacySettings from "./PrivacySettings";
-import ProfileSettings from "./ProfileSettings";
-import PreferencesSettings from "./PreferencesSettings";
+import PrivacySettings from "../../../../components/pages/settings/PrivacySettings/PrivacySettings";
+import ProfileSettings from "../../../../components/pages/settings/ProfileSettings/ProfileSettings";
+import PreferencesSettings from "../../../../components/pages/settings/PreferencesSettings/PreferencesSettings";
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { userService } from "@core/lib/services/user";
 import SidebarSectionLayout from "@core/components/layout/SidebarSectionLayout/SidebarSectionLayout";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { IFullUser } from "@core/lib/types/models/user";
-import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
+import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
 
 const SettingsSections = Object.freeze({
     PROFILE: { first: true, name: "profile", icon: "user" },
@@ -40,9 +40,8 @@ const SettingsPage = () => {
 
     return (
         <>
-            <div className={accountStyles.accountHeader}>
-                <h2>{dict.common.titles.settings}</h2>
-            </div>
+            <AccountHeader title={dict.common.titles.settings} />
+
             {user && (
                 <SidebarSectionLayout
                     pageName={'settings'}

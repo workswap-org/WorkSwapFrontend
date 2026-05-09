@@ -18,9 +18,11 @@ const ReviewsSection = ({listingId, profileId}: ReviewsSectionProps) => {
     useEffect(() => {
         if (!profileId) return;
         const params: {profileId: number, listingId: number | undefined} = {profileId: profileId, listingId: undefined};
+        console.log("listingId: ", listingId)
         if (listingId) params.listingId = listingId;
 
         async function loadReviews() {
+            if (!params.listingId) return;
             const data = await reviewsService.getReviewslist(params);
             setReviews(await data);
         }

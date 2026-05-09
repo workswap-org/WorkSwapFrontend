@@ -12,68 +12,51 @@ export function useChatSubscription() {
     const { client, connected } = useWebSocket();
     const { user, isAuthenticated } = useAuth();
 
-    const loadedChatsRef = useRef<Set<number>>(new Set());
+    const requestedRef = useRef<Set<number>>(new Set());
+    const loadedRef = useRef<Set<number>>(new Set());
 
+    // reset при смене пользователя
     useEffect(() => {
-        loadedChatsRef.current = (new Set())
-    }, [user]);
+        requestedRef.current.clear();
+        loadedRef.current.clear();
+    }, [user?.id]);
 
-    function setMessagesLoaded(chatId: number) {
-        loadedChatsRef.current.add(chatId);
-    }
-
+    // общая подписка (новые сообщения + unread)
     useEffect(() => {
         if (!client || !connected || !isAuthenticated) return;
 
-        const messagesSub = client.subscribe(`/user/queue/chat/messages`, (response: IMessage) => {
-            const data = JSON.parse(response.body);
-            pushMessages(data);
+        const sub = client.subscribe(`/user/queue/chat/messages`, (res: IMessage) => {
+            pushMessages(JSON.parse(res.body));
         });
 
-        console.log("Вызов загрузки уведомлений")
-        client.publish({
-            destination: `/app/messages.get-unread`,
-            body: ''
-        });
+        client.publish({ destination: `/app/messages.get-unread` });
 
-        return () => {
-            messagesSub.unsubscribe();
-        };
-    }, [client, connected, isAuthenticated]);
+        return () => sub.unsubscribe();
+    }, [connected, isAuthenticated, pushMessages]);
 
+    // история конкретного чата
     useEffect(() => {
-        if (!client?.active || !connected || !currentChatId || !isAuthenticated) return;
+        if (!client || !connected || !isAuthenticated || !currentChatId) return;
 
-        const historySub = client.subscribe(
+        const sub = client.subscribe(
             `/user/queue/chat/history.messages/${currentChatId}`,
-            (response: IMessage) => {
-                const data = JSON.parse(response.body);
-                pushMessages(data);
-                setMessagesLoaded(currentChatId);
+            (res: IMessage) => {
+                pushMessages(JSON.parse(res.body));
+                loadedRef.current.add(currentChatId);
             }
         );
 
-        return () => {
-            historySub.unsubscribe();
-        };
-    }, [client?.active, connected, currentChatId, isAuthenticated]);
+        return () => sub.unsubscribe();
+    }, [connected, isAuthenticated, currentChatId, pushMessages]);
 
+    // триггер загрузки истории
     useEffect(() => {
-        if (
-            !client || 
-            !connected || 
-            !currentChatId || 
-            !isAuthenticated ||
-            loadedChatsRef.current.has(currentChatId)) {
-            return;
-        }
+        if (!client || !connected || !isAuthenticated || !currentChatId) return;
 
-        loadedChatsRef.current.add(currentChatId);
+        if (requestedRef.current.has(currentChatId)) return;
 
-        console.log("Вызов загрузки сообщений для " + currentChatId);
-        client.publish({
-            destination: `/app/chat.loadMessages/${currentChatId}`,
-            body: ''
-        });
-    }, [client, connected, currentChatId, isAuthenticated]);
+        requestedRef.current.add(currentChatId);
+
+        client.publish({ destination: `/app/chat.loadMessages/${currentChatId}` });
+    }, [connected, isAuthenticated, currentChatId]);
 }

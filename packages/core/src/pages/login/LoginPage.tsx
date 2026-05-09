@@ -98,7 +98,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
-            console.log(event)
+            console.log("Oauth авторизация прошла успешно", event)
             if (event.data?.type === 'oauthSuccess') {
                 setMessage({success: false, message: "login_success"});
                 navigate((event.data.isNewUser ? "/register/oauth" : "/login/success") + `?redirect=${encodeURIComponent(redirect)}` || '/');

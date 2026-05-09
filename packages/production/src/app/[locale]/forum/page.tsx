@@ -1,11 +1,12 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import ForumTopicCreateModal from './ForumTopicCreateModal';
+import ForumTopicCreateModal from '../../../components/pages/forum/ForumTopicCreateModal/ForumTopicCreateModal';
 import { ForumTag, IForumTopic } from '@core/lib/types/forum';
 import { forumService } from '@core/lib/services/forumService';
 import { useI18n } from '@core/lib/contexts/I18nContext';
-import ForumTopicCard from './ForumTopicCard';
+import ForumTopicCard from '../../../components/pages/forum/ForumTopicCard/ForumTopicCard';
+import styles from "./ForumPage.module.scss"
 
 export default function ForumPage() {
     
@@ -29,12 +30,12 @@ export default function ForumPage() {
     }, [])
 
     return (
-        <div className="forum-page">
-            <div className='forum-header'>
+        <>
+            <div className={styles.header}>
                 <h1>{dict.navigation.forum}</h1>
                 <ForumTopicCreateModal tags={tags}/>
             </div>
-            <div className="forum-topic-list">
+            <div className={styles.topicList}>
                 <h3>{dict.common.forum.popularTopics}</h3>
                 {forumTopics?.slice()
                     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -43,6 +44,6 @@ export default function ForumPage() {
                     ))
                 }
             </div>
-        </div>
+        </>
     );
 }

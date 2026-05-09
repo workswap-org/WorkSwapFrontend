@@ -1,6 +1,6 @@
 
 import { ReactNode } from "react";
-import AccountSidebar from "../../../components/account/AccountSidebar";
+import AccountSidebar from "@/components/pages/account/AccountSidebar/AccountSidebar";
 import { PrivateRoute } from "@core/routes";
 import styles from "./AccountLayout.module.scss"
 
@@ -13,7 +13,7 @@ const AccountLayout = ({children}: {children: ReactNode}) => {
                 <AccountSidebar/>
 
                 <main className={styles.accountMain}>
-                    <div className={`${styles.card} card`}>
+                    <div className={`${styles.card}`}>
                         {children}
                     </div>
                 </main>

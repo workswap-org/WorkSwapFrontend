@@ -6,30 +6,29 @@ import { ChatType } from '@core/lib/constants/chatTypes';
 import { listingService } from '@core/lib/services/listing';
 import SidebarSectionLayout from '@core/components/layout/SidebarSectionLayout/SidebarSectionLayout'
 import { useParams } from 'next/navigation';
-import Link from 'next/link';
-import ListingSettingsMenu from './menus/ListingSettingsMenu';
-import ListingAnalyticMenu from './menus/ListingAnalyticMenu';
-import ListingMessagesMenu from './menus/ListingMessagesMenu';
+import ListingSettingsMenu from '../../../../../../components/pages/listing-manage/ListingSettingsMenu/ListingSettingsMenu';
+import ListingAnalyticMenu from '../../../../../../components/pages/listing-manage/ListingAnalyticMenu';
+import ListingMessagesMenu from '../../../../../../components/pages/listing-manage/ListingMessagesMenu/ListingMessagesMenu';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import { useChatSubscription } from '@core/lib/hooks/chat/useChatSubscription';
 import { useChatsLoad } from '@core/lib/hooks/chat/useChatsLoad';
-import accountStyles from "@/app/[locale]/account/AccountLayout.module.scss"
+import AccountHeader from '@/components/pages/account/AccountHeader/AccountHeader';
 
 const ListingMenu = {
     SETTINGS: {
         first: true,
         name: "Settings",
-        icon: "gear"
+        icon: <></>
     },
     ANALYTICS: {
         first: false,
         name: "Analytics",
-        icon: "chart-mixed"
+        icon: <></>
     },
     MESSAGES: {
         first: false,
         name: "Messages",
-        icon: "message"
+        icon: <></>
     }
 } as const;
 
@@ -67,20 +66,14 @@ const ListingManagePage = () => {
 
     return (
         <>
-            <div className={`${accountStyles.accountHeader} flex-row`}>
-                <div className='mobile-actions media-only-flex'>
-                    <Link href='/account/my-listings' className='back-link-arrow'>
-                        <div><i className={`fa-regular fa-arrow-left fa-lg`}></i></div>
-                    </Link>
-                </div>
-                <h2>{dict.common.titles.listingManage}</h2>
-            </div>
+            <AccountHeader backLink={'/account/my-listings'} title={dict.common.titles.listingManage}/>
 
             {listing && (
                 <SidebarSectionLayout
                     pageName="listingManage"
                     sections={ListingMenu}
                     notifications={{menu: ListingMenu.MESSAGES, count: notifCount}}
+                    rowMode
                 >
                     {(currentSection) => (
                         currentSection === ListingMenu.SETTINGS ? <ListingSettingsMenu listing={listing} /> :

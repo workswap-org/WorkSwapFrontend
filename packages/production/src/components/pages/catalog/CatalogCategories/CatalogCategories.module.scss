@@ -62,32 +62,36 @@
     @include mobile {
         width: 100%;
     }
+}
 
-    button {
-        padding: 0.7rem 5rem;
-        font-size: medium;
-        font-weight: bold;
-        border-bottom: 2px solid var(--text-color-l1);
-        position: relative;
+.listingTypeBtn {
+    padding: 0.7rem 5rem;
+    font-size: medium;
+    font-weight: bold;
+    border-bottom: 2px solid var(--text-color-l1);
+    position: relative;
 
-        @include mobile {
-            padding: 0.7rem;
-            padding-right: 2rem;
-            width: 100%;
-        }
+    @include mobile {
+        padding: 0.7rem;
+        padding-right: 2rem;
+        width: 100%;
+    }
 
-        .indicator {
-            border-radius: 4px;
-            position: absolute;
-            top: 50%;
-            right: 0.5rem;
-            translate: 0 -50%;
-            transition: all 0.3s ease;
-            background-color: transparent;
+    &.active {
+        border-bottom: 2px solid var(--primary);
+    }
 
-            &.active {
-                background-color: rgba(35, 119, 24, 0.514);
-            }
+    .indicator {
+        border-radius: 4px;
+        position: absolute;
+        top: 50%;
+        right: 0.5rem;
+        translate: 0 -50%;
+        transition: all 0.3s ease;
+        background-color: transparent;
+
+        &.active {
+            background-color: rgba(35, 119, 24, 0.514);
         }
     }
 }
@@ -123,7 +127,8 @@
     position: relative;
 
     &:hover,
-    &:focus {
+    &:focus,
+    &.active {
         background-color: var(--background-l1);
         color: var(--primary);
     }

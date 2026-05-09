@@ -6,8 +6,8 @@ import { createContext, Dispatch, SetStateAction, useContext } from "react"
 type CatalogFiltersContextType = {
     filters: ICatalogFilters;
     updateFilter: (key: string, value: string | boolean | number | null) => void;
-    totalPages: number;
-    setTotalPages: Dispatch<SetStateAction<number>>;
+    totalPages: number | null;
+    setTotalPages: Dispatch<SetStateAction<number | null>>;
 }
 
 export const CatalogFiltersContext = createContext<CatalogFiltersContextType | undefined>(undefined)
