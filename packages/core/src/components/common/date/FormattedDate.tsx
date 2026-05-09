@@ -4,8 +4,14 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 
 interface Props {
     isoDate: string;
-    format?: string;
+    format?: DateFormat;
 }
+
+type DateFormat =
+    | "DM"
+    | "DMY"
+    | "DMHM"
+    | "DMYHM";
 
 export const FormattedDate = ({ isoDate, format = "DMYHM"}: Props) => {
     const { locale } = useI18n();

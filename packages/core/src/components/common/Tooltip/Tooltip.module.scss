@@ -8,9 +8,9 @@
 
 .box {
     position: absolute;
-    top: 0;
+    bottom: 50px;
     left: 50%;
-    translate: -50% calc(-100% - 1rem);
+    transform: translate(-50%, calc(-100% - 1rem));
     background: #333;
     color: #fff;
     padding: 6px 10px;

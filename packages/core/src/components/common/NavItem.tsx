@@ -9,7 +9,7 @@ interface NavItemProps {
     children: ReactNode;
     className?: string;
     activeClassName?: string;
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 const NavItem = ({ href, children, className, activeClassName = "active", onClick }: NavItemProps) => {

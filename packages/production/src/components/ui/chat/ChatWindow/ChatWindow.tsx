@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import styles from "./ChatWindow.module.scss"
 import sharedStyles from "../ChatShared.module.scss"
-import LeftArrowIcon from "@core/components/common/icons/LeftArrowIcon";
+import ArrowIcon from "@core/components/common/icons/ArrowIcon";
 import CardsIcon from "@core/components/common/icons/CardsIcon";
 import UserIcon from "@core/components/common/icons/UserIcon";
 
@@ -71,7 +71,7 @@ const ChatWindow = ({title, className, isMobileStatic}: {title?: string, classNa
                                     onClick={() => setCurrentChatId(null)} 
                                     className={styles.mobileDialogsToggle}
                                 >
-                                    <LeftArrowIcon />
+                                    <ArrowIcon left />
                                 </button>
 
                                 {currentChat?.type !== undefined &&

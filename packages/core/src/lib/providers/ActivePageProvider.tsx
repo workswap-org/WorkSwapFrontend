@@ -28,8 +28,8 @@ export const ActivePageProvider = ({ children }: {children: ReactNode}) => {
         }
     }
 
-    const activePage = useMemo(
-        () => getSectionFromPath(pathname),
+    const activePage = useMemo<PageKey | null>(
+        () => getSectionFromPath(pathname) || null,
         [pathname]
     );
 

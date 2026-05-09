@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "next dev --webpack -p 30001",
+    "dev": "next dev --webpack -p 30008",
     "build": "next build --webpack",
-    "preview": "next start -p 30001",
-    "start": "next start -p 30001",
+    "preview": "next start -p 30008",
+    "start": "next start -p 30008",
     "lint": "next lint"
   },
   "dependencies": {

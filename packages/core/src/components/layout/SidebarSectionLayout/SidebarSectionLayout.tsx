@@ -4,7 +4,7 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 import { ReactNode, useState } from "react";
 import styles from "./SidebarSectionLayout.module.scss";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
-import LeftArrowIcon from "@core/components/common/icons/LeftArrowIcon";
+import ArrowIcon from "@core/components/common/icons/ArrowIcon";
  
 export interface SidebarSection {
     first: boolean;
@@ -67,7 +67,7 @@ const SidebarSectionLayout = ({
             <div className={`${styles.container} ${currentSection ? styles.active : ""}`} >
                 <div className={`${styles.mobileActions} media-only-flex`}>
                     <button onClick={() => setCurrentSection(null)} className={styles.backBtn}>
-                        <LeftArrowIcon />
+                        <ArrowIcon left/>
                     </button>
                 </div>
                 

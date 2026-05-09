@@ -2,6 +2,7 @@
 
 import { ReactNode, useRef, useState } from "react";
 import styles from "./Tooltip.module.scss";
+import { createPortal } from "react-dom";
 
 interface Props {
     text: string;
@@ -26,15 +27,17 @@ const Tooltip = ({ text, delay = 500, children }: Props) => {
         }
         setVisible(false);
     };
+
+    const modalRoot = document.getElementById("modal-root");
     
     return (
         <div 
             className={styles.wrapper}
             onMouseEnter={showTip}
-            onMouseLeave={hideTip}
+            /* onMouseLeave={hideTip} */
         >
             {children}
-            {visible && <div className={styles.box}>{text}</div>}
+            {visible && modalRoot && createPortal(<div className={styles.box}>{text}</div>, modalRoot)}
         </div>
     );
 };

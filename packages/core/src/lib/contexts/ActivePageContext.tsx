@@ -17,11 +17,11 @@ export const pageTitles = {
 
 export type PageKey = keyof typeof pageTitles;
 
-export const ActivePageContext = createContext<PageKey | undefined>(undefined);
+export const ActivePageContext = createContext<PageKey | null>(null);
 
 export const useActivePage = () => {
     const ctx = useContext(ActivePageContext);
-    if (!ctx) {
+    if (ctx === undefined) {
         throw new Error("useActivePage must be used inside ActivePageProvider");
     }
     return ctx;

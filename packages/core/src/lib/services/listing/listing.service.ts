@@ -22,7 +22,7 @@ export const getFavorites = () => apiFetchJson('/listing/favorites');
 export const getMyListings = () => apiFetchJson('/listing/my-listings');
 export const getDrafts = () => apiFetchJson("/listing/drafts");
 export const getByUserId = (userId: number) => apiFetchJson(`/listing/by-user`, {}, {userId});
-export const getRecentListings = (count: number) => apiFetchJson(`/listing/recent`, {}, {count});
+export const getRecentListings = (amount: number) => apiFetchJson(`/listing/recent`, {}, {amount});
 
 export const deleteListing = (listingId: number) => apiFetch(`/listing/${listingId}`, {method: 'DELETE'});
 export const create = (type: string) => apiFetchText(`/listing`, {method: "POST"}, {type});

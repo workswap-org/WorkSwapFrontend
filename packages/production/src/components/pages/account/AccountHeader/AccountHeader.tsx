@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import styles from "./AccountHeader.module.scss"
 import Link from "next/link";
-import LeftArrowIcon from "@core/components/common/icons/LeftArrowIcon";
+import ArrowIcon from "@core/components/common/icons/ArrowIcon";
 
 interface AccountHeaderProps {
     title?: string;
@@ -15,7 +15,7 @@ export default function AccountHeader({title, children, backLink}: AccountHeader
             {backLink && (
                 <div className='mobile-actions media-only-flex'>
                     <Link href='/account/my-listings' className={styles.backBtn}>
-                        <LeftArrowIcon />
+                        <ArrowIcon left />
                     </Link>
                 </div>
             )}
