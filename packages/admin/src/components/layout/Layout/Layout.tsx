@@ -11,7 +11,7 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 
 export default function Layout({ children }: any) {
     const [sidebarVisible, setSidebarVisible] = useState(false);
-    const { isAdmin, isAuthenticated } = useAuth();
+    const {user, isAdmin, isAuthenticated } = useAuth();
     const [url, setUrl] = useState<string | null>(null);
     const { dict } = useI18n();
 
@@ -29,7 +29,7 @@ export default function Layout({ children }: any) {
 
                 <main className={styles.main}>
 
-                    {isAuthenticated && isAdmin && (
+                    {user && isAuthenticated && isAdmin && (
                         <>
                             <Header toggleSidebar={() => setSidebarVisible(v => !v)} />
 

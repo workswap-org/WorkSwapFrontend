@@ -1,0 +1,10 @@
+@use "@core/css/components/global-mixins" as *;
+
+.page {
+    @include flex-column;
+}
+
+.tables {
+    @include flex-row;
+    gap: 0.5rem;
+}

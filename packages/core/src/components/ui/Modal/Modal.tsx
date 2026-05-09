@@ -8,10 +8,11 @@ interface ModalProps {
     onClose: () => void,
     title: string;
     id?: string;
+    className?: string;
     children: ReactNode;
 }
 
-const Modal = ({ isOpen, onClose, title, id = 'normalModal', children }: ModalProps) => {
+const Modal = ({ isOpen, onClose, title, id = 'normalModal', children, className }: ModalProps) => {
     const dialogRef = useRef<HTMLDialogElement | null>(null);
 
     useEffect(() => {
@@ -34,7 +35,7 @@ const Modal = ({ isOpen, onClose, title, id = 'normalModal', children }: ModalPr
     }, [isOpen, onClose]);
 
     return (
-        <dialog ref={dialogRef} className={`${styles.modal} fade-down`} onClick={(e) => e.stopPropagation()} id={id}>
+        <dialog ref={dialogRef} className={`${styles.modal} ${styles.className} fade-down`} onClick={(e) => e.stopPropagation()} id={id}>
             <span className={`${styles.close} hover`} onClick={onClose}>✖</span>
             {title && <h2>{title}</h2>}
             {children}
