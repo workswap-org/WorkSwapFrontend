@@ -1,6 +1,7 @@
 import Tooltip from "@core/components/common/Tooltip/Tooltip";
 import { statisticService } from "@core/lib/services/statisticService";
 import { useEffect, useState } from "react";
+import StatCard from "../StatCard/StatCard";
 
 const OnlineStatCard = () => {
     const [online, setOnline] = useState(0)
@@ -26,8 +27,7 @@ const OnlineStatCard = () => {
         loadOnlineMetrics()
     }, [])
 
-    const onlineMetricsText = `
-        Минимальный онлайн: ${metrics?.minOnline} 
+    const metricsText = `Минимальный онлайн: ${metrics?.minOnline} 
         Максимальный онлайн: ${metrics?.maxOnline}
         Медиана(типичный онлайн): ${metrics?.medianOnline}
         Средний онлайн за месяц: ${metrics?.avgOnline?.toFixed(1)}
@@ -39,20 +39,7 @@ const OnlineStatCard = () => {
         Дата максимального онлайна: ${metrics?.peakDay} ${metrics?.peakHour}:00
     `
 
-    return (
-        <div className="stat-card">
-            <div className="stat-card__title">Онлайн</div>
-            <Tooltip text={onlineMetricsText}>
-                <div className="stat-card__value">
-                    <span id="value">{online}</span>
-                </div>
-            </Tooltip>
-            {/* <div className={`stat-card-change ${isPositive ? "positive" : "negative"}`}>
-                <i className={`fa-solid ${isPositive ? "fa-arrow-up" : "fa-arrow-down"}`}></i> {changePercent} за месяц
-            </div> */}
-            {/* <FormattedDate isoDate={metrics?.peakDay} format="DM"/> */}
-        </div>
-    );
+    return metrics && <StatCard value={online} title={"Онлайн"} tooltip={metricsText} />
 };
 
 export default OnlineStatCard;

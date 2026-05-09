@@ -4,6 +4,7 @@ import { statisticService } from "@core/lib/services/statisticService";
 import { useEffect, useState } from "react";
 import { Interval } from "@core/lib/constants/intervalType";
 import ArrowIcon from "@core/components/common/icons/ArrowIcon";
+import StatCard from "../StatCard/StatCard";
 
 interface IViewsMetrics {
     viewsCount: number;
@@ -29,7 +30,7 @@ const ViewsStatCard = ({interval}: {interval: Interval}) => {
         loadOnlineMetrics(interval)
     }, [interval])
 
-    const onlineMetricsText = `Всего просмотров: ${metrics?.viewsCount} 
+    const metricsText = `Всего просмотров: ${metrics?.viewsCount} 
         Просмотры от обычных пользователей: ${metrics?.standartsUsersViewsCount}
         Просмотры от временных пользователей: ${metrics?.tempUsersViewsCount}
 
@@ -39,25 +40,16 @@ const ViewsStatCard = ({interval}: {interval: Interval}) => {
         Просмотры от временных пользователей: ${formatSignedValue(metrics?.tempUsersViewsChange || 0)}
     `
 
-    return (
-        <div className="stat-card">
-            <div className="stat-card__title">Просмотры</div>
-            <Tooltip text={onlineMetricsText}>
-                <div className="stat-card__value">
-                    <span id="value">{viewsCount}</span>
-                    <span id="change">({formatSignedValue(metrics?.viewsChange || 0)})</span>
-                </div>
-            </Tooltip>
-            {metrics && (
-                <div className={`stat-card__change ${metrics.viewsChange > 0 ? "positive" : "negative"}`}>
-                    {metrics.viewsChange > 0 ? <ArrowIcon up /> : <ArrowIcon down />}
-                    <span>{(metrics.viewsChange / metrics.viewsCount * 100).toFixed(0)}%</span>
-                </div>
-            )}
-            {/* <FormattedDate isoDate={metrics?.peakDay} format="DM"/> */}
-        </div>
-    );
-
+    return metrics && (
+        <StatCard
+            title={"Просмотры"}
+            value={viewsCount}
+            change={metrics?.viewsChange}
+            tooltip={metricsText}
+            changePercent={metrics.viewsChange / metrics.viewsCount * 100}
+            isPositive={metrics.viewsChange > 0}
+        />
+    )
 };
 
 export default ViewsStatCard;

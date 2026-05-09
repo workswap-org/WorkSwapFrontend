@@ -3,6 +3,7 @@ import { formatSignedValue } from "@core/lib/services/utilsService"
 import { statisticService } from "@core/lib/services/statisticService";
 import { useEffect, useState } from "react";
 import ArrowIcon from "@core/components/common/icons/ArrowIcon";
+import StatCard from "../StatCard/StatCard";
 
 const UsersStatCard = ({interval}: {interval: Interval}) => {
     const [usersCount, setUsersCount] = useState(0)
@@ -19,7 +20,7 @@ const UsersStatCard = ({interval}: {interval: Interval}) => {
         loadOnlineMetrics(interval)
     }, [interval])
 
-    const onlineMetricsText = `Всего пользователей: ${metrics?.usersCount} 
+    const metricsText = `Всего пользователей: ${metrics?.usersCount} 
         Зарегистрированных пользователей: ${metrics?.standartsUsersCount}
         Временных пользователей: ${metrics?.tempUsersCount}
 
@@ -29,22 +30,16 @@ const UsersStatCard = ({interval}: {interval: Interval}) => {
         Временные пользователи: ${formatSignedValue(metrics?.tempUsersChange)}
     `
 
-    return (
-        <div className="stat-card">
-            <div className="stat-card__title">Пользователи</div>
-            <Tooltip text={onlineMetricsText}>
-                <div className="stat-card__value">
-                    <span id="value">{usersCount}</span>
-                    <span id="change">({formatSignedValue(metrics?.usersChange)})</span>
-                </div>
-            </Tooltip>
-            <div className={`stat-card__change ${metrics.standardUsersChange > 0 ? "positive" : "negative"}`}>
-                {metrics.standardUsersChange > 0 ? <ArrowIcon up /> : <ArrowIcon down />}
-                <span>{(metrics.standardUsersChange / metrics.standartsUsersCount * 100).toFixed(0)}%</span>
-            </div>
-            {/* <FormattedDate isoDate={metrics?.peakDay} format="DM"/> */}
-        </div>
-    );
+    return metrics && (
+        <StatCard
+            title={"Пользователи"}
+            value={usersCount}
+            change={metrics?.usersChange}
+            tooltip={metricsText}
+            changePercent={metrics.standardUsersChange / metrics.standartsUsersCount * 100}
+            isPositive={metrics.standardUsersChange > 0}
+        />
+    )
 };
 
 export default UsersStatCard;

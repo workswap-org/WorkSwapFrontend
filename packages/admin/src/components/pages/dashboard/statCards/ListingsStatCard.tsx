@@ -3,6 +3,7 @@ import { Interval } from "@core/lib/constants/intervalType";
 import { statisticService } from "@core/lib/services/statisticService";
 import { formatSignedValue } from "@core/lib/services/utilsService"
 import { useEffect, useState } from "react";
+import StatCard from "../StatCard/StatCard";
 
 const ListingsStatCard = ({interval}: {interval: Interval}) => {
     const [listingsCount, setListingsCount] = useState(0)
@@ -19,7 +20,7 @@ const ListingsStatCard = ({interval}: {interval: Interval}) => {
         loadOnlineMetrics(interval)
     }, [interval])
 
-    const onlineMetricsText = `Всего объявлений: ${metrics?.listingsCount} 
+    const metricsText = `Всего объявлений: ${metrics?.listingsCount} 
         Активных объявлений: ${metrics?.publishedListingsCount}
         Черновиков объявлений: ${metrics?.temporaryListingsCount}
 
@@ -29,22 +30,16 @@ const ListingsStatCard = ({interval}: {interval: Interval}) => {
         Черновиков объявлений: ${formatSignedValue(metrics?.temporaryListingsChange)}
     `
 
-    return (
-        <div className="stat-card">
-            <div className="stat-card__title">Объявления</div>
-            <Tooltip text={onlineMetricsText}>
-                <div className="stat-card__value">
-                    <span id="value">{listingsCount}</span>
-                    <span id="change">({formatSignedValue(metrics?.listingsChange)})</span>
-                </div>
-            </Tooltip>
-            <div className={`stat-card__change ${metrics.publishedListingsChange > 0 ? "positive" : "negative"}`}>
-                <i className={`fa-solid fa-arrow-${metrics.publishedListingsChange > 0 ? "up" : "down"}`}></i>
-                <span>{(metrics.listingsChange / metrics.listingsCount * 100).toFixed(0)}%</span>
-            </div>
-            {/* <FormattedDate isoDate={metrics?.peakDay} format="DM"/> */}
-        </div>
-    );
+    return metrics && (
+        <StatCard 
+            title={"Объявления"}
+            value={listingsCount}
+            change={metrics?.listingsChange}
+            tooltip={metricsText}
+            changePercent={metrics.listingsChange / metrics.listingsCount * 100}
+            isPositive={metrics.publishedListingsChange > 0}
+        />
+    )
 };
 
 export default ListingsStatCard;
