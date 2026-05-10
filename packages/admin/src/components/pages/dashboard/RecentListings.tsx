@@ -7,6 +7,7 @@ import PriceTypes from "@core/components/common/PriceTypes/PriceTypes"
 import FormattedDate from "@core/components/common/date/FormattedDate"
 import EyeIcon from "@core/components/common/icons/EyeIcon"
 import Link from "next/link";
+import Table, { Columns, TableItem } from "@/components/ui/Table/Table";
 
 const RecentListings = () => {
 
@@ -16,55 +17,42 @@ const RecentListings = () => {
         listingService.getRecentListings(3).then(data => setListings(data))
     }, [])
 
-    const handleRowClick = () => {
-        window.location.href = "/listings";
-    };
+    const columns: Columns = {
+        id: { title: "ID" },
+        title: { title: "Название" },
+        price: { title: "Цена" },
+        date: { title: "Дата" },
+        actions: { title: "Действия" }
+    }
+
+    const items: TableItem[] = []
+
+    listings?.map(listing => items.push({
+        id: `#${listing.id}`,
+        title: listing.localizedTitle,
+        price: <PriceTypes listing={listing} />,
+        date: <FormattedDate isoDate={listing.publishedAt} format="DMY"/>,
+        actions: [
+            <Link 
+                key={`action-viewListing`} 
+                href={`/listing/${listing.id}`} 
+                className="btn btn-secondary"
+            >
+                <EyeIcon />
+            </Link>
+        ]
+    }))
 
     return listings && (
         <>
             <h2>Последние объявления</h2>
-            <div className="admin-table-wrapper">
-                <table className="admin-table">
-                    <thead style={{ cursor: "pointer" }} onClick={handleRowClick}>
-                        <tr>
-                            <th>ID</th>
-                            <th>Название</th>
-                            <th>Цена</th>
-                            <th>Дата</th>
-                            <th>Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {listings.length > 0 ? (
-                            listings.map((listing) => (
-                                <tr key={listing.id}>
-                                    <td>#{listing.id}</td>
-                                    <td>{listing.localizedTitle}</td>
-                                    <td>
-                                        <PriceTypes listing={listing} />
-                                    </td>
-                                    <td><FormattedDate isoDate={listing.publishedAt} format="DMY"/></td>
-                                    <td>
-                                        <div className="button-actions">
-                                            <Link href={`/listing/${listing.id}`} className="btn btn-secondary">
-                                                <EyeIcon />
-                                            </Link>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={6} className="text-center">
-                                    Нет объявлений
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+            <Table
+                href={"/listings"}
+                columns={columns} 
+                items={items}
+            />
         </>
-    );
+    )
 };
 
 export default RecentListings;

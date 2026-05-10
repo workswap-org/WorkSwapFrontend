@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import PlusIcon from "@core/components/common/icons/PlusIcon"
 import { categoryService } from "@core/lib/services/category"
 import Card from "@/components/ui/Card/Card";
-import CategoryTable from "@/components/pages/categories/CategoryTable";
+import CategoryTable from "@/components/pages/categories/CategoryTable/CategoryTable";
 import CategoryTree from "@/components/pages/categories/CategoryTree/CategoryTree";
 import { ICategory } from "@core/lib/types/models/category";
 import styles from "./CategoriesPage.module.scss"
@@ -49,9 +49,11 @@ const CategoriesPage = () => {
                 <div className={styles.page}>
                     {/* Таблица категорий услуг*/}
                     <div className={styles.tables}>
-                        {categoriesTypes && Object.values(categoriesTypes)?.map((type) => (
+                        {categoriesTypes && Object.keys(categoriesTypes)?.map((key) => (
                             <CategoryTable
-                                categories={type} 
+                                key={`table-${key}`}
+                                type={key}
+                                categories={categoriesTypes[key]} 
                                 onDeleteCategory={onDeleteCategory} 
                                 onEditCategory={onEditCategory} 
                             />
@@ -60,8 +62,12 @@ const CategoriesPage = () => {
 
                     {/* Дерево категорий */}
                     <div className="flex-row">
-                        {categoriesTypes && Object.values(categoriesTypes).map((type) => (
-                            <CategoryTree categories={type} />
+                        {categoriesTypes && Object.keys(categoriesTypes).map((key) => (
+                            <CategoryTree 
+                                key={`tree-${key}`} 
+                                type={key} 
+                                categories={categoriesTypes[key]}
+                            />
                         ))}
                     </div>
                 </div>

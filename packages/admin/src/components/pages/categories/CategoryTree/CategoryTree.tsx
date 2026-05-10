@@ -2,7 +2,11 @@ import { ICategory } from "@core/lib/types/models/category";
 import styles from "./CategoryTree.module.scss"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 
-const buildCategoryTree = (categories: ICategory[]) => {
+interface CategoryTreeItem extends ICategory {
+    children?: CategoryTreeItem[]
+}
+
+const buildCategoryTree = (categories: CategoryTreeItem[]) => {
     const map = new Map();
     const roots: ICategory[] = [];
 
@@ -23,16 +27,16 @@ const buildCategoryTree = (categories: ICategory[]) => {
 };
 
 // Компонент дерева категорий
-const CategoryTree = ({ categories }: {categories: ICategory[]}) => {
+const CategoryTree = ({ type, categories }: {type: string, categories: ICategory[]}) => {
     const tree = buildCategoryTree(categories);
     const { dict } = useI18n();
 
-    const renderTree = (nodes: ICategory[]) => (
+    const renderTree = (nodes: CategoryTreeItem[]) => (
         <ul>
-            {nodes.map(node => (
+            {nodes.map((node) => (
                 <li key={node.id}>
-                    <span>{node.name}</span>
-                    {node.children?.length > 0 && renderTree(node.children)}
+                    <span>{dict.categories.category[type][node.name]}</span>
+                    {node.children && node.children.length > 0 && renderTree(node.children)}
                 </li>
             ))}
         </ul>

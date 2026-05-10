@@ -1,7 +1,8 @@
-const CardsIcon = () => {
+const CardsIcon = ({className}: {className?: string}) => {
     return (
         <svg 
             width={24} height={24}
+            className={className}
             viewBox="0 0 16 16" 
             xmlns="http://www.w3.org/2000/svg" 
             version="1.1" 

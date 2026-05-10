@@ -1,7 +1,6 @@
 "use client"
 
 import NavItem from '@core/components/common/NavItem';
-import { useActivePage } from '@core/lib/contexts/ActivePageContext';
 import { useI18n } from '@core/lib/contexts/I18nContext';
 import styles from "./AccountSidebar.module.scss";
 import CardsIcon from "@core/components/common/icons/CardsIcon"
@@ -18,11 +17,11 @@ const AccountSidebarLinks = () => {
 
     const links = [
         /* { key: "account", icon: "fa-user" }, */
-        { key: "my-listings", icon: <CommentIcon size={22} /> },
-        { key: "favorites", icon: <HeartIcon size={24} /> /* "fa-heart" */ },
-        { key: "messenger", icon: <CardsIcon /> /* "fa-message-lines" */ },
+        { key: "my-listings", icon: <CardsIcon className={styles.icon} /> },
+        { key: "favorites", icon: <HeartIcon size={24} /> },
+        { key: "messenger", icon: <CommentIcon size={22} />},
         { key: "settings", icon: <GearIcon size={24}/> },
-        { key: "security", icon: <ShieldIcon size={24} /> /* "fa-shield-keyhole"  */},
+        { key: "security", icon: <ShieldIcon className={styles.icon} />},
     ];
 
 
