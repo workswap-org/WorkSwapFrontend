@@ -5,21 +5,36 @@ import { useNotification } from '@core/lib/contexts/NotificationContext';
 import { permissionsService } from '@core/lib/services/permissionsService';
 import SwitchToggler from "@core/components/common/checkbox/SwitchToggler/SwitchToggler"
 import styles from "./PermissionItem.module.scss"
+import PlusIcon from '@core/components/common/icons/PlusIcon';
 
-interface PermissionItemProps {
-    permission: IPermission | null;
-    setSaving: Dispatch<SetStateAction<boolean>>;
-    selectedRole: IRole | null;
-    checkedPermissions: IPermission[] | null;
-    setCheckedPermissions: Dispatch<SetStateAction<IPermission[] | null>>;
-} 
+type PermissionItemProps =
+    | {
+        permission: IPermission | null;
+        setSaving: Dispatch<SetStateAction<boolean>>;
+        selectedRole: IRole | null;
+        checkedPermissions: IPermission[] | null;
+        setCheckedPermissions: Dispatch<SetStateAction<IPermission[] | null>>;
+        createNew?: never;
+        onClick?: never;
+    }
+    | {
+        createNew: true;
+        onClick: () => void;
+        permission?: never;
+        setSaving?: never;
+        selectedRole?: never;
+        checkedPermissions?: never;
+        setCheckedPermissions?: never;
+    }
 
 const PermissionItem = ({
     permission,
     setSaving,
     selectedRole,
     checkedPermissions,
-    setCheckedPermissions
+    setCheckedPermissions,
+    onClick,
+    createNew
 }: PermissionItemProps) => {
 
     const { notificate } = useNotification()
@@ -47,7 +62,7 @@ const PermissionItem = ({
     }
 
     function changeRolePerms(perm: IPermission | null, enabled: boolean) {
-        if (!perm) return
+        if (!perm || !setSaving) return
         setSaving(true);
         savePermissions(perm.id, enabled);
         setCheckedPermissions(prev => {
@@ -89,7 +104,7 @@ const PermissionItem = ({
         icon: "pen"
     })
 
-    return (
+    return !createNew ? (
         <div className={styles.permission} key={permission?.id}>
             {editMode ? (
                 <>
@@ -128,6 +143,10 @@ const PermissionItem = ({
                 />
             )}
             <ActionMenu actions={actions} className={styles.kebab} />
+        </div>
+    ) : (
+        <div className={styles.permission} onClick={onClick} style={{cursor: "pointer", justifyContent: "left", gap: "0.5rem"}}>
+            <PlusIcon/><span>Создать новое разрешение</span>
         </div>
     );
 };

@@ -1,20 +1,16 @@
 "use client"
 
-import { useEffect, useState } from "react";
 import PlusIcon from "@core/components/common/icons/PlusIcon"
 import { categoryService } from "@core/lib/services/category"
 import Card from "@/components/ui/Card/Card";
 import CategoryTable from "@/components/pages/categories/CategoryTable/CategoryTable";
 import CategoryTree from "@/components/pages/categories/CategoryTree/CategoryTree";
-import { ICategory } from "@core/lib/types/models/category";
 import styles from "./CategoriesPage.module.scss"
+import Loader from "@core/components/common/Loader/Loader"
 
 const CategoriesPage = () => {
-    const [categoriesTypes, setCategoriesTypes] = useState<Record<string, ICategory[]> | null>(null);
 
-    useEffect(() => {
-        categoryService.getAllCategories().then(data => setCategoriesTypes(data))
-    }, []);
+    const { categories, loading } = categoryService.useCategories();
 
     const onAddCategory = () => {
         console.log("TODO: add category");
@@ -47,29 +43,30 @@ const CategoriesPage = () => {
                 </div>
             }>
                 <div className={styles.page}>
-                    {/* Таблица категорий услуг*/}
-                    <div className={styles.tables}>
-                        {categoriesTypes && Object.keys(categoriesTypes)?.map((key) => (
-                            <CategoryTable
-                                key={`table-${key}`}
-                                type={key}
-                                categories={categoriesTypes[key]} 
-                                onDeleteCategory={onDeleteCategory} 
-                                onEditCategory={onEditCategory} 
-                            />
-                        ))}
-                    </div>
+                    <Loader loadingActive={loading}>
+                        <div className={styles.tables}>
+                            {categories && Object.keys(categories)?.map((key) => (
+                                <CategoryTable
+                                    key={`table-${key}`}
+                                    type={key}
+                                    categories={categories[key]} 
+                                    onDeleteCategory={onDeleteCategory} 
+                                    onEditCategory={onEditCategory} 
+                                />
+                            ))}
+                        </div>
 
-                    {/* Дерево категорий */}
-                    <div className="flex-row">
-                        {categoriesTypes && Object.keys(categoriesTypes).map((key) => (
-                            <CategoryTree 
-                                key={`tree-${key}`} 
-                                type={key} 
-                                categories={categoriesTypes[key]}
-                            />
-                        ))}
-                    </div>
+                        {/* Дерево категорий */}
+                        <div className="flex-row">
+                            {categories && Object.keys(categories).map((key) => (
+                                <CategoryTree 
+                                    key={`tree-${key}`} 
+                                    type={key} 
+                                    categories={categories[key]}
+                                />
+                            ))}
+                        </div>
+                    </Loader>
                 </div>
             </Card>
         </>

@@ -16,6 +16,7 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
     overflow: auto;
 
     @include tablet {
@@ -36,6 +37,12 @@
     .subtitle {
         font-size: 1.1rem;
         color: var(--text-color-l1)
+    }
+
+    .actions {
+        margin-top: 0.5rem;
+        display: flex;
+        gap: 0.5rem;
     }
 }
 

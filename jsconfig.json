@@ -8,7 +8,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "strict": true,
-        "ignoreDeprecations": "6.0",
     },
     "include": [
         "src"

@@ -19,7 +19,10 @@ const StatGrid = () => {
                 onChange={(e) => {
                     const selected = Object.values(Intervals)
                         .find(i => i.title === e.target.value);
-                    setInterval(selected);
+                    
+                    if (selected) {
+                        setInterval(selected);
+                    }
                 }}
             >
                 {Object.values(Intervals).map(i => (

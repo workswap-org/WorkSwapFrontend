@@ -5,11 +5,16 @@ import { ListingType, ListingTypeValue } from "@core/lib/constants/listingTypes"
 
 export function useCategories() {
     const [categories, setCategories] = useState<Record<string, ICategory[]> | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         async function loadCategories() {
-            const data = await categoryService.getAllCategories();
-            setCategories(data)
+            try {
+                const data = await categoryService.getAllCategories();
+                setCategories(data)
+            } finally {
+                setLoading(false)
+            }
         }
         
         loadCategories()
@@ -22,5 +27,5 @@ export function useCategories() {
         return categories[listingType]?.filter(cat => cat.parentId == null) || []
     }, [categories, listingType]);
 
-    return { categories, rootCategories, listingType, setListingType }
+    return { categories, rootCategories, listingType, setListingType, loading }
 }

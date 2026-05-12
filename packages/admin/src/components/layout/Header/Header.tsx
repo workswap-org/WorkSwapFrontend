@@ -3,6 +3,7 @@ import Avatar from "@core/components/common/Avatar/Avatar";
 import SignOutIcon from "@core/components/common/icons/SignOutIcon"
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import styles from "./Header.module.scss";
+import BurgerIcon from "@core/components/common/icons/BurgerIcon"
 
 const Header = ({ toggleSidebar }: {toggleSidebar: () => void}) => {
 
@@ -28,7 +29,7 @@ const Header = ({ toggleSidebar }: {toggleSidebar: () => void}) => {
             </div>
 
             <div className={styles.mobileMenuBtn} onClick={() => toggleSidebar()}>
-                <i className="fa-solid fa-bars fa-xl"></i>
+                <BurgerIcon />
             </div>
         </header>
     );
