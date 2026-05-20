@@ -22,14 +22,23 @@
         tr {
             border-radius: var(--radius);
 
-            th {
+            .tableHeadItem {
                 background-color: var(--primary);
                 color: var(--permanent-light);
                 padding: 0.8rem 1rem;
                 text-align: left;
+                transition: background-color 0.3s ease;
 
                 @include mobile {
                     padding: 0.3rem 0.5rem;
+                }
+
+                &.sortable {
+                    cursor: pointer;
+                    
+                    &:hover {
+                        background-color: var(--primary-l1);
+                    }
                 }
             }
         }

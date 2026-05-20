@@ -19,3 +19,5 @@ export const modifyUserSettings = (updates: Record<string, any>) =>
             },
             body: JSON.stringify(updates),
         })
+
+export const getUsersList = (page: number, size: number, sortParam: string) => apiFetchJson(`/user/list`, {}, {page, size, sortParam});

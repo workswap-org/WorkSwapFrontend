@@ -30,7 +30,7 @@ export default async function RootLayout({ children, params }: { children: React
     const theme = loadedHeaders.get("x-theme") || "light";
 
     return (
-        <html lang="ru" data-theme={theme} data-scroll-behavior="smooth">
+        <html lang={parsed || "ru"} data-theme={theme} data-scroll-behavior="smooth">
             <body>
                 <I18nProvider locale={parsed} dict={dict}>
                     <AppProviders>

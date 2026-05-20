@@ -3,6 +3,7 @@ import styles from "./Table.module.scss"
 
 interface Column {
     title: string;
+    sortable?: true;
 }
 
 export type Columns = Record<string, Column>;
@@ -18,12 +19,13 @@ interface TableProps {
     columns: Columns;
     items: TableItem[];
     className?: string;
+    onColumnClick?: (sort: string) => void
 }
 
-export default function Table({href, columns, items, className}: TableProps) {
+export default function Table({href, columns, items, className, onColumnClick}: TableProps) {
 
     const handleRowClick = () => {
-        if (!href) return
+        if (!href || onColumnClick) return
         window.location.href = href;
     };
 
@@ -32,8 +34,12 @@ export default function Table({href, columns, items, className}: TableProps) {
             <table className={`${styles.table}`}>
                 <thead onClick={handleRowClick} style={href ? {cursor: "pointer"} : {}}>
                     <tr>
-                        {Object.values(columns).map(column => (
-                            <th key={`column-${column.title}`}>{column.title}</th>
+                        {Object.keys(columns).map(key => (
+                            <th 
+                                key={`column-${key}`}
+                                className={`${styles.tableHeadItem} ${(columns[key].sortable && onColumnClick) ? styles.sortable : ""}`}
+                                onClick={(columns[key].sortable && onColumnClick) ? () => onColumnClick(key) : undefined}
+                            >{columns[key].title}</th>
                         ))}
                     </tr>
                 </thead>
