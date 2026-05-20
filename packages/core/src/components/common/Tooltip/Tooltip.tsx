@@ -5,12 +5,13 @@ import styles from "./Tooltip.module.scss";
 import { createPortal } from "react-dom";
 
 interface Props {
+    title?: string;
     text: string;
     delay?: number;
     children: ReactNode;
 }
 
-const Tooltip = ({ text, delay = 500, children }: Props) => {
+const Tooltip = ({ title, text, delay = 500, children }: Props) => {
     const [visible, setVisible] = useState<boolean>(false);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -34,10 +35,16 @@ const Tooltip = ({ text, delay = 500, children }: Props) => {
         <div 
             className={styles.wrapper}
             onMouseEnter={showTip}
-            /* onMouseLeave={hideTip} */
+            onMouseLeave={hideTip}
         >
             {children}
-            {visible && modalRoot && createPortal(<div className={styles.box}>{text}</div>, modalRoot)}
+            {visible && modalRoot && createPortal(
+                <div className={styles.box}>
+                    {title && <h3 className={styles.header}>{title}</h3>}
+                    {text && <div className={styles.content}>{text}</div>}
+                </div>, 
+                modalRoot
+            )}
         </div>
     );
 };

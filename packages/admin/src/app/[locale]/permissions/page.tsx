@@ -6,6 +6,7 @@ import Card from "@/components/ui/Card/Card";
 import RolesList from "@/components/pages/permissions/RolesList/RolesList";
 import PermissionsList from "@/components/pages/permissions/PermissionsList/PermissionsList";
 import styles from "./PermissionsPage.module.scss"
+import Breadcrumbs from "@core/components/ui/Breadcrumbs/Breadcrumbs";
 
 const PermissionsPage = () => {
 
@@ -20,28 +21,36 @@ const PermissionsPage = () => {
     }, [])
 
     return (
-        <Card>
-            {selectedRole ? (
-                <div className={styles.selectedRole} onClick={() => setRoleListVisible(prev => !prev)}>
-                    {selectedRole.name}
+        <>
+            <Breadcrumbs
+                crumbs={[
+                    { href: "/dashboard", title: "Панель управления" },
+                    { href: "#", title: "Управление разрешениями" },
+                ]}
+            />
+            <Card>
+                {selectedRole ? (
+                    <div className={styles.selectedRole} onClick={() => setRoleListVisible(prev => !prev)}>
+                        {selectedRole.name}
+                    </div>
+                ) : (
+                    <div className={styles.selectedRole}></div>
+                )}
+                
+                <div className={styles.page}>
+                    <RolesList 
+                        selectRole={selectRole}
+                        saving={saving}
+                        selectedRole={selectedRole}
+                        roleListVisible={roleListVisible}
+                    />
+                    <PermissionsList
+                        selectedRole={selectedRole} 
+                        setSaving={setSaving}
+                    />
                 </div>
-            ) : (
-                <div className={styles.selectedRole}></div>
-            )}
-            
-            <div className={styles.page}>
-                <RolesList 
-                    selectRole={selectRole}
-                    saving={saving}
-                    selectedRole={selectedRole}
-                    roleListVisible={roleListVisible}
-                />
-                <PermissionsList
-                    selectedRole={selectedRole} 
-                    setSaving={setSaving}
-                />
-            </div>
-        </Card>
+            </Card>
+        </>
     );
 };
 

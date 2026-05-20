@@ -11,7 +11,7 @@ export default function Breadcrumbs({crumbs}: {crumbs: Breadcrumb[]}) {
         <nav className={styles.breadcrumbs}>
             {crumbs.map((crumb, index) => (
                 <div key={crumb.href} className={styles.crumb}>
-                    <Link href={crumb.href}>
+                    <Link href={crumb.href} className={styles.link}>
                         {crumb.title}
                     </Link>
 
