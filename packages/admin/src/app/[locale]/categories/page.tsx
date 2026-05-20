@@ -7,6 +7,7 @@ import CategoryTable from "@/components/pages/categories/CategoryTable/CategoryT
 import CategoryTree from "@/components/pages/categories/CategoryTree/CategoryTree";
 import styles from "./CategoriesPage.module.scss"
 import Loader from "@core/components/common/Loader/Loader"
+import Breadcrumbs from "@core/components/ui/Breadcrumbs/Breadcrumbs";
 
 const CategoriesPage = () => {
 
@@ -26,11 +27,12 @@ const CategoriesPage = () => {
 
     return (
         <>
-            <nav className="breadcrumbs">
-                <a href="/dashboard">Панель управления</a>
-                <span className="divider">/</span>
-                <span>Управление категориями</span>
-            </nav>
+            <Breadcrumbs
+                crumbs={[
+                    { href: "/dashboard", title: "Панель управления" },
+                    { href: "#", title: "Управление категориями" },
+                ]}
+            />
             <Card header={
                 <div className="flex-column justify-content-between align-items-center">
                     <h2>Список категорий</h2>

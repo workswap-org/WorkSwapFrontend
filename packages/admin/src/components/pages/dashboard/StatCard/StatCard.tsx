@@ -17,7 +17,7 @@ export default function StatCard({ value, title, change, tooltip, changePercent,
     return (
         <div className={styles.card}>
             <div className={styles.title}>{title}</div>
-            <Tooltip text={tooltip}>
+            <Tooltip text={tooltip} title={title}>
                 <div className={styles.valueContainer}>
                     <span className={styles.value}>{value}</span>
                     {change !== undefined && <span className={styles.change}>({formatSignedValue(change)})</span>}

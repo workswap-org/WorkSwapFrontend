@@ -1,4 +1,4 @@
-import Breadcrumbs, { Breadcrumb } from "@/components/ui/Breadcrumbs/Breadcrumbs"
+import Breadcrumbs, { Breadcrumb } from "@core/components/ui/Breadcrumbs/Breadcrumbs"
 import styles from "./ItemViewLayout.module.scss"
 import { ReactNode } from "react"
 import UserInfoSidebar from "@/components/pages/listing/UserInfoSidebar/UserInfoSidebar"
