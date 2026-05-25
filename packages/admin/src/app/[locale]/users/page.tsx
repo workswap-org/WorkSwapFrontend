@@ -17,13 +17,13 @@ export default function UsersPage() {
     const [sortParam, setSortParam] = useState<string>("id");
     
     useEffect(() => {
-        async function loadUsers(amount:number) {
+        async function loadUsers() {
             const data: Page<IUser> = await userService.getUsersList(0, 10, sortParam);
             console.log(data)
             setUsers(data.content);
         }
 
-        loadUsers(30);
+        loadUsers();
     }, [sortParam])
 
     const columns: Columns = {

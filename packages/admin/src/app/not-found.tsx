@@ -1,5 +1,5 @@
-import NotFoundPage from "@core/pages/NotFoundPage";
+import { redirect } from "next/navigation";
 
 export default function NotFound() {
-    return <NotFoundPage/>
+    redirect("/error")
 }

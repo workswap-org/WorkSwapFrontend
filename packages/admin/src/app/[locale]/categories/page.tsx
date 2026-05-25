@@ -44,16 +44,16 @@ const CategoriesPage = () => {
                     </button>
                 </div>
             }>
-                <div className={styles.page}>
-                    <Loader loadingActive={loading}>
+                <Loader loadingActive={loading}>
+                    <div className={styles.page}>
                         <div className={styles.tables}>
                             {categories && Object.keys(categories)?.map((key) => (
                                 <CategoryTable
                                     key={`table-${key}`}
                                     type={key}
-                                    categories={categories[key]} 
-                                    onDeleteCategory={onDeleteCategory} 
-                                    onEditCategory={onEditCategory} 
+                                    categories={categories[key]}
+                                    onDeleteCategory={onDeleteCategory}
+                                    onEditCategory={onEditCategory}
                                 />
                             ))}
                         </div>
@@ -61,15 +61,15 @@ const CategoriesPage = () => {
                         {/* Дерево категорий */}
                         <div className="flex-row">
                             {categories && Object.keys(categories).map((key) => (
-                                <CategoryTree 
-                                    key={`tree-${key}`} 
-                                    type={key} 
+                                <CategoryTree
+                                    key={`tree-${key}`}
+                                    type={key}
                                     categories={categories[key]}
                                 />
                             ))}
                         </div>
-                    </Loader>
-                </div>
+                    </div>
+                </Loader>
             </Card>
         </>
     );
