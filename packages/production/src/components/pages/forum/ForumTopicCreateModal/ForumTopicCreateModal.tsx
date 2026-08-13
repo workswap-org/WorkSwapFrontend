@@ -4,10 +4,10 @@ import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1"
 import { useI18n } from "@core/lib/contexts/I18nContext";
 import { forumService } from "@core/lib/services/forumService";
 import { ForumTag } from "@core/lib/types/forum";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 import PaperPlaneIcon from "@core/components/common/icons/PaperPlaneIcon"
 import styles from "./ForumTopicCreateModal.module.scss"
+import { useRouter } from "next/navigation";
 
 const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
     const { dict } = useI18n()
@@ -17,6 +17,7 @@ const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
     const [tag, setTag] = useState<ForumTag | null>(null);
     const [sending, setSending] = useState(false);
     const [isOpen, setOpen] = useState<boolean>(false)
+    const router = useRouter();
 
     const createTopic = async () => {
         setSending(true);
@@ -35,7 +36,7 @@ const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
         setSending(false);
         if (topicOpenId) {
             setTitle('');
-            redirect(`/forum/topic/${topicOpenId}`);
+            router.push(`/forum/topic/${topicOpenId}`);
         }
     } 
     

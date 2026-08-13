@@ -11,11 +11,13 @@ import { useI18n } from '@core/lib/contexts/I18nContext';
 import styles from "./PrivateListingCard.module.scss"
 import GearIcon from "@core/components/common/icons/GearIcon"
 import UnreadNotifications from '@core/components/ui/notifications/UnreadNotifications/UnreadNotifications';
+import { useRouter } from 'next/navigation';
 
 const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
 
     const { dict } = useI18n()
     const { unreadMessages, chats } = useChats();
+    const router = useRouter();
 
     const notifCount = useMemo(() => {
         const matchingChats = chats?.filter(chat => chat.targetId == listing.id && chat.type == ChatType.LISTING_DISCUSSION) ?? [];
@@ -28,9 +30,9 @@ const PrivateListingCard  = ({listing}: {listing: IFullListing}) => {
 
     const navigator = () => {
         if (listing.type == "EVENT") {
-            redirect(`/listing/${listing.id}/event`)
+            router.push(`/listing/${listing.id}/event`)
         } else {
-            redirect(`/listing/${listing.id}`)
+            router.push(`/listing/${listing.id}`)
         }
     }
 

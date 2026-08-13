@@ -144,7 +144,8 @@
             "avatar": "Avatar",
             "myLanguages": "Puhumani kielet",
             "myLocation": "Sijaintini",
-            "bio": "Tietoa minusta"
+            "bio": "Tietoa minusta",
+            "theme": "Teema"
         },
         "sections": {
             "profile": "Profiili",
@@ -197,5 +198,9 @@
     "forum": {
         "popularTopics": "Suositut aiheet",
         "lastActivity": "Viimeisin aktiivisuus"
+    },
+    "theme": {
+        "light": "Vaalea",
+        "dark": "Tumma"
     }
 }

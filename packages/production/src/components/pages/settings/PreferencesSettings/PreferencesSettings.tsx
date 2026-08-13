@@ -4,6 +4,7 @@ import { useI18n } from '@core/lib/contexts/I18nContext';
 import LocationSelector from '@/components/ui/selectors/LocationSelector';
 import SettingSection from '../SettingSection/SettingSection';
 import styles from "./PreferencesSettings.module.scss"
+import ThemeChanger from '@core/components/layout/ThemeChanger';
 
 interface PreferencesSettingsProps {
     user: IFullUser;
@@ -49,6 +50,12 @@ const PreferencesSettings = ({ user, updateUser }: PreferencesSettingsProps) => 
                 subtitle={dict.tooltips.settings.myLocation}
             >
                 <LocationSelector locationId={user.locationId} onChange={(locationId) => updateUser({ locationId: locationId })} />
+            </SettingSection>
+
+            <SettingSection
+                title={dict.common.settings.labels.theme}
+            >
+                <ThemeChanger id='settingsThemeChanger'/>
             </SettingSection>
         </>
     );

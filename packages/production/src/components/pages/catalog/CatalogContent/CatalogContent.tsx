@@ -48,11 +48,7 @@ const CatalogContent = () => {
                 <article key={0} onClick={() => window.location.href = "/account/listing/create"} className={cardStyles.card}>
                     <div className={`${cardStyles.imageWrapper} ${cardStyles.new}`}>
                         <PlusIcon size={35} />
-                    </div>
-                    <div className={cardStyles.body}>
-                        <h3 className={cardStyles.title}>
-                            {dict.navigation.catalogSidebar.links.createListing}
-                        </h3>
+                        <span className={cardStyles.subtitle}>{dict.navigation.catalogSidebar.links.createListing}</span>
                     </div>
                 </article>
             </ListingsGrid>

@@ -46,7 +46,7 @@ export default function CatalogPage() {
                                 key={type.key}
                                 type="button"
                                 className={clsx(styles.type, filters.type === type.key ? styles.active : "")}
-                                onClick={() => updateFilter("type", type.key === filters.type ? type.key : null)}
+                                onClick={() => updateFilter("type", type.key != filters.type ? type.key : null)}
                             >
                                 {dict.categories.listingType[type.key]}
                             </button>

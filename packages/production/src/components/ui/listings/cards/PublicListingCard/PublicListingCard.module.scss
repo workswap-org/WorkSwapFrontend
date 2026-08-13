@@ -18,9 +18,6 @@
     }
 
     &:hover {
-        img {
-            object-fit: contain;
-        }
 
         .title,
         .price {
@@ -64,6 +61,7 @@
         &:hover {
             transform: scale(1.05);
             filter: brightness(1.05);
+            object-fit: contain;
         }
     }
 
@@ -73,6 +71,29 @@
         align-items: center;
         justify-content: center;
         display: flex;
+        * {
+            transition: all 0.2s;
+        }
+
+        &:hover {
+
+            svg {
+                transform: scale(1.3);
+            }
+
+            .subtitle {
+                transform: scale(1.2);
+                translate: 0 55px;
+            }
+        }
+    }
+
+    .subtitle {
+        position: absolute;
+        translate: 0 50px;
+        font-size: 1.1rem;
+        max-width: 100px;
+        text-align: center;
     }
 }
 

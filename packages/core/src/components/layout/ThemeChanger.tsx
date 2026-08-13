@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import SunIcon from "../common/icons/SunIcon";
 import MoonIcon from "../common/icons/MoonIcon";
 import SliderCheckbox from "../common/checkbox/SliderCheckbox/SliderCheckbox";
+import { useI18n } from "@core/lib/contexts/I18nContext";
 
 type Theme = "light" | "dark";
 
 const ThemeChanger = ({ id }: { id: string }) => {
     const [theme, setTheme] = useState<Theme>("light");
+    const { dict } = useI18n();
 
     useEffect(() => {
         const savedTheme = localStorage.getItem("theme");
@@ -46,6 +48,7 @@ const ThemeChanger = ({ id }: { id: string }) => {
                 applyTheme(e.target.checked ? "dark" : "light");
             }}
             icons={[<MoonIcon key="moon" />, <SunIcon key="sun" />]}
+            options={{checked: dict.common.theme.dark, unchecked: dict.common.theme.light}}
         />
     );
 };

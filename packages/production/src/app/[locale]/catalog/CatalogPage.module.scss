@@ -43,7 +43,7 @@
 	width: max-content;
 	width: 100%;
 	-webkit-overflow-scrolling: touch;
-	padding: 0.2rem;
+	padding: 0.3rem 0.2rem;
 	margin-bottom: 1rem;
 	background-color: var(--background-l2);
 	border-radius: 1rem;
@@ -52,7 +52,7 @@
 	scrollbar-width: thin;
 
 	@include mobile {
-		justify-content: space-around;
+		justify-content: space-between;
 	}
 
 	.type {
@@ -63,15 +63,20 @@
 		justify-content: center;
 		border-width: 0;
 		cursor: pointer;
-		padding: 0.3rem 1cqh;
+		padding: 0.2rem 1cqh;
 		color: var(--text-color);
 		gap: 0.4rem;
 		font-size: 1.05rem;
 		font-weight: 600;
 		transition: all 0.1s ease-in;
+		border-radius: 2rem;
 
 		&.active, &:hover {
 			color: var(--primary);
+		}
+
+		&.active {
+			background-color: rgba(138, 138, 138, 0.233);
 		}
 	}
 }

@@ -41,6 +41,7 @@ export function CatalogFiltersProvider({ initialFilters, children }: { initialFi
     }, [filters])
 
     function updateFilter(key: string, value: string | number | boolean | null) {
+        console.log("обновляем фильтр", key, value)
         setFilters(prev => ({ ...prev, [key]: value }));
     }
 
@@ -70,7 +71,7 @@ export function CatalogFiltersProvider({ initialFilters, children }: { initialFi
                 ? `${pathname}?${paramsString}`
                 : pathname;
 
-            window.history.replaceState(null, "", newUrl);
+            window.history.pushState(null, "", newUrl);
         }
     }, [cleanFilters, pathname]);
 

@@ -5,7 +5,8 @@
         "myLocation": "Tämä asetus on vapaaehtoinen, mutta hyödyllinen, jotta et näe ilmoituksia muista maista tai kaupungeista",
         "bio": "Lyhyt tieto",
         "phoneVisibility": "Näytä puhelinnumero",
-        "emailVisibility": "Näytä sähköposti"
+        "emailVisibility": "Näytä sähköposti",
+        "theme": "Teema"
     },
 
     "catalog": {

@@ -1,7 +1,6 @@
 "use client"
 
 import MobileMenu from "../../MobileMenu/MobileMenu";
-import ThemeChanger from "@core/components/layout/ThemeChanger"
 import Link from 'next/link';
 import styles from "./Header.module.scss"
 import { useI18n } from '@core/lib/contexts/I18nContext';
@@ -40,16 +39,10 @@ const Header = () => {
                     </Link>
 
                     <div className={styles.mobileNavButtons}>
-                        <div className={styles.navLink}>
-                            <ThemeChanger id={"themeChangerHeader"}/>
-                        </div>
                         <MobileMenu />
                     </div>
 
                     <div className={styles.navButtons}>
-                        {/* <div className={`${styles.navLink} normal-only`}>
-                            <ThemeChanger id={"themeChangerMobile"}/>
-                        </div> */}
 
                         <NavItem href="/forum" className={styles.navLink} activeClassName={styles.active}>
                             {dict.navigation.forum}

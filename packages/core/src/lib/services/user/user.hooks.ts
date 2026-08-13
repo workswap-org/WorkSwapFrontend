@@ -3,11 +3,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { IShortUser, IUser } from "@core/lib/types/models/user";
 import { userService } from ".";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { AUTH_BASE } from "@core/config";
 
 export function useCurrentUser() {
     const [user, setUser] = useState<IUser | null>(null);
+    const router = useRouter();
     const [loading, setLoading] = useState(true);
     const isAuthenticated = useMemo<boolean>(() => {
         if (!user) return false;
@@ -41,7 +42,7 @@ export function useCurrentUser() {
         } catch (e) {
             console.error("Logout failed", e);
         } finally {
-            redirect("/");
+            router.push("/");
         }
     }, []);
 

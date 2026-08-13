@@ -50,7 +50,7 @@ const ChatLinkMessage = ({listingId, interlocutorId, className, children}: ChatL
         reloadChats();
 
         // 3. навигация — последняя операция
-        redirect(`/account/messenger?chatId=${chatId}`);
+        router.push(`/account/messenger?chatId=${chatId}`);
     }
 
     return (

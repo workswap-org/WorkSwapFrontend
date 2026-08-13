@@ -11,11 +11,13 @@ import { useI18n } from "@core/lib/contexts/I18nContext";
 import HeartIcon from "@core/components/common/icons/HeartIcon"
 import styles from "./PublicListingCard.module.scss"
 import LocationIcon from "@core/components/common/icons/LocationIcon"
+import { useRouter } from "next/navigation";
 
 const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
     const { dict } = useI18n()
     const { isAuthenticated } = useAuth();
+    const router = useRouter();
 
     const isNew = (new Date().getTime() - new Date(listing.publishedAt).getTime()) < 3 * 24 * 60 * 60 * 1000;
     const { isFavorite, toggleFavorite, likesCount } = listingService.useFavorite(listing);
@@ -24,9 +26,9 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
 
     const navigator = () => {
         if (listing.type == "EVENT") {
-            redirect(`/listing/${listing.id}/event`)
+            router.push(`/listing/${listing.id}/event`)
         } else {
-            redirect(`/listing/${listing.id}`)
+            router.push(`/listing/${listing.id}`)
         }
     }
 

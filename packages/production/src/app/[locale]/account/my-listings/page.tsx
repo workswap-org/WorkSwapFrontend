@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { redirect } from 'next/navigation';
 import { IFullListing } from "@core/lib/types/models/listing";
 import { listingService } from "@core/lib/services/listing";
 import PrivateListingCard from "@/components/ui/listings/cards/PrivateListingCard/PrivateListingCard";
@@ -15,6 +14,7 @@ import privateStyles from "@/components/ui/listings/cards/PrivateListingCard/Pri
 import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
 import styles from "./MyListingsPage.module.scss"
 import AccountListingsGrid from "@/components/pages/account/AccountListingsGrid/AccountListingsGrid";
+import { useRouter } from "next/navigation";
 
 const MyListingsPage = () => {
 
@@ -24,6 +24,7 @@ const MyListingsPage = () => {
     const [activeListings, setActiveListings] = useState<IFullListing[] | null>(null);
     const [drafts, setDrafts] = useState<IFullListing[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true)
+    const router = useRouter();
     
     useEffect(() => {
         listingService.getMyListings().then((data: IFullListing[]) => {
@@ -40,7 +41,7 @@ const MyListingsPage = () => {
                 <h2>{dict.common.titles.myListings}</h2>
                 <button
                     className="btn btn-primary"
-                    onClick={() => redirect("/account/listing/create")}
+                    onClick={() => router.push("/account/listing/create")}
                 >
                     {dict.buttons.listing.addNew}
                 </button>
@@ -50,7 +51,7 @@ const MyListingsPage = () => {
                 {listings?.length == 0 ? (
                     <AccountListingsGrid>
                         <article 
-                            onClick={() => redirect("/account/listing/create")} 
+                            onClick={() => router.push("/account/listing/create")} 
                             className={`${privateStyles.card} ${privateStyles.center} hover-animation-card`}
                         >
                             <h3>{dict.navigation.catalogSidebar.links.createListing}</h3>
@@ -83,7 +84,7 @@ const MyListingsPage = () => {
                                 ))}
                                 <Tooltip text={dict.buttons.listing.addNew}>
                                     <article 
-                                        onClick={() => redirect("/account/listing/create")} 
+                                        onClick={() => router.push("/account/listing/create")} 
                                         className={`${draftStyles.card} ${draftStyles.new}`}
                                     >
                                         <PlusIcon size={34} />

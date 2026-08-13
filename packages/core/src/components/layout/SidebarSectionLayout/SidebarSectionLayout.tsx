@@ -5,6 +5,7 @@ import { ReactNode, useState } from "react";
 import styles from "./SidebarSectionLayout.module.scss";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
 import ArrowIcon from "@core/components/common/icons/ArrowIcon";
+import clsx from "clsx"
  
 export interface SidebarSection {
     first: boolean;
@@ -52,12 +53,16 @@ const SidebarSectionLayout = ({
                 {Object.entries(sections).map(([key, section]) => (
                     <button
                         key={section.name}
-                        className={`${styles.section} hover ${section.name === currentSection?.name ? styles.active : ""}`}
+                        className={clsx(
+                            styles.section, 
+                            "hover", 
+                            section.name === currentSection?.name ? styles.active : null
+                        )}
                         onClick={() => setCurrentSection(section)}
                         id={notifications?.menu.name === section.name ? "notificationAnchor" : "none"}
                     >
-                        {section.icon}
-                        {dict.common[pageName].sections[key] ?? `${pageName} ${key}`}
+                        {/* {section.icon} */}
+                        {dict.common[pageName].sections[key] ?? key}
                         {notifications?.menu.name === section.name && notifications.count > 0 &&
                             <UnreadNotifications count={notifications.count}/>
                         }

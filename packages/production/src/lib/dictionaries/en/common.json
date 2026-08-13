@@ -144,7 +144,8 @@
             "avatar": "Avatar",
             "myLanguages": "Languages I Speak",
             "myLocation": "My Location",
-            "bio": "About Me"
+            "bio": "About Me",
+            "theme": "Theme"
         },
         "sections": {
             "profile": "Profile",
@@ -198,5 +199,9 @@
     "forum": {
         "popularTopics": "Popular topics",
         "lastActivity": "Latest activity"
+    },
+    "theme": {
+        "light": "Light",
+        "dark": "Dark"
     }
 }
