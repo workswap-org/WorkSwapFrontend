@@ -1,16 +1,24 @@
-import Tooltip from "@core/components/common/Tooltip/Tooltip";
 import { formatSignedValue } from "@core/lib/services/utilsService"
 import { statisticService } from "@core/lib/services/statisticService";
 import { useEffect, useState } from "react";
-import ArrowIcon from "@core/components/common/icons/ArrowIcon";
 import StatCard from "../StatCard/StatCard";
+import { Interval } from "@core/lib/constants/intervalType";
+
+interface UserMetrics {
+    usersCount: number;
+    standartsUsersCount: number;
+    tempUsersCount: number;
+    usersChange: number;
+    standardUsersChange: number;
+    tempUsersChange: number;
+}
 
 const UsersStatCard = ({interval}: {interval: Interval}) => {
     const [usersCount, setUsersCount] = useState(0)
-    const [metrics, setMetrics] = useState([]);
+    const [metrics, setMetrics] = useState<UserMetrics | null>(null);
 
     useEffect(() => {
-        async function loadOnlineMetrics(interval) {
+        async function loadOnlineMetrics(interval: Interval) {
             const data = await statisticService.getUsersCountMetrics(interval.type, interval.multiplier);
             console.log(data)
             setMetrics(data);
@@ -25,9 +33,9 @@ const UsersStatCard = ({interval}: {interval: Interval}) => {
         Временных пользователей: ${metrics?.tempUsersCount}
 
         Показатели: (${interval.title})
-        Все пользователи: ${formatSignedValue(metrics?.usersChange)}
-        Зарегистрированные пользователи: ${formatSignedValue(metrics?.standardUsersChange)}
-        Временные пользователи: ${formatSignedValue(metrics?.tempUsersChange)}
+        Все пользователи: ${formatSignedValue(metrics?.usersChange || 0)}
+        Зарегистрированные пользователи: ${formatSignedValue(metrics?.standardUsersChange || 0)}
+        Временные пользователи: ${formatSignedValue(metrics?.tempUsersChange || 0)}
     `
 
     return metrics && (

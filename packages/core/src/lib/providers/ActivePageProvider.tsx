@@ -7,31 +7,29 @@ import { usePathname } from "next/navigation";
 
 export const ActivePageProvider = ({ children }: {children: ReactNode}) => {
 
-    const pathname = usePathname(); // заменяем useLocation
-        const mapping: Record<string, PageKey> = {
-        "/dashboard": "dashboard",
-        "/listings": "listings",
-        "/resumes": "resumes",
-        "/users": "users",
-        "/locations": "locations",
-        "/categories": "categories",
-        "/tasks": "tasks",
-        "/localization": "localization",
-        "/permissions": "permissions",
+    const pathname = usePathname();
+
+    const mapping: Record<string, PageKey> = {
+        dashboard: "dashboard",
+        listings: "listings",
+        resumes: "resumes",
+        users: "users",
+        locations: "locations",
+        categories: "categories",
+        tasks: "tasks",
+        localization: "localization",
+        permissions: "permissions",
     };
 
-    function getSectionFromPath(pathname: string): PageKey | undefined {
-        for (const key in mapping) {
-            if (pathname.startsWith(key)) {
-                return mapping[key];
-            }
-        }
-    }
+    const activePage = useMemo<PageKey | null>(() => {
+        const segments = pathname.split("/").filter(Boolean);
 
-    const activePage = useMemo<PageKey | null>(
-        () => getSectionFromPath(pathname) || null,
-        [pathname]
-    );
+        const pageSegment = segments[1];
+
+        return pageSegment && pageSegment in mapping
+            ? mapping[pageSegment]
+            : null;
+    }, [pathname]);
 
     return (
         <ActivePageContext.Provider value={activePage}>

@@ -6,6 +6,7 @@ import FormattedDate from "@core/components/common/date/FormattedDate"
 import { IUser } from "@core/lib/types/models/user";
 import Link from "next/link";
 import UserGearIcon from "@core/components/common/icons/UserGearIcon"
+import Table, { Columns, TableItem } from "@/components/ui/Table/Table";
 
 const RecentUsers = () => {
 
@@ -24,51 +25,42 @@ const RecentUsers = () => {
         loadUsers();
     }, []);
 
-    const handleRowClick = () => {
-        window.location.href = "/users";
-    };
+    const columns: Columns = {
+        id: { title: "ID" },
+        name: { title: "Имя" },
+        email: { title: "Email" },
+        regDate: { title: "Регистрация" },
+        actions: { title: "Действия" }
+    }
+
+    const items: TableItem[] = []
+
+    users?.map(user => items.push({
+        id: `#${user.id}`,
+        name: user.name,
+        email: user.email || "-",
+        regDate: <FormattedDate isoDate={user.createdAt} format="DMY"/>,
+        actions: [
+            <Link 
+                key={`action-viewUser`} 
+                href={`/user/${user.id}`} 
+                className="btn btn-primary"
+            >
+                <UserGearIcon />
+            </Link>
+        ]
+    }))
 
     return users && (
         <>
             <h2>Последние пользователи</h2>
-            <div className="admin-table-wrapper">
-                <table className="admin-table">
-                    <thead style={{ cursor: "pointer" }} onClick={handleRowClick}>
-                        <tr>
-                            <th>ID</th>
-                            <th>Имя</th>
-                            <th>Email</th>
-                            <th>Регистрация</th>
-                            <th>Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.length > 0 ? (
-                            users.map((user) => (
-                                <tr key={user.id}>
-                                    <td>#{user.id}</td>
-                                    <td>{user.name}</td>
-                                    <td>{user.email}</td>
-                                    <td><FormattedDate isoDate={user.createdAt} format="DMY"/></td>
-                                    <td>
-                                        <Link href={`/user/${user.id}`} className="btn btn-primary">
-                                            <UserGearIcon />
-                                        </Link>
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={5} className="text-center">
-                                    Нет пользователей
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+            <Table
+                href={"/users"}
+                columns={columns} 
+                items={items}
+            />
         </>
-    );
+    )
 };
 
 export default RecentUsers;

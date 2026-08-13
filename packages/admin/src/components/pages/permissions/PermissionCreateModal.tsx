@@ -1,13 +1,11 @@
 import Modal from "@core/components/ui/Modal/Modal";
 import { useState } from "react";
-import PlusIcon from "@core/components/common/icons/PlusIcon"
 import { permissionsService } from "@core/lib/services/permissionsService";
 import { IPermission } from "@core/lib/types/models/user";
 
-const PermissionCreateModal = ({addPermission}: {addPermission: (permisson: IPermission) => void}) => {
+const PermissionCreateModal = ({addPermission, onClose, isOpen}: {addPermission: (permisson: IPermission) => void, onClose: () => void, isOpen: boolean}) => {
 
     const [name, setName] = useState("");
-    const [isOpen, setOpen] = useState(false);
 
     async function createPerm() {
         if (!name.trim()) return;
@@ -15,17 +13,13 @@ const PermissionCreateModal = ({addPermission}: {addPermission: (permisson: IPer
         if (newPermId) {
             addPermission({id: newPermId, name: name, comment: ""})
             setName("");
-            setOpen(false);
+            onClose();
         }
     }
 
     return (
         <>
-            <button onClick={() => setOpen(true)} className="btn btn-primary">
-                <PlusIcon /> Разрешение
-            </button>
-
-            <Modal isOpen={isOpen} onClose={() => setOpen(false)} title="Создать Разрешение">
+            <Modal isOpen={isOpen} onClose={onClose} title="Создать Разрешение">
                 <div className="form-group">
                     <label htmlFor="permissionName">Имя:</label>
                     <span>(на англиском, заглавными буквами)</span>

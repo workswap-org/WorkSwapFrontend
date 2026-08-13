@@ -1,9 +1,7 @@
-import Tooltip from "@core/components/common/Tooltip/Tooltip";
 import { formatSignedValue } from "@core/lib/services/utilsService"
 import { statisticService } from "@core/lib/services/statisticService";
 import { useEffect, useState } from "react";
 import { Interval } from "@core/lib/constants/intervalType";
-import ArrowIcon from "@core/components/common/icons/ArrowIcon";
 import StatCard from "../StatCard/StatCard";
 
 interface IViewsMetrics {

@@ -1,0 +1,29 @@
+.table {
+    max-height: 500px;
+    width: 100%;
+    overflow: auto; 
+
+    td {
+        padding: 0.5rem;
+        max-width: 240px;
+        white-space: nowrap;    
+        overflow: hidden;        
+        text-overflow: ellipsis;
+        text-align: left;
+    }
+}
+
+.action {
+    padding: 5px;
+    border-radius: 4px;
+
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .trashIcon {
+        width: 22px;
+        height: 22px;
+    }
+}

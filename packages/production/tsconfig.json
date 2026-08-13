@@ -42,7 +42,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "next.config.ts"
-  ],
+, "../core/src/components/ui/Breadcrumbs"  ],
   "exclude": [
     "node_modules",
     "**/node_modules/*",

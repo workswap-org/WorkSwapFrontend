@@ -1,6 +1,5 @@
 "use client"
 
-import EmptyPage from "@core/pages/EmptyPage";
 import { ReactNode } from "react";
 import { useAuth } from "@core/lib/contexts/AuthContext";
 import { AUTH_BASE } from "@core/config";
@@ -14,7 +13,7 @@ const PrivateRoute = ({children}: {children: ReactNode}) => {
     }
 
     if (loading) {
-        return <EmptyPage />;
+        return <></>;
     }
 
     return children;

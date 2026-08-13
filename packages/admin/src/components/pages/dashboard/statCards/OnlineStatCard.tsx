@@ -1,11 +1,23 @@
-import Tooltip from "@core/components/common/Tooltip/Tooltip";
 import { statisticService } from "@core/lib/services/statisticService";
 import { useEffect, useState } from "react";
 import StatCard from "../StatCard/StatCard";
 
+interface OnlineMetrics {
+    minOnline: number;
+    maxOnline: number;
+    medianOnline: number;
+    avgOnline: number;
+    p95Online: number;
+    stdDeviation: number;
+    totalUserHours: number;
+    peakDay: number;
+    peakHour: number;
+}
+
+
 const OnlineStatCard = () => {
     const [online, setOnline] = useState(0)
-    const [metrics, setMetrics] = useState([]);
+    const [metrics, setMetrics] = useState<OnlineMetrics | null>(null);
 
     useEffect(() => {
         async function loadOnline() {

@@ -1,20 +1,17 @@
 "use client"
 
-import { useEffect, useState } from "react";
 import PlusIcon from "@core/components/common/icons/PlusIcon"
 import { categoryService } from "@core/lib/services/category"
 import Card from "@/components/ui/Card/Card";
-import CategoryTable from "@/components/pages/categories/CategoryTable";
+import CategoryTable from "@/components/pages/categories/CategoryTable/CategoryTable";
 import CategoryTree from "@/components/pages/categories/CategoryTree/CategoryTree";
-import { ICategory } from "@core/lib/types/models/category";
 import styles from "./CategoriesPage.module.scss"
+import Loader from "@core/components/common/Loader/Loader"
+import Breadcrumbs from "@core/components/ui/Breadcrumbs/Breadcrumbs";
 
 const CategoriesPage = () => {
-    const [categoriesTypes, setCategoriesTypes] = useState<Record<string, ICategory[]> | null>(null);
 
-    useEffect(() => {
-        categoryService.getAllCategories().then(data => setCategoriesTypes(data))
-    }, []);
+    const { categories, loading } = categoryService.useCategories();
 
     const onAddCategory = () => {
         console.log("TODO: add category");
@@ -30,11 +27,12 @@ const CategoriesPage = () => {
 
     return (
         <>
-            <nav className="breadcrumbs">
-                <a href="/dashboard">Панель управления</a>
-                <span className="divider">/</span>
-                <span>Управление категориями</span>
-            </nav>
+            <Breadcrumbs
+                crumbs={[
+                    { href: "/dashboard", title: "Панель управления" },
+                    { href: "#", title: "Управление категориями" },
+                ]}
+            />
             <Card header={
                 <div className="flex-column justify-content-between align-items-center">
                     <h2>Список категорий</h2>
@@ -46,25 +44,32 @@ const CategoriesPage = () => {
                     </button>
                 </div>
             }>
-                <div className={styles.page}>
-                    {/* Таблица категорий услуг*/}
-                    <div className={styles.tables}>
-                        {categoriesTypes && Object.values(categoriesTypes)?.map((type) => (
-                            <CategoryTable
-                                categories={type} 
-                                onDeleteCategory={onDeleteCategory} 
-                                onEditCategory={onEditCategory} 
-                            />
-                        ))}
-                    </div>
+                <Loader loadingActive={loading}>
+                    <div className={styles.page}>
+                        <div className={styles.tables}>
+                            {categories && Object.keys(categories)?.map((key) => (
+                                <CategoryTable
+                                    key={`table-${key}`}
+                                    type={key}
+                                    categories={categories[key]}
+                                    onDeleteCategory={onDeleteCategory}
+                                    onEditCategory={onEditCategory}
+                                />
+                            ))}
+                        </div>
 
-                    {/* Дерево категорий */}
-                    <div className="flex-row">
-                        {categoriesTypes && Object.values(categoriesTypes).map((type) => (
-                            <CategoryTree categories={type} />
-                        ))}
+                        {/* Дерево категорий */}
+                        <div className="flex-row">
+                            {categories && Object.keys(categories).map((key) => (
+                                <CategoryTree
+                                    key={`tree-${key}`}
+                                    type={key}
+                                    categories={categories[key]}
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </Loader>
             </Card>
         </>
     );

@@ -1,16 +1,24 @@
-import Tooltip from "@core/components/common/Tooltip/Tooltip";
 import { Interval } from "@core/lib/constants/intervalType";
 import { statisticService } from "@core/lib/services/statisticService";
 import { formatSignedValue } from "@core/lib/services/utilsService"
 import { useEffect, useState } from "react";
 import StatCard from "../StatCard/StatCard";
 
+interface ListingMetrics {
+    listingsCount: number;
+    publishedListingsCount: number;
+    temporaryListingsCount: number;
+    listingsChange: number;
+    publishedListingsChange: number;
+    temporaryListingsChange: number;
+}
+
 const ListingsStatCard = ({interval}: {interval: Interval}) => {
     const [listingsCount, setListingsCount] = useState(0)
-    const [metrics, setMetrics] = useState([]);
+    const [metrics, setMetrics] = useState<ListingMetrics | null>(null);
 
     useEffect(() => {
-        async function loadOnlineMetrics(interval) {
+        async function loadOnlineMetrics(interval: Interval) {
             const data = await statisticService.getListingsCountMetrics(interval.type, interval.multiplier);
             console.log(data)
             setMetrics(data);
@@ -25,9 +33,9 @@ const ListingsStatCard = ({interval}: {interval: Interval}) => {
         Черновиков объявлений: ${metrics?.temporaryListingsCount}
 
         Показатели: (${interval.title})
-        Все объявления: ${formatSignedValue(metrics?.listingsChange)}
-        Активных объявлений: ${formatSignedValue(metrics?.publishedListingsChange)}
-        Черновиков объявлений: ${formatSignedValue(metrics?.temporaryListingsChange)}
+        Все объявления: ${formatSignedValue(metrics?.listingsChange || 0)}
+        Активных объявлений: ${formatSignedValue(metrics?.publishedListingsChange || 0)}
+        Черновиков объявлений: ${formatSignedValue(metrics?.temporaryListingsChange || 0)}
     `
 
     return metrics && (

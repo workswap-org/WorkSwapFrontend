@@ -4,29 +4,24 @@ import { useState } from "react";
 import { IRole } from "@core/lib/types/models/user";
 import { permissionsService } from "@core/lib/services/permissionsService";
 
-const RoleCreateModal = ({addRole}: {addRole: (role: IRole) => void}) => {
+const RoleCreateModal = ({addRole, onClose, isOpen}: {addRole: (role: IRole) => void, onClose: () => void, isOpen: boolean}) => {
 
     const [name, setName] = useState("");
 
-    const [isOpen, setOpen] = useState(false);
-
-    async function createR() {
+    async function createRole() {
         if (!name.trim()) return;
         const newRoleId = await permissionsService.createRole(name);
         console.log(newRoleId)
         if (newRoleId) {
             addRole({id: newRoleId, name: name, level: 0})
             setName("");
-            setOpen(false);
+            onClose();
         }
     }
 
     return (
         <>
-            <button onClick={() => setOpen(true)} className="btn btn-primary">
-                <PlusIcon /> Роль
-            </button>
-            <Modal isOpen={isOpen} onClose={() => setOpen(false)} title="Создать роль">
+            <Modal isOpen={isOpen} onClose={onClose} title="Создать роль">
                 <div className="form-group">
                     <label htmlFor="roleName">Имя:</label>
                     <span>(на англиском, заглавными буквами)</span>
@@ -40,7 +35,7 @@ const RoleCreateModal = ({addRole}: {addRole: (role: IRole) => void}) => {
                     />
                 </div>
 
-                <div className="form-actions" onClick={() => createR()}>
+                <div className="form-actions" onClick={() => createRole()}>
                     <button className="btn btn-outline-primary">Сохранить</button>
                 </div>
             </Modal>

@@ -1,82 +1,143 @@
 
 import ThemeChanger from "@core/components/layout/ThemeChanger";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import NavItem from "@core/components/common/NavItem"
 import styles from "./Sidebar.module.scss"
+import UserIcon from "@core/components/common/icons/UserIcon"
+import LocationIcon from "@core/components/common/icons/LocationIcon"
+import SlidersIcon from "@core/components/common/icons/SlidersIcon"
+import ShieldIcon from "@core/components/common/icons/ShieldIcon"
+import SitemapIcon from "@core/components/common/icons/SitemapIcon"
+import TasksIcon from "@core/components/common/icons/TasksIcon"
+import CardsIcon from "@core/components/common/icons/CardsIcon"
+import NewspaperIcon from "@core/components/common/icons/NewspaperIcon"
+import MessagesIcon from "@core/components/common/icons/MessagesIcon"
+import GaudeIcon from "@core/components/common/icons/GaudeIcon"
 
-export default function Sidebar({ sidebarVisible, setSidebarVisible}: {sidebarVisible: boolean, setSidebarVisible: Dispatch<SetStateAction<boolean>>}) {
+interface SidebarProps {
+    sidebarVisible: boolean, 
+    setSidebarVisible: Dispatch<SetStateAction<boolean>>
+}
+
+interface ILink {
+    href: string;
+    title: string;
+    icon: ReactNode
+    disabled?: true;
+}
+
+interface ISection {
+    title: string;
+    links: ILink[]
+}
+
+export default function Sidebar({ sidebarVisible, setSidebarVisible}: SidebarProps) {
+    
+    const nav: ISection[] = [
+        { 
+            title: "Основное",
+            links: [
+                {
+                    href: "dashboard",
+                    title: "Панель управления",
+                    icon: <GaudeIcon className={styles.icon} />
+                },
+                {
+                    href: "settings",
+                    title: "Системные настройки",
+                    icon: <SlidersIcon className={styles.icon} />
+                }
+            ]
+        },
+        { 
+            title: "Контент",
+            links: [
+                {
+                    href: "listings",
+                    title: "Объявления",
+                    icon: <CardsIcon className={styles.icon} />
+                },
+                {
+                    href: "news",
+                    title: "Новости",
+                    icon: <NewspaperIcon className={styles.icon} />
+                },
+                {
+                    href: "reviews",
+                    title: "Отзывы",
+                    icon: <MessagesIcon className={styles.icon}/>
+                }
+            ]
+        },
+        { 
+            title: "Пользователи",
+            links: [
+                {
+                    href: "users",
+                    title: "Пользователи",
+                    icon: <UserIcon className={styles.icon} />
+                },
+                {
+                    href: "permissions",
+                    title: "Роли и разрешения",
+                    icon: <ShieldIcon className={styles.icon} />
+                }
+            ]
+        },
+        { 
+            title: "Настройки данных",
+            links: [
+                {
+                    href: "locations",
+                    title: "Локации",
+                    icon: <LocationIcon className={styles.icon} />
+                },
+                {
+                    href: "categories",
+                    title: "Категории",
+                    icon: <SitemapIcon className={styles.icon} />
+                }
+            ]
+        },
+        { 
+            title: "Организация",
+            links: [
+                {
+                    href: "tasks",
+                    title: "Задачи",
+                    icon: <TasksIcon className={styles.icon} />
+                },
+            ]
+        }
+    ]
     return (
         <aside className={`${styles.sidebar} ${sidebarVisible ? styles.show : ''}`}>
-            <div className="text-center mb-4">
+            <div className="text-center">
                 <a href="https://workswap.org">
-                <h2 className={styles.logo}>WorkSwap</h2>
+                    <h2 className={styles.logo}>WorkSwap</h2>
                 </a>
             </div>
 
             <div className={styles.themeContainer}>
                 <ThemeChanger id={"headerTC"} />
             </div>
-            
 
             <nav className={styles.nav}>
-                <div className={styles.title}>Основное</div>
-                
-                <NavItem href="/dashboard" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-tachometer-alt"></i> Панель управления
-                </NavItem>
-                <NavItem href="/listings" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-list"></i> Объявления
-                </NavItem>
-                <NavItem href="/resumes" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-file-alt"></i> Резюме
-                    <i className="fa-solid fa-square-xmark" style={{ color: 'red' }}></i>
-                </NavItem>
-
-                <div className={styles.title}>Контент</div>
-
-                <NavItem href="/news" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-newspaper"></i> Новости
-                </NavItem>
-                <NavItem href="/reviews" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-comments"></i> Отзывы
-                    <i className="fa-solid fa-square-xmark" style={{ color: 'red' }}></i>
-                </NavItem>
-                <NavItem href="/questions" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-question-circle"></i> Вопросы
-                    <i className="fa-solid fa-square-xmark" style={{ color: 'red' }}></i>
-                </NavItem>
-
-                <div className={styles.title}>Пользователи</div>
-
-                <NavItem href="/users" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-users"></i> Пользователи
-                </NavItem>
-                <NavItem href="/permissions" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-shield-halved"></i> Роли и разрешения
-                </NavItem>
-
-                <div className={styles.title}>Настройки</div>
-
-                <NavItem href="/settings" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-cog"></i> Системные
-                    <i className="fa-solid fa-square-xmark" style={{ color: 'red' }}></i>
-                </NavItem>
-                <NavItem href="/localization" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-language"></i>Локализация
-                </NavItem>
-
-                <div className={styles.title}>Настройки данных</div>
-                <NavItem href="/locations" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-location-dot"></i> Локации
-                </NavItem>
-                <NavItem href="/categories" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-sitemap"></i> Категории
-                </NavItem>
-
-                <div className={styles.title}>Организация</div>
-                <NavItem href="/tasks" className={styles.navItem} onClick={() => setSidebarVisible(false)}>
-                    <i className="fa-solid fa-tasks"></i> Задачи
-                </NavItem>
+                {nav.map(section => (
+                    <div key={section.title}>
+                        <div className={styles.title}>{section.title}</div>
+                        {section.links.map(link => (
+                            <NavItem 
+                                key={`link-${link.href}`}
+                                href={link.href} 
+                                className={styles.navItem} 
+                                onClick={() => setSidebarVisible(false)}
+                            >
+                                {link.icon} {link.title}
+                            </NavItem>
+                        ))}
+                    </div>
+                ))}
             </nav>
         </aside>
     );
