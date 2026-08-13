@@ -1,23 +1,28 @@
 import { ChangeEvent, ReactNode } from "react";
 import styles from "./SliderCheckbox.module.scss"
+import clsx from "clsx";
 
 interface SliderCheckboxProps {
     checked: boolean;
     onChange: (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => void;
     id: string;
-    options:
+    options?:
         | ReactNode
         | {
             checked: ReactNode;
             unchecked: ReactNode;
         };
+    className?: string;
+    icons?: ReactNode[]
 }
 
 const SliderCheckbox = ({
     checked,
     onChange,
     id,
-    options
+    options,
+    className,
+    icons
 }: SliderCheckboxProps) => {
 
     const isOptionsObject =
@@ -28,7 +33,7 @@ const SliderCheckbox = ({
 
     return (
         <div className={styles.toggle}>
-            <label className={styles.switch}>
+            <label className={clsx(styles.switch, className)}>
                 <input 
                     id={`${id}-checkbox`}
                     type="checkbox" 
@@ -36,7 +41,9 @@ const SliderCheckbox = ({
                     onChange={(e) => onChange(e)}
                     value="true"
                 />
-                <span className={styles.slider}></span>
+                <span className={styles.slider}>
+                    {icons}
+                </span>
             </label>
             <p>
                 {isOptionsObject

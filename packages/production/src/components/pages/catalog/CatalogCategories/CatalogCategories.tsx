@@ -1,4 +1,4 @@
-import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
+import { useCatalogFilters } from "@core/lib/providers/local/CatalogFiltersProvider";
 import { useState, useRef, useMemo, ReactNode } from "react";
 import { ICategory } from "@core/lib/types/models/category"
 import { ListingType } from "@core/lib/constants/listingTypes";

@@ -3,21 +3,23 @@ import { ChangeEvent, ReactNode } from "react";
 import styles from "./Checkbox.module.scss";
 
 interface Checkbox {
-    checked: boolean,
-    onChange: (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => void,
-    id: string,
-    children: ReactNode
+    checked: boolean;
+    onChange: (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => void;
+    id: string;
+    children: ReactNode;
+    className: string;
 }
 
 const Checkbox = ({
     checked,
     onChange,
     id,
-    children
+    children,
+    className
 }: Checkbox) => {
     return (
         <div 
-            className={clsx(styles.checkbox, "hover", "media-only-block")}
+            className={clsx(styles.checkbox, className)}
             id={id}
         >
             <input

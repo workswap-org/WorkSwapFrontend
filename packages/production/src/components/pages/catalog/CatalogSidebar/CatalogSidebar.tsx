@@ -7,11 +7,11 @@ const sorts = [
 
 import { useAuth } from '@core/lib/contexts/AuthContext';
 import { useI18n } from '@core/lib/contexts/I18nContext';
-import { useCatalogFilters } from '@core/lib/contexts/local/CatalogFiltersContext';
 import { useSwipeable } from 'react-swipeable';
 import styles from "./CatalogSidebar.module.scss"
 import FilterIcon from "@core/components/common/icons/FilterIcon"
 import Checkbox from '@core/components/common/checkbox/Checkbox/Checkbox';
+import { useCatalogFilters } from '@core/lib/providers/local/CatalogFiltersProvider';
 
 interface CatalogSidebarProps {
     sidebarOpened: boolean;

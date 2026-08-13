@@ -1,5 +1,5 @@
 import CatalogCategories from "../CatalogCategories/CatalogCategories";
-import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext"
+import { useCatalogFilters } from "@core/lib/providers/local/CatalogFiltersProvider";
 import { useI18n } from "@core/lib/contexts/I18nContext"
 import SearchIcon from "@core/components/common/icons/SearchIcon"
 import styles from "./CatalogHeader.module.scss"

@@ -3,7 +3,6 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1rem;
 }
 
 .switch {
@@ -25,20 +24,18 @@
 
         &:checked + .slider:before {
             transform: translateX(26px);
-
-            #moonIcon { 
-                display: none; 
-            }
         }
 
-        &:checked + .slider #sunIcon { 
-            visibility: hidden;
-            transition: .1s;
+        &:checked + .slider svg:last-child { 
+            // visibility: hidden;
+            transition: .2s;
+            transform: translateX(30px);
         }
 
-        &:not(:checked) + .slider #moonIcon { 
-            visibility: hidden;
-            transition: .1s;
+        &:not(:checked) + .slider svg:first-child { 
+            // visibility: hidden;
+            transform: translateX(-30px);
+            transition: .2s;
         }
     }
 
@@ -57,6 +54,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        overflow: hidden;
 
         &::before {
             position: absolute;
@@ -69,8 +67,8 @@
             border-radius: 50%;
         }
 
-        #sunIcon { 
-            color: white; 
+        svg {
+            color: var(--text-color)
         }
     }
 }

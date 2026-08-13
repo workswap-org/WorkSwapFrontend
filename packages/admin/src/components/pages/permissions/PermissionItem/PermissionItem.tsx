@@ -3,7 +3,7 @@ import ActionMenu, { IKebabAction } from '@core/components/ui/ActionMenu/ActionM
 import { IPermission, IPermissionUpdate, IRole } from '@core/lib/types/models/user';
 import { useNotification } from '@core/lib/contexts/NotificationContext';
 import { permissionsService } from '@core/lib/services/permissionsService';
-import SwitchToggler from "@core/components/common/checkbox/SwitchToggler/SwitchToggler"
+import SliderCheckbox from "@core/components/common/checkbox/SliderCheckbox/SliderCheckbox"
 import styles from "./PermissionItem.module.scss"
 import PlusIcon from '@core/components/common/icons/PlusIcon';
 
@@ -136,7 +136,8 @@ const PermissionItem = ({
                 </>
             )}
             {(selectedRole && !editMode) && (
-                <SwitchToggler 
+                <SliderCheckbox
+                    id={`permission-${permission?.id}`}
                     checked={checkedPermissions?.some(p => p.id === permission?.id) || false}
                     onChange={(e) => changeRolePerms(permission, e.target.checked)}
                     className={styles.toggler} 

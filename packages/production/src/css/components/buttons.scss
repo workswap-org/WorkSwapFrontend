@@ -1,7 +1,6 @@
 @use "@core/css/components/global-mixins" as *;
 
 .btn {
-    display: inline-block;
     padding: 0.5rem 1rem;
     border-radius: var(--radius);
     font-weight: 600;

@@ -1,6 +1,6 @@
 "use client"
 
-import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
+import { useCatalogFilters } from "@core/lib/providers/local/CatalogFiltersProvider";
 import styles from "./Pagination.module.scss"
 
 const Pagination = () => {

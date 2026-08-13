@@ -5,10 +5,9 @@ import NotificationsContainer from "@core/components/ui/notifications/Notificati
 import { useNotification } from "@core/lib/contexts/NotificationContext";
 import { usePathname } from "next/navigation";
 import BellIcon from "@core/components/common/icons/BellIcon";
-import styles from "./NavButtons/NavButtons.module.scss"
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
 
-const NotificationHeaderButton = () => {
+const NotificationHeaderButton = ({className}: {className: string}) => {
 
     const { unreadNotificationsCount } = useNotification();
     const pathname = usePathname();
@@ -22,7 +21,7 @@ const NotificationHeaderButton = () => {
         <>
             <button
                 id="notificationAnchor"
-                className={styles.accountLink}
+                className={className}
                 onClick={() => setOpen(!isOpen)}
             >
                 <BellIcon />

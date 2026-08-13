@@ -38,12 +38,15 @@
 .typesList {
 	display: inline-flex;
 	overflow-x: auto;
+	justify-content: space-around;
 	gap: 0.4rem;
 	width: max-content;
 	width: 100%;
 	-webkit-overflow-scrolling: touch;
-	padding-bottom: 0.5rem;
-	margin-bottom: 0.5rem;
+	padding: 0.2rem;
+	margin-bottom: 1rem;
+	background-color: var(--background-l2);
+	border-radius: 1rem;
 	scrollbar-color: var(--border-color) #00000000;
 	scrollbar-gutter: auto;
 	scrollbar-width: thin;
@@ -61,7 +64,6 @@
 		border-width: 0;
 		cursor: pointer;
 		padding: 0.3rem 1cqh;
-		background-color: var(--background-l1);
 		color: var(--text-color);
 		gap: 0.4rem;
 		font-size: 1.05rem;

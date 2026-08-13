@@ -1,9 +1,23 @@
 "use client"
 
-import { ReactNode, useEffect, useMemo, useState } from "react"
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
 import { ICatalogFilters } from "@core/lib/types/catalog";
-import { CatalogFiltersContext } from "@core/lib/contexts/local/CatalogFiltersContext";
+
+type CatalogFiltersContextType = {
+    filters: ICatalogFilters;
+    updateFilter: (key: string, value: string | boolean | number | null) => void;
+    totalPages: number | null;
+    setTotalPages: Dispatch<SetStateAction<number | null>>;
+}
+
+export const CatalogFiltersContext = createContext<CatalogFiltersContextType | undefined>(undefined)
+
+export function useCatalogFilters() {
+    const context = useContext(CatalogFiltersContext)
+    if (!context) throw new Error("useFilters must be used inside FiltersProvider")
+    return context
+}
 
 export function CatalogFiltersProvider({ initialFilters, children }: { initialFilters: ICatalogFilters; children: ReactNode }) {
     const searchParams = useSearchParams();

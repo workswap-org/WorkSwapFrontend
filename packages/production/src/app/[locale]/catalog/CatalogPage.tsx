@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@core/lib/contexts/I18nContext";
-import { useCatalogFilters } from "@core/lib/contexts/local/CatalogFiltersContext";
+
 import { listingPublicTypes } from "@core/lib/constants/listingTypes"
 import Pagination from "@/components/ui/Pagination/Pagination";
 import styles from "./CatalogPage.module.scss"
@@ -11,6 +11,7 @@ import CatalogSidebar from "@/components/pages/catalog/CatalogSidebar/CatalogSid
 import CatalogContent from "@/components/pages/catalog/CatalogContent/CatalogContent";
 import clsx from "clsx";
 import Checkbox from "@core/components/common/checkbox/Checkbox/Checkbox"
+import { useCatalogFilters } from "@core/lib/providers/local/CatalogFiltersProvider";
 
 export default function CatalogPage() {
 
@@ -56,6 +57,7 @@ export default function CatalogPage() {
                         id="translationsCheckbox"
                         onChange={(e) => updateFilter("translationsFilter", e.target.checked)}
                         checked={!!filters.translationsFilter}
+                        className="media-only-block"
                     >{dict.common.catalog.sidebar.translationsFilter}</Checkbox>
 
                     <CatalogContent />

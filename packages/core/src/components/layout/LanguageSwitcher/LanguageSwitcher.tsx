@@ -40,7 +40,7 @@ const LanguageSwitcher = ({mobile}: {mobile?: boolean}) => {
                 className={`${styles.button} ${isOpen ? styles.active : ""}`}
                 onClick={toggleLangMenu}
             >
-                {locale.toUpperCase()}
+                <img src={`/images/flags/${locale}.png`} alt="RU" className={styles.flag}/>
             </div>
 
             <div className={`${styles.dropdown} ${isOpen ? styles.active : ""}`}>
@@ -53,7 +53,7 @@ const LanguageSwitcher = ({mobile}: {mobile?: boolean}) => {
                         }`}
                         onClick={() => changeLanguage(code)}
                     >
-                        {/* <img src={`/images/flags/${code}.png`} alt="RU" className="flag-icon"/> */}
+                        <img src={`/images/flags/${code}.png`} alt="RU" className={styles.flag}/>
                         <span>{label}</span>
                     </button>
                 ))}

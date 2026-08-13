@@ -1,53 +1,52 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SunIcon from "../common/icons/SunIcon";
 import MoonIcon from "../common/icons/MoonIcon";
+import SliderCheckbox from "../common/checkbox/SliderCheckbox/SliderCheckbox";
+
+type Theme = "light" | "dark";
 
 const ThemeChanger = ({ id }: { id: string }) => {
+    const [theme, setTheme] = useState<Theme>("light");
+
     useEffect(() => {
-        const toggles = document.querySelectorAll<HTMLInputElement>(".theme-toggle");
-
-        function setCookie(name: string, value: string, days = 365) {
-            const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
-            document.cookie = `${name}=${value}; path=/; expires=${expires}`;
-        }
-
-        function applyTheme(theme: "light" | "dark") {
-            document.documentElement.setAttribute("data-theme", theme);
-            localStorage.setItem("theme", theme);
-            setCookie("theme", theme); // добавляем запись в cookie
-
-            toggles.forEach(toggle => {
-                toggle.checked = theme === "dark";
-            });
-        }
-
         const savedTheme = localStorage.getItem("theme");
+
         if (savedTheme === "light" || savedTheme === "dark") {
-            applyTheme(savedTheme);
-        } else {
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            applyTheme(prefersDark ? "dark" : "light");
+            setTheme(savedTheme);
+            document.documentElement.setAttribute("data-theme", savedTheme);
+            return;
         }
 
-        toggles.forEach(toggle => {
-            const handler = () => applyTheme(toggle.checked ? "dark" : "light");
-            toggle.addEventListener("change", handler);
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const initialTheme = prefersDark ? "dark" : "light";
 
-            // очищаем обработчик при размонтировании
-            return () => toggle.removeEventListener("change", handler);
-        });
+        setTheme(initialTheme);
+        document.documentElement.setAttribute("data-theme", initialTheme);
     }, []);
 
+    const applyTheme = (newTheme: Theme) => {
+        setTheme(newTheme);
+        localStorage.setItem("theme", newTheme);
+
+        const expires = new Date(
+            Date.now() + 365 * 24 * 60 * 60 * 1000
+        ).toUTCString();
+
+        document.cookie = `theme=${newTheme}; path=/; expires=${expires}`;
+        document.documentElement.setAttribute("data-theme", newTheme);
+    };
+
     return (
-        <label className="switch" htmlFor={id}>
-            <input type="checkbox" className="theme-toggle" id={id} />
-            <span className="slider">
-                <MoonIcon />
-                <SunIcon />
-            </span>
-        </label>
+        <SliderCheckbox
+            id={id}
+            checked={theme === "dark"}
+            onChange={(e) => {
+                applyTheme(e.target.checked ? "dark" : "light");
+            }}
+            icons={[<MoonIcon key="moon" />, <SunIcon key="sun" />]}
+        />
     );
 };
 
