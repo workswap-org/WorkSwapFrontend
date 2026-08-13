@@ -2,6 +2,7 @@ import { useI18n } from '@core/lib/contexts/I18nContext';
 import { IFullUser } from '@core/lib/types/models/user';
 import { useMemo } from 'react';
 import SettingSection from '../SettingSection/SettingSection';
+import SliderCheckbox from "@core/components/common/checkbox/SliderCheckbox/SliderCheckbox"
 
 interface SettingsProps {
     user: IFullUser;
@@ -20,31 +21,21 @@ const PrivacySettings = ({ user, updateUser }: SettingsProps) => {
         >
             <div className="form-group">
                 <label>{dict.tooltips.settings.privacy}</label>
-                <div className="status-toggle">
-                    <label className="switch">
-                        <input
-                            type="checkbox"
-                            checked={phoneVisible}
-                            onChange={(e) => updateUser({ phoneVisible: e.target.checked })}
-                        />
-                        <span className="slider"></span>
-                    </label>
-                    <span>{dict.tooltips.settings.phoneVisibility}</span>
-                </div>
+                <SliderCheckbox
+                    id="phoneVisibility"
+                    checked={emailVisible}
+                    onChange={(e) => updateUser({ phoneVisible: e.target.checked })}
+                    options={dict.tooltips.settings.phoneVisibility}
+                />
             </div>
 
             <div className="form-group">
-                <div className="status-toggle">
-                    <label className="switch">
-                        <input
-                            type="checkbox"
-                            checked={emailVisible}
-                            onChange={(e) => updateUser({ emailVisible: e.target.checked })}
-                        />
-                        <span className="slider"></span>
-                    </label>
-                    <span>{dict.tooltips.settings.emailVisibility}</span>
-                </div>
+                <SliderCheckbox
+                    id="emailVisibility"
+                    checked={emailVisible}
+                    onChange={(e) => updateUser({ emailVisible: e.target.checked })}
+                    options={dict.tooltips.settings.emailVisibility}
+                />
             </div>
         </SettingSection>
     );

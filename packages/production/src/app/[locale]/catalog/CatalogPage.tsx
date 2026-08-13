@@ -9,6 +9,8 @@ import styles from "./CatalogPage.module.scss"
 import CatalogHeader from "@/components/pages/catalog/CatalogHeader/CatalogHeader";
 import CatalogSidebar from "@/components/pages/catalog/CatalogSidebar/CatalogSidebar";
 import CatalogContent from "@/components/pages/catalog/CatalogContent/CatalogContent";
+import clsx from "clsx";
+import Checkbox from "@core/components/common/checkbox/Checkbox/Checkbox"
 
 export default function CatalogPage() {
 
@@ -22,7 +24,7 @@ export default function CatalogPage() {
 
     const contentRef = useRef<HTMLDivElement>(null);
 
-    const { filters, updateFilter, totalPages } = useCatalogFilters();
+    const { filters, updateFilter } = useCatalogFilters();
     
     useEffect(() => {
         contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -42,36 +44,22 @@ export default function CatalogPage() {
                             <button
                                 key={type.key}
                                 type="button"
-                                className={`${styles.type} hover ${filters.type === type.key ? styles.active : ""}`}
-                                onClick={() => {
-                                    if (type.key === filters.type) {
-                                        updateFilter("type", null);
-                                    } else {
-                                        updateFilter("type", type.key);
-                                    };
-                                }}
+                                className={clsx(styles.type, filters.type === type.key ? styles.active : "")}
+                                onClick={() => updateFilter("type", type.key === filters.type ? type.key : null)}
                             >
                                 {dict.categories.listingType[type.key]}
                             </button>
                         ))}
                     </div>
-                    <div 
-                        className={`checkbox hover media-only-block`}
-                        id="translationsFilter"
-                    >
-                        <input
-                            type="checkbox"
-                            id="translationsCheckbox"
-                            name="translationsCheckbox"
-                            checked={filters.translationsFilter}
-                            onChange={(e) => updateFilter("translationsFilter", e.target.checked)}
-                        />
-                        <label htmlFor="translationsCheckbox">
-                            <span className="checkmark"></span>
-                            <span>{dict.common.catalog.sidebar.translationsFilter}</span>
-                        </label>
-                    </div>
+                    
+                    <Checkbox
+                        id="translationsCheckbox"
+                        onChange={(e) => updateFilter("translationsFilter", e.target.checked)}
+                        checked={!!filters.translationsFilter}
+                    >{dict.common.catalog.sidebar.translationsFilter}</Checkbox>
+
                     <CatalogContent />
+
                     <Pagination />
                 </main>
             </div>

@@ -1,0 +1,14 @@
+{
+    "files": [],
+    "references": [
+        {
+            "path": "./packages/production"
+        },
+        {
+            "path": "./packages/admin"
+        },
+        {
+            "path": "./packages/core"
+        }
+    ]
+}

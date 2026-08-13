@@ -11,6 +11,7 @@ import { useCatalogFilters } from '@core/lib/contexts/local/CatalogFiltersContex
 import { useSwipeable } from 'react-swipeable';
 import styles from "./CatalogSidebar.module.scss"
 import FilterIcon from "@core/components/common/icons/FilterIcon"
+import Checkbox from '@core/components/common/checkbox/Checkbox/Checkbox';
 
 interface CatalogSidebarProps {
     sidebarOpened: boolean;
@@ -66,36 +67,18 @@ const CatalogSidebar = ({
                 
                 <section>
                     <h5>{dict.common.catalog.sidebar.filters}</h5>
-                    <div className="checkbox hover">
-                        <input
-                            type="checkbox"
-                            id="filter2"
-                            name="hasReviews"
-                            checked={filters.hasReviews}
-                            onChange={(e) => updateFilter("hasReviews", e.target.checked)}
-                        />
-                        <label htmlFor="filter2">
-                            <span className="checkmark"></span>
-                            <span>{dict.common.catalog.sidebar.hasReviews}</span>
-                        </label>
-                    </div>
 
-                    <div 
-                        className="checkbox hover"
-                        id="translationsFilter"
-                    >
-                        <input
-                            type="checkbox"
-                            id="translationsCheckbox"
-                            name="translationsCheckbox"
-                            checked={filters.translationsFilter}
-                            onChange={(e) => updateFilter("translationsFilter", e.target.checked)}
-                        />
-                        <label htmlFor="translationsCheckbox">
-                            <span className="checkmark"></span>
-                            <span>{dict.common.catalog.sidebar.translationsFilter}</span>
-                        </label>
-                    </div>
+                    <Checkbox
+                        id="reviewsCheckbox"
+                        onChange={(e) => updateFilter("hasReviews", e.target.checked)}
+                        checked={!!filters.hasReviews}
+                    >{dict.common.catalog.sidebar.hasReviews}</Checkbox>
+
+                    <Checkbox
+                        id="translationsCheckbox"
+                        onChange={(e) => updateFilter("translationsFilter", e.target.checked)}
+                        checked={!!filters.translationsFilter}
+                    >{dict.common.catalog.sidebar.translationsFilter}</Checkbox>
                 </section>
             </div>
             {user && (

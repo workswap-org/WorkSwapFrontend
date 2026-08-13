@@ -59,8 +59,6 @@
 		width: fit-content;
 		justify-content: center;
 		border-width: 0;
-		border: 2px solid var(--border-color);
-		border-radius: 50cqh;
 		cursor: pointer;
 		padding: 0.3rem 1cqh;
 		background-color: var(--background-l1);
@@ -70,8 +68,8 @@
 		font-weight: 600;
 		transition: all 0.1s ease-in;
 
-		&.active {
-			background-color: var(--primary-light);
+		&.active, &:hover {
+			color: var(--primary);
 		}
 	}
 }
