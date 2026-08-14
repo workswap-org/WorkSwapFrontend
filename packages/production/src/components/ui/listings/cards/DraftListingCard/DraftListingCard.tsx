@@ -1,8 +1,8 @@
 "use client";
 
 import { redirect } from 'next/navigation';
-import { IFullListing } from '@core/lib/types/models/listing';
-import { useI18n } from '@core/lib/contexts/I18nContext';
+import { IFullListing } from '@core/lib/listing/types';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import styles from "./DraftListingCard.module.scss"
 
 const DraftListingCard = ({ listing }: {listing: IFullListing}) => {

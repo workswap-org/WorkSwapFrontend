@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import ListingInfo from "../ListingInfo";
 import TranslationsStatus from "../TranslationsStatus/TranslationsStatus";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { IListingTranslation } from "@core/lib/types/models/listing";
-import { supportedLanguages } from "@core/lib/constants/languages";
-import { listingService } from "@core/lib/services/listing";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { supportedLanguages } from '@core/lib/common/constants/languages';
 import styles from "./ListingTranslations.module.scss"
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { useNotification } from "@core/lib/notification/NotificationContext";
+import { IListingTranslation } from "@core/lib/listing/types";
+import { listingService } from "@core/lib/listing/services"
 
 const ListingTranslations = ({ id }: {id: number | null}) => {
 

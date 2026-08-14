@@ -1,4 +1,4 @@
-import { IRole } from "@core/lib/types/models/user";
+import { IRole } from "@core/lib/user/types";
 import styles from "./RolesList.module.scss"
 import RoleCreateModal from "../RoleCreateModal";
 import { useCallback, useEffect, useState } from "react";

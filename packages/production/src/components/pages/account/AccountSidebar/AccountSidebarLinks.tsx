@@ -1,7 +1,7 @@
 "use client"
 
 import NavItem from '@core/components/common/NavItem';
-import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import styles from "./AccountSidebar.module.scss";
 import CardsIcon from "@core/components/common/icons/CardsIcon"
 import GearIcon from '@core/components/common/icons/GearIcon';

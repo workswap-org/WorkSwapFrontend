@@ -1,8 +1,8 @@
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { useCatalogFilters } from "@core/lib/providers/local/CatalogFiltersProvider";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { useCatalogFilters } from "@core/lib/common/contexts/CatalogFiltersContext";
 import { useEffect, useState, useRef } from "react";
-import { IShortListing } from '@core/lib/types/models/listing'
-import { listingService } from '@core/lib/services/listing'
+import { IShortListing } from '@core/lib/listing/types'
+import { listingService } from '@core/lib/listing/services'
 import PlusIcon from "@core/components/common/icons/PlusIcon";
 import PublicListingCard from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard";
 import cardStyles from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard.module.scss"

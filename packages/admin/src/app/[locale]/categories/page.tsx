@@ -1,7 +1,7 @@
 "use client"
 
 import PlusIcon from "@core/components/common/icons/PlusIcon"
-import { categoryService } from "@core/lib/services/category"
+import { categoryService } from "@core/lib/category/services"
 import Card from "@/components/ui/Card/Card";
 import CategoryTable from "@/components/pages/categories/CategoryTable/CategoryTable";
 import CategoryTree from "@/components/pages/categories/CategoryTree/CategoryTree";

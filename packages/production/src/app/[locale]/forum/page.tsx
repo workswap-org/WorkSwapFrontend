@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import ForumTopicCreateModal from '../../../components/pages/forum/ForumTopicCreateModal/ForumTopicCreateModal';
-import { ForumTag, IForumTopic } from '@core/lib/types/forum';
-import { forumService } from '@core/lib/services/forumService';
-import { useI18n } from '@core/lib/contexts/I18nContext';
+import { ForumTag, IForumTopic } from '@core/lib/forum/types';
+import { forumService } from '@core/lib/forum/forumService';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import ForumTopicCard from '../../../components/pages/forum/ForumTopicCard/ForumTopicCard';
 import styles from "./ForumPage.module.scss"
 

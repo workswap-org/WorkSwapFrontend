@@ -1,11 +1,11 @@
 "use client"
 
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { IShortUserProfile } from "@core/lib/types/models/user";
+import { useNotification } from "@core/lib/notification/NotificationContext";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { IShortUserProfile } from "@core/lib/user/types";
 import Avatar from "@core/components/common/Avatar/Avatar";
 import PhoneIcon from '@core/components/common/icons/contacts/PhoneIcon';
-import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import ChatLinkMessage from "@/components/ui/chat/ChatLinkMessage/ChatLinkMessage";
 import styles from "./UserInfoSidebar.module.scss"
 import { AUTH_BASE } from "@core/config";

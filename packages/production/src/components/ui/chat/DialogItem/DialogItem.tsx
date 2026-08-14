@@ -1,12 +1,10 @@
 "use client"
 
 import Avatar from "@core/components/common/Avatar/Avatar";
-import { ChatType } from "@core/lib/constants/chatTypes";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { useChats } from "@core/lib/contexts/MessengerContext";
-import { IChat, IChatMessage } from "@core/lib/types/messenger";
-import { IShortListing } from "@core/lib/types/models/listing";
-import { IShortUser } from "@core/lib/types/models/user";
+import { ChatType } from "@core/lib/chat/constants/chatTypes";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { useChats } from "@core/lib/chat/MessengerContext";
+import { IChat } from "@core/lib/chat/types";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./DialogItem.module.scss"

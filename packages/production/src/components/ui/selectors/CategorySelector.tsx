@@ -1,9 +1,9 @@
 "use client"
 
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { categoryService } from "@core/lib/services/category";
-import { ICategory } from "@core/lib/types/models/category";
-import { IFullListing } from "@core/lib/types/models/listing";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { categoryService } from "@core/lib/category/services";
+import { ICategory } from "@core/lib/category/types";
+import { IFullListing } from "@core/lib/listing/types";
 import { useEffect, useState } from "react";
 
 const CategorySelector = ({ listing, onChange }: {listing: IFullListing, onChange: (value: number, newPath: number[]) => void} ) => {

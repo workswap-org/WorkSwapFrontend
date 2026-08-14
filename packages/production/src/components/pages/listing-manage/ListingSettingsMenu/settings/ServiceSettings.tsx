@@ -1,8 +1,8 @@
 import { useCallback, } from "react";
 import ListingSetting from "../ListingSetting/ListingSetting";
-import { IFullListing } from "@core/lib/types/models/listing";
+import { IFullListing } from "@core/lib/listing/types";
 import CategorySelector from "@/components/ui/selectors/CategorySelector";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 const ServiceSettings = ({
     updateListing,

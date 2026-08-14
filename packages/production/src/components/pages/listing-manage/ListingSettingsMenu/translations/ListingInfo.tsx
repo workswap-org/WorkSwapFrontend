@@ -1,5 +1,5 @@
-import { useI18n } from '@core/lib/contexts/I18nContext';
-import { IListingTranslation } from '@core/lib/types/models/listing';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
+import { IListingTranslation } from '@core/lib/listing/types';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface ListingInfoProps {

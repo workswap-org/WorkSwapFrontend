@@ -1,8 +1,8 @@
 "use client"
 
-import { IReview } from "@core/lib/types/models/review";
+import { IReview } from "@core/lib/review/types";
 import ReviewItem from "../ReviewItem/ReviewItem";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./ReviewsList.module.scss"
 
 const ReviewsList = ({ reviews }: {reviews: IReview[] | null}) => {

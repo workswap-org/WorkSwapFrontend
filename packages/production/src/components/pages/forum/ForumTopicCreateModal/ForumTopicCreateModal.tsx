@@ -1,9 +1,9 @@
 import ForumTagSelector from "@/components/ui/selectors/ForumTagSelector";
 import Modal from "@core/components/ui/Modal/Modal";
 import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { forumService } from "@core/lib/services/forumService";
-import { ForumTag } from "@core/lib/types/forum";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { forumService } from "@core/lib/forum/forumService";
+import { ForumTag } from "@core/lib/forum/types";
 import { useState } from "react";
 import PaperPlaneIcon from "@core/components/common/icons/PaperPlaneIcon"
 import styles from "./ForumTopicCreateModal.module.scss"

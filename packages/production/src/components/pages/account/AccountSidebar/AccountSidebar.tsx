@@ -2,13 +2,13 @@
 
 import Avatar from "@core/components/common/Avatar/Avatar";
 import RatingStars from "@core/components/common/RatingStars/RatingStars";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { userService } from "@core/lib/services/user";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { useNotification } from "@core/lib/notification/NotificationContext";
+import { userService } from "@core/lib/user/services";
 import { useEffect, useState } from "react";
 import AccountSidebarLinks from "./AccountSidebarLinks";
 import ContactModal from "@/components/ui/ContactModal/ContactModal";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./AccountSidebar.module.scss";
 
 const AccountSidebar = () => {

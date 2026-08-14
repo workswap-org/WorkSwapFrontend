@@ -1,9 +1,9 @@
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { useChats } from "@core/lib/contexts/MessengerContext";
-import { useChatsLoad } from "@core/lib/hooks/chat/useChatsLoad";
-import { chatService } from "@core/lib/services/chatService";
-import { redirect, useRouter } from "next/navigation";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { useChats } from "@core/lib/chat/MessengerContext";
+import { useChatsLoad } from "@core/lib/chat/hooks/useChatsLoad";
+import { chatService } from "@core/lib/chat/chatService";
+import { useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
 import LoadingSpinnerIcon from "@core/components/common/icons/LoadingSpinnerIcon"
 

@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import ListingSetting from "../ListingSetting/ListingSetting";
-import { IEventData, IFullListing } from "@core/lib/types/models/listing";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { eventService } from "@core/lib/services/eventService"
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { IEventData, IFullListing } from "@core/lib/listing/types";
+import { useNotification } from "@core/lib/notification/NotificationContext";
+import { eventService } from "@core/lib/listing/eventService"
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 const recurrencePatterns = [
     "NONE",

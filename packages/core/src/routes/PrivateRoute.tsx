@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode } from "react";
-import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useAuth } from "@core/lib/auth/AuthContext";
 import { AUTH_BASE } from "@core/config";
 import { redirect } from "next/navigation";
 

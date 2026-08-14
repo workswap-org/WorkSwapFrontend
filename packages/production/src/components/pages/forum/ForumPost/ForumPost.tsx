@@ -1,9 +1,9 @@
 import { useState } from "react";
 import ForumComment from "../ForumComment/ForumComment";
-import { IForumComment, IForumPost, IForumTopic } from "@core/lib/types/forum";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { IShortUser } from "@core/lib/types/models/user";
-import { forumService } from "@core/lib/services/forumService";
+import { IForumComment, IForumPost, IForumTopic } from "@core/lib/forum/types";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { IShortUser } from "@core/lib/user/types";
+import { forumService } from "@core/lib/forum/forumService";
 import Avatar from "@core/components/common/Avatar/Avatar";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow";
 import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";

@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useState } from "react";
-import { IRole } from "@core/lib/types/models/user";
+import { IRole } from "@core/lib/user/types";
 import Card from "@/components/ui/Card/Card";
 import RolesList from "@/components/pages/permissions/RolesList/RolesList";
 import PermissionsList from "@/components/pages/permissions/PermissionsList/PermissionsList";

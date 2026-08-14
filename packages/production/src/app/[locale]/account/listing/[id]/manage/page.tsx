@@ -1,17 +1,17 @@
 "use client"
 
 import { useEffect, useMemo, useState } from 'react';
-import { useChats } from '@core/lib/contexts/MessengerContext';
-import { ChatType } from '@core/lib/constants/chatTypes';
-import { listingService } from '@core/lib/services/listing';
+import { useChats } from '@core/lib/chat/MessengerContext';
+import { ChatType } from '@core/lib/chat/constants/chatTypes';
+import { listingService } from '@core/lib/listing/services';
 import SidebarSectionLayout from '@core/components/layout/SidebarSectionLayout/SidebarSectionLayout'
 import { useParams } from 'next/navigation';
 import ListingSettingsMenu from '../../../../../../components/pages/listing-manage/ListingSettingsMenu/ListingSettingsMenu';
 import ListingAnalyticMenu from '../../../../../../components/pages/listing-manage/ListingAnalyticMenu';
 import ListingMessagesMenu from '../../../../../../components/pages/listing-manage/ListingMessagesMenu/ListingMessagesMenu';
-import { useI18n } from '@core/lib/contexts/I18nContext';
-import { useChatSubscription } from '@core/lib/hooks/chat/useChatSubscription';
-import { useChatsLoad } from '@core/lib/hooks/chat/useChatsLoad';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
+import { useChatSubscription } from '@core/lib/chat/hooks/useChatSubscription';
+import { useChatsLoad } from '@core/lib/chat/hooks/useChatsLoad';
 import AccountHeader from '@/components/pages/account/AccountHeader/AccountHeader';
 
 const ListingMenu = {

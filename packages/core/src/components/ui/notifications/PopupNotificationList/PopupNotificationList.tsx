@@ -1,7 +1,7 @@
 import { createRef, useRef } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PopupNotification from "../PopupNotification/PopupNotification";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useNotification } from "@core/lib/notification/NotificationContext";
 import styles from "./PopupNotificationList.module.scss"
 
 const PopupNotificationList = () => {

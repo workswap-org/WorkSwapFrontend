@@ -1,4 +1,4 @@
-import { IListingImage } from "@core/lib/types/models/listing";
+import { IListingImage } from "@core/lib/listing/types";
 import { useCallback, useEffect, useState } from "react";
 import styles from "./ListingGallery.module.scss"
 

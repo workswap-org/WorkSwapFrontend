@@ -1,6 +1,6 @@
 "use client";
 
-import { IShortUser, IShortUserProfile, IUser } from "@core/lib/types/models/user";
+import { IShortUser, IShortUserProfile, IUser } from "@core/lib/user/types";
 import { redirect } from "next/navigation";
 import styles from "./Avatar.module.scss";
 

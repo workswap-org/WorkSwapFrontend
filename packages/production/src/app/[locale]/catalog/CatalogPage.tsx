@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
-import { listingPublicTypes } from "@core/lib/constants/listingTypes"
+import { listingPublicTypes } from "@core/lib/listing/constants/listingTypes"
 import Pagination from "@/components/ui/Pagination/Pagination";
 import styles from "./CatalogPage.module.scss"
 import CatalogHeader from "@/components/pages/catalog/CatalogHeader/CatalogHeader";
@@ -11,7 +11,7 @@ import CatalogSidebar from "@/components/pages/catalog/CatalogSidebar/CatalogSid
 import CatalogContent from "@/components/pages/catalog/CatalogContent/CatalogContent";
 import clsx from "clsx";
 import Checkbox from "@core/components/common/checkbox/Checkbox/Checkbox"
-import { useCatalogFilters } from "@core/lib/providers/local/CatalogFiltersProvider";
+import { useCatalogFilters } from "@core/lib/common/contexts/CatalogFiltersContext";
 
 export default function CatalogPage() {
 

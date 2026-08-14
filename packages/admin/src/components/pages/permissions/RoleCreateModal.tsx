@@ -1,7 +1,7 @@
 import Modal from "@core/components/ui/Modal/Modal";
 import PlusIcon from "@core/components/common/icons/PlusIcon";
 import { useState } from "react";
-import { IRole } from "@core/lib/types/models/user";
+import { IRole } from "@core/lib/user/types";
 import { permissionsService } from "@core/lib/services/permissionsService";
 
 const RoleCreateModal = ({addRole, onClose, isOpen}: {addRole: (role: IRole) => void, onClose: () => void, isOpen: boolean}) => {

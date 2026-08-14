@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { ILocation } from '@core/lib/types/models/location'
-import { locationsService } from '@core/lib/services/locationsService'
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { ILocation } from '@core/lib/location/types'
+import { locationsService } from '@core/lib/location/locationsService'
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 const LocationSelector = ({ 
     locationId, 

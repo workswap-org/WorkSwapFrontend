@@ -4,11 +4,11 @@ import { useState, useEffect, useCallback } from "react";
 import PrivacySettings from "../../../../components/pages/settings/PrivacySettings/PrivacySettings";
 import ProfileSettings from "../../../../components/pages/settings/ProfileSettings/ProfileSettings";
 import PreferencesSettings from "../../../../components/pages/settings/PreferencesSettings/PreferencesSettings";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { userService } from "@core/lib/services/user";
+import { useNotification } from "@core/lib/notification/NotificationContext";
+import { userService } from "@core/lib/user/services";
 import SidebarSectionLayout from "@core/components/layout/SidebarSectionLayout/SidebarSectionLayout";
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { IFullUser } from "@core/lib/types/models/user";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { IFullUser } from "@core/lib/user/types";
 import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
 
 const SettingsSections = Object.freeze({

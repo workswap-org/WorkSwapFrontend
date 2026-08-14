@@ -1,6 +1,6 @@
 "use client";
 
-import { IShortUser, IUser } from "@core/lib/types/models/user";
+import { IShortUser, IUser } from "@core/lib/user/types";
 import Avatar from "./Avatar/Avatar";
 
 interface Props {

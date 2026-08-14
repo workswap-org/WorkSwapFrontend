@@ -1,7 +1,7 @@
 import Modal from "@core/components/ui/Modal/Modal";
 import { useState } from "react";
 import { permissionsService } from "@core/lib/services/permissionsService";
-import { IPermission } from "@core/lib/types/models/user";
+import { IPermission } from "@core/lib/user/types";
 
 const PermissionCreateModal = ({addPermission, onClose, isOpen}: {addPermission: (permisson: IPermission) => void, onClose: () => void, isOpen: boolean}) => {
 

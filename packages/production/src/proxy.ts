@@ -1,4 +1,4 @@
-import { DEFAULT_LOCALE, supportedLanguages } from '@core/lib/constants/languages';
+import { DEFAULT_LOCALE, supportedLanguages } from '@core/lib/common/constants/languages';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 

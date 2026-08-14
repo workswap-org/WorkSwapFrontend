@@ -1,9 +1,9 @@
 "use client"
 
 import UserMeta from "@core/components/common/UserMeta";
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { forumService } from "@core/lib/services/forumService";
-import { IForumActivityItem } from "@core/lib/types/forum";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { forumService } from "@core/lib/forum/forumService";
+import { IForumActivityItem } from "@core/lib/forum/types";
 import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
 import styles from "./ForumLayout.module.scss"

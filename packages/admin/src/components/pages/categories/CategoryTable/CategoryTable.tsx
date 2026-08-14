@@ -1,9 +1,9 @@
-import { ICategory } from '@core/lib/types/models/category';
+import { ICategory } from '@core/lib/category/types';
 import PenIcon from "@core/components/common/icons/PenIcon"
 import TrashIcon from "@core/components/common/icons/TrashIcon"
 import Table, { Columns, TableItem } from '@/components/ui/Table/Table';
 import styles from "./CategoryTable.module.scss"
-import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 
 interface CategoryTableProps {
     type: string;

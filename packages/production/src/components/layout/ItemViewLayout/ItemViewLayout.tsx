@@ -2,7 +2,7 @@ import Breadcrumbs, { Breadcrumb } from "@core/components/ui/Breadcrumbs/Breadcr
 import styles from "./ItemViewLayout.module.scss"
 import { ReactNode } from "react"
 import UserInfoSidebar from "@/components/pages/listing/UserInfoSidebar/UserInfoSidebar"
-import { IShortUserProfile } from "@core/lib/types/models/user"
+import { IShortUserProfile } from "@core/lib/user/types"
 import ReviewsSection from "@/components/ui/reviews/ReviewsSection"
 
 interface ItemViewLayoutProps {

@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { ForumTag } from '@core/lib/types/forum'
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { ForumTag } from '@core/lib/forum/types'
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 const ForumTagSelector = ({
     tags, 

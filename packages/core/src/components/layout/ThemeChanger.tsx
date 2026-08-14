@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import SunIcon from "../common/icons/SunIcon";
 import MoonIcon from "../common/icons/MoonIcon";
 import SliderCheckbox from "../common/checkbox/SliderCheckbox/SliderCheckbox";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 type Theme = "light" | "dark";
 

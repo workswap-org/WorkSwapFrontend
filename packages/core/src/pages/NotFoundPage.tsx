@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import ArrowIcon from "@core/components/common/icons/ArrowIcon";
 import HomeIcon from "@core/components/common/icons/HomeIcon";
 import styles from "./NotFoundPage.module.scss";

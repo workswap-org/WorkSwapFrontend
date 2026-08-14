@@ -1,6 +1,6 @@
 "use client"
 
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 interface Props {
     isoDate: string;

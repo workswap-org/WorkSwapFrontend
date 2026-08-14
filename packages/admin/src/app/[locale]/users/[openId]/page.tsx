@@ -1,12 +1,12 @@
 "use client"
 
 import Card from "@/components/ui/Card/Card";
-import { IShortListing } from "@core/lib/types/models/listing";
-import { IFullUser } from "@core/lib/types/models/user";
-import { IReview } from "@core/lib/types/models/review"
-import { IUserForumContent } from "@core/lib/types/forum"
+import { IShortListing } from "@core/lib/listing/types";
+import { IFullUser } from "@core/lib/user/types";
+import { IReview } from "@core/lib/review/types"
+import { IUserForumContent } from "@core/lib/forum/types"
 import { useEffect, useState } from "react";
-import { userService } from "@core/lib/services/user"
+import { userService } from "@core/lib/user/services"
 import { useParams } from "next/navigation";
 import styles from "./UserControlPage.module.scss"
 

@@ -1,9 +1,9 @@
 import Avatar from "@core/components/common/Avatar/Avatar";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow";
 import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { forumService } from "@core/lib/services/forumService";
-import { IForumComment, IForumTopic } from "@core/lib/types/forum";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { forumService } from "@core/lib/forum/forumService";
+import { IForumComment, IForumTopic } from "@core/lib/forum/types";
 import styles from "./ForumComment.module.scss"
 
 const ForumComment = ({

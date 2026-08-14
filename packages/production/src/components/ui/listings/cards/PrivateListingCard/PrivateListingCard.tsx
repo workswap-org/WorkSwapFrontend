@@ -1,13 +1,12 @@
 "use client"
 
-import { redirect } from 'next/navigation';
 import { useMemo } from "react";
 import PriceTypes from '@core/components/common/PriceTypes/PriceTypes';
 import Link from 'next/link';
-import { useChats } from '@core/lib/contexts/MessengerContext';
-import { IFullListing } from '@core/lib/types/models/listing';
-import { ChatType } from '@core/lib/constants/chatTypes';
-import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useChats } from '@core/lib/chat/MessengerContext';
+import { IFullListing } from '@core/lib/listing/types';
+import { ChatType } from '@core/lib/chat/constants/chatTypes';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import styles from "./PrivateListingCard.module.scss"
 import GearIcon from "@core/components/common/icons/GearIcon"
 import UnreadNotifications from '@core/components/ui/notifications/UnreadNotifications/UnreadNotifications';

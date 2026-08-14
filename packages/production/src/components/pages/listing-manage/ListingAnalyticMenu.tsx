@@ -1,4 +1,4 @@
-import { IFullListing } from "@core/lib/types/models/listing";
+import { IFullListing } from "@core/lib/listing/types";
 
 const ListingAnalyticMenu = ({listing}: {listing: IFullListing}) => {
     return <div></div>;

@@ -1,6 +1,6 @@
-import { ICategory } from "@core/lib/types/models/category";
+import { ICategory } from "@core/lib/category/types";
 import styles from "./CategoryTree.module.scss"
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 interface CategoryTreeItem extends ICategory {
     children?: CategoryTreeItem[]

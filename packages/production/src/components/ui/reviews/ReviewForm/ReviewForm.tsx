@@ -1,11 +1,11 @@
 "use client"
 
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { useNotification } from "@core/lib/notification/NotificationContext";
 import { Dispatch, SetStateAction, useState } from "react";
-import { IReview } from "@core/lib/types/models/review"
-import { reviewsService } from "@core/lib/services/reviewsService"
+import { IReview } from "@core/lib/review/types"
+import { reviewsService } from "@core/lib/review/reviewsService"
 import styles from "./ReviewForm.module.scss"
 import StarIcon from "@core/components/common/icons/StarIcon";
 

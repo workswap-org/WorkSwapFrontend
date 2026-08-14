@@ -5,13 +5,13 @@ const sorts = [
     { key: "popularity"},
 ];
 
-import { useAuth } from '@core/lib/contexts/AuthContext';
-import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useAuth } from '@core/lib/auth/AuthContext';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import { useSwipeable } from 'react-swipeable';
 import styles from "./CatalogSidebar.module.scss"
 import FilterIcon from "@core/components/common/icons/FilterIcon"
 import Checkbox from '@core/components/common/checkbox/Checkbox/Checkbox';
-import { useCatalogFilters } from '@core/lib/providers/local/CatalogFiltersProvider';
+import { useCatalogFilters } from '@core/lib/common/contexts/CatalogFiltersContext';
 
 interface CatalogSidebarProps {
     sidebarOpened: boolean;

@@ -4,14 +4,13 @@ import { useRef, useEffect, useState, useMemo, useLayoutEffect } from "react";
 import SendMessageArea from "../SendMessageArea/SendMessageArea";
 import MessagesGroup from "../MessagesGroup/MessagesGroup";
 import { createPortal } from "react-dom";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { useActivePage } from "@core/lib/contexts/ActivePageContext";
-import { useChats } from "@core/lib/contexts/MessengerContext";
-import { IShortUser } from "@core/lib/types/models/user";
-import { ChatType, privateChatTypes } from "@core/lib/constants/chatTypes"
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { useChats } from "@core/lib/chat/MessengerContext";
+import { IShortUser } from "@core/lib/user/types";
+import { ChatType, privateChatTypes } from "@core/lib/chat/constants/chatTypes"
 import Avatar from "@core/components/common/Avatar/Avatar";
 import Link from "next/link";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./ChatWindow.module.scss"
 import sharedStyles from "../ChatShared.module.scss"
 import ArrowIcon from "@core/components/common/icons/ArrowIcon";

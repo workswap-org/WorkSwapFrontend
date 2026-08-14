@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useNotification } from "@core/lib/notification/NotificationContext";
 import Modal from "@core/components/ui/Modal/Modal"
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./ContactModal.module.scss"
 import LightbulbIcon from '@core/components/common/icons/LightbulbIcon'
 import EnvelopeIcon from '@core/components/common/icons/contacts/EnvelopeIcon'

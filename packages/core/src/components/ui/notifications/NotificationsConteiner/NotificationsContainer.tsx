@@ -4,11 +4,11 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from "react";
 import NotificationItem from "../NotificationItem/NotificationItem";
 import { createPortal } from "react-dom";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { useChats } from "@core/lib/contexts/MessengerContext";
-import { notificationService } from "@core/lib/services/notificationService";
-import { INotification } from '@core/lib/types/notification';
-import { useWebSocket } from '@core/lib/contexts/WebSocketContext';
+import { useNotification } from "@core/lib/notification/NotificationContext";
+import { useChats } from "@core/lib/chat/MessengerContext";
+import { notificationService } from "@core/lib/notification/notificationService";
+import { INotification } from '@core/lib/notification/types';
+import { useWebSocket } from '@core/lib/websocket/WebSocketContext';
 import { useRouter } from 'next/navigation';
 import styles from "./NotificationsContainer.module.scss";
 

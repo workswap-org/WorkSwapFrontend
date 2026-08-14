@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./UserCard.module.scss"
 import Link from "next/link";
 import Avatar from "@core/components/common/Avatar/Avatar";
-import { IUser } from "@core/lib/types/models/user";
+import { IUser } from "@core/lib/user/types";
 
 type UserCardProps = {
     user: IUser;

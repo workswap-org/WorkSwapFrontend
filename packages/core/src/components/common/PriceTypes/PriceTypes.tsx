@@ -1,8 +1,8 @@
 "use client";
 
-import { useI18n } from '@core/lib/contexts/I18nContext';
-import { IShortListing } from '@core/lib/types/models/listing';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import styles from "./PriceTypes.module.scss"
+import { IShortListing } from '@core/lib/listing/types';
 
 interface Props {
     listing: IShortListing;

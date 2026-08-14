@@ -1,10 +1,9 @@
 "use client"
 
-import { useAuth } from '@core/lib/contexts/AuthContext';
-import { useI18n } from '@core/lib/contexts/I18nContext';
-import { useNotification } from '@core/lib/contexts/NotificationContext';
-import { userService } from '@core/lib/services/user';
-import { redirect } from 'next/navigation';
+import { useAuth } from '@core/lib/auth/AuthContext';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
+import { useNotification } from '@core/lib/notification/NotificationContext';
+import { userService } from '@core/lib/user/services';
 import AccountHeader from '@/components/pages/account/AccountHeader/AccountHeader';
 
 const SecurityPage = () => {

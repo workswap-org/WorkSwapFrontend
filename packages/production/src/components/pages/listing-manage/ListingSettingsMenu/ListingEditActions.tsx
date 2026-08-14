@@ -1,7 +1,7 @@
-import { useI18n } from '@core/lib/contexts/I18nContext';
-import { useNotification } from '@core/lib/contexts/NotificationContext';
-import { listingService } from '@core/lib/services/listing';
-import { IFullListing } from '@core/lib/types/models/listing';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
+import { useNotification } from '@core/lib/notification/NotificationContext';
+import { listingService } from '@core/lib/listing/services';
+import { IFullListing } from '@core/lib/listing/types';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 

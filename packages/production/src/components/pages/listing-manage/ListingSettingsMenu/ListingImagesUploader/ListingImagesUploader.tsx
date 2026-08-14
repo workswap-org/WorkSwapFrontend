@@ -1,6 +1,6 @@
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { listingService } from "@core/lib/services/listing";
-import { IFullListing, IListingImage } from "@core/lib/types/models/listing";
+import { useNotification } from "@core/lib/notification/NotificationContext";
+import { listingService } from "@core/lib/listing/services";
+import { IFullListing, IListingImage } from "@core/lib/listing/types";
 import { useEffect, useState } from "react";
 import styles from "./ListingImagesUploader.module.scss"
 import PlusIcon from "@core/components/common/icons/PlusIcon";

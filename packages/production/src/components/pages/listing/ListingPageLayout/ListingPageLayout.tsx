@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import ListingGallery from "../ListingGallery/ListingGallery";
-import { IListingPageRequest } from "@core/lib/types/models/listing";
-import { IShortUserProfile } from "@core/lib/types/models/user";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { ICategory } from "@core/lib/types/models/category";
-import { listingService } from "@core/lib/services/listing";
-import { categoryService } from "@core/lib/services/category";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { IListingPageRequest } from "@core/lib/listing/types";
+import { IShortUserProfile } from "@core/lib/user/types";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { useNotification } from "@core/lib/notification/NotificationContext";
+import { ICategory } from "@core/lib/category/types";
+import { listingService } from "@core/lib/listing/services";
+import { categoryService } from "@core/lib/category/services";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import HeartIcon from "@core/components/common/icons/HeartIcon"
 import styles from "./ListingPageLayout.module.scss"
 import SidebarCard from "../SidebarCard/SidebarCard";
@@ -16,7 +16,7 @@ import ListingAction from "../ListingAction/ListingAction";
 import PenIcon from "@core/components/common/icons/PenIcon"
 import ShareIcon from "@core/components/common/icons/ShareIcon"
 import ItemViewLayout from "@/components/layout/ItemViewLayout/ItemViewLayout";
-import { ListingTypeValue } from "@core/lib/constants/listingTypes";
+import { ListingTypeValue } from "@core/lib/listing/constants/listingTypes";
 
 interface ListingPageLayoutProps {
     details: React.ReactNode,

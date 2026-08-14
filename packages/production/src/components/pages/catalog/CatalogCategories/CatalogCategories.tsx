@@ -1,11 +1,11 @@
-import { useCatalogFilters } from "@core/lib/providers/local/CatalogFiltersProvider";
+import { useCatalogFilters } from "@core/lib/common/contexts/CatalogFiltersContext";
 import { useState, useRef, useMemo, ReactNode } from "react";
-import { ICategory } from "@core/lib/types/models/category"
-import { ListingType } from "@core/lib/constants/listingTypes";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { ICategory } from "@core/lib/category/types"
+import { ListingType } from "@core/lib/listing/constants/listingTypes";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./CatalogCategories.module.scss"
 import ListIcon from "@core/components/common/icons/ListIcon"
-import { categoryService } from "@core/lib/services/category"
+import { categoryService } from "@core/lib/category/services"
 
 const CatalogCategories = () => {
     

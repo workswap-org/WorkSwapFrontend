@@ -1,6 +1,6 @@
 "use client"
 
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import { ReactNode, useState } from "react";
 import styles from "./SidebarSectionLayout.module.scss";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";

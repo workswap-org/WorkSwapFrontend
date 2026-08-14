@@ -1,12 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { IFullListing } from "@core/lib/types/models/listing";
-import { listingService } from "@core/lib/services/listing";
+import { IFullListing } from "@core/lib/listing/types";
+import { listingService } from "@core/lib/listing/services";
 import PrivateListingCard from "@/components/ui/listings/cards/PrivateListingCard/PrivateListingCard";
 import ListingDraftItem from "@/components/ui/listings/cards/DraftListingCard/DraftListingCard";
 import Tooltip from "@core/components/common/Tooltip/Tooltip"
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import Loader from "@core/components/common/Loader/Loader"
 import PlusIcon from "@core/components/common/icons/PlusIcon";
 import draftStyles from "@/components/ui/listings/cards/DraftListingCard/DraftListingCard.module.scss"

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import UserCard from "../UserCard/UserCard";
 import styles from "./UsersGrid.module.scss"
-import { userService } from "@core/lib/services/user";
-import { IUser } from "@core/lib/types/models/user";
+import { userService } from "@core/lib/user/services";
+import { IUser } from "@core/lib/user/types";
 
 const UsersGrid = () => {
 

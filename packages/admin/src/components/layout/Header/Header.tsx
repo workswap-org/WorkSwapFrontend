@@ -1,7 +1,7 @@
 import { pageTitles, useActivePage } from "@core/lib/contexts/ActivePageContext";
 import Avatar from "@core/components/common/Avatar/Avatar";
 import SignOutIcon from "@core/components/common/icons/SignOutIcon"
-import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useAuth } from "@core/lib/auth/AuthContext";
 import styles from "./Header.module.scss";
 import BurgerIcon from "@core/components/common/icons/BurgerIcon"
 

@@ -1,4 +1,4 @@
-import { IListingTranslation } from "@core/lib/types/models/listing";
+import { IListingTranslation } from "@core/lib/listing/types";
 import { useEffect, useState } from "react";
 import styles from "./TranslationsStatus.module.scss"
 

@@ -1,6 +1,6 @@
 import UserMeta from "@core/components/common/UserMeta";
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { IForumTopic } from "@core/lib/types/forum";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { IForumTopic } from "@core/lib/forum/types";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import styles from "./ForumTopicCard.module.scss"

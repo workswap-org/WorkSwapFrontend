@@ -2,14 +2,14 @@
 
 import Avatar from "@core/components/common/Avatar/Avatar";
 import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { IForumPost, IForumTopic } from "@core/lib/types/forum";
-import { IShortUser } from "@core/lib/types/models/user";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { IForumPost, IForumTopic } from "@core/lib/forum/types";
+import { IShortUser } from "@core/lib/user/types";
 import { redirect, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import ForumPost from "../../../../../components/pages/forum/ForumPost/ForumPost";
-import { forumService } from "@core/lib/services/forumService"
+import ForumPost from "@/components/pages/forum/ForumPost/ForumPost";
+import { forumService } from "@core/lib/forum/forumService"
 import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow"
 import styles from "./ForumTopicPage.module.scss";

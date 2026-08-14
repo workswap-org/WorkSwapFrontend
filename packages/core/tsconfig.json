@@ -4,7 +4,6 @@
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "jsx": "react-jsx",
-
         "baseUrl": ".",
         "paths": {
             "@core/*": ["src/*"]
@@ -18,6 +17,6 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["src", "global.d.ts"],
+    "include": ["src", "global.d.ts", "src/AppProviders.tsx"],
     "exclude": ["node_modules", "dist"]
 }

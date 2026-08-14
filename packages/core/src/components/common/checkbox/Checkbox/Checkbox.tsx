@@ -7,7 +7,7 @@ interface Checkbox {
     onChange: (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => void;
     id: string;
     children: ReactNode;
-    className: string;
+    className?: string;
 }
 
 const Checkbox = ({

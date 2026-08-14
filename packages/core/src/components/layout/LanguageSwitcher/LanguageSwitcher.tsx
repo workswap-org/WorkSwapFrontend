@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { languagesList } from "@core/lib/constants/languages";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { languagesList } from "@core/lib/common/constants/languages";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./LanguageSwitcher.module.scss"
 
 const LanguageSwitcher = ({mobile}: {mobile?: boolean}) => {

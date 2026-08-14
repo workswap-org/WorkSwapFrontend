@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import NotificationsContainer from "@core/components/ui/notifications/NotificationsConteiner/NotificationsContainer";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
+import { useNotification } from "@core/lib/notification/NotificationContext";
 import { usePathname } from "next/navigation";
 import BellIcon from "@core/components/common/icons/BellIcon";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";

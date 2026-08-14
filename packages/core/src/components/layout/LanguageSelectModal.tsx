@@ -1,18 +1,28 @@
 "use client"
 
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { languagesList } from "@core/lib/constants/languages";
+import { languagesList } from "@core/lib/common/constants/languages";
 import Modal from "../ui/Modal/Modal";
+import { usePathname, useRouter } from "next/navigation";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 const LanguageSelectModal = () => {
     const [isOpen, setOpen] = useState(false)
-    const { i18n } = useTranslation();
-    // Empty component placeholder
+    const pathname = usePathname();
+    const router = useRouter();
+    const { locale } = useI18n();
+
     const changeLanguage = (lng: string) => {
-        i18n.changeLanguage(lng);
-        localStorage.setItem("i18nextLng", lng);
-        setOpen(false);
+        if (lng === locale) return;
+
+        document.cookie = `locale=${lng}; path=/; max-age=31536000`;
+
+        const segments = pathname.split("/");
+        segments[1] = lng; // заменяем locale
+
+        const newPath = segments.join("/") || `/${lng}`;
+
+        router.push(newPath);
     };
 
     useEffect(() => {

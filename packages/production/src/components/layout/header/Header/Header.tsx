@@ -3,8 +3,8 @@
 import MobileMenu from "../../MobileMenu/MobileMenu";
 import Link from 'next/link';
 import styles from "./Header.module.scss"
-import { useI18n } from '@core/lib/contexts/I18nContext';
-import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
+import { useAuth } from "@core/lib/auth/AuthContext";
 import { useEffect, useState } from "react";
 import NavItem from "@core/components/common/NavItem";
 import Avatar from "@core/components/common/Avatar/Avatar";

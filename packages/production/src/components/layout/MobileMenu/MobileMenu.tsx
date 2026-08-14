@@ -7,18 +7,18 @@ import { useEffect, useState } from "react";
 import { useSwipeable } from 'react-swipeable';
 import { AUTH_BASE } from "@core/config";
 import Link from "next/link";
-import { userService } from "@core/lib/services/user"
-import { useNotification } from "@core/lib/contexts/NotificationContext"
+import { userService } from "@core/lib/user/services"
+import { useNotification } from "@core/lib/notification/NotificationContext"
 import LanguageSwitcher from '@core/components/layout/LanguageSwitcher/LanguageSwitcher';
 import Avatar from "@core/components/common/Avatar/Avatar"
 import AccountSidebarLinks from "@/components/pages/account/AccountSidebar/AccountSidebarLinks";
 import ContactModal from "@/components/ui/ContactModal/ContactModal";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./MobuleMenu.module.scss"
 import SignOutIcon from "@core/components/common/icons/SignOutIcon";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
 import BurgerIcon from "@core/components/common/icons/BurgerIcon"
-import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useAuth } from "@core/lib/auth/AuthContext";
 
 const MobileMenu = () => {
 

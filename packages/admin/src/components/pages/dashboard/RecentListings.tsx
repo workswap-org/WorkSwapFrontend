@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { listingService } from "@core/lib/services/listing"
-import { IShortListing } from "@core/lib/types/models/listing";
+import { listingService } from "@core/lib/listing/services"
+import { IShortListing } from "@core/lib/listing/types";
 import PriceTypes from "@core/components/common/PriceTypes/PriceTypes"
 import FormattedDate from "@core/components/common/date/FormattedDate"
 import EyeIcon from "@core/components/common/icons/EyeIcon"

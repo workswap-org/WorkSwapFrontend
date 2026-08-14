@@ -1,4 +1,4 @@
-import { CatalogFiltersProvider } from "@core/lib/providers/local/CatalogFiltersProvider"
+import { CatalogFiltersProvider } from "@core/lib/common/contexts/CatalogFiltersContext"
 import CatalogPage from "./CatalogPage"
 
 type SearchParams = Record<string, string | string[] | undefined>;

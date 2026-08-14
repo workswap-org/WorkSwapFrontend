@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import {settingService} from "@core/lib/services/settingsService"
-import { IFullListing } from "@core/lib/types/models/listing";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import {settingService} from "@core/lib/common/services/settingsService"
+import { IFullListing } from "@core/lib/listing/types";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 interface PriceEditProps {
     listing: IFullListing;

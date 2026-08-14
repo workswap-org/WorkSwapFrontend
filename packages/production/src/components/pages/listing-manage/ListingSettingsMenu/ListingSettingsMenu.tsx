@@ -7,10 +7,10 @@ import ProductSettings from "./settings/ProductSettings";
 import ServiceSettings from "./settings/ServiceSettings";
 import PriceEdit from "./PriceEdit";
 import ListingSetting from "./ListingSetting/ListingSetting";
-import { IFullListing } from "@core/lib/types/models/listing";
-import { useNotification } from "@core/lib/contexts/NotificationContext";
-import { listingService } from "@core/lib/services/listing";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { IFullListing } from "@core/lib/listing/types";
+import { useNotification } from "@core/lib/notification/NotificationContext";
+import { listingService } from "@core/lib/listing/services";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import LocationSelector from "@/components/ui/selectors/LocationSelector";
 
 const disabledTypesForPrice = ["PRODUCT_SWAP", "PRODUCT_GIVEAWAY", "PRODUCT_WANTED_FREE"];

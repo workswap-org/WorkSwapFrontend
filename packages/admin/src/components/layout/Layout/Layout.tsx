@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/layout/Sidebar/Sidebar";
 import Header from "@/components/layout/Header/Header";
-import { useAuth } from "@core/lib/contexts/AuthContext";
+import { useAuth } from "@core/lib/auth/AuthContext";
 
 import styles from "./Layout.module.scss"
 import { AUTH_BASE } from "@core/config";
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import Loader from "@core/components/common/Loader/Loader";
 
 export default function Layout({ children }: any) {

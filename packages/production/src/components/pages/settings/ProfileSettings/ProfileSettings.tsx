@@ -1,7 +1,7 @@
-import { useI18n } from '@core/lib/contexts/I18nContext';
-import { useNotification } from '@core/lib/contexts/NotificationContext';
-import { cloudService } from '@core/lib/services/cloudService';
-import { IFullUser } from '@core/lib/types/models/user';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
+import { useNotification } from '@core/lib/notification/NotificationContext';
+import { uploadService } from '@core/lib/upload/uploadService';
+import { IFullUser } from '@core/lib/user/types';
 import { useEffect, useMemo, useState } from 'react';
 import SettingSection from '../SettingSection/SettingSection';
 import styles from "./ProfileSettings.module.scss"
@@ -50,7 +50,7 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
             const formData = new FormData();
             formData.append("image", file);
 
-            const imageUrl = await cloudService.uploadAvatar(formData);
+            const imageUrl = await uploadService.uploadAvatar(formData);
 
             if (imageUrl) {
                 setUploadedAvatar(imageUrl)

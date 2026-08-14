@@ -2,9 +2,9 @@
 
 import Avatar from "@core/components/common/Avatar/Avatar";
 import FormattedDate from "@core/components/common/date/FormattedDate";
-import { userService } from "@core/lib/services/user";
-import { IReview } from "@core/lib/types/models/review";
-import { IShortUser } from "@core/lib/types/models/user";
+import { userService } from "@core/lib/user/services";
+import { IReview } from "@core/lib/review/types";
+import { IShortUser } from "@core/lib/user/types";
 import { useEffect, useState } from "react";
 import styles from "./ReviewItem.module.scss"
 import StarIcon from "@core/components/common/icons/StarIcon";

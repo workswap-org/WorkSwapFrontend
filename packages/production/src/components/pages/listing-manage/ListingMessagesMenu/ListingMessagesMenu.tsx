@@ -1,8 +1,8 @@
-import { IFullListing } from "@core/lib/types/models/listing";
-import { ChatType } from "@core/lib/constants/chatTypes";
+import { IFullListing } from "@core/lib/listing/types";
+import { ChatType } from "@core/lib/chat/constants/chatTypes";
 import styles from "./ListingMessagesMenu.module.scss"
 import ChatsPage from "@/components/ui/chat/ChatsPage/ChatsPage";
-import { useChats } from "@core/lib/contexts/MessengerContext";
+import { useChats } from "@core/lib/chat/MessengerContext";
 import { useEffect } from "react";
 
 const ListingMessagesMenu = ({listing}: {listing: IFullListing}) => {

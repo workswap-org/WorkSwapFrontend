@@ -1,5 +1,5 @@
-import { useI18n } from '@core/lib/contexts/I18nContext';
-import { IFullUser } from '@core/lib/types/models/user';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
+import { IFullUser } from '@core/lib/user/types';
 import { useMemo } from 'react';
 import SettingSection from '../SettingSection/SettingSection';
 import SliderCheckbox from "@core/components/common/checkbox/SliderCheckbox/SliderCheckbox"

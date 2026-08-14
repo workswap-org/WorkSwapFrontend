@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { IFullUser } from '@core/lib/types/models/user';
-import { useI18n } from '@core/lib/contexts/I18nContext';
+import { IFullUser } from '@core/lib/user/types';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import LocationSelector from '@/components/ui/selectors/LocationSelector';
 import SettingSection from '../SettingSection/SettingSection';
 import styles from "./PreferencesSettings.module.scss"

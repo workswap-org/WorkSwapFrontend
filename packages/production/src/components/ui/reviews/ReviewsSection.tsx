@@ -1,10 +1,10 @@
 "use client"
 
-import { IReview } from "@core/lib/types/models/review";
+import { IReview } from "@core/lib/review/types";
 import ReviewForm from "./ReviewForm/ReviewForm";
 import ReviewsList from "./ReviewsList/ReviewsList";
 import { useEffect, useState } from "react";
-import { reviewsService } from "@core/lib/services/reviewsService";
+import { reviewsService } from "@core/lib/review/reviewsService";
 
 interface ReviewsSectionProps {
     listingId: number | null;

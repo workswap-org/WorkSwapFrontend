@@ -1,13 +1,12 @@
 "use client"
 
-import { redirect } from "next/navigation";
-import { IShortListing } from "@core/lib/types/models/listing";
-import { useAuth } from "@core/lib/contexts/AuthContext";
-import { listingService } from "@core/lib/services/listing";
+import { IShortListing } from "@core/lib/listing/types";
+import { useAuth } from "@core/lib/auth/AuthContext";
+import { listingService } from "@core/lib/listing/services";
 import PriceTypes from "@core/components/common/PriceTypes/PriceTypes"
-import { listingTypesWithRating } from "@core/lib/constants/listingTypes";
+import { listingTypesWithRating } from "@core/lib/listing/constants/listingTypes";
 import RatingStars from "@core/components/common/RatingStars/RatingStars"
-import { useI18n } from "@core/lib/contexts/I18nContext";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import HeartIcon from "@core/components/common/icons/HeartIcon"
 import styles from "./PublicListingCard.module.scss"
 import LocationIcon from "@core/components/common/icons/LocationIcon"

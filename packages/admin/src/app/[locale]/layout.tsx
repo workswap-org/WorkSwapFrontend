@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import "@/css/main.scss";
 import Layout from "@/components/layout/Layout/Layout";
-import { I18nProvider } from "@core/lib/contexts/I18nContext";
-import { parseLocale } from "@core/lib/constants/languages";
+import { parseLocale } from '@core/lib/common/constants/languages';
 import { getDictionary } from "@/lib/i18n";
-import { AppProviders } from "@core/lib/providers/AppProviders";
+import { I18nProvider } from "@core/lib/common/contexts/I18nContext";
+import { AppProviders } from "@core/AppProviders"
 
 export const metadata = {
     title: "WorkSwap Dashboard",

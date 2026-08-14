@@ -1,4 +1,4 @@
-import { IPopupNotification } from "@core/lib/types/notification";
+import { IPopupNotification } from "@core/lib/notification/types";
 import styles from "./PopupNotification.module.scss"
 
 interface PopupNotificationProps {

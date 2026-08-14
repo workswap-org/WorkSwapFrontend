@@ -1,14 +1,14 @@
-import { AppProviders } from "@core/lib/providers/AppProviders";
 import { headers } from "next/headers";
 import { ReactNode } from "react";
 import { getDictionary } from "@/lib/i18n";
-import { parseLocale } from '@core/lib/constants/languages'
-import { I18nProvider } from "@core/lib/contexts/I18nContext";
+import { parseLocale } from '@core/lib/common/constants/languages';
 import Header from "@/components/layout/header/Header/Header";
+import { AppProviders } from "@core/AppProviders"
 
 import "@/css/main.scss";
 import "@/css/globals.scss";
 import styles from "./RootLayout.module.scss";
+import { I18nProvider } from "@core/lib/common/contexts/I18nContext";
 
 export const metadata = {
     title: "WorkSwap",

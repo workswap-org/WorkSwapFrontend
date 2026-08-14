@@ -1,11 +1,11 @@
 import PublicListingCard from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard";
 import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
 import DialogItem from "@/components/ui/chat/DialogItem/DialogItem";
-import { ChatTypeValue } from "@core/lib/constants/chatTypes";
-import { useI18n } from "@core/lib/contexts/I18nContext";
-import { useChats } from "@core/lib/contexts/MessengerContext";
-import { useChatsLoad } from "@core/lib/hooks/chat/useChatsLoad";
-import { useChatSubscription } from "@core/lib/hooks/chat/useChatSubscription";
+import { ChatTypeValue } from "@core/lib/chat/constants/chatTypes";
+import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { useChats } from "@core/lib/chat/MessengerContext";
+import { useChatsLoad } from "@core/lib/chat/hooks/useChatsLoad";
+import { useChatSubscription } from "@core/lib/chat/hooks/useChatSubscription";
 import styles from "./ChatsPage.module.scss"
 import { useMemo } from "react";
 

@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { userService } from "@core/lib/services/user";
+import { userService } from "@core/lib/user/services";
 import FormattedDate from "@core/components/common/date/FormattedDate"
-import { IUser } from "@core/lib/types/models/user";
+import { IUser } from "@core/lib/user/types";
 import Link from "next/link";
 import UserGearIcon from "@core/components/common/icons/UserGearIcon"
 import Table, { Columns, TableItem } from "@/components/ui/Table/Table";

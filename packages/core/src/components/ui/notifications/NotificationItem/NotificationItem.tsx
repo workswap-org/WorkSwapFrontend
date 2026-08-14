@@ -1,4 +1,4 @@
-import { INotification } from "@core/lib/types/notification"
+import { INotification } from "@core/lib/notification/types"
 import styles from "./NotificationItem.module.scss"
 
 interface NotificationItemProps {

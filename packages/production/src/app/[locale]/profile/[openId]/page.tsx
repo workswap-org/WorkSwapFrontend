@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import NotFoundPage from "@core/pages/NotFoundPage";
 import { useParams } from 'next/navigation';
-import { IShortListing } from '@core/lib/types/models/listing';
-import { IShortUserProfile } from '@core/lib/types/models/user';
-import { userService } from '@core/lib/services/user';
+import { IShortListing } from '@core/lib/listing/types';
+import { IShortUserProfile } from '@core/lib/user/types';
+import { userService } from '@core/lib/user/services';
 import PublicListingCard from '@/components/ui/listings/cards/PublicListingCard/PublicListingCard';
-import { useI18n } from '@core/lib/contexts/I18nContext';
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import ListingsGrid from '@/components/ui/listings/ListingsGrid/ListingsGrid';
 import ItemViewLayout from '@/components/layout/ItemViewLayout/ItemViewLayout';
 
