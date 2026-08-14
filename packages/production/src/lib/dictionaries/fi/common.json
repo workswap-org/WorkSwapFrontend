@@ -148,9 +148,9 @@
             "theme": "Teema"
         },
         "sections": {
-            "profile": "Profiili",
-            "privacy": "Yksityisyys",
-            "preferences": "Asetukset"
+            "PROFILE": "Profiili",
+            "PRIVACY": "Yksityisyys",
+            "PREFERENCES": "Asetukset"
         }
     },
     "messenger": {

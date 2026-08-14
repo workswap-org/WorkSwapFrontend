@@ -148,9 +148,9 @@
             "theme": "Theme"
         },
         "sections": {
-            "profile": "Profile",
-            "privacy": "Privacy",
-            "preferences": "Preferences"
+            "PROFILE": "Profile",
+            "PRIVACY": "Privacy",
+            "PREFERENCES": "Preferences"
         }
     },
     "messenger": {

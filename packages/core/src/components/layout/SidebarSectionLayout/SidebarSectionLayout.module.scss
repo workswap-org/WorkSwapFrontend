@@ -35,7 +35,7 @@
     }
 
     @include mobile {
-        width: 100%;
+        width: 50%;
         border: none;
         padding-right: 0;
     }
@@ -60,7 +60,7 @@
     flex-direction: column;
     flex: 1;
     gap: 1rem;
-    width: 100%;
+    width: 50%;
 
     @include mobile {
         height: fit-content;
