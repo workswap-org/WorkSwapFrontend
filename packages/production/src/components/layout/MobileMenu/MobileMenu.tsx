@@ -6,8 +6,6 @@ import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 import { useSwipeable } from 'react-swipeable';
 import { AUTH_BASE } from "@core/config";
-import Link from "next/link";
-import { userService } from "@core/lib/user/services"
 import { useNotification } from "@core/lib/notification/NotificationContext"
 import LanguageSwitcher from '@core/components/layout/LanguageSwitcher/LanguageSwitcher';
 import Avatar from "@core/components/common/Avatar/Avatar"
