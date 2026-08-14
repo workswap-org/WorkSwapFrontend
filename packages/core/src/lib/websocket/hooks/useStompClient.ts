@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Client } from "@stomp/stompjs";
 import { API_BASE } from "@core/config";
 import { useAuth } from "../../auth/AuthContext";
-import { refreshToken } from "../services/utils/apiClient";
+import { refreshToken } from "@core/lib/common/utils/apiClient";
 
 interface UseStompClientResult {
     client: Client | null;

@@ -2,10 +2,15 @@
 
 import { formatDistanceToNow } from 'date-fns'
 import { ru } from 'date-fns/locale'
+import React from 'react'
 
-const FormattedDateToNow = ({date}: {date: string}) => {
+interface FormattedDateToNowProps extends React.HTMLAttributes<HTMLDivElement> {
+    date: string
+}
+
+const FormattedDateToNow = ({date, ...props}: FormattedDateToNowProps) => {
     return (
-        <div id='date'>
+        <div {...props}>
             {formatDistanceToNow(
                 new Date(date.endsWith('Z') ? date : date + 'Z'), 
                 { 

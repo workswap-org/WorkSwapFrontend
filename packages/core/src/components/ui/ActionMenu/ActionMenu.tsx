@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { createPortal } from "react-dom";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import styles from "./ActionMenu.module.scss";
 import EllipsisVerticalIcon from "@core/components/common/icons/EllipsisVerticalIcon";
+import clsx from "clsx";
 
 export interface IKebabAction {
     title: string,
@@ -12,81 +12,57 @@ export interface IKebabAction {
     access?: boolean
 };
 
-const ActionMenu = ({actions, className}: {actions: IKebabAction[], className?: string}) => {
+interface ActionMenuProps {
+    actions: IKebabAction[];
+    className?: string;
+}
 
-    const [isOpen, setOpen] = useState(false);
-    const [coords, setCoords] = useState({ top: 0, left: 0 });
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    const menuRef = useRef<HTMLDivElement>(null);
+const ActionMenu = ({ actions }: ActionMenuProps) => {
+    const filtered = actions.filter((action) => action.access ?? true);
 
-    const filtered = actions.filter(a => a.access ?? true)
+    if (filtered.length === 0) {
+        return null;
+    }
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                setOpen(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
-    const openMenu = () => {
-        const rect = buttonRef.current?.getBoundingClientRect();
-
-        if (!rect) return;
-
-        setCoords({
-            top: rect.bottom + 4,
-            left: rect.left
-        });
-
-        setOpen(true);
-    };
-
-    const modalRoot = document.getElementById("modal-root");
-
-    return filtered.length > 0 && (
-        <div className={`${styles.wrapper} ${className}`}>
-            <div className={`${styles.menu}`} ref={menuRef}>
-                <button 
-                    ref={buttonRef}
-                    className={`${styles.button} hover`} 
-                    onClick={() => isOpen ? setOpen(false) : openMenu()}
+    return (
+        <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
+                <button
+                    type="button"
+                    className={clsx(styles.button, "hover")}
+                    aria-label="Действия"
                 >
                     <EllipsisVerticalIcon className={styles.icon} />
                 </button>
-                {isOpen && modalRoot && createPortal(
-                    <div 
-                        style={{
-                            position: "fixed",
-                            top: coords.top,
-                            left: coords.left
-                        }}
-                        className={styles.list}
-                    >
-                        {filtered.map((action) => (
-                            <button 
-                                key={action.title} 
-                                onClick={() => {
-                                    action.func()
-                                    setOpen(false)
-                                }}
-                                className="hover"
-                            >
-                                {action.icon && (<div><i className={`fa-regular fa-${action.icon} fa-lg`}/></div>)}
-                                {action.title}
-                            </button>
-                        ))}
-                    </div>,
-                    modalRoot
-                )}
-            </div>
-        </div>
-    )
-}
+            </DropdownMenu.Trigger>
+
+            <DropdownMenu.Portal>
+                <DropdownMenu.Content
+                    className={styles.list}
+                    sideOffset={4}
+                    align="start"
+                >
+                    {filtered.map((action) => (
+                        <DropdownMenu.Item
+                            key={action.title}
+                            className={`${styles.item} hover`}
+                            onSelect={action.func}
+                        >
+                            {action.icon && (
+                                <div className={styles.itemIcon}>
+                                    <i
+                                        className={`fa-regular fa-${action.icon} fa-lg`}
+                                    />
+                                </div>
+                            )}
+
+                            <span>{action.title}</span>
+                        </DropdownMenu.Item>
+                    ))}
+                </DropdownMenu.Content>
+            </DropdownMenu.Portal>
+        </DropdownMenu.Root>
+    );
+};
 
 export default ActionMenu;

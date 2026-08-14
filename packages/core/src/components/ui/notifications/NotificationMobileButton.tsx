@@ -32,7 +32,12 @@ const NotificationMobileButton = ({className}: {className: string}) => {
                     <UnreadNotifications count={unreadNotificationsCount}/>
                 )}
             </button>
-            <NotificationsContainer isOpen={isOpen} onClose={() => setOpen(false)} />
+
+            <NotificationsContainer
+                isOpen={isOpen} 
+                onClose={() => setOpen(false)}
+                mobile 
+            />
         </>
     );
 };

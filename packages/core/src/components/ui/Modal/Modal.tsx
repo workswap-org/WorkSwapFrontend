@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect, useRef } from 'react';
 import styles from "./Modal.module.scss";
+import clsx from "clsx";
 
 interface ModalProps {
     isOpen: boolean;
@@ -35,8 +36,8 @@ const Modal = ({ isOpen, onClose, title, id = 'normalModal', children, className
     }, [isOpen, onClose]);
 
     return (
-        <dialog ref={dialogRef} className={`${styles.modal} ${styles.className} fade-down`} onClick={(e) => e.stopPropagation()} id={id}>
-            <span className={`${styles.close} hover`} onClick={onClose}>✖</span>
+        <dialog ref={dialogRef} className={clsx(styles.modal, className, "fade-down")} onClick={(e) => e.stopPropagation()} id={id}>
+            <button className={`${styles.close} hover`} onClick={onClose}>✖</button>
             {title && <h2>{title}</h2>}
             {children}
         </dialog>

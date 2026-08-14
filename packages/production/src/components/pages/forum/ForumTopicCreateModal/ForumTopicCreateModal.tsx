@@ -1,6 +1,5 @@
 import ForumTagSelector from "@/components/ui/selectors/ForumTagSelector";
 import Modal from "@core/components/ui/Modal/Modal";
-import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import { forumService } from "@core/lib/forum/forumService";
 import { ForumTag } from "@core/lib/forum/types";
@@ -8,6 +7,7 @@ import { useState } from "react";
 import PaperPlaneIcon from "@core/components/common/icons/PaperPlaneIcon"
 import styles from "./ForumTopicCreateModal.module.scss"
 import { useRouter } from "next/navigation";
+import Textarea from "@core/components/ui/primitives/Textarea/Textarea";
 
 const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
     const { dict } = useI18n()
@@ -55,11 +55,12 @@ const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder='Введите название топика...'
                     />
-                    <TextareaRT1
+                    <Textarea
                         value={content} 
-                        setValue={setContent}
+                        onChange={(e) => setContent(e.target.value)} 
                         className={styles.contentInput}
-                        placeholder='Контент топика'
+                        placeholder='Контент топика' 
+                        autoGrow
                     />
                     <button onClick={createTopic} className={`${styles.sendBtn} hover`} disabled={sending}>
                         <PaperPlaneIcon />

@@ -1,22 +1,28 @@
-@use "@core/css/components/global-mixins" as *;
-
 .card {
-    @include flex-row;
-    position: relative;
+    display: flex;
     gap: 1rem;
 }
 
-.content {
-    @include flex-column;
+.body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 
-    .actions {
-        top: 0;
-        right: 0;
-    }
+    .header {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
 
-    .authorName {
-        font-size: 0.9rem;
-        text-decoration: underline;
+        .authorName {
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+
+        .actions {
+            display: inline-flex;
+            gap: 0.5rem;
+        }
     }
 
     .date {

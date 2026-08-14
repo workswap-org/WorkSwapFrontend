@@ -1,69 +1,74 @@
 @use "@core/css/components/global-mixins" as *;
 
-.wrapper {
-    position: absolute;
-    display: flex;
+.button {
+    border-radius: 1rem;
+    aspect-ratio: 1;
+    background-color: transparent;
+    border: none;
     height: fit-content;
-}
-
-.menu {
-    position: relative;
-    flex: 1;
     display: flex;
-    overflow: visible;
-    
-    .button {
-        border-radius: 1rem;
-        aspect-ratio: 1;
-        background-color: transparent;
-        border: none;
-        height: fit-content;
-        display: flex;
 
-        .icon {
-            height: 20px;
-        }
+    .icon {
+        height: 20px;
     }
 }
-    
+
 .list {
-    position: absolute;
+    display: flex;
     flex-direction: column;
-    right: -10px;
-    top: 1rem;
+    width: fit-content;
+    min-width: 160px;
+
     padding: 0.5rem;
+
     background-color: var(--background-l1);
     border: 2px solid var(--border-color);
     border-radius: var(--radius);
-    display: flex;
-    z-index: 20;
-    width: fit-content;
 
-    button {
-        font-size: 1rem;
-        border: none;
-        gap: 0.7rem;
-        display: inline-flex;
-        padding: 0.2rem;
-        border-radius: var(--radius);
-        background-color: transparent;
-        color: var(--text-color);
-        padding: 0.5rem;
+    z-index: 20;
+
+    // Radix сам задаёт позицию через transform/left/top
+    // Поэтому position: absolute здесь НЕ нужен.
+}
+
+.item {
+    font-size: 1rem;
+    border: none;
+    gap: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem;
+
+    border-radius: var(--radius);
+    background-color: transparent;
+    color: var(--text-color);
+
+    cursor: pointer;
+    outline: none;
+
+    &:focus {
+        background-color: var(--background-l2);
+    }
+}
+
+.itemIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+:global(.absolute-actions) {
+    position: absolute;
+    display: inline-flex;
+    top: 0.7rem;
+    right: 1rem;
+    gap: 0.5rem;
+
+    @include mobile {
+        right: 0.5rem;
     }
 
-    :global(.absolute-actions) {
-        position: absolute;
-        display: inline-flex;
-        top: 0.7rem;
-        right: 1rem;
-        gap: 0.5rem;
-
-        @include mobile {
-            right: 0.5rem;
-        }
-
-        & > .kebab-menu {
-            position: static;
-        }
+    & > .kebab-menu {
+        position: static;
     }
 }

@@ -52,13 +52,18 @@ const ForumComment = ({
     return comment && (
         <article className={styles.card}>
             <Avatar user={comment.author} size={40} />
-            <div className={styles.content}>
-                <span className={styles.authorName}>{comment.author.name}</span>
-                <span id='content'>{comment.content}</span>
-                <div className={styles.actions}>
-                    <FormattedDateToNow date={comment.createdAt} />
-                    <ActionMenu actions={actions}/>
+
+            <div className={styles.body}>
+
+                <div className={styles.header}>
+                    <span className={styles.authorName}>{comment.author.name}</span>
+                    <div className={styles.actions}>
+                        <FormattedDateToNow date={comment.createdAt} className={styles.date}/>
+                        <ActionMenu actions={actions}/>
+                    </div>
                 </div>
+
+                <span className={styles.content}>{comment.content}</span>
             </div>
         </article>
     )

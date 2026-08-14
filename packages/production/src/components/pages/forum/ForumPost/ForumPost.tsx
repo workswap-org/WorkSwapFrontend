@@ -7,9 +7,11 @@ import { forumService } from "@core/lib/forum/forumService";
 import Avatar from "@core/components/common/Avatar/Avatar";
 import FormattedDateToNow from "@core/components/common/date/FormattedDateToNow";
 import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
-import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
 import styles from "./ForumPost.module.scss"
 import PaperPlaneIcon from "@core/components/common/icons/PaperPlaneIcon";
+import Textarea from "@core/components/ui/primitives/Textarea/Textarea";
+import clsx from "clsx";
+import ForumTextInputForm from "../ForumTextInputForm/ForumTextInputForm";
 
 const ForumPost = ({
         post, setTopic
@@ -98,34 +100,28 @@ const ForumPost = ({
         <article className={styles.card}>
             <section className={styles.post}>
                 <Avatar user={post.author} size={40} />
-                <div className={styles.content}>
-                    <span className={styles.authorName}>{post.author.name}</span>
-                    <span id='content'>{post.content}</span>
-                    <div className={styles.actions}>
-                        <FormattedDateToNow date={post.createdAt}/>
-                        <ActionMenu actions={actions}/>
+
+                <div className={styles.body}>
+
+                    <div className={styles.header}>
+                        <span className={styles.authorName}>{post.author.name}</span>
+                        <div className={styles.actions}>
+                            <FormattedDateToNow date={post.createdAt} className={styles.date}/>
+                            <ActionMenu actions={actions}/>
+                        </div>
                     </div>
+
+                    <span className={styles.content}>{post.content}</span>
                 </div>
+
             </section>
             
             <section className={styles.commentList}>
-                <div className={styles.commentForm}>
-                    <TextareaRT1
-                        value={newCommentTxt} 
-                        setValue={setNewCommentTxt} 
-                        className={styles.forumComment} 
-                        placeholder='Введите комментарий...'
-                    />
-                    {newCommentTxt.length > 0 && (
-                        <button 
-                            onClick={() => createComment(post.openId)}
-                            disabled={sending} 
-                            className={`${styles.sendBtn} hover`}
-                        >
-                            <PaperPlaneIcon />
-                        </button>
-                    )}
-                </div>
+                <ForumTextInputForm
+                    placeholder='Введите комментарий...'
+                    onFormSend={(content) => createComment(content)} 
+                    disabled={sending} 
+                />
                 {post.comments
                     .slice()
                     .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())

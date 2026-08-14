@@ -5,9 +5,9 @@ import { useChats } from "@core/lib/chat/MessengerContext";
 import { useWebSocket } from "@core/lib/websocket/WebSocketContext";
 import { IChatMessage } from "@core/lib/chat/types";
 import { useState } from "react";
-import TextareaRT1 from "@core/components/ui/primitives/TextareaRT1/TextareaRT1";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./SendMessageArea.module.scss"
+import Textarea from "@core/components/ui/primitives/Textarea/Textarea";
 
 const SendMessageArea = () => {
     const { user } = useAuth();
@@ -67,13 +67,13 @@ const SendMessageArea = () => {
 
     return (
         <div className={styles.messageInputContainer}>
-            <TextareaRT1
+            <Textarea
                 value={message} 
-                setValue={setMessage} 
+                onChange={(e) => setMessage(e.target.value)} 
                 onKeyDown={handleKeyDown}
                 disabled={isDisabled}
-                className="" 
-                placeholder={isDisabled ? "" : dict.common.placeholders.typeMessage}
+                placeholder={isDisabled ? "" : dict.common.placeholders.typeMessage} 
+                autoGrow
             />
             <button
                 className={styles.sendBtn}

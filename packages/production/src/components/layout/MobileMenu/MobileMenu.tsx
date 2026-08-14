@@ -27,6 +27,11 @@ const MobileMenu = () => {
     const [mobileMenuEm, setMobileMenuEm] = useState<HTMLElement | null>(null);
     const pathname = usePathname();
     const [isOpen, setOpen] = useState<boolean>(false);
+    const [url, setUrl] = useState<string | null>(null);
+
+    useEffect(() => {
+        setUrl(window.location.href);
+    }, []);
 
     const EDGE_SIZE = 120;
     const handlers = useSwipeable({
@@ -101,7 +106,7 @@ const MobileMenu = () => {
                         </button>
                     ) : (
                         <a
-                            href={`${AUTH_BASE}/auth?redirect=${encodeURIComponent(window.location.origin + window.location.href)}`}
+                            href={`${AUTH_BASE}/auth${url ? `?redirect=${encodeURIComponent(url || "")}` : ""}`}
                             className={styles.navbarBtn}
                         >
                             <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>

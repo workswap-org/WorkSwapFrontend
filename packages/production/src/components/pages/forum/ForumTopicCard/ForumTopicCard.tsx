@@ -39,6 +39,7 @@ const ForumTopicCard = ({topic}: {topic: IForumTopic}) => {
                     </div>
                 </Link>
             </div>
+
             <div className={styles.content}>
                 <div className={styles.meta}>
                     <span 
