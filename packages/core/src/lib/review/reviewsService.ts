@@ -1,4 +1,4 @@
-import { IReview } from '../../review/types';
+import { IReview } from '@core/lib/review/types';
 import { apiFetch, apiFetchJson } from '@core/lib/common/utils/apiClient';
 
 export const reviewsService = {

@@ -1,6 +1,6 @@
 import { ChatTypeValue } from "./constants/chatTypes";
-import { IShortListing } from "../common/types/models/listing";
-import { IShortUser } from "../common/types/models/user";
+import { IShortListing } from "@core/lib/listing/types";
+import { IShortUser } from "@core/lib/user/types";
 
 
 export interface IChatMessage {

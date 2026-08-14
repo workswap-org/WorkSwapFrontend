@@ -1,4 +1,4 @@
-import { IShortListing } from "./listing";
+import { IShortListing } from "@core/lib/listing/types";
 
 export interface IShortUser {
     id: number;

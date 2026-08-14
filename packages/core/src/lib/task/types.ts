@@ -1,6 +1,6 @@
 import { TaskTypeValue } from "@core/lib/task/constants/taskTypes";
 import { IStatus } from "../common/types/status";
-import { IShortUser } from "../common/types/models/user";
+import { IShortUser } from "@core/lib/user/types";
 
 export interface ITask {
     id: number;

@@ -1,4 +1,4 @@
-import { IShortUser } from "./models/user";
+import { IShortUser } from "@core/lib/user/types";
 
 
 export interface IForumTopic {
