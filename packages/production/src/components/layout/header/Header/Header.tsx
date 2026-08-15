@@ -32,10 +32,9 @@ const Header = () => {
                     <Link href="/catalog" className={styles.navbarBrand}>
                         <span>WorkSwap</span>
                         <div className={styles.allListings}>
-                            <i className="fa-regular fa-cards-blank"></i>
                             <div>{dict.common['all-listings']}</div>
                         </div>
-                        {/* <img src="/images/maskot/base.png"/> */}
+
                     </Link>
 
                     <div className={styles.mobileNavButtons}>

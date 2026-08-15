@@ -81,8 +81,6 @@ const NotificationsContainer = ({
 
     const router = useRouter();
 
-    console.log("открыто?", isOpen)
-
     const [isMobile, setIsMobile] = useState(false);
     const [messengerNotification, setMessengerNotification] =
         useState<INotification | null>(null);

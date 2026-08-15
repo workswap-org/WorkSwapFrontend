@@ -17,6 +17,7 @@ import SignOutIcon from "@core/components/common/icons/SignOutIcon";
 import UnreadNotifications from "@core/components/ui/notifications/UnreadNotifications/UnreadNotifications";
 import BurgerIcon from "@core/components/common/icons/BurgerIcon"
 import { useAuth } from "@core/lib/auth/AuthContext";
+import SignInIcon from "@core/components/common/icons/SignInIcon";
 
 const MobileMenu = () => {
 
@@ -99,7 +100,7 @@ const MobileMenu = () => {
 
                     {user?.name ? (
                         <button className={styles.navbarBtn} onClick={logout}>
-                            <div><SignOutIcon /></div>
+                            <SignOutIcon />
                             <span>{dict.navigation.accountSidebar.logout}</span> 
                         </button>
                     ) : (
@@ -107,7 +108,7 @@ const MobileMenu = () => {
                             href={`${AUTH_BASE}/auth${url ? `?redirect=${encodeURIComponent(url || "")}` : ""}`}
                             className={styles.navbarBtn}
                         >
-                            <div><i className="fa-regular fa-right-to-bracket fa-lg"></i></div>
+                            <SignInIcon />
                             <span>{dict.navigation.accountSidebar.login}</span> 
                         </a>
                     )}

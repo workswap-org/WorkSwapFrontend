@@ -8,6 +8,7 @@ import { useChatsLoad } from "@core/lib/chat/hooks/useChatsLoad";
 import { useChatSubscription } from "@core/lib/chat/hooks/useChatSubscription";
 import styles from "./ChatsPage.module.scss"
 import { useMemo } from "react";
+import clsx from "clsx";
 
 export default function ChatsPage({ type, targetId }: { type?: ChatTypeValue; targetId?: number; }) {
 
@@ -41,7 +42,11 @@ export default function ChatsPage({ type, targetId }: { type?: ChatTypeValue; ta
         <div className={styles.container}>
             {currentChat?.listing && (
                 <div 
-                    className={`${styles.listingCardContainer} appearance-left-animation ${chatListingVisible ? "visible" : ''}`}
+                    className={clsx(
+                        styles.listingCardContainer, 
+                        "appearance-left-animation", 
+                        chatListingVisible ? "visible" : ''
+                    )}
                 >
                     <PublicListingCard listing={currentChat?.listing} />
                 </div>
