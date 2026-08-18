@@ -1,4 +1,4 @@
-import PublicListingCard from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard";
+import PublicListingCard from "@core/components/ui/listings/cards/PublicListingCard/PublicListingCard";
 import ChatWindow from "@/components/ui/chat/ChatWindow/ChatWindow";
 import DialogItem from "@/components/ui/chat/DialogItem/DialogItem";
 import { ChatTypeValue } from "@core/lib/chat/constants/chatTypes";

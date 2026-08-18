@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 import { listingPublicTypes } from "@core/lib/listing/constants/listingTypes"
-import Pagination from "@/components/ui/Pagination/Pagination";
+import Pagination from "@core/components/ui/Pagination/Pagination";
 import styles from "./CatalogPage.module.scss"
 import CatalogHeader from "@/components/pages/catalog/CatalogHeader/CatalogHeader";
 import CatalogSidebar from "@/components/pages/catalog/CatalogSidebar/CatalogSidebar";
@@ -25,7 +25,7 @@ export default function CatalogPage() {
 
     const contentRef = useRef<HTMLDivElement>(null);
 
-    const { filters, updateFilter } = useCatalogFilters();
+    const { filters, updateFilter, totalPages } = useCatalogFilters();
     
     useEffect(() => {
         contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -62,7 +62,11 @@ export default function CatalogPage() {
 
                     <CatalogContent />
 
-                    <Pagination />
+                    <Pagination 
+                        page={filters.page || 0} 
+                        totalPages={totalPages} 
+                        onChange={(page) => updateFilter("page", page)}
+                    />
                 </main>
             </div>
         </>

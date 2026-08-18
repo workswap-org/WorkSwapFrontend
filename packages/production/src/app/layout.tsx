@@ -32,7 +32,7 @@ export default async function RootLayout({ children, params}: { children: ReactN
     const theme = loadedHeaders.get("x-theme") || "light";
 
     return (
-        <html lang={locale} data-theme={theme} data-scroll-behavior="smooth">
+        <html lang="en" data-theme={theme} data-scroll-behavior="smooth">
             <head>
                 <link rel="icon" href="/favicon.png" />
             </head>

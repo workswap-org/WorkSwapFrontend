@@ -1,13 +1,15 @@
 "use client"
 
-import { useCatalogFilters } from "@core/lib/common/contexts/CatalogFiltersContext";
 import styles from "./Pagination.module.scss"
+import clsx from "clsx"
 
-const Pagination = () => {
+interface PaginationProps {
+    page: number;
+    totalPages: number; 
+    onChange: (page: number) => void;
+}
 
-    const { filters, updateFilter, totalPages } = useCatalogFilters();
-
-    const page = filters.page ?? 0;
+const Pagination = ({page, totalPages, onChange}: PaginationProps) => {
 
     const getPageNumbers = () => {
         if (!totalPages) return []
@@ -50,21 +52,21 @@ const Pagination = () => {
 
     return totalPages && (
         <div className={styles.pagination}>
-            <button disabled={page === 0} onClick={() => updateFilter("page", page - 1)}>
+            <button disabled={page === 0} onClick={() => onChange(page - 1)}>
                 Назад
             </button>
 
             {getPageNumbers().map(p => (
                 <button
                     key={p}
-                    className={`${styles.pageNumber} ${p === page ? styles.active : ""}`}
-                    onClick={() => updateFilter("page", p)}
+                    className={clsx(styles.pageNumber, p === page ? styles.active : "")}
+                    onClick={() => onChange(p)}
                 >
                     {p + 1}
                 </button>
             ))}
 
-            <button disabled={page + 1 >= totalPages} onClick={() => updateFilter("page", page + 1)}>
+            <button disabled={page + 1 >= totalPages} onClick={() => onChange(page + 1)}>
                 Вперёд
             </button>
         </div>

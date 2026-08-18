@@ -8,6 +8,7 @@ import { IUserForumContent } from "@core/lib/forum/types"
 import { useEffect, useState } from "react";
 import { userService } from "@core/lib/user/services"
 import { useParams } from "next/navigation";
+import PublicListingCard from "@core/components/ui/listings/cards/PublicListingCard/PublicListingCard";
 import styles from "./UserControlPage.module.scss"
 
 const UserControlPage = () => {
@@ -58,6 +59,8 @@ const UserControlPage = () => {
                     <li>Email виден: {user.emailVisible ? 'Да' : 'Нет'}</li>
                 </ul>
             )}
+
+            {listings?.map(listing => <PublicListingCard listing={listing}/>)}
         </Card>
     )
 }

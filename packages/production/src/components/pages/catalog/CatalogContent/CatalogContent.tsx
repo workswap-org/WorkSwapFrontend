@@ -4,8 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import { IShortListing } from '@core/lib/listing/types'
 import { listingService } from '@core/lib/listing/services'
 import PlusIcon from "@core/components/common/icons/PlusIcon";
-import PublicListingCard from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard";
-import cardStyles from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard.module.scss"
+import PublicListingCard from "@core/components/ui/listings/cards/PublicListingCard/PublicListingCard";
+import cardStyles from "@core/components/ui/listings/cards/PublicListingCard/PublicListingCard.module.scss"
 import styles from "./CatalogContent.module.scss"
 import ListingsGrid from "@/components/ui/listings/ListingsGrid/ListingsGrid";
 
@@ -32,6 +32,7 @@ const CatalogContent = () => {
                 }
                 console.log("Загружено объявлений в каталог", data.listings.length)
                 console.log("Всего страниц в каталоге: ", data.totalPages)
+                console.log("json", data)
             })
             .finally(() => setLoading(false));
     }, [filters, setTotalPages]);

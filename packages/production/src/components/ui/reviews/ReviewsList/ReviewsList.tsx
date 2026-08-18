@@ -1,7 +1,7 @@
 "use client"
 
 import { IReview } from "@core/lib/review/types";
-import ReviewItem from "../ReviewItem/ReviewItem";
+import ReviewItem from "@core/components/ui/reviews/ReviewItem/ReviewItem";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./ReviewsList.module.scss"
 

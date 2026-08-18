@@ -7,8 +7,8 @@ import { ICatalogFilters } from "@core/lib/common/types/catalog";
 type CatalogFiltersContextType = {
     filters: ICatalogFilters;
     updateFilter: (key: string, value: string | boolean | number | null) => void;
-    totalPages: number | null;
-    setTotalPages: Dispatch<SetStateAction<number | null>>;
+    totalPages: number;
+    setTotalPages: Dispatch<SetStateAction<number>>;
 }
 
 export const CatalogFiltersContext = createContext<CatalogFiltersContextType | undefined>(undefined)
@@ -23,7 +23,7 @@ export function CatalogFiltersProvider({ initialFilters, children }: { initialFi
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    const [totalPages, setTotalPages] = useState<number | null>(null);
+    const [totalPages, setTotalPages] = useState<number>(1);
     const [filters, setFilters] = useState<ICatalogFilters>(initialFilters);
 
     const cleanFilters = useMemo(() => {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IUser } from "@core/lib/user/types";
 import { userService } from "@core/lib/user/services";
 import Table, { Columns, TableItem } from "@/components/ui/Table/Table";
@@ -10,20 +10,20 @@ import UserGearIcon from "@core/components/common/icons/UserGearIcon";
 import Card from "@/components/ui/Card/Card";
 import { Page } from "@core/lib/common/types/page";
 import Loader from "@core/components/common/Loader/Loader";
+import Pagination from "@core/components/ui/Pagination/Pagination";
 
 export default function UsersPage() {
 
-    const [users, setUsers] = useState<IUser[] | null>(null);
     const [sortParam, setSortParam] = useState<string>("id");
+    const [users, setUsers] = useState<Page<IUser> | null>(null);
+
+    const loadUsers = useCallback(async (page: number) => {
+        const data: Page<IUser> = await userService.getUsersPage(page, 10, sortParam);
+        setUsers(data);
+    }, [])
     
     useEffect(() => {
-        async function loadUsers() {
-            const data: Page<IUser> = await userService.getUsersList(0, 10, sortParam);
-            console.log(data)
-            setUsers(data.content);
-        }
-
-        loadUsers();
+        loadUsers(0);
     }, [sortParam])
 
     const columns: Columns = {
@@ -34,7 +34,7 @@ export default function UsersPage() {
         actions: { title: "Действия" }
     }
 
-    const items: TableItem[] = users?.map(user => ({
+    const items: TableItem[] = users?.content?.map(user => ({
         id: `#${user.id}`,
         name: user.name,
         email: user.email || "-",
@@ -42,7 +42,7 @@ export default function UsersPage() {
         actions: [
             <Link
                 key={`action-viewUser-${user.id}`}
-                href={`/user/${user.id}`}
+                href={`/users/${user.openId}`}
                 className="btn btn-primary"
             >
                 <UserGearIcon />
@@ -52,11 +52,16 @@ export default function UsersPage() {
 
     return (
         <Card>
-            <Loader loadingActive={!users}>
+            <Loader loadingActive={!users?.content}>
                 <Table
                     onColumnClick={(sort) => setSortParam(sort)}
                     columns={columns} 
                     items={items}
+                />
+                <Pagination
+                    page={users?.page.number || 0} 
+                    totalPages={users?.page.totalPages || 1} 
+                    onChange={(page) => loadUsers(page)}
                 />
             </Loader>
         </Card>

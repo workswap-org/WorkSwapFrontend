@@ -38,12 +38,12 @@ export default function Sidebar({ sidebarVisible, setSidebarVisible}: SidebarPro
             title: "Основное",
             links: [
                 {
-                    href: "dashboard",
+                    href: "/dashboard",
                     title: "Панель управления",
                     icon: <GaudeIcon className={styles.icon} />
                 },
                 {
-                    href: "settings",
+                    href: "/settings",
                     title: "Системные настройки",
                     icon: <SlidersIcon className={styles.icon} />
                 }
@@ -53,17 +53,17 @@ export default function Sidebar({ sidebarVisible, setSidebarVisible}: SidebarPro
             title: "Контент",
             links: [
                 {
-                    href: "listings",
+                    href: "/listings",
                     title: "Объявления",
                     icon: <CardsIcon className={styles.icon} />
                 },
                 {
-                    href: "news",
+                    href: "/news",
                     title: "Новости",
                     icon: <NewspaperIcon className={styles.icon} />
                 },
                 {
-                    href: "reviews",
+                    href: "/reviews",
                     title: "Отзывы",
                     icon: <MessagesIcon className={styles.icon}/>
                 }
@@ -73,12 +73,12 @@ export default function Sidebar({ sidebarVisible, setSidebarVisible}: SidebarPro
             title: "Пользователи",
             links: [
                 {
-                    href: "users",
+                    href: "/users",
                     title: "Пользователи",
                     icon: <UserIcon className={styles.icon} />
                 },
                 {
-                    href: "permissions",
+                    href: "/permissions",
                     title: "Роли и разрешения",
                     icon: <ShieldIcon className={styles.icon} />
                 }
@@ -88,12 +88,12 @@ export default function Sidebar({ sidebarVisible, setSidebarVisible}: SidebarPro
             title: "Настройки данных",
             links: [
                 {
-                    href: "locations",
+                    href: "/locations",
                     title: "Локации",
                     icon: <LocationIcon className={styles.icon} />
                 },
                 {
-                    href: "categories",
+                    href: "/categories",
                     title: "Категории",
                     icon: <SitemapIcon className={styles.icon} />
                 }
@@ -103,7 +103,7 @@ export default function Sidebar({ sidebarVisible, setSidebarVisible}: SidebarPro
             title: "Организация",
             links: [
                 {
-                    href: "tasks",
+                    href: "/tasks",
                     title: "Задачи",
                     icon: <TasksIcon className={styles.icon} />
                 },

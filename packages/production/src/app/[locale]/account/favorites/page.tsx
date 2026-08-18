@@ -1,6 +1,6 @@
 "use client"
 
-import PublicListingCard from "@/components/ui/listings/cards/PublicListingCard/PublicListingCard";
+import PublicListingCard from "@core/components/ui/listings/cards/PublicListingCard/PublicListingCard";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import { listingService } from "@core/lib/listing/services";
 import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";

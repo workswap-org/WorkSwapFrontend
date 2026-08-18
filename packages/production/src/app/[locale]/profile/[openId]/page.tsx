@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { IShortListing } from '@core/lib/listing/types';
 import { IShortUserProfile } from '@core/lib/user/types';
 import { userService } from '@core/lib/user/services';
-import PublicListingCard from '@/components/ui/listings/cards/PublicListingCard/PublicListingCard';
+import PublicListingCard from '@core/components/ui/listings/cards/PublicListingCard/PublicListingCard';
 import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import ListingsGrid from '@/components/ui/listings/ListingsGrid/ListingsGrid';
 import ItemViewLayout from '@/components/layout/ItemViewLayout/ItemViewLayout';

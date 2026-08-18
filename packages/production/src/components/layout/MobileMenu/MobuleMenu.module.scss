@@ -69,4 +69,13 @@
     color: var(--text-color);
     cursor: pointer;
     border-radius: var(--radius);
+
+    @include mobile {
+        height: 50px;
+        align-items: center;
+    }
+
+    svg {
+        height: 22px;
+    }
 }

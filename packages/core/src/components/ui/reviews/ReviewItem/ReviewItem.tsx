@@ -47,15 +47,6 @@ const ReviewItem = ({review}: {review: IReview}) => {
                 <span className={styles.date}>
                     <FormattedDate isoDate={review.createdAt} format="DMYHM" />
                 </span>
-                
-                {/* {review.listing && profileUser && (
-                    <Link 
-                        className="review-listing-link text-link" 
-                        href={`/listing/${review.listing.id}`}
-                    >
-                        {review.listing.localizedTitle}
-                    </Link>
-                )} */}
             </div>
             <span className={styles.content}>{review.text}</span>
         </article>
