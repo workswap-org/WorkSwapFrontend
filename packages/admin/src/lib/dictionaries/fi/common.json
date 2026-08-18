@@ -144,12 +144,13 @@
             "avatar": "Avatar",
             "myLanguages": "Puhumani kielet",
             "myLocation": "Sijaintini",
-            "bio": "Tietoa minusta"
+            "bio": "Tietoa minusta",
+            "theme": "Teema"
         },
         "sections": {
-            "profile": "Profiili",
-            "privacy": "Yksityisyys",
-            "preferences": "Asetukset"
+            "PROFILE": "Profiili",
+            "PRIVACY": "Yksityisyys",
+            "PREFERENCES": "Asetukset"
         }
     },
     "messenger": {
@@ -197,5 +198,9 @@
     "forum": {
         "popularTopics": "Suositut aiheet",
         "lastActivity": "Viimeisin aktiivisuus"
+    },
+    "theme": {
+        "light": "Vaalea",
+        "dark": "Tumma"
     }
 }

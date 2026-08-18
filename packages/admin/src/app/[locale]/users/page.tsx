@@ -8,7 +8,7 @@ import Link from "next/link";
 import FormattedDate from "@core/components/common/date/FormattedDate";
 import UserGearIcon from "@core/components/common/icons/UserGearIcon";
 import Card from "@/components/ui/Card/Card";
-import { Page } from "@core/lib/types/common/page";
+import { Page } from "@core/lib/common/types/page";
 import Loader from "@core/components/common/Loader/Loader";
 
 export default function UsersPage() {

@@ -5,7 +5,7 @@ import { useState } from "react";
 import UsersStatCard from "../statCards/UsersStatCard";
 import ListingsStatCard from "../statCards/ListingsStatCard";
 import ViewsStatCard from "../statCards/ViewsStatCard";
-import { Interval, Intervals } from "@core/lib/constants/intervalType"
+import { Interval, Intervals } from "@core/lib/common/constants/intervalType"
 import styles from "./StatGrid.module.scss"
 
 const StatGrid = () => {

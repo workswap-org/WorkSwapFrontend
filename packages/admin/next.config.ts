@@ -8,7 +8,9 @@ const nextConfig: NextConfig = {
     sassOptions: {
         // Указываем папку core/src/css как includePath
         includePaths: [path.join(__dirname, "../core/src/css")],
-    }
+    },
+
+    output: "standalone"
 };
 
 export default nextConfig;

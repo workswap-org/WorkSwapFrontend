@@ -5,11 +5,11 @@ import TasksAside from "../../../components/pages/tasks/TasksAside/TasksAside";
 import TasksGrid from "../../../components/pages/tasks/TasksGrid/TasksGrid";
 import { useEffect, useState } from "react";
 import TaskDetails from "../../../components/pages/tasks/TaskDetails/TaskDetails";
-import { ITask, ITaskCreate, IUserTasks } from "@core/lib/types/models/task";
-import { taskService } from "@core/lib/services/tasksService";
+import { ITask, ITaskCreate, IUserTasks } from "@core/lib/task/types";
+import { taskService } from "@core/lib/task/tasksService";
 import { useAuth } from "@core/lib/auth/AuthContext";
-import { Page } from "@core/lib/types/common/page"
-import { TasksContext } from "@core/lib/contexts/local/TasksContext";
+import { Page } from "@core/lib/common/types/page"
+import { TasksContext } from "@core/lib/task/TasksContext";
 import Card from "@/components/ui/Card/Card";
 import styles from "./TasksPage.module.scss"
 

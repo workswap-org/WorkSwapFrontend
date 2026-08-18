@@ -1,7 +1,7 @@
 
-import { Page } from "@core/lib/types/common/page";
+import { Page } from "@core/lib/common/types/page";
 import TaskCard from "../TaskCard/TaskCard";
-import { ITask } from "@core/lib/types/models/task";
+import { ITask } from "@core/lib/task/types";
 import styles from "./TasksAside.module.scss"
 
 const TasksAside = ({tasks}: {tasks: Page<ITask> | null}) => {

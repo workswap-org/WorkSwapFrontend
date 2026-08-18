@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import Modal from "@core/components/ui/Modal/Modal";
 import { useAuth } from "@core/lib/auth/AuthContext";
-import { useTasks } from "@core/lib/contexts/local/TasksContext";
+import { useTasks } from "@core/lib/task/TasksContext";
 import styles from "./TaskDetails.module.scss"
 
 const TaskDetails = () => {

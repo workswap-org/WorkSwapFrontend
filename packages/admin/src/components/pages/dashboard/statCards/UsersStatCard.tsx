@@ -1,8 +1,8 @@
-import { formatSignedValue } from "@core/lib/services/utilsService"
-import { statisticService } from "@core/lib/services/statisticService";
+import { formatSignedValue } from "@core/lib/common/utilsService"
+import { statisticService } from "@core/lib/common/services/statisticService";
 import { useEffect, useState } from "react";
 import StatCard from "../StatCard/StatCard";
-import { Interval } from "@core/lib/constants/intervalType";
+import { Interval } from "@core/lib/common/constants/intervalType";
 
 interface UserMetrics {
     usersCount: number;

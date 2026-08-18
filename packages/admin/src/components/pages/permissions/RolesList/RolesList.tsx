@@ -2,7 +2,7 @@ import { IRole } from "@core/lib/user/types";
 import styles from "./RolesList.module.scss"
 import RoleCreateModal from "../RoleCreateModal";
 import { useCallback, useEffect, useState } from "react";
-import { permissionsService } from "@core/lib/services/permissionsService";
+import { permissionsService } from "@core/lib/user/permissionsService";
 import PlusIcon from "@core/components/common/icons/PlusIcon";
 import UserIcon from "@core/components/common/icons/UserIcon";
 import Loader from "@core/components/common/Loader/Loader";

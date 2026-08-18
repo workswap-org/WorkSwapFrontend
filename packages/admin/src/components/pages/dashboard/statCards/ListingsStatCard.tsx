@@ -1,6 +1,6 @@
-import { Interval } from "@core/lib/constants/intervalType";
-import { statisticService } from "@core/lib/services/statisticService";
-import { formatSignedValue } from "@core/lib/services/utilsService"
+import { Interval } from "@core/lib/common/constants/intervalType";
+import { statisticService } from "@core/lib/common/services/statisticService";
+import { formatSignedValue } from "@core/lib/common/utilsService"
 import { useEffect, useState } from "react";
 import StatCard from "../StatCard/StatCard";
 

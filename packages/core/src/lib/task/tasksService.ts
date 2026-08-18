@@ -1,6 +1,7 @@
 
-import { ITaskCreate } from '../../task/types';
+
 import { apiFetch, apiFetchJson } from '@core/lib/common/utils/apiClient';
+import { ITaskCreate } from './types';
 
 export const taskService = {
     getTasksPage: () => apiFetchJson("/tasks/get-tasks"),

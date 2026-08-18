@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import PermissionItem from "../PermissionItem/PermissionItem";
 import { IPermission, IRole } from "@core/lib/user/types";
-import { permissionsService } from "@core/lib/services/permissionsService";
+import { permissionsService } from "@core/lib/user/permissionsService";
 import styles from "./PermissionsList.module.scss"
 import PermissionCreateModal from "../PermissionCreateModal";
 import PlusIcon from "@core/components/common/icons/PlusIcon";

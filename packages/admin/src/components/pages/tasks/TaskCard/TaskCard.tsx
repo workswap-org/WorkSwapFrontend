@@ -1,5 +1,5 @@
-import { ITask } from "@core/lib/types/models/task"
-import { useTasks } from "@core/lib/contexts/local/TasksContext"
+import { ITask } from "@core/lib/task/types"
+import { useTasks } from "@core/lib/task/TasksContext"
 import styles from "./TaskCard.module.scss"
 
 const TaskCard = ({task}: {task: ITask}) => {

@@ -1,4 +1,4 @@
-import { statisticService } from "@core/lib/services/statisticService";
+import { statisticService } from "@core/lib/common/services/statisticService";
 import { useEffect, useState } from "react";
 import StatCard from "../StatCard/StatCard";
 

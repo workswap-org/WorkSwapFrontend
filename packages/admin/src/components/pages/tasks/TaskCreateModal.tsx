@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Modal from "@core/components/ui/Modal/Modal";
-import { useTasks } from "@core/lib/contexts/local/TasksContext";
-import { taskTypes, TaskTypeValue } from "@core/lib/constants/taskTypes";
-import { ITaskCreate } from "@core/lib/types/models/task";
+import { useTasks } from "@core/lib/task/TasksContext";
+import { taskTypes, TaskTypeValue } from "@core/lib/task/constants/taskTypes";
+import { ITaskCreate } from "@core/lib/task/types";
 
 const TaskCreateModal = () => {
 

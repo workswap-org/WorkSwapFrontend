@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import ActionMenu, { IKebabAction } from '@core/components/ui/ActionMenu/ActionMenu';
 import { IPermission, IPermissionUpdate, IRole } from '@core/lib/user/types';
 import { useNotification } from '@core/lib/notification/NotificationContext';
-import { permissionsService } from '@core/lib/services/permissionsService';
+import { permissionsService } from '@core/lib/user/permissionsService';
 import SliderCheckbox from "@core/components/common/checkbox/SliderCheckbox/SliderCheckbox"
 import styles from "./PermissionItem.module.scss"
 import PlusIcon from '@core/components/common/icons/PlusIcon';

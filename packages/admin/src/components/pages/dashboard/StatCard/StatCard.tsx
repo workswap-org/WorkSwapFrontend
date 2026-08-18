@@ -1,5 +1,5 @@
 import Tooltip from "@core/components/common/Tooltip/Tooltip";
-import { formatSignedValue } from "@core/lib/services/utilsService";
+import { formatSignedValue } from "@core/lib/common/utilsService";
 import styles from "./StatCard.module.scss"
 import ArrowIcon from "@core/components/common/icons/ArrowIcon";
 

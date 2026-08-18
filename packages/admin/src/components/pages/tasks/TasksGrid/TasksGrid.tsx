@@ -1,5 +1,5 @@
 
-import { IUserTasks } from "@core/lib/types/models/task";
+import { IUserTasks } from "@core/lib/task/types";
 import TaskCard from "../TaskCard/TaskCard";
 import styles from "./TasksGrid.module.scss"
 
