@@ -1,17 +1,17 @@
 "use client"
 
-import PlusIcon from "@core/components/common/icons/PlusIcon"
 import { categoryService } from "@core/lib/category/services"
 import Card from "@/components/ui/Card/Card";
 import CategoryTable from "@/components/pages/categories/CategoryTable/CategoryTable";
-import CategoryTree from "@/components/pages/categories/CategoryTree/CategoryTree";
 import styles from "./CategoriesPage.module.scss"
 import Loader from "@core/components/common/Loader/Loader"
 import Breadcrumbs from "@core/components/ui/Breadcrumbs/Breadcrumbs";
+import { ListingType } from "@core/lib/listing/constants/listingTypes";
+import clsx from "clsx"
 
 const CategoriesPage = () => {
 
-    const { categories, loading } = categoryService.useCategories();
+    const { categories, loading, listingType, setListingType, categoriesCount } = categoryService.useCategories();
 
     const onAddCategory = () => {
         console.log("TODO: add category");
@@ -33,40 +33,27 @@ const CategoriesPage = () => {
                     { href: "#", title: "Управление категориями" },
                 ]}
             />
-            <Card header={
-                <div className="flex-column justify-content-between align-items-center">
-                    <h2>Список категорий</h2>
-                    <button
-                        onClick={onAddCategory}
-                        className="btn btn-primary btn-overlay"
+            <div className={styles.listingTypes}>
+                {Object.values(ListingType).map(type => (
+                    <button 
+                        key={type}
+                        className={clsx(styles.listingType, type == listingType ? styles.active : "")} 
+                        onClick={() => setListingType(type)}
                     >
-                        <PlusIcon /> Категория
+                        {type} ({categoriesCount.get(type)})
                     </button>
-                </div>
-            }>
+                ))}
+            </div>
+            <Card header={listingType}>
                 <Loader loadingActive={loading}>
                     <div className={styles.page}>
                         <div className={styles.tables}>
-                            {categories && Object.keys(categories)?.map((key) => (
-                                <CategoryTable
-                                    key={`table-${key}`}
-                                    type={key}
-                                    categories={categories[key]}
-                                    onDeleteCategory={onDeleteCategory}
-                                    onEditCategory={onEditCategory}
-                                />
-                            ))}
-                        </div>
-
-                        {/* Дерево категорий */}
-                        <div className="flex-row">
-                            {categories && Object.keys(categories).map((key) => (
-                                <CategoryTree
-                                    key={`tree-${key}`}
-                                    type={key}
-                                    categories={categories[key]}
-                                />
-                            ))}
+                            <CategoryTable
+                                type={listingType}
+                                categories={categories}
+                                onDeleteCategory={onDeleteCategory}
+                                onEditCategory={onEditCategory}
+                            />
                         </div>
                     </div>
                 </Loader>

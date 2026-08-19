@@ -34,7 +34,7 @@ const RecentListings = () => {
         date: <FormattedDate isoDate={listing.publishedAt} format="DMY"/>,
         actions: [
             <Link 
-                key={`action-viewListing`} 
+                key={`action-viewListing-${listing.id}`} 
                 href={`/listing/${listing.id}`} 
                 className="btn btn-secondary"
             >

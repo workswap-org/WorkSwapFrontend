@@ -5,10 +5,9 @@
     padding: 1.5rem;
     display: flex;
     gap: 0.6rem;
-    width: fit-content;
+    width: max-content;
     margin: 0 auto;
     margin-top: auto;
-    justify-content: space-between;
     bottom: 1.5rem;
     z-index: 50;
     background-color: var(--background);
@@ -21,6 +20,8 @@
 
     button {
         border: 2px solid var(--primary);
+        background-color: transparent;
+        color: var(--text-color);
         padding: 1rem;
         border-radius: var(--radius);
         cursor: pointer;
@@ -53,7 +54,8 @@
             }
 
             &.active {
-                background-color: var(--primary)
+                background-color: var(--primary);
+                color: var(--inverse-text-color);
             }
         }
     }

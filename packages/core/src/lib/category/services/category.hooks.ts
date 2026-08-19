@@ -4,14 +4,15 @@ import { categoryService } from ".";
 import { ListingType, ListingTypeValue } from "@core/lib/listing/constants/listingTypes";
 
 export function useCategories() {
-    const [categories, setCategories] = useState<Record<string, ICategory[]> | null>(null);
+    const [categoriesList, setCategoriesList] = useState<Record<string, ICategory[]> | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [listingType, setListingType] = useState<ListingTypeValue>(ListingType.PRODUCT);
 
     useEffect(() => {
         async function loadCategories() {
             try {
                 const data = await categoryService.getAllCategories();
-                setCategories(data)
+                setCategoriesList(data)
             } finally {
                 setLoading(false)
             }
@@ -20,12 +21,23 @@ export function useCategories() {
         loadCategories()
     }, []);
 
-    const [listingType, setListingType] = useState<ListingTypeValue>(ListingType.PRODUCT);
-
     const rootCategories = useMemo(() => {
-        if (!categories) return [];
-        return categories[listingType]?.filter(cat => cat.parentId == null) || []
-    }, [categories, listingType]);
+        if (!categoriesList) return [];
+        return categoriesList[listingType]?.filter(cat => cat.parentId == null) || []
+    }, [categoriesList, listingType]);
 
-    return { categories, rootCategories, listingType, setListingType, loading }
+    const categories = categoriesList != null ? categoriesList[listingType] || [] : [];
+
+    const categoriesCount = useMemo(() => {
+        if (!categoriesList) return new Map<ListingTypeValue, number>();
+
+        return new Map(
+            Object.values(ListingType).map(type => [
+                type,
+                categoriesList[type]?.length ?? 0
+            ])
+        );
+    }, [categoriesList]);
+
+    return { categories, rootCategories, listingType, setListingType, categoriesCount, loading }
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import Card from "@/components/ui/Card/Card";
 import Loader from "@core/components/common/Loader/Loader";
 import Breadcrumbs from "@core/components/ui/Breadcrumbs/Breadcrumbs";
@@ -16,6 +18,7 @@ const ReviewsPage = () => {
     const loadReviews = useCallback(async (page: number) => {
         const data: Page<IReview> = await reviewsService.getReviewsPage(page, 10, "id");
         setReviews(data);
+        console.log(data)
     }, [])
     
     useEffect(() => {
@@ -33,8 +36,8 @@ const ReviewsPage = () => {
             <Card>
                 <Loader loadingActive={!reviews?.content}>
                     <div className={styles.grid}>
-                        {reviews?.content.map(review => (
-                            <ReviewItem review={review}/>
+                        {reviews?.content?.map(review => (
+                            <ReviewItem key={review.id} review={review}/>
                         ))}
                     </div>
                     <Pagination
