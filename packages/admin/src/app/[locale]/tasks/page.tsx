@@ -94,12 +94,14 @@ const TasksPage = () => {
             setNewTasks(prev => {
                 if (!prev) return { 
                     content: [data], 
-                    totalPages: 1, 
-                    totalElements: 1,
-                    number: 0,
-                    size: 1,
-                    first: false,
-                    last: false
+                    page: {
+                        totalPages: 1, 
+                        totalElements: 1,
+                        number: 0,
+                        size: 1,
+                        first: false,
+                        last: false
+                    }
                 };
 
                 data.executor = shortUser;
