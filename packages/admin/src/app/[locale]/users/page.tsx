@@ -3,14 +3,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { IUser } from "@core/lib/user/types";
 import { userService } from "@core/lib/user/services";
-import Table, { Columns, TableItem } from "@/components/ui/Table/Table";
-import Link from "next/link";
-import FormattedDate from "@core/components/common/date/FormattedDate";
-import UserGearIcon from "@core/components/common/icons/UserGearIcon";
 import Card from "@/components/ui/Card/Card";
 import { Page } from "@core/lib/common/types/page";
 import Loader from "@core/components/common/Loader/Loader";
 import Pagination from "@core/components/ui/Pagination/Pagination";
+import UsersTable from "@/components/pages/users/UsersTable/UsersTable";
+import Breadcrumbs from "@core/components/ui/Breadcrumbs/Breadcrumbs";
 
 export default function UsersPage() {
 
@@ -26,44 +24,25 @@ export default function UsersPage() {
         loadUsers(0);
     }, [sortParam])
 
-    const columns: Columns = {
-        id: { title: "ID", sortable: true },
-        name: { title: "Имя", sortable: true },
-        email: { title: "Email", sortable: true },
-        createdAt: { title: "Регистрация", sortable: true },
-        actions: { title: "Действия" }
-    }
-
-    const items: TableItem[] = users?.content?.map(user => ({
-        id: `#${user.id}`,
-        name: user.name,
-        email: user.email || "-",
-        createdAt: <FormattedDate isoDate={user.createdAt} format="DMY" />,
-        actions: [
-            <Link
-                key={`action-viewUser-${user.id}`}
-                href={`/users/${user.openId}`}
-                className="btn btn-primary"
-            >
-                <UserGearIcon />
-            </Link>
-        ]
-    })) ?? [];
-
     return (
-        <Card>
-            <Loader loadingActive={!users?.content}>
-                <Table
-                    onColumnClick={(sort) => setSortParam(sort)}
-                    columns={columns} 
-                    items={items}
-                />
-                <Pagination
-                    page={users?.page.number || 0} 
-                    totalPages={users?.page.totalPages || 1} 
-                    onChange={(page) => loadUsers(page)}
-                />
-            </Loader>
-        </Card>
+        <>
+            <Breadcrumbs
+                crumbs={[
+                    { href: "/dashboard", title: "Панель управления" },
+                    { href: "#", title: "Управление пользователями" },
+                ]}
+            />
+
+            <Card>
+                <Loader loadingActive={!users?.content}>
+                    {users?.content && <UsersTable users={users?.content}/>}
+                    <Pagination
+                        page={users?.page.number || 0} 
+                        totalPages={users?.page.totalPages || 1} 
+                        onChange={(page) => loadUsers(page)}
+                    />
+                </Loader>
+            </Card>
+        </>
     )
 }

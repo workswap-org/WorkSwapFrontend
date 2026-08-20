@@ -3,9 +3,8 @@ import { useCatalogFilters } from "@core/lib/common/contexts/CatalogFiltersConte
 import { useEffect, useState, useRef } from "react";
 import { IShortListing } from '@core/lib/listing/types'
 import { listingService } from '@core/lib/listing/services'
-import PlusIcon from "@core/components/common/icons/PlusIcon";
 import PublicListingCard from "@core/components/ui/listings/cards/PublicListingCard/PublicListingCard";
-import cardStyles from "@core/components/ui/listings/cards/PublicListingCard/PublicListingCard.module.scss"
+import NewPublicListingCard from "@core/components/ui/listings/cards/PublicListingCard/NewPublicListingCard"
 import styles from "./CatalogContent.module.scss"
 import ListingsGrid from "@/components/ui/listings/ListingsGrid/ListingsGrid";
 
@@ -46,12 +45,7 @@ const CatalogContent = () => {
                         listing={listing}
                     />
                 ))}
-                <article key={0} onClick={() => window.location.href = "/account/listing/create"} className={cardStyles.card}>
-                    <div className={`${cardStyles.imageWrapper} ${cardStyles.new}`}>
-                        <PlusIcon size={35} />
-                        <span className={cardStyles.subtitle}>{dict.navigation.catalogSidebar.links.createListing}</span>
-                    </div>
-                </article>
+                <NewPublicListingCard />
             </ListingsGrid>
         </div>
     );

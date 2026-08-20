@@ -14,6 +14,7 @@ import type { ColumnDef, ExpandedState } from '@tanstack/react-table'
 import { useMemo, useState } from 'react';
 import clsx from "clsx";
 import PlusIcon from '@core/components/common/icons/PlusIcon';
+import AdminTable from '@/components/ui/AdminTable/AdminTable';
 
 interface CategoryTableProps {
     type: string;
@@ -158,57 +159,7 @@ const CategoryTable = ({
         onExpandedChange: setExpanded,
     });
 
-    return (
-        <div className={styles.tableWrapper}>
-            <table className={styles.table}>
-
-                <colgroup>
-                    {table.getHeaderGroups()[0]?.headers.map(header => (
-                        <col
-                            key={header.id}
-                            className={styles[`${header.column.id}-column`]}
-                        />
-                    ))}
-                </colgroup>
-
-                <thead className={styles.thead}>
-                    {table.getHeaderGroups().map(headerGroup => (
-                        <tr className={styles.tr} key={headerGroup.id}>
-                            {headerGroup.headers.map(header => (
-                                <th
-                                    className={styles.th}
-                                    key={header.id}
-                                >
-                                    {flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext()
-                                    )}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-
-                <tbody className={styles.tbody}>
-                    {table.getRowModel().rows.map(row => (
-                        <tr className={styles.tr} key={row.id}>
-                            {row.getAllCells().map(cell => (
-                                <td
-                                    className={clsx(styles.td, styles[`${cell.column.id}-column`])}
-                                    key={cell.id}
-                                >
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext()
-                                    )}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+    return <AdminTable table={table} extraStyles={styles}/>;
 };
 
 export default CategoryTable;
