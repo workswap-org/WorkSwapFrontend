@@ -79,6 +79,7 @@ export function useCategories() {
 
     return { 
         categories, 
+        categoriesList,
         rootCategories, 
         listingType, 
         setListingType, 

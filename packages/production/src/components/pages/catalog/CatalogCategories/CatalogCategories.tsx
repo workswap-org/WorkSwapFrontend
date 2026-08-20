@@ -20,13 +20,13 @@ const CatalogCategories = () => {
 
     const children = (parentId: number | null) => {
         if (!categories || !parentId) return [];
-        return categories[listingType]?.filter(cat => cat.parentId === parentId) || []
+        return categories?.filter(cat => cat.parentId === parentId) || []
     };
 
     const selectedCategory = useMemo<ICategory | null>(() => {
         if (!categories || !filters.categoryId) return null;
-        return categories[listingType]?.find(cat => cat.id === filters.categoryId) || null
-    }, [categories, listingType, filters]);
+        return categories?.find(cat => cat.id === filters.categoryId) || null
+    }, [categories, filters]);
 
     const handleMouseLeave = () => {
         timeoutRef.current = window.setTimeout(() => setCategoriesMenu(false), 500);
@@ -40,7 +40,7 @@ const CatalogCategories = () => {
             return;
         } else {
             if (!categories) return;
-            const cat = categories[listingType]?.find(cat => cat.id === categoryId)
+            const cat = categories?.find(cat => cat.id === categoryId)
 
             if (!cat) return;
             const hasChildren = children(cat.id).length > 0

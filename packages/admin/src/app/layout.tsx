@@ -24,6 +24,9 @@ export default async function RootLayout({
 
     return (
         <html lang="ru" data-theme={theme} data-scroll-behavior="smooth">
+            <head>
+                <link rel="icon" href="/favicon.png" />
+            </head>
             <body>
                 {children}
             </body>
