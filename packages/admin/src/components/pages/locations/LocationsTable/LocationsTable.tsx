@@ -1,0 +1,205 @@
+import PenIcon from "@core/components/common/icons/PenIcon"
+import TrashIcon from "@core/components/common/icons/TrashIcon"
+import styles from "./LocationsTable.module.scss"
+import { useI18n } from '@core/lib/common/contexts/I18nContext';
+import {
+    flexRender,
+    tableFeatures,
+    useTable,
+    rowExpandingFeature,
+    createExpandedRowModel,
+} from "@tanstack/react-table";
+import type { ColumnDef, ExpandedState } from '@tanstack/react-table'
+import { useMemo, useState } from 'react';
+import clsx from "clsx";
+import { ILocation } from '@core/lib/location/types';
+
+interface LocationTableProps {
+    locations: ILocation[];
+    onEditLocation: (id: number) => void;
+    onDeleteLocation: (id: number) => void;
+}
+
+type LocationItem = {
+    id: number;
+    title: string;
+    countryId: number | null;
+    subRows?: LocationItem[];
+};
+
+const LocationsTable = ({
+    locations, 
+    onEditLocation,
+    onDeleteLocation
+}: LocationTableProps) => {
+
+    const { dict } = useI18n();
+
+    const [expanded, setExpanded] = useState<ExpandedState>({});
+
+    const buildTree = (
+        countryId: number | null
+    ): LocationItem[] => {
+        return locations
+            .filter(loc => loc.countryId === countryId)
+            .map(loc => {
+                const subRows = buildTree(loc.id);
+
+                return {
+                    id: loc.id,
+                    title: loc.name,
+                    countryId: loc.countryId,
+                    ...(subRows.length > 0 ? { subRows } : {}),
+                };
+            });
+    };
+
+    const data = useMemo(
+        () => buildTree(null),
+        [locations, dict]
+    );
+
+    const features = tableFeatures({
+        rowExpandingFeature,
+        expandedRowModel: createExpandedRowModel(),
+    })
+
+    const columns = useMemo<ColumnDef<typeof features, LocationItem>[]>(
+        () => [
+            {
+                id: "expander",
+                header: "",
+                wight: "",
+                cell: ({ row }) => {
+                    if (!row.getCanExpand()) {
+                        return null;
+                    }
+
+                    return (
+                        <button
+                            type="button"
+                            className={styles.expanderButton}
+                            onClick={row.getToggleExpandedHandler()}
+                        >
+                            {row.getIsExpanded() ? "▼" : "▶"}
+                        </button>
+                    );
+                },
+            },
+            {
+                accessorKey: 'id',
+                header: 'ID',
+                cell: (info) => info.getValue(),
+            },
+            {
+                accessorKey: 'title',
+                header: 'Title',
+                cell: ({ row, getValue }) => (
+                    <span
+                        style={{
+                            paddingLeft: `${row.depth * 1.5}rem`,
+                        }}
+                    >
+                        {getValue<string>()}
+                    </span>
+                ),
+            },
+            {
+                id: "actions",
+                header: 'Actions',
+                cell: ({ row }) => (
+                    <div className={styles.actions}>
+                        <button
+                            className={`btn btn-primary ${styles.action}`}
+                            onClick={() => onEditLocation(row.original.id)}
+                        >
+                            <PenIcon className={styles.icon} />
+                        </button>
+
+                        <button
+                            className={`btn btn-danger ${styles.action}`}
+                            onClick={() => onDeleteLocation(row.original.id)}
+                        >
+                            <TrashIcon className={styles.trashIcon} />
+                        </button>
+                    </div>
+                ),
+            }
+        ], [onEditLocation, onDeleteLocation]
+    );
+
+    const table = useTable({
+        key: 'category-table', // needed for devtools, omit if you don't want to use the devtools
+        features,
+        columns,
+        data,
+        getRowId: row => String(row.id),
+        getSubRows: row => row.subRows,
+
+
+        state: {
+            expanded,
+        },
+
+        onExpandedChange: setExpanded,
+    });
+
+    console.log(
+        "EXPANDED:",
+        expanded
+    );
+
+    return (
+        <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+
+                <colgroup>
+                    {table.getHeaderGroups()[0]?.headers.map(header => (
+                        <col
+                            key={header.id}
+                            className={styles[`${header.column.id}-column`]}
+                        />
+                    ))}
+                </colgroup>
+
+                <thead className={styles.thead}>
+                    {table.getHeaderGroups().map(headerGroup => (
+                        <tr className={styles.tr} key={headerGroup.id}>
+                            {headerGroup.headers.map(header => (
+                                <th
+                                    className={styles.th}
+                                    key={header.id}
+                                >
+                                    {flexRender(
+                                        header.column.columnDef.header,
+                                        header.getContext()
+                                    )}
+                                </th>
+                            ))}
+                        </tr>
+                    ))}
+                </thead>
+
+                <tbody className={styles.tbody}>
+                    {table.getRowModel().rows.map(row => (
+                        <tr className={styles.tr} key={row.id}>
+                            {row.getAllCells().map(cell => (
+                                <td
+                                    className={clsx(styles.td, styles[`${cell.column.id}-column`])}
+                                    key={cell.id}
+                                >
+                                    {flexRender(
+                                        cell.column.columnDef.cell,
+                                        cell.getContext()
+                                    )}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
+export default LocationsTable;

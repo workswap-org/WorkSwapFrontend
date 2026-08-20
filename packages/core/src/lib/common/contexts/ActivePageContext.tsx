@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 export const pageTitles = {
     dashboard: "Панель управления",
     listings: "Управление объявлениями",
-    resumes: "Управление резюме",
+    reviews: "Управление отзывами",
     users: "Управление пользователями",
     news: "Управление новостями",
     locations: "Управление локациями",
@@ -36,7 +36,7 @@ export const ActivePageProvider = ({ children }: {children: ReactNode}) => {
     const mapping: Record<string, PageKey> = {
         dashboard: "dashboard",
         listings: "listings",
-        resumes: "resumes",
+        reviews: "reviews",
         users: "users",
         locations: "locations",
         categories: "categories",

@@ -13,6 +13,7 @@ import { listingService } from "@core/lib/listing/services";
 import PriceTypes from "@core/components/common/PriceTypes/PriceTypes";
 import EyeIcon from "@core/components/common/icons/EyeIcon";
 import { IFullListing } from "@core/lib/listing/types";
+import Breadcrumbs from "@core/components/ui/Breadcrumbs/Breadcrumbs";
 
 export default function ListingsPage() {
 
@@ -54,19 +55,28 @@ export default function ListingsPage() {
     })) ?? [];
 
     return (
-        <Card>
-            <Loader loadingActive={!listings?.content}>
-                <Table
-                    onColumnClick={(sort) => setSortParam(sort)}
-                    columns={columns} 
-                    items={items}
-                />
-                <Pagination
-                    page={listings?.page.number || 0} 
-                    totalPages={listings?.page.totalPages || 1} 
-                    onChange={(page) => loadListings(page)}
-                />
-            </Loader>
-        </Card>
+        <>
+            <Breadcrumbs
+                crumbs={[
+                    { href: "/dashboard", title: "Панель управления" },
+                    { href: "#", title: "Управление объявлениями" },
+                ]}
+            />
+
+            <Card>
+                <Loader loadingActive={!listings?.content}>
+                    <Table
+                        onColumnClick={(sort) => setSortParam(sort)}
+                        columns={columns} 
+                        items={items}
+                    />
+                    <Pagination
+                        page={listings?.page.number || 0} 
+                        totalPages={listings?.page.totalPages || 1} 
+                        onChange={(page) => loadListings(page)}
+                    />
+                </Loader>
+            </Card>
+        </>
     )
 }
