@@ -39,5 +39,52 @@ export function useCategories() {
         );
     }, [categoriesList]);
 
-    return { categories, rootCategories, listingType, setListingType, categoriesCount, loading }
+    const addCategory = (
+        listingType: ListingTypeValue,
+        category: ICategory
+    ) => {
+        setCategoriesList(prev => {
+            if (!prev) return prev;
+
+            return {
+                ...prev,
+                [listingType]: [
+                    ...(prev[listingType] || []),
+                    category
+                ]
+            };
+        });
+    };
+
+    const removeCategory = async (
+        categoryId: number
+    ) => {
+
+        const res = await categoryService.deleteCategory(categoryId, listingType);
+
+        if (!res.ok) throw new Error("Ошибка удаления категории");
+
+        setCategoriesList(prev => {
+            if (!prev) return prev;
+
+            return {
+                ...prev,
+                [listingType]: (prev[listingType] || []).filter(
+                    category => category.id !== categoryId
+                )
+            };
+        });
+
+    };
+
+    return { 
+        categories, 
+        rootCategories, 
+        listingType, 
+        setListingType, 
+        categoriesCount, 
+        loading,
+        addCategory,
+        removeCategory
+    }
 }

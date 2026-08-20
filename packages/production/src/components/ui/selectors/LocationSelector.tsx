@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ILocation } from '@core/lib/location/types'
-import { locationsService } from '@core/lib/location/locationsService'
+import { locationService } from '@core/lib/location/locationService'
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 const LocationSelector = ({ 
@@ -20,7 +20,7 @@ const LocationSelector = ({
 
     useEffect(() => {
         async function loadLocations() {
-            const data = await locationsService.getLocations();
+            const data = await locationService.getLocations();
 
             const locs = data || [];
             setLocations(locs);

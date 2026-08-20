@@ -8,22 +8,34 @@ import Loader from "@core/components/common/Loader/Loader"
 import Breadcrumbs from "@core/components/ui/Breadcrumbs/Breadcrumbs";
 import { ListingType } from "@core/lib/listing/constants/listingTypes";
 import clsx from "clsx"
+import CategoryCreateModal from "@/components/pages/categories/CategoryCreateModal/CategoryCreateModal";
+import { useState } from "react";
 
 const CategoriesPage = () => {
 
-    const { categories, loading, listingType, setListingType, categoriesCount } = categoryService.useCategories();
+    const { 
+        categories, 
+        loading, 
+        listingType, 
+        setListingType, 
+        categoriesCount, 
+        addCategory, 
+        removeCategory 
+    } = categoryService.useCategories();
 
-    const onAddCategory = () => {
-        console.log("TODO: add category");
-    };
+    const [createModal, setCreateModal] = useState<{
+        open: boolean;
+        parentId: number | null;
+    }>({
+        open: false,
+        parentId: null
+    });
 
     const onEditCategory = (id: number) => {
         console.log("TODO: edit category", id);
     };
 
-    const onDeleteCategory = (id: number) => {
-        console.log("TODO: delete category", id);
-    };
+    
 
     return (
         <>
@@ -33,6 +45,7 @@ const CategoriesPage = () => {
                     { href: "#", title: "Управление категориями" },
                 ]}
             />
+
             <div className={styles.listingTypes}>
                 {Object.values(ListingType).map(type => (
                     <button 
@@ -44,6 +57,7 @@ const CategoriesPage = () => {
                     </button>
                 ))}
             </div>
+
             <Card header={listingType}>
                 <Loader loadingActive={loading}>
                     <div className={styles.page}>
@@ -51,13 +65,25 @@ const CategoriesPage = () => {
                             <CategoryTable
                                 type={listingType}
                                 categories={categories}
-                                onDeleteCategory={onDeleteCategory}
+                                onDeleteCategory={removeCategory}
                                 onEditCategory={onEditCategory}
+                                onCreateCategory={(parentId: number) => setCreateModal({ open: true, parentId })}
                             />
                         </div>
                     </div>
                 </Loader>
             </Card>
+
+            <CategoryCreateModal 
+                isOpen={createModal.open}
+                listingType={listingType}
+                parentCategory={categories.find(cat => cat.id === createModal.parentId) || null}
+                addCategory={addCategory}
+                onClose={() => setCreateModal({
+                    open: false,
+                    parentId: null
+                })}
+            />
         </>
     );
 };

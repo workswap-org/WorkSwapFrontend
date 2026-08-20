@@ -13,11 +13,13 @@ import type { ColumnDef, ExpandedState } from '@tanstack/react-table'
 import { useMemo, useState } from 'react';
 import clsx from "clsx";
 import { ILocation } from '@core/lib/location/types';
+import PlusIcon from "@core/components/common/icons/PlusIcon";
 
 interface LocationTableProps {
     locations: ILocation[];
     onEditLocation: (id: number) => void;
     onDeleteLocation: (id: number) => void;
+    onCreateLocation: (id: number) => void;
 }
 
 type LocationItem = {
@@ -30,7 +32,8 @@ type LocationItem = {
 const LocationsTable = ({
     locations, 
     onEditLocation,
-    onDeleteLocation
+    onDeleteLocation,
+    onCreateLocation
 }: LocationTableProps) => {
 
     const { dict } = useI18n();
@@ -95,13 +98,22 @@ const LocationsTable = ({
                 accessorKey: 'title',
                 header: 'Title',
                 cell: ({ row, getValue }) => (
-                    <span
-                        style={{
-                            paddingLeft: `${row.depth * 1.5}rem`,
-                        }}
-                    >
-                        {getValue<string>()}
-                    </span>
+                    <>
+                        <span
+                            style={{
+                                paddingLeft: `${row.depth * 1.5}rem`,
+                            }}
+                        >
+                            {getValue<string>()}
+                        </span>
+
+                        <button 
+                            className={styles.createLocation} 
+                            onClick={() => onCreateLocation(row.getValue<number>("id"))}
+                        >
+                            <PlusIcon/>
+                        </button>
+                    </>
                 ),
             },
             {
@@ -143,11 +155,6 @@ const LocationsTable = ({
 
         onExpandedChange: setExpanded,
     });
-
-    console.log(
-        "EXPANDED:",
-        expanded
-    );
 
     return (
         <div className={styles.tableWrapper}>

@@ -13,12 +13,14 @@ import {
 import type { ColumnDef, ExpandedState } from '@tanstack/react-table'
 import { useMemo, useState } from 'react';
 import clsx from "clsx";
+import PlusIcon from '@core/components/common/icons/PlusIcon';
 
 interface CategoryTableProps {
     type: string;
     categories: ICategory[];
     onEditCategory: (id: number) => void;
     onDeleteCategory: (id: number) => void;
+    onCreateCategory: (parentId: number) => void
 }
 
 type CategoryItem = {
@@ -32,7 +34,8 @@ const CategoryTable = ({
     type,
     categories, 
     onEditCategory,
-    onDeleteCategory
+    onDeleteCategory,
+    onCreateCategory
 }: CategoryTableProps) => {
 
     const { dict } = useI18n();
@@ -47,9 +50,11 @@ const CategoryTable = ({
             .map(category => {
                 const subRows = buildTree(category.id);
 
+                const translate = dict.categories.category[type][category.name];
+
                 return {
                     id: category.id,
-                    title: dict.categories.category[type][category.name],
+                    title: translate || `${category.name} (Категория не переведена)`,
                     parentId: category.parentId,
                     ...(subRows.length > 0 ? { subRows } : {}),
                 };
@@ -97,13 +102,20 @@ const CategoryTable = ({
                 accessorKey: 'title',
                 header: 'Title',
                 cell: ({ row, getValue }) => (
-                    <span
-                        style={{
-                            paddingLeft: `${row.depth * 1.5}rem`,
-                        }}
-                    >
-                        {getValue<string>()}
-                    </span>
+                    <>
+                        <span
+                            style={{ paddingLeft: `${row.depth * 1.5}rem` }}
+                        >
+                            {getValue<string>()}
+                        </span>
+
+                        <button 
+                            className={styles.createCategory} 
+                            onClick={() => onCreateCategory(row.getValue<number>("id"))}
+                        >
+                            <PlusIcon/>
+                        </button>
+                    </>
                 ),
             },
             {
@@ -145,11 +157,6 @@ const CategoryTable = ({
 
         onExpandedChange: setExpanded,
     });
-
-    console.log(
-        "EXPANDED:",
-        expanded
-    );
 
     return (
         <div className={styles.tableWrapper}>

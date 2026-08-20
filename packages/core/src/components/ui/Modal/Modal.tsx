@@ -37,7 +37,7 @@ const Modal = ({ isOpen, onClose, title, id = 'normalModal', children, className
 
     return (
         <dialog ref={dialogRef} className={clsx(styles.modal, className, "fade-down")} onClick={(e) => e.stopPropagation()} id={id}>
-            <button className={`${styles.close} hover`} onClick={onClose}>✖</button>
+            <button className={clsx(styles.close, "hover")} onClick={onClose}>✖</button>
             {title && <h2>{title}</h2>}
             {children}
         </dialog>

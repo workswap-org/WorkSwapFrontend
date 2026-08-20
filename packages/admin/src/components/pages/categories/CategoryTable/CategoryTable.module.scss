@@ -39,6 +39,10 @@
 
     &:hover {
         background-color: var(--background-l2);
+
+        .createCategory {
+            opacity: 1;
+        }
     }
 }
 
@@ -128,6 +132,7 @@
 
 .title-column {
     width: auto;
+    position: relative;
 
     &.td {
         min-width: 16rem;
@@ -147,4 +152,26 @@
 
 .actions-column {
     width: 150px;
+}
+
+.createCategory {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    translate: 0 -50%;
+    width: 2rem;
+    height: 2rem;
+    border: 3px dashed var(--text-color-l1);
+    color: var(--text-color-l1);
+    border-radius: 4px;
+    background-color: transparent;
+    opacity: 0;
+    cursor: pointer;
+    transition: 
+        opacity 0.2s ease-in,
+        background-color .1s ease-in;
+
+    &:hover {
+        background-color: var(--background-l1);
+    }
 }
