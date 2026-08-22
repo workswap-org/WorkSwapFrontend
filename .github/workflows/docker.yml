@@ -52,8 +52,8 @@ jobs:
                   file: ./packages/production/Dockerfile
                   push: true
                   tags: |
-                      ghcr.io/${{ github.repository_owner }}/workswap-production:latest
-                      ghcr.io/${{ github.repository_owner }}/workswap-production:${{ github.sha }}
+                      ghcr.io/${{ github.repository_owner }}/workswap-frontend:latest
+                      ghcr.io/${{ github.repository_owner }}/workswap-frontend:${{ github.sha }}
 
             - name: Build and push admin
               uses: docker/build-push-action@v6
