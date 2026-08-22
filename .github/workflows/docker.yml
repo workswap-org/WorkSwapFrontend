@@ -38,6 +38,13 @@ jobs:
             - name: Build admin
               run: yarn workspace workswap-admin build
 
+            - name: Log in to GHCR
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
             - name: Build and push production
               uses: docker/build-push-action@v6
               with:
