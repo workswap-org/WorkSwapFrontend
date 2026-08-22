@@ -33,10 +33,10 @@ jobs:
               run: yarn install --immutable
 
             - name: Build production
-              run: yarn workspace production build
+              run: yarn workspace workswap-production build
 
             - name: Build admin
-              run: yarn workspace admin build
+              run: yarn workspace workswap-admin build
 
             - name: Build and push production
               uses: docker/build-push-action@v6
