@@ -9,7 +9,7 @@
     position: relative;
     min-height: 0;
     
-    max-height: calc(100vh - 15rem);
+    max-height: calc(100dvh - 15rem);
 
     @include mobile {
         flex-direction: column;
