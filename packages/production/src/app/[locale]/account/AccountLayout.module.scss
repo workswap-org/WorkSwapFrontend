@@ -9,7 +9,7 @@
     gap: 2rem;
     max-width: calc(1200px + 2rem);
     padding: 2rem 1rem 1rem 1rem;
-    height: calc(100dvh - var(--header-height));
+    height: calc(var(--visual-viewport-height, 100dvh) - var(--header-height));
     overflow-y: auto;
     overflow-x: visible;
     scrollbar-width: none;
@@ -32,7 +32,7 @@
     @include flex-column;
     flex: 1;
     transition: max-height 0.2s ease;
-    max-height: calc(100dvh - var(--header-height));
+    max-height: calc(var(--visual-viewport-height, 100dvh) - var(--header-height));
     overflow: visible;
     max-width: 100%;
 }
@@ -59,7 +59,7 @@
         overflow-x: hidden;
         box-shadow: 0;
         border-radius: 0;
-        max-height: calc(100dvh - var(--header-height));
+        max-height: calc(var(--visual-viewport-height, 100dvh) - var(--header-height));
     }
 }
 

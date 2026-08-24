@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
         includePaths: [path.join(__dirname, "../core/src/css")],
     },
 
+    allowedDevOrigins: ['10.77.140.178'],
+
     output: "standalone"
 };
 
