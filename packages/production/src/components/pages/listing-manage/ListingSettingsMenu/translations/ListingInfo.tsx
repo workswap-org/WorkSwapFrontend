@@ -1,16 +1,21 @@
 import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import { IListingTranslation } from '@core/lib/listing/types';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import AutoTranslateModal from './AutoTranslateModal';
 
 interface ListingInfoProps {
-    currentLang: string
-    translations: IListingTranslation | null
-    setTranslations: Dispatch<SetStateAction<IListingTranslation | null>>
+    currentLang: string;
+    translations: IListingTranslation;
+    updateTranslation: (lang: string, title: string, descriprion: string) => void;
+    saveTranslations: () => void;
+    listingId: number | null;
 }
 const ListingInfo = ({
     currentLang,
     translations,
-    setTranslations
+    updateTranslation,
+    saveTranslations,
+    listingId
 }: ListingInfoProps) => {
 
     const { dict } = useI18n();
@@ -18,27 +23,14 @@ const ListingInfo = ({
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
-    const handleAddLanguage = () => {
-        var key: string;
-        if (currentLang) {
-            key = currentLang;
-        } else {
-            key = 'undetected';
-        }
-
-        const updated = {
-            ...translations,
-            [key]: { title, description },
-        };
-
-        setTranslations(updated);
-    };
+    const handleSave = () => {
+        updateTranslation(currentLang, title, description);
+        saveTranslations()
+    }
 
     useEffect(() => {
-        if (currentLang && translations) {
-            setTitle(translations[currentLang]?.title || "");
-            setDescription(translations[currentLang]?.description || "");
-        }
+        setTitle(translations[currentLang]?.title || "")
+        setDescription(translations[currentLang]?.description || "")
     }, [currentLang, translations])
 
     return (
@@ -66,9 +58,17 @@ const ListingInfo = ({
                 />
             </label>
 
-            <button type="button" className="btn btn-primary" onClick={handleAddLanguage}>
+            <button type="button" className="btn btn-primary" onClick={handleSave}>
                 {dict.buttons.listing.saveTranslation}
             </button>
+
+            <AutoTranslateModal 
+                translations={translations} 
+                currentLang={currentLang} 
+                updateTranslation={updateTranslation} 
+                saveTranslations={saveTranslations}
+                listingId={listingId} 
+            />
         </>
     );
 };
