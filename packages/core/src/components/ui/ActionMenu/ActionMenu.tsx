@@ -17,7 +17,7 @@ interface ActionMenuProps {
     className?: string;
 }
 
-const ActionMenu = ({ actions }: ActionMenuProps) => {
+const ActionMenu = ({ actions, className }: ActionMenuProps) => {
     const filtered = actions.filter((action) => action.access ?? true);
 
     if (filtered.length === 0) {
@@ -29,7 +29,7 @@ const ActionMenu = ({ actions }: ActionMenuProps) => {
             <DropdownMenu.Trigger asChild>
                 <button
                     type="button"
-                    className={clsx(styles.button, "hover")}
+                    className={clsx(styles.button, className, "hover")}
                     aria-label="Действия"
                 >
                     <EllipsisVerticalIcon className={styles.icon} />

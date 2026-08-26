@@ -46,7 +46,7 @@ const ListingImagesUploader = ({
     // Удаляем изображение
     const deleteImg = async (img: IListingImage) => {
         try {
-            const res = await listingService.deleteListingImage(img.id)
+            const res = await listingService.deleteListingImage(listing.id, img.id)
             if (res) notificate(res)
         } catch {
             notificate("Ошибка удаления изображения", "error")

@@ -22,7 +22,8 @@ export const getFavorites = () => apiFetchJson('/listing/favorites');
 export const getMyListings = () => apiFetchJson('/listing/my-listings');
 export const getDrafts = () => apiFetchJson("/listing/drafts");
 export const getByUserId = (userId: number) => apiFetchJson(`/listing/by-user`, {}, {userId});
-export const getListingsPage = (page: number, amount: number, sortParam: string) => apiFetchJson(`/listing/page`, {}, {page, amount, sortParam});
+export const getListingsPage = (page: number, amount: number, sortParam: string) => 
+    apiFetchJson(`/listing/page`, {}, {page, amount, sortParam});
 export const getRecentListings = (amount: number) => apiFetchJson(`/listing/recent`, {}, {amount});
 
 export const deleteListing = (listingId: number) => apiFetch(`/listing/${listingId}`, {method: 'DELETE'});
@@ -46,6 +47,8 @@ export const modifyTranslations = (listingId: number, translations: IListingTran
             },
             body: JSON.stringify(translations),
         });
+export const autoTranslate = (listingId: number, lang: string, preferedRefLang: string) => 
+    apiFetchJson(`/listing/${listingId}/auto-translate`, {method: 'POST'}, { lang, preferedRefLang })
 
 export const checkFavorite = (listingId: number) => apiFetchJson(`/listing/${listingId}/favorite`, {method: 'GET'});
 export const addFavorite = (listingId: number) => apiFetch(`/listing/${listingId}/favorite`, {method: 'POST'});
@@ -59,5 +62,5 @@ export const uploadListingImage = (listingId: number, formData: FormData) =>
             listingId
         });
 
-export const deleteListingImage = (imageId: number) => 
-        apiFetchJson(`/listing/${imageId}/image`, { method: "DELETE" }, {});
+export const deleteListingImage = (listingId: number, imageId: number) => 
+        apiFetchJson(`/listing/${listingId}/image/${imageId}`, { method: "DELETE" }, {});

@@ -15,7 +15,7 @@
     width: 150px;
     height: 150px;
     padding: 0;
-    overflow: visible;
+    overflow: hidden;
 
     img {
         height: 100%;
@@ -25,10 +25,11 @@
 
 .kebab {
     z-index: 100;
-    background-color: var(--background-l1);
+    background-color: #00000081 !important;
     border-radius: 6px;
     border: 2px solid var(--border-color);
     overflow: visible;
+    position: absolute;
 
     top: 8px;
     right: 8px;

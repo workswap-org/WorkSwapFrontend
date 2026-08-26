@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { use, useCallback, useEffect, useMemo, useState } from "react";
 import ListingInfo from "../ListingInfo";
 import TranslationsStatus from "../TranslationsStatus/TranslationsStatus";
 import { supportedLanguages } from '@core/lib/common/constants/languages';
@@ -24,15 +24,32 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
         return supportedLanguages.filter((l: string) => !langs.includes(l)) ?? supportedLanguages
     }, [langs])
 
-    useEffect(() => {
-        if (initialized && id && translations) {
-            listingService.modifyTranslations(id, translations)
-                .then((data: string[]) => {
-                    setLangs(data)
-                })
-                .catch(() => notificate(dict.messages.notification.error.listingUpdate, "error"));
+    const updateTranslation = useCallback((lang: string, title: string, description: string) => {
+        var key: string;
+        if (lang) {
+            key = lang;
+        } else {
+            key = 'undetected';
         }
-    }, [translations, initialized, id, notificate]);
+
+        setTranslations(prev => ({
+            ...prev,
+            [key]: { title, description },
+        }));
+    }, []);
+
+    const saveTranslations = useCallback(async () => {
+
+        console.log(id, translations)
+        if (!id || !translations) return;
+
+        try {
+            const data = await listingService.modifyTranslations(id, translations);
+            setLangs(data)
+        } catch {
+            notificate(dict.messages.notification.error.listingUpdate, "error")
+        }
+    }, [id, translations]);
 
     useEffect(() => {
         if (!id) return
@@ -83,8 +100,10 @@ const ListingTranslations = ({ id }: {id: number | null}) => {
             {!loading && (
                 <ListingInfo
                     currentLang={currentLang}
-                    translations={translations}
-                    setTranslations={setTranslations}
+                    translations={translations || {}}
+                    updateTranslation={updateTranslation}
+                    saveTranslations={saveTranslations}
+                    listingId={id}
                 />
             )}            
         </div>

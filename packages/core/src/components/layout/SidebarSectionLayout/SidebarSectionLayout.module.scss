@@ -10,11 +10,16 @@
     }
 
     @include mobile {
-        width: 200%;
+        width: 100%;
+        flex-direction: row;
         transition: translate 0.3s ease-out;
 
+        &.rowMode {
+            flex-direction: row;
+        }
+
         &:has(.container.active) {
-            translate: -50%;
+            translate: calc((100% + 1rem) * -1);
         }
     }
 }
@@ -35,9 +40,14 @@
     }
 
     @include mobile {
-        width: 50%;
+        flex: 0 0 100%;
+        width: 100%;
         border: none;
         padding-right: 0;
+
+        &.rowMode {
+            flex-direction: column;
+        }
     }
 }
 
@@ -60,9 +70,11 @@
     flex-direction: column;
     flex: 1;
     gap: 1rem;
-    width: 50%;
+    width: 100%;
 
     @include mobile {
+        flex: 0 0 100%;
+        width: 100%;
         height: fit-content;
     }
 }

@@ -1,22 +1,6 @@
-import { apiFetchJson, apiFetchText } from '../common/utils/apiClient';
-import { IListingImage } from '../listing/types';
+import { apiFetchText } from '../common/utils/apiClient';
 
 export const uploadService = {
-    uploadListingImage: (listingId: number, formData: FormData) => 
-        apiFetchJson(`/cloud/listing-image`, {
-            method: "POST",
-            body: formData
-        }, {
-            listingId
-        }),
-    deleteListingImage: (listingId: number, img: IListingImage) =>
-        apiFetchText(`/cloud/listing-image`, {
-            method: "DELETE"
-        }, {
-            imageUrl: encodeURIComponent(img.path),
-            imageId: img.id,
-            listingId
-        }),
     uploadAvatar: (formData: FormData) =>
         apiFetchText(`/cloud/avatar`, {
             method: "POST",
