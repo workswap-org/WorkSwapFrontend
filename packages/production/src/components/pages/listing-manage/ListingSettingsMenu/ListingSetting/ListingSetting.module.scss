@@ -1,40 +1,18 @@
 .setting {
-    background-color: var(--background-l2);
-    border: 2px solid var(--border-color);
-    border-radius: 1.5rem;
-    overflow: hidden;
+    margin-bottom: 1rem;
 }
     
 .header {
     padding: 1rem;
     cursor: pointer;
+    border-bottom: 3px dashed var(--border-color);
+    margin-bottom: 1rem;
 }
 
 .body {
     display: grid;
-    grid-template-rows: 0fr; /* свернуто */
     transition: grid-template-rows 0.3s ease;
-    
-    padding: 0 0.7rem;
+
     overflow: hidden;
     background-color: var(--background-l1);
-
-    * {
-        overflow: hidden; /* важно */
-        opacity: 0;
-        visibility: hidden;
-        transition: 
-            opacity 0.2s ease 0s,
-            visibility 0s linear 0.2s; 
-    }
-
-    &.active {
-        grid-template-rows: 1fr;
-        padding: 0.7rem;
-
-        * {
-            opacity: 1;
-            visibility: visible;
-        }
-    }
 }

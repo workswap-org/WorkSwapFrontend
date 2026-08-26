@@ -1,5 +1,6 @@
 import React, { ReactNode, useMemo, useState } from "react";
 import styles from "./ListingSetting.module.scss"
+import clsx from "clsx";
 
 interface ListingSettingProps {
     title: string;
@@ -21,7 +22,7 @@ const ListingSetting = ({ title, children}: ListingSettingProps) => {
             <div className={styles.header} onClick={() => setActive(!active)}>
                 <h3>{title}</h3>
             </div>
-            <div className={`${styles.body} ${active ? styles.active : ""}`}>
+            <div className={clsx(styles.body, active ? styles.active : "")}>
                 <div>
                     {children}
                 </div>

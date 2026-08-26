@@ -12,6 +12,7 @@ import { useNotification } from "@core/lib/notification/NotificationContext";
 import { listingService } from "@core/lib/listing/services";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import LocationSelector from "@/components/ui/selectors/LocationSelector";
+import SliderCheckbox from "@core/components/common/checkbox/SliderCheckbox/SliderCheckbox";
 
 const disabledTypesForPrice = ["PRODUCT_SWAP", "PRODUCT_GIVEAWAY", "PRODUCT_WANTED_FREE"];
 
@@ -21,7 +22,7 @@ const ListingSettingsMenu = ({listing}: {listing: IFullListing}) => {
 
     const { notificate } = useNotification();
 
-    const [isActive, setActive] = useState(listing?.active);
+    const [isActive, setActive] = useState<boolean>(listing?.active || false);
     
     const updateListing = useCallback(async (updates: Record<string, any>) => {
         if (!listing.id || updates === undefined) return;
@@ -47,32 +48,25 @@ const ListingSettingsMenu = ({listing}: {listing: IFullListing}) => {
 
             <ListingSetting title={dict.common.labels.status.listing}>
                 <div className="form-group">
-                    <div className="status-toggle">
-                        <label className="switch">
-                            <input 
-                                type="checkbox" 
-                                checked={isActive ?? false}
-                                onChange={(e) => {
-                                    setActive(e.target.checked);
-                                    updateListing({ active: e.target.checked });
-                                }}
-                                value="true"
-                            />
-                            <span className="slider"></span>
-                        </label>
-                        {isActive ? (
-                            <p>{dict.common.statuses.active}</p>
+                    <SliderCheckbox
+                        checked={isActive}
+                        onChange={(e) => {
+                            setActive(e.target.checked);
+                            updateListing({ active: e.target.checked });
+                        }}
+                        options={{
+                            checked: <p>{dict.common.statuses.active}</p>, 
+                            unchecked: <p>{dict.common.statuses.inactive}</p>
+                        }}
+                        id="listingActive"
+                    />
+                    <div className="form-group">
+                        {listing?.temporary ? (
+                            <p>({dict.common.statuses.draft})</p>
                         ) : (
-                            <p>{dict.common.statuses.inactive}</p>
-                        )}
+                            <p>({dict.common.statuses.published})</p>
+                        )} 
                     </div>
-                </div>
-                <div className="form-group">
-                    {listing?.temporary ? (
-                        <p>({dict.common.statuses.draft})</p>
-                    ) : (
-                        <p>({dict.common.statuses.published})</p>
-                    )} 
                 </div>
             </ListingSetting>
 
