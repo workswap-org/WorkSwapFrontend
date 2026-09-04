@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import {settingService} from "@core/lib/common/services/settingsService"
-import { IFullListing } from "@core/lib/listing/types";
+import { IFullListing, IListingUpdate } from "@core/lib/listing/types";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { UpdateListing } from "./ListingSettingsMenu";
 
 interface PriceEditProps {
-    listing: IFullListing;
-    updateListing: (updates: Record<string, any>) => void
+    listingSettings: IListingUpdate
+    updateListingSettings: UpdateListing
 }
-const PriceEdit = ({ listing, updateListing }: PriceEditProps) => {
+const PriceEdit = ({ listingSettings, updateListingSettings }: PriceEditProps) => {
 
     const { dict } = useI18n();
 
     const [priceTypes, setPriceTypes] = useState([])
 
-    const [price, setPrice] = useState(listing?.price || "");
-    const [selectedPriceType, setSelectedPriceType] = useState("");
+    const priceType = listingSettings.priceType;
 
     useEffect(() => {
     
@@ -26,28 +26,17 @@ const PriceEdit = ({ listing, updateListing }: PriceEditProps) => {
         loadPriceTypes();
     }, [])
 
-    useEffect(() => {
-
-        if (!listing) return;
-        setPrice(listing.price);
-        setSelectedPriceType(listing.priceType?.toUpperCase());
-
-    }, [listing]);
-
     return (
         <div className="form-group">
             <div className="duo">
-                {(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') && (
+                {(priceType != 'NEGOTIABLE' && priceType != 'SWAP') && (
                     <input
                         className="form-control first"
                         type="number"
                         id="price"
                         name="price"
-                        value={price ?? ""}
-                        onChange={(e) => {
-                            setPrice(e.target.value);
-                            updateListing({ price: e.target.value });
-                        }}
+                        value={listingSettings.price ?? ""}
+                        onChange={(e) => updateListingSettings("price", Number(e.target.value))}
                         step="0.01"
                         required
                     />
@@ -55,13 +44,10 @@ const PriceEdit = ({ listing, updateListing }: PriceEditProps) => {
                 <select
                     id="priceType"
                     name="priceType"
-                    className={`form-control ${(selectedPriceType != 'NEGOTIABLE' && selectedPriceType != 'SWAP') ? 'second' : ''}`}
+                    className={`form-control ${(priceType != 'NEGOTIABLE' && priceType != 'SWAP') ? 'second' : ''}`}
                     required
-                    value={selectedPriceType ?? ""}
-                    onChange={(e) => {
-                        setSelectedPriceType(e.target.value);
-                        updateListing({ priceType: e.target.value });
-                    }}
+                    value={priceType ?? ""}
+                    onChange={(e) => updateListingSettings("priceType", e.target.value)}
                 >
                     <option value="" disabled>{dict.common.placeholders.priceType}</option>
                     {priceTypes.map((type) => (

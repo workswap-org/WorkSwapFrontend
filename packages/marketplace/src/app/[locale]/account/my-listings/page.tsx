@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { IFullListing } from "@core/lib/listing/types";
 import { listingService } from "@core/lib/listing/services";
-import PrivateListingCard from "@core/components/ui/listings/cards/PrivateListingCard/PrivateListingCard";
 import ListingDraftItem from "@core/components/ui/listings/cards/DraftListingCard/DraftListingCard";
 import Tooltip from "@core/components/common/Tooltip/Tooltip"
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
@@ -14,6 +13,7 @@ import privateStyles from "@core/components/ui/listings/cards/PrivateListingCard
 import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
 import styles from "./MyListingsPage.module.scss"
 import AccountListingsGrid from "@/components/pages/account/AccountListingsGrid/AccountListingsGrid";
+import HarizontalListingCard from "@core/components/ui/listings/cards/HorizontalListingCard/HarizontalListingCard"
 import { useRouter } from "next/navigation";
 
 const MyListingsPage = () => {
@@ -38,12 +38,12 @@ const MyListingsPage = () => {
     return (
         <>
             <AccountHeader>
-                <h2>{dict.common.titles.myListings}</h2>
+                <h2>{dict.common.titles.myListings} {listings && `(${listings?.length})`}</h2>
                 <button
                     className="btn btn-primary"
                     onClick={() => router.push("/account/listing/create")}
                 >
-                    {dict.buttons.listing.addNew}
+                    {dict.buttons.listing.createListing}
                 </button>
             </AccountHeader>
 
@@ -59,39 +59,15 @@ const MyListingsPage = () => {
                     </AccountListingsGrid>
                 ) : (
                     <div className={styles.content}>
-                        <section>
-                            <h3 className={styles.gridLabel}>Активные объявления</h3>
-                            <AccountListingsGrid>
-                                {activeListings?.slice()
-                                    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-                                    .map((listing) => (
-                                        <PrivateListingCard
-                                            key={listing.id}
-                                            listing={listing}
-                                        /> 
-                                    ))
-                                }
-                            </AccountListingsGrid>
-                        </section>
-                        <section>
-                            <h3 className={styles.gridLabel}>Черновики</h3>
-                            <div className={styles.draftsGrid}>
-                                {drafts?.map((listing) => (
-                                    <ListingDraftItem
-                                        key={listing.id} 
-                                        listing={listing}
-                                    />
-                                ))}
-                                <Tooltip text={dict.buttons.listing.addNew}>
-                                    <article 
-                                        onClick={() => router.push("/account/listing/create")} 
-                                        className={`${draftStyles.card} ${draftStyles.new}`}
-                                    >
-                                        <PlusIcon size={34} />
-                                    </article>
-                                </Tooltip>
-                            </div>
-                        </section>
+                        {listings?.slice()
+                            .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+                            .map((listing) => (
+                                <HarizontalListingCard
+                                    key={listing.id}
+                                    listing={listing}
+                                /> 
+                            ))
+                        }
                     </div>
                 )}
             </Loader>

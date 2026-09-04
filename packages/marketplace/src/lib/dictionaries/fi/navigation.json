@@ -11,6 +11,7 @@
             "account": "Tili",
             "createListing": "Luo uusi ilmoitus",
             "myListings": "Omat ilmoitukset",
+            "myReviews": "Omat arvostelut",
             "messenger": "Viestini"
         }
     },
@@ -22,6 +23,7 @@
             "my-listings": "Omat ilmoitukset",
             "favorites": "Suosikit",
             "messenger": "Viestit",
+            "reviews": "Arvostelut",
             "settings": "Asetukset",
             "security": "Turvallisuus",
             "editProfile": "Muokkaa profiilia"

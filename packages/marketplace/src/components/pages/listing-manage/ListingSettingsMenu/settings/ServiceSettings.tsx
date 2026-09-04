@@ -3,22 +3,21 @@ import ListingSetting from "../ListingSetting/ListingSetting";
 import { IFullListing } from "@core/lib/listing/types";
 import CategorySelector from "@/components/ui/selectors/CategorySelector";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { UpdateListing } from "../ListingSettingsMenu";
 
 const ServiceSettings = ({
-    updateListing,
+    updateListingSettings,
     listing
 }: {
-    updateListing: (updates: Record<string, any>) => void
+    updateListingSettings: UpdateListing
     listing: IFullListing
 }) => {
 
     const { dict } = useI18n();
 
     const categoryChange = useCallback((lastId: number, path: number[]) => {
-        console.log("[C] Последний выбранный:", lastId);
-        console.log("[C] Путь:", path);
-        updateListing({ category: lastId });
-    }, [updateListing]);
+        updateListingSettings("categoryId", lastId);
+    }, [updateListingSettings]);
 
     return (
         <>

@@ -40,7 +40,7 @@ export default function CatalogPage({children}: {children: ReactNode}) {
                         toggleSidebar={toggleSidebar}
                     />
                     <main className={styles.main} ref={contentRef}>
-                        <div className={styles.typesList}>
+                        <div className={styles.typesList} data-mb-swipe-ignore>
                             {listingPublicTypes.map((type) => (
                                 <button
                                     key={type.key}

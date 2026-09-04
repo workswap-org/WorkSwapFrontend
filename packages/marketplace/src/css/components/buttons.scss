@@ -76,12 +76,12 @@
 }
 
 .btn-success {
-    @include btn-filled(var(--green-l1), var(--green-l2), var(--permanent-light));
+    @include btn-filled(var(--success), var(--success), var(--permanent-light));
     padding: 0.7rem 1rem;
 
     &:disabled {
         color: var(--inverse-text-color);
-        background-color: var(--green-l-1);
+        background-color: var(--success-light);
         border: 0;
     }
 }

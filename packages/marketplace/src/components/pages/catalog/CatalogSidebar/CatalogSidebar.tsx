@@ -2,7 +2,8 @@ const sorts = [
     { key: "date"},
     { key: "price"},
     { key: "rating"},
-    { key: "popularity"},
+    { key: "views"},
+    { key: "likes"},
 ];
 
 import { useAuth } from '@core/lib/auth/AuthContext';

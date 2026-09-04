@@ -11,6 +11,7 @@
             "account": "Аккаунт",
             "createListing": "Создать новое объявление",
             "myListings": "Мои объявления",
+            "myReviews": "Мои отзывы",
             "messenger": "Мои сообщения"
         }
     },
@@ -22,6 +23,7 @@
             "my-listings": "Мои объявления",
             "favorites": "Избранное",
             "messenger": "Сообщения",
+            "reviews": "Отзывы",
             "settings": "Настройки",
             "security": "Безопасность",
             "editProfile": "Редактировать профиль"

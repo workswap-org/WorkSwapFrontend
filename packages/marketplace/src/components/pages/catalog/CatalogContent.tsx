@@ -25,9 +25,10 @@ const CatalogContent = ({initialListings}: {initialListings: IShortListing[]}) =
             try {
                 const data = await listingService.getCatalog(filters)
 
+                console.log(data)
                 if (requestId === lastRequestId.current) {
-                    setListings(data.listings);
-                    setTotalPages(data.totalPages);
+                    setListings(data.content);
+                    setTotalPages(data.page.totalPages);
                 }
             } finally {
                 setLoading(false)

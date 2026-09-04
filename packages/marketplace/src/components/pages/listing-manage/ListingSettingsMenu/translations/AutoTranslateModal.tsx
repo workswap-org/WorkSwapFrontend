@@ -53,9 +53,17 @@ const AutoTranslateModal = ({
 
             <Modal isOpen={isOpen} onClose={() => setOpen(false)} title="Автоматический перевод">
                 <h3>Какой перевод объявления использовать в качестве оригинала?</h3>
-                <div>
+                <div 
+                    style={{ 
+                        display: "flex", 
+                        gap: "0.5rem",
+                        width: "100%",
+                        justifyContent: "center"
+                    }}
+                >
                     {langs.map(lang => 
                         <button 
+                            key={lang}
                             onClick={() => setPreferedRefLang(lang)} 
                             className={clsx("btn", lang == preferedRefLang ? "btn-outline-primary" : "btn-primary")}
                         >

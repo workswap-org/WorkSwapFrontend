@@ -4,19 +4,34 @@ import { listingPublicTypes, ListingPublicTypeValue } from "@core/lib/listing/co
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import { useNotification } from "@core/lib/notification/NotificationContext";
 import { listingService } from "@core/lib/listing/services";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./ListingCreatePage.module.scss"
 import AccountHeader from "@/components/pages/account/AccountHeader/AccountHeader";
+import clsx from "clsx";
 
 export default function ListingCreatePage() {
 
     const { notificate } = useNotification();
     const [listingType, setListingType] = useState<ListingPublicTypeValue | null>(null);
     const { dict } = useI18n();
+    const router = useRouter();
     const productTypes = listingPublicTypes.filter(t => t.key.startsWith("PRODUCT"));
     const serviceTypes = listingPublicTypes.filter(t => t.key.startsWith("SERVICE"));
     const miscTypes = listingPublicTypes.filter(t => !t.key.startsWith("SERVICE") && !t.key.startsWith("PRODUCT"));
+
+    const createListing = async () => {
+        try {
+
+            const data = await listingService.create(String(listingType))
+
+            notificate(dict.messages.notification.success.createDraft, "success");
+            router.push(`/account/listing/${data}/manage`)
+
+        } catch {
+            notificate(dict.messages.notification.misc.error.listingCreate, "error")
+        }
+    }
 
     return (
         <>
@@ -31,7 +46,7 @@ export default function ListingCreatePage() {
                         {serviceTypes.map((type) => (
                             <button 
                                 key={type.key}
-                                className={`btn btn-${listingType == type.key ? "" : "outline-"}primary`}
+                                className={clsx("btn", `btn-${listingType == type.key ? "" : "outline-"}primary`)}
                                 onClick={() => setListingType(type.key)}
                             >
                                 {dict.categories.listingType.create[type.key]}
@@ -43,7 +58,7 @@ export default function ListingCreatePage() {
                         {productTypes.map((type) => (
                             <button 
                                 key={type.key}
-                                className={`btn btn-${listingType == type.key ? "" : "outline-"}primary`}
+                                className={clsx("btn", `btn-${listingType == type.key ? "" : "outline-"}primary`)}
                                 onClick={() => setListingType(type.key)}
                             >
                                 {dict.categories.listingType.create[type.key]}
@@ -56,7 +71,7 @@ export default function ListingCreatePage() {
                         {miscTypes.map((type) => (
                             <button 
                                 key={type.key}
-                                className={`btn btn-${listingType == type.key ? "" : "outline-"}primary`}
+                                className={clsx("btn", `btn-${listingType == type.key ? "" : "outline-"}primary`)}
                                 onClick={() => setListingType(type.key)}
                             >
                                 {dict.categories.listingType.create[type.key]}
@@ -66,12 +81,7 @@ export default function ListingCreatePage() {
                 </div>
                 <button 
                     className="btn btn-success"
-                    onClick={() => listingService.create(String(listingType))
-                        .then(data => {
-                            notificate(dict.messages.notification.success.createDraft, "success");
-                            redirect(`/account/listing/edit/${data}`);
-                        })
-                        .catch(() => notificate(dict.messages.notification.misc.error.listingCreate, "error"))}
+                    onClick={createListing}
                     disabled={!listingType}
                 >
                     {dict.buttons.listing.createListing}

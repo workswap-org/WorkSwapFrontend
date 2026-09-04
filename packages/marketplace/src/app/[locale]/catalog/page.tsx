@@ -27,10 +27,10 @@ export default async function CatalogPageWrapper({
     return (
         <CatalogFiltersProvider 
             initialFilters={initialFilters}
-            initialTotalPages={data.totalPages}
+            initialTotalPages={data.page.totalPages}
         >
             <CatalogPage>
-                <CatalogContent initialListings={data.listings}/>
+                <CatalogContent initialListings={data.content}/>
             </CatalogPage>
         </CatalogFiltersProvider>
     )

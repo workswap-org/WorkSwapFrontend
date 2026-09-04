@@ -39,7 +39,8 @@
         },
         "contactToAuthor": "Lähetä viesti",
         "edit": "Muokkaa ilmoitusta",
-        "manage": "Hallita"
+        "manage": "Hallita",
+        "save": "Tallenna"
     },
 
     "event": {

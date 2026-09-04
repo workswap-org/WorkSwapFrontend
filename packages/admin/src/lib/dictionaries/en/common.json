@@ -22,7 +22,8 @@
         "date": "By date",
         "price": "By price",
         "rating": "By rating",
-        "popularity": "By views"
+        "views": "By views",
+        "likes": "By likes"
     },
     "priceTypes": {
         "FIXED": "€",
@@ -108,7 +109,8 @@
     "titles": {
         "account": "My Account",
         "favorites": "Favorites",
-        "myListings": "My Listings",
+        "myListings": "My listings",
+        "myReviews": "My reviews",
         "messenger": "Messages",
         "settings": "User Settings",
         "security": "Security",

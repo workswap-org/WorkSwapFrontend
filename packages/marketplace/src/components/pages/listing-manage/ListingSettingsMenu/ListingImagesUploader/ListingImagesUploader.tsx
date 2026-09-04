@@ -1,33 +1,39 @@
 import { useNotification } from "@core/lib/notification/NotificationContext";
 import { listingService } from "@core/lib/listing/services";
-import { IFullListing, IListingImage } from "@core/lib/listing/types";
+import { IFullListing, IListingImage, IListingUpdate } from "@core/lib/listing/types";
 import { useEffect, useState } from "react";
 import styles from "./ListingImagesUploader.module.scss"
 import PlusIcon from "@core/components/common/icons/PlusIcon";
 import ActionMenu from "@core/components/ui/ActionMenu/ActionMenu";
 import { IKebabAction } from '@core/components/ui/ActionMenu/ActionMenu';
+import { UpdateListing } from "../ListingSettingsMenu";
 
 const ListingImagesUploader = ({
-    updateListing,
+    updateListingSettings,
+    listingSettings,
     listing
 }: {
-    updateListing: (updates: Record<string, any>) => void
+    updateListingSettings: UpdateListing
+    listingSettings: IListingUpdate
     listing: IFullListing
 }) => {
 
     const {notificate} = useNotification();
 
-    const [mainImage, setMainImage] = useState<string>('');
     const [images, setImages] = useState<IListingImage[] | null>(null);
 
     useEffect(() => {
         setImages(images);
-        setMainImage(listing.imagePath);
     }, [images, listing])
 
     useEffect(() => {
         if (!listing.id) return;
-        listingService.getImages(listing.id).then(setImages)
+        async function loadListingImages() {
+            const data = await listingService.getImages(listing.id);
+            setImages(data);
+        }
+
+        loadListingImages()
     }, [listing.id]);
 
     // Добавляем новое изображение
@@ -37,12 +43,7 @@ const ListingImagesUploader = ({
             return [...prev, newImage]
         });
     };
-
-    const setListingMainImage = (mainImageUrl: string) => {
-        setMainImage(mainImageUrl)
-        updateListing({ mainImage: mainImageUrl })
-    };
-
+    
     // Удаляем изображение
     const deleteImg = async (img: IListingImage) => {
         try {
@@ -54,7 +55,7 @@ const ListingImagesUploader = ({
         }
                     
         setImages(prev => prev?.filter(item => item.path !== img.path) ?? null);
-        if (mainImage === img.path) setMainImage(""); // если основное изображение удалено
+        if (listingSettings.mainImageId === img.id) updateListingSettings("mainImageId", null); // если основное изображение удалено
     };
 
     // Загрузка нового изображения
@@ -69,7 +70,7 @@ const ListingImagesUploader = ({
             notificate("Изображение загружено", "success")
             const newImage: IListingImage = { id: data.id, listingId: listing.id, path: data.path }
             addListingImageUrl(newImage);
-            if (!mainImage) setMainImage(data.path);
+            if (!listingSettings.mainImageId) updateListingSettings("mainImageId", newImage.id);
         } else {
             notificate("Ошибка загрузки изображения", "error")
         }
@@ -88,9 +89,9 @@ const ListingImagesUploader = ({
             {images?.map((img) => (
                 <Image
                     key={img.id} image={img}
-                    setListingMainImage={setListingMainImage}
+                    setListingMainImage={(imageId) => updateListingSettings("mainImageId", imageId)}
                     deleteImg={deleteImg}
-                    isMain={img.path == mainImage}
+                    isMain={img.id == listingSettings.mainImageId}
                 />
             ))}
             <div className={styles.updloadImage}>
@@ -113,7 +114,7 @@ function Image({
     image, setListingMainImage, deleteImg, isMain
 }: {
     image: IListingImage;
-    setListingMainImage: (mainImageUrl: string) => void;
+    setListingMainImage: (mainImageId: number) => void;
     deleteImg: (img: IListingImage) => void;
     isMain: boolean;
 }) {
@@ -121,7 +122,7 @@ function Image({
     const actions: IKebabAction[] = [
         {
             title: "Сделать избранным",
-            func: () => setListingMainImage(image.path),
+            func: () => setListingMainImage(image.id),
             access: !isMain
         },
         {

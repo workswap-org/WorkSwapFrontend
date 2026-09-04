@@ -4,6 +4,7 @@ import { IEventData, IFullListing } from "@core/lib/listing/types";
 import { useNotification } from "@core/lib/notification/NotificationContext";
 import { eventService } from "@core/lib/listing/eventService"
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
+import { UpdateListing } from "../ListingSettingsMenu";
 
 const recurrencePatterns = [
     "NONE",
@@ -21,10 +22,10 @@ const eventStatuses = [
 ];
 
 const EventSettings = ({
-    updateListing,
+    updateListingSettings,
     listing
 }: {
-    updateListing: (updates: Record<string, any>) => void
+    updateListingSettings: UpdateListing
     listing: IFullListing
 }) => {
 
@@ -199,7 +200,7 @@ const EventSettings = ({
                                 value={accessToken ?? ""}
                                 onChange={(e) => {
                                     setAccessToken(e.target.value);
-                                    updateListing({ accessToken: e.target.value });
+                                    updateListingSettings("accessToken", e.target.value);
                                 }}
                                 step="0.01"
                                 required

@@ -19,10 +19,11 @@
         }
     },
     "sorts": {
-        "date": "Päivämäärän mukaan",
-        "price": "Hinnan mukaan",
-        "rating": "Arvostelun mukaan",
-        "popularity": "Näyttökertojen mukaan"
+        "date": "Päiväys",
+        "price": "Hinta",
+        "rating": "Arvostelu",
+        "views": "Näyttökerrat",
+        "likes": "Tykkäykset"
     },
     "priceTypes": {
         "FIXED": "€",
@@ -109,6 +110,7 @@
         "account": "Oma tili",
         "favorites": "Suosikit",
         "myListings": "Omat ilmoitukset",
+        "myReviews": "Omat arvostelut",
         "messenger": "Viestit",
         "settings": "Käyttäjäasetukset",
         "security": "Turvallisuus",

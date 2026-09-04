@@ -22,7 +22,8 @@
         "date": "Per data",
         "price": "Per prezzo",
         "rating": "Per valutazione",
-        "popularity": "Per visualizzazioni"
+        "views": "Per visualizzazioni",
+        "likes": "По лайкам"
     },
     "priceTypes": {
         "FIXED": "€",

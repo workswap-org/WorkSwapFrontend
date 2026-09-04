@@ -39,7 +39,8 @@
         },
         "contactToAuthor": "Send message",
         "edit": "Edit listing",
-        "manage": "Manage"
+        "manage": "Manage",
+        "save": "Save"
     },
 
     "event": {

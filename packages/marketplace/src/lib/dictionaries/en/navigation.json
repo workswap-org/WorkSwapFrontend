@@ -10,8 +10,9 @@
             "about": "What is this site?",
             "account": "Account",
             "createListing": "Create new listing",
-            "myListings": "My Listings",
-            "messenger": "My Messages"
+            "myListings": "My listings",
+            "myReviews": "My reviews",
+            "messenger": "My messages"
         }
     },
     "accountSidebar": {
@@ -22,6 +23,7 @@
             "my-listings": "My Listings",
             "favorites": "Favorites",
             "messenger": "Messages",
+            "reviews": "Reviews",
             "settings": "Settings",
             "security": "Security",
             "editProfile": "Edit Profile"

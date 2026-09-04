@@ -3,15 +3,24 @@ import { useNotification } from '@core/lib/notification/NotificationContext';
 import { listingService } from '@core/lib/listing/services';
 import { IFullListing } from '@core/lib/listing/types';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-const ListingEditActions = ({listing}: {listing: IFullListing}) => {
+const ListingEditActions = ({listing, saveListing}: {listing: IFullListing, saveListing: () => void}) => {
 
+    const router = useRouter();
     const { dict } = useI18n();
     const { notificate } = useNotification();
 
     return (
         <>
+            <button 
+                onClick={saveListing}
+                type="button" 
+                className="btn btn-success"
+            >
+                {dict.buttons.listing.save}
+            </button>
+
             <button 
                 onClick={() => {
                     const confirmed = window.confirm(dict.messages.confirms.deleteListing);
@@ -19,13 +28,13 @@ const ListingEditActions = ({listing}: {listing: IFullListing}) => {
                         listingService.deleteListing(listing.id)
                             .then(() => notificate(dict.messages.notification.success.listingDelete, "success"))
                             .catch(() => notificate(dict.messages.notification.error.listingDelete, "error"));
-                        redirect(`/account/my-listings`);
+                        router.push(`/account/my-listings`);
                     }
                 }}
                 type="button" 
                 className="btn btn-outline-primary"
             >
-                {dict.buttons.listing[listing.temporary ? "cleanDraft" : "delete"]}
+                {dict.buttons.listing.delete}
             </button>
             
             <Link
@@ -41,7 +50,7 @@ const ListingEditActions = ({listing}: {listing: IFullListing}) => {
                     onClick={() => listingService.publish(listing.id)
                         .then(() => {
                             notificate(dict.messages.notification.success.publish, "success");
-                            redirect(`/account/my-listings`)
+                            router.push(`/account/my-listings`)
                         })
                     } 
                     type="button" 
