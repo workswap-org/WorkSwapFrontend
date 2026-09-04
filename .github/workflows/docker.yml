@@ -32,8 +32,8 @@ jobs:
             - name: Install dependencies
               run: yarn install --immutable
 
-            - name: Build production
-              run: yarn workspace workswap-production build
+            - name: Build marketplace
+              run: yarn workspace workswap-marketplace build
 
             - name: Build admin
               run: yarn workspace workswap-admin build
@@ -45,11 +45,11 @@ jobs:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Build and push production
+            - name: Build and push marketplace
               uses: docker/build-push-action@v6
               with:
-                  context: ./packages/production
-                  file: ./packages/production/Dockerfile
+                  context: ./packages/marketplace
+                  file: ./packages/marketplace/Dockerfile
                   push: true
                   tags: |
                       ghcr.io/${{ github.repository_owner }}/workswap-frontend:latest

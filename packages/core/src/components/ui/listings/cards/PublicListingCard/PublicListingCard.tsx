@@ -43,7 +43,17 @@ const PublicListingCard = ({listing}: {listing: IShortListing}) => {
                 <img
                     src={listing.imagePath || "/images/placeholders/default-listing.svg"}
                     alt="Изображение объявления"
-                    onError={(e) => { e.currentTarget.src = "/images/placeholders/default-listing.svg"; }}
+                    onError={(e) => {
+                        const img = e.currentTarget;
+
+                        if (img.dataset.fallback === "true") {
+                            img.style.display = "none";
+                            return;
+                        }
+
+                        img.dataset.fallback = "true";
+                        img.src = "/images/placeholders/default-listing.svg";
+                    }}
                 />
                 {isAuthenticated && (
                     <div className={styles.actions}>

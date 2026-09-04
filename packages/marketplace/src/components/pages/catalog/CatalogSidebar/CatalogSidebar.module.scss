@@ -4,10 +4,15 @@ $sidebar-width: var(--sidebar-width);
 $radius: var(--radius);
 
 .sidebar {
-	@include flex-column;
+	display: flex;
+    flex-direction: column;
 	flex: 0 0 $sidebar-width;
 	padding: 1rem 0;
 	gap: 1.5rem;
+
+    height: fit-content;
+    position: sticky;
+    top: 0;
 
 	@include laptop-lg {
 		position: fixed;

@@ -1,11 +1,13 @@
 import { useCatalogFilters } from "@core/lib/common/contexts/CatalogFiltersContext";
-import { useState, useRef, useMemo, ReactNode } from "react";
+import { useState, useRef, useMemo, ReactNode, useEffect } from "react";
 import { ICategory } from "@core/lib/category/types"
 import { ListingType } from "@core/lib/listing/constants/listingTypes";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 import styles from "./CatalogCategories.module.scss"
 import ListIcon from "@core/components/common/icons/ListIcon"
 import { categoryService } from "@core/lib/category/services"
+import { createPortal } from "react-dom";
+import clsx from "clsx";
 
 const CatalogCategories = () => {
     
@@ -15,6 +17,11 @@ const CatalogCategories = () => {
     const [subcategories, setSubcategories] = useState<ICategory[] | null>(null);
     const { categories, listingType, setListingType, rootCategories } = categoryService.useCategories();
     const { dict } = useI18n();
+    const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+    
+    useEffect(() => {
+        setModalRoot(document.getElementById("modal-root"));
+    }, []);
 
     const timeoutRef = useRef<number>(0);
 
@@ -49,15 +56,8 @@ const CatalogCategories = () => {
         }
     }
 
-    return (
-        <>
-            <button 
-                className={`btn btn-primary ${styles.categoriesBtn}`} 
-                onClick={() => setCategoriesMenu(prev => !prev)}
-            >
-                <ListIcon />
-                <span className="normal-only">{dict.categories.category['all-categories']}</span>
-            </button>
+    function renderCategoriesWindow() {
+        return (
             <div
                 className={`${styles.menu} ${categoriesMenu ? styles.active : ""}`}
                 onMouseEnter={handleMouseEnter}
@@ -111,6 +111,20 @@ const CatalogCategories = () => {
                     </span>
                 )}
             </div>
+        )
+    }
+
+    return (
+        <>
+            <button 
+                className={styles.categoriesBtn} 
+                onClick={() => setCategoriesMenu(prev => !prev)}
+            >
+                <ListIcon />
+                {/*<span className="normal-only">{dict.categories.category['all-categories']}</span>*/}
+            </button>
+
+            {modalRoot && createPortal(renderCategoriesWindow(), modalRoot)}
         </>
     );
 };
@@ -118,11 +132,11 @@ const CatalogCategories = () => {
 const CategoryButton = ({ active, onClick, children }: {active: boolean, onClick: () => void, children: ReactNode}) => (
     <button
         type="button"
-        className={`${styles.category} hover ${active ? styles.active : ""}`}
+        className={clsx(styles.category, "hover", active ? styles.active : "")}
         onClick={onClick}
     >
         {children}
-        <div className={`${styles.indicator} ${active ? styles.active : ""}`}>
+        <div className={clsx(styles.indicator, active ? styles.active : "")}>
             <i className="fa-solid fa-angle-right"></i>
         </div>
     </button>
@@ -131,7 +145,7 @@ const CategoryButton = ({ active, onClick, children }: {active: boolean, onClick
 const SubCategoryButton = ({ active, onClick, children }: {active: boolean, onClick: () => void, children: ReactNode}) => (
     <button
         type="button"
-        className={`${styles.subCategory} hover ${active ? styles.active : ""}`}
+        className={clsx(styles.subCategory, "hover", active ? styles.active : "")}
         onClick={onClick}
     >
         {children}

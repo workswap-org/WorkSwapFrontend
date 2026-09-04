@@ -3,6 +3,7 @@ import { useCatalogFilters } from "@core/lib/common/contexts/CatalogFiltersConte
 import { useI18n } from "@core/lib/common/contexts/I18nContext"
 import SearchIcon from "@core/components/common/icons/SearchIcon"
 import styles from "./CatalogHeader.module.scss"
+import clsx from "clsx";
 
 const CatalogHeader = () => {
 
@@ -13,8 +14,6 @@ const CatalogHeader = () => {
         <div className={styles.header}>
             <div className={styles.content}>
 
-                <CatalogCategories />
-
                 <div className={styles.search}>
                     <input 
                         type="text" 
@@ -24,10 +23,8 @@ const CatalogHeader = () => {
                         name="searchQuery"
                         placeholder={dict.common.placeholders.search}
                     />
-                    
-                    <input type="hidden" name="category"/>
-                    <input type="hidden" name="sortBy"/>
-                    <button className={`btn ${styles.btnSearch}`} type="button">
+                    <CatalogCategories />
+                    <button className={clsx("btn", styles.btnSearch)} type="button">
                         <SearchIcon />
                     </button>
                 </div>

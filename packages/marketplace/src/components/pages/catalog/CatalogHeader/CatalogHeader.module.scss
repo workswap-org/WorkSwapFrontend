@@ -38,18 +38,18 @@ $radius: var(--radius);
     flex-direction: row;
     width: 100%;
     max-width: 500px;
+    border: 3px solid var(--primary);
+    border-radius: var(--radius);
+    overflow: hidden;
 
     @include tablet {
         width: fit-content;
     }
 
     .searchInput {
-        border-radius: $radius 0 0 $radius;
-        border-color: var(--primary);
         background-color: var(--background-l1);
         color: var(--text-color);
-        border-style: solid;
-        border-width: 3px;
+        border: none;
         width: 100%;
         padding: 0.7rem 0.6rem;
         outline: none;
@@ -65,8 +65,7 @@ $radius: var(--radius);
     }
 
     .btnSearch {
-        border-radius: 0 $radius $radius 0;
-        border-width: 0;
+        border-radius: 0;
         box-shadow: none;
         background-color: var(--primary);
         color: var(--background-l1);

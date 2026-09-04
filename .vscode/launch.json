@@ -5,7 +5,7 @@
             "name": "Productin",
             "type": "node-terminal",
             "request": "launch",
-            "cwd": "${workspaceFolder}/packages/production",
+            "cwd": "${workspaceFolder}/packages/marketplace",
             "command": "yarn dev"
         },
         {

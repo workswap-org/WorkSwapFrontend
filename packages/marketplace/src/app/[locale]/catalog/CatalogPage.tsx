@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { useI18n } from "@core/lib/common/contexts/I18nContext";
 
 import { listingPublicTypes } from "@core/lib/listing/constants/listingTypes"
@@ -8,12 +8,11 @@ import Pagination from "@core/components/ui/Pagination/Pagination";
 import styles from "./CatalogPage.module.scss"
 import CatalogHeader from "@/components/pages/catalog/CatalogHeader/CatalogHeader";
 import CatalogSidebar from "@/components/pages/catalog/CatalogSidebar/CatalogSidebar";
-import CatalogContent from "@/components/pages/catalog/CatalogContent/CatalogContent";
 import clsx from "clsx";
 import Checkbox from "@core/components/common/checkbox/Checkbox/Checkbox"
 import { useCatalogFilters } from "@core/lib/common/contexts/CatalogFiltersContext";
 
-export default function CatalogPage() {
+export default function CatalogPage({children}: {children: ReactNode}) {
 
     const { dict } = useI18n();
 
@@ -34,40 +33,42 @@ export default function CatalogPage() {
     return(
         <>
             <CatalogHeader />
-            <div className={styles.layout}>
-                <CatalogSidebar
-                    sidebarOpened={sidebarOpened}
-                    toggleSidebar={toggleSidebar}
-                />
-                <main className={styles.main} ref={contentRef}>
-                    <div className={styles.typesList}>
-                        {listingPublicTypes.map((type) => (
-                            <button
-                                key={type.key}
-                                type="button"
-                                className={clsx(styles.type, filters.type === type.key ? styles.active : "")}
-                                onClick={() => updateFilter("type", type.key != filters.type ? type.key : null)}
-                            >
-                                {dict.categories.listingType[type.key]}
-                            </button>
-                        ))}
-                    </div>
-                    
-                    <Checkbox
-                        id="translationsCheckbox"
-                        onChange={(e) => updateFilter("translationsFilter", e.target.checked)}
-                        checked={!!filters.translationsFilter}
-                        className="media-only-block"
-                    >{dict.common.catalog.sidebar.translationsFilter}</Checkbox>
-
-                    <CatalogContent />
-
-                    <Pagination 
-                        page={filters.page || 0} 
-                        totalPages={totalPages} 
-                        onChange={(page) => updateFilter("page", page)}
+            <div className={styles.wrapper}>
+                <div className={styles.layout}>
+                    <CatalogSidebar
+                        sidebarOpened={sidebarOpened}
+                        toggleSidebar={toggleSidebar}
                     />
-                </main>
+                    <main className={styles.main} ref={contentRef}>
+                        <div className={styles.typesList}>
+                            {listingPublicTypes.map((type) => (
+                                <button
+                                    key={type.key}
+                                    type="button"
+                                    className={clsx(styles.type, filters.type === type.key ? styles.active : "")}
+                                    onClick={() => updateFilter("type", type.key != filters.type ? type.key : null)}
+                                >
+                                    {dict.categories.listingType[type.key]}
+                                </button>
+                            ))}
+                        </div>
+                        
+                        <Checkbox
+                            id="translationsCheckbox"
+                            onChange={(e) => updateFilter("translationsFilter", e.target.checked)}
+                            checked={!!filters.translationsFilter}
+                            className="media-only-block"
+                        >{dict.common.catalog.sidebar.translationsFilter}</Checkbox>
+
+                        {children}
+
+                        <Pagination 
+                            page={filters.page || 0} 
+                            totalPages={totalPages} 
+                            onChange={(page) => updateFilter("page", page)}
+                        />
+                    </main>
+                </div>
             </div>
         </>
     );

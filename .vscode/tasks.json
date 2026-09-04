@@ -4,7 +4,7 @@
         {
             "label": "Run Frontend",
             "type": "shell",
-            "command": "cd packages/production && yarn dev",
+            "command": "cd packages/marketplace && yarn dev",
             "problemMatcher": [],
             "presentation": {
                 "reveal": "always",

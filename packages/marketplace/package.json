@@ -1,13 +1,13 @@
 {
-  "name": "workswap-production",
+  "name": "workswap-marketplace",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "next dev -p 30000",
     "build": "next build",
-    "build:standalone": "next build && cp -r .next/static .next/standalone/packages/production/.next/",
-    "preview": "next start -p 30000",
+    "build:standalone": "next build && cp -r .next/static .next/standalone/packages/marketplace/.next/",
+    "preview": "node  .next/standalone/packages/marketplace/server.js -p 30000",
     "start": "next start"
   },
   "dependencies": {
