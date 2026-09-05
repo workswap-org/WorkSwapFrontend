@@ -19,7 +19,7 @@ const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author:
 
     if (!author) return null;
 
-    const isOwner = !!(user?.openId == author.openId);
+    const isOwner = !!(user?.sub == author.sub);
 
     return (
         <aside className={styles.sidebar}>
@@ -41,7 +41,7 @@ const UserInfoSidebar = ({listingId, author}: {listingId: number | null, author:
                                 {isAuthenticated ? (
                                     <>  
                                         {!isOwner && (
-                                            <ChatLinkMessage listingId={listingId} interlocutorId={author.id}>
+                                            <ChatLinkMessage listingId={listingId} interlocutorSub={author.sub}>
                                                 {dict.buttons.listing.contactToAuthor}
                                             </ChatLinkMessage>
                                         )}

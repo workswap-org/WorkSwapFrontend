@@ -38,7 +38,7 @@ const ContactModal = () => {
                 onClose={toggleModal}
                 title={dict.buttons.menu.contactToSupport}
             >
-                <ChatLinkMessage listingId={null} interlocutorId={1}>
+                <ChatLinkMessage listingId={null} interlocutorSub={"0JPvHQ8Ea4RrnFgUHjg5"}>
                     {dict.buttons.listing.contactToAuthor}
                 </ChatLinkMessage>
                 

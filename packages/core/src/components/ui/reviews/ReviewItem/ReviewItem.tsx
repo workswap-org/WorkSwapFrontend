@@ -15,7 +15,7 @@ const ReviewItem = ({review}: {review: IReview}) => {
 
     useEffect(() => {
         async function loadAuthorInfo() {
-            const user = await userService.getById(review.authorId);
+            const user = await userService.getBySub(review.authorSub);
             setAuthor(user)
         }
         

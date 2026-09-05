@@ -25,7 +25,7 @@ const ChatWindow = ({title, className, isMobileStatic}: {title?: string, classNa
     const { messages, setChatListingVisible, currentChatId, setCurrentChatId, currentChat } = useChats();
 
     const chatInterlocutor = useMemo<IShortUser | null>(
-        () => currentChat?.interlocutors?.find(i => i.id != user?.id) ?? null, [currentChat]);
+        () => currentChat?.interlocutors?.find(i => i.sub != user?.sub) ?? null, [currentChat]);
 
     const messagesContainer = useRef<HTMLDivElement  | null>(null);
     const [isMobile, setIsMobile] = useState(false);
@@ -89,7 +89,7 @@ const ChatWindow = ({title, className, isMobileStatic}: {title?: string, classNa
                                 <h4 id="chatTitle">{title ?? chatInterlocutor?.name}</h4>
                             </div>
                             <div className={styles.mobileActions}>
-                                {chatInterlocutor?.id && (
+                                {chatInterlocutor?.sub && (
                                     <button 
                                         className={`${styles.action} btn btn-primary btn-sm`}
                                         onClick={() => setChatListingVisible(prev => !prev)}
@@ -98,7 +98,7 @@ const ChatWindow = ({title, className, isMobileStatic}: {title?: string, classNa
                                     </button>
                                 )}
                                 <Link
-                                    href={`/profile/${chatInterlocutor?.openId}`} 
+                                    href={`/profile/${chatInterlocutor?.sub}`} 
                                     className={`${styles.action} btn btn-outline-primary btn-sm`}
                                 >
                                     <UserIcon />
@@ -111,9 +111,9 @@ const ChatWindow = ({title, className, isMobileStatic}: {title?: string, classNa
                                         onClick={() => setChatListingVisible(prev => !prev)}
                                     >{dict.buttons.messenger.listing}</button>
                                 )}
-                                {chatInterlocutor?.openId && (
+                                {chatInterlocutor?.sub && (
                                     <Link 
-                                        href={`/profile/${chatInterlocutor?.openId}`} 
+                                        href={`/profile/${chatInterlocutor?.sub}`} 
                                         className="btn btn-outline-primary btn-sm"
                                     >
                                         {dict.buttons.messenger.profile}

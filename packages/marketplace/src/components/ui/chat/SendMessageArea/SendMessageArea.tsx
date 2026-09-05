@@ -36,7 +36,7 @@ const SendMessageArea = () => {
         const newMsg: IChatMessage = {
             id: Date.now(),
             text: trimmed,
-            senderId: user.id,
+            senderSub: user.sub,
             chatId: currentChatId,
             sentAt: new Date().toISOString(),
             read: false
@@ -46,7 +46,7 @@ const SendMessageArea = () => {
         
         const msg = {
             text: trimmed,
-            senderId: user.id,
+            senderSub: user.sub,
             chatId: currentChatId
         };
 

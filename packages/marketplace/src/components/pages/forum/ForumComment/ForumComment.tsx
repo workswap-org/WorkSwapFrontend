@@ -20,7 +20,7 @@ const ForumComment = ({
             title: "Изменить",
             func: () => null,
             icon: "pen",
-            access: user?.openId == comment?.author.openId
+            access: user?.sub == comment?.author.sub
         },
         {
             title: "Удалить",
@@ -45,7 +45,7 @@ const ForumComment = ({
                 }
             },
             icon: "trash",
-            access: user?.openId == comment?.author.openId
+            access: user?.sub == comment?.author.sub
         }
     ];
 

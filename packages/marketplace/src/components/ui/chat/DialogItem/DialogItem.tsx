@@ -24,7 +24,7 @@ const DialogItem = ({ chat }: DialogItemProps) => {
     const { currentChatId, setCurrentChatId, unreadMessages } = useChats();
     const [loading, setLoading] = useState(false);
 
-    const interlocutor = chat?.interlocutors?.find(i => i.id != user?.id) ?? null;
+    const interlocutor = chat?.interlocutors?.find(i => i.sub != user?.sub) ?? null;
 
     const listing = chat?.listing;
 

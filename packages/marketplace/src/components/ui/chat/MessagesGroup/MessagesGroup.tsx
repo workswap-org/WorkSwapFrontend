@@ -9,8 +9,8 @@ const MessagesGroup = ({group}: {group: GroupedMessages}) => {
 
     const { user } = useAuth();
     const { currentChat } = useChats();
-    const isOwn = (group.senderId == user?.id)
-    const author = isOwn ? user : currentChat?.interlocutors?.find((i) => i.id === group.senderId) ?? null;
+    const isOwn = (group.senderSub == user?.sub)
+    const author = isOwn ? user : currentChat?.interlocutors?.find((i) => i.sub === group.senderSub) ?? null;
 
     return (
         <div className={`${styles.messagesGroup} ${isOwn ? styles.out : styles.in}`}>

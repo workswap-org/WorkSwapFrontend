@@ -12,10 +12,10 @@ import StarIcon from "@core/components/common/icons/StarIcon";
 interface ReviewFormProps {
     setReviews: Dispatch<SetStateAction<IReview[] | null>>;
     listingId: number | null;
-    profileId: number;
+    profileSub: string;
 }
 
-const ReviewForm = ({setReviews, listingId, profileId}: ReviewFormProps) => {
+const ReviewForm = ({setReviews, listingId, profileSub}: ReviewFormProps) => {
 
     const { dict } = useI18n();
 
@@ -44,9 +44,9 @@ const ReviewForm = ({setReviews, listingId, profileId}: ReviewFormProps) => {
             id: 0,
             text,
             rating,
-            authorId: user.id,
+            authorSub: user.sub,
             listingId,
-            profileId,
+            profileSub,
             createdAt: new Date().toISOString()
         };
         
@@ -66,7 +66,7 @@ const ReviewForm = ({setReviews, listingId, profileId}: ReviewFormProps) => {
 
     return (
         <>
-            {(isAuthenticated && profileId && profileId != user?.id) && (
+            {(isAuthenticated && profileSub && profileSub != user?.sub) && (
                 <section className={styles.form}>
                     <h3>{dict.common.reviews.item.label}</h3>
                     <div className={styles.formRow}>

@@ -19,7 +19,7 @@ export function useChatSubscription() {
     useEffect(() => {
         requestedRef.current.clear();
         loadedRef.current.clear();
-    }, [user?.id]);
+    }, [user?.sub]);
 
     // общая подписка (новые сообщения + unread)
     useEffect(() => {

@@ -50,7 +50,7 @@ export const MessengerProvider = ({ children }: { children?: React.ReactNode }) 
 
     const unreadMessages = useMemo<IChatMessage[] | null>(() => {
         if (!allMessages) return null;
-        return allMessages.filter(m => m.read === false && m.senderId != user?.id);
+        return allMessages.filter(m => m.read === false && m.senderSub != user?.sub);
     }, [allMessages]);
 
     useEffect(() => {

@@ -41,7 +41,7 @@ export default function ItemViewLayout({
                 </div>
             </div>
 
-            <ReviewsSection listingId={listingId ?? null} profileId={author?.id ?? null} />
+            <ReviewsSection listingId={listingId ?? null} profileSub={author?.sub ?? null} />
         </main>
     )
 }

@@ -9,12 +9,12 @@ import LoadingSpinnerIcon from "@core/components/common/icons/LoadingSpinnerIcon
 
 interface ChatLinkMessageProps {
     listingId: number | null;
-    interlocutorId: number;
+    interlocutorSub: string;
     className?: string;
     children?: ReactNode;
 }
 
-const ChatLinkMessage = ({listingId, interlocutorId, className, children}: ChatLinkMessageProps) => {
+const ChatLinkMessage = ({listingId, interlocutorSub, className, children}: ChatLinkMessageProps) => {
 
     const { dict } = useI18n();
     const router = useRouter();
@@ -26,7 +26,7 @@ const ChatLinkMessage = ({listingId, interlocutorId, className, children}: ChatL
     const [loading, setLoading] = useState<boolean>(false)
 
     const handleClick = async () => {
-        if (!interlocutorId || !user) return;
+        if (!interlocutorSub || !user) return;
 
         setLoading(true);
 
@@ -35,7 +35,7 @@ const ChatLinkMessage = ({listingId, interlocutorId, className, children}: ChatL
         try {
             const data = listingId
                 ? await chatService.getListingDiscussion(listingId)
-                : await chatService.getPrivateChat(interlocutorId);
+                : await chatService.getPrivateChat(interlocutorSub);
 
             chatId = Number(data);
 

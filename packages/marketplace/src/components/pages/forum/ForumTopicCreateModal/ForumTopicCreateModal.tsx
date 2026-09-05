@@ -28,7 +28,7 @@ const ForumTopicCreateModal = ({tags}: {tags: ForumTag[] | null}) => {
             content,
             tagName: tag?.name ?? "",
             language: "",
-            author: { id: 0, openId: "", name: ""},
+            author: { id: 0, sub: "", name: ""},
             posts: [],
             postsCount: 0
         }

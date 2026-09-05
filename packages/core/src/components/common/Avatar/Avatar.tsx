@@ -13,10 +13,10 @@ interface AvatarProps {
 
 const Avatar = ({ user, size = 40, className = "", link = true}: AvatarProps) => {
 
-    const interactive = !!(link && user?.openId)
+    const interactive = !!(link && user?.sub)
 
     const handleClick = () => {
-        if (interactive) redirect(`/profile/${user?.openId}`);
+        if (interactive) redirect(`/profile/${user?.sub}`);
     };
 
     return (

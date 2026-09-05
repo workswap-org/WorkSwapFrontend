@@ -8,16 +8,16 @@ import { reviewsService } from "@core/lib/review/reviewsService";
 
 interface ReviewsSectionProps {
     listingId: number | null;
-    profileId: number | null;
+    profileSub: string | null;
 }
 
-const ReviewsSection = ({listingId, profileId}: ReviewsSectionProps) => {
+const ReviewsSection = ({listingId, profileSub}: ReviewsSectionProps) => {
 
     const [reviews, setReviews] = useState<IReview[] | null>(null);
 
     useEffect(() => {
-        if (!profileId) return;
-        const params: {profileId: number, listingId: number | undefined} = {profileId: profileId, listingId: undefined};
+        if (!profileSub) return;
+        const params: {profileSub: string, listingId: number | undefined} = {profileSub: profileSub, listingId: undefined};
         console.log("listingId: ", listingId)
         if (listingId) params.listingId = listingId;
 
@@ -28,13 +28,13 @@ const ReviewsSection = ({listingId, profileId}: ReviewsSectionProps) => {
         }
 
         loadReviews();
-    }, [listingId, profileId])
+    }, [listingId, profileSub])
 
-    if (!profileId) return;
+    if (!profileSub) return;
 
     return (
         <>
-            <ReviewForm setReviews={setReviews} listingId={listingId} profileId={profileId} />
+            <ReviewForm setReviews={setReviews} listingId={listingId} profileSub={profileSub} />
             {reviews && reviews.length > 0 && (
                 <ReviewsList reviews={reviews} />
             )}

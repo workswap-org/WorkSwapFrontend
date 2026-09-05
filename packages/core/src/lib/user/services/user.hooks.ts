@@ -17,7 +17,7 @@ export function useCurrentUser() {
     const isAdmin = useMemo<boolean>(() => user?.roles?.includes("ADMIN") ?? false, [user]);
     const shortUser = useMemo<IShortUser | null>(() => {
         if (!isAuthenticated || !user) return null;
-        return { id: user.id, openId: user.openId, name: user.name, avatarUrl: user.avatarUrl ?? "" }
+        return { sub: user.sub, name: user.name, avatarUrl: user.avatarUrl ?? "" }
     }, [isAuthenticated, user])
 
     useEffect(() => {

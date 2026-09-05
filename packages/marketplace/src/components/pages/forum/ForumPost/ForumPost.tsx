@@ -26,10 +26,9 @@ const ForumPost = ({
 
     const createComment = async(postOpenId: string) => {
         const author: IShortUser = {
-            id: user?.id ?? 0,
             name: user?.name ?? "",
             avatarUrl: user?.avatarUrl ?? "",
-            openId: user?.openId ?? ""
+            sub: user?.sub ?? ""
         }
         const newComment: IForumComment = {
             id: 0,
@@ -70,7 +69,7 @@ const ForumPost = ({
             title: "Изменить",
             func: () => null,
             icon: "pen",
-            access: user?.openId == post.author.openId
+            access: user?.sub == post.author.sub
         },
         {
             title: "Удалить",
@@ -92,7 +91,7 @@ const ForumPost = ({
                 }
             },
             icon: "trash",
-            access: user?.openId == post.author.openId
+            access: user?.sub == post.author.sub
         }
     ];
 

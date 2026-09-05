@@ -34,7 +34,7 @@ const EventPage = () => {
 
     const [listingPage, setListingPage] = useState<IEventPageRequest | null>(null);
     const [author, setAuthor] = useState<IShortUserProfile | null>(null);
-    const isOwner = !!(user?.openId == author?.openId);
+    const isOwner = !!(user?.sub == author?.sub);
     const [subscribed, setSubscribed] = useState<boolean>(false);
     const [participantsCount, setParticipantsCount] = useState<number>(0)
     const [participants, setParticipants] = useState<IShortUser[] | null>(null)

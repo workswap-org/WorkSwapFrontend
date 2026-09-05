@@ -28,10 +28,9 @@ const ForumTopicPage = () => {
     const createPost = async(content: string) => {
         setSending(true);
         const author: IShortUser = {
-            id: user?.id ?? 0,
             name: user?.name ?? "",
             avatarUrl: user?.avatarUrl ?? "",
-            openId: user?.openId ?? ""
+            sub: user?.sub ?? ""
         }
         const newPost: IForumPost = {
             topicOpenId: topicOpenId ?? "",
@@ -77,7 +76,7 @@ const ForumTopicPage = () => {
     }, [topicOpenId])
 
     const actions = [];
-    if (user?.openId == topic?.author.openId) {
+    if (user?.sub == topic?.author.sub) {
         actions.push({
             title: "Изменить",
             func: () => null,

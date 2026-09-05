@@ -11,16 +11,16 @@ export default function useMessengerState() {
         [chats, currentChatId]);
 
     const prepareMessages = useCallback((rawMessages: IChatMessage[]) => {
-        const grouped: { senderId: number; messages: IChatMessage[], id: number}[] = [];
+        const grouped: GroupedMessages[] = [];
 
         for (const msg of rawMessages) {
             const last = grouped[grouped.length - 1];
 
-            if (last && last.senderId === msg.senderId) {
+            if (last && last.senderSub === msg.senderSub) {
                 last.messages.push(msg);
             } else {
                 grouped.push({
-                    senderId: msg.senderId,
+                    senderSub: msg.senderSub,
                     messages: [msg],
                     id: msg.id
                 });

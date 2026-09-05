@@ -39,7 +39,7 @@ const ListingPageLayout = ({
     const { listing } = listingPage;
 
     const { user } = useAuth();
-    const isOwner = !!(user?.openId == author?.openId);
+    const isOwner = !!(user?.sub == author?.sub);
 
     const { isFavorite, toggleFavorite } = listingService.useFavorite(listing);
     
