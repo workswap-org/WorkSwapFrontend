@@ -9,3 +9,8 @@ export interface Page<T> {
         last: boolean;
     }
 }
+
+export interface IPageRequest {
+    page: number;
+    size: number;
+}

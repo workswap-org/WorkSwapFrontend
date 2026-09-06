@@ -2,34 +2,18 @@
 
 import Avatar from "@core/components/common/Avatar/Avatar";
 import FormattedDate from "@core/components/common/date/FormattedDate";
-import { userService } from "@core/lib/user/services";
 import { IReview } from "@core/lib/review/types";
-import { IShortUser } from "@core/lib/user/types";
-import { useEffect, useState } from "react";
 import styles from "./ReviewItem.module.scss"
 import StarIcon from "@core/components/common/icons/StarIcon";
 
 const ReviewItem = ({review}: {review: IReview}) => {
-
-    const [author, setAuthor] = useState<IShortUser | null>(null)
-
-    useEffect(() => {
-        async function loadAuthorInfo() {
-            const user = await userService.getBySub(review.authorSub);
-            setAuthor(user)
-        }
-        
-        loadAuthorInfo()
-    }, [review])
-
-    if (!author) return null;
     
     return (
         <article className={styles.review}>
             <div className={styles.header}>
-                <Avatar user={author} size={50} />
+                <Avatar user={review.author} size={50} />
                 <div className={styles.reviewer}>
-                    <h4>{author.name}</h4>
+                    <h4>{review.author.name}</h4>
                     <div className={styles.meta}>
                         <span className={styles.rating}>
                             {[1, 2, 3, 4, 5].map(i => (
