@@ -1,6 +1,6 @@
 import { ICatalogFilters } from "@core/lib/common/types/catalog"
 import { apiFetch, apiFetchJson, apiFetchText } from "@core/lib/common/utils/apiClient"
-import { IListingTranslation } from "@core/lib/listing/types";
+import { IListingTranslation, IListingUpdate } from "@core/lib/listing/types";
 
 export const getListingAccessToken = (listingId: number) => apiFetchJson(`/listing/${listingId}/token`, {method: "GET"});
 
@@ -27,12 +27,12 @@ export const getListingsPage = (page: number, amount: number, sortParam: string)
 export const getRecentListings = (amount: number) => apiFetchJson(`/listing/recent`, {}, {amount});
 
 export const deleteListing = (listingId: number) => apiFetch(`/listing/${listingId}`, {method: 'DELETE'});
-export const create = (type: string) => apiFetchText(`/listing`, {method: "POST"}, {type});
-export const publish = (listingId: number) => apiFetch(`/listing/${listingId}/publish`, {method: 'PATCH'});
+export const create = (type: string) => apiFetchText(`/listing`, {method: "PUT"}, {type});
+export const publish = (listingId: number) => apiFetch(`/listing/${listingId}/publish`, {method: 'POST'});
 
-export const modify = (listingId: number, updates: Record<string, any>) => 
-        apiFetch(`/listing/${listingId}/modify`, {
-            method: "PATCH",
+export const update = (listingId: number, updates: IListingUpdate) => 
+        apiFetch(`/listing/${listingId}/update`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },

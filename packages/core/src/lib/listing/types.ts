@@ -23,6 +23,8 @@ export interface IFullListing extends IShortListing {
     category: string;
     categoryId: number | null;
     locationId: number | null;
+    mainImageId: number | null;
+    accessToken: string;
     views: number;
     active: boolean;
     testmode: boolean;
@@ -58,6 +60,17 @@ export interface IListingTranslation {
         title: string
         description: string
     }
+}
+
+export interface IListingUpdate {
+    price: number;
+    priceType: string;
+    locationId: number | null;
+    categoryId: number | null;
+    mainImageId: number | null;
+    accessToken: string;
+    active: boolean;
+    testMode: boolean;
 }
 
 export interface IListingImage {

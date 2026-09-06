@@ -5,5 +5,5 @@ export interface ICatalogFilters {
     translationsFilter?: boolean;
     sortBy?: string;
     type?: string;
-    page?: number;
+    page: number;
 }

@@ -22,7 +22,8 @@
         "date": "Päivämäärän mukaan",
         "price": "Hinnan mukaan",
         "rating": "Arvostelun mukaan",
-        "popularity": "Näyttökertojen mukaan"
+        "views": "Näyttökertainen mukaan",
+        "likes": "By likes"
     },
     "priceTypes": {
         "FIXED": "€",
@@ -109,6 +110,7 @@
         "account": "Oma tili",
         "favorites": "Suosikit",
         "myListings": "Omat ilmoitukset",
+        "myReviews": "Omat arvostelut",
         "messenger": "Viestit",
         "settings": "Käyttäjäasetukset",
         "security": "Turvallisuus",

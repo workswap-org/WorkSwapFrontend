@@ -7,14 +7,14 @@ export interface IChatMessage {
     id: number;
     text: string;
     sentAt: string | null;
-    senderId: number;
+    senderSub: string;
     chatId: number;
     read: boolean;
 }
 
 export interface GroupedMessages {
     id: number;
-    senderId: number;
+    senderSub: string;
     messages: IChatMessage[];
 }
 

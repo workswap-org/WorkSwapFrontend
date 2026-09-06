@@ -35,7 +35,7 @@ const UserControlPage = () => {
             {user && (
                 <ul className={styles.userInfo}>
                     <li>ID: {user.id}</li>
-                    <li>OpenID: {user.openId}</li>
+                    <li>OpenID: {user.sub}</li>
                     <li>Тип пользователя: {user.type}</li>
                     <li>Имя: {user.name}</li>
                     <li>Телефон: {user.phone ?? '—'}</li>
@@ -50,9 +50,7 @@ const UserControlPage = () => {
                     <li>Тип аватара: {user.avatarType}</li>
                     <li>Рейтинг: {user.rating ?? '—'}</li>
                     <li>Telegram подключён: {user.telegramConnected ? 'Да' : 'Нет'}</li>
-                    <li>Пользователь принял условия: {user.termsAccepted ? 'Да' : 'Нет'}</li>
                     <li>Дата создания: {user.createdAt}</li>
-                    <li>Дата принятия условий: {user.termsAcceptanceDate}</li>
                     <li>Аватар Google: {user.googleAvatar ?? '—'}</li>
                     <li>Загруженный аватар: {user.uploadedAvatar ?? '—'}</li>
                     <li>Телефон виден: {user.phoneVisible ? 'Да' : 'Нет'}</li>

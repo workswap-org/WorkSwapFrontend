@@ -1,3 +1,5 @@
+"use client"
+
 import { useCallback, useEffect, useState } from "react";
 import { listingService } from ".";
 import { IShortListing } from "@core/lib/listing/types";

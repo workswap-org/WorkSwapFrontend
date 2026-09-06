@@ -1,7 +1,7 @@
 import { apiFetchJson, apiFetch, apiFetchText } from '@core/lib/common/utils/apiClient';
 
 export const getCurrent = () => apiFetchJson(`/user`);
-export const getById = (userId: number) => apiFetchJson(`/user/${userId}`);
+export const getBySub = (userSub: string) => apiFetchJson(`/user/${userSub}`);
 export const getUserProfile = (userOpenId: string) => apiFetchJson(`/user/${userOpenId}/profile`);
 export const connectUserTelegram = () => apiFetchText('/user/telegram', {method: 'POST'});
 export const checkTelegramConnected = () => apiFetchJson('/user/telegram');

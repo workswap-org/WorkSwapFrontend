@@ -2,7 +2,7 @@
     "files": [],
     "references": [
         {
-            "path": "./packages/production"
+            "path": "./packages/marketplace"
         },
         {
             "path": "./packages/admin"

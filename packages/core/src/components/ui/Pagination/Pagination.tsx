@@ -9,6 +9,7 @@ interface PaginationProps {
     onChange: (page: number) => void;
 }
 
+// 0-based paginatation
 const Pagination = ({page, totalPages, onChange}: PaginationProps) => {
 
     const getPageNumbers = () => {
@@ -17,7 +18,7 @@ const Pagination = ({page, totalPages, onChange}: PaginationProps) => {
         const maxButtons = 5;
 
         if (totalPages <= maxButtons) {
-            return Array.from({ length: totalPages }, (_, i) => i); // 0-based
+            return Array.from({ length: totalPages }, (_, i) => i);
         }
 
         const pages = [];
@@ -50,9 +51,16 @@ const Pagination = ({page, totalPages, onChange}: PaginationProps) => {
         return pages;
     }
 
-    return totalPages && (
+    if (totalPages <= 0) {
+        return null;
+    }
+
+    const isPrevDisabled = page <= 0;
+    const isNextDisabled = page >= totalPages - 1;
+
+    return (
         <div className={styles.pagination}>
-            <button disabled={page === 0} onClick={() => onChange(page - 1)}>
+            <button disabled={isPrevDisabled} onClick={() => onChange(page - 1)}>
                 Назад
             </button>
 
@@ -66,7 +74,10 @@ const Pagination = ({page, totalPages, onChange}: PaginationProps) => {
                 </button>
             ))}
 
-            <button disabled={page + 1 >= totalPages} onClick={() => onChange(page + 1)}>
+            <button 
+                disabled={isNextDisabled} 
+                onClick={() => onChange(page + 1)}
+            >
                 Вперёд
             </button>
         </div>

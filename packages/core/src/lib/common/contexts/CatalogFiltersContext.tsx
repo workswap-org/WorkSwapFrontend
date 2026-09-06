@@ -1,7 +1,6 @@
 "use client"
 
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react"
 import { ICatalogFilters } from "@core/lib/common/types/catalog";
 
 type CatalogFiltersContextType = {
@@ -19,61 +18,42 @@ export function useCatalogFilters() {
     return context
 }
 
-export function CatalogFiltersProvider({ initialFilters, children }: { initialFilters: ICatalogFilters; children: ReactNode }) {
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
+interface CatalogFiltersProviderProps {
+    initialFilters: ICatalogFilters; 
+    initialTotalPages: number;
+    children: ReactNode; 
+}
 
-    const [totalPages, setTotalPages] = useState<number>(1);
+export function CatalogFiltersProvider({ initialFilters, initialTotalPages, children }: CatalogFiltersProviderProps) {
+
+    const [totalPages, setTotalPages] = useState<number>(initialTotalPages || 1);
     const [filters, setFilters] = useState<ICatalogFilters>(initialFilters);
-
-    const cleanFilters = useMemo(() => {
-        const clean: Partial<ICatalogFilters> = {};
-
-        (Object.entries(filters) as [keyof ICatalogFilters, string | number | boolean | null | undefined][]).forEach(
-            ([key, value]) => {
-                if (value !== "" && value !== null && value !== false && value !== undefined) {
-                    clean[key] = value as any; // здесь можно уточнить конкретные типы, если нужно
-                }
-            }
-        );
-
-        return clean
-    }, [filters])
 
     function updateFilter(key: string, value: string | number | boolean | null) {
         console.log("обновляем фильтр", key, value)
         setFilters(prev => ({ ...prev, [key]: value }));
+
+        const params = new URLSearchParams(window.location.search)
+
+        if (
+            value === null ||
+            value === "" ||
+            value === false ||
+            value === undefined
+        ) {
+            params.delete(key)
+        } else {
+            params.set(key, String(value))
+        }
+
+        const query = params.toString()
+
+        const newUrl = query
+            ? `${window.location.pathname}?${query}`
+            : window.location.pathname
+
+        window.history.replaceState(null, "", newUrl)
     }
-
-    useEffect(() => {
-        const currentQuery: Record<string, string> = {};
-
-        searchParams.forEach((value, key) => {
-            currentQuery[key] = value;
-        });
-
-        const newQuery: Record<string, string> = {};
-
-        for (const [k, v] of Object.entries(cleanFilters)) {
-            if (v !== undefined && v !== null) {
-                newQuery[k] = String(v);
-            }
-        }
-
-        const hasChanges =
-            Object.keys(newQuery).length !== Object.keys(currentQuery).length ||
-            Object.entries(newQuery).some(([k, v]) => currentQuery[k] !== v);
-
-        if (hasChanges) {
-            const paramsString = new URLSearchParams(newQuery).toString();
-
-            const newUrl = paramsString
-                ? `${pathname}?${paramsString}`
-                : pathname;
-
-            window.history.pushState(null, "", newUrl);
-        }
-    }, [cleanFilters, pathname]);
 
     return (
         <CatalogFiltersContext.Provider value={{ filters, updateFilter, totalPages, setTotalPages }}>

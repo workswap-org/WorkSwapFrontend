@@ -1,5 +1,3 @@
-"use client"
-
 // apiClient.js
 import { API_BASE, AUTH_BASE } from "@core/config";
 import FingerprintJS from '@fingerprintjs/fingerprintjs';

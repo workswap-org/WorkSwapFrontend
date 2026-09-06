@@ -1,8 +1,7 @@
 import { IShortListing } from "@core/lib/listing/types";
 
 export interface IShortUser {
-    id: number;
-    openId: string;
+    sub: string;
     name: string;
     avatarUrl?: string;
 }
@@ -21,21 +20,19 @@ export interface IUser extends IShortUser {
     email: string;
     bio: string | null;
     languages: string[];
-    roles: string[];
+    roles: IRole[];
     rating: number | null;
     createdAt: string;
 };
 
 export interface IFullUser extends IUser {
+    id: number;
     type: string;
     provider: string;
-    roles: string[];
     locationId: number | null;
     status: string | null;
     avatarType: string;
     telegramConnected: boolean;
-    termsAccepted: boolean;
-    termsAcceptanceDate: string;
     googleAvatar: string | null;
     uploadedAvatar: string | null;
     phoneVisible: boolean;

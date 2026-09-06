@@ -5,6 +5,7 @@ import { IMessage } from '@stomp/stompjs';
 import { useChats } from "@core/lib/chat/MessengerContext";
 import { useWebSocket } from "@core/lib/websocket/WebSocketContext";
 import { useAuth } from "@core/lib/auth/AuthContext";
+import { IPageRequest } from "@core/lib/common/types/page";
 
 export function useChatSubscription() {
 
@@ -19,7 +20,7 @@ export function useChatSubscription() {
     useEffect(() => {
         requestedRef.current.clear();
         loadedRef.current.clear();
-    }, [user?.id]);
+    }, [user?.sub]);
 
     // общая подписка (новые сообщения + unread)
     useEffect(() => {
@@ -57,6 +58,10 @@ export function useChatSubscription() {
 
         requestedRef.current.add(currentChatId);
 
-        client.publish({ destination: `/app/chat.loadMessages/${currentChatId}` });
+        const pageRequest: IPageRequest = {
+            page: 0, size: 50
+        }
+
+        client.publish({ destination: `/app/chat.loadMessages/${currentChatId}`, body: JSON.stringify(pageRequest) });
     }, [connected, isAuthenticated, currentChatId]);
 }
