@@ -44,7 +44,7 @@ const ReviewForm = ({setReviews, listingId, profileSub}: ReviewFormProps) => {
             id: 0,
             text,
             rating,
-            authorSub: user.sub,
+            author: { sub: user.sub, name: user.name, avatarUrl: user.avatarUrl },
             listingId,
             profileSub,
             createdAt: new Date().toISOString()

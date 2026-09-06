@@ -14,7 +14,7 @@ export function useCurrentUser() {
         if (!user) return false;
         return user?.email?.length > 0;
     }, [user]);
-    const isAdmin = useMemo<boolean>(() => user?.roles?.includes("ADMIN") ?? false, [user]);
+    const isAdmin = useMemo<boolean>(() => user?.roles?.some(r => r.name === "ADMIN") ?? false, [user]);
     const shortUser = useMemo<IShortUser | null>(() => {
         if (!isAuthenticated || !user) return null;
         return { sub: user.sub, name: user.name, avatarUrl: user.avatarUrl ?? "" }

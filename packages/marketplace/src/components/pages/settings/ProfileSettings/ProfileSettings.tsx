@@ -1,6 +1,6 @@
 import { useI18n } from '@core/lib/common/contexts/I18nContext';
 import { useNotification } from '@core/lib/notification/NotificationContext';
-import { uploadService } from '@core/lib/upload/uploadService';
+
 import { IFullUser } from '@core/lib/user/types';
 import { useEffect, useMemo, useState } from 'react';
 import SettingSection from '../SettingSection/SettingSection';
@@ -47,17 +47,18 @@ const ProfileSettings = ({ user, updateUser }: SettingsProps) => {
 
     const uploadtoCloud = async (file: File) => {
         try {
-            const formData = new FormData();
-            formData.append("image", file);
+            
+            // const formData = new FormData();
+            // formData.append("image", file);
 
-            const imageUrl = await uploadService.uploadAvatar(formData);
+            // const imageUrl = await uploadService.uploadAvatar(formData);
 
-            if (imageUrl) {
-                setUploadedAvatar(imageUrl)
-                notificate("Успешно", "success");
-            } else {
-                return;
-            }
+            // if (imageUrl) {
+            //     setUploadedAvatar(imageUrl)
+            //     notificate("Успешно", "success");
+            // } else {
+            //     return;
+            // }
         } catch (error) {
             console.error("Ошибка загрузки файла:", error);
             notificate("Ошибка загрузки изображения", "error");
