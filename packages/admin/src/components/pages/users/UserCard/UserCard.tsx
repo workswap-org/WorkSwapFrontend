@@ -11,7 +11,7 @@ type UserCardProps = {
 const UserCard: React.FC<UserCardProps> = ({user}) => {
 
     return (
-        <Link href={`/users/${user.openId}`} className={styles.card}>
+        <Link href={`/users/${user.sub}`} className={styles.card}>
             <Avatar user={user} size={80} />
             <span>{user.name}</span>
         </Link>

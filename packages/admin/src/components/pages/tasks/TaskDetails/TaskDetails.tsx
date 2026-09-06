@@ -15,9 +15,9 @@ const TaskDetails = () => {
     const isCompleted = Boolean(selectedTask?.completed);
 
     const canPickUp = isNew || isCanceled;
-    const canComplete = user?.id === selectedTask?.executor?.id && isInProgress;
+    const canComplete = user?.sub === selectedTask?.executor?.sub && isInProgress;
     const canCancel = canComplete || isNew;
-    const canEdit = user?.id === selectedTask?.executor?.id && isInProgress;
+    const canEdit = user?.sub === selectedTask?.executor?.sub && isInProgress;
 
     const formattedCreatedAt = useMemo(
         () => (selectedTask?.createdAt 

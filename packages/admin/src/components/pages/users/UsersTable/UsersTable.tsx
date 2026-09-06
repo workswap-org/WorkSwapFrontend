@@ -9,8 +9,7 @@ import { IUser } from "@core/lib/user/types";
 import UserGearIcon from "@core/components/common/icons/UserGearIcon";
 
 type UserItem = {
-    id: number;
-    openId: string;
+    sub: string;
     name: string;
     email: string;
     date: string;
@@ -24,8 +23,7 @@ const UsersTable = ({users}: UsersTableProps) => {
 
     const data: UserItem[] = useMemo(
         () => users.map(u => ({
-            id: u.id,
-            openId: u.openId,
+            sub: u.sub,
             name: u.name,
             email: u.email,
             date: u.createdAt
@@ -41,7 +39,7 @@ const UsersTable = ({users}: UsersTableProps) => {
     const columns = useMemo<ColumnDef<typeof features, UserItem>[]>(
         () => [
             {
-                accessorKey: 'id',
+                accessorKey: 'sub',
                 header: 'ID',
                 cell: (info) => info.getValue(),
             },
@@ -67,7 +65,7 @@ const UsersTable = ({users}: UsersTableProps) => {
                     <div className={styles.actions}>
                         <Link
                             key={`action-viewUser-${row.getValue<number>("id")}`} 
-                            href={`/users/${row.original.openId}`} 
+                            href={`/users/${row.original.sub}`} 
                             className={clsx("btn", "btn-primary", styles.action)}
                         >
                             <UserGearIcon className={styles.icon} />
@@ -83,7 +81,7 @@ const UsersTable = ({users}: UsersTableProps) => {
         features,
         columns,
         data,
-        getRowId: row => String(row.id),
+        getRowId: row => String(row.sub),
     });
 
     return <AdminTable table={table} extraStyles={styles} />

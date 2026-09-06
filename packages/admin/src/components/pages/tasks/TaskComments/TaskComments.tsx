@@ -52,7 +52,7 @@ const TaskComments = ({taskId}: {taskId: number}) => {
                             <span>{comment.content}</span>
                         </div>
 
-                        {user?.id === comment.author?.id && (
+                        {user?.sub === comment.author?.sub && (
                             <div className={`button-actions flex-column ${styles.actions}`}>
                                 <button
                                     data-comment={comment.id}

@@ -22,7 +22,7 @@ const UsersGrid = () => {
     return users && (
         <div className={styles.grid}>
             {users.map((user: IUser) => (
-                <UserCard user={user} key={user.id}/>
+                <UserCard user={user} key={user.sub}/>
             ))}
         </div>
     );
